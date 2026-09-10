@@ -91,8 +91,8 @@ async function main() {
   // The getconfig modules expect to be running from the root directory of the project,
   // so we change the current directory to the parent dir of this script file to make things work
   // even if you call minty from elsewhere
-  const __dirname = path.resolve()
-  const rootDir = path.join(__dirname, '..')
+  const scriptDirectory = path.resolve()
+  const rootDir = path.join(scriptDirectory, '..')
   process.chdir(rootDir)
 
   await program.parseAsync(process.argv)
@@ -192,9 +192,9 @@ async function mintItem(tokenId: number) {
 }
 
 async function mintItems() {
-  const START_INDEX = 120
-  const END_INDEX = 210
-  for (let i = START_INDEX; i <= END_INDEX; i++) {
+  const mintStartIndex = 120
+  const mintEndIndex = 210
+  for (let i = mintStartIndex; i <= mintEndIndex; i++) {
     await mintItem(i)
   }
 }

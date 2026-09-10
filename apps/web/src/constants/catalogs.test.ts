@@ -1,4 +1,15 @@
 import { describe, expect, it } from 'bun:test'
+const collectComicImages = (node: unknown): Array<{ alt?: string; sizes?: string }> => {
+  if (Array.isArray(node)) return node.flatMap(collectComicImages)
+  if (!node || typeof node !== 'object') return []
+
+  const props = (node as { props?: { alt?: string; children?: unknown; sizes?: string } }).props
+  if (!props) return []
+
+  const image = props.alt?.startsWith('comic ') ? [{ alt: props.alt, sizes: props.sizes }] : []
+  return [...image, ...collectComicImages(props.children)]
+}
+
 const catalogLoaders = {
   careers: () => import('./careers'),
   degens: () => import('./degens'),
@@ -24,17 +35,6 @@ describe('website catalogs', () => {
   it('keeps the Roadmap comic thumbnails responsive and lazy', async () => {
     const { ROADMAP_CARDS } = await import('../components/RoadmapTimeline/constants')
     const comicsCard = ROADMAP_CARDS.find((card) => card.title === 'Comics Burning')
-
-    const collectComicImages = (node: unknown): Array<{ alt?: string; sizes?: string }> => {
-      if (Array.isArray(node)) return node.flatMap(collectComicImages)
-      if (!node || typeof node !== 'object') return []
-
-      const props = (node as { props?: { alt?: string; children?: unknown; sizes?: string } }).props
-      if (!props) return []
-
-      const image = props.alt?.startsWith('comic ') ? [{ alt: props.alt, sizes: props.sizes }] : []
-      return [...image, ...collectComicImages(props.children)]
-    }
 
     const images = collectComicImages(comicsCard?.body)
 

@@ -58,19 +58,25 @@ export default function AccountDetails({
     }
   }, [account, profile, publisherData])
 
-  async function updateProfile({ avatar_url, displayName, email }: Profile) {
+  async function updateProfile(profileUpdate: Profile) {
+    const {
+      avatar_url: updatedAvatarUrl,
+      displayName: updatedDisplayName,
+      email: updatedEmail,
+    } = profileUpdate
     try {
       setLoading(true)
       if (!account || !profile) throw new Error('No user')
       const body = {} as Profile
 
       // Update Account Display Name
-      if (displayName && displayName !== publisherData?.DisplayName?.Value)
-        body.displayName = displayName
+      if (updatedDisplayName && updatedDisplayName !== publisherData?.DisplayName?.Value)
+        body.displayName = updatedDisplayName
       // Update Profile Contact Email
-      if (email && email !== account.PrivateInfo?.Email) body.email = email
+      if (updatedEmail && updatedEmail !== account.PrivateInfo?.Email) body.email = updatedEmail
       // Update Profile Avatar
-      if (avatar_url && avatar_url !== profile.AvatarUrl) body.avatar_url = avatar_url
+      if (updatedAvatarUrl && updatedAvatarUrl !== profile.AvatarUrl)
+        body.avatar_url = updatedAvatarUrl
 
       await fetchJson('/api/playfab/user/update', {
         method: 'POST',

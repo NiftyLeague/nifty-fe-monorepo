@@ -21,6 +21,12 @@ import type { DashboardDegen } from '@/types/degens'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext'
 
+const renderEmptyProfile = () => (
+  <div className="flex h-full items-center justify-center">
+    <EmptyState message="You don't own any Gamer Profile yet." />
+  </div>
+)
+
 const GamerProfileContent = (): React.ReactNode => {
   const { profile, error, loadingProfile } = useGamerProfile()
   const { address } = useAccount()
@@ -70,14 +76,6 @@ const GamerProfileContent = (): React.ReactNode => {
       ...profileAvatars[index],
     }))
   }, [filteredDegens, profileAvatars])
-
-  const renderEmptyProfile = () => {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <EmptyState message="You don't own any Gamer Profile yet." />
-      </div>
-    )
-  }
 
   const renderTopProfile = () => {
     return (

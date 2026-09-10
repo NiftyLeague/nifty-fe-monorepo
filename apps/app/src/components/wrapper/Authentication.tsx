@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
@@ -21,7 +22,11 @@ export default function withVerification<P>(
 ): React.ComponentType<React.PropsWithChildren<P>> {
   const WrappedComponent = (props: React.PropsWithChildren<P>) => {
     const { isLoggedIn } = useAuth()
-    return isLoggedIn ? <Component {...props} /> : <ProfileVerification />
+    return isLoggedIn ? (
+      createElement(Component as React.ComponentType<React.PropsWithChildren<P>>, props)
+    ) : (
+      <ProfileVerification />
+    )
   }
 
   WrappedComponent.displayName = `withVerification(${Component.displayName || Component.name || 'Component'})`

@@ -79,10 +79,11 @@ const mockDegenInstance = {
   updateDegenName: mockUpdateDegenName,
 }
 const mockMakeDegen = mock(async () => mockDegenInstance)
+const MockDegen = function MockDegen() {}
 
 mock.module('./classes/degen', () => ({
   MakeDegen: mockMakeDegen,
-  Degen: class {},
+  Degen: MockDegen,
 }))
 
 // ---------------------------------------------------------------------------
