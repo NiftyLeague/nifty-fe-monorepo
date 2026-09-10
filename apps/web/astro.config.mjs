@@ -27,7 +27,7 @@ export default defineConfig({
   output: 'static',
   publicDir: '../../assets',
   integrations: [react()],
-  build: { format: 'file' },
+  build: { format: 'file', inlineStylesheets: 'always' },
   vite: {
     plugins: [imageAdapter, tailwind()],
     css: { postcss: { plugins: [] } },

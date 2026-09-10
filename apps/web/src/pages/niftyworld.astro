@@ -3,7 +3,7 @@ import Marketing from '@/layouts/Marketing.astro'
 import LegacyPage from '@/app/(main)/niftyworld/page'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
-import { ViewportVideo } from '@nl/ui/custom/viewport-video'
+import GatedViewportVideo from '@/components/GatedViewportVideo'
 import NiftyWorldProperties from '@/components/NiftyWorldProperties'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { metadata as routeMetadata } from '@/app/(main)/niftyworld/layout'
@@ -12,11 +12,12 @@ import { metadata as routeMetadata } from '@/app/(main)/niftyworld/layout'
   <LegacyPage>
   <Fragment slot="webIsland0">
 <DeferredConsoleGame client:visible={{ rootMargin: "200px" }} deferVideo src="/video/mansion_showcase.mp4">
-          <ConsoleGameBackdrop loading="eager" />
+          <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
         </DeferredConsoleGame>
   </Fragment>
   <Fragment slot="webIsland1">
-<ViewportVideo client:visible={{ rootMargin: "200px" }}
+<GatedViewportVideo client:visible={{ rootMargin: "200px" }}
+                label="NiftyWorld preview"
                 width="100%"
                 height="100%"
                 muted

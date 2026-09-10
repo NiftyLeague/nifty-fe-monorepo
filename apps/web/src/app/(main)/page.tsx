@@ -161,7 +161,7 @@ const MobileIntro = () => {
       <div className="dark-gradient-overlay" />
       <div className="w-full relative min-h-screen flex flex-col justify-center text-center items-center">
         <h1 className="mt-0 sm:mt-4 md:mt-5">Nifty League</h1>
-        <h5 className="mt-2 [word-spacing:-10px]">By Gamers. For Gamers.</h5>
+        <h2 className="mt-2 [word-spacing:-10px] heading-look-5">By Gamers. For Gamers.</h2>
         <p className="my-4 text-center whitespace-nowrap">Community-Governed Game Studio</p>
         <ThemeButtonGroup
           className="mt-2 xl:mt-2 mb-2"

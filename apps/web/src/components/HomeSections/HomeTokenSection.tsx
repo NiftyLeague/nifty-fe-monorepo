@@ -26,8 +26,12 @@ export default function HomeTokenSection() {
           }}
           secondary={{
             href: '/docs/overview/nifty-dao/nftl/overview',
-            title: 'LEARN MORE',
             external: true,
+            title: (
+              <>
+                LEARN MORE<span className='sr-only'> about the NFTL token</span>
+              </>
+            ),
           }}
         />
       </div>

@@ -9,7 +9,7 @@ const Disclaimer = () => (
       Effective date: <strong>January 19th, 2022</strong>
     </p>
     <Definitions />
-    <h5 className="my-3 my-md-5">Rights and Conditions</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Rights and Conditions</h2>
     <p>
       The content contained in this Site does not constitute an offer or sale of securities in or
       into the United States, or to or for the account or benefit of U.S. persons, or in any other
@@ -53,7 +53,7 @@ const Disclaimer = () => (
       countries. The company reserves the right to restrict the sale of the NFT-token in any
       jurisdiction or to any individuals or entities at its discretion.
     </p>
-    <h5 className="my-3 my-md-5">Warranties and Limitations</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Warranties and Limitations</h2>
     <p>
       Without limiting the foregoing, neither the Company nor any of the Company&apos;s provider
       makes any representation or warranty of any kind, express or implied: (i) as to the operation
@@ -70,7 +70,7 @@ const Disclaimer = () => (
       limitations may not apply to You. But in such a case the exclusions and limitations set forth
       in this section shall be applied to the greatest extent enforceable under applicable law.
     </p>
-    <h5 className="my-3 my-md-5">“AS IS” and “AS AVAILABLE”</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">“AS IS” and “AS AVAILABLE”</h2>
     <p>
       The Service is provided to You &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; and with all
       faults and defects without warranty of any kind. To the maximum extent permitted under

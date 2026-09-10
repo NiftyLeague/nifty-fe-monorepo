@@ -44,7 +44,14 @@ export default function HomeCompeteSection() {
               responsiveTitle: { mobile: 'BRAWL!', desktop: "LET'S BRAWL!" },
               external: true,
             }}
-            secondary={{ href: '/compete-and-earn', title: 'LEARN MORE' }}
+            secondary={{
+            href: '/compete-and-earn',
+            title: (
+              <>
+                LEARN MORE<span className='sr-only'> about competing and earning NFTL</span>
+              </>
+            ),
+          }}
           />
         </div>
       </div>

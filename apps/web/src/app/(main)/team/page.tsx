@@ -35,7 +35,7 @@ const Team = (slots: Record<string, React.ReactNode> = {}) => {
         </section>
 
         <section className="section relative">
-          <h4 className="text-center">MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE</h4>
+          <h2 className="text-center heading-look-4">MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE</h2>
           <div className="desktop">
             <TeamDesktop />
           </div>

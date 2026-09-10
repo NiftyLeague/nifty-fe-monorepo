@@ -35,6 +35,7 @@ const Community = () => {
                 width={685}
                 height={685}
                 sizes="685px"
+                priority
               />
             </div>
             <div className="purple-bg-orb orb-top-right" />

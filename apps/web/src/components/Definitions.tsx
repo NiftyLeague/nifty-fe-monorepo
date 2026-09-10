@@ -1,13 +1,13 @@
 const Definitions = (): React.ReactNode => (
   <>
-    <h5 className="my-3 md:my-5">Interpretation and Definitions</h5>
-    <h6 className="my-3 my-md-5">Interpretation</h6>
+    <h2 className="my-3 md:my-5 heading-look-5">Interpretation and Definitions</h2>
+    <h3 className="my-3 my-md-5 heading-look-3">Interpretation</h3>
     <p>
       The words of which the initial letter is capitalized have meanings defined under the following
       conditions. The following definitions shall have the same meaning regardless of whether they
       appear in singular or in plural.
     </p>
-    <h6 className="my-3 my-md-5">Definitions</h6>
+    <h3 className="my-3 my-md-5 heading-look-3">Definitions</h3>
     <p>For the purposes of these Terms and Conditions:</p>
     <ul>
       <li>

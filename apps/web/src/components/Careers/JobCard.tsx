@@ -20,7 +20,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
     <Accordion type="single" collapsible className="bg-card border-1 rounded-md mb-5">
       <AccordionItem value={`panel-${title}-header`}>
         <AccordionTrigger className="px-4 md:px-6 py-8 items-center">
-          <h5>{title}</h5>
+          <span className="heading-look-5">{title}</span>
           <p className="text-muted-foreground m-0">{location}</p>
           <div className="flex-1" />
           <ThemeBtnGroup

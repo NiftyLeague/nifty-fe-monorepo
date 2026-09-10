@@ -11,7 +11,7 @@ const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
       <section className="relative xl:-top-20 2xl:-top-35">
         {slots.webIsland0 ?? (
           <DeferredConsoleGame deferVideo src="/video/mansion_showcase.mp4">
-            <ConsoleGameBackdrop loading="eager" />
+            <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
           </DeferredConsoleGame>
         )}
 
@@ -44,7 +44,7 @@ const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
             </div>
           </div>
           <div className="w-full md:w-1/2 lg:w-5/12">
-            <div className="relative text-right ps-0 lg:ps-5 mb-3">
+            <div className="relative text-right ps-0 lg:ps-5 mb-3 aspect-video">
               {slots.webIsland1 ?? (
                 <ViewportVideo
                   width="100%"

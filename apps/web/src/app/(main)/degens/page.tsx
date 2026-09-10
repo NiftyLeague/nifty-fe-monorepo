@@ -1,6 +1,6 @@
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
-import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
+import YouTubeFacade from '@/components/YouTubeFacade'
 
 import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import DegenGallery from '@/components/DegenGallery'
@@ -11,7 +11,7 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
     <section className="relative xl:-top-20 2xl:-top-35">
       {slots.webIsland0 ?? (
         <DeferredConsoleGame deferVideo src="/video/unboxing.mp4">
-          <ConsoleGameBackdrop loading="eager" />
+          <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
         </DeferredConsoleGame>
       )}
     </section>
@@ -24,7 +24,7 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
               <h1 className="text-center">DEGENs</h1>
             </div>
             <div className="mb-4">
-              <h6 className="text-center">COMMUNITY DESIGNED NFTs</h6>
+              <h2 className="text-center heading-look-6">COMMUNITY DESIGNED NFTs</h2>
             </div>
             <div className="relative">
               <p className="text-center">
@@ -41,7 +41,7 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
           <div className="w-full md:w-1/2">
             <div className="relative text-right mb-4 md:mb-0 ps-0 lg:pl-5">
               {slots.webIsland1 ?? (
-                <DeferredYouTubeEmbed
+                <YouTubeFacade
                   src="https://www.youtube.com/embed/WWLqE1tnf6U"
                   title="Nifty League DEGENs"
                   className="h-[315px] w-full"

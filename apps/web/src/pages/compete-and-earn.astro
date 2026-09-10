@@ -4,7 +4,7 @@ import LegacyPage from '@/app/(main)/compete-and-earn/page'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { Separator } from '@nl/ui/base/separator'
 import { cx } from '@nl/ui/class-names'
-import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
+import YouTubeFacade from '@/components/YouTubeFacade'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from '@/app/(main)/compete-and-earn/index.module.css'
 import { metadata as routeMetadata } from '@/app/(main)/compete-and-earn/layout'
@@ -12,7 +12,7 @@ import { metadata as routeMetadata } from '@/app/(main)/compete-and-earn/layout'
 <Marketing metadata={routeMetadata} rootClass="compete-pg" canonical="/compete-and-earn">
   <LegacyPage>
   <Fragment slot="webIsland0">
-<DeferredYouTubeEmbed client:visible={{ rootMargin: "200px" }}
+<YouTubeFacade client:visible={{ rootMargin: "200px" }}
               src="https://www.youtube.com/embed/wv_fI1PPBi0"
               title="Nifty League Compete & Earn"
               className={styles.video}

@@ -40,7 +40,7 @@ const LearnCard = ({
 
       <div className="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
         <div className="mb-4 md:mb-6">
-          <h5 className="text-center uppercase text-xl font-bold">{title}</h5>
+          <h2 className="text-center uppercase text-xl font-bold heading-look-5">{title}</h2>
         </div>
         <div className="mb-0">
           <p className="text-center">{subtitle}</p>
@@ -48,7 +48,12 @@ const LearnCard = ({
         <ThemeBtnGroup
           primary={{
             href: link,
-            title: btnText,
+            title: (
+              <>
+                {btnText}
+                <span className="sr-only"> about {title}</span>
+              </>
+            ),
             external: external,
             className: 'theme-btn-rounded max-w-fit',
           }}

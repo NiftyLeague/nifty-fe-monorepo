@@ -11,7 +11,7 @@ const ToS = () => (
     </p>
     <p>Please read these terms and conditions carefully before using Our Service.</p>
     <Definitions />
-    <h5 className="my-3 my-md-5">Acknowledgement</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Acknowledgement</h2>
     <p>
       These are the Terms and Conditions governing the use of this Service and the agreement that
       operates between You, whether personally or on behalf of an entity, and the Company. These
@@ -58,7 +58,7 @@ const ToS = () => (
       The Site is intended for users who are at least 18 years old. People under the age of 18 are
       not permitted to use or register for the Site, the App, and the Smart Contracts.
     </p>
-    <h5 className="my-3 my-md-5">Intellectual Property Rights</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Intellectual Property Rights</h2>
     <p>
       Unless otherwise indicated, the Site and the Smart Contracts are our proprietary property and
       all source code, database, functionality, software, website design, audio, video, text,
@@ -143,7 +143,7 @@ const ToS = () => (
       payment for Your development efforts You agree to transfer ownership and commercial rights of
       the game to our Company.
     </p>
-    <h5 className="my-3 my-md-5">User Representations</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">User Representations</h2>
     <p>
       By using the Site, the App and the Smart Contracts, You represent and warrant that: (i) You
       have the legal capacity and You agree to comply with these Terms of Use; (ii) You are not a
@@ -169,12 +169,12 @@ const ToS = () => (
       restrict or refuse, in its sole discretion, the provision of our Services in certain countries
       or regions.
     </p>
-    <h5 className="my-3 my-md-5">Placing Orders for Goods</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Placing Orders for Goods</h2>
     <p>
       By placing an Order for Goods through the Service, You warrant that You are legally capable of
       entering into binding contracts.
     </p>
-    <h6>Your Information</h6>
+    <h3 className="heading-look-3">Your Information</h3>
     <p>
       If You wish to place an Order for Goods available on the Service, You will not be asked to
       provide any information. The transaction occurs between You and the Smart Contract.
@@ -184,7 +184,7 @@ const ToS = () => (
       connection with any Order; and that (ii) You are not residing in a country excluded by the{' '}
       <Link href="/disclaimer">Disclaimer</Link>.
     </p>
-    <h6>Order Cancellation</h6>
+    <h3 className="heading-look-3">Order Cancellation</h3>
     <p>
       We, bound by the Smart Contract, reserve the right to refuse or cancel Your Order at any time
       for certain reasons including but not limited to:
@@ -194,7 +194,7 @@ const ToS = () => (
       <li>Errors in Your Order</li>
       <li>Technical problems</li>
     </ul>
-    <h6>Your Order Cancellation Rights</h6>
+    <h3 className="heading-look-3">Your Order Cancellation Rights</h3>
     <p>
       As transactions with a Smart Contract are digital and final goods (for example NFT-tokens)
       cannot be returned and therefore there is no Returns Policy.
@@ -203,12 +203,12 @@ const ToS = () => (
       By interacting with the Smart Contract You agree that any sale is final and You do not have
       any right or possibility to cancel an Order.
     </p>
-    <h6>Prices Policy</h6>
+    <h3 className="heading-look-3">Prices Policy</h3>
     <p>
       The Company reserves the right to revise its prices or generate new Smart Contracts at any
       time. The prices quoted are specified by the respective Smart Contract.
     </p>
-    <h6>Payments</h6>
+    <h3 className="heading-look-3">Payments</h3>
     <ol type="A">
       <li>
         All Goods purchased are subject to a one-time payment. A payment can be made through the
@@ -241,7 +241,7 @@ const ToS = () => (
         duties or assessments from payments made to us pursuant to these Terms.
       </li>
     </ol>
-    <h5 className="my-3 my-md-5">Links to Other Websites</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Links to Other Websites</h2>
     <p>
       Our Service may contain links to third-party web sites or services that are not owned or
       controlled by the Company including all articles, photograph, text, graphics, pictures,
@@ -259,7 +259,7 @@ const ToS = () => (
       We strongly advise You to read the terms and conditions and privacy policies of any
       third-party websites or services that You visit.
     </p>
-    <h5 className="my-3 my-md-5">Termination</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Termination</h2>
     <p>
       These Terms remain in full force and effect while You use the Site, the App and the Smart
       Contracts. We may terminate or suspend Your access immediately, without prior notice or
@@ -272,7 +272,7 @@ const ToS = () => (
       terminating and suspending Your account, we reserve the right to take appropriate legal
       action, including without limitation pursuing civil, criminal, and injunctive redress.
     </p>
-    <h5 className="my-3 my-md-5">Limitation of Liability</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Limitation of Liability</h2>
     <p>
       Notwithstanding any damages that You might incur, the entire liability of the Company and any
       of its suppliers under any provision of this Terms and Your exclusive remedy for all of the
@@ -294,7 +294,7 @@ const ToS = () => (
       apply. In these states, each party&apos;s liability will be limited to the greatest extent
       permitted by law.
     </p>
-    <h5 className="my-3 my-md-5">Assumption of Risk</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Assumption of Risk</h2>
     <p>You accept and acknowledge each of the following:</p>
     <ol type="A">
       <li>
@@ -354,7 +354,7 @@ const ToS = () => (
         cease operations, thereby decreasing the use or value of its NFTs.
       </li>
     </ol>
-    <h5 className="my-3 my-md-5">Abuse</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Abuse</h2>
     <p>
       Nifty League reserves the right to prevent the withdrawal of NFTL if abuse is detected.
       Cheating and &apos;boosting&apos; are strictly prohibited. Agreeing with other players to rank
@@ -362,21 +362,21 @@ const ToS = () => (
       &apos;boosting&apos;, is strictly prohibited. Use of third-party programs, for example, cheat
       or bot engines, and applications in conjunction with our app is strictly prohibited.
     </p>
-    <h5 className="my-3 my-md-5">Disclaimer</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Disclaimer</h2>
     <p>
       Our Disclaimer includes important statements intended to specify or delimit the scope of
       rights and obligations that may be exercised or enforced, and is hereby incorporated by this
       reference into these Terms. You agree to the warnings and expectations outlined in our{' '}
       <Link href="/disclaimer">Disclaimer</Link>.
     </p>
-    <h5 className="my-3 my-md-5">Governing Law</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Governing Law</h2>
     <p>
       The laws of the United States, excluding its conflicts of law rules, shall govern these Terms
       and Your use of the Service. Your use of the Application may also be subject to other local,
       state, national, or international laws.
     </p>
-    <h5 className="my-3 my-md-5">Disputes Resolution</h5>
-    <h6>Informal Negotiations</h6>
+    <h2 className="my-3 my-md-5 heading-look-5">Disputes Resolution</h2>
+    <h3 className="heading-look-3">Informal Negotiations</h3>
     <p>
       To expedite resolution and control the cost of any dispute, controversy, or claim related to
       these Terms of Use (each a &quot;Dispute&quot; and collectively, the &quot;Disputes&quot;)
@@ -386,7 +386,7 @@ const ToS = () => (
       initiating arbitration. Such informal negotiations commence upon written notice from one Party
       to the other Party.
     </p>
-    <h6>Binding Arbitration</h6>
+    <h3 className="heading-look-3">Binding Arbitration</h3>
     <p>
       If a Party is unable to resolve a Dispute through informal negotiations, the Disputes (except
       those Disputes expressly excluded below) will be finally and exclusively resolved by binding
@@ -418,7 +418,7 @@ const ToS = () => (
       jurisdiction within the courts listed or jurisdiction above, and the Parties agree to submit
       to the personal jurisdiction of that court.
     </p>
-    <h6>Exceptions to the Informal Negotiations and Arbitration</h6>
+    <h3 className="heading-look-3">Exceptions to the Informal Negotiations and Arbitration</h3>
     <p>
       The Parties agree that the following Disputes are not subject to the above provision
       concerning informal negotiations and binding arbitration: (a) any Dispute seeking to enforce
@@ -431,12 +431,12 @@ const ToS = () => (
       jurisdiction above, and the Parties agree to submit to the personal jurisdiction of that
       court.
     </p>
-    <h5 className="my-3 my-md-5">For European Union (EU) Users</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">For European Union (EU) Users</h2>
     <p>
       If You are a European Union consumer, You will benefit from any mandatory provisions of the
       law of the country in which You are resident in.
     </p>
-    <h5 className="my-3 my-md-5">United States Legal Compliance</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">United States Legal Compliance</h2>
     <p>
       You represent and warrant that (i) You are not located in a country that is subject to the
       United States government embargo, or that has been designated by the United States government
@@ -444,27 +444,27 @@ const ToS = () => (
       States government list of prohibited or restricted parties. Please read our{' '}
       <Link href="/disclaimer">Disclaimer</Link> for more details.
     </p>
-    <h5 className="my-3 my-md-5">Severability and Waiver</h5>
-    <h6>Severability</h6>
+    <h2 className="my-3 my-md-5 heading-look-5">Severability and Waiver</h2>
+    <h3 className="heading-look-3">Severability</h3>
     <p>
       If any provision of these Terms is held to be unenforceable or invalid, such provision will be
       amended and interpreted to accomplish the objectives of such provision to the greatest extent
       possible under applicable law and the remaining provisions will continue in full force and
       effect.
     </p>
-    <h6>Waiver</h6>
+    <h3 className="heading-look-3">Waiver</h3>
     <p>
       Except as provided herein, the failure to exercise a right or to require performance of an
       obligation under these Terms shall not affect a party&apos;s ability to exercise such right or
       require such performance at any time thereafter nor shall the waiver of a breach constitute a
       waiver of any subsequent breach.
     </p>
-    <h5 className="my-3 my-md-5">Translation Interpretation</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Translation Interpretation</h2>
     <p>
       These Terms and Conditions may have been translated if We have made them available to You on
       our Service. You agree that the original English text shall prevail in the case of a dispute.
     </p>
-    <h5 className="my-3 my-md-5">Indemnification</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Indemnification</h2>
     <p>
       You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates,
       and all of our respective officers, agents, partners, and employees, from and against any
@@ -480,14 +480,14 @@ const ToS = () => (
       reasonable efforts to notify You of any such claim, action or proceeding which is subject to
       this indemnification upon becoming aware of it.
     </p>
-    <h5 className="my-3 my-md-5">Privacy Policy</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Privacy Policy</h2>
     <p>
       Our <Link href="/privacy-policy">Privacy Policy</Link> describes the ways we collect, use,
       store and disclose Your personal information, and is hereby incorporated by this reference
       into these Terms. You agree to the collection, use, storage, and disclosure of Your data in
       accordance with our Privacy Policy.
     </p>
-    <h5 className="my-3 my-md-5">Changes to These Terms and Conditions</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Changes to These Terms and Conditions</h2>
     <p>
       Supplemental terms and conditions or documents that may be posted on the Site, the App, and
       the Smart Contracts from time to time are hereby expressly incorporated herein by reference.
@@ -511,7 +511,7 @@ const ToS = () => (
       to be bound by the revised terms. If You do not agree to the new terms, in whole or in part,
       please stop using the Application.
     </p>
-    <h5 className="my-3 my-md-5">Contact Us</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Contact Us</h2>
     <p>
       If You have any questions about these Terms and Conditions, You can contact us at{' '}
       <a href="mailto: team@niftyleague.com">team@niftyleague.com</a> or by reaching out to one of

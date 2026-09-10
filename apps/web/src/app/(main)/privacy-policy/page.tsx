@@ -19,7 +19,7 @@ const PrivacyPolicy = () => (
       in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our{' '}
       <Link href="/terms-of-service">Terms and Conditions</Link>.
     </p>
-    <h5 className="my-3 my-md-5">Information Collection and Use</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Information Collection and Use</h2>
     <p>
       We reserve the right to collect several different types of information for various purposes to
       provide and improve our Service to you.
@@ -84,7 +84,7 @@ const PrivacyPolicy = () => (
         <p>Security Cookies – We use Security Cookies for security purposes.</p>
       </li>
     </ol>
-    <h5 className="my-3 my-md-5">Use of Data</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Use of Data</h2>
     <p>Nifty League uses the collected data for various purposes:</p>
     <p>
       To provide and maintain the Service, to notify you about changes to our Service, to allow you
@@ -93,7 +93,7 @@ const PrivacyPolicy = () => (
       the Service, to monitor the usage of the Service, to detect, prevent and address technical
       issues.
     </p>
-    <h5 className="my-3 my-md-5">Transfer of Data</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Transfer of Data</h2>
     <p>
       Your information, including Personal Data, may be transferred to — and maintained on —
       computers located outside of your state, province, country or other governmental jurisdiction
@@ -114,7 +114,7 @@ const PrivacyPolicy = () => (
       take place to an organization or a country unless there are adequate controls in place
       including the security of your data and other personal information.
     </p>
-    <h5 className="my-3 my-md-5">Disclosure of Data</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Disclosure of Data</h2>
     <p>
       Nifty League may disclose your Personal Data in the good faith belief that such action is
       necessary:
@@ -125,14 +125,14 @@ const PrivacyPolicy = () => (
       protect the personal safety of users of the Service or the public, to protect against legal
       liability.
     </p>
-    <h5 className="my-3 my-md-5">Security of Data</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Security of Data</h2>
     <p>
       The security of your data is important to us, but remember that no method of transmission over
       the Internet, or method of electronic storage is 100% secure. While we strive to use
       commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute
       security.
     </p>
-    <h5 className="my-3 my-md-5">Service Providers</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Service Providers</h2>
     <p>
       We may employ third-party companies and individuals to facilitate our Service (&quot;Service
       Providers&quot;), to provide the Service on our behalf, to perform Service-related services or
@@ -146,7 +146,7 @@ const PrivacyPolicy = () => (
       We may use third-party Service Providers to monitor and analyze the use of our Service for
       analytics.
     </p>
-    <h5 className="my-3 my-md-5">Links to Other Sites</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Links to Other Sites</h2>
     <p>
       Our Service may contain links to other sites that are not operated by us. If you click on a
       third-party link, you will be directed to that third-party&apos;s site. We strongly advise you
@@ -156,7 +156,7 @@ const PrivacyPolicy = () => (
       We have no control over and assume no responsibility for the content, privacy policies or
       practices of any third-party sites or services.
     </p>
-    <h5 className="my-3 my-md-5">Children&apos;s Privacy</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Children&apos;s Privacy</h2>
     <p>Our Service does not address anyone under the age of 18 (&quot;Children&quot;).</p>
     <p>
       We do not knowingly collect personally identifiable information from anyone under the age of
@@ -165,7 +165,7 @@ const PrivacyPolicy = () => (
       children without verification of parental consent, we take steps to remove that information
       from our servers.
     </p>
-    <h5 className="my-3 my-md-5">Changes to this Privacy Policy</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Changes to this Privacy Policy</h2>
     <p>
       We may update our Privacy Policy from time to time. We will notify you of any changes by
       posting the new Privacy Policy on this page.
@@ -182,7 +182,7 @@ const PrivacyPolicy = () => (
       You are advised to review this Privacy Policy periodically for any changes. Changes to this
       Privacy Policy are effective when they are posted on this page.
     </p>
-    <h5 className="my-3 my-md-5">Contact Us</h5>
+    <h2 className="my-3 my-md-5 heading-look-5">Contact Us</h2>
     <p>
       If you have any questions about this Privacy Policy, please contact us via email at{' '}
       <a href="mailto: team@niftyleague.com">team@niftyleague.com</a> or reach out to one of the
