@@ -229,40 +229,35 @@ app.get('/imx/marketplace/images/:token_id', function (req: Request, res: Respon
 // ------ WEBHOOKS
 //////////////////////////////////////////////
 
-app.post(
-  '/:network/webhooks/degen/:secret',
-  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
-    try {
-      const targetNetwork = getParam(req.params.network)
-      const secret = getParam(req.params.secret)
-      if (!hasSecret(secret, config.blocknative.webhookSecret) || !isTargetNetwork(targetNetwork)) {
-        res.sendStatus(404)
-        return
-      }
-
-      const tx = (req.body ?? {}) as {
-        status?: unknown
-        direction?: unknown
-        apiKey?: unknown
-        input?: unknown
-      }
-      if (
-        targetNetwork === 'mainnet' &&
-        tx.status === 'confirmed' &&
-        tx.direction === 'incoming' &&
-        tx.apiKey === config.blocknative.apiKey.degens &&
-        typeof tx.input === 'string'
-      ) {
-        if (tx.input.startsWith(CONTRACT_METHODS.RENAME)) {
-          await handleNameChangeByInput(targetNetwork, tx.input)
-        }
-      }
-      res.sendStatus(200)
-    } catch (e) {
-      next(e)
+app.post('/:network/webhooks/degen/:secret', (req: Request, res: Response, next: NextFunction) => {
+  void (async () => {
+    const targetNetwork = getParam(req.params.network)
+    const secret = getParam(req.params.secret)
+    if (!hasSecret(secret, config.blocknative.webhookSecret) || !isTargetNetwork(targetNetwork)) {
+      res.sendStatus(404)
+      return
     }
-  })
-)
+
+    const tx = (req.body ?? {}) as {
+      status?: unknown
+      direction?: unknown
+      apiKey?: unknown
+      input?: unknown
+    }
+    if (
+      targetNetwork === 'mainnet' &&
+      tx.status === 'confirmed' &&
+      tx.direction === 'incoming' &&
+      tx.apiKey === config.blocknative.apiKey.degens &&
+      typeof tx.input === 'string'
+    ) {
+      if (tx.input.startsWith(CONTRACT_METHODS.RENAME)) {
+        await handleNameChangeByInput(targetNetwork, tx.input)
+      }
+    }
+    res.sendStatus(200)
+  })().catch(next)
+})
 
 //////////////////////////////////////////////
 
