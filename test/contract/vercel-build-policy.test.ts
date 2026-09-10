@@ -7,9 +7,7 @@ import {
   shouldBuild,
 } from '../../scripts/vercel-ignore-build.mjs'
 
-// web is no longer a Vercel project: it ships as Astro static + Cloudflare
-// Worker (apps/web/wrangler.jsonc), so it has no vercel.json to enforce.
-const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs']
+const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs', 'apps/web']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
@@ -32,7 +30,7 @@ describe('Vercel build cost policy', () => {
   }
 
   it('keeps every Vercel-connected app on the shared policy', () => {
-    expect(projectRoots).toHaveLength(4)
+    expect(projectRoots).toHaveLength(5)
   })
 
   it('builds the release branch and manual deployments only', () => {
@@ -44,7 +42,15 @@ describe('Vercel build cost policy', () => {
 
   it('maps Vercel project aliases to their monorepo app', () => {
     expect(canonicalProjectName('smashers-web')).toBe('smashers')
-    expect(canonicalProjectName('apps/web')).toBeNull()
+    expect(canonicalProjectName('web')).toBe('web')
+  })
+
+  it('builds the web Astro project for its own and shared paths', () => {
+    expect(isProjectAffected('web', ['apps/web/src/pages/index.astro'])).toBe(true)
+    expect(isProjectAffected('web', ['apps/web/worker/routes.mjs'])).toBe(true)
+    expect(isProjectAffected('web', ['packages/ui/src/base/button.tsx'])).toBe(true)
+    expect(isProjectAffected('web', ['assets/img/hero/bg.webp'])).toBe(true)
+    expect(isProjectAffected('web', ['apps/app/src/app/page.tsx'])).toBe(false)
   })
 
   it('builds only projects affected by app or shared paths', () => {
@@ -63,11 +69,6 @@ describe('Vercel build cost policy', () => {
     expect(isProjectAffected('api', ['scripts/audit.sh'])).toBe(false)
     expect(isProjectAffected('api', ['apps/web/src/app/page.tsx'])).toBe(false)
     expect(isProjectAffected('new-project', ['README.md'])).toBe(true)
-  })
-
-  it('no longer maps the Astro web app to a Vercel project', () => {
-    expect(canonicalProjectName('web')).toBeNull()
-    expect(canonicalProjectName('apps/web')).toBeNull()
   })
 
   it('keeps release builds fail-open when Git history is unavailable', () => {

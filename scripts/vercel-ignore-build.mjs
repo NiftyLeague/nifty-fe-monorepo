@@ -19,6 +19,7 @@ const PROJECT_PATH_PREFIXES = {
   smashers: ['apps/smashers/'],
   docs: ['apps/docs/'],
   api: ['apps/api/'],
+  web: ['apps/web/'],
 }
 
 const PROJECT_SHARED_PATH_PREFIXES = {
@@ -37,16 +38,16 @@ const PROJECT_SHARED_PATH_PREFIXES = {
   ],
   docs: ['packages/ui/'],
   api: ['packages/contracts/'],
+  web: ['packages/ui/'],
 }
 
-// web is intentionally absent: it ships as Astro static + Cloudflare Worker
-// (apps/web/wrangler.jsonc), not as a Vercel project.
 const PROJECT_ALIASES = {
   app: 'app',
   smashers: 'smashers',
   'smashers-web': 'smashers',
   docs: 'docs',
   api: 'api',
+  web: 'web',
 }
 
 const normalizePath = (value) => value.replaceAll('\\', '/')

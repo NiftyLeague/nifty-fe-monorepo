@@ -52,9 +52,21 @@ Cloudflare dashboard — no Vercel involvement.
 
 ## Deployment
 
-Deployed as a Cloudflare Worker with static assets (`wrangler.jsonc`). The Worker name is
-deliberately isolated until the production cutover is confirmed; static marketing assets
-bypass the Worker entirely. Cloudflare handles headers via the generated `_headers` file
-(`scripts/finalize-static.mjs`).
+The site deploys through the **Vercel** project `web` as an Astro static build
+(`vercel.json`: framework `astro`, output `dist/`, same release-branch cost policy as the
+other apps). The special routes are implemented by `vercel.json` `redirects`/`rewrites`,
+mirroring `worker/routes.mjs`: short links (`/blog`, `/OS`, `/d/:id`, …), the shop and
+docs proxies, and `/gltf/:tokenId` + `/invite` + `/party` deep links served by the static
+shells in `src/pages/shells/`. Set `PUBLIC_DEPLOY_ENV=production` (and optionally
+`PUBLIC_TELEMETRY`, `PUBLIC_INFURA_ID`) in the Vercel project settings.
+
+Two deliberate differences on Vercel, both handled client-side: `/gltf/:tokenId` posters
+are corrected by an inline script in the shell (the Worker uses HTMLRewriter), and the
+`/shells/` documents respond 200 directly (robots.txt disallows them).
+
+A full-fidelity **Cloudflare Worker** variant ships alongside (`wrangler.jsonc`,
+`worker/`): it rewrites the poster per token, 404s the shells and malformed deep links,
+and adds proxy headers. Its Worker name is deliberately isolated until the production
+cutover is confirmed.
 
 > Never commit `.env.local` — it is gitignored.
