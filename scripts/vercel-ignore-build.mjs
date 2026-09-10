@@ -2,7 +2,10 @@ import { execFileSync } from 'node:child_process'
 import { basename, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-const BUILD_BRANCHES = new Set(['main'])
+// feat/web-astro-migration: the Astro migration pull request opts its own
+// branch into preview deployments (apps/web vercel.json deploymentEnabled);
+// production still only deploys from main.
+const BUILD_BRANCHES = new Set(['main', 'feat/web-astro-migration'])
 const ZERO_SHA = /^0+$/
 
 const GLOBAL_SHARED_PATH_PREFIXES = [

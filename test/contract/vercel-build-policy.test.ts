@@ -9,6 +9,9 @@ import {
 
 const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs', 'apps/web']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
+// The Astro migration PR re-enables preview deployments for its own branch
+// while the shared policy keeps every other feature branch off.
+const webDeploymentEnabled = { ...deploymentEnabled, 'feat/web-astro-migration': true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
@@ -23,7 +26,9 @@ describe('Vercel build cost policy', () => {
         ignoreCommand?: string
       }
 
-      expect(config.git?.deploymentEnabled).toEqual(deploymentEnabled)
+      expect(config.git?.deploymentEnabled).toEqual(
+        projectRoot === 'apps/web' ? webDeploymentEnabled : deploymentEnabled
+      )
       expect(config.ignoreCommand).toBe(ignoreCommand)
       expect(config.installCommand).toBe(installCommand)
     })
@@ -38,6 +43,12 @@ describe('Vercel build cost policy', () => {
     expect(shouldBuild('codex/perf-route')).toBe(false)
     expect(shouldBuild('feat/large-change')).toBe(false)
     expect(shouldBuild(undefined)).toBe(true)
+  })
+
+  it('builds the migration branch preview for the web project', () => {
+    expect(shouldBuild('feat/web-astro-migration', 'web', ['apps/web/src/pages/index.astro'])).toBe(true)
+    expect(shouldBuild('feat/web-astro-migration', 'web', ['apps/docs/src/page.tsx'])).toBe(false)
+    expect(shouldBuild('feat/web-astro-migration', 'app', ['apps/app/src/app/page.tsx'])).toBe(true)
   })
 
   it('maps Vercel project aliases to their monorepo app', () => {
