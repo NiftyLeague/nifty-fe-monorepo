@@ -3,11 +3,10 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let isDesktopViewport = false
 
+const LoadedUserProfile = () => <div data-testid="loaded-user-profile" />
+
 mock.module('next/dynamic', () => ({
-  default: () =>
-    function LoadedUserProfile() {
-      return <div data-testid="loaded-user-profile" />
-    },
+  default: () => LoadedUserProfile,
 }))
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({

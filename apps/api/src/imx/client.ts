@@ -43,14 +43,15 @@ const STARK_PRIME = starkCurve.MAX_VALUE
  * `m/2645'/{sha256('starkex') low 31 bits}'/{sha256('immutablex') low 31 bits}'/
  * {address low 31 bits}'/{address bits [-62,-31)}'/1` scheme.
  */
+const sha = (s: string) => crypto.createHash('sha256').update(s).digest()
+const lowBits = (hash: Buffer, fromBit: number, toBit?: number): number => {
+  const bin = BigInt('0x' + hash.toString('hex')).toString(2)
+  const start = fromBit < 0 ? bin.length + fromBit : fromBit
+  const end = toBit === undefined ? bin.length : toBit < 0 ? bin.length + toBit : toBit
+  return parseInt(bin.slice(start, end), 2)
+}
+
 function imxDerivationPath(address: string): string {
-  const sha = (s: string) => crypto.createHash('sha256').update(s).digest()
-  const lowBits = (hash: Buffer, fromBit: number, toBit?: number): number => {
-    const bin = BigInt('0x' + hash.toString('hex')).toString(2)
-    const start = fromBit < 0 ? bin.length + fromBit : fromBit
-    const end = toBit === undefined ? bin.length : toBit < 0 ? bin.length + toBit : toBit
-    return parseInt(bin.slice(start, end), 2)
-  }
   const starkex = sha('starkex')
   const immutablex = sha('immutablex')
   const addr = Buffer.from(address.replace(/^0x/, ''), 'hex')

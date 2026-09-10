@@ -9,14 +9,15 @@ let fetchRankByUserId: typeof import('./leaderboard').fetchRankByUserId
 let fetchClientScores: typeof import('./leaderboard').fetchScores
 let fetchScores: typeof import('./leaderboard-server').fetchScores
 
+const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
+  rank: 1,
+  score,
+  user_id: userId,
+  stats: { earnings: '12.5', matches: '5', kills: '3', ...stats },
+})
+
 beforeEach(async () => {
   mock.module('@/constants/leaderboards/data', () => {
-    const row = (score: string, userId: string, stats: Record<string, string> = {}) => ({
-      rank: 1,
-      score,
-      user_id: userId,
-      stats: { earnings: '12.5', matches: '5', kills: '3', ...stats },
-    })
     const leaderboards: Record<string, Record<string, ReturnType<typeof row>[]>> = {
       smashers: {
         win_rate: [row('0.75', 'user-1')],
@@ -123,7 +124,7 @@ describe('leaderboard data loaders', () => {
 
     const result = await fetchScores('bulk', 'win_rate', 'all', 2, 0)
 
-    expect(result.data.map((row) => row.user_id)).toEqual(['Alpha', 'Bravo'])
+    expect(result.data.map((leaderboardRow) => leaderboardRow.user_id)).toEqual(['Alpha', 'Bravo'])
   })
 
   it('keeps leaderboard rows when username enrichment is unavailable', async () => {

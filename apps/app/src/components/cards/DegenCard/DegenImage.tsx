@@ -4,6 +4,12 @@ import NativeImage from '@nl/ui/custom/native-image'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
+const handleImageError = (e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>) => {
+  const target = e.target as HTMLImageElement | HTMLVideoElement
+  const fallbackSrc = '/img/degens/unavailable-image.webp'
+  if (target.getAttribute('src') !== fallbackSrc) target.src = fallbackSrc
+}
+
 const DegenImage = memo(
   ({
     tokenId,
@@ -24,14 +30,6 @@ const DegenImage = memo(
     const isAnimated = LEGGIES.includes(Number(tokenId))
     const poster = `${imageURL}.webp`
     const image = isAnimated ? `${imageURL}.gif` : poster
-
-    const handleImageError = (
-      e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>
-    ) => {
-      const target = e.target as HTMLImageElement | HTMLVideoElement
-      target.onerror = null
-      target.src = '/img/degens/unavailable-image.webp'
-    }
 
     const imageProps = {
       className: 'pixelated',

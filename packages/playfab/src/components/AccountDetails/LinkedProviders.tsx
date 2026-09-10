@@ -16,6 +16,10 @@ export interface Props {
   loading?: boolean
 }
 
+const handleSignIn = async (provider: Provider) => {
+  await signIn(provider, { callbackUrl: `/profile#link-${provider}` })
+}
+
 export default function LinkedProviders({
   providers,
   socialLayout = 'horizontal',
@@ -80,10 +84,6 @@ export default function LinkedProviders({
       handleLinkProvider(provider, accessToken)
     }
   }, [pathname, session.status, session.data, handleLinkProvider])
-
-  const handleSignIn = async (provider: Provider) => {
-    await signIn(provider, { callbackUrl: `/profile#link-${provider}` })
-  }
 
   return providers && providers.length > 0 ? (
     <div

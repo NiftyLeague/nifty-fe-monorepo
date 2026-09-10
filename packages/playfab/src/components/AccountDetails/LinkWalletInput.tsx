@@ -42,11 +42,11 @@ export default function LinkWalletInput({
     try {
       const result = await signMessage()
       if (result) {
-        const { address, nonce, signature } = result
+        const { address: linkedAddress, nonce, signature } = result
         await fetchJson('/api/playfab/user/link-wallet', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ address, signature, nonce }),
+          body: JSON.stringify({ address: linkedAddress, signature, nonce }),
         })
         await refetchPlayer()
         enqueueSnackbar('Wallet link success!', { variant: 'success' })

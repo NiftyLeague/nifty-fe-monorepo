@@ -7,16 +7,38 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 const loadSnackbar = () => import('@/components/extended/Snackbar')
 const loadToaster = () => import('@nl/ui/base/sonner')
 
+const LoadedNotifications = ({
+  Snackbar,
+  Toaster,
+}: {
+  Snackbar: React.ComponentType
+  Toaster: React.ComponentType<{
+    position: 'top-right'
+    closeButton: boolean
+    richColors: boolean
+  }>
+}) => (
+  <>
+    <Snackbar />
+    <Toaster position="top-right" closeButton richColors />
+  </>
+)
+
+const createLoadedNotifications = (
+  Snackbar: React.ComponentType,
+  Toaster: React.ComponentType<{
+    position: 'top-right'
+    closeButton: boolean
+    richColors: boolean
+  }>
+) =>
+  function LoadedNotificationChunk() {
+    return <LoadedNotifications Snackbar={Snackbar} Toaster={Toaster} />
+  }
+
 const loadNotifications = () =>
   Promise.all([loadSnackbar(), loadToaster()]).then(([{ default: Snackbar }, { Toaster }]) => ({
-    default: function LoadedNotifications() {
-      return (
-        <>
-          <Snackbar />
-          <Toaster position="top-right" closeButton richColors />
-        </>
-      )
-    },
+    default: createLoadedNotifications(Snackbar, Toaster),
   }))
 
 export default function DeferredNotifications(): React.ReactNode {
@@ -29,8 +51,8 @@ export default function DeferredNotifications(): React.ReactNode {
       if (cancelled) return
 
       try {
-        const { default: LoadedNotifications } = await loadNotifications()
-        if (!cancelled) setNotifications(() => LoadedNotifications)
+        const { default: LoadedNotificationComponent } = await loadNotifications()
+        if (!cancelled) setNotifications(() => LoadedNotificationComponent)
       } catch {
         // Notifications are non-critical. Keep the shell usable if an optional
         // notification chunk fails to load.

@@ -2,6 +2,10 @@ import { act, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, jest } from 'bun:test'
 import { mock } from 'bun:test'
 
+const MockUnity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
+  <canvas aria-label="character creator" className={className} style={style} />
+)
+
 const unity = {
   handlers: new Map<string, (...args: any[]) => void>(),
   removeAll: mock(),
@@ -20,12 +24,9 @@ beforeEach(async () => {
     useOrientation: () => ({ orientation: 'landscape', isPortrait: false, isLandscape: true }),
   }))
   mock.module('react-unity-webgl', () => {
-    const Unity = ({ className, style }: { className: string; style: React.CSSProperties }) => (
-      <canvas aria-label="character creator" className={className} style={style} />
-    )
     return {
-      default: Unity,
-      Unity,
+      default: MockUnity,
+      Unity: MockUnity,
       UnityContext: class UnityContext {
         send = unity.send
         SendMessage = unity.send

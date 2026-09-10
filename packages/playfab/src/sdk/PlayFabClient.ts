@@ -8,7 +8,7 @@ export const IsClientLoggedIn = (user?: User): boolean => {
   if (!user || !user.SessionTicket || !user.EntityToken?.TokenExpiration) return false
   const expiration = new Date(user.EntityToken.TokenExpiration)
   const expired = expiration < new Date()
-  return !expired && user.SessionTicket.length > 0 ? true : false
+  return !expired && user.SessionTicket.length > 0
 }
 
 export const AddGenericID: PlayFabClientModule.IPlayFabClient['AddGenericID'] = (

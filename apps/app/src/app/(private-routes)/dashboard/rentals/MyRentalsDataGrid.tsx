@@ -117,7 +117,7 @@ const MyRentalsDataGrid = ({
       return filteredRows
     }
 
-    return [...filteredRows].sort((a, b) => {
+    return filteredRows.toSorted((a, b) => {
       const aValue = a[sort.field as keyof RentalDataGrid] as number
       const bValue = b[sort.field as keyof RentalDataGrid] as number
 

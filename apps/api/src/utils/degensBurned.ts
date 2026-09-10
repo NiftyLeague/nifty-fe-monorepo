@@ -34,7 +34,7 @@ export async function fetchBurnedDegens(): Promise<number[]> {
       fetchAndProcess(inventoryURI2, []),
     ])
 
-    return [...burned1, ...burned2].sort((a, b) => a - b)
+    return [...burned1, ...burned2].toSorted((a, b) => a - b)
   } catch {
     return []
   }

@@ -47,14 +47,14 @@ describe('web roadmap animated media policy', () => {
   })
 
   it('routes roadmap cards through the shared animated image primitive', () => {
-    const source = readFileSync(roadmapCard, 'utf8')
+    const roadmapSource = readFileSync(roadmapCard, 'utf8')
 
-    expect(source).toContain('@nl/ui/custom/animated-image')
-    expect(source).toContain("from 'lucide-react'")
-    expect(source).not.toContain("from '@nl/ui/base/icon'")
+    expect(roadmapSource).toContain('@nl/ui/custom/animated-image')
+    expect(roadmapSource).toContain("from 'lucide-react'")
+    expect(roadmapSource).not.toContain("from '@nl/ui/base/icon'")
     const constants = readFileSync(roadmapConstants, 'utf8')
-    for (const { source } of roadmapMedia) {
-      expect(constants).toContain(source)
+    for (const { source: sourcePath } of roadmapMedia) {
+      expect(constants).toContain(sourcePath)
     }
   })
 })

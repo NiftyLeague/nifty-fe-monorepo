@@ -31,6 +31,11 @@ type ProfileImagePickerProps = {
 
 const settings = { slidesToShow: 4, rows: 2, slidesPerRow: 1 }
 
+const renderDegenImage = (degen: DashboardDegen) => {
+  if (degen?.url) return <DegenInternalImage degen={degen} />
+  return <DegenImage tokenId={degen?.id} />
+}
+
 const ProfileImagePicker = ({
   onSearch,
   onChangeAvatar,
@@ -62,13 +67,6 @@ const ProfileImagePicker = ({
     } catch (error) {
       toast.error(`Can not update the profile avatar: ${error}`)
     }
-  }
-
-  const renderDegenImage = (degen: DashboardDegen) => {
-    if (degen?.url) {
-      return <DegenInternalImage degen={degen} />
-    }
-    return <DegenImage tokenId={degen?.id} />
   }
 
   const renderDegens = () => {

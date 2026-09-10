@@ -16,10 +16,8 @@ mock.module('@aws-sdk/client-s3', () => ({
       return sendMock
     }
   },
-  PutObjectCommand: class {
-    constructor(params: unknown) {
-      commandMock(params)
-    }
+  PutObjectCommand: function PutObjectCommand(params: unknown) {
+    commandMock(params)
   },
 }))
 

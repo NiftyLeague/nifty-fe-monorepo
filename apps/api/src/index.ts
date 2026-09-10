@@ -52,6 +52,13 @@ const hasSecret = (supplied: string | undefined, expected: string | undefined) =
   )
 }
 
+type AsyncRequestHandler = (req: Request, res: Response, next: NextFunction) => Promise<unknown>
+
+const asyncRequestHandler =
+  (handler: AsyncRequestHandler) => (req: Request, res: Response, next: NextFunction) => {
+    void handler(req, res, next).catch(next)
+  }
+
 // Vercel terminates TLS at the edge and invokes this handler via @vercel/node's
 // raw (req, res) bridge, where req.socket is undefined. Without trust proxy,
 // Express 5's req.protocol getter reads req.socket.encrypted and throws on every
@@ -92,46 +99,61 @@ const handleCirculatingSupply = async (res: Response, next: NextFunction) => {
   else next(new Error('Unable to resolve supply.'))
 }
 
-app.get('/NFTL/supply', async function (req: Request, res: Response, next: NextFunction) {
-  await handleCirculatingSupply(res, next)
-})
+app.get(
+  '/NFTL/supply',
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
+    await handleCirculatingSupply(res, next)
+  })
+)
 
 app.get(
   '/NFTL/supply/circulating',
-  async function (req: Request, res: Response, next: NextFunction) {
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
     await handleCirculatingSupply(res, next)
-  }
+  })
 )
 
-app.get('/NFTL/supply/unclaimed', async function (req: Request, res: Response, next: NextFunction) {
-  const supply = await resolveUnclaimedSupply()
-  if (supply) res.setHeader('cache-control', PUBLIC_CACHE_CONTROL).send(supply)
-  else next(new Error('Unable to resolve supply.'))
-})
+app.get(
+  '/NFTL/supply/unclaimed',
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
+    const supply = await resolveUnclaimedSupply()
+    if (supply) res.setHeader('cache-control', PUBLIC_CACHE_CONTROL).send(supply)
+    else next(new Error('Unable to resolve supply.'))
+  })
+)
 
-app.get('/NFTL/supply/total', async function (req: Request, res: Response, next: NextFunction) {
-  const supply = await resolveTotalSupply()
-  if (supply) res.setHeader('cache-control', PUBLIC_CACHE_CONTROL).send(supply)
-  else next(new Error('Unable to resolve supply.'))
-})
+app.get(
+  '/NFTL/supply/total',
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
+    const supply = await resolveTotalSupply()
+    if (supply) res.setHeader('cache-control', PUBLIC_CACHE_CONTROL).send(supply)
+    else next(new Error('Unable to resolve supply.'))
+  })
+)
 
-app.get('/NFTL/supply/max', async function (req: Request, res: Response, next: NextFunction) {
-  const supply = await resolveMaxSupply()
-  if (supply) res.setHeader('cache-control', PUBLIC_CACHE_CONTROL).send(supply)
-  else next(new Error('Unable to resolve supply.'))
-})
+app.get(
+  '/NFTL/supply/max',
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
+    const supply = await resolveMaxSupply()
+    if (supply) res.setHeader('cache-control', PUBLIC_CACHE_CONTROL).send(supply)
+    else next(new Error('Unable to resolve supply.'))
+  })
+)
 
 //////////////////////////////////////////////
 // ------ DEGENs
 //////////////////////////////////////////////
 
-app.get('/degens/burn-list', async function (req: Request, res: Response, next: NextFunction) {
-  const burnList = await getBurnedDegens()
-  if (burnList) res.send(burnList)
-  else next(new Error('Unable to resolve burn list.'))
-})
+app.get(
+  '/degens/burn-list',
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
+    const burnList = await getBurnedDegens()
+    if (burnList) res.send(burnList)
+    else next(new Error('Unable to resolve burn list.'))
+  })
+)
 
-app.get('/:network/degen/metadata/:token_id', async function (req: Request, res: Response) {
+app.get('/:network/degen/metadata/:token_id', function (req: Request, res: Response) {
   const network = getParam(req.params.network)
   const token_id = getParam(req.params.token_id)
   if (!isTargetNetwork(network) || !isTokenId(token_id, MAX_DEGEN_TOKEN_ID)) {
@@ -141,7 +163,7 @@ app.get('/:network/degen/metadata/:token_id', async function (req: Request, res:
   pipeRequest(`${S3_BASE_URL}/${S3_DEGENS_BUCKET}/${network}/metadata/${token_id}.json`, res)
 })
 
-app.get('/:network/degen/image/:token_id', async function (req: Request, res: Response) {
+app.get('/:network/degen/image/:token_id', function (req: Request, res: Response) {
   const network = getParam(req.params.network)
   const token_id = getParam(req.params.token_id)
   if (!isTargetNetwork(network) || !isTokenId(token_id, MAX_DEGEN_TOKEN_ID)) {
@@ -152,30 +174,33 @@ app.get('/:network/degen/image/:token_id', async function (req: Request, res: Re
   pipeRequest(`${S3_BASE_URL}/${S3_DEGENS_BUCKET}/${network}/images/${token_id}.${type}`, res)
 })
 
-app.get('/:network/degen/:token_id/background', async function (req: Request, res: Response) {
-  const network = getParam(req.params.network)
-  const token_id = getParam(req.params.token_id)
-  if (!isTargetNetwork(network) || !isTokenId(token_id, MAX_DEGEN_TOKEN_ID)) {
-    res.sendStatus(404)
-    return
-  }
-  const metadata = await resolveDegenMetadata(req)
-  const background = metadata?.attributes?.find((a: Attribute) => a.trait_type === 'Background')
-  if (background) res.send(background.value)
-  else res.status(404).send({ errors: [{ message: 'Background not found' }] })
-})
+app.get(
+  '/:network/degen/:token_id/background',
+  asyncRequestHandler(async function (req: Request, res: Response) {
+    const network = getParam(req.params.network)
+    const token_id = getParam(req.params.token_id)
+    if (!isTargetNetwork(network) || !isTokenId(token_id, MAX_DEGEN_TOKEN_ID)) {
+      res.sendStatus(404)
+      return
+    }
+    const metadata = await resolveDegenMetadata(req)
+    const background = metadata?.attributes?.find((a: Attribute) => a.trait_type === 'Background')
+    if (background) res.send(background.value)
+    else res.status(404).send({ errors: [{ message: 'Background not found' }] })
+  })
+)
 
 //////////////////////////////////////////////
 // ------ MARKETPLACE
 //////////////////////////////////////////////
 
-app.get('/imx/marketplace/collection.json', async function (req: Request, res: Response) {
+app.get('/imx/marketplace/collection.json', function (req: Request, res: Response) {
   res
     .setHeader('cache-control', 'public, max-age=3600, immutable')
     .send(MARKETPLACE_COLLECTION_METADATA)
 })
 
-app.get('/imx/marketplace/metadata/:token_id', async function (req: Request, res: Response) {
+app.get('/imx/marketplace/metadata/:token_id', function (req: Request, res: Response) {
   let tokenId = getParam(req.params.token_id)
   if (!tokenId) {
     res.sendStatus(404)
@@ -189,7 +214,7 @@ app.get('/imx/marketplace/metadata/:token_id', async function (req: Request, res
   pipeRequest(`${S3_BASE_URL}/${S3_MARKETPLACE_BUCKET}/metadata/${tokenId}.json`, res)
 })
 
-app.get('/imx/marketplace/images/:token_id', async function (req: Request, res: Response) {
+app.get('/imx/marketplace/images/:token_id', function (req: Request, res: Response) {
   const tokenId = getParam(req.params.token_id)
   if (!isTokenId(tokenId, MAX_MARKETPLACE_TOKEN_ID)) {
     res.sendStatus(404)
@@ -206,7 +231,7 @@ app.get('/imx/marketplace/images/:token_id', async function (req: Request, res: 
 
 app.post(
   '/:network/webhooks/degen/:secret',
-  async function (req: Request, res: Response, next: NextFunction) {
+  asyncRequestHandler(async function (req: Request, res: Response, next: NextFunction) {
     try {
       const targetNetwork = getParam(req.params.network)
       const secret = getParam(req.params.secret)
@@ -236,7 +261,7 @@ app.post(
     } catch (e) {
       next(e)
     }
-  }
+  })
 )
 
 //////////////////////////////////////////////

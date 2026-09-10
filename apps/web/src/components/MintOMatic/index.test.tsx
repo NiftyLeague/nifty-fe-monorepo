@@ -23,6 +23,6 @@ describe('MintOMatic', () => {
     expect(images.map((image) => image.getAttribute('decoding'))).toEqual(Array(4).fill('async'))
     expect(
       images.map((image) => [image.getAttribute('width'), image.getAttribute('height')])
-    ).toEqual(Array(4).fill(['1470', '1778']))
+    ).toEqual(Array.from({ length: 4 }, () => ['1470', '1778']))
   })
 })
