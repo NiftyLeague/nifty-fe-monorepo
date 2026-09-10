@@ -119,6 +119,11 @@ describe('Webhook routes (Degen rename)', () => {
     expect(mockHandleNameChangeByInput).toHaveBeenCalledWith('mainnet', RENAME_INPUT)
   })
 
+  it('GET webhook requests return 404', async () => {
+    const response = await request(app).get(webhookUrl('mainnet', WEBHOOK_SECRET))
+    expect(response.status).toBe(404)
+  })
+
   it('POST with non-rename input -> 200 but handler not invoked', async () => {
     const response = await request(app)
       .post(webhookUrl('mainnet', WEBHOOK_SECRET))
