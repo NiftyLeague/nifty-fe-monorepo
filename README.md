@@ -12,9 +12,9 @@ This Turborepo includes the following apps/packages:
 
 ### Apps
 
-- `app`: a [Next.js](https://nextjs.org/) app for our Web3 dashboards at [app.niftyleague.com](http://app.niftyleague.com)
-- `docs`: a [Docusaurus](https://docusaurus.io/) app for our company docs at [niftyleague.com/docs](http://niftyleague.com/docs)
-- `smashers`: a [Next.js](https://nextjs.org/) app for our game's website [niftysmashers.com](http://niftysmashers.com)
+- `app`: a [TanStack Start](https://tanstack.com/start) app for our Web3 dashboards at [app.niftyleague.com](http://app.niftyleague.com)
+- `docs`: an [Astro](https://astro.build) + [Starlight](https://starlight.astro.build) site for our company docs at [niftyleague.com/docs](http://niftyleague.com/docs)
+- `smashers`: an [Astro](https://astro.build) SSR site for our game's website [niftysmashers.com](http://niftysmashers.com)
 - `web`: an [Astro](https://astro.build) static site for our company's website [niftyleague.com](http://niftyleague.com), with a Cloudflare Worker variant for the special routes
 
 ### Packages
@@ -256,18 +256,9 @@ Learn more about the power of Turborepo:
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Deploys run through the [Vercel Platform](https://vercel.com).
 
 ## Support
 

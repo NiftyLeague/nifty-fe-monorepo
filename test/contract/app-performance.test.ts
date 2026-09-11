@@ -20,20 +20,18 @@ const appManifest = 'apps/app/package.json'
 const appGasUtility = 'apps/app/src/utils/gas.ts'
 const retiredAxiosUtility = 'apps/app/src/utils/axios.ts'
 const appGraphQLUtility = 'apps/app/src/utils/graphql.ts'
-const appNextConfig = 'apps/app/next.config.ts'
 const appTsConfig = 'apps/app/tsconfig.json'
 const appWeb3Types = 'apps/app/src/types/web3.ts'
 const appInterchainService = 'apps/app/src/utils/interchainTokenService.ts'
-const deferredNicknameForm =
-  'apps/app/src/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog.tsx'
+const deferredNicknameForm = 'apps/app/src/pages/dashboard/rentals/ChangeNicknameDialog.tsx'
 const deferredProfileNameForm =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameForm.tsx'
+  'apps/app/src/pages/dashboard/gamer-profile/_Stats/ChangeProfileNameForm.tsx'
 const appBaseInputConsumers = [
-  'apps/app/src/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent.tsx',
+  'apps/app/src/pages/dashboard/degens/_dialogs/RenameDegenDialogContent.tsx',
   deferredProfileNameForm,
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/comics-grid.tsx',
+  'apps/app/src/pages/dashboard/items/burner/_components/comics-grid.tsx',
   deferredNicknameForm,
-  'apps/app/src/app/(private-routes)/dashboard/rentals/SearchRental.tsx',
+  'apps/app/src/pages/dashboard/rentals/SearchRental.tsx',
   'apps/app/src/components/dialog/BuyArcadeTokensDialog.tsx',
   'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
 ]
@@ -52,7 +50,6 @@ const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
 // Neither web, smashers, nor docs has a next.config anymore (Astro static /
 // Astro SSR), and the template app was removed.
 const docsConfig = 'apps/docs/astro.config.mjs'
-const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
 const incrementalTypecheckConfigs = [
@@ -64,24 +61,18 @@ const incrementalTypecheckConfigs = [
   'apps/smashers/tsconfig.json',
   'packages/contracts/tsconfig.json',
   'packages/playfab/tsconfig.json',
-  'packages/sentry-client/tsconfig.json',
   'packages/ui/tsconfig.json',
 ]
-// Only apps/app remains on the Next TypeScript program shape; template was
-// removed and smashers/web are Astro.
-const nextSourceTypecheckConfigs = ['apps/app/tsconfig.json']
 const webTsConfig = 'apps/web/tsconfig.json'
 const smashersTsConfig = 'apps/smashers/tsconfig.json'
 const smashersRootLayout = 'apps/smashers/src/layouts/Base.astro'
-const deferredSentryClient = 'packages/sentry-client/src/client.ts'
-const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const deferredExternalScript =
   'packages/ui/src/components/custom/deferred-external-script/index.tsx'
-const appRootLayout = 'apps/app/src/app/layout.tsx'
+const appRootLayout = 'apps/app/src/routes/__root.tsx'
 const appUserProfile = 'apps/app/src/components/UserProfile/index.tsx'
 const publicUserProfile = 'apps/app/src/components/providers/PublicUserProfile.tsx'
 const appProfileVerification = 'apps/app/src/components/wrapper/Authentication.tsx'
-const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
+const appShell = 'apps/app/src/layouts/_layout/AppShell.tsx'
 const privateRoutesBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const sharedAppBar = 'packages/ui/src/components/custom/app-bar/index.tsx'
 const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.module.css'
@@ -121,7 +112,7 @@ const smashersStaticNavigationSources = [
   'apps/smashers/src/components/Header/BackButton/index.tsx',
 ]
 const nonConflictingClassNameSources = [
-  'apps/app/src/app/layout.tsx',
+  'apps/app/src/routes/__root.tsx',
   'apps/app/src/components/providers/PublicNavigation.tsx',
   'apps/smashers/src/components/Header/Navbar/index.tsx',
   'apps/web/src/app/(main)/compete-and-earn/page.tsx',
@@ -132,26 +123,28 @@ const nonConflictingClassNameSources = [
   'packages/ui/src/components/custom/app-bar/index.tsx',
 ]
 const appBreadcrumbs = 'apps/app/src/components/extended/Breadcrumbs.tsx'
-const appHeader = 'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx'
-const appNetworkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
-const appSidebarFrame = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
-const mobileSidebarSheet = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
+const appHeader = 'apps/app/src/layouts/_layout/_MainLayout/_Header/index.tsx'
+const appNetworkWarning = 'apps/app/src/layouts/_layout/_MainLayout/_Header/NetworkWarning.tsx'
+const appSidebarFrame = 'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx'
+const mobileSidebarSheet =
+  'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx'
 const appNavigationContext = 'apps/app/src/contexts/NavigationContext.tsx'
-const appNavigationBreakpoints = 'apps/app/src/app/_layout/navigation-breakpoints.ts'
-const appCollapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
+const appNavigationBreakpoints = 'apps/app/src/layouts/_layout/navigation-breakpoints.ts'
+const appCollapsibleSidebarLayout =
+  'apps/app/src/layouts/_layout/_CollapsibleSidebarLayout/index.tsx'
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
-const allDegensPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
-const gamesPage = 'apps/app/src/app/(public-routes)/games/page.tsx'
-const deferredInstallerAction = 'apps/app/src/app/(public-routes)/games/DeferredInstallerAction.tsx'
+const allDegensPage = 'apps/app/src/pages/degens/AllDegensPage.tsx'
+const gamesPage = 'apps/app/src/routes/_public/games.index.tsx'
+const deferredInstallerAction = 'apps/app/src/pages/games/DeferredInstallerAction.tsx'
 const leaderboards = 'apps/app/src/components/leaderboards/index.tsx'
 const leaderboardsStyles = 'apps/app/src/components/leaderboards/index.module.css'
-const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
+const collapsibleSidebarLayout = 'apps/app/src/layouts/_layout/_CollapsibleSidebarLayout/index.tsx'
 const appCarouselSettingsSources = [
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyComics.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyItems.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
+  'apps/app/src/pages/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/pages/dashboard/overview/MyComics.tsx',
+  'apps/app/src/pages/dashboard/overview/MyItems.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
 ]
 const sharedResponsiveCarousel = 'packages/ui/src/components/custom/responsive-carousel/index.tsx'
 const sharedResponsiveCarouselStyles =
@@ -160,28 +153,28 @@ const degenFilterUtils = 'apps/app/src/components/extended/DegensFilter/utils.ts
 const degenFilterStyles = 'apps/app/src/components/extended/DegensFilter/index.module.css'
 const publicDegenQueries = 'apps/app/src/hooks/queries/usePublicDegens.ts'
 const sharedCatalogConsumers = [
-  'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/pages/degens/AllDegensPage.tsx',
+  'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/GamerProfileContent.tsx',
+  'apps/app/src/pages/dashboard/overview/MyDegens.tsx',
 ]
 const privateShellIconSources = [
-  'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx',
-  'apps/app/src/app/_layout/_MainLayout/_Header/index.tsx',
-  'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx',
-  'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
-  'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavGroup/index.tsx',
-  'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
+  'apps/app/src/layouts/_layout/_CollapsibleSidebarLayout/index.tsx',
+  'apps/app/src/layouts/_layout/_MainLayout/_Header/index.tsx',
+  'apps/app/src/layouts/_layout/_MainLayout/_Header/NetworkWarning.tsx',
+  'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
+  'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_MenuList/_NavGroup/index.tsx',
+  'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
   'apps/app/src/components/extended/Breadcrumbs.tsx',
 ]
 const appIconRegistrySources = [
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/degens/_dialogs/RenameStepper.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/TopInfo.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/comics-grid.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
+  'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/pages/dashboard/degens/_dialogs/RenameStepper.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/_Stats/TopInfo.tsx',
+  'apps/app/src/pages/dashboard/items/burner/_components/comics-grid.tsx',
+  'apps/app/src/pages/dashboard/rentals/MyRentalsDataGrid.tsx',
   'apps/app/src/components/ResponsiveTable/ExpandableListItem.tsx',
   'apps/app/src/components/ResponsiveTable/DataList.tsx',
   'apps/app/src/components/ResponsiveTable/Pagination.tsx',
@@ -236,7 +229,6 @@ describe('app performance contracts', () => {
     const ignores: string[] = oxlint.ignorePatterns ?? []
 
     for (const generatedPath of [
-      '**/.next/**',
       '**/.turbo/**',
       '**/src/types/typechain/**',
       '**/build/**',
@@ -286,10 +278,10 @@ describe('app performance contracts', () => {
     expect(helperSource).not.toContain('tailwind-merge')
 
     for (const file of [
-      'apps/app/src/app/_layout/AppShell.tsx',
-      'apps/app/src/app/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx',
-      'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
-      'apps/app/src/app/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
+      'apps/app/src/layouts/_layout/AppShell.tsx',
+      'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx',
+      'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_MenuList/_NavCollapse/index.tsx',
+      'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_MenuList/_NavItem/index.tsx',
       appBreadcrumbs,
     ]) {
       const source = readFileSync(file, 'utf8')
@@ -494,7 +486,7 @@ describe('app performance contracts', () => {
     const breakpointSource = readFileSync(appNavigationBreakpoints, 'utf8')
 
     expect(breakpointSource).toContain("desktopNavigationMediaQuery = '(min-width: 1024px)'")
-    expect(source).toContain("from '@/app/_layout/navigation-breakpoints'")
+    expect(source).toContain("from '@/layouts/_layout/navigation-breakpoints'")
     expect(source).toContain('useMediaQuery(desktopNavigationMediaQuery)')
     expect(source).not.toContain("useMediaQuery('(max-width:1024px)')")
   })
@@ -568,97 +560,44 @@ describe('app performance contracts', () => {
     expect(deferredSource).toContain('document.createElement')
   })
 
-  it('keeps deferred Sentry on a named async module graph', () => {
-    const clientSource = readFileSync(deferredSentryClient, 'utf8')
-    const moduleSource = readFileSync(deferredSentryModule, 'utf8')
+  it('keeps the app Sentry runtime lazy and free of the Next SDK', () => {
+    const runtime = readFileSync(join(process.cwd(), 'apps/app/src/runtime/sentry.ts'), 'utf8')
 
-    expect(clientSource).toContain("import('./nextjs-client')")
-    expect(clientSource).not.toContain("sentryModulePromise ??= import('@sentry/nextjs')")
-    expect(moduleSource).toContain("from '@sentry/nextjs'")
-    expect(moduleSource).toContain('captureException')
-    expect(moduleSource).toContain('captureRouterTransitionStart')
-    expect(moduleSource).toContain('init')
+    expect(runtime).toContain("import('@sentry/browser')")
+    expect(runtime).not.toContain('@sentry/nextjs')
+    expect(runtime).toContain('??= import(')
   })
 
-  it('uses the deterministic Webpack path for local app development', () => {
+  it('runs local app development through Vite on port 3001', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    expect(manifest.scripts.dev).toBe('next dev --webpack --port 3001')
-    expect(manifest.scripts.dev).not.toContain('--turbopack')
-    expect(manifest.scripts['dev:turbo']).toBeUndefined()
+    expect(manifest.scripts.dev).toBe('vite dev')
+    expect(manifest.scripts.dev).not.toContain('next dev')
+    expect(manifest.scripts.build).toBe('vite build')
   })
 
-  it('keeps Next app builds on the native TypeScript worker', () => {
-    expect(readFileSync(appNextConfig, 'utf8')).not.toContain('useTypeScriptCli: true')
+  it('leaves no Next.js build surface behind', () => {
+    // web and smashers are Astro and docs is Astro/Starlight, so no app in the
+    // repo has a Next config or instrumentation hook any more.
+    for (const file of [
+      'apps/app/next.config.ts',
+      'apps/app/src/instrumentation.ts',
+      'apps/app/sentry.server.config.ts',
+      'apps/app/sentry.edge.config.ts',
+      'apps/smashers/next.config.ts',
+      'apps/web/next.config.ts',
+    ]) {
+      expect(existsSync(join(process.cwd(), file)), `${file} should be gone`).toBe(false)
+    }
   })
 
-  it('keeps the default app build on the explicit Webpack path', () => {
-    const source = readFileSync(appNextConfig, 'utf8')
-    const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
-
-    expect(source).toContain("serverExternalPackages: ['pino-pretty', 'lokijs'")
-    expect(source).not.toContain('turbopack')
-    expect(source).toContain('webpack: webpackFallback,')
-    expect(manifest.scripts.build).toBe('NEXT_TYPESCRIPT_NO_AUTO_INSTALL=1 next build --webpack')
-    expect(manifest.scripts['build:turbo']).toBeUndefined()
-  })
-
-  it('removes the unsupported optional Turbopack path from every Next app', () => {
+  it('removes the unsupported optional Turbopack path from every app', () => {
     const manifests = [appManifest, webManifest, 'apps/smashers/package.json']
-    // web has no next.config anymore (Astro static); its scripts are still
-    // checked above so no turbopack variant can reappear.
-    const configs = [appNextConfig]
 
     for (const file of manifests) {
       const scripts = JSON.parse(readFileSync(file, 'utf8')).scripts
       expect(scripts['build:turbo']).toBeUndefined()
       expect(scripts['dev:turbo']).toBeUndefined()
-    }
-
-    for (const file of configs) {
-      expect(readFileSync(file, 'utf8')).not.toContain('turbopack')
-    }
-    // smashers is Astro: no next.config means no Turbopack path can reappear.
-    expect(existsSync(join(process.cwd(), 'apps/smashers/next.config.ts'))).toBe(false)
-  })
-
-  it('keeps the Astro docs build on one React runtime', () => {
-    // docs mirrors web: Bun's isolated layout resolves react/react-dom through
-    // distinct store entries, so the SSR graph is bundled to keep one React.
-    const source = readFileSync(docsConfig, 'utf8')
-
-    expect(source).toContain('ssr: { noExternal: true }')
-    expect(source).toContain('environments: { ssr: { resolve: { noExternal: true } } }')
-  })
-
-  it('keeps the Astro docs build on one React runtime', () => {
-    // docs mirrors web: Bun's isolated layout resolves react/react-dom through
-    // distinct store entries, so the SSR graph is bundled to keep one React.
-    const source = readFileSync(docsConfig, 'utf8')
-
-    expect(source).toContain('ssr: { noExternal: true }')
-    expect(source).toContain('environments: { ssr: { resolve: { noExternal: true } } }')
-  })
-
-  it('modularizes shared Lucide imports before the app graph is bundled', () => {
-    // web and smashers are excluded: Astro/Vite handles their graph without a
-    // next.config and tree-shakes the icon imports itself.
-    for (const file of [appNextConfig]) {
-      expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
-    }
-  })
-
-  it('keeps Sentry source-map uploads narrow enough for production builds', () => {
-    const sharedSource = readFileSync(sharedSentryConfig, 'utf8')
-
-    expect(sharedSource).toContain("sourcemaps: { disable: env !== 'production' }")
-    expect(sharedSource).toContain('widenClientFileUpload: false')
-
-    // web and smashers are excluded: they ship as Astro with lazy
-    // @sentry/browser and no server-side source-map uploads.
-    for (const file of [appNextConfig]) {
-      const source = readFileSync(file, 'utf8')
-      expect(source).toContain('getProductionSentryOptions')
     }
   })
 
@@ -668,17 +607,10 @@ describe('app performance contracts', () => {
     }
   })
 
-  it('scopes Next TypeScript programs to source and framework inputs', () => {
-    for (const file of nextSourceTypecheckConfigs) {
-      const tsConfig = JSON.parse(readFileSync(file, 'utf8')) as { include?: string[] }
+  it('scopes the app TypeScript program to source and build config inputs', () => {
+    const tsConfig = JSON.parse(readFileSync(appTsConfig, 'utf8')) as { include?: string[] }
 
-      expect(tsConfig.include).toEqual([
-        'src',
-        'next-env.d.ts',
-        'next.config.ts',
-        '.next/types/**/*.ts',
-      ])
-    }
+    expect(tsConfig.include).toEqual(['src', 'vite.config.ts'])
   })
 
   it('scopes the Astro web TypeScript program to Astro-generated and source inputs', () => {
@@ -913,7 +845,7 @@ describe('app performance contracts', () => {
     const pageSource = readFileSync(gamesPage, 'utf8')
     const deferredSource = readFileSync(deferredInstallerAction, 'utf8')
 
-    expect(pageSource).toContain("import DeferredInstallerAction from './DeferredInstallerAction'")
+    expect(pageSource).toContain("from '@/pages/games/DeferredInstallerAction'")
     expect(pageSource).not.toContain("import InstallerAction from './InstallerAction'")
     expect(pageSource).toContain('actions={<DeferredInstallerAction />}')
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
@@ -955,7 +887,7 @@ describe('app performance contracts', () => {
   it('keeps the app free of lodash route imports', () => {
     const sources = [
       'apps/app/src/components/dialog/DegenDialog/EquipDegenContentDialog/index.tsx',
-      'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx',
+      'apps/app/src/pages/dashboard/gamer-profile/GamerProfileContent.tsx',
     ]
 
     for (const file of sources) {

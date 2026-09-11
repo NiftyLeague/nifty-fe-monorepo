@@ -4,12 +4,12 @@ import { existsSync, readFileSync } from 'node:fs'
 const read = (path: string) => readFileSync(path, 'utf8')
 
 const migratedUrlOwners = [
-  'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
+  'apps/app/src/pages/degens/AllDegensPage.tsx',
   'apps/app/src/components/extended/DegensFilter/index.tsx',
   'apps/app/src/components/leaderboards/index.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/pages/dashboard/rentals/DashboardRentalsContent.tsx',
+  'apps/app/src/pages/dashboard/rentals/MyRentalsDataGrid.tsx',
+  'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
   'apps/app/src/components/providers/MintPageContent.tsx',
 ]
 
@@ -95,14 +95,10 @@ describe('M1 state and data ownership', () => {
       expect(source).not.toContain('useSearchParams')
       expect(source).not.toContain('new URLSearchParams')
     }
-    expect(
-      existsSync('apps/app/src/app/(public-routes)/degens/DegenSearchParamsBoundary.tsx')
-    ).toBe(false)
+    expect(existsSync('apps/app/src/pages/degens/DegenSearchParamsBoundary.tsx')).toBe(false)
     expect(existsSync('apps/app/src/hooks/usePagination.ts')).toBe(false)
 
-    const dashboardDegens = read(
-      'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
-    )
+    const dashboardDegens = read('apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx')
     expect(dashboardDegens).not.toContain('setFilteredData')
     expect(dashboardDegens).not.toContain('setDefaultValues')
     expect(dashboardDegens).not.toContain('setFilters')
@@ -113,14 +109,15 @@ describe('M1 state and data ownership', () => {
     expect(manifest.dependencies.nuqs).toBeTruthy()
     expect(manifest.dependencies.zustand).toBeTruthy()
 
-    const rootLayout = read('apps/app/src/app/layout.tsx')
-    const degensLayout = read('apps/app/src/app/(public-routes)/degens/layout.tsx')
-    const degensPage = read('apps/app/src/app/(public-routes)/degens/page.tsx')
+    const rootLayout = read('apps/app/src/routes/__root.tsx')
+    const degensLayout = read('apps/app/src/routes/_public/degens.tsx')
+    const degensRoute = read('apps/app/src/routes/_public/degens.index.tsx')
     expect(rootLayout).toContain('<NuqsAdapter>')
     expect(rootLayout).not.toContain('<AppQueryProvider>')
     expect(degensLayout).toContain('<AppQueryProvider>')
-    expect(degensPage).toContain('HydrationBoundary')
-    expect(degensPage).toContain('createAppQueryClient()')
+    // The route prefetches through the router's SSR Query integration, so the
+    // request-local client comes from the router instead of an inline client.
+    expect(degensRoute).toContain('context.queryClient')
   })
 
   it('records the reviewed non-migrations in every other app', () => {

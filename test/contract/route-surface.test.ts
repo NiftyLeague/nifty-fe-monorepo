@@ -72,46 +72,45 @@ const appRouteContracts: Record<string, string[]> = {
   ],
   app: [
     // dApp: auth-critical, SEO, and externally deep-linked routes.
-    // The public route group preserves the external `/` URL while keeping its
-    // wallet-free layout boundary explicit in the source tree.
-    'src/app/(public-routes)/page.tsx',
-    'src/app/verification/page.tsx',
-    'src/app/robots.ts',
-    'src/app/sitemap.ts',
-    'src/app/(public-routes)/degens/page.tsx',
-    'src/app/(public-routes)/degens/[id]/page.tsx',
-    'src/app/(public-routes)/games/page.tsx',
-    'src/app/(public-routes)/leaderboards/page.tsx',
-    'src/app/(public-routes)/mint-o-matic/page.tsx',
-    'src/app/(private-routes)/dashboard/page.tsx',
-    'src/app/(private-routes)/dashboard/items/page.tsx',
-    'src/app/(private-routes)/dashboard/items/burner/page.tsx',
-    'src/app/(private-routes)/dashboard/gamer-profile/page.tsx',
-    'src/app/(private-routes)/dashboard/rentals/page.tsx',
-    'src/app/(private-routes)/dashboard/degens/page.tsx',
-    'src/app/(private-routes)/dashboard/overview/page.tsx',
+    // TanStack Start owns each URL with a file route; `_public` is a pathless
+    // layout that keeps the wallet-free shell boundary explicit in the tree.
+    'src/routes/_public/index.tsx',
+    'src/routes/verification.index.tsx',
+    'src/routes/robots[.]txt.ts',
+    'src/routes/sitemap[.]xml.ts',
+    'src/routes/_public/degens.index.tsx',
+    'src/routes/_public/degens.$id.tsx',
+    'src/routes/_public/games.index.tsx',
+    'src/routes/_public/leaderboards.index.tsx',
+    'src/routes/_public/mint-o-matic.index.tsx',
+    'src/routes/dashboard.index.tsx',
+    'src/routes/dashboard.items.tsx',
+    'src/routes/dashboard.items.burner.tsx',
+    'src/routes/dashboard.gamer-profile.tsx',
+    'src/routes/dashboard.rentals.tsx',
+    'src/routes/dashboard.degens.tsx',
+    'src/routes/dashboard.overview.tsx',
   ],
 }
 
 const deferredDashboardDialogConsumers = [
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx',
+  'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/pages/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/pages/dashboard/rentals/MyRentalsDataGrid.tsx',
 ]
 const deferredRenameDegenConsumers = [
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/pages/dashboard/overview/MyDegens.tsx',
 ]
 const deferredProfileDialogConsumers = [
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/TopInfo.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/index.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/_Stats/TopInfo.tsx',
+  'apps/app/src/pages/dashboard/gamer-profile/_ImageProfile/index.tsx',
 ]
-const deferredNicknameDialogConsumer =
-  'apps/app/src/app/(private-routes)/dashboard/rentals/MyRentalsDataGrid.tsx'
+const deferredNicknameDialogConsumer = 'apps/app/src/pages/dashboard/rentals/MyRentalsDataGrid.tsx'
 
-const authOnlyRouteLayouts = ['apps/app/src/app/verification/layout.tsx']
-const nftOnlyRouteLayouts = ['apps/app/src/app/(public-routes)/mint-o-matic/layout.tsx']
-const publicRoutesLayout = 'apps/app/src/app/(public-routes)/layout.tsx'
+const authOnlyRouteLayouts = ['apps/app/src/routes/verification.tsx']
+const nftOnlyRouteLayouts = ['apps/app/src/routes/_public/mint-o-matic.tsx']
+const publicRoutesLayout = 'apps/app/src/routes/_public.tsx'
 const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapper.tsx'
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthProviders.tsx',
@@ -128,46 +127,34 @@ const rendersSharedLoadingSkeleton = (source: string) =>
 
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
 const leaderboardWalletBoundary = 'apps/app/src/components/leaderboards/LeaderboardRankBoundary.tsx'
-const dashboardOverview = 'apps/app/src/app/(private-routes)/dashboard/overview/page.tsx'
+const dashboardOverview = 'apps/app/src/pages/dashboard/overview/page.tsx'
 const dashboardOverviewBoundary =
-  'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
-const dashboardOverviewClient =
-  'apps/app/src/app/(private-routes)/dashboard/overview/DashboardOverviewClient.tsx'
-const dashboardDegens = 'apps/app/src/app/(private-routes)/dashboard/degens/page.tsx'
+  'apps/app/src/pages/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
+const dashboardOverviewClient = 'apps/app/src/pages/dashboard/overview/DashboardOverviewClient.tsx'
+const dashboardDegens = 'apps/app/src/pages/dashboard/degens/page.tsx'
 const dashboardDegensBoundary =
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensRouteBoundary.tsx'
-const dashboardDegensClient =
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensClient.tsx'
-const dashboardDegensContent =
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx'
-const dashboardItems = 'apps/app/src/app/(private-routes)/dashboard/items/page.tsx'
-const dashboardItemsBoundary =
-  'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsRouteBoundary.tsx'
-const dashboardItemsClient =
-  'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsClient.tsx'
-const dashboardItemsContent =
-  'apps/app/src/app/(private-routes)/dashboard/items/DashboardItemsContent.tsx'
-const dashboardBurner = 'apps/app/src/app/(private-routes)/dashboard/items/burner/page.tsx'
+  'apps/app/src/pages/dashboard/degens/DashboardDegensRouteBoundary.tsx'
+const dashboardDegensClient = 'apps/app/src/pages/dashboard/degens/DashboardDegensClient.tsx'
+const dashboardDegensContent = 'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx'
+const dashboardItems = 'apps/app/src/pages/dashboard/items/page.tsx'
+const dashboardItemsBoundary = 'apps/app/src/pages/dashboard/items/DashboardItemsRouteBoundary.tsx'
+const dashboardItemsClient = 'apps/app/src/pages/dashboard/items/DashboardItemsClient.tsx'
+const dashboardItemsContent = 'apps/app/src/pages/dashboard/items/DashboardItemsContent.tsx'
+const dashboardBurner = 'apps/app/src/pages/dashboard/items/burner/page.tsx'
 const dashboardBurnerBoundary =
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerRouteBoundary.tsx'
-const dashboardBurnerClient =
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerClient.tsx'
-const dashboardBurnerContent =
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/ComicsBurnerContent.tsx'
-const gamerProfile = 'apps/app/src/app/(private-routes)/dashboard/gamer-profile/page.tsx'
+  'apps/app/src/pages/dashboard/items/burner/ComicsBurnerRouteBoundary.tsx'
+const dashboardBurnerClient = 'apps/app/src/pages/dashboard/items/burner/ComicsBurnerClient.tsx'
+const dashboardBurnerContent = 'apps/app/src/pages/dashboard/items/burner/ComicsBurnerContent.tsx'
+const gamerProfile = 'apps/app/src/pages/dashboard/gamer-profile/page.tsx'
 const gamerProfileBoundary =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileRouteBoundary.tsx'
-const gamerProfileClient =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileClient.tsx'
-const gamerProfileContent =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/GamerProfileContent.tsx'
-const dashboardRentals = 'apps/app/src/app/(private-routes)/dashboard/rentals/page.tsx'
+  'apps/app/src/pages/dashboard/gamer-profile/GamerProfileRouteBoundary.tsx'
+const gamerProfileClient = 'apps/app/src/pages/dashboard/gamer-profile/GamerProfileClient.tsx'
+const gamerProfileContent = 'apps/app/src/pages/dashboard/gamer-profile/GamerProfileContent.tsx'
+const dashboardRentals = 'apps/app/src/pages/dashboard/rentals/page.tsx'
 const dashboardRentalsBoundary =
-  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsRouteBoundary.tsx'
-const dashboardRentalsClient =
-  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsClient.tsx'
-const dashboardRentalsContent =
-  'apps/app/src/app/(private-routes)/dashboard/rentals/DashboardRentalsContent.tsx'
+  'apps/app/src/pages/dashboard/rentals/DashboardRentalsRouteBoundary.tsx'
+const dashboardRentalsClient = 'apps/app/src/pages/dashboard/rentals/DashboardRentalsClient.tsx'
+const dashboardRentalsContent = 'apps/app/src/pages/dashboard/rentals/DashboardRentalsContent.tsx'
 const privateShellBoundary = 'apps/app/src/components/providers/PrivateRoutesBoundary.tsx'
 const privateShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const nftDataProviders = 'apps/app/src/contexts/NFTDataProviders.tsx'
@@ -182,17 +169,17 @@ const deferredProfileImageDialog =
   'apps/app/src/components/providers/DeferredProfileImageDialog.tsx'
 const deferredNicknameDialog = 'apps/app/src/components/providers/DeferredChangeNicknameDialog.tsx'
 const profileNameDialog =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx'
+  'apps/app/src/pages/dashboard/gamer-profile/_Stats/ChangeProfileNameDialog.tsx'
 const profileImageDialog =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx'
+  'apps/app/src/pages/dashboard/gamer-profile/_ImageProfile/ProfileImageDialog.tsx'
 const profileImageContent =
-  'apps/app/src/app/(private-routes)/dashboard/gamer-profile/_ImageProfile/ProfileImageContent.tsx'
+  'apps/app/src/pages/dashboard/gamer-profile/_ImageProfile/ProfileImageContent.tsx'
 const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
 const authTokenContext = 'apps/app/src/contexts/AuthTokenContext.tsx'
 const mintNetworkBoundary = 'apps/app/src/components/providers/MintNetworkBoundary.tsx'
-const mintPage = 'apps/app/src/app/(public-routes)/mint-o-matic/page.tsx'
+const mintPage = 'apps/app/src/routes/_public/mint-o-matic.index.tsx'
 const mintPageContent = 'apps/app/src/components/providers/MintPageContent.tsx'
 const deferredMintPage = 'apps/app/src/components/providers/DeferredMintPage.tsx'
 const mintWalletBoundary = 'apps/app/src/components/providers/MintProviders.tsx'
@@ -200,10 +187,10 @@ const deferredMintWalletBoundary = 'apps/app/src/components/providers/DeferredMi
 const walletProviderFallbacks = 'apps/app/src/components/providers/WalletProviderFallbacks.tsx'
 const gameRoute = 'apps/app/src/components/wrapper/GameRoute.tsx'
 const unityGamePages = [
-  'apps/app/src/app/(public-routes)/games/crypto-winter/page.tsx',
-  'apps/app/src/app/(public-routes)/games/mt-gawx/page.tsx',
-  'apps/app/src/app/(public-routes)/games/smashers/page.tsx',
-  'apps/app/src/app/(public-routes)/games/wen-game/page.tsx',
+  'apps/app/src/routes/_public/games.crypto-winter.tsx',
+  'apps/app/src/routes/_public/games.mt-gawx.tsx',
+  'apps/app/src/routes/_public/games.smashers.tsx',
+  'apps/app/src/routes/_public/games.wen-game.tsx',
 ]
 const networkContext = 'apps/app/src/contexts/NetworkContext.tsx'
 const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'
@@ -215,8 +202,8 @@ const viewportVideoBoundary =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoBoundary.tsx'
 const viewportVideoEnhancer =
   'packages/ui/src/components/custom/viewport-video/ViewportVideoEnhancer.tsx'
-const web3GameList = 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'
-const publicGamesGridStyles = 'apps/app/src/app/(public-routes)/games/grid-item.module.css'
+const web3GameList = 'apps/app/src/pages/games/_Web3GameList/index.tsx'
+const publicGamesGridStyles = 'apps/app/src/pages/games/grid-item.module.css'
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
 const smashersLoginClient = 'apps/smashers/src/components/login/LoginClient.tsx'
@@ -237,16 +224,16 @@ const smashersActionButtons = 'apps/smashers/src/components/Header/ActionButtons
 const smashersRootLayout = 'apps/smashers/src/layouts/Base.astro'
 const smashersAuthLayout = 'apps/smashers/src/layouts/Auth.astro'
 const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
-const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
-const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
+const privateShellLayout = 'apps/app/src/routes/dashboard.tsx'
+const sidebarProfile = 'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 const localStorageHook = 'apps/app/src/hooks/useLocalStorage.ts'
 const contractReaderHook = 'apps/app/src/hooks/useContractReader.ts'
 const valueEqualityUtility = 'apps/app/src/utils/value-equality.ts'
-const mainLayout = 'apps/app/src/app/_layout/_MainLayout/index.tsx'
-const networkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
+const mainLayout = 'apps/app/src/layouts/_layout/_MainLayout/index.tsx'
+const networkWarning = 'apps/app/src/layouts/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
-const analyticsLayouts = ['apps/app/src/app/layout.tsx']
+const analyticsLayouts = ['apps/app/src/routes/__root.tsx']
 // web ships as Astro static and smashers as Astro SSR: analytics mount through
 // each base layout's telemetry runtime instead of Next.js layout components.
 const webAnalyticsBaseLayout = 'apps/web/src/layouts/Base.astro'
@@ -265,7 +252,10 @@ const sharedRouteLoading = 'packages/ui/src/components/custom/route-loading/inde
 // smashers is excluded: Astro has no app-router `loading.tsx`; its route-level
 // loading state is the `slot="fallback"` on each client-only island, asserted by
 // the Smashers island fallback contract below.
-const routeLoadingFiles = ['apps/app/src/app/loading.tsx', 'apps/web/src/app/(main)/loading.tsx']
+const routeLoadingFiles = [
+  'apps/app/src/components/runtime/RouteFallbacks.tsx',
+  'apps/web/src/app/(main)/loading.tsx',
+]
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const gltfPage = 'apps/web/src/pages/shells/gltf.astro'
@@ -331,21 +321,21 @@ const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
 const webDeferredCareersSections = 'apps/web/src/components/DeferredCareersSections.tsx'
 const webCareersJobs = 'apps/web/src/components/CareersJobs.tsx'
 const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
-const appShell = 'apps/app/src/app/_layout/AppShell.tsx'
+const appShell = 'apps/app/src/layouts/_layout/AppShell.tsx'
 const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const deferredDegenCard = 'apps/app/src/components/providers/DeferredDegenCard.tsx'
 const deferredCharacterCreator = 'apps/app/src/components/providers/DeferredCharacterCreator.tsx'
-const leaderboardsPage = 'apps/app/src/app/(public-routes)/leaderboards/page.tsx'
+const leaderboardsPage = 'apps/app/src/routes/_public/leaderboards.index.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
 const deferredComponent = 'packages/ui/src/components/custom/deferred-component/index.tsx'
-const degensPage = 'apps/app/src/app/(public-routes)/degens/page.tsx'
-const degensRouteBoundary = 'apps/app/src/app/(public-routes)/degens/DegenRoute.tsx'
-const degensClientPage = 'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx'
+const degensPage = 'apps/app/src/routes/_public/degens.index.tsx'
+const degensRouteBoundary = 'apps/app/src/pages/degens/DegenRoute.tsx'
+const degensClientPage = 'apps/app/src/pages/degens/AllDegensPage.tsx'
 const degensTopNav = 'apps/app/src/components/extended/DegensTopNav/index.tsx'
 const degensTopNavControls =
   'apps/app/src/components/extended/DegensTopNav/DegensTopNavControls.tsx'
-const publicMainLayout = 'apps/app/src/app/_layout/_PublicMainLayout/index.tsx'
+const publicMainLayout = 'apps/app/src/layouts/_layout/_PublicMainLayout/index.tsx'
 const publicNavigation = 'apps/app/src/components/providers/PublicNavigation.tsx'
 const deferredPublicUserProfile = 'apps/app/src/components/providers/DeferredPublicUserProfile.tsx'
 const publicUserProfile = 'apps/app/src/components/providers/PublicUserProfile.tsx'
@@ -354,12 +344,12 @@ const sharedAppBarStyles = 'packages/ui/src/components/custom/app-bar/app-bar.mo
 const publicContentContainer = 'apps/app/src/components/wrapper/PublicContentContainer.tsx'
 const publicNavLinks = 'apps/app/src/components/providers/PublicNavLinks.tsx'
 const sharedMobileNavigation = 'packages/ui/src/components/custom/mobile-navigation/index.tsx'
-const collapsibleSidebarLayout = 'apps/app/src/app/_layout/_CollapsibleSidebarLayout/index.tsx'
+const collapsibleSidebarLayout = 'apps/app/src/layouts/_layout/_CollapsibleSidebarLayout/index.tsx'
 const smashersBackButton = 'apps/smashers/src/components/Header/BackButton/index.tsx'
-const verificationPage = 'apps/app/src/app/verification/page.tsx'
-const verificationLayout = 'apps/app/src/app/verification/layout.tsx'
-const verificationClient = 'apps/app/src/app/verification/VerificationClient.tsx'
-const verificationRouteBoundary = 'apps/app/src/app/verification/VerificationRouteBoundary.tsx'
+const verificationPage = 'apps/app/src/routes/verification.index.tsx'
+const verificationLayout = 'apps/app/src/routes/verification.tsx'
+const verificationClient = 'apps/app/src/pages/verification/VerificationClient.tsx'
+const verificationRouteBoundary = 'apps/app/src/pages/verification/VerificationRouteBoundary.tsx'
 const walletAuthContextWrapper = 'apps/app/src/contexts/WalletAuthContextWrapper.tsx'
 const walletAuthProviders = 'apps/app/src/contexts/WalletAuthProviders.tsx'
 const walletStorageProviders = 'apps/app/src/contexts/WalletStorageProviders.tsx'
@@ -485,9 +475,8 @@ describe('public degen loading contract', () => {
     const topNavSource = readFileSync(join(process.cwd(), degensTopNav), 'utf8')
     const topNavControlsSource = readFileSync(join(process.cwd(), degensTopNavControls), 'utf8')
     expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './DegenRoute'")
-    expect(pageSource).toContain('HydrationBoundary')
-    expect(pageSource).toContain('prefetchQuery')
+    expect(pageSource).toContain("from '@/pages/degens/DegenRoute'")
+    expect(pageSource).toContain('ensureQueryData')
     expect(routeBoundarySource).toContain("'use client'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
     expect(routeBoundarySource).toContain('ssr: false')
@@ -957,14 +946,15 @@ describe('Smashers profile loading contract', () => {
 })
 
 /**
- * Safety net: assert the app route trees actually exist and are non-empty,
- * so an entire route directory cannot silently disappear.
+ * Safety net: assert the route trees actually exist and are non-empty, so an
+ * entire route directory cannot silently disappear.
  *
- * smashers ships as Astro SSR and keeps its routes in src/pages instead.
+ * smashers ships as Astro SSR and keeps its routes in src/pages; the app ships
+ * as TanStack Start and keeps its file routes in src/routes.
  */
 describe('app route trees exist', () => {
   for (const app of Object.keys(appRouteContracts)) {
-    const routeDir = app === 'smashers' ? 'pages' : 'app'
+    const routeDir = app === 'app' ? 'routes' : 'pages'
     it(`apps/${app}/src/${routeDir} is a populated route tree`, () => {
       const root = join(process.cwd(), 'apps', app, 'src', routeDir)
       expect(existsSync(root), `Missing route tree root: apps/${app}/src/${routeDir}`).toBe(true)
@@ -1005,9 +995,7 @@ describe('dashboard dialog loading contract', () => {
 
     expect(source).toContain("from '@nl/ui/custom/deferred-component'")
     expect(source).toContain('enabled={open}')
-    expect(source).toContain(
-      "import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')"
-    )
+    expect(source).toContain("import('@/pages/dashboard/degens/_dialogs/RenameDegenDialogContent')")
     expect(source).toContain('DeferredDialogLoading')
     expect(source).not.toContain("from 'next/dynamic'")
   })
@@ -1019,7 +1007,7 @@ describe('dashboard dialog loading contract', () => {
       expect(source).toContain('DeferredRenameDegenDialog')
       expect(source).toContain('open={isRenameDegenModalOpen}')
       expect(source).not.toContain(
-        "from '@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent'"
+        "from '@/pages/dashboard/degens/_dialogs/RenameDegenDialogContent'"
       )
     })
   }
@@ -1042,7 +1030,7 @@ describe('dashboard dialog loading contract', () => {
     it(`defers ${component} behind a shared loading boundary`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain(`import('@/app/(private-routes)/${route}`)
+      expect(source).toContain(`import('@/pages/${route}`)
       expect(source).toContain(`DeferredDialogLoading`)
       expect(source).toContain('ssr: false')
     })
@@ -1054,9 +1042,7 @@ describe('dashboard dialog loading contract', () => {
 
     expect(wrapper).toContain("from '@nl/ui/custom/deferred-component'")
     expect(wrapper).toContain('enabled={open}')
-    expect(wrapper).toContain(
-      "import('@/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog')"
-    )
+    expect(wrapper).toContain("import('@/pages/dashboard/rentals/ChangeNicknameDialog')")
     expect(wrapper).not.toContain("from 'next/dynamic'")
     expect(source).toContain('DeferredChangeNicknameDialog')
     expect(source).toContain('open={isNicknameModalOpen}')
@@ -1082,11 +1068,9 @@ describe('dashboard dialog loading contract', () => {
     expect(dialogSource).toContain("import('./ProfileImageContent')")
     expect(dialogSource).toContain('DeferredDialogLoading')
     expect(dialogSource).not.toContain("from '@/components/sections/SectionSlider'")
-    expect(dialogSource).not.toContain(
-      "from '@/app/(private-routes)/dashboard/rentals/SearchRental'"
-    )
+    expect(dialogSource).not.toContain("from '@/pages/dashboard/rentals/SearchRental'")
     expect(contentSource).toContain("from '@/components/sections/SectionSlider'")
-    expect(contentSource).toContain("from '@/app/(private-routes)/dashboard/rentals/SearchRental'")
+    expect(contentSource).toContain("from '@/pages/dashboard/rentals/SearchRental'")
   })
 
   for (const file of deferredProfileDialogConsumers) {
@@ -1137,7 +1121,7 @@ describe('mint route provider loading contract', () => {
 
     expect(pageSource).toContain('DeferredCharacterCreator')
     expect(boundarySource).toContain("import('@/contexts/NetworkProvider')")
-    expect(boundarySource).toContain('NEXT_PUBLIC_AUDIT_FIXTURE')
+    expect(boundarySource).toContain('AUDIT_FIXTURE')
     expect(boundarySource).toContain('role="status"')
     expect(rendersSharedLoadingSkeleton(boundarySource)).toBe(true)
   })
@@ -1250,7 +1234,7 @@ describe('public app shell contract', () => {
 
     expect(layoutSource).not.toContain("'use client'")
     expect(layoutSource).toContain("from '@/components/providers/PublicNavigation'")
-    expect(routeSource).toContain("from '@/app/_layout/_PublicMainLayout'")
+    expect(routeSource).toContain("from '@/layouts/_layout/_PublicMainLayout'")
   })
 
   it('keeps the public app bar padded and vertically centered', () => {
@@ -1279,7 +1263,7 @@ describe('public app shell contract', () => {
     )
     const profileSource = readFileSync(join(process.cwd(), publicUserProfile), 'utf8')
     const navigationStyles = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/MainLayout.module.css'),
+      join(process.cwd(), 'apps/app/src/layouts/_layout/_MainLayout/MainLayout.module.css'),
       'utf8'
     )
     const contentContainerSource = readFileSync(join(process.cwd(), publicContentContainer), 'utf8')
@@ -1301,7 +1285,7 @@ describe('public app shell contract', () => {
     )
     expect(profileSource).not.toContain("from '@nl/ui/hooks/useDeferredActivation'")
     expect(profileSource).toContain("from '@nl/ui/hooks/useMediaQuery'")
-    expect(profileSource).toContain("from '@/app/_layout/navigation-breakpoints'")
+    expect(profileSource).toContain("from '@/layouts/_layout/navigation-breakpoints'")
     expect(profileSource).toContain("placement: 'desktop' | 'mobile'")
     expect(profileSource).toContain('enabled\n')
     expect(profileSource).toContain('walletRequested')
@@ -1372,9 +1356,8 @@ describe('verification route shell contract', () => {
     expect(pageSource).not.toContain('PublicNavigation')
     expect(pageSource).not.toContain('_PublicMainLayout')
     expect(layoutSource).toContain('WalletAuthContextWrapper')
-    expect(
-      existsSync(join(process.cwd(), 'apps/app/src/app/(public-routes)/verification/page.tsx'))
-    ).toBe(false)
+    expect(pageSource).not.toContain("from '@/routes/_public")
+    expect(layoutSource).not.toContain("from '@/routes/_public")
   })
 
   it('defers wallet providers and verification interactions until after the initial shell', () => {
@@ -1389,7 +1372,7 @@ describe('verification route shell contract', () => {
     )
 
     expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './VerificationRouteBoundary'")
+    expect(pageSource).toContain("from '@/pages/verification/VerificationRouteBoundary'")
     expect(routeBoundarySource).toContain("import('./VerificationClient')")
     expect(routeBoundarySource).toContain('ssr: false')
     expect(routeBoundarySource).toContain("from '@nl/ui/custom/route-loading'")
@@ -1471,10 +1454,7 @@ describe('private provider loading contract', () => {
     )
 
     expect(
-      readFileSync(
-        join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/rentals/page.tsx'),
-        'utf8'
-      )
+      readFileSync(join(process.cwd(), 'apps/app/src/pages/dashboard/rentals/page.tsx'), 'utf8')
     ).not.toContain('DashboardDataProviders')
   })
 
@@ -1577,7 +1557,7 @@ describe('private provider loading contract', () => {
     const boundarySource = readFileSync(join(process.cwd(), privateShellBoundary), 'utf8')
     const shellSource = readFileSync(join(process.cwd(), privateShell), 'utf8')
     const sidebarSource = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/_layout/_MainLayout/_Sidebar/index.tsx'),
+      join(process.cwd(), 'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/index.tsx'),
       'utf8'
     )
     const profileSource = readFileSync(join(process.cwd(), sidebarProfile), 'utf8')
@@ -1588,7 +1568,7 @@ describe('private provider loading contract', () => {
     const profileImplementationSource = `${profileSource}\n${sharedProfileSource}`
 
     expect(layoutSource).toContain('PrivateRoutesBoundary')
-    expect(layoutSource).toContain('headers()')
+    expect(layoutSource).toContain('getRequestCookieHeader()')
     expect(boundarySource).not.toContain("'use client'")
     expect(boundarySource).toContain("dynamic(() => import('./PrivateRoutesShell')")
     expect(boundarySource).not.toContain('ssr: false')
@@ -1630,7 +1610,7 @@ describe('dashboard overview loading contract', () => {
     const boundarySource = readFileSync(join(process.cwd(), dashboardOverviewBoundary), 'utf8')
     const source = readFileSync(join(process.cwd(), dashboardOverviewClient), 'utf8')
     const nftlSource = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(private-routes)/dashboard/overview/_MyNFTL/index.tsx'),
+      join(process.cwd(), 'apps/app/src/pages/dashboard/overview/_MyNFTL/index.tsx'),
       'utf8'
     )
 
@@ -1849,8 +1829,10 @@ describe('shared analytics loading contract', () => {
     it(`uses deferred analytics in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain('DeferredAnalytics')
-      expect(source).toContain("from '@nl/ui/gtm/deferred'")
+      expect(source).toContain('<DeferredAnalytics />')
+      expect(source).toContain("from '@/components/runtime/DeferredAnalytics'")
+      // Web Vitals are reported by the app's own runtime module: the shared one
+      // is built on a framework web-vitals hook.
       expect(source).not.toContain('import { GoogleTagManager')
       expect(source).not.toContain('import { WebVitals')
     })
@@ -1887,8 +1869,8 @@ describe('shared analytics loading contract', () => {
 })
 
 describe('app-router metadata contract', () => {
-  it('keeps apps/app/src/app/layout.tsx on the Metadata API', () => {
-    const source = readFileSync(join(process.cwd(), 'apps/app/src/app/layout.tsx'), 'utf8')
+  it('keeps apps/app/src/routes/__root.tsx on the Metadata API', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/routes/__root.tsx'), 'utf8')
 
     expect(source).not.toContain("from 'next/head'")
     expect(source).not.toContain('<Head>')
@@ -2481,11 +2463,39 @@ describe('static legal route performance contract', () => {
 })
 
 const sentryClientBoundaries = [
-  'apps/app/src/instrumentation-client.ts',
-  'apps/app/src/app/global-error.tsx',
+  'apps/app/src/components/runtime/DeferredSentry.tsx',
+  'apps/app/src/components/runtime/RouteFallbacks.tsx',
 ]
 
 describe('deferred Sentry client contract', () => {
+  it('keeps the Sentry SDK out of the app static shell', () => {
+    // The app ships as TanStack Start: the Next.js
+    // instrumentation-client/global-error boundaries are gone and
+    // @sentry/browser loads lazily from the app's own runtime module instead of
+    // @sentry/nextjs.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/app/package.json'), 'utf8')
+    ) as { dependencies?: Record<string, string> }
+
+    expect(existsSync(join(process.cwd(), 'apps/app/src/instrumentation-client.ts'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/app/src/pages/global-error.tsx'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/app/src/instrumentation.ts'))).toBe(false)
+    expect(manifest.dependencies?.['@sentry/nextjs']).toBeUndefined()
+    expect(manifest.dependencies?.['@sentry/browser']).toBeDefined()
+    expect(readFileSync(join(process.cwd(), 'apps/app/src/runtime/sentry.ts'), 'utf8')).toContain(
+      "import('@sentry/browser')"
+    )
+  })
+
+  for (const file of sentryClientBoundaries) {
+    it(`keeps the Sentry SDK out of the static client boundary in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).not.toContain('@sentry/nextjs')
+      expect(source).toContain("'@/runtime/sentry'")
+    })
+  }
+
   it('keeps the Sentry SDK out of the web static shell', () => {
     // web ships as Astro static: the Next.js instrumentation-client/global-error
     // boundaries are gone and @sentry/browser loads lazily from the telemetry
@@ -2502,21 +2512,6 @@ describe('deferred Sentry client contract', () => {
       "import('@sentry/browser')"
     )
   })
-
-  for (const file of sentryClientBoundaries) {
-    it(`keeps the Sentry SDK out of the static client boundary in ${file}`, () => {
-      const source = readFileSync(join(process.cwd(), file), 'utf8')
-
-      expect(source).not.toContain("from '@sentry/nextjs'")
-      if (file.endsWith('instrumentation-client.ts')) {
-        expect(source).toContain('@nl/sentry-client/router-bridge')
-        expect(source).not.toContain('@nl/sentry-client/bootstrap')
-      } else {
-        expect(source).toContain("import('@nl/sentry-client/bootstrap')")
-        expect(source).toContain('sentryOptions')
-      }
-    })
-  }
 
   it('keeps the Sentry SDK out of the smashers Astro shell', () => {
     // smashers ships as Astro SSR: the Next instrumentation-client/global-error
@@ -2556,46 +2551,28 @@ describe('deferred Sentry client contract', () => {
     expect(middleware).toContain('defineMiddleware')
   })
 
-  it('keeps the shared Sentry loader dynamic', () => {
-    const source = readFileSync(join(process.cwd(), 'packages/sentry-client/src/client.ts'), 'utf8')
-    const bootstrap = readFileSync(
-      join(process.cwd(), 'packages/sentry-client/src/bootstrap.ts'),
-      'utf8'
-    )
-    const routerBridge = readFileSync(
-      join(process.cwd(), 'packages/sentry-client/src/router-bridge.ts'),
-      'utf8'
-    )
+  it('keeps the app Sentry runtime lazy and off the client boundary', () => {
+    // The app ships as TanStack Start: there is no shared Next Sentry package
+    // any more, and the browser SDK loads lazily from the app's own runtime.
+    const runtime = readFileSync(join(process.cwd(), 'apps/app/src/runtime/sentry.ts'), 'utf8')
 
-    expect(source).toContain("import('@sentry/nextjs')")
-    expect(bootstrap).toContain("import('./client')")
-    expect(bootstrap).not.toContain("from '@sentry/nextjs'")
-    expect(routerBridge).not.toContain("from '@sentry/nextjs'")
+    expect(runtime).not.toContain('@sentry/nextjs')
+    expect(runtime).toContain("import('@sentry/browser')")
+    expect(runtime).toContain('??= import(')
   })
 })
 
 describe('production-only Sentry server contract', () => {
-  // smashers is excluded: it ships as Astro SSR with no Next build wrapper or
-  // instrumentation hook; its @sentry/browser integration is asserted in the
-  // deferred client contract through the telemetry runtime.
-  for (const app of ['app']) {
-    it(`keeps the ${app} build wrapper lazy outside production`, () => {
-      const source = readFileSync(join(process.cwd(), `apps/${app}/next.config.ts`), 'utf8')
-
-      expect(source).not.toContain("import { withSentryConfig } from '@sentry/nextjs'")
-      expect(source).toContain("import('@sentry/nextjs')")
-      expect(source).toContain("process.env.VERCEL_ENV === 'production'")
-    })
-
-    it(`keeps ${app} request-error capture lazy and production-gated`, () => {
-      const source = readFileSync(join(process.cwd(), `apps/${app}/src/instrumentation.ts`), 'utf8')
-
-      expect(source).not.toContain("import * as Sentry from '@sentry/nextjs'")
-      expect(source).toContain("import('@sentry/nextjs')")
-      expect(source).toContain("process.env.VERCEL_ENV !== 'production'")
-      expect(source).toContain('captureRequestError(...args)')
-    })
-  }
+  // The app ships as TanStack Start with no Next build wrapper or
+  // instrumentation hook, so there is no server-side Sentry surface to gate:
+  // its @sentry/browser integration is asserted in the deferred client
+  // contract through the app runtime.
+  it('leaves no Next.js Sentry server surface behind', () => {
+    expect(existsSync(join(process.cwd(), 'apps/app/next.config.ts'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/app/src/instrumentation.ts'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/app/sentry.server.config.ts'))).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/app/sentry.edge.config.ts'))).toBe(false)
+  })
 })
 
 describe('public route dependency contract', () => {
@@ -2769,18 +2746,18 @@ describe('public route dependency contract', () => {
   it('keeps wallet-backed game providers out of public game cards', () => {
     const list = readFileSync(join(process.cwd(), web3GameList), 'utf8')
     const gamesPage = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/page.tsx'),
+      join(process.cwd(), 'apps/app/src/routes/_public/games.index.tsx'),
       'utf8'
     )
     const homePage = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/page.tsx'),
+      join(process.cwd(), 'apps/app/src/routes/_public/index.tsx'),
       'utf8'
     )
 
     expect(existsSync(join(process.cwd(), web3GameList))).toBe(true)
-    expect(gamesPage).toContain("import DeferredWeb3GameList from './DeferredWeb3GameList'")
+    expect(gamesPage).toContain("from '@/pages/games/DeferredWeb3GameList'")
     expect(gamesPage).toContain('<DeferredWeb3GameList />')
-    expect(homePage).toContain("import DeferredWeb3GameList from './games/DeferredWeb3GameList'")
+    expect(homePage).toContain("from '@/pages/games/DeferredWeb3GameList'")
     expect(homePage).toContain('<DeferredWeb3GameList />')
     expect(list).toContain("from '@nl/ui/base/button-variants'")
     expect(list).not.toContain('WalletFeatureProviders')
@@ -2791,14 +2768,14 @@ describe('public route dependency contract', () => {
   it('keeps the public launcher action independent from the network registry', () => {
     const source = readFileSync(join(process.cwd(), 'apps/app/src/hooks/useVersion.ts'), 'utf8')
 
-    expect(source).toContain("process.env.NEXT_PUBLIC_NETWORK === 'mainnet'")
+    expect(source).toContain("NETWORK === 'mainnet'")
     expect(source).not.toContain("from '@/constants/networks'")
     expect(source).not.toContain('TARGET_NETWORK')
   })
 
   it('keeps the removed desktop download dialog from returning as dead UI', () => {
     const list = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      join(process.cwd(), 'apps/app/src/pages/games/_Web3GameList/index.tsx'),
       'utf8'
     )
 
@@ -2809,11 +2786,11 @@ describe('public route dependency contract', () => {
   it('preserves the responsive grid style for both public game lists', () => {
     const gridStyles = readFileSync(join(process.cwd(), publicGamesGridStyles), 'utf8')
     const freeToPlayList = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/index.tsx'),
+      join(process.cwd(), 'apps/app/src/pages/games/_GameList/index.tsx'),
       'utf8'
     )
     const web3List = readFileSync(
-      join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'),
+      join(process.cwd(), 'apps/app/src/pages/games/_Web3GameList/index.tsx'),
       'utf8'
     )
 
@@ -2821,17 +2798,10 @@ describe('public route dependency contract', () => {
     expect(web3List).toContain("from '../grid-item.module.css'")
     expect(gridStyles).toContain('@media (max-width: 639.95px)')
     expect(
-      existsSync(
-        join(process.cwd(), 'apps/app/src/app/(public-routes)/games/_GameList/grid-item.module.css')
-      )
+      existsSync(join(process.cwd(), 'apps/app/src/pages/games/_GameList/grid-item.module.css'))
     ).toBe(false)
     expect(
-      existsSync(
-        join(
-          process.cwd(),
-          'apps/app/src/app/(public-routes)/games/_Web3GameList/grid-item.module.css'
-        )
-      )
+      existsSync(join(process.cwd(), 'apps/app/src/pages/games/_Web3GameList/grid-item.module.css'))
     ).toBe(false)
   })
 

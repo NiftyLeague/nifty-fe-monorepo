@@ -9,7 +9,7 @@ interface DeferredSentryProps {
 
 /**
  * Loads Sentry after idle so the error client stays off the critical path.
- * Mirrors the shared `@nl/sentry-client/react` boundary without its framework-only
+ * Mirrors the shared deferred Sentry boundary without its framework-only
  * client module.
  */
 export default function DeferredSentry({ enabled, options }: DeferredSentryProps) {

@@ -5,7 +5,7 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 /**
  * Defers analytics until first interaction or idle, matching the app's previous
  * deferred GTM boundary while keeping the Web Vitals reporter app-local (the
- * shared one is built on Next's web-vitals hook).
+ * shared reporter is built on a framework web-vitals hook).
  */
 export default function DeferredAnalytics(): React.ReactNode {
   const [GoogleTagManager, setGoogleTagManager] = useState<React.ComponentType | null>(null)

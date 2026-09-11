@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "noEmit": true,
+    "incremental": true,
     "types": ["vite/client", "node"],
     "paths": {
       "@/*": ["./src/*"],

@@ -13,6 +13,14 @@ const domShim = readFileSync(local('./scripts/dom-shim.mjs'), 'utf8')
 
 export default defineConfig({
   server: { port: 3001 },
+  define: {
+    // Vercel injects VERCEL_ENV into the build environment; expose it to client
+    // code through the same VITE_ prefix the rest of the config uses. The app
+    // selects the Immutable SDK's PRODUCTION/SANDBOX target from this value.
+    'import.meta.env.VITE_VERCEL_ENV': JSON.stringify(
+      process.env.VERCEL_ENV ?? process.env.VITE_VERCEL_ENV ?? ''
+    ),
+  },
   // Resolve the `@/*` alias from tsconfig.json so app imports keep working.
   resolve: {
     tsconfigPaths: true,

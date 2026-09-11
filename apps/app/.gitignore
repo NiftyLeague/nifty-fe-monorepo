@@ -6,3 +6,4 @@ dist/
 .output/
 .vite/
 .tanstack/
+.env*

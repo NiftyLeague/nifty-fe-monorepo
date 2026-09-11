@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { readFileSync, statSync } from 'node:fs'
 
-const web3GameList = 'apps/app/src/app/(public-routes)/games/_Web3GameList/index.tsx'
+const web3GameList = 'apps/app/src/pages/games/_Web3GameList/index.tsx'
 
 const CARD_ARTWORK = [
   ['assets/img/games/wen-poster-640.webp', 15_000],

@@ -7,8 +7,8 @@ type MetaTag =
 const ROBOTS_DEFAULT = 'index, follow'
 
 /**
- * Route metadata in the shape the app already used for `next`'s `Metadata`
- * export, flattened into the tags TanStack Router renders through `head()`.
+ * Route metadata, flattened into the tags TanStack Router renders through
+ * `head()`.
  */
 export interface RouteMetadata {
   title: string

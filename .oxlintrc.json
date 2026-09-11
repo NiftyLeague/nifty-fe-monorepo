@@ -6,7 +6,6 @@
   },
   "ignorePatterns": [
     "node_modules/**",
-    "**/.next/**",
     "**/.turbo/**",
     "**/src/types/typechain/**",
     "**/build/**",

@@ -231,19 +231,13 @@ describe('dependency contract', () => {
     })
   }
 
-  it('keeps Next.js on one exact version across apps and shared peers', () => {
-    const expectedNextVersion = '16.3.4'
-    // web ships as Astro static and smashers as Astro SSR, so neither declares
-    // Next; @nl/playfab dropped it when smashers moved off next-auth.
-    const packagesWithNext = new Set(['app', '@nl/ui'])
-
+  it('keeps Next.js out of every app and shared package', () => {
+    // web, smashers and docs are Astro and the app is TanStack Start, so no
+    // workspace declares Next any more. `next-themes` is a third-party theme
+    // library that only peer-depends on React, not a Next.js dependency.
     for (const pkg of packages) {
-      if (!packagesWithNext.has(pkg.name)) continue
-
-      const declaredNext = pkg.deps.next ?? pkg.peerDeps.next
-      expect(declaredNext, `${pkg.name} must declare Next ${expectedNextVersion}`).toBe(
-        expectedNextVersion
-      )
+      expect(pkg.deps.next, `${pkg.name} must not depend on next`).toBeUndefined()
+      expect(pkg.peerDeps.next, `${pkg.name} must not peer-depend on next`).toBeUndefined()
     }
   })
 
