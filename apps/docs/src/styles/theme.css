@@ -432,11 +432,10 @@ h1#_top {
 
 .sl-markdown-content .starlight-aside__title .starlight-aside__icon:not(:where(.not-content *)) {
   display: inline-block;
-  /* 1.6em of the 1.125rem title, i.e. the previous icon size. The element's own
-     font-size differs, so express it in rem instead of em. Sitting on the text
-     baseline also reproduces the previous title line box height. */
-  width: 1.8rem;
-  height: 1.8rem;
+  /* The previous theme drew this icon at 1.6em of the title (≈32px), which
+     reads oversized next to the small uppercase label; keep it discreet. */
+  width: 1.25rem;
+  height: 1.25rem;
   margin-inline-end: 0.4em;
   vertical-align: baseline;
 }
