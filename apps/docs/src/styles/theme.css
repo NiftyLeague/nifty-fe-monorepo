@@ -1131,8 +1131,10 @@ site-search button[data-open-modal] svg,
   color: currentColor;
 }
 
+/* Gap between the shortcut chips. Deliberately no display here: visibility
+   below the desktop navbar belongs to Starlight's sl-hidden/md:sl-flex
+   utilities, and the hint is pointless on touch screens. */
 site-search kbd {
-  display: flex;
   gap: 0.15rem;
 }
 
