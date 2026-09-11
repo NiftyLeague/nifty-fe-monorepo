@@ -21,26 +21,37 @@ const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
 const roadmapPage = 'apps/docs/src/content/docs/overview/roadmap.mdx'
 const roadmapPoster = 'assets/img/roadmap/nifty_roadmap.webp'
 
+const youTubePages = [
+  'apps/docs/src/content/docs/overview/games/mini-games/crypto-winter.mdx',
+  'apps/docs/src/content/docs/overview/games/mobile-games/nifty-smashers.mdx',
+  docsPage,
+]
+
 describe('shared docs media policy', () => {
-  it('uses shared lazy media primitives instead of react-player', () => {
+  it('keeps react-player out of docs content', () => {
     for (const page of docsMediaPages) {
       const source = readFileSync(page, 'utf8')
       expect(source).not.toContain('react-player')
-      expect(source).toMatch(
-        /@nl\/ui\/custom\/(deferred-youtube-embed|lazy-youtube-embed|viewport-video)/
-      )
     }
   })
 
-  it('defers every documentation video until after viewport activation settles', () => {
+  it('uses the shared lazy YouTube primitive on pages that embed YouTube', () => {
+    for (const page of youTubePages) {
+      const source = readFileSync(page, 'utf8')
+      expect(source).toMatch(/@nl\/ui\/custom\/(deferred-youtube-embed|lazy-youtube-embed)/)
+    }
+  })
+
+  it('renders decorative videos as native muted looping elements', () => {
+    // Native video elements survive client-side navigation without island
+    // hydration; autoplaying ones must stay muted for browsers to allow it.
     for (const page of docsMediaPages) {
       const source = readFileSync(page, 'utf8')
-      const videoBlocks = [...source.matchAll(/<ViewportVideo\b[\s\S]*?\/>/g)].map(
-        ([block]) => block
-      )
-
-      for (const videoBlock of videoBlocks) {
-        expect(videoBlock).toContain('deferLoad')
+      for (const [tag] of source.matchAll(/<video\b[^>]*>/g)) {
+        expect(tag).toContain('muted')
+        expect(tag).toContain('playsInline')
+        expect(tag).toContain('preload="metadata"')
+        if (tag.includes('autoplay')) expect(tag).toContain('loop')
       }
     }
   })

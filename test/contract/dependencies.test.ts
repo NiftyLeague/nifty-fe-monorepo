@@ -284,6 +284,8 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   },
   'apps/docs': {
     '@astrojs/starlight': 'Starlight framework (config, loaders, components)',
+    '@docsearch/css':
+      'DocSearch v5 stylesheet, imported as a ?url asset and linked on first search use',
     '@docsearch/js': 'Algolia DocSearch modal mounted by the search component',
     '@nl/ui': 'shared media primitives imported in content/*.mdx and components',
     mermaid: 'renders mermaid code fences client side',
