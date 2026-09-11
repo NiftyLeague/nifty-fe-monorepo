@@ -227,7 +227,12 @@ const Home = (slots: Record<string, React.ReactNode> = {}) => {
         </h2>
 
         {slots.webIsland0 ?? (
-          <DeferredConsoleGame deferVideo src="/video/smashers.mp4">
+          <DeferredConsoleGame
+            loadInteractiveOnViewport
+            activationDelay={1500}
+            deferVideo
+            src="/video/smashers.mp4"
+          >
             <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
           </DeferredConsoleGame>
         )}

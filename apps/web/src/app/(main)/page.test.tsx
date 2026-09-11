@@ -109,10 +109,18 @@ describe('home page', () => {
     expect(consoleBackdrop.getAttribute('data-fetch-priority')).toBe('low')
   })
 
-  it('defers the console video after the backdrop becomes visible', () => {
+  it('loads the console artwork on viewport but keeps the video behind the activation window', () => {
     render(<Home />)
 
-    expect(consoleGameProps).toEqual({ deferVideo: true, src: '/video/smashers.mp4' })
+    // The interactive chunk (backdrop, controllers, bonk sticker) must mount as
+    // soon as the section nears the viewport, while the multi-megabyte video
+    // source still waits for the activation window.
+    expect(consoleGameProps).toEqual({
+      deferVideo: true,
+      loadInteractiveOnViewport: true,
+      activationDelay: 1500,
+      src: '/video/smashers.mp4',
+    })
   })
 
   it('keeps the desktop hero artwork wrapper full width', () => {

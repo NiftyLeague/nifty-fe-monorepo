@@ -11,7 +11,7 @@ import { metadata as routeMetadata } from '@/app/(main)/niftyworld/layout'
 <Marketing metadata={routeMetadata} rootClass="niftyworld-pg" canonical="/niftyworld">
   <LegacyPage>
   <Fragment slot="webIsland0">
-<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} deferVideo src="/video/mansion_showcase.mp4">
+<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} loadInteractiveOnViewport activationDelay={1500} deferVideo src="/video/mansion_showcase.mp4">
           <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
         </DeferredConsoleGame>
   </Fragment>

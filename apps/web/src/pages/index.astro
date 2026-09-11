@@ -16,7 +16,7 @@ import HomeSections from '@/layouts/HomeSections.astro'
 <Marketing metadata={routeMetadata} rootClass="home-pg" canonical="/">
   <LegacyPage>
   <Fragment slot="webIsland0">
-<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} deferVideo src="/video/smashers.mp4">
+<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} loadInteractiveOnViewport activationDelay={1500} deferVideo src="/video/smashers.mp4">
           <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
         </DeferredConsoleGame>
   </Fragment>
