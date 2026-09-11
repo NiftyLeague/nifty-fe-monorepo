@@ -5,10 +5,6 @@ sidebar:
 headingOffset: 1
 ---
 
-import ViewportVideo from '@nl/ui/custom/viewport-video'
-import VideoURL1 from '/video/companion.mp4'
-import VideoURL2 from '/video/citadel_key.mp4'
-
 | ![](/docs/img/items/full/1.gif) | ![](/docs/img/items/full/2.gif) | ![](/docs/img/items/full/6.gif) |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | ![](/docs/img/items/full/4.gif) | ![](/docs/img/items/full/5.gif) | ![](/docs/img/items/full/3.gif) |
@@ -29,27 +25,27 @@ Powerful bats or other weapons used in various Nifty League games such as [Nifty
 
 Earned from burning Comic Page #6
 
-<ViewportVideo
-  client:visible
-  muted
+<video
   controls
-  playOnViewport={false}
-  src={VideoURL1}
+  muted
+  playsInline
+  preload="metadata"
+  src="/docs/video/companion.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 
 ## Citadel Key
 
 Earned from burning a full-set of all 6 pages
 
-<ViewportVideo
-  client:visible
-  muted
+<video
   controls
-  playOnViewport={false}
-  src={VideoURL2}
+  muted
+  playsInline
+  preload="metadata"
+  src="/docs/video/citadel_key.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 
 ## Immutable zkEVM Items Marketplace
 

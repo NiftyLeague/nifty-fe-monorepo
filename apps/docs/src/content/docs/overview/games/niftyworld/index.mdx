@@ -5,11 +5,7 @@ sidebar:
 ---
 
 import { Image } from 'astro:assets'
-import ViewportVideo from '@nl/ui/custom/viewport-video'
 import appLogo from '../../../../../../../../assets/img/logos/niftyworld/app_logo_outlined.webp'
-export const VideoURL = '/docs/video/mansion_showcase.mp4'
-export const VideoURL2 = '/docs/video/bank.mp4'
-export const VideoURL3 = '/docs/video/rugmans-peak.mp4'
 
 ## 🚧 Under Development 🚧
 
@@ -26,15 +22,14 @@ NiftyWorld is a virtual space for gamers to connect, collaborate, and compete wi
 
 While Nifty League focuses on building a decentralized game platform with titles such as Nifty Smashers and other Nintendo-inspired games, NiftyWorld stands at the heart of our ecosystem tying everything together. It's not only the central lobby system or launch point for many of these games, but the main hub for all social interactions (and quite frankly our biggest game in and of itself).
 
-<ViewportVideo
-  client:visible
-  muted
+<video
   controls
-  playOnViewport={false}
+  muted
   playsInline
-  src={VideoURL}
+  preload="metadata"
+  src="/docs/video/mansion_showcase.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 
 ---
 
@@ -46,21 +41,25 @@ Get a first glimpse of NiftyWorld in [Nifty Royale](/docs/overview/games/mobile-
 
 :::
 
-<ViewportVideo
-  client:visible
+<video
   muted
+  loop
+  autoPlay
   playsInline
-  src={VideoURL2}
+  preload="metadata"
+  src="/docs/video/bank.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 <br />
-<ViewportVideo
-  client:visible
+<video
   muted
+  loop
+  autoPlay
   playsInline
-  src={VideoURL3}
+  preload="metadata"
+  src="/docs/video/rugmans-peak.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 
 ---
 

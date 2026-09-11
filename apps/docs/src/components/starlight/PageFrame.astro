@@ -154,6 +154,17 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 	import '@/scripts/mermaid';
 </script>
 
+<script>
+	// Autoplaying decorative videos are only allowed unmuted-free when muted;
+	// enforce it on every navigation, since the muted state can desync when
+	// client-side routing moves the elements into the new document.
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLVideoElement>('video[autoplay]').forEach((video) => {
+			video.muted = true;
+		});
+	});
+</script>
+
 <style>
 	@layer starlight.core {
 		.page {

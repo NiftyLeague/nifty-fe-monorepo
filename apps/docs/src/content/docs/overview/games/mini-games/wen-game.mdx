@@ -5,18 +5,14 @@ sidebar:
 headingOffset: 1
 ---
 
-import ViewportVideo from '@nl/ui/custom/viewport-video'
-import VideoURL from '/video/wen-ape.mp4'
-
-<ViewportVideo
-  client:visible
-  muted
+<video
   controls
-  playOnViewport={false}
+  muted
   playsInline
-  src={VideoURL}
+  preload="metadata"
+  src="/docs/video/wen-ape.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 
 ---
 

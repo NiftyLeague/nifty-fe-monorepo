@@ -5,16 +5,15 @@ sidebar:
 headingOffset: 1
 ---
 
-import ViewportVideo from '@nl/ui/custom/viewport-video'
-import VideoURL from '/video/arcade-token.mp4'
-
-<ViewportVideo
-  client:visible
+<video
   muted
+  loop
+  autoPlay
   playsInline
-  src={VideoURL}
+  preload="metadata"
+  src="/docs/video/arcade-token.mp4"
   style={{ display: 'block', width: '100%', height: '500px' }}
-/>
+></video>
 
 ---
 
