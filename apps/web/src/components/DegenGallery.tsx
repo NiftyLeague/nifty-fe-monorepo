@@ -26,7 +26,7 @@ export default function DegenGallery() {
                 className="pixelated mx-auto"
               />
             </div>
-            <h6 className="mx-auto text-center mt-3">{name}</h6>
+            <h3 className="mx-auto text-center mt-3 heading-look-6">{name}</h3>
           </div>
         ))}
       </div>

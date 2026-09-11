@@ -2,7 +2,10 @@ import { execFileSync } from 'node:child_process'
 import { basename, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-const BUILD_BRANCHES = new Set(['main'])
+// feat/web-astro-migration: the Astro migration pull request opts its own
+// branch into preview deployments (apps/web vercel.json deploymentEnabled);
+// production still only deploys from main.
+const BUILD_BRANCHES = new Set(['main', 'feat/web-astro-migration'])
 const ZERO_SHA = /^0+$/
 
 const GLOBAL_SHARED_PATH_PREFIXES = [
@@ -16,10 +19,10 @@ const GLOBAL_SHARED_PATH_PREFIXES = [
 
 const PROJECT_PATH_PREFIXES = {
   app: ['apps/app/'],
-  web: ['apps/web/'],
   smashers: ['apps/smashers/'],
   docs: ['apps/docs/'],
   api: ['apps/api/'],
+  web: ['apps/web/'],
 }
 
 const PROJECT_SHARED_PATH_PREFIXES = {
@@ -30,7 +33,6 @@ const PROJECT_SHARED_PATH_PREFIXES = {
     'packages/sentry-client/',
     'packages/ui/',
   ],
-  web: ['config/image-device-sizes.ts', 'packages/sentry-client/', 'packages/ui/'],
   smashers: [
     'config/image-device-sizes.ts',
     'packages/playfab/',
@@ -39,15 +41,16 @@ const PROJECT_SHARED_PATH_PREFIXES = {
   ],
   docs: ['packages/ui/'],
   api: ['packages/contracts/'],
+  web: ['packages/ui/'],
 }
 
 const PROJECT_ALIASES = {
   app: 'app',
-  web: 'web',
   smashers: 'smashers',
   'smashers-web': 'smashers',
   docs: 'docs',
   api: 'api',
+  web: 'web',
 }
 
 const normalizePath = (value) => value.replaceAll('\\', '/')

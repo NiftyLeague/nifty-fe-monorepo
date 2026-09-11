@@ -1,10 +1,11 @@
+import type { ReactNode } from 'react'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cx } from '@nl/ui/class-names'
 
 export interface ThemeButtonProps {
   href?: string
-  title: string
+  title: ReactNode
   responsiveTitle?: { mobile: string; desktop: string }
   className?: string
   disabled?: boolean

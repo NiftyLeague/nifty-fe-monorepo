@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+import type { RouteMetadata } from '@/runtime/metadata'
 import type { PropsWithChildren } from 'react'
 import MainLayout from '@/components/MainLayout'
 
-export const metadata: Metadata = {
+export const metadata: RouteMetadata = {
   title: 'NiftyWorld',
   description: 'A virtual space for gamers to connect, collaborate, and compete with each other',
   openGraph: {

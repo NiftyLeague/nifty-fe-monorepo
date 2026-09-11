@@ -1,0 +1,10 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/disclaimer/page'
+import Definitions from '@/components/Definitions'
+import { metadata as routeMetadata } from '@/app/(main)/disclaimer/layout'
+---
+<Marketing metadata={routeMetadata} rootClass="legal-pg" canonical="/disclaimer">
+  <LegacyPage>
+  </LegacyPage>
+</Marketing>

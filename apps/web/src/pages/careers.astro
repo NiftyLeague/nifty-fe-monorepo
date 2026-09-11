@@ -1,0 +1,15 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/careers/page'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
+import { DeferredCareersJobs } from '@/components/DeferredCareersSections'
+import { metadata as routeMetadata } from '@/app/(main)/careers/layout'
+import AstroCareersJobs from '@/components/CareersJobs'
+---
+<Marketing metadata={routeMetadata} rootClass="career-pg" canonical="/careers">
+  <LegacyPage>
+  <Fragment slot="webIsland0">
+<AstroCareersJobs client:visible={{ rootMargin: "200px" }} />
+  </Fragment>
+  </LegacyPage>
+</Marketing>

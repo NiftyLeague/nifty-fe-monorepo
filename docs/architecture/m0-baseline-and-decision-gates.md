@@ -1,5 +1,7 @@
 # M0 — Baseline and Decision Gates
 
+> **Superseded (2026-09-10):** the `web` app has since migrated from Next.js to Astro static + a Cloudflare Worker. The rows and baseline notes below describe the pre-migration state and are kept for benchmark history.
+
 Status: active baseline contract
 
 This decision record covers M0.1 through M0.4. It makes later migration work measurable and reversible; it does not approve a framework, bundler, or state-library migration.
@@ -13,14 +15,14 @@ This decision record covers M0.1 through M0.4. It makes later migration work mea
 
 ## Route and ownership inventory
 
-| App        | Runtime and rendering                                                          | P0/P1 route groups                                                                                            | Build and deploy path                                               |
-| ---------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `api`      | Express 5 on Node; dynamic HTTP handlers                                       | `/`, `/NFTL/supply*`, `/:network/degen/*`, `/imx/marketplace/*`                                               | `bun --filter api build`; Vercel function from `apps/api`           |
-| `app`      | Next 16 App Router; public server/client boundary plus authenticated dashboard | `/`, `/degens`, `/degens/[id]`, `/games/*`, `/leaderboards`, `/mint-o-matic`, `/dashboard/*`, `/verification` | `bun --filter app build` (Webpack); Vercel `app.niftyleague.com`    |
-| `docs`     | Docusaurus 3 static site                                                       | `/`, `/overview/intro`, guides, FAQ, generated contract docs                                                  | `bun --filter docs build`; Vercel `docs.niftyleague.com`            |
-| `smashers` | Next 16 App Router; server auth and client game/UI islands                     | `/`, `/loot`, `/login`, `/profile`, `/api/auth/*`, `/api/playfab/*`                                           | `bun --filter smashers build` (Webpack); Vercel `niftysmashers.com` |
-| `template` | Next 16 App Router; static shell with client progress state                    | `/`                                                                                                           | `bun --filter template build`; local production benchmark only      |
-| `web`      | Next 16 App Router; mostly static/server-rendered tree with client embeds      | `/`, `/games`, `/degens`, `/niftyworld`, `/roadmap`, `/gltf/[tokenId]`, invite and party links                | `bun --filter web build` (Webpack); Vercel `niftyleague.com`        |
+| App        | Runtime and rendering                                                                            | P0/P1 route groups                                                                                            | Build and deploy path                                               |
+| ---------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `api`      | Express 5 on Node; dynamic HTTP handlers                                                         | `/`, `/NFTL/supply*`, `/:network/degen/*`, `/imx/marketplace/*`                                               | `bun --filter api build`; Vercel function from `apps/api`           |
+| `app`      | Next 16 App Router; public server/client boundary plus authenticated dashboard                   | `/`, `/degens`, `/degens/[id]`, `/games/*`, `/leaderboards`, `/mint-o-matic`, `/dashboard/*`, `/verification` | `bun --filter app build` (Webpack); Vercel `app.niftyleague.com`    |
+| `docs`     | Docusaurus 3 static site                                                                         | `/`, `/overview/intro`, guides, FAQ, generated contract docs                                                  | `bun --filter docs build`; Vercel `docs.niftyleague.com`            |
+| `smashers` | Next 16 App Router; server auth and client game/UI islands                                       | `/`, `/loot`, `/login`, `/profile`, `/api/auth/*`, `/api/playfab/*`                                           | `bun --filter smashers build` (Webpack); Vercel `niftysmashers.com` |
+| `template` | Next 16 App Router; static shell with client progress state                                      | `/`                                                                                                           | `bun --filter template build`; local production benchmark only      |
+| `web`      | Astro 7 static; React islands inside Astro shells (Cloudflare Worker variant for special routes) | `/`, `/games`, `/degens`, `/niftyworld`, `/roadmap`, `/gltf/[tokenId]`, invite and party links                | `bun --filter web build` (Astro); Vercel `niftyleague.com`          |
 
 The contract test lists every external route. The benchmark manifest selects one no-auth route per app for repeatable lab data. Authenticated dashboard, profile, and wallet routes need a sanitized fixture before their migration.
 

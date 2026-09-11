@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro'
+import ReferralClient from '../../runtime/ReferralClient'
+---
+<Base noindex analytics canonical="/">
+  <main class="flex min-h-screen items-center justify-center">
+    <ReferralClient client:only="react">
+      <p slot="fallback" role="status">Opening Nifty Smashers…</p>
+    </ReferralClient>
+    <noscript><a href="https://niftysmashers.com">Continue to Nifty Smashers</a></noscript>
+  </main>
+</Base>

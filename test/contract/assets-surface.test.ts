@@ -1,17 +1,20 @@
 import { describe, expect, it } from 'bun:test'
-import { existsSync, lstatSync, readlinkSync } from 'node:fs'
+import { existsSync, lstatSync, readFileSync, readlinkSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
  * Shared assets surface contract.
  *
- * All four apps' `public/` dirs are symlinks to the repo-root `assets/` dir. If the
+ * The Next/Vercel apps' `public/` dirs are symlinks to the repo-root `assets/` dir. If the
  * `assets` dir (or a symlink, or a critical subdir) disappears, every app silently
  * 404s its images, favicons, and videos — with no in-repo click-through to catch it.
  * This test pins that structure.
+ *
+ * web ships as Astro static and has no public symlink: its publicDir is the shared
+ * assets dir directly (see apps/web/astro.config.mjs).
  */
 
-const APPS = ['web', 'app', 'smashers', 'docs']
+const APPS = ['app', 'smashers', 'docs']
 
 const ASSET_SUBDIRS = ['img', 'icons', 'favicon', 'video']
 
@@ -24,6 +27,11 @@ describe('shared assets surface contract', () => {
     for (const sub of ASSET_SUBDIRS) {
       expect(existsSync(join(process.cwd(), 'assets', sub)), `Missing assets/${sub}/`).toBe(true)
     }
+  })
+
+  it('web serves the shared assets dir directly via its Astro publicDir', () => {
+    const astroConfig = readFileSync(join(process.cwd(), 'apps/web/astro.config.mjs'), 'utf8')
+    expect(astroConfig).toContain("publicDir: '../../assets'")
   })
 
   for (const app of APPS) {

@@ -1,10 +1,17 @@
 {
-  "extends": "@nl/typescript-config/nextjs.json",
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "incremental": true,
-    "paths": { "@/*": ["./src/*"], "@nl/ui/*": ["../../packages/ui/src/*"] },
-    "plugins": [{ "name": "next" }]
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "verbatimModuleSyntax": false,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@nl/ui/*": ["../../packages/ui/src/*"]
+    }
   },
-  "include": ["src", "next-env.d.ts", "next.config.ts", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+  "include": [".astro/types.d.ts", "src/**/*", "worker/**/*", "playwright.config.ts", "e2e/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
 }

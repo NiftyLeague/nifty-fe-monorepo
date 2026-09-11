@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/client-only'
 import type { PropsWithChildren } from 'react'
 
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'

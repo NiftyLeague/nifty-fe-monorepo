@@ -11,8 +11,7 @@ type RpcResponse = {
   error?: { message?: string }
 }
 
-const infuraProjectId =
-  process.env.NEXT_PUBLIC_INFURA_ID ?? process.env.NEXT_PUBLIC_INFURA_PROJECT_ID
+const infuraProjectId = process.env.PUBLIC_INFURA_ID
 
 const RPC_URLS = [
   ...(infuraProjectId ? [`https://mainnet.infura.io/v3/${infuraProjectId}`] : []),

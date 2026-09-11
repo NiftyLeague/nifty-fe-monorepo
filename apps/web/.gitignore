@@ -1,2 +1,9 @@
-.vercel
 .env*.local
+
+# Astro web-only generated output
+.astro/
+.web-images/
+.worker-build/
+dist/
+artifacts/
+.wrangler/
