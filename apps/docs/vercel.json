@@ -7,6 +7,7 @@
     "deploymentEnabled": {
       "codex/*": false,
       "**": false,
+      "feat/docs-astro-starlight": true,
       "main": true
     }
   },
