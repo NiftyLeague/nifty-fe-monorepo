@@ -60,6 +60,33 @@ bun test         # bun:test unit and component tests
 bun run type-check
 ```
 
+## Performance benchmarks
+
+`scripts/benchmark.mjs` runs Lighthouse against a running build and writes a
+JSON report plus a console table.
+
+```bash
+bun run build
+bunx vite preview --port 4402 --strictPort
+BENCH_RUNS=3 node scripts/benchmark.mjs http://localhost:4402 baseline
+```
+
+Options: `BENCH_RUNS` (per route, median reported), `BENCH_FORMS`
+(`mobile,desktop`), `BENCH_THROTTLE` (`devtools` or `simulate`), and an optional
+routes file argument. `scripts/measure-eager.mjs` reports just the initial script
+payload for a route, which is useful when a score drops.
+
+Use `BENCH_THROTTLE=devtools` (the default) when comparing scores. Lighthouse's
+`simulate` mode models the network analytically and under-reports this app by
+roughly 15 points, which is enough to hide or invent a regression.
+
+Compare against the pre-migration Next.js build with a checkout of the parent
+commit: build `apps/app`, serve it on another port, and pass that URL as the
+base. Local builds are unminified for transfer-size purposes but the request
+counts and timings remain comparable.
+
+Reports land in `artifacts/benchmarks/` (gitignored).
+
 ## Environment Variables
 
 Environment variables are managed in **Vercel** (source of truth). Sync them locally:

@@ -1,10 +1,12 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 
 import WalletAuthContextWrapper from '@/contexts/WalletAuthContextWrapper'
-import { buildHead } from '@/runtime/metadata'
+import { APP_TITLE, buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/verification')({
-  head: () => buildHead({ title: 'Wallet Verification', noindex: true }),
+  // The original route declared no metadata, so it inherited the app defaults
+  // and stayed indexable. Keep that behavior.
+  head: () => buildHead({ title: APP_TITLE, absoluteTitle: true }),
   component: VerificationLayout,
 })
 

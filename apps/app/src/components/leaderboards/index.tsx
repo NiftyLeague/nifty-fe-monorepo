@@ -79,7 +79,7 @@ export default function LeaderBoards(): React.ReactNode {
       <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center">
         <div className="min-w-[164px]">
           <Select value={selectedGame} onValueChange={handleChangeGame}>
-            <SelectTrigger className="py-1.5">
+            <SelectTrigger className="py-1.5" aria-label="Game">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -94,7 +94,7 @@ export default function LeaderBoards(): React.ReactNode {
         {selectedGame === 'nifty_smashers' && (
           <div className="min-w-[120px]">
             <Select value={selectedType} onValueChange={handleChangeType}>
-              <SelectTrigger className="py-1.5">
+              <SelectTrigger className="py-1.5" aria-label="Score type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
