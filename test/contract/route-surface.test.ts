@@ -252,6 +252,8 @@ const analyticsLayouts = ['apps/app/src/app/layout.tsx']
 const webAnalyticsBaseLayout = 'apps/web/src/layouts/Base.astro'
 const webTelemetryRuntime = 'apps/web/src/runtime/telemetry.ts'
 const smashersTelemetryRuntime = 'apps/smashers/src/runtime/telemetry.ts'
+const smashersServerSentryRuntime = 'apps/smashers/src/runtime/sentry-server.ts'
+const smashersMiddleware = 'apps/smashers/src/middleware.ts'
 const deferredConsoleGameRoutes = [
   'apps/web/src/app/(main)/page.tsx',
   'apps/web/src/app/(main)/degens/page.tsx',
@@ -2523,6 +2525,25 @@ describe('deferred Sentry client contract', () => {
     expect(readFileSync(join(process.cwd(), smashersTelemetryRuntime), 'utf8')).toContain(
       "import('@sentry/browser')"
     )
+  })
+
+  it('keeps the smashers server SDK lazy, production-gated and off the client', () => {
+    // Server-side capture survived the migration: the Next instrumentation
+    // onRequestError hook is replaced by middleware reporting through this
+    // module, with the same production gate and the same lazy import.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/smashers/package.json'), 'utf8')
+    ) as { dependencies?: Record<string, string> }
+    const source = readFileSync(join(process.cwd(), smashersServerSentryRuntime), 'utf8')
+    const middleware = readFileSync(join(process.cwd(), smashersMiddleware), 'utf8')
+
+    expect(manifest.dependencies?.['@sentry/node']).toBeDefined()
+    expect(manifest.dependencies?.['@sentry/nextjs']).toBeUndefined()
+    expect(source).not.toContain("from '@sentry/node'")
+    expect(source).toContain("import('@sentry/node')")
+    expect(source).toContain("process.env.VERCEL_ENV === 'production'")
+    expect(middleware).toContain('captureServerError')
+    expect(middleware).toContain('defineMiddleware')
   })
 
   it('keeps the shared Sentry loader dynamic', () => {
