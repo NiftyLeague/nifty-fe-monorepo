@@ -811,11 +811,10 @@ header.header {
 
 /* -------------------------------------------------------------- pagination -- */
 
-/* The previous pagination kept two columns at every width, shrinking the cards
-   rather than stacking them. */
+/* Previous/next render as stacked full-width bars of the article column at
+   every viewport width. */
 .pagination-links {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(8rem, 100%), 1fr));
   gap: 1rem;
 }
 
