@@ -930,14 +930,35 @@ header.header {
   }
 }
 
-/* The previous desktop TOC was a sticky right-hand column: the list carried a
-   hairline on its inline start, items sat 0.5rem/1rem apart, and the whole
-   region scrolled independently once it outgrew the viewport. */
+/* Starlight's own first-child reset misses custom elements like hydrated
+   islands, so a page-leading video or embed carried a stray gap below the
+   title band. */
+.sl-markdown-content > :first-child {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------ on this page (TOC) -- */
+
+/**
+ * The previous desktop TOC: a hairline-bordered list of 0.8rem links pinned
+ * below the navbar, with no visible heading — the aside's accessible label
+ * covers it. Resting text is muted but legible in both themes (no opacity
+ * fade); the active and hovered entries use the accent.
+ */
 .right-sidebar-panel {
-  position: sticky;
-  top: calc(var(--sl-nav-height) + 1rem);
-  max-height: calc(100vh - var(--sl-nav-height) - 2rem);
-  overflow-y: auto;
+  padding-block: 1.5rem 2rem;
+}
+
+.right-sidebar-panel h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .right-sidebar-panel nav ul {
@@ -949,31 +970,12 @@ header.header {
   margin: 0.5rem 1rem 0.5rem 0;
 }
 
-/* The previous TOC faded out until hovered. */
-.right-sidebar-panel nav,
-.right-sidebar-panel nav ul {
-  opacity: 0.4;
-  transition: opacity 0.15s ease-in-out;
-}
-
-.right-sidebar-panel nav:hover,
-.right-sidebar-panel nav ul:hover {
-  opacity: 1;
-}
-
-.right-sidebar-panel h2,
-#starlight__on-this-page {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: var(--sl-color-gray-2);
-  margin-bottom: 0.5rem;
-}
-
 .right-sidebar-panel a {
-  color: var(--sl-color-white);
+  color: var(--sl-color-gray-3);
   font-size: 0.8rem;
   line-height: 1.65;
   padding-block: 0.1rem;
+  text-decoration: none;
 }
 
 .right-sidebar-panel a:hover,
@@ -981,10 +983,31 @@ header.header {
   color: var(--sl-color-accent);
 }
 
+/* Match the left sidebar's width so the article centers between the two
+   columns, and drop Starlight's full-height divider on the aside. */
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    width: var(--sl-sidebar-width);
+  }
+
+  .right-sidebar {
+    border-inline-start: 0;
+  }
+
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - var(--sl-sidebar-width));
+    --sl-content-margin-inline: auto;
+  }
+}
+
 /* ------------------------------------------------------------------ footer -- */
 
 nl-footer {
   display: none;
+  /* Paint above the fixed sidebar column and the TOC aside: the footer band
+     spans the full page width and must not slide underneath either. */
+  position: relative;
+  z-index: calc(var(--sl-z-index-menu) + 1);
   border-top: 1px solid var(--nl-hairline);
   background-color: var(--nl-footer-bg);
   padding: 2rem;
@@ -1050,6 +1073,9 @@ nl-footer a:hover {
 }
 
 nl-footer a svg {
+  /* Long labels wrap onto two lines; without this the flex link squeezes the
+     icon horizontally, so icons render at inconsistent widths. */
+  flex: none;
   width: 0.75em;
   height: 0.75em;
 }

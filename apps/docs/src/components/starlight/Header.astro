@@ -59,8 +59,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 				))
 			}
 		</nav>
-		<ThemeSelect />
-		{shouldRenderSearch && <Search />}
+		<div class="search-group">
+			{shouldRenderSearch && <Search />}
+			<ThemeSelect />
+		</div>
 	</div>
 </div>
 
@@ -107,6 +109,12 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 		.actions {
 			gap: 1.5rem;
 			align-items: center;
+		}
+
+		.search-group {
+			display: flex;
+			align-items: center;
+			gap: 0.375rem;
 		}
 
 		.external-links {
