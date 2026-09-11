@@ -13,7 +13,10 @@
     "**/coverage/**",
     "**/dist/**",
     "**/.app/**",
-    ".agents/**"
+    ".agents/**",
+    "**/.astro/**",
+    "**/.wrangler/**",
+    "**/.web-images/**"
   ],
   "overrides": [
     {

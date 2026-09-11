@@ -1,10 +1,8 @@
-import type { NextPage } from 'next'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import { DeferredCareersJobs } from '@/components/DeferredCareersSections'
 
-const Careers: NextPage = () => (
+const Careers = (slots: Record<string, React.ReactNode> = {}) => (
   <div className="container pt-20">
     <section className="section flex items-center justify-center flex-wrap">
       <div className="w-full mb-5 md:w-1/2 md:pr-5 md:mb-0">
@@ -38,9 +36,7 @@ const Careers: NextPage = () => (
       </div>
     </section>
 
-    <section className="section">
-      <DeferredCareersJobs />
-    </section>
+    <section className="section">{slots.webIsland0 ?? <DeferredCareersJobs />}</section>
   </div>
 )
 

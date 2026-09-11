@@ -1,12 +1,10 @@
-import type { NextPage } from 'next'
-
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 
 import RoadmapTimeline from '@/components/RoadmapTimeline'
 import roadmapStyles from '@/components/RoadmapTimeline/index.module.css'
 import satoshiStyles from './satoshi-right.module.css'
 
-const Roadmap: NextPage = () => {
+const Roadmap = (slots: Record<string, React.ReactNode> = {}) => {
   return (
     <div className={roadmapStyles.roadmap_pg}>
       <div className={roadmapStyles.stars}>
@@ -32,7 +30,7 @@ const Roadmap: NextPage = () => {
           <div className={roadmapStyles.animated_star4} />
           <div className={roadmapStyles.animated_star5} />
           <div className={roadmapStyles.animated_star6} />
-          <RoadmapTimeline />
+          {slots.webIsland0 ?? <RoadmapTimeline />}
           <div className={roadmapStyles.mars} />
           <div className={roadmapStyles.animated_star7} />
           <div className={roadmapStyles.animated_star8} />

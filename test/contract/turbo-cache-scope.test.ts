@@ -93,13 +93,9 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/package.json',
   ],
   'template#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
-  'web#build': [
-    '../../config/image-device-sizes.ts',
-    '../../packages/sentry-client/src/**',
-    '../../packages/sentry-client/package.json',
-    '../../packages/ui/src/**',
-    '../../packages/ui/package.json',
-  ],
+  // web ships as Astro static: no Next image-device-sizes config or
+  // sentry-client sources feed its build; only shared ui sources do.
+  'web#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
 }
 const packageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as {
@@ -173,17 +169,7 @@ describe('Turbo cache environment scope', () => {
       ])
     )
     expect(envFor('web#build')).toEqual(
-      new Set([
-        'CI',
-        'EDGE_CONFIG',
-        'ENABLE_EXPERIMENTAL_COREPACK',
-        'NEXT_RUNTIME',
-        'NEXT_PUBLIC_*',
-        'SENTRY_AUTH_TOKEN',
-        'SENTRY_ORG',
-        'SENTRY_PROJECT',
-        'VERCEL_ENV',
-      ])
+      new Set(['CI', 'PUBLIC_DEPLOY_ENV', 'PUBLIC_TELEMETRY', 'PUBLIC_INFURA_ID'])
     )
     expect(envFor('smashers#build')).toEqual(
       new Set([

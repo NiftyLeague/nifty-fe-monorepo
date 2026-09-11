@@ -197,14 +197,8 @@ describe('dependency contract', () => {
 
   it('keeps Next.js on one exact version across apps and shared peers', () => {
     const expectedNextVersion = '16.3.4'
-    const packagesWithNext = new Set([
-      'app',
-      'smashers',
-      'template',
-      'web',
-      '@nl/playfab',
-      '@nl/ui',
-    ])
+    // web is excluded: it ships as Astro static (no Next dependency).
+    const packagesWithNext = new Set(['app', 'smashers', 'template', '@nl/playfab', '@nl/ui'])
 
     for (const pkg of packages) {
       if (!packagesWithNext.has(pkg.name)) continue
@@ -217,7 +211,8 @@ describe('dependency contract', () => {
   })
 
   it('declares the shared PostCSS plugin at every consuming app boundary', () => {
-    for (const appName of ['app', 'smashers', 'template', 'web']) {
+    // web is excluded: it styles through @tailwindcss/vite (no postcss config).
+    for (const appName of ['app', 'smashers', 'template']) {
       const pkg = packages.find((candidate) => candidate.name === appName)
 
       expect(
@@ -237,7 +232,7 @@ describe('dependency contract', () => {
 const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   'apps/web': {
     three: 'peer dep of @google/model-viewer (bundles its own three)',
-    sharp: 'Next.js image optimization runtime dep',
+    cookie: 'Astro runtime dependency (cookie handling in the Astro toolchain)',
   },
   'apps/app': {
     sharp: 'Next.js image optimization runtime dep',
@@ -273,9 +268,22 @@ describe('dead dependency scanner', () => {
       const spec = rootPackageSpecifier(imp)
       if (spec) used.add(spec)
     }
-    // Include config files (next.config, docusaurus.config) since deps are used there too.
+    // Include config and build-script files (next.config, docusaurus.config,
+    // astro.config, scripts/*.mjs) since deps are used there too.
     const configImports = new Set<string>()
-    for (const file of ['next.config.ts', 'next.config.mjs', 'docusaurus.config.ts']) {
+    const referenceFiles = [
+      'next.config.ts',
+      'next.config.mjs',
+      'docusaurus.config.ts',
+      'astro.config.mjs',
+    ]
+    const scriptsDir = join(pkg.dir, 'scripts')
+    if (existsSync(scriptsDir)) {
+      for (const entry of readdirSync(scriptsDir)) {
+        if (entry.endsWith('.mjs')) referenceFiles.push(join('scripts', entry))
+      }
+    }
+    for (const file of referenceFiles) {
       const p = join(pkg.dir, file)
       if (!existsSync(p)) continue
       const src = readFileSync(p, 'utf8')

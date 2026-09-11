@@ -54,7 +54,6 @@ create_symlinks() {
 create_symlinks "app"
 create_symlinks "docs"
 create_symlinks "smashers"
-create_symlinks "web"
 create_symlinks "template"
 
 echo "  "

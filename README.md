@@ -15,7 +15,7 @@ This Turborepo includes the following apps/packages:
 - `app`: a [Next.js](https://nextjs.org/) app for our Web3 dashboards at [app.niftyleague.com](http://app.niftyleague.com)
 - `docs`: a [Docusaurus](https://docusaurus.io/) app for our company docs at [niftyleague.com/docs](http://niftyleague.com/docs)
 - `smashers`: a [Next.js](https://nextjs.org/) app for our game's website [niftysmashers.com](http://niftysmashers.com)
-- `web`: a [Next.js](https://nextjs.org/) app for our company's website [niftyleague.com](http://niftyleague.com)
+- `web`: an [Astro](https://astro.build) static site for our company's website [niftyleague.com](http://niftyleague.com), with a Cloudflare Worker variant for the special routes
 - `template`: a [Next.js](https://nextjs.org/) template to fork for new apps or test new features
 
 ### Packages
@@ -284,11 +284,11 @@ Join the Nifty League [Discord Server](https://discord.gg/niftyleague) and messa
 
 Draft pull requests use local validation and do not start runner-heavy GitHub Actions. Mark a pull request ready for review to start the canonical audit ending in `Validation / Gate`; converting it back to draft cancels in-flight validation.
 
-Vercel projects disable Git-triggered feature-branch deployments through each app's `git.deploymentEnabled` and `ignoreCommand` policies. Builds on `main` remain enabled and scoped to affected applications, manual deployments remain available, and the connected projects keep the consolidated Git commit status disabled so ignored builds cannot leave an aggregate check pending.
+Vercel projects (app, docs, smashers, template) disable Git-triggered feature-branch deployments through each app's `git.deploymentEnabled` and `ignoreCommand` policies. Builds on `main` remain enabled and scoped to affected applications, manual deployments remain available, and the connected projects keep the consolidated Git commit status disabled so ignored builds cannot leave an aggregate check pending. The `web` site builds as Astro static output on the same Vercel flow (`apps/web/vercel.json`).
 
 ## Environment Variables
 
-Environment variables are managed in **Vercel** (source of truth). Each app in `apps/` is linked to its own Vercel project under the `niftyleague` team. Sync locally:
+Environment variables for the Vercel apps (`app`, `docs`, `smashers`, `template`, `web`) are managed in **Vercel** (source of truth). Each of those apps is linked to its own Vercel project under the `niftyleague` team; `web` reads the `PUBLIC_*` names documented in `apps/web/README.md`. Sync locally:
 
 ```bash
 # From any app directory:

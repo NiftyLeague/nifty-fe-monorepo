@@ -195,9 +195,6 @@
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../config/image-device-sizes.ts",
-        "../../packages/sentry-client/src/**",
-        "../../packages/sentry-client/package.json",
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
@@ -215,18 +212,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": [
-        "CI",
-        "ENABLE_EXPERIMENTAL_COREPACK",
-        "EDGE_CONFIG",
-        "NEXT_RUNTIME",
-        "NEXT_PUBLIC_*",
-        "SENTRY_AUTH_TOKEN",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "VERCEL_ENV"
-      ],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "env": ["CI", "PUBLIC_DEPLOY_ENV", "PUBLIC_TELEMETRY", "PUBLIC_INFURA_ID"],
+      "outputs": ["dist/**", ".worker-build/**", ".web-images/**"]
     },
     "clean": { "cache": false },
     "lint": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },

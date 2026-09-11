@@ -4,36 +4,45 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build --webpack",
-    "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .next",
-    "dev": "next dev --webpack --port 3000",
+    "build": "bun scripts/prepare-images.mjs && astro build && bun scripts/finalize-static.mjs && bun scripts/check-static.mjs",
+    "clean": "rm -rf node_modules .turbo .astro .web-images .worker-build dist",
+    "dev": "bun scripts/prepare-images.mjs && astro dev --port 3000",
     "format": "oxfmt .",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "start": "next start",
+    "start": "wrangler dev --local --port 3000",
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
-    "type-check": "tsc --noEmit"
+    "type-check": "bun scripts/prepare-images.mjs --metadata-only && astro check",
+    "preview": "bun run build && wrangler dev --local --port 3000",
+    "cloudflare:build": "bun run build && wrangler deploy --dry-run --outdir .worker-build",
+    "cloudflare:upload": "wrangler versions upload",
+    "test:routes": "node --test checks/routes.node.mjs",
+    "test:e2e": "bun run build && playwright test",
+    "performance:compare": "node scripts/compare-deployed.mjs"
   },
   "dependencies": {
+    "@astrojs/react": "6.0.5",
     "@google/model-viewer": "^4.3.1",
-    "@nl/sentry-client": "workspace:*",
     "@nl/ui": "workspace:*",
-    "@sentry/nextjs": "^10.69.0",
+    "@sentry/browser": "^10.69.0",
+    "astro": "7.3.2",
+    "cookie": "^2.0.1",
     "lucide-react": "^1.31.0",
-    "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "sharp": "^0.35.3",
-    "three": "^0.185.1"
+    "sharp": "^0.35.4",
+    "three": "^0.185.1",
+    "web-vitals": "^5.1.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
+    "@astrojs/check": "^0.9.10",
+    "@playwright/test": "^1.63.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.4.0",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.7",
-    "next-sitemap": "^4.2.3"
+    "wrangler": "4.129.0"
   }
 }

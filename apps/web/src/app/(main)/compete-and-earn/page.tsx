@@ -1,12 +1,11 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { Separator } from '@nl/ui/base/separator'
-import type { NextPage } from 'next'
 import { cx } from '@nl/ui/class-names'
-import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
+import YouTubeFacade from '@/components/YouTubeFacade'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
-const CompeteAndEarn: NextPage = () => {
+const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
   return (
     <div className="container pt-20">
       <section className="section flex flex-col-reverse md:flex-row items-center justify-center relative">
@@ -41,7 +40,7 @@ const CompeteAndEarn: NextPage = () => {
       <section className="section flex flex-col-reverse md:flex-row mt-3 md:mt-5 py-5 items-center relative">
         <div className={cx(styles.block, 'w-full md:w-1/2 pr-5')}>
           <div className="mb-3">
-            <h3>HOW IT WORKS</h3>
+            <h2 className="heading-look-3">HOW IT WORKS</h2>
           </div>
           <p>
             4 - 16 Players pool NFTL together in a cuththroat battle for the survuval of the
@@ -51,11 +50,13 @@ const CompeteAndEarn: NextPage = () => {
         </div>
         <div className="w-full md:w-1/2">
           <div className="relative text-right mb-4 md:mb-0 ps-0 lg:ps-5">
-            <DeferredYouTubeEmbed
-              src="https://www.youtube.com/embed/wv_fI1PPBi0"
-              title="Nifty League Compete & Earn"
-              className={styles.video}
-            />
+            {slots.webIsland0 ?? (
+              <YouTubeFacade
+                src="https://www.youtube.com/embed/wv_fI1PPBi0"
+                title="Nifty League Compete & Earn"
+                className={styles.video}
+              />
+            )}
           </div>
         </div>
         <div className="purple-bg-orb orb-bottom-right" />
@@ -65,7 +66,9 @@ const CompeteAndEarn: NextPage = () => {
         <h3 className="mt-3 mt-md-5 text-center">GAME MODES</h3>
         <div className={cx(styles.features, 'flex pt-3 md:pt-5 mx-auto relative')}>
           <div className="w-1/3">
-            <h6 className={styles.headerCell}>FEATURES:</h6>
+            <h4 className={styles.headerCell} className="heading-look-6">
+              FEATURES:
+            </h4>
             <p className={styles.cell}>Requires an invite:</p>
             <p className={styles.cell}>Buy-in:</p>
             <p className={styles.cell}>Region:</p>
@@ -81,14 +84,18 @@ const CompeteAndEarn: NextPage = () => {
             }}
           />
           <div className="w-1/3">
-            <h6 className={styles.headerCell}>PUBLIC</h6>
+            <h4 className={styles.headerCell} className="heading-look-6">
+              PUBLIC
+            </h4>
             <p className={styles.cell}>No</p>
             <p className={styles.cell}>1000 NFTL</p>
             <p className={styles.cell}>Decided by the Host</p>
             <p className={styles.cell}>Decided by the Host</p>
           </div>
           <div className="w-1/3">
-            <h6 className={styles.headerCell}>PRIVATE</h6>
+            <h4 className={styles.headerCell} className="heading-look-6">
+              PRIVATE
+            </h4>
             <p className={styles.cell}>Yes</p>
             <p className={styles.cell}>Decided by the Host</p>
             <p className={styles.cell}>Decided by the Host</p>

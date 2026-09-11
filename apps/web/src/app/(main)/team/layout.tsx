@@ -1,8 +1,8 @@
-import type { Metadata } from 'next'
+import type { RouteMetadata } from '@/runtime/metadata'
 import type { PropsWithChildren } from 'react'
 import MainLayout from '@/components/MainLayout'
 
-export const metadata: Metadata = {
+export const metadata: RouteMetadata = {
   title: 'Team',
   description: 'Build a decentralized future with the Nifty DAO',
   openGraph: {

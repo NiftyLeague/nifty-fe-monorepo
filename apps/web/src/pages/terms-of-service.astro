@@ -1,0 +1,11 @@
+---
+import Marketing from '@/layouts/Marketing.astro'
+import LegacyPage from '@/app/(main)/terms-of-service/page'
+import Link from '@/runtime/Link'
+import Definitions from '@/components/Definitions'
+import { metadata as routeMetadata } from '@/app/(main)/terms-of-service/layout'
+---
+<Marketing metadata={routeMetadata} rootClass="legal-pg" canonical="/terms-of-service">
+  <LegacyPage>
+  </LegacyPage>
+</Marketing>

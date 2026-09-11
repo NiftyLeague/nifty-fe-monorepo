@@ -1,0 +1,12 @@
+---
+import Base from './Base.astro'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+interface Props { metadata?: object; rootClass?: string; canonical?: string }
+const { metadata = {}, rootClass = '', canonical = Astro.url.pathname } = Astro.props
+---
+<Base metadata={metadata} canonical={canonical}>
+  <Navbar client:load />
+  <main class={rootClass}><slot /></main>
+  <Footer />
+</Base>

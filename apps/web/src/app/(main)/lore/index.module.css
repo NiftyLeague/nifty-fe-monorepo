@@ -98,3 +98,13 @@
     top: 280px;
   }
 }
+
+/* The mobile <source> art direction swaps in a differently-cropped image
+   (396x1415); pin the rendered ratio at that breakpoint so the reserved box
+   matches the swapped source exactly (no aspect-ratio mismatch, no shift). */
+@media (max-width: 768px) {
+  .backgroundImage img {
+    aspect-ratio: 396 / 1415;
+    height: auto;
+  }
+}

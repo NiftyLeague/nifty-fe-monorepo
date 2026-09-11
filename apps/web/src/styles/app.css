@@ -25,6 +25,63 @@
   display: none;
 }
 
+/* ==============================|| HEADING LOOK HELPERS ||============================== */
+
+/*
+ * Accessibility outline fixes promote legacy heading elements to their correct
+ * outline level. These classes reproduce the exact visual ladder the original
+ * element supplied (ui base styles style h1-h6 by tag), so corrected headings
+ * render identically. Apply alongside the heading's existing utility classes.
+ */
+.heading-look-1 {
+  color: var(--color-foreground);
+  font-family: var(--font-header);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-header);
+  font-size: var(--text-4xl);
+  line-height: var(--text-4xl--line-height);
+}
+.heading-look-2 {
+  color: var(--color-foreground);
+  font-family: var(--font-header);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-header);
+  font-size: var(--text-3xl);
+  line-height: var(--text-3xl--line-height);
+}
+.heading-look-3 {
+  color: var(--color-foreground);
+  font-family: var(--font-header);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-header);
+  font-size: var(--text-2xl);
+  line-height: var(--text-2xl--line-height);
+}
+.heading-look-4 {
+  color: var(--color-foreground);
+  font-family: var(--font-subheader);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--tracking-subheader);
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
+}
+.heading-look-5 {
+  color: var(--color-foreground);
+  font-family: var(--font-subheader);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--tracking-subheader);
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+}
+.heading-look-6 {
+  color: var(--color-foreground);
+  font-family: var(--font-subheader);
+  font-weight: var(--font-weight-normal);
+  letter-spacing: var(--tracking-subheader);
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+}
+
 /* ==============================|| MEDIA QUERIES ||============================== */
 
 @media (min-width: 769px) {
@@ -51,4 +108,48 @@
   .mobile {
     display: flex !important;
   }
+}
+
+/* ==============================|| CAROUSEL DOT HIT AREAS ||============================== */
+
+/*
+ * The shared carousel renders 8px dot buttons (too small a touch target).
+ * Keep the 8px dot visual but center it inside a 24px transparent button,
+ * so the touch target passes WCAG 2.5.8 without overlapping its neighbours.
+ */
+[role='group'][aria-label='Choose slide'] button[aria-label^='Go to slide'] {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  position: relative;
+}
+
+[role='group'][aria-label='Choose slide'] button[aria-label^='Go to slide']::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: var(--color-muted-foreground);
+  opacity: 0.55;
+}
+
+[role='group'][aria-label='Choose slide']
+  button[aria-label^='Go to slide'][aria-current='true']::before {
+  background: var(--color-foreground);
+  opacity: 1;
+}
+
+/* Prev/next arrows may already be large; only guarantee the minimum. */
+[role='group'][aria-label='Choose slide'] button[aria-label='Go to previous slide'],
+[role='group'][aria-label='Choose slide'] button[aria-label='Go to next slide'] {
+  min-width: 24px;
+  min-height: 24px;
 }

@@ -99,7 +99,7 @@ const RoadmapCard = ({
 
     <div className={styles.cd_timeline_content}>
       <div className={styles.timeline_content_body}>
-        <h5 className="[word-spacing:-10px]">{title}</h5>
+        <h3 className="[word-spacing:-10px] heading-look-5">{title}</h3>
         {completed && (
           <div className={styles.timeline_content_info}>
             <span className={styles.timeline_content_info_title}>Mission Accomplished</span>

@@ -1,5 +1,3 @@
-import type { NextPage } from 'next'
-
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
@@ -8,7 +6,7 @@ import GameCard from '@/components/GameCard'
 import { DeferredGamesBelowFold } from '@/components/DeferredGamesSections'
 import { NIFTY_GAMES } from '@/constants/games'
 
-const Games: NextPage = () => {
+const Games = (slots: Record<string, React.ReactNode> = {}) => {
   const firstGame = NIFTY_GAMES[0]
 
   return (
@@ -17,19 +15,21 @@ const Games: NextPage = () => {
       <section className="section flex items-center justify-center flex-wrap">
         <div className="w-1/3 md:w-1/2 md:px-2 lg:px-3">
           <div className="animate-zoom-out">
-            <ViewportVideo
-              id="lobby"
-              width="100%"
-              height="100%"
-              muted
-              loop
-              playsInline
-              data-keepplaying
-              className="hidden md:block"
-              deferLoad
-              poster="/img/games/smashers/lobby.webp"
-              src="/video/lobby.mp4"
-            />
+            {slots.webIsland0 ?? (
+              <ViewportVideo
+                id="lobby"
+                width="100%"
+                height="100%"
+                muted
+                loop
+                playsInline
+                data-keepplaying
+                className="hidden md:block"
+                deferLoad
+                poster="/img/games/smashers/lobby.webp"
+                src="/video/lobby.mp4"
+              />
+            )}
             <div className="block md:hidden">
               <MobileOnlyImage
                 alt="Arcade"
@@ -58,8 +58,8 @@ const Games: NextPage = () => {
       </section>
 
       <section className="section">
-        {firstGame ? <GameCard game={firstGame} index={0} /> : null}
-        <DeferredGamesBelowFold />
+        {firstGame ? (slots.webIsland1 ?? <GameCard game={firstGame} index={0} />) : null}
+        {slots.webIsland2 ?? <DeferredGamesBelowFold />}
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"

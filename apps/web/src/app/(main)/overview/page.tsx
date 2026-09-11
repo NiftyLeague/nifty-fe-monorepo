@@ -1,11 +1,9 @@
-import type { NextPage } from 'next'
-
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
 import OverviewCommunity from '@/components/OverviewCommunity'
 
-const Overview: NextPage = () => (
+const Overview = (slots: Record<string, React.ReactNode> = {}) => (
   <>
     <div className="container relative pt-20">
       <div className="purple-bg-orb orb-top-right" />
@@ -25,7 +23,7 @@ const Overview: NextPage = () => (
           <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
         </div>
 
-        <DeferredOverviewFAQ />
+        {slots.webIsland0 ?? <DeferredOverviewFAQ />}
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"
