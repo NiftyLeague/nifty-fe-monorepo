@@ -935,7 +935,9 @@ header.header {
   mobile-starlight-toc .toggle:hover {
     border: 0;
     background-color: var(--sl-color-accent);
-    color: var(--sl-color-text-invert);
+    /* Keep a foreground that contrasts the blue bar: text-invert resolves to
+       accent-low here, which is unreadable on either blue. */
+    color: var(--sl-color-white);
   }
 
   mobile-starlight-toc .caret {
@@ -946,6 +948,17 @@ header.header {
 
   mobile-starlight-toc details[open] .caret {
     transform: rotate(-90deg);
+  }
+
+  /* Hover/focus highlight on the dropdown entries, matching the sidebar. */
+  mobile-starlight-toc .dropdown a {
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease;
+  }
+
+  mobile-starlight-toc .dropdown a:hover,
+  mobile-starlight-toc .dropdown a:focus {
+    background-color: var(--nl-emphasis-200);
   }
 
   /* The disclosure panel is inline in the previous layout, not a full-height
