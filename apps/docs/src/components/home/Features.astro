@@ -1,0 +1,67 @@
+---
+// Feature cards, ported from the previous HomepageFeatures component.
+import { FEATURES } from '../../lib/links';
+import NL from '../../../../../assets/img/logos/NL/logo.svg';
+import NFTL from '../../../../../assets/img/logos/NFTL/logo.svg';
+import ArrowUpRight from '../icons/ArrowUpRight.astro';
+import CodeXml from '../icons/CodeXml.astro';
+---
+
+<section class="section" aria-labelledby="home-features-heading">
+	<h2 id="home-features-heading" class="sr-only">Documentation highlights</h2>
+	<div class="row row-three">
+		{
+			FEATURES.map(({ title, icon, to, text }) => (
+				<a class="card-link" href={to}>
+					<div class="card shadow-card">
+						<div class="card-top">
+							<div class="icon-wrapper">
+								<span class="styled-icon">
+									{icon === 'logo' && <NL width="24" height="24" aria-hidden="true" />}
+									{icon === 'nftl' && <NFTL width="24" height="24" aria-hidden="true" />}
+									{icon === 'code' && <CodeXml />}
+								</span>
+							</div>
+							<ArrowUpRight />
+						</div>
+						<h3 class="card-title">{title}</h3>
+						<p>{text}</p>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.card-top {
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 1rem;
+	}
+
+	.icon-wrapper {
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 4px;
+	}
+
+	.styled-icon :global(svg),
+	.styled-icon :global(svg *) {
+		fill: var(--sl-color-text);
+	}
+
+	.card h3 {
+		margin-bottom: 0.75rem;
+	}
+
+	.card p {
+		margin-bottom: 0.5rem;
+	}
+</style>

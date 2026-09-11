@@ -1,0 +1,33 @@
+---
+/**
+ * Previous/next navigation, limited to the current documentation section so the
+ * links never jump across sections (the previous site paginated per section).
+ *
+ * The previous markup was a card with a small "Previous" / "Next" label above the
+ * destination title; Starlight's default uses an arrow icon instead, so this
+ * rebuilds the card with the original structure.
+ */
+import { clampPagination, sectionForId } from '../../lib/navigation';
+
+const { entry, pagination } = Astro.locals.starlightRoute;
+const { prev, next } = clampPagination(pagination, sectionForId(entry.id));
+---
+
+{
+	(prev || next) && (
+		<nav class="pagination-links" aria-label="Pagination">
+			{prev && (
+				<a href={prev.href} rel="prev">
+					<span class="pagination-label">Previous</span>
+					<span class="link-title">{prev.label}</span>
+				</a>
+			)}
+			{next && (
+				<a href={next.href} rel="next">
+					<span class="pagination-label">Next</span>
+					<span class="link-title">{next.label}</span>
+				</a>
+			)}
+		</nav>
+	)
+}

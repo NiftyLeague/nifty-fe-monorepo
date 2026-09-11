@@ -1,0 +1,137 @@
+---
+// Home page hero, ported from the previous HomepageHeader component.
+import SearchTrigger from './SearchTrigger.astro';
+
+const lightImage = '/docs/img/games/smashers/2D-levels/mars.webp';
+const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
+---
+
+<header class="hero-header not-content">
+	<div class="hero-banner">
+		<h1>Nifty League Docs</h1>
+		<p class="hero-lede">
+			The pages that follow contain comprehensive documentation of the Nifty League ecosystem. If
+			you are new to Nifty League, you might want to check out our <a href="/docs/faq/general"
+				>FAQ</a
+			> first.
+		</p>
+		<div class="hero-search">
+			<SearchTrigger />
+		</div>
+	</div>
+	{/* Theme-conditional artwork. Starlight only generates the variant utilities it
+	    uses itself (the `-hidden` ones), so `dark:sl-block` would not resolve and
+	    both images would stay hidden; these use explicit theme rules instead.
+
+	    Dark is the default theme, so that variant is the LCP element: it is
+	    preloaded (see the page's `head`) and fetched eagerly. The light variant is
+	    only needed after an explicit toggle, so it stays lazy. */}
+	<img
+		class="hero-title-image hero-title-image--dark"
+		src={darkImage}
+		alt="Header Background Image"
+		fetchpriority="high"
+		loading="eager"
+		decoding="async"
+	/>
+	<img
+		class="hero-title-image hero-title-image--light"
+		src={lightImage}
+		alt="Header Background Image"
+		loading="lazy"
+		decoding="async"
+	/>
+</header>
+
+<style>
+	.hero-header {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		width: 100%;
+		position: relative;
+	}
+
+	.hero-banner {
+		display: flex;
+		padding: 4rem 0 2rem 0;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	}
+
+	.hero-banner h1 {
+		font-size: 2.25rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--sl-color-white);
+		margin: 0 0 1rem;
+		/* The hero title is a single line; Starlight's markdown spacing would
+		   otherwise add a top margin to the sibling below it. */
+		max-width: none;
+	}
+
+	.hero-banner > * + * {
+		margin-top: 0;
+	}
+
+	.hero-lede {
+		max-width: 550px;
+		margin-top: 1rem;
+		margin-bottom: 1.5rem;
+		font-weight: 500;
+		line-height: 1.65;
+	}
+
+	.hero-lede a {
+		color: var(--sl-color-text-accent);
+	}
+
+	.hero-search {
+		margin-top: 0.5rem;
+	}
+
+	.hero-title-image--dark,
+	.hero-title-image--light {
+		display: none;
+	}
+
+	:global(html[data-theme='dark']) .hero-title-image--dark,
+	:global(html:not([data-theme='dark'])) .hero-title-image--light {
+		display: block;
+	}
+
+	.hero-title-image {
+		/* Full-bleed: the hero spans the viewport now that its container is
+		   uncapped (see home.css), so the artwork fills the header and the
+		   header's own `overflow: hidden` crops it vertically. */
+		width: 100%;
+		height: 110%;
+		object-fit: cover;
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0.2;
+		-webkit-mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent);
+		mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent);
+	}
+
+	@media screen and (max-width: 966px) {
+		.hero-banner {
+			padding: 2rem;
+		}
+	}
+
+	@media (max-width: 960px) {
+		.hero-search {
+			display: none;
+		}
+	}
+</style>

@@ -1,0 +1,21 @@
+---
+/**
+ * Renders only the desktop table of contents here.
+ *
+ * Starlight also renders the mobile disclosure in this component, which places it
+ * above `main` — before the breadcrumbs. The previous layout had it inside the
+ * article, between the breadcrumbs and the page title, so the mobile copy is
+ * rendered by `PageTitle` instead (see that override).
+ */
+import TableOfContents from 'virtual:starlight/components/TableOfContents';
+---
+
+{
+	Astro.locals.starlightRoute.toc && (
+		<aside class="right-sidebar-panel sl-hidden lg:sl-block" aria-label="On this page">
+			<div class="sl-container">
+				<TableOfContents />
+			</div>
+		</aside>
+	)
+}

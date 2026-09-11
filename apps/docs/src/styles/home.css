@@ -1,0 +1,203 @@
+/**
+ * Home page layout primitives, ported from the previous Docusaurus home page CSS
+ * modules (Card, Row, Section, StyledIcon, StyledImage and the page container).
+ * These class names are shared by the components in src/components/home.
+ */
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section {
+  padding: 1rem 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem 0;
+  max-width: 900px;
+}
+
+.row-two {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px;
+}
+
+.row-three {
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .row {
+    padding: 1rem;
+    max-width: 100%;
+    margin: 0 1rem;
+  }
+  .row-two,
+  .row-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .row-two,
+  .row-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card {
+  background-color: var(--nl-emphasis-100);
+  border-radius: 20px;
+  border: 1px solid var(--nl-emphasis-400);
+  color: var(--sl-color-white);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  background-color: var(--nl-emphasis-200);
+  border: 1px solid var(--nl-emphasis-400);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+  transform: scale(1.01);
+}
+
+@media (max-width: 960px) {
+  .card {
+    width: 100%;
+  }
+}
+
+.shadow-card {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+  min-height: 220px;
+}
+
+.shadow-card:hover {
+  background-color: var(--nl-emphasis-100);
+}
+
+.center-card {
+  min-width: 250px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+}
+
+.wide-card {
+  max-height: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .wide-card {
+    margin: 0;
+    max-height: fit-content;
+    width: fit-content;
+  }
+}
+
+/**
+ * Home page type scale, independent of the docs H1.
+ *
+ * These rules intentionally set typography only. The previous components passed
+ * their spacing as inline styles, which always beat a stylesheet; keeping
+ * margins out of these base rules lets each card's own spacing (declared in its
+ * component) win on normal cascade order instead of needing `!important`.
+ */
+.home-container h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+}
+
+.home-container h3,
+.home-container .card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+}
+
+.home-container p {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* The page is `.not-content`, so it opts out of Starlight's paragraph spacing
+   and the reset leaves none; the column intro paragraphs carried Infima's
+   1.5rem bottom margin on the previous home page. */
+.home-container .row > div > p {
+  margin-bottom: 1.5rem;
+}
+
+/* Section-level headings keep the previous 1rem gap below them. */
+.home-container > section > .row > div > h2 {
+  margin-bottom: 1rem;
+}
+
+/* The Twitch banner heading and copy were spaced independently of the cards. */
+.home-container .wide-card h2 {
+  margin-bottom: 0.5rem;
+}
+
+.home-container .wide-card p {
+  margin: 0;
+}
+
+.home-container a {
+  color: var(--sl-color-text-accent);
+}
+
+.styled-icon svg {
+  fill: currentColor;
+}
+/* Icons inside cards are flex children; block display avoids inline baseline space. */
+.card svg,
+.card img {
+  display: block;
+}
+
+/* The landing hero sits directly under the navbar; Starlight's panel padding
+   would otherwise push it down. The panel also keeps no inline gutters at any
+   width: the previous hero painted edge to edge behind its content. */
+.content-panel:has(.hero-header) {
+  padding: 0;
+}
+
+/* The previous hero painted its backdrop across the whole viewport. Starlight
+   caps the panel's container at the content width and the hero clips its own
+   overflow, so the capped container would crop the artwork with black bars
+   either side; let the hero's container span the page instead. */
+.content-panel:has(.hero-header) .sl-container {
+  max-width: none;
+}
+
+/* The quick-link rows use the docs accent for their titles. */
+.home-container .quick-link h3 {
+  color: var(--sl-color-white);
+}

@@ -1,0 +1,450 @@
+---
+/**
+ * Reproduces Starlight's page frame and appends the site footer as a sibling of
+ * the sidebar/content row, which is where the previous site rendered it (a full
+ * width band below the documentation layout).
+ *
+ * The markup, popover wiring and layout styles below mirror
+ * `@astrojs/starlight/components/PageFrame.astro` at the pinned version; only the
+ * trailing footer is added.
+ */
+import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
+import Sidebar from 'virtual:starlight/components/Sidebar';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
+import Footer from '../Footer.astro';
+import Analytics from '../Analytics.astro';
+import { NAV_LINKS, sectionForId } from '../../lib/navigation';
+
+const { hasSidebar, entry } = Astro.locals.starlightRoute;
+
+// Pages whose headings were promoted carry `headingOffset`; the class keeps their
+// visual scale (see theme.css).
+const headingOffset = entry.data.headingOffset ?? 0;
+
+// The landing page has no sidebar column (splash template) but still carries the
+// hamburger below 997px, so the collapsed navbar keeps a menu there too.
+const hasMenuButton = hasSidebar || entry.data.template === 'splash';
+
+// The drawer opens on the current section's menu when the page belongs to one,
+// and on the main menu (the umbrella category list) everywhere else.
+const initialView = sectionForId(entry.id) ? 'section' : 'main';
+
+---
+
+<Analytics />
+<div
+	class:list={[
+		'page',
+		'sl-flex',
+		headingOffset ? `heading-offset-${headingOffset}` : null,
+	]}
+>
+	<header class:list={['header', { 'has-menu-button': hasMenuButton }]}>
+		<slot name="header" />
+	</header>
+	{
+		hasMenuButton && (
+			<nav class="sidebar print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>
+				<MobileMenuToggle />
+				<script>
+					class StarlightSidebarPane extends HTMLElement {
+						private onScroll: () => void;
+						constructor() {
+							super();
+							matchMedia('(min-width: 50em)').addEventListener('change', () => this.hidePopover());
+							this.addEventListener('toggle', ({ newState }) => this.trapFocus(newState === 'open'));
+							// The drawer chrome is parsed after this element, so delegate.
+							this.addEventListener('click', ({ target }) => {
+								if (!(target instanceof Element)) return;
+								if (target.closest('[data-drawer-back]')) this.setView('main');
+								if (target.closest('[data-drawer-close]')) this.hidePopover();
+							});
+							// The desktop sidebar column must stop at the footer instead of
+							// running underneath it.
+							this.onScroll = () => this.clampToFooter();
+							window.addEventListener('scroll', this.onScroll, { passive: true });
+							window.addEventListener('resize', this.onScroll);
+							this.clampToFooter();
+						}
+						disconnectedCallback() {
+							window.removeEventListener('scroll', this.onScroll);
+							window.removeEventListener('resize', this.onScroll);
+						}
+						clampToFooter() {
+							if (!matchMedia('(min-width: 997px)').matches) {
+								this.style.insetBlockEnd = '';
+								return;
+							}
+							const footer = document.querySelector('nl-footer');
+							if (!footer) return;
+							// While the footer is on screen, lift the sidebar's bottom edge to
+							// the footer's top so the column fits between nav and footer.
+							const overlap = window.innerHeight - footer.getBoundingClientRect().top;
+							this.style.insetBlockEnd = `${Math.max(0, overlap)}px`;
+						}
+						setView(view: string) {
+							this.dataset.view = view;
+							for (const panel of this.querySelectorAll<HTMLElement>('.drawer-panel')) {
+								panel.inert = !panel.classList.contains(`drawer-panel--${view}`);
+							}
+						}
+						trapFocus(shouldTrap: boolean) {
+							document.querySelectorAll<HTMLElement>('.main-frame, .sl-skip-link').forEach((el) => {
+								el.toggleAttribute('inert', shouldTrap);
+							});
+						}
+					}
+					if (!customElements.get('sl-sidebar-pane')) {
+						customElements.define('sl-sidebar-pane', StarlightSidebarPane);
+					}
+				</script>
+				<sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane" data-view={initialView}>
+					<div class="drawer-header">
+						<SiteTitle />
+						<ThemeSelect />
+						<button class="drawer-close" data-drawer-close>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path d="M18 6 6 18M6 6l12 12" />
+							</svg>
+							<span class="sr-only">Close menu</span>
+						</button>
+					</div>
+					<div class="drawer-body">
+						<div
+							class="drawer-panel drawer-panel--main"
+							inert={initialView === 'main' ? undefined : 'true'}
+						>
+							<ul class="drawer-menu">
+								{
+									NAV_LINKS.map(({ label, href }) => (
+										<li>
+											<a class="drawer-menu-link" href={href}>
+												{label}
+												<svg
+													class="drawer-caret"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													aria-hidden="true"
+												>
+													<path d="m9 6 6 6-6 6" />
+												</svg>
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+						<div
+							class="drawer-panel drawer-panel--section"
+							inert={initialView === 'section' ? undefined : 'true'}
+						>
+							<button class="drawer-back" data-drawer-back>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									aria-hidden="true"
+								>
+									<path d="M19 12H5m7-7-7 7 7 7" />
+								</svg>
+								Back to main menu
+							</button>
+							{/* Rendered directly rather than through the `sidebar` slot: Starlight's
+							    Page only passes that slot on sidebar pages, and a conditionally
+							    passed slot counts as present, so a fallback would never render. */}
+							<div class="sidebar-content sl-flex">
+								<Sidebar />
+							</div>
+						</div>
+					</div>
+					<div class="drawer-footer">
+						<SocialIcons />
+					</div>
+				</sl-sidebar-pane>
+			</nav>
+		)
+	}
+	<div class="main-frame"><slot /></div>
+	<Footer />
+</div>
+
+<script>
+	import '@/scripts/mermaid';
+</script>
+
+<script>
+	// Autoplaying decorative videos are only allowed unmuted-free when muted;
+	// enforce it on every navigation, since the muted state can desync when
+	// client-side routing moves the elements into the new document.
+	document.addEventListener('astro:page-load', () => {
+		document.querySelectorAll<HTMLVideoElement>('video[autoplay]').forEach((video) => {
+			video.muted = true;
+		});
+	});
+</script>
+
+<style>
+	@layer starlight.core {
+		.page {
+			flex-direction: column;
+			min-height: 100vh;
+		}
+
+		.header {
+			z-index: var(--sl-z-index-navbar);
+			position: fixed;
+			inset-inline-start: 0;
+			inset-block-start: 0;
+			width: 100%;
+			height: var(--sl-nav-height);
+			border-bottom: 1px solid var(--sl-color-hairline-shade);
+			padding: var(--sl-nav-pad-y) var(--sl-nav-pad-x);
+			padding-inline-end: var(--sl-nav-pad-x);
+			background-color: var(--sl-color-bg-nav);
+		}
+
+		:global([data-has-sidebar]) .header,
+		.header.has-menu-button {
+			padding-inline-end: calc(
+				var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size)
+			);
+		}
+
+		.sidebar-pane {
+			border: unset;
+			padding: unset;
+			height: unset;
+			color: unset;
+
+			position: fixed;
+			z-index: var(--sl-z-index-menu);
+			inset-block: 0;
+			inset-inline-start: 0;
+			width: 100%;
+			background-color: var(--sl-color-black);
+			overflow: hidden;
+		}
+
+		/* Author display beats the UA's closed-popover `display: none`, so the
+		   flex layout only applies while the drawer is actually open. */
+		.sidebar-pane:popover-open {
+			display: flex;
+			flex-direction: column;
+		}
+
+		/* Drawer chrome: brand, theme toggle and close on top, socials at the
+		   bottom, and the two sliding menu views between them. The header uses the
+		   navbar's side padding and height so the brand stays in place and the
+		   close button lands exactly where the hamburger was when the drawer
+		   opens over the full-width layout. */
+		.drawer-header {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			flex-shrink: 0;
+			height: var(--sl-nav-height);
+			padding: 0 var(--sl-nav-pad-x);
+			border-bottom: 1px solid var(--sl-color-hairline-shade);
+			background-color: var(--sl-color-bg-nav);
+		}
+
+		/* The site title is rendered by another component, so it needs :global for
+		   the scope to reach it: growing it pushes the toggle and close button to
+		   the right edge of the drawer header. */
+		.drawer-header > :global(a.site-title) {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.drawer-close {
+			display: grid;
+			place-items: center;
+			width: 2rem;
+			height: 2rem;
+			border: 0;
+			border-radius: 50%;
+			background: transparent;
+			color: var(--sl-color-gray-2);
+			cursor: pointer;
+		}
+
+		.drawer-close:hover {
+			background-color: var(--nl-emphasis-200);
+			color: var(--sl-color-white);
+		}
+
+		.drawer-close svg {
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+
+		.drawer-body {
+			flex: 1;
+			display: grid;
+			grid-template-columns: 100%;
+			overflow: hidden;
+		}
+
+		.drawer-panel {
+			grid-area: 1 / 1;
+			overflow-y: auto;
+			overscroll-behavior: contain;
+			transition: transform 0.25s ease;
+		}
+
+		/* The main menu (umbrella categories) sits to the left, the current
+		   section's menu to the right; the active view slides into place. */
+		.drawer-panel--main {
+			transform: translateX(-100%);
+		}
+
+		.drawer-panel--section {
+			transform: translateX(100%);
+		}
+
+		.sidebar-pane[data-view='main'] .drawer-panel--main {
+			transform: translateX(0);
+		}
+
+		.sidebar-pane[data-view='section'] .drawer-panel--section {
+			transform: translateX(0);
+		}
+
+		.drawer-menu {
+			list-style: none;
+			margin: 0;
+			padding: 0.5rem 0;
+		}
+
+		.drawer-menu li + li {
+			border-top: 1px solid var(--nl-hairline);
+		}
+
+		.drawer-menu-link {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 1rem 1.25rem;
+			font-size: 1.125rem;
+			font-weight: 500;
+			color: var(--sl-color-white);
+			text-decoration: none;
+		}
+
+		.drawer-menu-link:hover {
+			background-color: var(--nl-emphasis-200);
+			color: var(--sl-color-white);
+			text-decoration: none;
+		}
+
+		.drawer-caret {
+			width: 1rem;
+			height: 1rem;
+			color: var(--sl-color-gray-3);
+		}
+
+		.drawer-back {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			width: 100%;
+			border: 0;
+			background-color: var(--sl-color-accent-low);
+			padding: 0.75rem 1rem;
+			color: var(--sl-color-white);
+			font: inherit;
+			font-weight: 500;
+			text-align: start;
+			cursor: pointer;
+		}
+
+		.drawer-back:hover {
+			background-color: var(--sl-color-accent);
+		}
+
+		.drawer-back svg {
+			width: 1rem;
+			height: 1rem;
+		}
+
+		.drawer-footer {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 0.5rem var(--sl-nav-pad-x);
+			border-top: 1px solid var(--sl-color-hairline-shade);
+		}
+
+		.drawer-footer a {
+			color: var(--sl-color-gray-2);
+		}
+
+		.drawer-footer a:hover {
+			color: var(--sl-color-white);
+		}
+
+		.sidebar-content {
+			min-height: max-content;
+			padding: 1rem var(--sl-sidebar-pad-x) 0;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		@media (min-width: 50rem) {
+			.sidebar-content::after {
+				content: '';
+				padding-bottom: 1px;
+			}
+		}
+
+		.main-frame {
+			padding-top: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
+			padding-inline-start: var(--sl-content-inline-start);
+		}
+
+		/* The previous site switched between the hamburger drawer and the fixed
+		   sidebar column at 997px, not at Starlight's 50rem: in between, the nav
+		   links were hidden while the hamburger stayed available. Keeping that
+		   breakpoint means the menu button is rendered at every width below it.
+		   The fixed column only applies to pages with a real sidebar — splash
+		   pages (the landing page) keep a full-width drawer at every width. In
+		   the column, the drawer chrome goes away and the section menu renders
+		   statically. */
+		@media (min-width: 997px) {
+			:global([data-has-sidebar]) .header,
+			.header.has-menu-button {
+				padding-inline-end: var(--sl-nav-pad-x);
+			}
+			.drawer-header,
+			.drawer-back,
+			.drawer-footer {
+				display: none;
+			}
+			.drawer-body {
+				display: block;
+				overflow: visible;
+			}
+			.drawer-panel {
+				transform: none;
+				overflow: visible;
+			}
+			.drawer-panel--main {
+				display: none;
+			}
+			:global([data-has-sidebar]) .sidebar-pane {
+				display: block;
+				width: var(--sl-sidebar-width);
+				background-color: var(--sl-color-bg-sidebar);
+				border-inline-end: 1px solid var(--sl-color-hairline-shade);
+				/* The clamped column can be shorter than its menu, so it scrolls. */
+				overflow-y: auto;
+				scrollbar-gutter: stable;
+			}
+		}
+	}
+</style>

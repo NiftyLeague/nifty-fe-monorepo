@@ -1,0 +1,1224 @@
+/**
+ * Theme for the Nifty League docs.
+ *
+ * Values reproduce the previous Docusaurus/Infima theme (apps/docs src/css
+ * colors.css, fonts.css, custom.css). The root font size uses the same clamp the
+ * previous site used, so the rem-based Starlight tokens land on the same computed
+ * sizes; the component rules below cover the pieces Starlight lays out
+ * differently (sidebar, breadcrumbs, pagination, TOC, footer).
+ */
+
+/**
+ * The body font is the same Latin subset the rest of the monorepo vendors for
+ * @nl/ui, so it renders identically without a third-party request. Google Fonts
+ * served the 400/500/700 weights; the vendored file is variable across that exact
+ * range (`wght 100-700`), so one file covers all three.
+ *
+ * Roboto Mono (code) is still fetched from Google Fonts, but non-blockingly: the
+ * stylesheet is attached with `media="print"` and promoted to `all` once loaded,
+ * so it never sits on the critical render path. Code blocks fall back to the
+ * system monospace until it arrives.
+ */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  /* Resolved and hashed by Vite from the shared @nl/ui font assets. */
+  src: url('../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2') format('woff2');
+}
+
+/* ---------------------------------------------------------------- palette -- */
+
+:root {
+  --sl-color-white: #fafafa;
+  --sl-color-gray-1: #f4f4f5;
+  --sl-color-gray-2: #d4d4d8;
+  --sl-color-gray-3: #a1a1aa;
+  --sl-color-gray-4: #71717a;
+  --sl-color-gray-5: #3f3f46;
+  --sl-color-gray-6: #27272a;
+  --sl-color-gray-7: #18181b;
+  --sl-color-black: #09090b;
+
+  --sl-color-accent-low: #4158e7;
+  --sl-color-accent: #5e72eb;
+  --sl-color-accent-high: #b6bff6;
+
+  --nl-emphasis-100: #18181b;
+  --nl-emphasis-200: #27272a;
+  --nl-emphasis-400: #52525c;
+  --nl-hairline: #27272a;
+  --nl-nav-bg: #18181b;
+  --nl-footer-bg: #18181b;
+  /* Search button: dark is #15172a on a #212139 border with muted text. */
+  --nl-search-bg: #15172a;
+  --nl-search-bg-hover: #1c1f36;
+  --nl-search-border: #212139;
+  --nl-search-fg: #fafafa;
+  --nl-search-key-bg: #36395a;
+  --nl-search-key-fg: #b6b7d5;
+  --nl-search-key-border: #27272a;
+
+  --sl-color-bg: #09090b;
+  --sl-color-bg-nav: var(--nl-nav-bg);
+  --sl-color-bg-sidebar: #09090b;
+  --sl-color-text: var(--sl-color-white);
+  /* Links use the primary blue; the lighter accent-high is reserved for the
+     active sidebar item. */
+  --sl-color-text-accent: var(--sl-color-accent);
+  --sl-color-hairline: var(--nl-hairline);
+  --sl-color-hairline-shade: var(--nl-hairline);
+
+  --__sl-font: 'IBM Plex Sans', sans-serif;
+  --__sl-font-mono: 'Roboto Mono', monospace;
+  --sl-line-height: 1.65;
+  --sl-line-height-headings: 1.25;
+
+  --sl-nav-height: 4.5rem;
+  --sl-nav-pad-x: 2rem;
+  --sl-nav-pad-y: 0.5rem;
+  --sl-sidebar-width: 16.6667rem;
+  --sl-sidebar-pad-x: 0.5rem;
+  --sl-content-width: 42.28rem; /* 761px at the 18px root size */
+  /* The previous site laid content out inside a 90%-max container, which works
+     out to roughly this gutter at both desktop and mobile widths; it also keeps
+     the article column at its historical 761px. */
+  --sl-content-pad-x: 1.0625rem;
+}
+
+/* Below the sidebar breakpoint the previous container was a plain 90% width, so
+   the gutters were viewport-relative rather than a fixed size. */
+@media (max-width: 50rem) {
+  .content-panel {
+    padding-inline: 5%;
+  }
+}
+
+:root[data-theme='light'] {
+  --sl-color-white: #18181b;
+  --sl-color-gray-1: #27272a;
+  --sl-color-gray-2: #3f3f46;
+  --sl-color-gray-3: #52525c;
+  --sl-color-gray-4: #71717a;
+  --sl-color-gray-5: #d4d4d8;
+  --sl-color-gray-6: #e4e4e7;
+  --sl-color-gray-7: #f4f4f5;
+  --sl-color-black: #fafafa;
+
+  --sl-color-accent-low: #b6bff6;
+  --sl-color-accent: #620edf;
+  --sl-color-accent-high: #450a9c;
+
+  --nl-emphasis-100: #fafafa;
+  --nl-emphasis-200: #f4f4f5;
+  --nl-emphasis-400: #d4d4d8;
+  --nl-hairline: #e4e4e7;
+  --nl-nav-bg: #fafafa;
+  --nl-footer-bg: #f4f4f5;
+  /* Light theme inverts it: white on a pale lilac border with the purple text. */
+  --nl-search-bg: #fff;
+  --nl-search-bg-hover: #f4f4f5;
+  --nl-search-border: #d6d6e7;
+  --nl-search-fg: #5a5e9a;
+  --nl-search-key-bg: #f5f5fa;
+  --nl-search-key-fg: #b6b7d5;
+  --nl-search-key-border: #e4e4e7;
+
+  --sl-color-bg: #fafafa;
+  --sl-color-bg-sidebar: #fafafa;
+  --sl-color-text: #09090b;
+  --sl-color-text-accent: oklch(59.2% 0.249 0.584);
+}
+
+/* The previous theme set the base size on the root element, which also scales
+   the rem-based Starlight tokens to the same computed values. */
+html {
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  line-height: 1.65;
+}
+
+/* The previous theme painted a soft radial glow behind the top of the page. */
+html[data-theme='dark'] {
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(33, 114, 229, 0.1) 0%,
+    rgba(33, 36, 41, 0) 100%
+  );
+  background-position: 0 -30vh;
+  background-repeat: no-repeat;
+}
+
+html[data-theme='light'] {
+  background-image: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(197, 71, 247, 0.1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-position: 0 -30vh;
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------------------ markdown body -- */
+
+.sl-markdown-content:not(:where(.not-content *)) {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)),
+h1#_top {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+}
+
+h1#_top {
+  font-size: 3rem;
+  margin-top: 0;
+  margin-bottom: 1.5625rem;
+}
+
+.sl-markdown-content h2:not(:where(.not-content *)) {
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content h3:not(:where(.not-content *)) {
+  font-size: 1.5rem;
+  margin-top: 1.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content h4:not(:where(.not-content *)) {
+  font-size: 1.25rem;
+}
+
+.sl-markdown-content h5:not(:where(.not-content *)) {
+  font-size: 1.125rem;
+}
+
+.sl-markdown-content h6:not(:where(.not-content *)) {
+  font-size: 1rem;
+}
+
+/**
+ * Starlight wraps headings in `.sl-heading-wrapper` to hold the hover anchor
+ * link. The wrapper inherits the *next* heading size (making its line box taller
+ * than the heading it contains) and resets the heading's own margins, so both the
+ * spacing and the height change. These rules put the previous site's type scale
+ * and margins on the wrapper itself, and zero the inner heading so margins
+ * collapse between siblings exactly as they did before.
+ */
+.sl-markdown-content .sl-heading-wrapper:not(:where(.not-content *)) {
+  line-height: 1.25;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h1:not(:where(.not-content *)) {
+  font-size: 3rem;
+  margin-top: 0;
+  margin-bottom: 1.5625rem;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h2:not(:where(.not-content *)) {
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h3:not(:where(.not-content *)) {
+  font-size: 1.5rem;
+  margin-top: 1.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h4:not(:where(.not-content *)) {
+  font-size: 1.25rem;
+  margin-top: 1.5625rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h5:not(:where(.not-content *)) {
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content .sl-heading-wrapper.level-h6:not(:where(.not-content *)) {
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.sl-markdown-content .sl-heading-wrapper > :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+  font-size: inherit;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/**
+ * Pages whose headings were promoted one level for a valid heading order
+ * (`headingOffset: 1` in frontmatter) render each level one step smaller, so the
+ * page keeps exactly the sizes and margins it had before the promotion.
+ */
+.heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h2 {
+  font-size: 1.5rem;
+  margin-top: 1.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5625rem;
+  margin-bottom: 1.25rem;
+}
+
+.heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h4 {
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Infima shrank the top three heading levels on narrow viewports, including the
+   page title itself. */
+@media (max-width: 36rem) {
+  h1#_top,
+  .content-panel h1#_top {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Promoted pages: the old h3/h4 sizes at this breakpoint. */
+  .heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h2,
+  .heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h3 {
+    font-size: 1.25rem;
+  }
+
+  .sl-markdown-content .sl-heading-wrapper.level-h1:not(:where(.not-content *)) {
+    font-size: 2rem;
+  }
+
+  .sl-markdown-content .sl-heading-wrapper.level-h2:not(:where(.not-content *)) {
+    font-size: 1.5rem;
+  }
+
+  .sl-markdown-content .sl-heading-wrapper.level-h3:not(:where(.not-content *)) {
+    font-size: 1.25rem;
+  }
+}
+
+.sl-markdown-content .sl-anchor-link:not(:where(.not-content *)) {
+  line-height: 1;
+}
+
+/* Heading anchor icons scale with the heading font size by default, which is
+   enormous on h1s. Pin them to a fixed, discreet size. */
+.sl-markdown-content .sl-heading-wrapper {
+  --sl-anchor-icon-size: 1.1rem;
+}
+
+.sl-markdown-content p:not(:where(.not-content *)) {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  line-height: 1.65;
+}
+
+.sl-markdown-content ul:not(:where(.not-content *)),
+.sl-markdown-content ol:not(:where(.not-content *)) {
+  padding-inline-start: 2rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  list-style-position: outside;
+}
+
+.sl-markdown-content ul:not(:where(.not-content *)) {
+  list-style-type: disc;
+}
+
+.sl-markdown-content li:not(:where(.not-content *)) {
+  line-height: 1.65;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* The previous theme set `--ifm-list-item-margin: 0.5rem`. */
+.sl-markdown-content li + li:not(:where(.not-content *)) {
+  margin-top: 0.5rem;
+}
+
+.sl-markdown-content li > ul:not(:where(.not-content *)),
+.sl-markdown-content li > ol:not(:where(.not-content *)) {
+  margin-top: 0.5rem;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--sl-color-text-accent);
+  text-decoration: none;
+}
+
+.sl-markdown-content a:hover:not(:where(.not-content *)) {
+  text-decoration: underline;
+}
+
+.sl-markdown-content strong:not(:where(.not-content *)) {
+  font-weight: 700;
+}
+
+.sl-markdown-content hr:not(:where(.not-content *)) {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid var(--nl-hairline);
+}
+
+.sl-markdown-content img:not(:where(.not-content *)) {
+  max-width: 100%;
+}
+
+/** Markdown images render at their natural aspect ratio; the declared
+ *  width/height attributes reserve layout space without distortion. */
+.sl-markdown-content img[width][height]:not(:where(.not-content *)) {
+  height: auto;
+}
+
+/* Inline code keeps the previous light chip look. */
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
+  font-size: 0.95em;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.4rem;
+  padding: 0.1em;
+}
+
+:root[data-theme='light'] .sl-markdown-content :not(pre) > code {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+/* -------------------------------------------------------------- admonitions -- */
+
+/**
+ * Starlight renders an admonition as `<aside>` with a title `<p>` and a content
+ * `<div>`, and its markdown rules add paragraph margins inside. The previous
+ * Infima markup used a heading `<div>` with a 0.3rem gap and an unwrapped content
+ * block, so these rules reset the inner spacing to reproduce that box exactly.
+ */
+.starlight-aside {
+  --sl-color-asides-text-accent: currentColor;
+  font-size: 1rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-radius: 0.4rem;
+  border-inline-start-width: 5px;
+  padding: 1rem;
+}
+
+/* Scoped to the markdown body so these win over the generic `.sl-markdown-content p`
+   rule above (both are unlayered, so specificity decides). The heading typography
+   and icon metrics come from the previous Infima admonition styles. */
+.sl-markdown-content .starlight-aside__title:not(:where(.not-content *)) {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0 0 0.3rem;
+}
+
+.sl-markdown-content .starlight-aside__title .starlight-aside__icon:not(:where(.not-content *)) {
+  display: inline-block;
+  /* The previous theme drew this icon at 1.6em of the title (≈32px), which
+     reads oversized next to the small uppercase label; keep it discreet. */
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-end: 0.4em;
+  vertical-align: baseline;
+}
+
+/* The previous content block had no top margin and no bottom margin on its
+   final paragraph. */
+.sl-markdown-content .starlight-aside > .starlight-aside__content:not(:where(.not-content *)) {
+  margin-top: 0;
+}
+
+.sl-markdown-content
+  .starlight-aside
+  .starlight-aside__content
+  > :last-child:not(:where(.not-content *)) {
+  margin-bottom: 0;
+}
+
+.starlight-aside--note {
+  background-color: #193c47;
+  border-color: #4cb3d4;
+  color: #ebf8fb;
+}
+
+.starlight-aside--tip {
+  background-color: #003100;
+  border-color: #06df72;
+  color: #e6f6e6;
+}
+
+.starlight-aside--caution {
+  background-color: #4d3800;
+  border-color: #fdc700;
+  color: #fff8e6;
+}
+
+.starlight-aside--danger {
+  background-color: #4b1113;
+  border-color: #ff4144;
+  color: #ffebec;
+}
+
+/* Collapsible `details` blocks (used throughout the FAQ). The previous theme
+   used the browser's native disclosure triangle, so restore that instead of
+   Starlight's inline SVG marker, which wraps long summaries onto two lines. */
+.sl-markdown-content details:not(:where(.not-content *)) {
+  margin: 0 0 1rem;
+  border: 1px solid #4cb3d4;
+  border-radius: 0.4rem;
+  background-color: #193c47;
+  padding: 1rem;
+  color: #ebf8fb;
+}
+
+/**
+ * The previous theme drew the disclosure arrow itself (a rotated CSS triangle)
+ * rather than using the native marker, so reproduce that: no list marker, a
+ * positioned `::before`, and `break-word` wrapping to match its line breaking.
+ */
+.sl-markdown-content details > summary:not(:where(.not-content *)) {
+  position: relative;
+  display: block;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 400;
+  color: inherit;
+  padding-inline-start: 1rem;
+  margin-inline-start: 0;
+  overflow-wrap: break-word;
+}
+
+.sl-markdown-content details > summary:not(:where(.not-content *))::-webkit-details-marker {
+  display: none;
+}
+
+.sl-markdown-content details > summary:not(:where(.not-content *))::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-width: 0.38rem;
+  border-style: solid;
+  border-color: transparent transparent transparent #2f96b4;
+  transform: rotate(0);
+  transition: transform 0.2s ease;
+  transform-origin: calc(0.38rem / 2) 50%;
+}
+
+.sl-markdown-content details[open] > summary:not(:where(.not-content *))::before {
+  transform: rotate(90deg);
+}
+
+.sl-markdown-content details[open] > summary:not(:where(.not-content *)) {
+  margin-bottom: 1rem;
+}
+
+/**
+ * Inside an admonition the previous theme set the link colour to the alert's own
+ * foreground, so links matched the surrounding text instead of staying primary
+ * blue (which only reaches ~3.5:1 on the deeper alert backgrounds and fails the
+ * contrast rules). The FAQ `<details>` blocks are alert-styled too, so they
+ * follow the same rule.
+ */
+.sl-markdown-content .starlight-aside a:not(:where(.not-content *)),
+.sl-markdown-content details a:not(:where(.not-content *)) {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ------------------------------------------------------------------ tables -- */
+
+.sl-markdown-content table:not(:where(.not-content *)) {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)),
+.sl-markdown-content td:not(:where(.not-content *)) {
+  border: 1px solid var(--nl-emphasis-400);
+  padding: 1rem;
+  text-align: start;
+}
+
+.sl-markdown-content th:not(:where(.not-content *)) {
+  font-weight: 700;
+}
+
+.sl-markdown-content tbody tr:nth-child(2n):not(:where(.not-content *)) {
+  background-color: var(--nl-emphasis-100);
+}
+
+/**
+ * Starlight renders the page title and the article body in separate padded
+ * panels, so their paddings stack and push the first paragraph noticeably lower
+ * than the previous layout. Trim the shared edge between them (the title band
+ * keeps its top padding, the body keeps its bottom) so the article starts at the
+ * same offset it used to.
+ */
+.content-panel:has(> .sl-container > h1#_top),
+.content-panel:has(> .sl-container > nav.breadcrumbs) {
+  padding-block: 1.125rem 0;
+}
+
+.content-panel:has(> .sl-container > h1#_top) + .content-panel {
+  padding-top: 0.75rem;
+}
+
+/* ------------------------------------------------------------------ header -- */
+
+header.header {
+  border-bottom: 1px solid var(--nl-hairline);
+}
+
+/**
+ * The previous site switched between the hamburger drawer and the fixed sidebar
+ * column at 997px, and the section links hid at 996px — so the menu button was
+ * the navigation for everything below that. Starlight hides its menu button
+ * from 50rem (800px), which would strand the 800–996px range with no nav at
+ * all, so the button stays visible up to the same 997px breakpoint.
+ */
+.sl-menu-button {
+  display: flex;
+}
+
+@media (min-width: 997px) {
+  .sl-menu-button {
+    display: none;
+  }
+}
+
+/* Starlight reserves the sidebar gutter for the content from 50rem; below the
+   997px sidebar breakpoint there is no column to reserve it for. */
+@media (min-width: 50rem) and (max-width: 996.5px) {
+  html[data-has-sidebar] {
+    --sl-content-inline-start: 0rem;
+  }
+}
+
+/**
+ * Pages that render their own heading (the landing page and the handful of docs
+ * with a leading `<h1>`) still get Starlight's title panel wrapper. It contains
+ * nothing, so drop it rather than leaving an empty band of padding behind.
+ */
+.content-panel:has(> .sl-container:empty) {
+  display: none;
+}
+
+.site-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sl-color-white);
+  gap: 0.5rem;
+}
+
+.site-title img {
+  height: 2rem;
+}
+
+/* The previous navbar logo was a dark mark inverted for the dark theme. */
+:root[data-theme='dark'] .site-title img {
+  filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(337deg) brightness(112%) contrast(104%);
+}
+
+/* ----------------------------------------------------------------- sidebar -- */
+
+.sidebar-content {
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+/* In the desktop column the scroll area starts at the viewport top, under the
+   fixed navbar — pad the content below it so the first group stays visible. */
+@media (min-width: 997px) {
+  .sidebar-content {
+    padding-top: calc(var(--sl-nav-height) + 0.5rem);
+    padding-bottom: 1rem;
+  }
+}
+
+.sidebar-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-content li {
+  margin: 0;
+}
+
+.sidebar-content li + li {
+  margin-top: 0.25rem;
+}
+
+.sidebar-content a,
+.sidebar-content summary .group-label {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+  text-decoration: none;
+}
+
+.sidebar-content a:hover {
+  color: var(--sl-color-white);
+  background-color: var(--nl-emphasis-200);
+}
+
+/* The current page no longer responds to clicks: as in the previous site, the
+   row only marks the visitor's location. */
+.sidebar-content a[aria-current='page'] {
+  color: var(--sl-color-accent-high);
+  background-color: var(--sl-color-accent-low);
+  font-weight: 500;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* Nested lists keep one continuous hairline on the inline start so an open
+   accordion reads as a single grouped section. Starlight's own per-item
+   borders are reset in favour of it, and the indent reproduces the previous
+   menu (1rem list padding + 1rem link padding). */
+.sidebar-content ul ul {
+  margin-inline-start: 0;
+  margin-top: 0.25rem;
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--nl-hairline);
+}
+
+.sidebar-content ul ul li {
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.sidebar-content summary {
+  padding: 0;
+  border-radius: 0.25rem;
+}
+
+.sidebar-content summary:hover {
+  background-color: var(--nl-emphasis-200);
+}
+
+.sidebar-content summary .group-label {
+  flex: 1;
+  padding-inline-end: 0;
+}
+
+/* The previous caret drew a small chevron inside a 1.25rem box, so the visible
+   glyph was ~13px; 0.75rem reproduces it on Starlight's full-bleed icon. */
+.sidebar-content summary .caret {
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-inline-end: 0.25rem;
+  color: var(--sl-color-gray-2);
+}
+
+.sidebar-content summary .large {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------- breadcrumbs -- */
+
+/**
+ * Breadcrumbs mirror the previous Infima markup exactly: 0.8rem pills with a
+ * 1.5rem radius, a 9px chevron image between items at half opacity, and the
+ * current page highlighted in the primary blue on a subtle overlay pill
+ * (`--ifm-breadcrumb-size-multiplier: 0.8` applied to Infima's values).
+ */
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.8rem;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.breadcrumbs li {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs a,
+.breadcrumbs span {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 1.5rem;
+  padding: 0.32rem 0.64rem;
+  color: var(--sl-color-white);
+  text-decoration: none;
+  transition:
+    background-color var(--ifm-transition-fast, 150ms) ease,
+    color var(--ifm-transition-fast, 150ms) ease;
+}
+
+/* The trail always ends on the current page, highlighted as before. */
+.breadcrumbs span[aria-current='page'] {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--sl-color-accent);
+}
+
+:root[data-theme='light'] .breadcrumbs span[aria-current='page'] {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.breadcrumbs a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+:root[data-theme='light'] .breadcrumbs a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* The home icon scales with the root font size, as the previous theme's
+   breadcrumb home icon did (1.1rem). */
+.breadcrumbs a svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Chevron between items, drawn from the same SVG the previous theme used. */
+.breadcrumbs li + li::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline: 0.5rem;
+  opacity: 0.5;
+  background-color: var(--sl-color-white);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpolygon points='79.093,0 48.907,30.187 146.72,128 48.907,225.813 79.093,256 207.093,128'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+/* The previous "Edit this page" link was the primary blue, not grey. */
+.meta a,
+.theme-edit-this-page {
+  color: var(--sl-color-accent);
+}
+
+.meta a:hover,
+.theme-edit-this-page:hover {
+  color: var(--sl-color-accent-high);
+}
+
+/* -------------------------------------------------------------- pagination -- */
+
+/* Previous and next share one row with equal widths when both exist; pages
+   with only one link keep it full width. */
+.pagination-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.pagination-links:has(> a:only-child) {
+  grid-template-columns: 1fr;
+}
+
+.pagination-links a {
+  display: flex;
+  text-decoration: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.4rem;
+  padding: 1rem;
+  background-color: transparent;
+  box-shadow: none;
+  color: var(--sl-color-text-accent);
+  line-height: 1.25;
+}
+
+.pagination-links a[rel='next'] {
+  align-items: flex-end;
+  text-align: end;
+}
+
+.pagination-links a:hover {
+  border-color: var(--sl-color-gray-5);
+  background-color: var(--nl-emphasis-100);
+}
+
+/* Infima rendered the sublabel at 1.125rem and the title at 1.25rem. */
+.pagination-links .pagination-label {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--sl-color-white);
+}
+
+.pagination-links .link-title {
+  font-size: 1.25rem;
+  text-decoration: none;
+  font-weight: 400;
+  color: var(--sl-color-text-accent);
+}
+
+/* --------------------------------------------------------------------- TOC -- */
+
+/**
+ * The previous site hid the mobile table of contents when a page had no headings
+ * to list. Starlight always renders the disclosure and reserves height for it;
+ * its list contains only the page-title entry in that case, so a single item
+ * means "nothing to show" and both the control and its reserved space go away.
+ */
+@media (max-width: 71.99rem) {
+  /* The mobile table of contents renders inline in the article (the PageTitle
+     override), so unlike Starlight's fixed bar it must not reserve viewport
+     space — the reserve pushed the breadcrumbs far below the navbar. */
+  html {
+    --sl-mobile-toc-height: 0rem;
+  }
+
+  /* Keep a little air between the inline TOC bar and the page title. */
+  .content-panel h1#_top {
+    margin-top: 0.75rem;
+  }
+
+  /**
+   * The previous site's mobile TOC was an inline disclosure inside the content
+   * column, not a fixed bar: a full-width row with a caret, indented to match the
+   * article, sitting between the breadcrumbs and the title. Starlight fixes it to
+   * the top of the viewport with a pill-shaped toggle, so it is repositioned and
+   * restyled here.
+   */
+  mobile-starlight-toc nav {
+    position: static;
+    border-top: 0;
+    background-color: transparent;
+    margin-top: 0.75rem;
+  }
+
+  mobile-starlight-toc summary {
+    height: auto;
+    padding: 0;
+    border-bottom: 0;
+    font-size: 1rem;
+  }
+
+  mobile-starlight-toc .toggle {
+    /* Full-width bar like the previous collapsible button. */
+    flex: 1;
+    width: 100%;
+    justify-content: space-between;
+    border: 0;
+    border-radius: 0.4rem;
+    background-color: var(--sl-color-accent-low);
+    padding: 0.4rem 0.8rem;
+    color: var(--sl-color-white);
+    font-size: inherit;
+  }
+
+  /* Starlight echoes the currently-active heading next to the toggle; the
+     previous site didn't, and it reads as clutter. */
+  mobile-starlight-toc .display-current {
+    display: none;
+  }
+
+  mobile-starlight-toc details[open] .toggle,
+  mobile-starlight-toc .toggle:hover {
+    border: 0;
+    background-color: var(--sl-color-accent);
+    /* Keep a foreground that contrasts the blue bar: text-invert resolves to
+       accent-low here, which is unreadable on either blue. */
+    color: var(--sl-color-white);
+  }
+
+  mobile-starlight-toc .caret {
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(90deg);
+  }
+
+  mobile-starlight-toc details[open] .caret {
+    transform: rotate(-90deg);
+  }
+
+  /* Hover/focus highlight on the dropdown entries, matching the sidebar. */
+  mobile-starlight-toc .dropdown a {
+    border-radius: 0.25rem;
+    transition: background-color 0.15s ease;
+  }
+
+  mobile-starlight-toc .dropdown a:hover,
+  mobile-starlight-toc .dropdown a:focus {
+    background-color: var(--nl-emphasis-200);
+  }
+
+  /* The disclosure panel is inline in the previous layout, not a full-height
+     overlay, and the article indent keeps it aligned with the content. */
+  mobile-starlight-toc .dropdown {
+    max-height: 60vh;
+    border-radius: 0.4rem;
+    box-shadow: var(--sl-shadow-md);
+  }
+}
+
+/* Starlight's own first-child reset misses custom elements like hydrated
+   islands, so a page-leading video or embed carried a stray gap below the
+   title band. */
+.sl-markdown-content > :first-child {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------ on this page (TOC) -- */
+
+/**
+ * The previous desktop TOC: a hairline-bordered list of 0.8rem links pinned
+ * below the navbar, with no visible heading — the aside's accessible label
+ * covers it. Resting text is muted but legible in both themes (no opacity
+ * fade); the active and hovered entries use the accent.
+ */
+.right-sidebar-panel {
+  padding-block: 1.5rem 2rem;
+}
+
+.right-sidebar-panel h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.right-sidebar-panel nav ul {
+  border-inline-start: 1px solid var(--sl-color-hairline);
+  padding: 0.5rem 0 0.5rem 1rem;
+}
+
+.right-sidebar-panel li {
+  margin: 0.5rem 1rem 0.5rem 0;
+}
+
+.right-sidebar-panel a {
+  color: var(--sl-color-gray-3);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  padding-block: 0.1rem;
+  text-decoration: none;
+}
+
+.right-sidebar-panel a:hover,
+.right-sidebar-panel a[aria-current='true'] {
+  color: var(--sl-color-accent);
+}
+
+/* Match the left sidebar's width so the article centers between the two
+   columns, and drop Starlight's full-height divider on the aside. */
+@media (min-width: 72rem) {
+  .right-sidebar-container {
+    width: var(--sl-sidebar-width);
+  }
+
+  .right-sidebar {
+    border-inline-start: 0;
+  }
+
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - var(--sl-sidebar-width));
+    --sl-content-margin-inline: auto;
+  }
+}
+
+/* ------------------------------------------------------------------ footer -- */
+
+nl-footer {
+  display: none;
+  /* Paint above the fixed sidebar column and the TOC aside: the footer band
+     spans the full page width and must not slide underneath either. */
+  position: relative;
+  z-index: calc(var(--sl-z-index-menu) + 1);
+  border-top: 1px solid var(--nl-hairline);
+  background-color: var(--nl-footer-bg);
+  padding: 2rem;
+}
+
+/* The previous site only showed the footer from the desktop breakpoint up. */
+@media screen and (min-width: 997px) {
+  nl-footer {
+    display: block;
+  }
+}
+
+nl-footer .footer-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+@media (max-width: 60rem) {
+  nl-footer .footer-columns {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 40rem) {
+  nl-footer .footer-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+nl-footer h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+  margin: 0 0 1rem;
+}
+
+nl-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nl-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 1rem;
+  color: #d4d4d8;
+  text-decoration: none;
+  line-height: 2;
+}
+
+:root[data-theme='light'] nl-footer a {
+  color: #3f3f46;
+}
+
+nl-footer a:hover {
+  color: var(--sl-color-text-accent);
+}
+
+nl-footer a svg {
+  /* Long labels wrap onto two lines; without this the flex link squeezes the
+     icon horizontally, so icons render at inconsistent widths. */
+  flex: none;
+  width: 0.75em;
+  height: 0.75em;
+}
+
+/* ------------------------------------------------------------------ search -- */
+
+/**
+ * The previous navbar's search control was Algolia's own DocSearch button. The
+ * trigger below reproduces its metrics (2rem content height plus a 1px border,
+ * 0.5rem radius, #15172a on #212139) so the navbar renders identically.
+ */
+site-search button[data-open-modal],
+.search-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2.111rem;
+  border: 1px solid var(--nl-search-border);
+  border-radius: 0.5rem;
+  background-color: var(--nl-search-bg);
+  padding: 0 0.5rem;
+  color: var(--nl-search-fg);
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+site-search button[data-open-modal]:hover,
+.search-trigger:hover {
+  background-color: var(--nl-search-bg-hover);
+}
+
+site-search button[data-open-modal] svg,
+.search-trigger svg {
+  width: 20px;
+  height: 20px;
+  color: currentColor;
+}
+
+/* Gap between the shortcut chips. Deliberately no display here: visibility
+   below the desktop navbar belongs to Starlight's sl-hidden/md:sl-flex
+   utilities, and the hint is pointless on touch screens. */
+site-search kbd {
+  gap: 0.15rem;
+}
+
+site-search kbd kbd,
+.search-trigger-keys kbd {
+  border: 1px solid var(--nl-search-key-border);
+  border-radius: 0.25rem;
+  background-color: var(--nl-search-key-bg);
+  padding: 0 0.3rem;
+  font-size: 0.75rem;
+  color: var(--nl-search-key-fg);
+}
+
+.DocSearch {
+  --docsearch-primary-color: var(--sl-color-accent);
+  --docsearch-container-background: rgba(47, 55, 69, 0.7);
+  --docsearch-modal-background: #09090b;
+  --docsearch-text-color: #fafafa;
+  --docsearch-searchbox-background: rgba(0, 0, 0, 0.2);
+  --docsearch-searchbox-focus-background: #09090b;
+  --docsearch-hit-color: #fafafa;
+  --docsearch-hit-active-color: #d4d4d8;
+  --docsearch-hit-background: #18181b;
+  --docsearch-muted-color: #a1a1aa;
+  --docsearch-footer-background: #09090b;
+  --docsearch-key-gradient: linear-gradient(-26.5deg, #27272a 0%, #18181b 100%);
+}
+
+:root[data-theme='light'] .DocSearch {
+  --docsearch-container-background: rgba(94, 100, 112, 0.7);
+  --docsearch-modal-background: #f4f4f5;
+  --docsearch-text-color: #09090b;
+  --docsearch-searchbox-background: rgba(0, 0, 0, 0.05);
+  --docsearch-searchbox-focus-background: #fafafa;
+  --docsearch-hit-color: #09090b;
+  --docsearch-hit-active-color: #fafafa;
+  --docsearch-hit-background: #fafafa;
+  --docsearch-highlight-color: #620edf;
+  --docsearch-footer-background: #fafafa;
+}
+
+/* -------------------------------------------------------------- 404 / misc -- */
+
+.sl-markdown-content .mermaid-container:not(:where(.not-content *)) {
+  margin: 1.5rem 0;
+}
+
+.sl-markdown-content .mermaid-container svg:not(:where(.not-content *)) {
+  max-width: 100%;
+}

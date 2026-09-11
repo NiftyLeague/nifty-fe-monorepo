@@ -1,8 +1,0 @@
-.icon {
-  display: flex;
-  align-items: center;
-}
-
-.icon svg {
-  fill: var(--ifm-font-color-base);
-}
