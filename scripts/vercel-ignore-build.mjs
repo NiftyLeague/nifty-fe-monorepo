@@ -9,6 +9,7 @@ const BUILD_BRANCHES = new Set([
   'main',
   'feat/web-astro-migration',
   'feat/smashers-astro-migration',
+  'fix/smashers-astro-runtime-regressions',
 ])
 const ZERO_SHA = /^0+$/
 

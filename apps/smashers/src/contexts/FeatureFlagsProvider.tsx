@@ -28,13 +28,42 @@ export type ProviderConfig = { flags: FlagSet }
 const initialState: ProviderConfig = { flags: {} }
 export const FeatureFlagContext = createContext<ProviderConfig>(initialState)
 
+/**
+ * Parse the configured flags, falling back to the defaults.
+ *
+ * Tolerant by necessity: an unset variable reaches the client as either
+ * `undefined` or an empty string depending on how it was inlined, and an
+ * unparseable value must not take the app down. A bare `JSON.parse('')` threw
+ * during render, which crashed the entire island and left the login and profile
+ * pages blank.
+ *
+ * Mirrors apps/app's `parseFeatureFlags` (including filtering to booleans) so
+ * both apps interpret the same variable identically. Duplicated rather than
+ * shared because it lives in an app-local context module there; worth lifting
+ * into packages/ui if a third app needs it.
+ */
+export function parseFlags(
+  storedValue: string | undefined,
+  defaults: FlagSet = DEFAULT_FLAGS
+): FlagSet {
+  if (!storedValue || storedValue.trim() === '') return { ...defaults }
+
+  try {
+    const parsed: unknown = JSON.parse(storedValue)
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return { ...defaults }
+
+    const booleanFlags = Object.fromEntries(
+      Object.entries(parsed).filter(([, flag]) => typeof flag === 'boolean')
+    )
+    return { ...defaults, ...booleanFlags }
+  } catch {
+    console.warn('Ignoring NEXT_PUBLIC_FEATURE_FLAGS: value is not valid JSON')
+    return { ...defaults }
+  }
+}
+
 function useProcessFlagsFromEnv() {
-  const [flags] = useState<FlagSet>(() => {
-    const storedValue = process.env.NEXT_PUBLIC_FEATURE_FLAGS
-    return storedValue === undefined
-      ? DEFAULT_FLAGS
-      : { ...DEFAULT_FLAGS, ...JSON.parse(storedValue) }
-  })
+  const [flags] = useState<FlagSet>(() => parseFlags(process.env.NEXT_PUBLIC_FEATURE_FLAGS))
 
   return { flags }
 }

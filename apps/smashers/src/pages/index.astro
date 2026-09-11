@@ -1,6 +1,8 @@
 ---
 import Base from '@/layouts/Base.astro'
 import Header, { HERO_ARTWORK, type ActiveModal } from '@/components/Header'
+import ActionButtonsGroup from '@/components/Header/ActionButtonsGroup'
+import DeferredHeroBackground from '@/components/Header/DeferredHeroBackground'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
@@ -19,7 +21,20 @@ const preloadImages = [...HERO_ARTWORK]
 <Base canonical="/" preloadImages={preloadImages}>
   <main>
     <section id="header">
-      <Header activeModal={activeModal} />
+      {/*
+        The two interactive subtrees are islands; the rest of the header (nav,
+        wordmark) stays static HTML. Importing them inside Header instead would
+        ship them unhydrated, which left the hero animation and the
+        Play/Trailer/Credits buttons inert.
+      */}
+      <Header>
+        <Fragment slot="heroBackground">
+          <DeferredHeroBackground client:load />
+        </Fragment>
+        <Fragment slot="actionButtons">
+          <ActionButtonsGroup client:load activeModal={activeModal} />
+        </Fragment>
+      </Header>
     </section>
     <section id="console-game">
       <DeferredConsoleGame client:visible={{ rootMargin: '200px' }} deferVideo src="/video/smashers.mp4">

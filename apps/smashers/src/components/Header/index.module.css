@@ -24,7 +24,13 @@
 
 .heroContainer {
   position: relative;
-  z-index: 1;
+  /*
+   * This layer carries the fixed nav, so it must outrank page content or a
+   * below-fold element with a positive z-index paints over the nav while
+   * scrolling. It sits above page layers and well below the dialog overlay
+   * (z-1200), which is intended to cover the nav.
+   */
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;

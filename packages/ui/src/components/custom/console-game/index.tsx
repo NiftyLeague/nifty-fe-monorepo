@@ -83,8 +83,15 @@ export const ConsoleGame = memo(function ConsoleGame({
           aria-label={isPlaying ? 'Pause video' : 'Play video'}
           className={cx(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
         >
+          {/*
+            Decorative: the wrapping Button already carries the accessible name
+            (`Play video` / `Pause video`). A descriptive alt here is redundant
+            AND visible, because a browser paints alt text at the top-left of an
+            unloaded image — and this wrapper is full-bleed, so it showed up as
+            placeholder text across the console before the art loaded.
+          */}
           <NativeImage
-            alt="Bonk Sticker"
+            alt=""
             className="pixelated"
             width={CONSOLE_ARTWORK_DIMENSIONS.width}
             height={CONSOLE_ARTWORK_DIMENSIONS.height}
@@ -99,7 +106,7 @@ export const ConsoleGame = memo(function ConsoleGame({
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade">
             <NativeImage
-              alt="Controller Left"
+              alt=""
               className="pixelated"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
@@ -115,7 +122,7 @@ export const ConsoleGame = memo(function ConsoleGame({
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
           <div className="animate-hover transition-fade">
             <NativeImage
-              alt="Controller Right"
+              alt=""
               className="pixelated"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}

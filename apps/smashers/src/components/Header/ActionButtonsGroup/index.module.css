@@ -4,7 +4,8 @@
   display: flex;
   justify-content: space-evenly;
   margin-bottom: 60px;
-  z-index: 99;
+  /* No z-index, deliberately. These buttons share a stacking context with the
+   * fixed nav, so any positive value here would paint them over it. */
 }
 
 .heroBtnGroup button {

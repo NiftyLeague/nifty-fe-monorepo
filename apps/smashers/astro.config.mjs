@@ -12,6 +12,10 @@ const local = (name) => fileURLToPath(new URL(name, root))
 // defined is inlined into the client bundle. The PUBLIC_* names are the
 // convention the Astro apps adopted; the legacy NEXT_PUBLIC_* names stay as a
 // fallback so existing deployments keep working through the cutover.
+//
+// An unset variable becomes an empty string rather than `undefined`, because a
+// define is a textual substitution and consumers compare against a value.
+// Consumers must therefore treat '' as "not configured" — see parseFlags.
 const publicEnv = (name, ...fallbacks) => {
   const value = [name, ...fallbacks].map((key) => process.env[key]).find(Boolean) ?? ''
   return JSON.stringify(value)

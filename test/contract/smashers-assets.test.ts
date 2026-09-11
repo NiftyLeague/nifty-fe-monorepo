@@ -46,7 +46,12 @@ describe('Smashers asset delivery contracts', () => {
     const deferredAnimation = readFileSync(deferredAnimationSource, 'utf8')
     const gameSection = readFileSync(gameSectionSource, 'utf8')
 
-    expect(header).toContain('DeferredHeroBackground')
+    // The header takes the hero background as a slot so the page can attach a
+    // client directive; asserting on the header alone would miss the wiring.
+    const homePage = readFileSync('apps/smashers/src/pages/index.astro', 'utf8')
+    expect(header).toContain('heroBackground')
+    expect(homePage).toContain('DeferredHeroBackground')
+    expect(homePage).toMatch(/<DeferredHeroBackground\b[^>]*client:/)
     expect(deferredBackground).toContain("from '@nl/ui/custom/deferred-external-script'")
     expect(deferredBackground).toContain('<DeferredExternalScript')
     expect(deferredBackground).toContain('smashers-hero-animation.js')

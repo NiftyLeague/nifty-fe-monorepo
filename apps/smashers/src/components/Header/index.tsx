@@ -1,6 +1,4 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
-import ActionButtonsGroup from './ActionButtonsGroup'
-import DeferredHeroBackground from './DeferredHeroBackground'
 import Navbar from './Navbar'
 
 import styles from './index.module.css'
@@ -22,9 +20,24 @@ export const HERO_ARTWORK = [
 ] as const
 const HERO_WORDMARK = HERO_ARTWORK[0]
 
-const Header = ({ activeModal }: { activeModal: ActiveModal }) => (
+interface HeaderProps {
+  /**
+   * Interactive subtrees, injected as Astro `slot` fragments.
+   *
+   * They must arrive from the page rather than being imported here: this
+   * component renders server-side as plain HTML, so a child imported directly
+   * would ship without a `client:*` directive and never hydrate — which is
+   * exactly how the hero animation and the Play/Trailer/Credits buttons ended
+   * up inert. Passing them in lets the page attach the directives and keeps the
+   * static shell (nav, wordmark) free of JavaScript.
+   */
+  heroBackground?: React.ReactNode
+  actionButtons?: React.ReactNode
+}
+
+const Header = ({ heroBackground, actionButtons }: HeaderProps) => (
   <div className={styles.hero}>
-    <DeferredHeroBackground />
+    {heroBackground}
     <div className="dark-gradient-overlay !h-screen" />
     <div className={styles.heroContainer}>
       <Navbar />
@@ -39,7 +52,7 @@ const Header = ({ activeModal }: { activeModal: ActiveModal }) => (
           sizes={HERO_WORDMARK.sizes}
           quality={HERO_WORDMARK.quality}
         />
-        <ActionButtonsGroup activeModal={activeModal} />
+        {actionButtons}
       </div>
     </div>
   </div>
