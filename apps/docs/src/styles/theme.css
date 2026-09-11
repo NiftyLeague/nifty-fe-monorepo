@@ -648,6 +648,15 @@ header.header {
   padding: 0.5rem 0 0.5rem 0.5rem;
 }
 
+/* In the desktop column the scroll area starts at the viewport top, under the
+   fixed navbar — pad the content below it so the first group stays visible. */
+@media (min-width: 997px) {
+  .sidebar-content {
+    padding-top: calc(var(--sl-nav-height) + 0.5rem);
+    padding-bottom: 1rem;
+  }
+}
+
 .sidebar-content ul {
   list-style: none;
   padding: 0;
