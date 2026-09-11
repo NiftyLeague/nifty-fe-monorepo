@@ -1,6 +1,8 @@
 ---
 // Feature cards, ported from the previous HomepageFeatures component.
 import { FEATURES } from '../../lib/links';
+import NL from '../../../../../assets/img/logos/NL/logo.svg';
+import NFTL from '../../../../../assets/img/logos/NFTL/logo.svg';
 import ArrowUpRight from '../icons/ArrowUpRight.astro';
 import CodeXml from '../icons/CodeXml.astro';
 ---
@@ -15,12 +17,8 @@ import CodeXml from '../icons/CodeXml.astro';
 						<div class="card-top">
 							<div class="icon-wrapper">
 								<span class="styled-icon">
-									{icon === 'logo' && (
-										<img src="/docs/img/logos/NL/logo.svg" alt="" width="24" height="24" />
-									)}
-									{icon === 'nftl' && (
-										<img src="/docs/img/logos/NFTL/logo.svg" alt="" width="24" height="24" />
-									)}
+									{icon === 'logo' && <NL width="24" height="24" aria-hidden="true" />}
+									{icon === 'nftl' && <NFTL width="24" height="24" aria-hidden="true" />}
 									{icon === 'code' && <CodeXml />}
 								</span>
 							</div>
@@ -52,6 +50,11 @@ import CodeXml from '../icons/CodeXml.astro';
 		align-items: center;
 		justify-content: center;
 		border-radius: 4px;
+	}
+
+	.styled-icon :global(svg),
+	.styled-icon :global(svg *) {
+		fill: var(--sl-color-text);
 	}
 
 	.card h3 {

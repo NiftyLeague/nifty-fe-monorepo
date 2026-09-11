@@ -63,23 +63,27 @@ import { Icon } from '@astrojs/starlight/components';
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			/* The previous site's toggle was a 2.25rem icon button. */
-			width: 2.25rem;
-			height: 2.25rem;
+			/* The previous site's toggle was a 36px circular icon button. */
+			width: 2rem;
+			height: 2rem;
 			border: 0;
+			border-radius: 50%;
 			background: transparent;
 			color: var(--sl-color-gray-2);
 			cursor: pointer;
 			padding: 0;
+			transition: background-color 0.15s ease;
 		}
 
 		.theme-toggle:hover {
+			background-color: var(--nl-emphasis-200);
 			color: var(--sl-color-white);
 		}
 
 		.theme-toggle svg {
-			width: 1.25rem;
-			height: 1.25rem;
+			/* 24px at the 18px root size, matching the previous icon. */
+			width: 1.3333rem;
+			height: 1.3333rem;
 		}
 
 		.theme-icon {

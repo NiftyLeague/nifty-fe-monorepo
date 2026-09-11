@@ -14,8 +14,20 @@ import '../styles/home.css';
 	frontmatter={{
 		title: 'Nifty League Docs',
 		template: 'splash',
-		// The previous landing page title had no site-name suffix.
-		head: [{ tag: 'title', content: 'Nifty League Docs' }],
+		// The previous landing page title had no site-name suffix. The hero artwork
+		// is the LCP element, so the default (dark) variant is preloaded here.
+		head: [
+			{ tag: 'title', content: 'Nifty League Docs' },
+			{
+				tag: 'link',
+				attrs: {
+					rel: 'preload',
+					as: 'image',
+					href: '/docs/img/games/smashers/3D-levels/sushi_cropped.webp',
+					fetchpriority: 'high',
+				},
+			},
+		],
 	}}
 >
 	<Hero />

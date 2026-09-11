@@ -51,6 +51,14 @@
   --nl-hairline: #27272a;
   --nl-nav-bg: #18181b;
   --nl-footer-bg: #18181b;
+  /* Search button: dark is #15172a on a #212139 border with muted text. */
+  --nl-search-bg: #15172a;
+  --nl-search-bg-hover: #1c1f36;
+  --nl-search-border: #212139;
+  --nl-search-fg: #fafafa;
+  --nl-search-key-bg: #36395a;
+  --nl-search-key-fg: #b6b7d5;
+  --nl-search-key-border: #27272a;
 
   --sl-color-bg: #09090b;
   --sl-color-bg-nav: var(--nl-nav-bg);
@@ -114,6 +122,14 @@
   --nl-hairline: #e4e4e7;
   --nl-nav-bg: #fafafa;
   --nl-footer-bg: #f4f4f5;
+  /* Light theme inverts it: white on a pale lilac border with the purple text. */
+  --nl-search-bg: #fff;
+  --nl-search-bg-hover: #f4f4f5;
+  --nl-search-border: #d6d6e7;
+  --nl-search-fg: #5a5e9a;
+  --nl-search-key-bg: #f5f5fa;
+  --nl-search-key-fg: #b6b7d5;
+  --nl-search-key-border: #e4e4e7;
 
   --sl-color-bg: #fafafa;
   --sl-color-bg-sidebar: #fafafa;
@@ -797,11 +813,66 @@ header.header {
  * means "nothing to show" and both the control and its reserved space go away.
  */
 @media (max-width: 71.99rem) {
-  /* Pages with no headings omit the disclosure entirely (see
-     components/starlight/MobileTableOfContents.astro); clear the height the
+  /* Pages with no headings omit the disclosure entirely, so clear the height the
      shell reserves for it. */
   html:not(:has(details#starlight__mobile-toc)) {
     --sl-mobile-toc-height: 0rem;
+  }
+
+  /**
+   * The previous site's mobile TOC was an inline disclosure inside the content
+   * column, not a fixed bar: a full-width row with a caret, indented to match the
+   * article, sitting between the breadcrumbs and the title. Starlight fixes it to
+   * the top of the viewport with a pill-shaped toggle, so it is repositioned and
+   * restyled here.
+   */
+  mobile-starlight-toc nav {
+    position: static;
+    border-top: 0;
+    background-color: transparent;
+    margin-top: 0.75rem;
+  }
+
+  mobile-starlight-toc summary {
+    height: auto;
+    padding: 0;
+    border-bottom: 0;
+    font-size: 1rem;
+  }
+
+  mobile-starlight-toc .toggle {
+    justify-content: space-between;
+    border: 0;
+    border-radius: 0.4rem;
+    background-color: var(--sl-color-accent-low);
+    padding: 0.4rem 0.8rem;
+    color: var(--sl-color-white);
+    font-size: inherit;
+  }
+
+  mobile-starlight-toc details[open] .toggle,
+  mobile-starlight-toc .toggle:hover {
+    border: 0;
+    background-color: var(--sl-color-accent);
+    color: var(--sl-color-text-invert);
+  }
+
+  mobile-starlight-toc .caret {
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: rotate(90deg);
+  }
+
+  mobile-starlight-toc details[open] .caret {
+    transform: rotate(-90deg);
+  }
+
+  /* The disclosure panel is inline in the previous layout, not a full-height
+     overlay, and the article indent keeps it aligned with the content. */
+  mobile-starlight-toc .dropdown {
+    max-height: 60vh;
+    border-radius: 0.4rem;
+    box-shadow: var(--sl-shadow-md);
   }
 }
 
@@ -923,11 +994,11 @@ site-search button[data-open-modal],
   align-items: center;
   gap: 0.5rem;
   height: 2.111rem;
-  border: 1px solid #212139;
+  border: 1px solid var(--nl-search-border);
   border-radius: 0.5rem;
-  background-color: #15172a;
+  background-color: var(--nl-search-bg);
   padding: 0 0.5rem;
-  color: var(--sl-color-white);
+  color: var(--nl-search-fg);
   font-size: 1rem;
   font-weight: 400;
   cursor: pointer;
@@ -935,14 +1006,14 @@ site-search button[data-open-modal],
 
 site-search button[data-open-modal]:hover,
 .search-trigger:hover {
-  background-color: #1c1f36;
+  background-color: var(--nl-search-bg-hover);
 }
 
 site-search button[data-open-modal] svg,
 .search-trigger svg {
   width: 20px;
   height: 20px;
-  color: var(--sl-color-gray-2);
+  color: currentColor;
 }
 
 site-search kbd {
@@ -952,12 +1023,12 @@ site-search kbd {
 
 site-search kbd kbd,
 .search-trigger-keys kbd {
-  border: 1px solid var(--sl-color-gray-5);
+  border: 1px solid var(--nl-search-key-border);
   border-radius: 0.25rem;
-  background-color: var(--nl-emphasis-200);
+  background-color: var(--nl-search-key-bg);
   padding: 0 0.3rem;
   font-size: 0.75rem;
-  color: var(--sl-color-gray-2);
+  color: var(--nl-search-key-fg);
 }
 
 .DocSearch {

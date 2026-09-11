@@ -75,7 +75,6 @@ export default defineConfig({
       },
       components: {
         Head: './src/components/starlight/Head.astro',
-        MobileTableOfContents: './src/components/starlight/MobileTableOfContents.astro',
         Header: './src/components/starlight/Header.astro',
         Search: './src/components/starlight/Search.astro',
         Sidebar: './src/components/starlight/Sidebar.astro',
@@ -83,6 +82,7 @@ export default defineConfig({
         ThemeProvider: './src/components/starlight/ThemeProvider.astro',
         ThemeSelect: './src/components/starlight/ThemeSelect.astro',
         PageFrame: './src/components/starlight/PageFrame.astro',
+        PageSidebar: './src/components/starlight/PageSidebar.astro',
         PageTitle: './src/components/starlight/PageTitle.astro',
         Pagination: './src/components/starlight/Pagination.astro',
       },
