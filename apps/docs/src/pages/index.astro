@@ -7,7 +7,12 @@ import Hero from '../components/home/Hero.astro';
 import Features from '../components/home/Features.astro';
 import Guides from '../components/home/Guides.astro';
 import Socials from '../components/home/Socials.astro';
+import { sidebar } from '../sidebar';
 import '../styles/home.css';
+
+// The `sidebar` prop below gives the page the resolved navigation tree: the
+// splash template renders no sidebar column, but the tree feeds the hamburger
+// drawer that the page frame shows below 997px.
 ---
 
 <StarlightPage
@@ -29,6 +34,7 @@ import '../styles/home.css';
 			},
 		],
 	}}
+	sidebar={sidebar}
 >
 	<Hero />
 	{/* `not-content` opts the landing page out of Starlight's markdown spacing. */}

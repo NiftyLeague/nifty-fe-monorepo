@@ -9,6 +9,7 @@
  * trailing footer is added.
  */
 import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
+import Sidebar from 'virtual:starlight/components/Sidebar';
 import Footer from '../Footer.astro';
 import Analytics from '../Analytics.astro';
 
@@ -17,6 +18,10 @@ const { hasSidebar, entry } = Astro.locals.starlightRoute;
 // Pages whose headings were promoted carry `headingOffset`; the class keeps their
 // visual scale (see theme.css).
 const headingOffset = entry.data.headingOffset ?? 0;
+
+// The landing page has no sidebar column (splash template) but still carries the
+// hamburger below 997px, so the collapsed navbar keeps a menu there too.
+const hasMenuButton = hasSidebar || entry.data.template === 'splash';
 
 ---
 
@@ -28,9 +33,11 @@ const headingOffset = entry.data.headingOffset ?? 0;
 		headingOffset ? `heading-offset-${headingOffset}` : null,
 	]}
 >
-	<header class="header"><slot name="header" /></header>
+	<header class:list={['header', { 'has-menu-button': hasMenuButton }]}>
+		<slot name="header" />
+	</header>
 	{
-		hasSidebar && (
+		hasMenuButton && (
 			<nav class="sidebar print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>
 				<MobileMenuToggle />
 				<script>
@@ -51,8 +58,11 @@ const headingOffset = entry.data.headingOffset ?? 0;
 					}
 				</script>
 				<sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane">
+					{/* Rendered directly rather than through the `sidebar` slot: Starlight's
+					    Page only passes that slot on sidebar pages, and a conditionally
+					    passed slot counts as present, so a fallback would never render. */}
 					<div class="sidebar-content sl-flex">
-						<slot name="sidebar" />
+						<Sidebar />
 					</div>
 				</sl-sidebar-pane>
 			</nav>
@@ -86,7 +96,8 @@ const headingOffset = entry.data.headingOffset ?? 0;
 			background-color: var(--sl-color-bg-nav);
 		}
 
-		:global([data-has-sidebar]) .header {
+		:global([data-has-sidebar]) .header,
+		.header.has-menu-button {
 			padding-inline-end: calc(
 				var(--sl-nav-gap) + var(--sl-nav-pad-x) + var(--sl-menu-button-size)
 			);
@@ -131,12 +142,15 @@ const headingOffset = entry.data.headingOffset ?? 0;
 		/* The previous site switched between the hamburger drawer and the fixed
 		   sidebar column at 997px, not at Starlight's 50rem: in between, the nav
 		   links were hidden while the hamburger stayed available. Keeping that
-		   breakpoint means the menu button is rendered at every width below it. */
+		   breakpoint means the menu button is rendered at every width below it.
+		   The fixed column only applies to pages with a real sidebar — splash
+		   pages (the landing page) keep a full-width drawer at every width. */
 		@media (min-width: 997px) {
-			:global([data-has-sidebar]) .header {
+			:global([data-has-sidebar]) .header,
+			.header.has-menu-button {
 				padding-inline-end: var(--sl-nav-pad-x);
 			}
-			.sidebar-pane {
+			:global([data-has-sidebar]) .sidebar-pane {
 				display: block;
 				width: var(--sl-sidebar-width);
 				background-color: var(--sl-color-bg-sidebar);

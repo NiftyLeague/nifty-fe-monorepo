@@ -1,13 +1,16 @@
 ---
 // Filters Starlight's single sidebar down to the section that owns the current
-// page, reproducing the previous site's per-section navigation.
+// page, reproducing the previous site's per-section navigation. Pages that
+// belong to no section (the landing page) fall back to the full tree so their
+// drawer still offers every section.
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
 import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
 import { sectionEntries, sectionForId } from '../../lib/navigation';
 
 const { sidebar, entry } = Astro.locals.starlightRoute;
-const scoped = sectionEntries(sidebar, sectionForId(entry.id));
+const section = sectionForId(entry.id);
+const scoped = section ? sectionEntries(sidebar, section) : sidebar;
 ---
 
 <SidebarPersister>
