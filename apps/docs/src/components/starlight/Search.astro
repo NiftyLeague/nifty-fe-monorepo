@@ -168,19 +168,25 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 		site-search {
 			display: contents;
 		}
+	}
+</style>
 
-		/* The mounted DocSearch trigger stays measurable — the modal panel anchors
-		   to it — but must never appear next to the site's own search button. */
-		#starlight__search .DocSearch-Button {
-			position: absolute;
-			width: 1px;
-			height: 1px;
-			padding: 0;
-			margin: -1px;
-			border: 0;
-			overflow: hidden;
-			clip-path: inset(50%);
-			white-space: nowrap;
-		}
+<style>
+	/* DocSearch injects its own stylesheet unlayered at runtime, so this rule
+	   must also live outside any cascade layer to win. The mounted trigger
+	   stays measurable — the modal panel anchors to it — but must never appear
+	   next to the site's own search button; it is rendered by DocSearch at
+	   runtime, so it needs :global() to be reached by these scoped styles. */
+	#starlight__search :global(.DocSearch-Button) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		border: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		pointer-events: none;
 	}
 </style>
