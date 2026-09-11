@@ -173,8 +173,6 @@ describe('Turbo cache environment scope', () => {
         'GITHUB_ACTIONS',
         'GOOGLE_CLIENT_ID',
         'GOOGLE_CLIENT_SECRET',
-        'NEXT_RUNTIME',
-        'NEXT_PUBLIC_*',
         'NEXTAUTH_SECRET',
         'PLAYFAB_API_KEY',
         'PUBLIC_*',
@@ -192,8 +190,8 @@ describe('Turbo cache environment scope', () => {
   it('names the environment variables each shared package actually reads', () => {
     // A declared-but-unread name (or a read-but-undeclared one) silently makes
     // the cache key wrong: the task reuses a result computed under different
-    // configuration. This caught PUBLIC_PLAYFAB_TITLE_ID being declared for
-    // @nl/playfab while the package reads NEXT_PUBLIC_PLAYFAB_TITLE_ID.
+    // configuration. This caught the env name drifting from the package source
+    // when the PlayFab title id moved to the PUBLIC_* convention.
     const sources = {
       '@nl/playfab#lint': 'packages/playfab/src',
     } as const
@@ -223,7 +221,7 @@ describe('Turbo cache environment scope', () => {
         expect(read.has(name), `${task} declares ${name} but the package never reads it`).toBe(true)
       }
       for (const name of read) {
-        if (!name.startsWith('NEXT_PUBLIC_') && !name.startsWith('PLAYFAB_')) continue
+        if (!name.startsWith('PLAYFAB_')) continue
         expect(declared.has(name), `${task} must declare ${name}, which the package reads`).toBe(
           true
         )

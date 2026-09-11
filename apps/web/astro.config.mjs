@@ -47,9 +47,7 @@ export default defineConfig({
     define: {
       WEB_IMAGE_MANIFEST: JSON.stringify(manifest),
       // Explicitly allowlist the existing *public* RPC setting. Never expose process.env.
-      'process.env.PUBLIC_INFURA_ID': JSON.stringify(
-        process.env.PUBLIC_INFURA_ID ?? process.env.NEXT_PUBLIC_INFURA_ID ?? ''
-      ),
+      'process.env.PUBLIC_INFURA_ID': JSON.stringify(process.env.PUBLIC_INFURA_ID ?? ''),
     },
   },
 })

@@ -26,7 +26,7 @@ const createClient = (titleId: string, developerSecretKey: string) => {
 }
 
 export const playfab = createClient(
-  process.env.NEXT_PUBLIC_PLAYFAB_TITLE_ID as string,
+  process.env.PUBLIC_PLAYFAB_TITLE_ID as string,
   process.env.PLAYFAB_API_KEY as string
 )
 

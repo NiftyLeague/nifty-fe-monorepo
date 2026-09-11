@@ -10,7 +10,6 @@
     "deploymentEnabled": {
       "codex/*": false,
       "**": false,
-      "feat/web-astro-migration": true,
       "main": true
     }
   },

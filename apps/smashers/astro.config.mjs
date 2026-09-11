@@ -10,8 +10,7 @@ const local = (name) => fileURLToPath(new URL(name, root))
 // Public runtime config, allowlisted one key at a time. Never expose
 // process.env wholesale, and never define a server-only secret here: anything
 // defined is inlined into the client bundle. The PUBLIC_* names are the
-// convention the Astro apps adopted; the legacy NEXT_PUBLIC_* names stay as a
-// fallback so existing deployments keep working through the cutover.
+// convention the Astro apps use.
 //
 // An unset variable becomes an empty string rather than `undefined`, because a
 // define is a textual substitution and consumers compare against a value.
@@ -56,23 +55,19 @@ export default defineConfig({
     // secrets, store links) is read from process.env at request time instead,
     // so a variable rename or a per-environment value needs no rebuild.
     //
-    // Each entry takes the PUBLIC_* convention first and falls back to the
-    // NEXT_PUBLIC_* name the Vercel project still holds, so the cutover does not
-    // require renaming variables in lockstep with the deploy.
+    // Each entry takes the PUBLIC_* name; VERCEL_ENV is Vercel's own
+    // build-environment variable and stands in when PUBLIC_DEPLOY_ENV is not
+    // set explicitly.
     define: {
-      'process.env.NEXT_PUBLIC_PLAYFAB_TITLE_ID': publicEnv(
-        'PUBLIC_PLAYFAB_TITLE_ID',
-        'NEXT_PUBLIC_PLAYFAB_TITLE_ID'
-      ),
-      'process.env.NEXT_PUBLIC_AUTH_PROVIDERS': publicEnv(
-        'PUBLIC_AUTH_PROVIDERS',
-        'NEXT_PUBLIC_AUTH_PROVIDERS'
-      ),
-      'process.env.NEXT_PUBLIC_VERCEL_ENV': publicEnv('PUBLIC_DEPLOY_ENV', 'VERCEL_ENV'),
-      'process.env.NEXT_PUBLIC_FEATURE_FLAGS': publicEnv(
-        'PUBLIC_FEATURE_FLAGS',
-        'NEXT_PUBLIC_FEATURE_FLAGS'
-      ),
+      'process.env.PUBLIC_PLAYFAB_TITLE_ID': publicEnv('PUBLIC_PLAYFAB_TITLE_ID'),
+      'process.env.PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
+      'process.env.PUBLIC_DEPLOY_ENV': publicEnv('PUBLIC_DEPLOY_ENV', 'VERCEL_ENV'),
+      'process.env.PUBLIC_FEATURE_FLAGS': publicEnv('PUBLIC_FEATURE_FLAGS'),
+      // Shim for the shared @nl/ui `useProviders` hook, which still reads the
+      // legacy name because apps/app (still Next.js) relies on Next's own
+      // inlining of it. Feed it the PUBLIC_* value until app's TanStack
+      // migration retires the name there.
+      'process.env.NEXT_PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
     },
   },
 })
