@@ -20,8 +20,14 @@ const publicEnv = (name, ...fallbacks) => {
 export default defineConfig({
   site: 'https://niftysmashers.com',
   output: 'server',
-  adapter: vercel(),
+  // Vercel's image optimiser replaces next/image's. The runtime shim emits
+  // `/_vercel/image?url=...&w=...` URLs, which this makes resolvable.
+  adapter: vercel({ imageService: true }),
   integrations: [react()],
+  // Inline the stylesheet: a single linked CSS file is render-blocking, and on
+  // the throttled mobile profile that alone pushed first paint past 3s. The
+  // Next build inlined its critical CSS, so this restores parity.
+  build: { inlineStylesheets: 'always' },
   vite: {
     plugins: [tailwind()],
     css: { postcss: { plugins: [] } },

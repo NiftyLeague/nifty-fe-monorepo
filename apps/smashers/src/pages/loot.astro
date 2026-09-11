@@ -8,7 +8,7 @@ import styles from '@/styles/loot.module.css'
 export const prerender = true
 ---
 <Base canonical="/loot" metadata={{ title: 'Loot' }}>
-  <div class={styles.pageContainer}>
+  <main class={styles.pageContainer}>
     <BackButton />
     <div class="w-full text-center mb-6">
       <h1
@@ -17,10 +17,11 @@ export const prerender = true
       >
         Loot Tables
       </h1>
-      <h6 class="text-muted-foreground">
+      {/* A subtitle, not a section heading: an <h6> here broke heading order. */}
+      <p class="text-muted-foreground text-base font-subheader">
         Explore the drop rates and rewards for all available crates and loot boxes.
-      </h6>
+      </p>
     </div>
     <LootTables />
-  </div>
+  </main>
 </Base>

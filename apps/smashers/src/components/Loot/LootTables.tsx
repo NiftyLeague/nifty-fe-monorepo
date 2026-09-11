@@ -54,7 +54,13 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
               </table>
             </div>
 
-            <Typography.Title level={6} className="mt-4 mb-2">
+            {/* Section heading at outline level 3 (the crate name is the h2).
+                The level-6 utilities reproduce the original visual size, so the
+                outline is correct without changing the look. */}
+            <Typography.Title
+              level={3}
+              className="mt-4 mb-2 text-base font-normal font-subheader tracking-subheader"
+            >
               Bonus Item Odds:{' '}
               <span
                 style={{

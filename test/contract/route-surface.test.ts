@@ -801,7 +801,9 @@ describe('Smashers public shell contract', () => {
     const actionButtonsSource = readFileSync(join(process.cwd(), smashersActionButtons), 'utf8')
 
     expect(pageSource).not.toContain('HomeInteractive')
-    expect(pageSource).toContain("import Header, { type ActiveModal } from '@/components/Header'")
+    expect(pageSource).toContain("from '@/components/Header'")
+    expect(pageSource).toContain('type ActiveModal')
+    expect(pageSource).toContain('<Header activeModal={activeModal} />')
     expect(pageSource).toContain('<main>')
     // Only the interactive sections are islands; the shell stays static HTML.
     expect(pageSource).toContain('client:visible')

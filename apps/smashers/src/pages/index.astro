@@ -1,6 +1,6 @@
 ---
 import Base from '@/layouts/Base.astro'
-import Header, { type ActiveModal } from '@/components/Header'
+import Header, { HERO_ARTWORK, type ActiveModal } from '@/components/Header'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
@@ -10,8 +10,13 @@ import { DeferredDegensSection, DeferredGameSection } from '@/components/Deferre
 // selects which modal starts open, so it is validated against the known set.
 const referral = Astro.url.searchParams.get('referral')
 const activeModal: ActiveModal = referral ? 'play' : null
+
+// Preload only the LCP candidate. Astro's SSR does not emit the react-dom
+// preload hint that next/image's `priority` produced, and preloading the
+// decorative backdrop alongside it splits bandwidth away from the wordmark.
+const preloadImages = [...HERO_ARTWORK]
 ---
-<Base canonical="/">
+<Base canonical="/" preloadImages={preloadImages}>
   <main>
     <section id="header">
       <Header activeModal={activeModal} />

@@ -164,12 +164,12 @@
 
 .itemsTable table tbody td[data-rarity*='common'],
 .itemsTable table tbody td[data-rarity*='Common'] {
-  color: gray;
+  color: #9ca3af; /* gray-400, 7.3:1 */
 }
 
 .itemsTable table tbody td[data-rarity*='uncommon'],
 .itemsTable table tbody td[data-rarity*='Uncommon'] {
-  color: green;
+  color: #4ade80; /* green-400, 11.1:1 */
 }
 
 .itemsTable table tbody td[data-rarity*='rare'],
@@ -179,7 +179,9 @@
 
 .itemsTable table tbody td[data-rarity*='epic'],
 .itemsTable table tbody td[data-rarity*='Epic'] {
-  color: var(--color-purple);
+  /* purple-500 (--color-purple) is 2.44:1 here; purple-400 keeps the hue and
+   * clears AA at 5.2:1. */
+  color: #9a63ff; /* purple-400, 5.2:1 */
   text-shadow: 0 0 8px rgba(156, 39, 176, 0.3);
 }
 
@@ -223,13 +225,14 @@
   background-color: rgba(var(--color-purple), 0.05);
 }
 
-/* Style for different rarities */
+/* Style for different rarities. Kept in sync with the substring rules above,
+ * which are the ones the lowercased data-rarity value actually matches. */
 .itemsTable table td[data-rarity='Common'] {
-  color: gray;
+  color: #9ca3af;
 }
 
 .itemsTable table td[data-rarity='Uncommon'] {
-  color: green;
+  color: #4ade80;
 }
 
 .itemsTable table td[data-rarity='Rare'] {
@@ -237,7 +240,7 @@
 }
 
 .itemsTable table td[data-rarity='Epic'] {
-  color: var(--color-purple);
+  color: #9a63ff;
 }
 
 .itemsTable table td[data-rarity='Legendary'] {
