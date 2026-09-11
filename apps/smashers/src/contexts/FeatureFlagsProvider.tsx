@@ -57,13 +57,13 @@ export function parseFlags(
     )
     return { ...defaults, ...booleanFlags }
   } catch {
-    console.warn('Ignoring NEXT_PUBLIC_FEATURE_FLAGS: value is not valid JSON')
+    console.warn('Ignoring PUBLIC_FEATURE_FLAGS: value is not valid JSON')
     return { ...defaults }
   }
 }
 
 function useProcessFlagsFromEnv() {
-  const [flags] = useState<FlagSet>(() => parseFlags(process.env.NEXT_PUBLIC_FEATURE_FLAGS))
+  const [flags] = useState<FlagSet>(() => parseFlags(process.env.PUBLIC_FEATURE_FLAGS))
 
   return { flags }
 }

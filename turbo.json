@@ -153,8 +153,6 @@
         "GITHUB_ACTIONS",
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
-        "NEXT_RUNTIME",
-        "NEXT_PUBLIC_*",
         "NEXTAUTH_SECRET",
         "PLAYFAB_API_KEY",
         "PUBLIC_*",
@@ -192,8 +190,8 @@
       "outputs": ["dist/**", ".worker-build/**", ".web-images/**"]
     },
     "clean": { "cache": false },
-    "lint": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
-    "lint:fix": { "env": ["NEXT_PUBLIC_VERCEL_ENV"] },
+    "lint": {},
+    "lint:fix": {},
     "api#lint": {
       "env": [
         "AUDIT_NETWORK",
@@ -210,7 +208,7 @@
       ]
     },
     "@nl/playfab#lint": {
-      "env": ["NEXT_PUBLIC_PLAYFAB_TITLE_ID", "PLAYFAB_API_KEY"]
+      "env": ["PUBLIC_PLAYFAB_TITLE_ID", "PLAYFAB_API_KEY"]
     },
     "format": {},
     "type-check": {},

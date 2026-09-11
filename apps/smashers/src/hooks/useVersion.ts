@@ -24,7 +24,7 @@ enum OS {
 
 const useVersion = () => {
   const [version, setVersion] = useState<string | null>(null)
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'prod' : 'stage'
+  const env = process.env.PUBLIC_DEPLOY_ENV === 'production' ? 'prod' : 'stage'
   const { isWindows, isMacOs, isAndroid, isIos, isLinux } = useUserAgent()
   let os = ''
   let message = ''
