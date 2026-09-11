@@ -50,6 +50,7 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 				<MobileMenuToggle />
 				<script>
 					class StarlightSidebarPane extends HTMLElement {
+						private onScroll: () => void;
 						constructor() {
 							super();
 							matchMedia('(min-width: 50em)').addEventListener('change', () => this.hidePopover());
