@@ -12,7 +12,7 @@ import { metadata as routeMetadata } from '@/app/(main)/degens/layout'
 <Marketing metadata={routeMetadata} rootClass="degens-pg" canonical="/degens">
   <LegacyPage>
   <Fragment slot="webIsland0">
-<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} deferVideo src="/video/unboxing.mp4">
+<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} loadInteractiveOnViewport activationDelay={1500} deferVideo src="/video/unboxing.mp4">
         <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
       </DeferredConsoleGame>
   </Fragment>

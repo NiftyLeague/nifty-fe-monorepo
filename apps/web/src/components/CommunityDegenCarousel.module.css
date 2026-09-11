@@ -26,11 +26,6 @@
   }
 }
 
-/* Pause the strip while the visitor inspects a card. */
-.marquee:hover .track {
-  animation-play-state: paused;
-}
-
 @keyframes community-marquee {
   from {
     transform: translateX(0);

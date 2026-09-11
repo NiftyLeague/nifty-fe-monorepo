@@ -7,8 +7,8 @@ import styles from './CommunityDegenCarousel.module.css'
 /**
  * Endless marquee for the community avatar strip. The list renders twice in a
  * track that translates -50% and loops, so the scroll is continuous with no
- * page-flip jumps. Pauses on hover; falls back to a static scrollable row for
- * reduced-motion users.
+ * page-flip jumps. It keeps moving while hovered so the strip never appears
+ * stuck; reduced-motion users get a plain scrollable row instead.
  */
 export default function CommunityDegenCarousel() {
   return (
