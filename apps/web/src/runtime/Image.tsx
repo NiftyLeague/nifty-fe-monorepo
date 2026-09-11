@@ -17,7 +17,7 @@ export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> 
 export function getOptimizedImageProps(
   props: OptimizedImageProps
 ): ComponentProps<'img'> & { src: string } {
-  const manifest = typeof __WEB_IMAGE_MANIFEST__ === 'undefined' ? {} : __WEB_IMAGE_MANIFEST__
+  const manifest = typeof WEB_IMAGE_MANIFEST === 'undefined' ? {} : WEB_IMAGE_MANIFEST
   return imageProps(props, manifest) as ComponentProps<'img'> & { src: string }
 }
 

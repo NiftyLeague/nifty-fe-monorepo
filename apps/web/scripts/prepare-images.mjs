@@ -27,7 +27,7 @@ const nftDirectory = join(assets, 'img/degens/nfts')
 const leggies = (await readdir(nftDirectory))
   .filter((name) => /^\d+\.gif$/i.test(name))
   .map((name) => Number(name.slice(0, -4)))
-  .sort((a, b) => a - b)
+  .toSorted((a, b) => a - b)
 await writeFile(join(output, 'leggies.json'), JSON.stringify(leggies) + '\n')
 
 if (!metadataOnly) {
@@ -44,7 +44,7 @@ if (!metadataOnly) {
   }
   const manifest = {}
   // Process serially so image generation does not exhaust memory on CI.
-  for (const source of [...references].sort()) {
+  for (const source of [...references].toSorted()) {
     const file = resolve(assets, source.slice(1))
     if (!file.startsWith(`${assets}${sep}`)) throw new Error(`Unsafe asset path: ${source}`)
     try {
