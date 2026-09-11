@@ -132,7 +132,21 @@ import ThemedImage from '../ThemedImage.astro';
 		display: flex;
 		justify-content: space-between;
 		margin-bottom: 0.5rem;
+		padding: 0.4rem 0.6rem;
+		margin-inline: -0.6rem;
+		border-radius: 0.4rem;
 		text-decoration: none;
+		transition: background-color 0.15s ease;
+	}
+
+	/* Hover feedback: a highlight band around the row and the arrow picks up
+	   the accent. Negative inline margins keep the text alignment unchanged. */
+	.quick-link:hover {
+		background-color: var(--nl-emphasis-200);
+	}
+
+	.quick-link:hover :global(svg) {
+		stroke: var(--sl-color-accent);
 	}
 
 	.quick-link h3 {
