@@ -12,11 +12,22 @@ import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
 import Footer from '../Footer.astro';
 import Analytics from '../Analytics.astro';
 
-const { hasSidebar } = Astro.locals.starlightRoute;
+const { hasSidebar, entry } = Astro.locals.starlightRoute;
+
+// Pages whose headings were promoted carry `headingOffset`; the class keeps their
+// visual scale (see theme.css).
+const headingOffset = entry.data.headingOffset ?? 0;
+
 ---
 
 <Analytics />
-<div class="page sl-flex">
+<div
+	class:list={[
+		'page',
+		'sl-flex',
+		headingOffset ? `heading-offset-${headingOffset}` : null,
+	]}
+>
 	<header class="header"><slot name="header" /></header>
 	{
 		hasSidebar && (

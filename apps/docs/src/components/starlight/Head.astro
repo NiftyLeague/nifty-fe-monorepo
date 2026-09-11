@@ -1,6 +1,10 @@
 ---
-// Extends Starlight's head with the tags the previous site emitted: an OpenSearch
-// descriptor, the social card, and the Algolia DocSearch compat meta tags.
+/**
+ * Extends Starlight's head with the tags the previous site emitted: an OpenSearch
+ * descriptor, the social card, and the Algolia DocSearch compat meta tags.
+ */
+import bodyFontUrl from '../../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url';
+
 const { head } = Astro.locals.starlightRoute;
 const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 ---
@@ -23,3 +27,30 @@ const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 <meta name="docsearch:language" content="en" />
 <meta name="docsearch:version" content="current" />
 <meta name="docsearch:docusaurus_tag" content="docs-default-current" />
+
+{/*
+  Body text is set in the self-hosted IBM Plex Sans, so preload it: the font is
+  needed to paint the first paragraph, and letting it arrive after the swap window
+  caused a layout shift.
+*/}
+<link rel="preload" href={bodyFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+
+{/*
+  Roboto Mono (code blocks) comes from Google Fonts. It only affects code blocks,
+  which sit below the fold on every page, so the stylesheet is loaded off the
+  critical path and promoted once ready.
+*/}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+	media="print"
+	onload="this.media='all'"
+/>
+<noscript>
+	<link
+		rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+	/>
+</noscript>

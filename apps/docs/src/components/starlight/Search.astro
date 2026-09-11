@@ -1,31 +1,42 @@
 ---
-// Swaps Starlight's Pagefind dialog for Algolia DocSearch, matching the previous
-// site's search experience (same app id, key and `docs` index).
+/**
+ * Algolia DocSearch, loaded on demand.
+ *
+ * DocSearch is the largest script on the site and is only useful once the visitor
+ * asks for it, so the module is imported on the first interaction (click or
+ * Cmd/Ctrl+K) instead of on page load. Content pages therefore ship no search
+ * bundle at all.
+ *
+ * The trigger is the site's own button rather than DocSearch's, so the modal is
+ * opened by calling `open()` on the instance: one click opens search, instead of
+ * needing a second click on the button DocSearch would otherwise render.
+ */
 import { Icon } from '@astrojs/starlight/components';
+
+const label = Astro.locals.t('search.label');
+const ctrlKey = Astro.locals.t('search.ctrlKey');
 ---
 
 <site-search>
+	{/* The accessible name spells out the visible label and shortcut so it always
+	    contains the text on screen (WCAG 2.5.3); the inline script below rewrites
+	    both together when it switches the hint to the platform's modifier key. */}
 	<button
 		data-open-modal
 		disabled
-		aria-label={Astro.locals.t('search.label')}
+		aria-label={`${label} (${ctrlKey}+K)`}
 		aria-keyshortcuts="Control+K"
 	>
 		<Icon name="magnifier" />
-		<span class="sl-hidden md:sl-block" aria-hidden="true">{Astro.locals.t('search.label')}</span>
-		<kbd class="sl-hidden md:sl-flex" style="display: none;">
-			<kbd>{Astro.locals.t('search.ctrlKey')}</kbd><kbd>K</kbd>
+		<span class="sl-hidden md:sl-block" aria-hidden="true">{label}</span>
+		<kbd class="sl-hidden md:sl-flex" style="display: none;" aria-hidden="true">
+			<kbd>{ctrlKey}</kbd><kbd>K</kbd>
 		</kbd>
 	</button>
 
-	<dialog style="padding:0" aria-label={Astro.locals.t('search.label')}>
-		<div class="dialog-frame sl-flex">
-			<button data-close-modal class="sl-flex md:sl-hidden">
-				{Astro.locals.t('search.cancelLabel')}
-			</button>
-			<div id="starlight__search"></div>
-		</div>
-	</dialog>
+	{/* DocSearch mounts into an off-screen container; its own trigger is hidden
+	    because the button above drives the modal. */}
+	<div id="starlight__search" hidden></div>
 </site-search>
 
 <script is:inline>
@@ -34,113 +45,77 @@ import { Icon } from '@astrojs/starlight/components';
 		const shortcut = openBtn?.querySelector('kbd');
 		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
 		const platformKey = shortcut.querySelector('kbd');
-		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+		const isApple = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+		if (platformKey && isApple) {
 			platformKey.textContent = '⌘';
 			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+			// Keep the accessible name in step with the visible shortcut.
+			const label = openBtn.getAttribute('aria-label')?.split(' (')[0];
+			if (label) openBtn.setAttribute('aria-label', `${label} (⌘+K)`);
 		}
 		shortcut.style.display = '';
 	})();
 </script>
 
 <script>
+	import type { DocSearchInstance } from '@docsearch/js/docsearch';
+
+	let docSearchPromise: Promise<DocSearchInstance | undefined> | undefined;
+
+	/** Imports DocSearch once and mounts it into the container. */
+	function loadDocSearch(container: HTMLElement): Promise<DocSearchInstance | undefined> {
+		docSearchPromise ??= import('@docsearch/js/docsearch')
+			.then(({ default: docsearch }) =>
+				docsearch({
+					container,
+					appId: import.meta.env.PUBLIC_ALGOLIA_APP_ID ?? 'QHFGNYFTED',
+					apiKey: import.meta.env.PUBLIC_ALGOLIA_API_KEY ?? 'a279745db091a62dd51ec3212d11a5d0',
+					indices: ['docs'],
+				})
+			)
+			.catch(() => {
+				/* search is an enhancement: a failed load must not break the page */
+				return undefined;
+			});
+		return docSearchPromise;
+	}
+
 	class SiteSearch extends HTMLElement {
 		constructor() {
 			super();
 			const openBtn = this.querySelector<HTMLButtonElement>('button[data-open-modal]')!;
-			const closeBtn = this.querySelector<HTMLButtonElement>('button[data-close-modal]')!;
-			const dialog = this.querySelector('dialog')!;
-			const dialogFrame = this.querySelector('.dialog-frame')!;
+			const container = this.querySelector<HTMLElement>('#starlight__search')!;
 
-			const onClick = (event: MouseEvent) => {
-				const isLink = 'href' in (event.target || {});
-				if (
-					isLink ||
-					(document.body.contains(event.target as Node) &&
-						!dialogFrame.contains(event.target as Node))
-				) {
-					closeModal();
-				}
+			const openModal = async () => {
+				const instance = await loadDocSearch(container);
+				instance?.open();
 			};
 
-			const openModal = (event?: MouseEvent) => {
-				dialog.showModal();
-				document.body.toggleAttribute('data-search-modal-open', true);
-				// DocSearch mounts its own input inside the dialog; focus whichever is
-				// present so keyboard users land in the search field.
-				const input =
-					this.querySelector<HTMLInputElement>('input') ??
-					document.querySelector<HTMLInputElement>('.DocSearch-Input');
-				input?.focus();
-				event?.stopPropagation();
-				window.addEventListener('click', onClick);
-			};
-
-			const closeModal = () => dialog.close();
-
-			openBtn.addEventListener('click', openModal);
-			openBtn.disabled = false;
-			closeBtn.addEventListener('click', closeModal);
-			dialog.addEventListener('close', () => {
-				document.body.removeAttribute('data-search-modal-open');
-				window.removeEventListener('click', onClick);
+			openBtn.addEventListener('click', (event) => {
+				event.stopPropagation();
+				void openModal();
 			});
+			openBtn.disabled = false;
 
-			// Ctrl/Cmd+K opens the dialog, matching the previous navbar shortcut.
+			// Ctrl/Cmd+K opens search, matching the previous navbar shortcut.
 			window.addEventListener('keydown', (event) => {
 				if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
 					event.preventDefault();
-					openModal();
+					void openModal();
 				}
 			});
 		}
 	}
 
 	if (!customElements.get('site-search')) customElements.define('site-search', SiteSearch);
-
-	// DocSearch drives one modal instance; Starlight's dialog wraps it so the
-	// trigger and keyboard shortcut behave consistently.
-	const searchRoot = document.querySelector('#starlight__search');
-	if (searchRoot) {
-		import('@docsearch/js/docsearch')
-			.then(({ default: docsearch }) => {
-				docsearch({
-					container: searchRoot as HTMLElement,
-					appId: import.meta.env.PUBLIC_ALGOLIA_APP_ID ?? 'QHFGNYFTED',
-					apiKey: import.meta.env.PUBLIC_ALGOLIA_API_KEY ?? 'a279745db091a62dd51ec3212d11a5d0',
-					indices: ['docs'],
-				});
-			})
-			.catch(() => {
-				/* search is an enhancement: a failed load must not break the page */
-			});
-	}
 </script>
 
 <style>
 	@layer starlight.core {
-		:global(body[data-search-modal-open]) {
-			overflow: hidden;
-		}
-
-
-
-
-
-		dialog {
-			margin: 0 auto;
-			border: 0;
-			background: transparent;
-			max-width: 100%;
-			width: 100%;
-		}
-
-		dialog::backdrop {
-			background-color: var(--docsearch-container-background, rgba(47, 55, 69, 0.7));
-		}
-
-		.dialog-frame {
-			flex-direction: column;
-			align-items: center;
+		/* DocSearch renders its trigger button into the container; the site button
+		   above replaces it, so keep the mount point out of the layout. */
+		#starlight__search[hidden] {
+			display: none;
 		}
 	}
 </style>

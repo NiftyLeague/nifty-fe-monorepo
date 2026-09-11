@@ -17,6 +17,16 @@ export const collections = {
          * navigation but rendered a body H1 as the article heading when present.
          */
         hideTitle: z.boolean().optional(),
+        /**
+         * Render this page's headings one visual step smaller.
+         *
+         * Some documents started at `###`, which skips a level under the page
+         * `title` (an `h1`) and fails the heading-order accessibility rule. Their
+         * headings were promoted one level so the document runs h1 > h2 > h3;
+         * this flag keeps the original sizes and margins so the page still looks
+         * the way it did before.
+         */
+        headingOffset: z.number().int().min(1).max(2).optional(),
       }),
     }),
   }),

@@ -2,32 +2,33 @@
 title: Proposal Template
 sidebar:
   order: 7
+headingOffset: 1
 ---
 
 _Please follow the below template when creating proposals. This template is automatically available when making proposals through our DAO on [Snapshot](https://snapshot.niftyleague.com)._
 
 ---
 
-### SUMMARY
+## SUMMARY
 
 Summarize your proposal in 100 words or less.
 
-### MOTIVATION
+## MOTIVATION
 
 Elaborate on the motivation behind this proposal. What benefits does it bring to our gaming platform, what benefits does it bring to the community, etc?
 
-### SPECIFICATION
+## SPECIFICATION
 
 Detail proposal requirements & specifications, or overall objectives.
 
-### TIMELINE
+## TIMELINE
 
 Provide time estimates! How long do you think the proposal will take? Is there a deadline we need to reach? If unsure please reach out to our team for guidance.
 
-### OVERALL COST
+## OVERALL COST
 
 Provide a cost estimate considering both time & funding if required.
 
-### USEFUL LINKS
+## USEFUL LINKS
 
 Please share any links that may be helpful!

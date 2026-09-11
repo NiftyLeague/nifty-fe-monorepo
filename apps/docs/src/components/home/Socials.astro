@@ -8,7 +8,8 @@ import Github from '../icons/Github.astro';
 
 ---
 
-<section class="section">
+<section class="section" aria-labelledby="home-community-heading">
+	<h2 id="home-community-heading" class="sr-only">Community</h2>
 	<div class="row row-three">
 		{
 			SOCIALS.map(({ icon, label, text, href }) => (
@@ -20,7 +21,7 @@ import Github from '../icons/Github.astro';
 							{icon === 'github' && <Github />}
 						</span>
 						<div>
-							<h4>{label}</h4>
+							<h3 class="card-title">{label}</h3>
 							<p>{text}</p>
 						</div>
 					</div>
@@ -69,7 +70,7 @@ import Github from '../icons/Github.astro';
 		fill: var(--sl-color-white);
 	}
 
-	.center-card h4 {
+	.center-card h3 {
 		margin-bottom: 0.25rem;
 	}
 

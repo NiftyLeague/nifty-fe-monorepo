@@ -97,14 +97,14 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 			padding: 0.25rem 1rem;
 			font-size: var(--sl-text-body);
 			font-weight: 500;
-			color: var(--sl-color-text-accent);
+			color: var(--sl-color-white);
 			text-decoration: none;
 			white-space: nowrap;
 		}
 
 		.nav-links a:hover,
 		.nav-links a[aria-current='page'] {
-			color: var(--sl-color-white);
+			color: var(--sl-color-accent);
 		}
 
 		.right-group {
@@ -124,13 +124,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 			gap: 0.25rem;
 			font-size: var(--sl-text-body);
 			font-weight: 500;
-			color: var(--sl-color-text-accent);
+			color: var(--sl-color-white);
 			text-decoration: none;
 			white-space: nowrap;
 		}
 
 		.external-links a:hover {
-			color: var(--sl-color-white);
+			color: var(--sl-color-accent);
 		}
 
 		.external-links svg {

@@ -2,9 +2,10 @@
 title: Security Policy
 sidebar:
   order: 6
+headingOffset: 1
 ---
 
-### Reporting a Vulnerability
+## Reporting a Vulnerability
 
 If there are any vulnerabilities in **Nifty League repositories**, don't hesitate to _report them_.
 

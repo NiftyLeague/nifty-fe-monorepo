@@ -2,16 +2,25 @@
 title: Comics
 sidebar:
   order: 1
+headingOffset: 1
 ---
 
+import { Image } from 'astro:assets'
 import ViewportVideo from '@nl/ui/custom/viewport-video'
-import VideoURL1 from '/video/comics_archive.mp4'
+import comic1 from '../../../../../../../../assets/img/comics/page/1.webp'
+import comic2 from '../../../../../../../../assets/img/comics/page/2.webp'
+import comic3 from '../../../../../../../../assets/img/comics/page/3.webp'
+import comic4 from '../../../../../../../../assets/img/comics/page/4.webp'
+import comic5 from '../../../../../../../../assets/img/comics/page/5.webp'
+import comic6 from '../../../../../../../../assets/img/comics/page/6.webp'
 
-| ![](/docs/img/comics/page/1.webp) | ![](/docs/img/comics/page/2.webp) | ![](/docs/img/comics/page/3.webp) |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| ![](/docs/img/comics/page/4.webp) | ![](/docs/img/comics/page/5.webp) | ![](/docs/img/comics/page/6.webp) |
+export const VideoURL1 = '/docs/video/comics_archive.mp4'
 
-### Airdrop
+| <Image src={comic1} alt="Comic page 1" widths={[240, 480]} /> | <Image src={comic2} alt="Comic page 2" widths={[240, 480]} /> | <Image src={comic3} alt="Comic page 3" widths={[240, 480]} /> |
+| ------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------------------------------------------- |
+| <Image src={comic4} alt="Comic page 4" widths={[240, 480]} /> | <Image src={comic5} alt="Comic page 5" widths={[240, 480]} /> | <Image src={comic6} alt="Comic page 6" widths={[240, 480]} /> |
+
+## Airdrop
 
 The Nifty League Comic Collection consists of 6 pages of Comics. Our Comic NFTs are all ERC-1155’s.
 
@@ -49,7 +58,7 @@ Our collection of **Comics 1-6** are available for purchase on [TokenTrove](http
 **Comic 5**: 🌟  
 **Comic 6**: 🌟🌟🌟🌟🌟🌟
 
-### Comic Burn
+## Comic Burn
 
 <div style={{ maxWidth: '500px', margin: 'auto' }}>![](/docs/img/comics/burner/burnanim.gif)</div>
 <br />
@@ -65,7 +74,7 @@ Each Comic is burnable on our website [app.niftyleague.com](https://app.niftylea
 **Comic 5**: Purple Bat  
 **Comic 6**: Companion
 
-### Summary
+## Summary
 
 - Comics are ERC-1155 NFTs airdropped to our community
 - Each comic page can be burned for an in-game item

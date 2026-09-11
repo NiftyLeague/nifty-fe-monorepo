@@ -19,7 +19,7 @@ import ThemedImage from '../ThemedImage.astro';
 					<a class="card-link" href={to}>
 						<div class="card guide-card">
 							<div class="link-row">
-								<h4>{title}</h4>
+								<h3 class="card-title">{title}</h3>
 								<ArrowUpRight />
 							</div>
 							<p>{text}</p>
@@ -41,7 +41,7 @@ import ThemedImage from '../ThemedImage.astro';
 							<div class="link-row">
 								<span class="styled-icon">
 									<Github />
-									<h4>{title}</h4>
+									<h3 class="card-title">{title}</h3>
 								</span>
 								<ArrowUpRight />
 							</div>
@@ -56,13 +56,17 @@ import ThemedImage from '../ThemedImage.astro';
 				light: '/docs/img/misc/frog_400.webp',
 				dark: '/docs/img/misc/smash_400.webp',
 			}}
+			dimensions={{
+				light: { width: 1156, height: 600 },
+				dark: { width: 1156, height: 600 },
+			}}
 		/>
 		<div>
 			<h2>Quick Links</h2>
 			{
 				QUICK_LINKS.map(({ title, to }) => (
 					<a class="quick-link" href={to}>
-						<h4>{title}</h4>
+						<h3 class="card-title">{title}</h3>
 						<ArrowUpRight />
 					</a>
 				))
@@ -88,7 +92,7 @@ import ThemedImage from '../ThemedImage.astro';
 		flex-direction: row;
 	}
 
-	.card h4 {
+	.card h3 {
 		margin-bottom: 0;
 	}
 
@@ -105,7 +109,7 @@ import ThemedImage from '../ThemedImage.astro';
 		fill: var(--sl-color-white);
 	}
 
-	.styled-icon h4 {
+	.styled-icon h3 {
 		margin-bottom: 0;
 		margin-left: 16px;
 	}
@@ -131,7 +135,7 @@ import ThemedImage from '../ThemedImage.astro';
 		text-decoration: none;
 	}
 
-	.quick-link h4 {
+	.quick-link h3 {
 		margin-bottom: 0;
 	}
 </style>

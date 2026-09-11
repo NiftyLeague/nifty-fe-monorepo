@@ -1,10 +1,24 @@
-import { defineConfig, passthroughImageService } from 'astro/config'
+import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
 import react from '@astrojs/react'
+import mdx from '@astrojs/mdx'
 import { fileURLToPath } from 'node:url'
 import { sidebar } from './src/sidebar'
+import { satteri } from '@astrojs/markdown-satteri'
+import { rehypeLazyImages } from './src/lib/lazy-images.mjs'
 
 const local = (name) => fileURLToPath(new URL(name, import.meta.url))
+
+/**
+ * The previous site emitted straight quotes and `...` literally (smart
+ * punctuation off) and lazy-loaded markdown images below the fold. Both are
+ * expressed on the Markdown processor; the MDX integration gets the same instance
+ * because MDX does not inherit `markdown.processor` when registered by Starlight.
+ */
+const docsMarkdownProcessor = satteri({
+  features: { smartPunctuation: false },
+  hastPlugins: [rehypeLazyImages],
+})
 
 // The docs project is served at the root of docs.niftyleague.com and through
 // niftyleague.com/docs (which strips the prefix when proxying). Keep the
@@ -17,21 +31,17 @@ export default defineConfig({
   // resolve unchanged.
   trailingSlash: 'never',
   outDir: './dist',
+  build: {
+    // Inline CSS into the HTML so the first paint does not wait on a separate
+    // stylesheet request (the previous build shipped a render-blocking 50 KB CSS).
+    inlineStylesheets: 'always',
+  },
   // apps/docs/public is a symlink to the shared ../../assets directory.
   publicDir: '../../assets',
   // Docs images are shared brand assets served from ../../assets unchanged; the
   // previous site copied them as-is too, so no transformation pipeline is needed.
-  image: { service: passthroughImageService() },
-  markdown: {
-    // The previous site emitted straight quotes and `...` literally, so smart
-    // punctuation stays off to keep the rendered prose identical.
-    //
-    // `smartypants` is deprecated in favour of configuring the markdown
-    // processor, but the processor (satteri) is a Starlight-internal dependency;
-    // depending on it directly would couple this app to Starlight internals.
-    // Astro logs a deprecation notice and still honours the flag.
-    smartypants: false,
-  },
+  // image service default (sharp)
+  markdown: { processor: docsMarkdownProcessor },
   integrations: [
     starlight({
       title: 'Nifty League Docs',
@@ -81,8 +91,15 @@ export default defineConfig({
       sidebar,
     }),
     react(),
+    mdx({ processor: docsMarkdownProcessor }),
   ],
   vite: {
+    build: {
+      // Sourcemaps for the large lazily-loaded chunks (Mermaid), which otherwise
+      // fail the "valid source maps" audit. Maps are only fetched by devtools, so
+      // they cost nothing at runtime.
+      sourcemap: true,
+    },
     resolve: {
       alias: [
         { find: '@', replacement: local('src') },

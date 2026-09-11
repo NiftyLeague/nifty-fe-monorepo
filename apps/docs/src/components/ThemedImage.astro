@@ -3,19 +3,78 @@
  * Renders a light/dark image pair like the Docusaurus `ThemedImage` component it
  * replaces: both images are emitted and CSS reveals the one matching the active
  * theme, so no JavaScript is needed to switch.
+ *
+ * Sources may be an imported local image (Astro then generates sized, compressed
+ * variants) or a public path string. Local sources get a `srcset`, which matters
+ * for the page banners: the originals are 320-370 KB while the rendered width is
+ * under 800 px.
+ *
+ * When `priority` is set (the first in-viewport image) the active variant loads
+ * eagerly with a high fetch priority so it is not a late LCP, and the inactive
+ * variant is deferred until a theme switch actually needs it.
  */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-	sources: { light: string; dark: string };
+	sources: { light: ImageMetadata | string; dark: ImageMetadata | string };
+	/** Intrinsic pixel size; required when a source is a plain public path. */
+	dimensions?: { light: { width: number; height: number }; dark: { width: number; height: number } };
 	alt?: string;
 	class?: string;
+	priority?: boolean;
+	/** Candidate widths for local images. */
+	widths?: number[];
 }
 
-const { sources, alt = '', class: className } = Astro.props;
+const {
+	sources,
+	dimensions,
+	alt = '',
+	class: className,
+	priority = false,
+	widths = [480, 800, 1200],
+} = Astro.props;
+
+// The site ships with dark as the default theme, so that is the variant worth
+// prioritising; the other one is only needed after an explicit toggle.
+const priorityVariant = 'dark';
+
+const variantProps = (variant: 'light' | 'dark') =>
+	priority
+		? variant === priorityVariant
+			? { fetchpriority: 'high' as const, loading: 'eager' as const, decoding: 'sync' as const }
+			: { loading: 'lazy' as const, decoding: 'async' as const }
+		: {};
+
+const isLocal = (source: ImageMetadata | string): source is ImageMetadata => typeof source !== 'string';
 ---
 
 <span class:list={['themed-image', className]}>
-	<img src={sources.light} alt={alt} class="themed-image__light" />
-	<img src={sources.dark} alt={alt} class="themed-image__dark" />
+	{
+		(['light', 'dark'] as const).map((variant) => {
+			const source = sources[variant];
+			return isLocal(source) ? (
+				<Image
+					src={source}
+					alt={alt}
+					class={`themed-image__${variant}`}
+					widths={widths}
+					sizes="(min-width: 50rem) 50vw, 100vw"
+					{...variantProps(variant)}
+				/>
+			) : (
+				<img
+					src={source}
+					alt={alt}
+					class={`themed-image__${variant}`}
+					width={dimensions?.[variant].width}
+					height={dimensions?.[variant].height}
+					{...variantProps(variant)}
+				/>
+			);
+		})
+	}
 </span>
 
 <style>
@@ -23,14 +82,19 @@ const { sources, alt = '', class: className } = Astro.props;
 		display: block;
 	}
 
-	.themed-image__light,
-	.themed-image__dark {
+	.themed-image :global(img) {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.themed-image :global(.themed-image__light),
+	.themed-image :global(.themed-image__dark) {
 		display: none;
 	}
 
 	/* Mirrors Docusaurus: the light image is the fallback when no theme is set. */
-	:global(html[data-theme='dark']) .themed-image__dark,
-	:global(html:not([data-theme='dark'])) .themed-image__light {
+	:global(html[data-theme='dark']) .themed-image :global(.themed-image__dark),
+	:global(html:not([data-theme='dark'])) .themed-image :global(.themed-image__light) {
 		display: block;
 	}
 </style>

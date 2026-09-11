@@ -129,7 +129,8 @@
   margin: 0 0 1rem;
 }
 
-.home-container h4 {
+.home-container h4,
+.home-container .card-title {
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;

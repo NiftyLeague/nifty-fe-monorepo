@@ -2,11 +2,12 @@
 title: Tribes
 sidebar:
   order: 2
+headingOffset: 1
 ---
 
 Tribes are used to determine special game mechanics or special moves available.
 
-### Special Ability by Tribe:
+## Special Ability by Tribe:
 
 ![https://cdn.discordapp.com/emojis/876605610165157968.png?size=44](https://cdn.discordapp.com/emojis/876605610165157968.png?size=44)**Ape**: throws boomerang bananas
 
@@ -31,7 +32,7 @@ You can learn more about these movesets in our [Smashers Guide](/docs/guides/nif
 | ![](/docs/img/sketches/alien-sketch.gif) | ![](/docs/img/sketches/cat-sketch.gif) | ![](/docs/img/sketches/doge-sketch.gif) |
 | ---------------------------------------- | -------------------------------------- | --------------------------------------- |
 
-### Hydra - DEGEN Burn
+## Hydra - DEGEN Burn
 
 The Mint-O-Matic mint was capped to 9,900 DEGENs with 98 spots leftover for a mysterious 7th tribe... In Feb 2023, the rare 7th tribe was finally revealed as the ancient Hydras came back from extinction.
 
@@ -42,7 +43,7 @@ Hydras are amphibious water dragons that roam freely underwater or on land. Thei
 | ![](/docs/img/degens/grails/9946.webp) | ![](/docs/img/degens/grails/9930.webp) |
 | -------------------------------------- | -------------------------------------- |
 
-### 1 of 1s
+## 1 of 1s
 
 Following the Hydra claim we held a NFTL raffle for the final 2 DEGENS - both unique and very special tribes, RugMan & Satoshi. Holders of these special tokens are granted the highest perks available in NiftyWorld.
 

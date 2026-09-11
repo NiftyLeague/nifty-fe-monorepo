@@ -18,7 +18,7 @@ const docsMediaPages = [
 const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
 const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
 const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
-const roadmapPage = 'apps/docs/src/content/docs/overview/roadmap.md'
+const roadmapPage = 'apps/docs/src/content/docs/overview/roadmap.mdx'
 const roadmapPoster = 'assets/img/roadmap/nifty_roadmap.webp'
 
 describe('shared docs media policy', () => {
@@ -60,14 +60,16 @@ describe('shared docs media policy', () => {
     expect(existsSync(legacyAsset)).toBe(false)
   })
 
-  it('keeps the docs roadmap poster accessible, dimensioned, and deferred', () => {
+  it('keeps the docs roadmap poster accessible and optimised', () => {
     const source = readFileSync(roadmapPage, 'utf8')
 
-    expect(source).toContain('<img')
+    // Rendered through the Astro image pipeline so the browser gets a sized,
+    // compressed variant instead of the full poster (which is over 1 MB).
+    expect(source).toContain('<Image')
     expect(source).toContain('alt="Nifty League product roadmap"')
-    expect(source).toContain('width="1800"')
-    expect(source).toContain('height="3791"')
-    expect(source).toContain('loading="lazy"')
+    expect(source).toContain('widths={[400, 640, 761, 1200]}')
+    expect(source).toContain('loading="eager"')
+    expect(source).toContain('fetchpriority="high"')
     expect(source).toContain('decoding="async"')
     expect(statSync(roadmapPoster).size).toBeLessThan(1_100_000)
   })

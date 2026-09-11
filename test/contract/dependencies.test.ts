@@ -256,6 +256,7 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     '@docsearch/js': 'Algolia DocSearch modal mounted by the search component',
     '@nl/ui': 'shared media primitives imported in content/*.mdx and components',
     mermaid: 'renders mermaid code fences client side',
+    sharp: 'image optimisation runtime for the Astro image pipeline',
     react: 'runtime for the shared @nl/ui components rendered inside MDX content',
   },
   'packages/playfab': {

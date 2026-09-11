@@ -8,7 +8,25 @@
  * differently (sidebar, breadcrumbs, pagination, TOC, footer).
  */
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&family=Roboto+Mono&display=swap');
+/**
+ * The body font is the same Latin subset the rest of the monorepo vendors for
+ * @nl/ui, so it renders identically without a third-party request. Google Fonts
+ * served the 400/500/700 weights; the vendored file is variable across that exact
+ * range (`wght 100-700`), so one file covers all three.
+ *
+ * Roboto Mono (code) is still fetched from Google Fonts, but non-blockingly: the
+ * stylesheet is attached with `media="print"` and promoted to `all` once loaded,
+ * so it never sits on the critical render path. Code blocks fall back to the
+ * system monospace until it arrives.
+ */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  /* Resolved and hashed by Vite from the shared @nl/ui font assets. */
+  src: url('../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2') format('woff2');
+}
 
 /* ---------------------------------------------------------------- palette -- */
 
@@ -38,7 +56,9 @@
   --sl-color-bg-nav: var(--nl-nav-bg);
   --sl-color-bg-sidebar: #09090b;
   --sl-color-text: var(--sl-color-white);
-  --sl-color-text-accent: var(--sl-color-accent-high);
+  /* Links use the primary blue; the lighter accent-high is reserved for the
+     active sidebar item. */
+  --sl-color-text-accent: var(--sl-color-accent);
   --sl-color-hairline: var(--nl-hairline);
   --sl-color-hairline-shade: var(--nl-hairline);
 
@@ -98,7 +118,7 @@
   --sl-color-bg: #fafafa;
   --sl-color-bg-sidebar: #fafafa;
   --sl-color-text: #09090b;
-  --sl-color-text-accent: #450a9c;
+  --sl-color-text-accent: oklch(59.2% 0.249 0.584);
 }
 
 /* The previous theme set the base size on the root element, which also scales
@@ -150,6 +170,7 @@ h1#_top {
 
 h1#_top {
   font-size: 3rem;
+  margin-top: 0;
   margin-bottom: 1.5625rem;
 }
 
@@ -231,6 +252,29 @@ h1#_top {
   margin-bottom: 0;
 }
 
+/**
+ * Pages whose headings were promoted one level for a valid heading order
+ * (`headingOffset: 1` in frontmatter) render each level one step smaller, so the
+ * page keeps exactly the sizes and margins it had before the promotion.
+ */
+.heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h2 {
+  font-size: 1.5rem;
+  margin-top: 1.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5625rem;
+  margin-bottom: 1.25rem;
+}
+
+.heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h4 {
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
 /* Infima shrank the top three heading levels on narrow viewports, including the
    page title itself. */
 @media (max-width: 36rem) {
@@ -238,6 +282,12 @@ h1#_top {
   .content-panel h1#_top {
     font-size: 2rem;
     margin-bottom: 1.25rem;
+  }
+
+  /* Promoted pages: the old h3/h4 sizes at this breakpoint. */
+  .heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h2,
+  .heading-offset-1 .sl-markdown-content .sl-heading-wrapper.level-h3 {
+    font-size: 1.25rem;
   }
 
   .sl-markdown-content .sl-heading-wrapper.level-h1 {
@@ -314,14 +364,10 @@ h1#_top {
   max-width: 100%;
 }
 
-/* Docusaurus sized markdown images from their width/height attributes, so an
-   image declaring both kept its declared height even when max-width shrank its
-   width. Starlight forces `height: auto`, which changes how those images
-   (the roadmap poster and the Mint-O-Matic preview) are displayed; this restores
-   the previous sizing. Where typed `attr()` is unavailable the declaration is
-   dropped and the natural aspect ratio applies. */
+/** Markdown images render at their natural aspect ratio; the declared
+ *  width/height attributes reserve layout space without distortion. */
 .sl-markdown-content img[width][height]:not(:where(.not-content *)) {
-  height: attr(height px, auto);
+  height: auto;
 }
 
 /* Inline code keeps the previous light chip look. */
@@ -469,6 +515,19 @@ h1#_top {
   margin-bottom: 1rem;
 }
 
+/**
+ * Inside an admonition the previous theme set the link colour to the alert's own
+ * foreground, so links matched the surrounding text instead of staying primary
+ * blue (which only reaches ~3.5:1 on the deeper alert backgrounds and fails the
+ * contrast rules). The FAQ `<details>` blocks are alert-styled too, so they
+ * follow the same rule.
+ */
+.sl-markdown-content .starlight-aside a:not(:where(.not-content *)),
+.sl-markdown-content details a:not(:where(.not-content *)) {
+  color: inherit;
+  text-decoration: underline;
+}
+
 /* ------------------------------------------------------------------ tables -- */
 
 .sl-markdown-content table {
@@ -491,6 +550,22 @@ h1#_top {
 
 .sl-markdown-content tbody tr:nth-child(2n) {
   background-color: var(--nl-emphasis-100);
+}
+
+/**
+ * Starlight renders the page title and the article body in separate padded
+ * panels, so their paddings stack and push the first paragraph noticeably lower
+ * than the previous layout. Trim the shared edge between them (the title band
+ * keeps its top padding, the body keeps its bottom) so the article starts at the
+ * same offset it used to.
+ */
+.content-panel:has(> .sl-container > h1#_top),
+.content-panel:has(> .sl-container > nav.breadcrumbs) {
+  padding-block: 1.125rem 0;
+}
+
+.content-panel:has(> .sl-container > h1#_top) + .content-panel {
+  padding-top: 0.75rem;
 }
 
 /* ------------------------------------------------------------------ header -- */
@@ -650,6 +725,17 @@ header.header {
   padding-inline: 0.1rem;
 }
 
+/* The previous "Edit this page" link was the primary blue, not grey. */
+.meta a,
+.theme-edit-this-page {
+  color: var(--sl-color-accent);
+}
+
+.meta a:hover,
+.theme-edit-this-page:hover {
+  color: var(--sl-color-accent-high);
+}
+
 /* -------------------------------------------------------------- pagination -- */
 
 /* The previous pagination kept two columns at every width, shrinking the cards
@@ -662,6 +748,7 @@ header.header {
 
 .pagination-links a {
   display: flex;
+  text-decoration: none;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
@@ -693,6 +780,7 @@ header.header {
 
 .pagination-links .link-title {
   font-size: 1.25rem;
+  text-decoration: none;
   font-weight: 400;
   color: var(--sl-color-text-accent);
 }
