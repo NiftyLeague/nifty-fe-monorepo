@@ -215,12 +215,15 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 		}
 
 		/* Drawer chrome: brand, theme toggle and close on top, socials at the
-		   bottom, and the two sliding menu views between them. */
+		   bottom, and the two sliding menu views between them. The header matches
+		   the navbar height so opening the drawer reads as a seamless swap. */
 		.drawer-header {
 			display: flex;
 			align-items: center;
 			gap: 0.5rem;
-			padding: 0.5rem 1rem;
+			flex-shrink: 0;
+			height: var(--sl-nav-height);
+			padding: 0 1rem;
 			border-bottom: 1px solid var(--sl-color-hairline-shade);
 			background-color: var(--sl-color-bg-nav);
 		}
