@@ -19,24 +19,38 @@ import { parseReferral, referralTargets, routeRequest } from '../../apps/web/wor
 const appRouteContracts: Record<string, string[]> = {
   smashers: [
     // Externally consumed: niftysmasher.com Unity games + native app deep links.
-    'src/app/(auth_routes)/api/auth/[...nextauth]/route.ts',
-    'src/app/(auth_routes)/api/edge-geo/route.ts',
-    'src/app/(auth_routes)/api/playfab/forgot-password/route.ts',
-    'src/app/(auth_routes)/api/playfab/login/route.ts',
-    'src/app/(auth_routes)/api/playfab/logout/route.ts',
-    'src/app/(auth_routes)/api/playfab/signup/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/delete-account/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/info/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/link-provider/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/link-wallet/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/playfab-session/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/unlink-provider/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/unlink-wallet/route.ts',
-    'src/app/(auth_routes)/api/playfab/user/update/route.ts',
-    'src/app/(auth_routes)/login/page.tsx',
-    'src/app/(auth_routes)/profile/page.tsx',
-    'src/app/loot/page.tsx',
-    'src/app/page.tsx',
+    // smashers ships as Astro SSR: API routes are src/pages/api/*.ts endpoints
+    // and pages are src/pages/*.astro.
+    'src/pages/api/edge-geo.ts',
+    'src/pages/api/playfab/forgot-password.ts',
+    'src/pages/api/playfab/login.ts',
+    'src/pages/api/playfab/logout.ts',
+    'src/pages/api/playfab/signup.ts',
+    'src/pages/api/playfab/user/delete-account.ts',
+    'src/pages/api/playfab/user/info.ts',
+    'src/pages/api/playfab/user/link-provider.ts',
+    'src/pages/api/playfab/user/link-wallet.ts',
+    'src/pages/api/playfab/user/playfab-session.ts',
+    'src/pages/api/playfab/user/unlink-provider.ts',
+    'src/pages/api/playfab/user/unlink-wallet.ts',
+    'src/pages/api/playfab/user/update.ts',
+    // OAuth: replaces the next-auth catch-all with signin + callback endpoints.
+    'src/pages/api/auth/signin/[provider].ts',
+    'src/pages/api/auth/callback/[provider].ts',
+    // Store and referral deep links. These are real route files rather than
+    // middleware because Astro resolves routing before middleware runs, so an
+    // unmatched path 404s before any middleware redirect could fire.
+    'src/pages/ios/[...path].ts',
+    'src/pages/android/[...path].ts',
+    'src/pages/steam/[...path].ts',
+    'src/pages/epic/[...path].ts',
+    'src/pages/invite/[refcode].ts',
+    'src/pages/robots.txt.ts',
+    'src/pages/sitemap.xml.ts',
+    'src/pages/login.astro',
+    'src/pages/profile.astro',
+    'src/pages/loot.astro',
+    'src/pages/index.astro',
   ],
   web: [
     // Marketing site: campaign landing routes compiled from Astro pages that
@@ -205,12 +219,11 @@ const web3GameList = 'apps/app/src/app/(public-routes)/games/_Web3GameList/index
 const publicGamesGridStyles = 'apps/app/src/app/(public-routes)/games/grid-item.module.css'
 const staleDownloadGameDialog = 'apps/app/src/components/dialog/DownloadGameDialog.tsx'
 const gameCard = 'apps/app/src/components/cards/GameCard.tsx'
-const smashersLoginClient = 'apps/smashers/src/app/(auth_routes)/login/LoginClient.tsx'
-const smashersLoginPage = 'apps/smashers/src/app/(auth_routes)/login/page.tsx'
-const smashersLoginRoute = 'apps/smashers/src/app/(auth_routes)/login/LoginRoute.tsx'
-const smashersLootPage = 'apps/smashers/src/app/loot/page.tsx'
-const smashersLootTables = 'apps/smashers/src/app/loot/LootTables.tsx'
-const staleSmashersLootBoundary = 'apps/smashers/src/app/loot/LootTablesBoundary.tsx'
+const smashersLoginClient = 'apps/smashers/src/components/login/LoginClient.tsx'
+const smashersLoginPage = 'apps/smashers/src/pages/login.astro'
+const smashersLootPage = 'apps/smashers/src/pages/loot.astro'
+const smashersLootTables = 'apps/smashers/src/components/Loot/LootTables.tsx'
+const staleSmashersLootBoundary = 'apps/smashers/src/components/Loot/LootTablesBoundary.tsx'
 const sharedAuthIconSources = [
   'packages/ui/src/components/custom/auth-form/forms/login.tsx',
   'packages/ui/src/components/custom/auth-form/forms/forgot-password.tsx',
@@ -218,11 +231,11 @@ const sharedAuthIconSources = [
   'packages/ui/src/components/custom/social-icon-button/index.tsx',
   'packages/ui/src/components/custom/theme/index.tsx',
 ]
-const smashersProfilePage = 'apps/smashers/src/app/(auth_routes)/profile/page.tsx'
-const smashersProfileRoute = 'apps/smashers/src/app/(auth_routes)/profile/ProfileRoute.tsx'
+const smashersProfilePage = 'apps/smashers/src/pages/profile.astro'
+const smashersProfileClient = 'apps/smashers/src/components/profile/ProfileClient.tsx'
 const smashersActionButtons = 'apps/smashers/src/components/Header/ActionButtonsGroup/index.tsx'
-const smashersRootLayout = 'apps/smashers/src/app/layout.tsx'
-const smashersAuthLayout = 'apps/smashers/src/app/(auth_routes)/layout.tsx'
+const smashersRootLayout = 'apps/smashers/src/layouts/Base.astro'
+const smashersAuthLayout = 'apps/smashers/src/layouts/Auth.astro'
 const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
 const privateShellLayout = 'apps/app/src/app/(private-routes)/layout.tsx'
 const sidebarProfile = 'apps/app/src/app/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
@@ -233,24 +246,26 @@ const mainLayout = 'apps/app/src/app/_layout/_MainLayout/index.tsx'
 const networkWarning = 'apps/app/src/app/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
 const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
-const analyticsLayouts = ['apps/app/src/app/layout.tsx', 'apps/smashers/src/app/layout.tsx']
-// web ships as Astro static: analytics mount through the base layout's
-// telemetry island instead of Next.js layout components.
+const analyticsLayouts = ['apps/app/src/app/layout.tsx']
+// web ships as Astro static and smashers as Astro SSR: analytics mount through
+// each base layout's telemetry runtime instead of Next.js layout components.
 const webAnalyticsBaseLayout = 'apps/web/src/layouts/Base.astro'
 const webTelemetryRuntime = 'apps/web/src/runtime/telemetry.ts'
+const smashersTelemetryRuntime = 'apps/smashers/src/runtime/telemetry.ts'
+const smashersServerSentryRuntime = 'apps/smashers/src/runtime/sentry-server.ts'
+const smashersMiddleware = 'apps/smashers/src/middleware.ts'
 const deferredConsoleGameRoutes = [
   'apps/web/src/app/(main)/page.tsx',
   'apps/web/src/app/(main)/degens/page.tsx',
   'apps/web/src/app/(main)/niftyworld/page.tsx',
-  'apps/smashers/src/app/page.tsx',
+  'apps/smashers/src/pages/index.astro',
 ]
 const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-section/index.tsx'
 const sharedRouteLoading = 'packages/ui/src/components/custom/route-loading/index.tsx'
-const routeLoadingFiles = [
-  'apps/app/src/app/loading.tsx',
-  'apps/web/src/app/(main)/loading.tsx',
-  'apps/smashers/src/app/loading.tsx',
-]
+// smashers is excluded: Astro has no app-router `loading.tsx`; its route-level
+// loading state is the `slot="fallback"` on each client-only island, asserted by
+// the Smashers island fallback contract below.
+const routeLoadingFiles = ['apps/app/src/app/loading.tsx', 'apps/web/src/app/(main)/loading.tsx']
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const gltfPage = 'apps/web/src/pages/shells/gltf.astro'
@@ -303,7 +318,7 @@ const staticLegalPages = [
   'apps/web/src/app/(main)/disclaimer/page.tsx',
 ]
 const webDefinitions = 'apps/web/src/components/Definitions.tsx'
-const smashersHomePage = 'apps/smashers/src/app/page.tsx'
+const smashersHomePage = 'apps/smashers/src/pages/index.astro'
 const webDeferredHomeMedia = 'apps/web/src/components/DeferredHomeMedia.tsx'
 const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
 const webDeferredHomeSectionsBoundary = 'apps/web/src/components/DeferredHomeSectionsBoundary.tsx'
@@ -788,8 +803,13 @@ describe('Smashers public shell contract', () => {
     const actionButtonsSource = readFileSync(join(process.cwd(), smashersActionButtons), 'utf8')
 
     expect(pageSource).not.toContain('HomeInteractive')
-    expect(pageSource).toContain("import Header, { type ActiveModal } from '@/components/Header'")
+    expect(pageSource).toContain("from '@/components/Header'")
+    expect(pageSource).toContain('type ActiveModal')
+    expect(pageSource).toContain('<Header activeModal={activeModal} />')
     expect(pageSource).toContain('<main>')
+    // Only the interactive sections are islands; the shell stays static HTML.
+    expect(pageSource).toContain('client:visible')
+    expect(pageSource).not.toContain('client:load')
     expect(headerSource).not.toContain("'use client'")
     expect(headerSource).toContain("import ActionButtonsGroup from './ActionButtonsGroup'")
     expect(actionButtonsSource).toContain("'use client'")
@@ -807,40 +827,59 @@ describe('Smashers public shell contract', () => {
     expect(actionButtonsSource).toContain('aria-busy={isLoading}')
   })
 
-  it('defers Smashers auth providers behind the auth loading boundary', () => {
+  it('mounts the PlayFab auth providers only on authenticated routes', () => {
+    // smashers is Astro: the Next `dynamic(ssr:false)` boundary is replaced by
+    // the auth layout's client-only island, and the accessible loading state now
+    // lives on each page's island fallback (asserted below).
     const layoutSource = readFileSync(join(process.cwd(), smashersAuthLayout), 'utf8')
-    const boundarySource = readFileSync(
-      join(process.cwd(), 'apps/smashers/src/contexts/AuthProvidersBoundary.tsx'),
-      'utf8'
-    )
     const providersSource = readFileSync(
       join(process.cwd(), 'apps/smashers/src/contexts/AuthProviders.tsx'),
       'utf8'
     )
+    const providerSource = readFileSync(
+      join(process.cwd(), 'apps/smashers/src/contexts/AuthProvider.tsx'),
+      'utf8'
+    )
 
-    expect(layoutSource).toContain("from '@/contexts/AuthProvidersBoundary'")
-    expect(layoutSource).not.toContain("from '@/contexts/AuthProvider'")
+    expect(layoutSource).toContain("from '@/contexts/AuthProviders'")
+    expect(layoutSource).toContain('client:only="react"')
     expect(layoutSource).not.toContain("from '@/contexts/FeatureFlagsProvider'")
-    expect(boundarySource).toContain("dynamic(() => import('./AuthProviders')")
-    expect(boundarySource).toContain('ssr: false')
-    expect(boundarySource).toContain("from '@nl/ui/base/skeleton'")
-    expect(boundarySource).toContain('role="status"')
-    expect(boundarySource).toContain('aria-live="polite"')
-    expect(boundarySource).toContain('aria-busy="true"')
     expect(providersSource).toContain("from './AuthProvider'")
     expect(providersSource).toContain("from './FeatureFlagsProvider'")
+    expect(providerSource).toContain("from '@nl/playfab/components/UserContextProvider'")
+    // The next-auth SessionProvider is gone; identity is the PlayFab session.
+    expect(providerSource).not.toContain('next-auth')
+    expect(
+      existsSync(join(process.cwd(), 'apps/smashers/src/contexts/AuthProvidersBoundary.tsx'))
+    ).toBe(false)
   })
 
-  it('keeps feature flags scoped to authenticated routes', () => {
-    const rootLayoutSource = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
+  it('keeps the public routes free of the feature-flag provider', () => {
+    const publicLayoutSource = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
     const authProvidersSource = readFileSync(
       join(process.cwd(), 'apps/smashers/src/contexts/AuthProviders.tsx'),
       'utf8'
     )
 
-    expect(rootLayoutSource).not.toContain('FeatureFlagProvider')
+    expect(publicLayoutSource).not.toContain('FeatureFlagProvider')
     expect(authProvidersSource).toContain('FeatureFlagProvider')
     expect(existsSync(join(process.cwd(), staleSmashersUnityDialog))).toBe(false)
+  })
+
+  it('keeps an accessible loading fallback on every auth island', () => {
+    for (const [file, label] of [
+      [smashersLoginPage, 'sign-in form'],
+      [smashersProfilePage, 'profile'],
+    ] as const) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      expect(source).toContain('slot="fallback"')
+      expect(source).toContain("from '@nl/ui/base/skeleton'")
+      expect(source).toContain('<Skeleton')
+      expect(source).toContain('role="status"')
+      expect(source).toContain('aria-live="polite"')
+      expect(source).toContain('aria-busy="true"')
+      expect(source).toContain(label)
+    }
   })
 
   it('keeps the shared back control out of the full icon registry graph', () => {
@@ -851,21 +890,29 @@ describe('Smashers public shell contract', () => {
   })
 })
 describe('Smashers login loading contract', () => {
-  it('keeps the interactive login graph behind an accessible route boundary', () => {
+  it('keeps the interactive login graph behind an accessible island boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
-    const routeSource = readFileSync(join(process.cwd(), smashersLoginRoute), 'utf8')
 
     expect(pageSource).not.toContain("from '@nl/ui/custom/loading'")
-    expect(pageSource).not.toContain("from './LoginClient'")
-    expect(pageSource).toContain("from './LoginRoute'")
+    expect(pageSource).toContain("from '@/components/login/LoginClient'")
+    expect(pageSource).toContain('client:only="react"')
     expect(pageSource).toContain('getSession')
-    expect(pageSource).toContain("redirect('/profile')")
-    expect(routeSource).toContain("dynamic(() => import('./LoginClient')")
-    expect(routeSource).toContain('ssr: false')
-    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(routeSource).toContain('role="status"')
-    expect(routeSource).toContain('aria-live="polite"')
-    expect(routeSource).toContain('aria-busy="true"')
+    expect(pageSource).toContain("Astro.redirect('/profile'")
+    // The island fallback carries the accessible loading state.
+    expect(pageSource).toContain('slot="fallback"')
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-live="polite"')
+    expect(pageSource).toContain('aria-busy="true"')
+  })
+
+  it('defers the Smashers PlayFab auth form behind the client-only island', () => {
+    const source = readFileSync(join(process.cwd(), smashersLoginClient), 'utf8')
+
+    // The form still loads lazily, but through the island rather than
+    // next/dynamic; the page-level fallback provides the loading UI.
+    expect(source).toContain("import PlayFabAuthForm from '@nl/playfab/components/PlayFabAuthForm'")
+    expect(source).not.toContain("from 'next/dynamic'")
   })
 })
 
@@ -880,34 +927,39 @@ describe('shared auth icon loading contract', () => {
   })
 })
 describe('Smashers profile loading contract', () => {
-  it('keeps the interactive profile graph behind an accessible route boundary', () => {
+  it('keeps the interactive profile graph behind an accessible island boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersProfilePage), 'utf8')
-    const routeSource = readFileSync(join(process.cwd(), smashersProfileRoute), 'utf8')
+    const clientSource = readFileSync(join(process.cwd(), smashersProfileClient), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './ProfileRoute'")
+    expect(pageSource).toContain("from '@/components/profile/ProfileClient'")
+    expect(pageSource).toContain('client:only="react"')
     expect(pageSource).toContain('getSession')
-    expect(pageSource).toContain("redirect('/login')")
-    expect(routeSource).toContain("dynamic(() => import('./ProfileClient')")
-    expect(routeSource).toContain('ssr: false')
-    expect(routeSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(routeSource).toContain('role="status"')
-    expect(routeSource).toContain('aria-live="polite"')
-    expect(routeSource).toContain('aria-busy="true"')
+    expect(pageSource).toContain("Astro.redirect('/login'")
+    expect(pageSource).toContain('slot="fallback"')
+    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
+    expect(pageSource).toContain('role="status"')
+    expect(pageSource).toContain('aria-live="polite"')
+    expect(pageSource).toContain('aria-busy="true"')
+    // The tab panels stay interactive islands with no Next dynamic boundary.
+    expect(clientSource).toContain("from '@nl/playfab/components/AccountDetails'")
+    expect(clientSource).not.toContain("from 'next/dynamic'")
   })
 })
 
 /**
  * Safety net: assert the app route trees actually exist and are non-empty,
  * so an entire route directory cannot silently disappear.
+ *
+ * smashers ships as Astro SSR and keeps its routes in src/pages instead.
  */
 describe('app route trees exist', () => {
   for (const app of Object.keys(appRouteContracts)) {
-    it(`apps/${app}/src/app is a populated route tree`, () => {
-      const root = join(process.cwd(), 'apps', app, 'src', 'app')
-      expect(existsSync(root), `Missing route tree root: apps/${app}/src/app`).toBe(true)
+    const routeDir = app === 'smashers' ? 'pages' : 'app'
+    it(`apps/${app}/src/${routeDir} is a populated route tree`, () => {
+      const root = join(process.cwd(), 'apps', app, 'src', routeDir)
+      expect(existsSync(root), `Missing route tree root: apps/${app}/src/${routeDir}`).toBe(true)
       const count = countRouteFiles(root)
-      expect(count, `No route files found under apps/${app}/src/app`).toBeGreaterThan(0)
+      expect(count, `No route files found under apps/${app}/src/${routeDir}`).toBeGreaterThan(0)
     })
   }
 })
@@ -1803,25 +1855,47 @@ describe('shared analytics loading contract', () => {
     expect(source).not.toContain('googletagmanager')
   })
 
-  it('defers web GTM, Web Vitals and Sentry until activation', () => {
-    const source = readFileSync(join(process.cwd(), webTelemetryRuntime), 'utf8')
+  it('uses deferred analytics in apps/smashers/src/layouts/Base.astro', () => {
+    const source = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
 
-    expect(source).toContain("'gtm.start'")
-    expect(source).toContain("import('web-vitals')")
-    expect(source).toContain("import('@sentry/browser')")
-    expect(source).toContain('requestIdleCallback')
+    // The base layout only mounts the telemetry runtime; GTM, Web Vitals and
+    // Sentry load later from that module.
+    expect(source).toContain("import '../runtime/telemetry'")
+    expect(source).not.toContain('googletagmanager')
   })
+
+  for (const file of [webTelemetryRuntime, smashersTelemetryRuntime]) {
+    it(`defers GTM, Web Vitals and Sentry until activation in ${file}`, () => {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+
+      expect(source).toContain("'gtm.start'")
+      expect(source).toContain("import('web-vitals')")
+      expect(source).toContain("import('@sentry/browser')")
+      expect(source).toContain('requestIdleCallback')
+    })
+  }
 })
 
 describe('app-router metadata contract', () => {
-  for (const file of ['apps/app/src/app/layout.tsx', 'apps/smashers/src/app/layout.tsx']) {
-    it(`keeps ${file} on the Metadata API`, () => {
-      const source = readFileSync(join(process.cwd(), file), 'utf8')
+  it('keeps apps/app/src/app/layout.tsx on the Metadata API', () => {
+    const source = readFileSync(join(process.cwd(), 'apps/app/src/app/layout.tsx'), 'utf8')
 
-      expect(source).not.toContain("from 'next/head'")
-      expect(source).not.toContain('<Head>')
-    })
-  }
+    expect(source).not.toContain("from 'next/head'")
+    expect(source).not.toContain('<Head>')
+  })
+
+  it('keeps apps/smashers/src/layouts/Base.astro emitting canonical and social meta', () => {
+    // smashers ships as Astro SSR: the base layout hand-emits the same metadata
+    // the Next Metadata API produced.
+    const source = readFileSync(join(process.cwd(), smashersRootLayout), 'utf8')
+
+    expect(source).not.toContain("from 'next/head'")
+    expect(source).not.toContain('<Head>')
+    expect(source).toContain('rel="canonical"')
+    expect(source).toContain('og:title')
+    expect(source).toContain('twitter:card')
+    expect(source).toContain('name="description"')
+  })
 
   it('keeps apps/web/src/layouts/Base.astro emitting canonical and social meta', () => {
     // web ships as Astro static: the base layout hand-emits the same metadata
@@ -1848,10 +1922,7 @@ describe('shared console game loading contract', () => {
   }
 
   it('shares the Smashers video asset across marketing apps', () => {
-    const smashersSource = readFileSync(
-      join(process.cwd(), 'apps/smashers/src/app/page.tsx'),
-      'utf8'
-    )
+    const smashersSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const webSource = readFileSync(join(process.cwd(), 'apps/web/src/app/(main)/page.tsx'), 'utf8')
 
     expect(smashersSource).toContain('src="/video/smashers.mp4"')
@@ -2402,8 +2473,6 @@ describe('static legal route performance contract', () => {
 const sentryClientBoundaries = [
   'apps/app/src/instrumentation-client.ts',
   'apps/app/src/app/global-error.tsx',
-  'apps/smashers/src/instrumentation-client.ts',
-  'apps/smashers/src/app/global-error.tsx',
 ]
 
 describe('deferred Sentry client contract', () => {
@@ -2439,6 +2508,44 @@ describe('deferred Sentry client contract', () => {
     })
   }
 
+  it('keeps the Sentry SDK out of the smashers Astro shell', () => {
+    // smashers ships as Astro SSR: the Next instrumentation-client/global-error
+    // boundaries are gone and @sentry/browser loads lazily from the telemetry
+    // runtime, mirroring web.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/smashers/package.json'), 'utf8')
+    ) as { dependencies?: Record<string, string> }
+
+    expect(existsSync(join(process.cwd(), 'apps/smashers/src/instrumentation-client.ts'))).toBe(
+      false
+    )
+    expect(existsSync(join(process.cwd(), 'apps/smashers/src/app/global-error.tsx'))).toBe(false)
+    expect(manifest.dependencies?.['@sentry/nextjs']).toBeUndefined()
+    expect(manifest.dependencies?.['@sentry/browser']).toBeDefined()
+    expect(readFileSync(join(process.cwd(), smashersTelemetryRuntime), 'utf8')).toContain(
+      "import('@sentry/browser')"
+    )
+  })
+
+  it('keeps the smashers server SDK lazy, production-gated and off the client', () => {
+    // Server-side capture survived the migration: the Next instrumentation
+    // onRequestError hook is replaced by middleware reporting through this
+    // module, with the same production gate and the same lazy import.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/smashers/package.json'), 'utf8')
+    ) as { dependencies?: Record<string, string> }
+    const source = readFileSync(join(process.cwd(), smashersServerSentryRuntime), 'utf8')
+    const middleware = readFileSync(join(process.cwd(), smashersMiddleware), 'utf8')
+
+    expect(manifest.dependencies?.['@sentry/node']).toBeDefined()
+    expect(manifest.dependencies?.['@sentry/nextjs']).toBeUndefined()
+    expect(source).not.toContain("from '@sentry/node'")
+    expect(source).toContain("import('@sentry/node')")
+    expect(source).toContain("process.env.VERCEL_ENV === 'production'")
+    expect(middleware).toContain('captureServerError')
+    expect(middleware).toContain('defineMiddleware')
+  })
+
   it('keeps the shared Sentry loader dynamic', () => {
     const source = readFileSync(join(process.cwd(), 'packages/sentry-client/src/client.ts'), 'utf8')
     const bootstrap = readFileSync(
@@ -2458,11 +2565,10 @@ describe('deferred Sentry client contract', () => {
 })
 
 describe('production-only Sentry server contract', () => {
-  // web is excluded: it ships as Astro static with no server runtime; its
-  // @sentry/browser integration is asserted in the deferred client contract.
-  const sentryApps = ['app', 'smashers']
-
-  for (const app of sentryApps) {
+  // smashers is excluded: it ships as Astro SSR with no Next build wrapper or
+  // instrumentation hook; its @sentry/browser integration is asserted in the
+  // deferred client contract through the telemetry runtime.
+  for (const app of ['app']) {
     it(`keeps the ${app} build wrapper lazy outside production`, () => {
       const source = readFileSync(join(process.cwd(), `apps/${app}/next.config.ts`), 'utf8')
 
@@ -2527,22 +2633,21 @@ describe('public route dependency contract', () => {
     const page = readFileSync(join(process.cwd(), smashersLootPage), 'utf8')
     const tables = readFileSync(join(process.cwd(), smashersLootTables), 'utf8')
 
-    expect(page).toContain("import LootTables from './LootTables'")
+    expect(page).toContain("import LootTables from '@/components/Loot/LootTables'")
     expect(page).not.toContain('LootTablesBoundary')
+    // Prerendered so the crate tables ship as static HTML, matching the old
+    // server-rendered Next page.
+    expect(page).toContain('export const prerender = true')
     expect(tables).not.toContain("'use client'")
     expect(tables).toContain('<table>')
     expect(existsSync(join(process.cwd(), staleSmashersLootBoundary))).toBe(false)
   })
 
-  it('defers the Smashers PlayFab auth form behind an accessible loading boundary', () => {
-    const source = readFileSync(join(process.cwd(), smashersLoginClient), 'utf8')
+  it('keeps the shared auth form on the shared skeleton primitive', () => {
+    const page = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
 
-    expect(source).toContain("dynamic(() => import('@nl/playfab/components/PlayFabAuthForm')")
-    expect(source).toContain('ssr: false')
-    expect(source).toContain("from '@nl/ui/base/skeleton'")
-    expect(source).toContain('role="status"')
-    expect(source).toContain('aria-live="polite"')
-    expect(source).not.toContain("from '@nl/playfab/components/PlayFabAuthForm'")
+    expect(page).toContain("from '@nl/ui/base/skeleton'")
+    expect(page).not.toContain("from '@nl/ui/custom/loading'")
   })
 
   it('defers public carousel behavior without shipping a third-party slider runtime', () => {
@@ -2785,12 +2890,18 @@ describe('public route dependency contract', () => {
 })
 
 function countRouteFiles(dir: string): number {
+  // Next names routes page.tsx/route.ts/layout.tsx; Astro names them
+  // <route>.astro for pages and <route>.ts for endpoints.
+  const routeFileNames = new Set(['page.tsx', 'route.ts', 'layout.tsx'])
+  const isAstroRoute = (entry: string) =>
+    (entry.endsWith('.astro') || entry.endsWith('.ts')) && !entry.endsWith('.test.ts')
+
   let count = 0
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry)
     if (statSync(full).isDirectory()) {
       count += countRouteFiles(full)
-    } else if (entry === 'page.tsx' || entry === 'route.ts' || entry === 'layout.tsx') {
+    } else if (routeFileNames.has(entry) || isAstroRoute(entry)) {
       count += 1
     }
   }

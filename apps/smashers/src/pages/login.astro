@@ -1,0 +1,29 @@
+---
+import Auth from '@/layouts/Auth.astro'
+import LoginClient from '@/components/login/LoginClient'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { getSession } from '@/utils/session'
+
+const session = await getSession(Astro)
+
+// Redirect to profile if already logged in.
+if (session.user?.isLoggedIn) return Astro.redirect('/profile', 302)
+
+// Pass only the serializable fields; the iron-session handle itself cannot
+// cross into the island payload.
+const sessionData = { user: session.user ?? null }
+---
+<Auth canonical="/login" metadata={{ title: 'Login', noindex: true }}>
+  <LoginClient client:only="react" sessionData={sessionData}>
+    <div
+      slot="fallback"
+      class="flex min-h-screen w-full items-center justify-center px-4"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <Skeleton className="h-[30rem] w-full max-w-[600px]" aria-hidden="true" />
+      <span class="sr-only">Loading sign-in form</span>
+    </div>
+  </LoginClient>
+</Auth>

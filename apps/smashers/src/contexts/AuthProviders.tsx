@@ -1,17 +1,14 @@
 'use client'
 
 import type { PropsWithChildren } from 'react'
-import type { Session } from 'next-auth'
 
 import { AuthProvider } from './AuthProvider'
 import { FeatureFlagProvider } from './FeatureFlagsProvider'
 
-type AuthProvidersProps = PropsWithChildren<{ session: Session | null }>
-
-export default function AuthProviders({ children, session }: AuthProvidersProps) {
+export default function AuthProviders({ children }: PropsWithChildren) {
   return (
     <FeatureFlagProvider>
-      <AuthProvider session={session}>{children}</AuthProvider>
+      <AuthProvider>{children}</AuthProvider>
     </FeatureFlagProvider>
   )
 }

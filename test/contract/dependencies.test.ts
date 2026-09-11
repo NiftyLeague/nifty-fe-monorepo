@@ -147,6 +147,8 @@ const VIRTUAL_AND_TEST_MODULES = new Set([
   '@theme/ThemedImage',
   '@site/public',
   '@site/src',
+  'astro:middleware',
+  'astro:actions',
   '@happy-dom/global-registrator',
   '@testing-library/user-event',
   '@nomicfoundation/hardhat-ethers',
@@ -197,8 +199,9 @@ describe('dependency contract', () => {
 
   it('keeps Next.js on one exact version across apps and shared peers', () => {
     const expectedNextVersion = '16.3.4'
-    // web is excluded: it ships as Astro static (no Next dependency).
-    const packagesWithNext = new Set(['app', 'smashers', '@nl/playfab', '@nl/ui'])
+    // web ships as Astro static and smashers as Astro SSR, so neither declares
+    // Next; @nl/playfab dropped it when smashers moved off next-auth.
+    const packagesWithNext = new Set(['app', '@nl/ui'])
 
     for (const pkg of packages) {
       if (!packagesWithNext.has(pkg.name)) continue
@@ -211,8 +214,9 @@ describe('dependency contract', () => {
   })
 
   it('declares the shared PostCSS plugin at every consuming app boundary', () => {
-    // web is excluded: it styles through @tailwindcss/vite (no postcss config).
-    for (const appName of ['app', 'smashers']) {
+    // web and smashers are excluded: the Astro apps style through
+    // @tailwindcss/vite (no postcss config).
+    for (const appName of ['app']) {
       const pkg = packages.find((candidate) => candidate.name === appName)
 
       expect(
@@ -238,7 +242,11 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     sharp: 'Next.js image optimization runtime dep',
   },
   'apps/smashers': {
-    sharp: 'Next.js image optimization runtime dep',
+    '@astrojs/vercel': 'Astro Vercel adapter referenced from astro.config.mjs',
+    '@astrojs/react': 'Astro React integration referenced from astro.config.mjs',
+    '@astrojs/check': 'astro check CLI (type-check script)',
+    astro: 'Astro framework (config + CLI)',
+    '@tailwindcss/vite': 'shared Tailwind pipeline for the Astro build',
   },
   'apps/docs': {
     '@docusaurus/core': 'docusaurus framework (config + CLI)',
@@ -252,8 +260,7 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     'prism-react-renderer': 'docusaurus theme code highlighting',
   },
   'packages/playfab': {
-    url: 'node polyfill for next-auth/next runtime',
-    https: 'node polyfill for next-auth/next runtime',
+    'iron-session': 'session cookie sealing for the OAuth flow helpers',
   },
   'packages/ui': {
     'tw-animate-css': 'tailwind animation CSS import',

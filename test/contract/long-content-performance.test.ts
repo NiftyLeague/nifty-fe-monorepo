@@ -5,7 +5,7 @@ const roadmapStyles = readFileSync(
   'apps/web/src/components/RoadmapTimeline/index.module.css',
   'utf8'
 )
-const lootStyles = readFileSync('apps/smashers/src/app/loot/page.module.css', 'utf8')
+const lootStyles = readFileSync('apps/smashers/src/styles/loot.module.css', 'utf8')
 const sharedUiStyles = readFileSync('packages/ui/src/styles/04_tailwind.utilities.css', 'utf8')
 const sharedVisibilityHook = readFileSync('packages/ui/src/hooks/useOnScreen.ts', 'utf8')
 

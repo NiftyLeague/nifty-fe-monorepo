@@ -1,2 +1,6 @@
 .vercel
 .env*.local
+
+# Astro build output
+.astro/
+dist/

@@ -1,0 +1,109 @@
+---
+import '../styles/app.css'
+import { DEFAULT_METADATA, metadataValues, type RouteMetadata } from '../runtime/metadata'
+import { getImagePreloadProps } from '../runtime/Image'
+import defaultFontUrl from '../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url'
+import headerFontUrl from '../../../../packages/ui/src/lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2?url'
+import subheaderFontUrl from '../../../../packages/ui/src/lib/fonts/assets/lilita-one-400.woff2?url'
+import specialFontUrl from '../../../../packages/ui/src/lib/fonts/assets/press-start-2p-400.woff2?url'
+
+interface Props {
+  metadata?: RouteMetadata
+  canonical?: string
+  analytics?: boolean
+  /**
+   * Above-the-fold artwork to preload, as the same props its `<img>` renders.
+   * next/image turned `priority` into a preload hint; react-dom's `preload()`
+   * does not emit during Astro's SSR, so pages declare their LCP artwork here.
+   */
+  preloadImages?: { src: string; width?: number; sizes?: string; quality?: number }[]
+}
+const {
+  metadata = {},
+  canonical = Astro.url.pathname,
+  analytics = true,
+  preloadImages = [],
+} = Astro.props
+const values = metadataValues(metadata, canonical)
+const fontCss = `
+@font-face{font-family:"Web IBM Plex Sans";src:url("${defaultFontUrl}") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Web Nexa Rust";src:url("${headerFontUrl}") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Web Lilita One";src:url("${subheaderFontUrl}") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Web Press Start 2P";src:url("${specialFontUrl}") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+/*
+ * Metric-matched local fallbacks. next/font generated these size-adjust and
+ * ascent/descent overrides from the real font tables so the fallback occupies
+ * the same space and the swap causes no layout shift. Without them the swap is
+ * a measured CLS of ~0.08 on the loot tables.
+ */
+@font-face{font-family:"Web IBM Plex Sans fallback";src:local("Arial");ascent-override:101.35%;descent-override:27.19%;line-gap-override:0.00%;size-adjust:101.13%}
+@font-face{font-family:"Web Nexa Rust fallback";src:local("Arial");ascent-override:60.84%;descent-override:16.01%;line-gap-override:0.00%;size-adjust:156.14%}
+@font-face{font-family:"Web Lilita One fallback";src:local("Arial");ascent-override:95.73%;descent-override:22.82%;line-gap-override:0.00%;size-adjust:96.42%}
+@font-face{font-family:"Web Press Start 2P fallback";src:local("Arial");ascent-override:45.63%;descent-override:0.00%;line-gap-override:0.00%;size-adjust:219.15%}
+:root{--font-ibm-plex-sans:"Web IBM Plex Sans","Web IBM Plex Sans fallback";--font-nexa-rust-sans-black:"Web Nexa Rust","Web Nexa Rust fallback";--font-lilita-one:"Web Lilita One","Web Lilita One fallback";--font-press-start:"Web Press Start 2P","Web Press Start 2P fallback"}
+astro-island{display:contents}
+`
+const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development'
+const telemetryEnabled = import.meta.env.PUBLIC_TELEMETRY !== 'false' && environment === 'production'
+---
+<!doctype html>
+<html
+  lang="en"
+  class="dark"
+  data-sentry-enabled={String(telemetryEnabled)}
+  data-analytics={String(analytics)}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#18181b" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="referrer" content="origin-when-cross-origin" />
+    <meta name="format-detection" content="email=yes,address=yes,telephone=yes" />
+    <title>{values.title}</title>
+    <meta name="description" content={values.description} />
+    <meta name="keywords" content={DEFAULT_METADATA.keywords.join(', ')} />
+    <meta name="author" content="0xPlayerOne" />
+    <meta name="creator" content="0xPlayerOne" />
+    <meta name="publisher" content="Nifty League" />
+    <link rel="canonical" href={values.canonical} />
+    {values.noindex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:title" content={values.title} />
+    <meta property="og:description" content={values.description} />
+    <meta property="og:url" content={values.canonical} />
+    <meta property="og:site_name" content="Nifty Smashers" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    {values.images.map((image) => <meta property="og:image" content={image} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={values.title} />
+    <meta name="twitter:description" content={values.description} />
+    <meta name="twitter:creator" content="@NiftySmashers" />
+    <meta name="twitter:image" content={values.images[0]} />
+    <link rel="icon" href="/favicon/smashers/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon/smashers/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon/smashers/apple-touch-icon.png" />
+    <link rel="preload" href={defaultFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={headerFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+    {preloadImages.map((image) => {
+      const hint = getImagePreloadProps(image)
+      return (
+        <link
+          rel="preload"
+          href={hint.href}
+          as="image"
+          fetchpriority="high"
+          imagesrcset={hint.imageSrcSet}
+          imagesizes={hint.imageSizes}
+        />
+      )
+    })}
+    <style is:inline set:html={fontCss} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../runtime/telemetry'
+    </script>
+  </body>
+</html>

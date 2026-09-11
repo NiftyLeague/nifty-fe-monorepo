@@ -1,14 +1,21 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import useSWR from 'swr'
 
 import type { User } from '../types'
 import fetchJson from '../utils/fetchJson'
 
+/**
+ * Full-page navigation kept framework-neutral: the consuming app is Astro SSR,
+ * so these hooks no longer have a Next router instance to push through.
+ */
+export const navigate = (href: string): void => {
+  if (typeof window === 'undefined') return
+  window.location.assign(href)
+}
+
 export function useUserSession({ redirectTo = '', redirectIfFound = false } = {}) {
-  const router = useRouter()
   const { data: user, mutate: mutateUser } = useSWR<User>(
     '/api/playfab/user/playfab-session',
     fetchJson
@@ -25,9 +32,9 @@ export function useUserSession({ redirectTo = '', redirectIfFound = false } = {}
       // If redirectIfFound is also set, redirect if the user was found
       (redirectIfFound && user?.isLoggedIn)
     ) {
-      router.push(redirectTo)
+      navigate(redirectTo)
     }
-  }, [user, redirectIfFound, redirectTo, router])
+  }, [user, redirectIfFound, redirectTo])
 
   return { user, mutateUser }
 }

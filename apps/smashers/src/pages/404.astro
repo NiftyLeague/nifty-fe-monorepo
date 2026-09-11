@@ -1,0 +1,11 @@
+---
+import Base from '@/layouts/Base.astro'
+import BackButton from '@/components/Header/BackButton'
+import { Error404 } from '@nl/ui/custom/error-404'
+
+export const prerender = true
+---
+<Base canonical="/404" metadata={{ title: '404', noindex: true }}>
+  <BackButton />
+  <Error404 />
+</Base>

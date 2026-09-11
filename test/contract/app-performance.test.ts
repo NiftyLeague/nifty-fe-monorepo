@@ -49,7 +49,8 @@ const sharedInputGroupConsumers = [
 ]
 const sharedInputGroup = 'packages/ui/src/components/base/input-group.tsx'
 const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
-const smashersNextConfig = 'apps/smashers/next.config.ts'
+// Neither web nor smashers has a next.config anymore (Astro static / Astro
+// SSR), and the template app was removed.
 const docsConfig = 'apps/docs/docusaurus.config.ts'
 const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
@@ -66,8 +67,12 @@ const incrementalTypecheckConfigs = [
   'packages/sentry-client/tsconfig.json',
   'packages/ui/tsconfig.json',
 ]
-const nextSourceTypecheckConfigs = ['apps/app/tsconfig.json', 'apps/smashers/tsconfig.json']
+// Only apps/app remains on the Next TypeScript program shape; template was
+// removed and smashers/web are Astro.
+const nextSourceTypecheckConfigs = ['apps/app/tsconfig.json']
 const webTsConfig = 'apps/web/tsconfig.json'
+const smashersTsConfig = 'apps/smashers/tsconfig.json'
+const smashersRootLayout = 'apps/smashers/src/layouts/Base.astro'
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
 const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
 const deferredExternalScript =
@@ -118,7 +123,6 @@ const smashersStaticNavigationSources = [
 const nonConflictingClassNameSources = [
   'apps/app/src/app/layout.tsx',
   'apps/app/src/components/providers/PublicNavigation.tsx',
-  'apps/smashers/src/app/layout.tsx',
   'apps/smashers/src/components/Header/Navbar/index.tsx',
   'apps/web/src/app/(main)/compete-and-earn/page.tsx',
   'apps/web/src/app/(main)/lore/page.tsx',
@@ -192,7 +196,7 @@ const appIconRegistrySources = [
   'apps/app/src/components/dialog/DegenDialog/RentDegenContentDialog.tsx',
   'apps/app/src/components/dialog/DialogActions.tsx',
   'apps/app/src/components/dialog/WithdrawButtonDialog/WithdrawSuccess.tsx',
-  'apps/smashers/src/app/(auth_routes)/profile/ProfileClient.tsx',
+  'apps/smashers/src/components/profile/ProfileClient.tsx',
 ]
 const sharedOxfmtConfig = '.oxfmtrc.json'
 const sharedOxlintConfig = '.oxlintrc.json'
@@ -415,6 +419,17 @@ describe('app performance contracts', () => {
     }
   })
 
+  it('keeps the Smashers Astro shell off every class-merging utility', () => {
+    // The Next layout joined font variables with cx(); the Astro base layout
+    // declares them in one inline @font-face block instead, so there is no
+    // class composition left to introduce a conflict-merge dependency.
+    const source = readFileSync(smashersRootLayout, 'utf8')
+
+    expect(source).not.toContain("from '@nl/ui/utils'")
+    expect(source).not.toContain("from '@nl/ui/class-names'")
+    expect(source).toContain('--font-ibm-plex-sans')
+  })
+
   it('does not prioritize the GLTF logo that is hidden in the initial 2D view', () => {
     const source = readFileSync(gltfClientRuntime, 'utf8')
     const logoStart = source.indexOf('alt="Nifty League Logo"')
@@ -574,9 +589,7 @@ describe('app performance contracts', () => {
   })
 
   it('keeps Next app builds on the native TypeScript worker', () => {
-    for (const file of [appNextConfig, smashersNextConfig]) {
-      expect(readFileSync(file, 'utf8')).not.toContain('useTypeScriptCli: true')
-    }
+    expect(readFileSync(appNextConfig, 'utf8')).not.toContain('useTypeScriptCli: true')
   })
 
   it('keeps the default app build on the explicit Webpack path', () => {
@@ -594,7 +607,7 @@ describe('app performance contracts', () => {
     const manifests = [appManifest, webManifest, 'apps/smashers/package.json']
     // web has no next.config anymore (Astro static); its scripts are still
     // checked above so no turbopack variant can reappear.
-    const configs = [appNextConfig, smashersNextConfig]
+    const configs = [appNextConfig]
 
     for (const file of manifests) {
       const scripts = JSON.parse(readFileSync(file, 'utf8')).scripts
@@ -605,6 +618,8 @@ describe('app performance contracts', () => {
     for (const file of configs) {
       expect(readFileSync(file, 'utf8')).not.toContain('turbopack')
     }
+    // smashers is Astro: no next.config means no Turbopack path can reappear.
+    expect(existsSync(join(process.cwd(), 'apps/smashers/next.config.ts'))).toBe(false)
   })
 
   it('keeps the faster Docusaurus build on one React runtime', () => {
@@ -632,8 +647,9 @@ describe('app performance contracts', () => {
   })
 
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
-    // web is excluded: Astro/Vite handles its graph without a next.config.
-    for (const file of [appNextConfig, smashersNextConfig]) {
+    // web and smashers are excluded: Astro/Vite handles their graph without a
+    // next.config and tree-shakes the icon imports itself.
+    for (const file of [appNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
     }
   })
@@ -644,9 +660,9 @@ describe('app performance contracts', () => {
     expect(sharedSource).toContain("sourcemaps: { disable: env !== 'production' }")
     expect(sharedSource).toContain('widenClientFileUpload: false')
 
-    // web is excluded: it ships as Astro static with lazy @sentry/browser and
-    // no server-side source-map uploads.
-    for (const file of [appNextConfig, smashersNextConfig]) {
+    // web and smashers are excluded: they ship as Astro with lazy
+    // @sentry/browser and no server-side source-map uploads.
+    for (const file of [appNextConfig]) {
       const source = readFileSync(file, 'utf8')
       expect(source).toContain('getProductionSentryOptions')
     }
@@ -685,6 +701,16 @@ describe('app performance contracts', () => {
       'playwright.config.ts',
       'e2e/**/*',
     ])
+  })
+
+  it('scopes the Astro smashers TypeScript program to Astro-generated and source inputs', () => {
+    const tsConfig = JSON.parse(readFileSync(smashersTsConfig, 'utf8')) as {
+      include?: string[]
+      extends?: string
+    }
+
+    expect(tsConfig.extends).toBe('astro/tsconfigs/strict')
+    expect(tsConfig.include).toEqual(['.astro/types.d.ts', 'src/**/*', 'astro.config.mjs'])
   })
 
   it('keeps generated contract types out of the default app program and avoids the barrel graph', () => {

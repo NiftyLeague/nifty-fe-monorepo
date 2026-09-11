@@ -1,11 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useState, useMemo } from 'react'
-import { signIn, useSession } from 'next-auth/react'
-import { usePathname } from 'next/navigation'
+import { useCallback, useState, useMemo } from 'react'
 
 import { cn } from '@nl/ui/utils'
 import { SocialIconButton } from '@nl/ui/custom/social-icon-button'
+import { getOAuthProvider, getSignInPath } from '../../auth/oauth'
 import { useUserContext } from '../../hooks/useUserContext'
 import { fetchJson } from '../../utils/fetchJson'
 import type { Provider, UserContextType } from '../../types'
@@ -16,8 +15,14 @@ export interface Props {
   loading?: boolean
 }
 
-const handleSignIn = async (provider: Provider) => {
-  await signIn(provider, { callbackUrl: `/profile#link-${provider}` })
+/**
+ * Starts the authorization-code flow. The callback route links the provider to
+ * the signed-in PlayFab account server-side, so no provider token ever reaches
+ * the browser; this only has to leave the page.
+ */
+const handleSignIn = (provider: Provider) => {
+  if (!getOAuthProvider(provider)) return
+  window.location.assign(getSignInPath(provider))
 }
 
 export default function LinkedProviders({
@@ -26,41 +31,19 @@ export default function LinkedProviders({
   loading = false,
 }: Props) {
   const player: UserContextType = useUserContext()
-  const [optimisticLinked, setOptimisticLinked] = useState<Provider[]>([])
   const [optimisticUnlinked, setOptimisticUnlinked] = useState<Provider[]>([])
-  const session = useSession()
-  const pathname = usePathname()
 
+  // Linking is server-side, so the linked set is whatever PlayFab reports; only
+  // unlinks need local optimism, since the refetch that confirms them is async.
   const linkedProviders = useMemo(() => {
     const fromProfile =
       player.profile?.LinkedAccounts?.map((p) =>
         p.Platform === 'GooglePlay' ? 'google' : p.Platform?.toLowerCase()
       ) || []
-    return [...new Set([...fromProfile, ...optimisticLinked])].filter(
-      (p) => !optimisticUnlinked.includes(p as never)
-    )
-  }, [player.profile, optimisticLinked, optimisticUnlinked])
+    return [...new Set(fromProfile)].filter((p) => !optimisticUnlinked.includes(p as never))
+  }, [player.profile, optimisticUnlinked])
 
-  const handleLinkProvider = useCallback(
-    async (provider: Provider, accessToken: string) => {
-      if (!linkedProviders.includes(provider)) {
-        try {
-          setOptimisticLinked((prev) => [...prev, provider])
-          await fetchJson('/api/playfab/user/link-provider', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ provider, accessToken }),
-          })
-        } catch (e) {
-          console.error(e)
-          setOptimisticLinked((prev) => prev.filter((p) => p !== provider))
-        }
-      }
-    },
-    [linkedProviders]
-  )
-
-  const handleUnlinkProvider = async (provider: Provider) => {
+  const handleUnlinkProvider = useCallback(async (provider: Provider) => {
     try {
       setOptimisticUnlinked((prev) => [...prev, provider])
       await fetchJson('/api/playfab/user/unlink-provider', {
@@ -72,18 +55,7 @@ export default function LinkedProviders({
       console.error(e)
       setOptimisticUnlinked((prev) => prev.filter((p) => p !== provider))
     }
-  }
-
-  // handle link provider on redirect if NextAuth session authenticated
-  useEffect(() => {
-    if (pathname.includes('#') && session.status === 'authenticated') {
-      const { provider, accessToken } = session.data as unknown as {
-        provider: Provider
-        accessToken: string
-      }
-      handleLinkProvider(provider, accessToken)
-    }
-  }, [pathname, session.status, session.data, handleLinkProvider])
+  }, [])
 
   return providers && providers.length > 0 ? (
     <div

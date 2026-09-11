@@ -2,7 +2,6 @@
 
 import type { ComponentType, PropsWithChildren } from 'react'
 import { createContext, useCallback, useEffect, useMemo } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { SnackbarProvider } from 'notistack'
 
 import { fetchJson, FetchError } from '../../utils/fetchJson'
@@ -17,9 +16,18 @@ const CompatibleSnackbarProvider = SnackbarProvider as unknown as ComponentType<
 
 export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_STATE)
 
+/**
+ * The auth surface is a plain document, so `?game-token=` is read from the
+ * location instead of a framework router hook. It stays reactive so the shared
+ * context keeps the same contract for both launch paths.
+ */
+const readGameToken = (): string | null => {
+  if (typeof window === 'undefined') return null
+  return new URLSearchParams(window.location.search).get('game-token')
+}
+
 export const UserContextProvider = (props: PropsWithChildren) => {
-  const searchParams = useSearchParams()
-  const gameToken = searchParams.get('game-token')
+  const gameToken = readGameToken()
   const { user, mutateUser } = useUserSession()
   const { userInfo, mutateUserInfo } = useUserInfo(user)
   const isLoggedIn = Boolean(user?.isLoggedIn)
