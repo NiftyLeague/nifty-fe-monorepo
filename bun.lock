@@ -101,6 +101,7 @@
         "@astrojs/markdown-satteri": "^0.4.1",
         "@astrojs/react": "6.0.5",
         "@astrojs/starlight": "0.42.0",
+        "@docsearch/css": "^5.1.0",
         "@docsearch/js": "^5.1.0",
         "@nl/ui": "workspace:*",
         "astro": "7.3.2",
@@ -501,6 +502,8 @@
     "@ctrl/tinycolor": ["@ctrl/tinycolor@4.2.1", "", {}, "sha512-Vh5uy9Y1JBMId6J1f68TMXnZrTCvNdo9Fu2k0d1YnJngR+sM5kWTKl441c/3TFs+cG0NWOjRWgQ/iaWhbYx+7A=="],
 
     "@dnsquery/dns-packet": ["@dnsquery/dns-packet@6.1.1", "", { "dependencies": { "@leichtgewicht/ip-codec": "^2.0.4", "utf8-codec": "^1.0.0" } }, "sha512-WXTuFvL3G+74SchFAtz3FgIYVOe196ycvGsMgvSH/8Goptb1qpIQtIuM4SOK9G9lhMWYpHxnXyy544ZhluFOew=="],
+
+    "@docsearch/css": ["@docsearch/css@5.1.0", "", {}, "sha512-8+4N7h0MbW4wuPpjVBry3jvqnkBk8ZmBP5EeXrX+b6ysdUeWFt8/OWzriZ9vrHjdkdhMihWxRDYT5+GsHXLWGg=="],
 
     "@docsearch/js": ["@docsearch/js@5.1.0", "", {}, "sha512-OQQN3aW4lR5NYDwvHlqQIzPv4sXhTEz9B7wleXC8ng3n4vCvWRlJV/a64TNx9X7bqjXIPnFAe0RxzG8tO690fw=="],
 

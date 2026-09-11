@@ -34,9 +34,11 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 		</kbd>
 	</button>
 
-	{/* DocSearch mounts into an off-screen container; its own trigger is hidden
-	    because the button above drives the modal. */}
-	<div id="starlight__search" hidden></div>
+	{/* DocSearch mounts its own trigger button into this container; the site's
+	    button above is the visible control, so the container stays in the layout
+	    (a display:none mount point leaves the floating panel without a box to
+	    anchor to) while the mounted trigger is kept visually out of the way. */}
+	<div id="starlight__search"></div>
 </site-search>
 
 <script is:inline>
@@ -59,13 +61,31 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 
 <script>
 	import type { DocSearchInstance } from '@docsearch/js/docsearch';
+	import docsearchCssUrl from '@docsearch/css/dist/style.css?url';
 
 	let docSearchPromise: Promise<DocSearchInstance | undefined> | undefined;
+	let docSearchInstance: DocSearchInstance | undefined;
+
+	/* DocSearch v5 does not inject its own stylesheet, and Astro's stylesheet
+	   inlining drops CSS that only a lazy chunk references, so fetch the file
+	   the first time search is used. */
+	let docSearchCssPromise: Promise<unknown> | undefined;
+	function loadDocSearchCss(): Promise<unknown> {
+		docSearchCssPromise ??= new Promise((resolve) => {
+			const link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = docsearchCssUrl;
+			link.addEventListener('load', () => resolve(undefined));
+			link.addEventListener('error', () => resolve(undefined));
+			document.head.append(link);
+		});
+		return docSearchCssPromise;
+	}
 
 	/** Imports DocSearch once and mounts it into the container. */
 	function loadDocSearch(container: HTMLElement): Promise<DocSearchInstance | undefined> {
-		docSearchPromise ??= import('@docsearch/js/docsearch')
-			.then(({ default: docsearch }) =>
+		docSearchPromise ??= Promise.all([import('@docsearch/js/docsearch'), loadDocSearchCss()])
+			.then(([{ default: docsearch }]) =>
 				docsearch({
 					container,
 					appId: import.meta.env.PUBLIC_ALGOLIA_APP_ID ?? 'QHFGNYFTED',
@@ -85,6 +105,14 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 	let openLatest: (() => void | Promise<void>) | undefined;
 	let shortcutBound = false;
 
+	/* A client-side navigation swaps the mounted container out of the DOM; drop
+	   the instance so the next open re-creates it against the live one. */
+	document.addEventListener('astro:before-swap', () => {
+		docSearchInstance?.destroy();
+		docSearchInstance = undefined;
+		docSearchPromise = undefined;
+	});
+
 	class SiteSearch extends HTMLElement {
 		connectedCallback() {
 			const openBtn = this.querySelector<HTMLButtonElement>('button[data-open-modal]')!;
@@ -92,6 +120,7 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 
 			const openModal = async () => {
 				const instance = await loadDocSearch(container);
+				docSearchInstance = instance;
 				instance?.open();
 			};
 
@@ -136,10 +165,22 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 
 <style>
 	@layer starlight.core {
-		/* DocSearch renders its trigger button into the container; the site button
-		   above replaces it, so keep the mount point out of the layout. */
-		#starlight__search[hidden] {
-			display: none;
+		site-search {
+			display: contents;
+		}
+
+		/* The mounted DocSearch trigger stays measurable — the modal panel anchors
+		   to it — but must never appear next to the site's own search button. */
+		#starlight__search .DocSearch-Button {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			border: 0;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
 		}
 	}
 </style>
