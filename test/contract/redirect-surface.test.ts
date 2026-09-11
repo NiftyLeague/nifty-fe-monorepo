@@ -86,6 +86,16 @@ const surfaces: Record<string, SurfaceEntry[]> = {
     },
     {
       type: 'file',
+      path: 'src/pages/ios/[...path].ts',
+      reason: 'App Store deep-link route (served before middleware)',
+    },
+    {
+      type: 'file',
+      path: 'src/pages/invite/[refcode].ts',
+      reason: 'Referral deep-link route (served before middleware)',
+    },
+    {
+      type: 'file',
       path: 'src/pages/api/auth/signin/[provider].ts',
       reason: 'OAuth authorization-code entry point',
     },

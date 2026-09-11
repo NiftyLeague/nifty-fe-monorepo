@@ -37,6 +37,16 @@ const appRouteContracts: Record<string, string[]> = {
     // OAuth: replaces the next-auth catch-all with signin + callback endpoints.
     'src/pages/api/auth/signin/[provider].ts',
     'src/pages/api/auth/callback/[provider].ts',
+    // Store and referral deep links. These are real route files rather than
+    // middleware because Astro resolves routing before middleware runs, so an
+    // unmatched path 404s before any middleware redirect could fire.
+    'src/pages/ios/[...path].ts',
+    'src/pages/android/[...path].ts',
+    'src/pages/steam/[...path].ts',
+    'src/pages/epic/[...path].ts',
+    'src/pages/invite/[refcode].ts',
+    'src/pages/robots.txt.ts',
+    'src/pages/sitemap.xml.ts',
     'src/pages/login.astro',
     'src/pages/profile.astro',
     'src/pages/loot.astro',
