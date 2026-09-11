@@ -824,11 +824,16 @@ header.header {
 
 /* -------------------------------------------------------------- pagination -- */
 
-/* Previous/next render as stacked full-width bars of the article column at
-   every viewport width. */
+/* Previous and next share one row with equal widths when both exist; pages
+   with only one link keep it full width. */
 .pagination-links {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.pagination-links:has(> a:only-child) {
+  grid-template-columns: 1fr;
 }
 
 .pagination-links a {
