@@ -12,7 +12,11 @@ const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
 // The Astro migration PRs re-enable preview deployments for their own branches
 // while the shared policy keeps every other feature branch off.
 const webDeploymentEnabled = { ...deploymentEnabled, 'feat/web-astro-migration': true }
-const smashersDeploymentEnabled = { ...deploymentEnabled, 'feat/smashers-astro-migration': true }
+const smashersDeploymentEnabled = {
+  ...deploymentEnabled,
+  'feat/smashers-astro-migration': true,
+  'fix/smashers-astro-runtime-regressions': true,
+}
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
