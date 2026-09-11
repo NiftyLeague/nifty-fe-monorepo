@@ -4,7 +4,7 @@ export const IMAGE_QUALITIES = [60, 65, 75]
 
 export function candidateWidths(nativeWidth) {
   const widths = [...SMALL_WIDTHS, ...DEVICE_WIDTHS].filter((width) => width < nativeWidth)
-  return [...new Set([...widths, nativeWidth])].sort((a, b) => a - b)
+  return [...new Set([...widths, nativeWidth])].toSorted((a, b) => a - b)
 }
 
 function pickAtLeast(widths, minimum) {

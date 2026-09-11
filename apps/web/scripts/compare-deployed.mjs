@@ -1,7 +1,7 @@
 import { parseArgs } from 'node:util'
 import { spawn } from 'node:child_process'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { resolve as resolvePath } from 'node:path'
 
 const { values } = parseArgs({
   options: {
@@ -24,7 +24,7 @@ for (const key of ['before', 'after']) {
     throw new Error('Invalid origin')
   origins[key] = new URL(values.route, url).href
 }
-const output = resolve(values.output)
+const output = resolvePath(values.output)
 await mkdir(output, { recursive: true })
 const samples = { before: [], after: [] }
 function command(args) {
@@ -65,7 +65,7 @@ for (let run = 1; run <= count; run++) {
     })
   }
 }
-const median = (items) => [...items].sort((a, b) => a - b)[Math.floor(items.length / 2)]
+const median = (items) => items.toSorted((a, b) => a - b)[Math.floor(items.length / 2)]
 const medians = Object.fromEntries(
   Object.entries(samples).map(([key, runs]) => [
     key,
