@@ -66,7 +66,9 @@ const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
         <h3 className="mt-3 mt-md-5 text-center">GAME MODES</h3>
         <div className={cx(styles.features, 'flex pt-3 md:pt-5 mx-auto relative')}>
           <div className="w-1/3">
-            <h4 className={styles.headerCell} className="heading-look-6">FEATURES:</h4>
+            <h4 className={styles.headerCell} className="heading-look-6">
+              FEATURES:
+            </h4>
             <p className={styles.cell}>Requires an invite:</p>
             <p className={styles.cell}>Buy-in:</p>
             <p className={styles.cell}>Region:</p>
@@ -82,14 +84,18 @@ const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
             }}
           />
           <div className="w-1/3">
-            <h4 className={styles.headerCell} className="heading-look-6">PUBLIC</h4>
+            <h4 className={styles.headerCell} className="heading-look-6">
+              PUBLIC
+            </h4>
             <p className={styles.cell}>No</p>
             <p className={styles.cell}>1000 NFTL</p>
             <p className={styles.cell}>Decided by the Host</p>
             <p className={styles.cell}>Decided by the Host</p>
           </div>
           <div className="w-1/3">
-            <h4 className={styles.headerCell} className="heading-look-6">PRIVATE</h4>
+            <h4 className={styles.headerCell} className="heading-look-6">
+              PRIVATE
+            </h4>
             <p className={styles.cell}>Yes</p>
             <p className={styles.cell}>Decided by the Host</p>
             <p className={styles.cell}>Decided by the Host</p>

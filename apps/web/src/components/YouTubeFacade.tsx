@@ -15,7 +15,9 @@ type EmbedProps = ComponentPropsWithoutRef<typeof LazyYouTubeEmbed>
 export default function YouTubeFacade({ src, title, poster }: EmbedProps & { poster?: string }) {
   const [playing, setPlaying] = useState(false)
 
-  const autoplaySrc = src.includes('autoplay') ? src : `${src}${src.includes('?') ? '&' : '?'}autoplay=1`
+  const autoplaySrc = src.includes('autoplay')
+    ? src
+    : `${src}${src.includes('?') ? '&' : '?'}autoplay=1`
 
   if (playing) return <LazyYouTubeEmbed src={autoplaySrc} title={title} className={styles.video} />
 

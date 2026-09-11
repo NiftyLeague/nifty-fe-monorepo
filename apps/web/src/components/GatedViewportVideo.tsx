@@ -12,7 +12,10 @@ type ViewportVideoProps = ComponentPropsWithoutRef<typeof ViewportVideo>
  * path finishes, then the viewport-controlled playback mounts. Keeps the
  * first-viewport video payload from competing with the LCP image.
  */
-export default function GatedViewportVideo({ label = 'video', ...props }: ViewportVideoProps & { label?: string }) {
+export default function GatedViewportVideo({
+  label = 'video',
+  ...props
+}: ViewportVideoProps & { label?: string }) {
   return (
     <IdleGate
       fallback={

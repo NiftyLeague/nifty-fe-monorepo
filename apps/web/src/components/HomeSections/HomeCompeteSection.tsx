@@ -45,13 +45,13 @@ export default function HomeCompeteSection() {
               external: true,
             }}
             secondary={{
-            href: '/compete-and-earn',
-            title: (
-              <>
-                LEARN MORE<span className='sr-only'> about competing and earning NFTL</span>
-              </>
-            ),
-          }}
+              href: '/compete-and-earn',
+              title: (
+                <>
+                  LEARN MORE<span className="sr-only"> about competing and earning NFTL</span>
+                </>
+              ),
+            }}
           />
         </div>
       </div>

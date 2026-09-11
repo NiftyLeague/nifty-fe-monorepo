@@ -8,7 +8,13 @@ import { useEffect, useState, type ReactNode } from 'react'
  * mounted; on constrained connections this keeps the visitor's bandwidth on
  * the page's own LCP image instead of the embed's player payload.
  */
-export default function IdleGate({ children, fallback }: { children: ReactNode; fallback: ReactNode }) {
+export default function IdleGate({
+  children,
+  fallback,
+}: {
+  children: ReactNode
+  fallback: ReactNode
+}) {
   const [idle, setIdle] = useState(false)
 
   useEffect(() => {

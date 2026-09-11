@@ -34,7 +34,9 @@ export default function TeamDesktop() {
                 />
               </div>
             )}
-            <h3 className="mt-4 text-lg font-medium truncate-text-1 heading-look-6">{member.name}</h3>
+            <h3 className="mt-4 text-lg font-medium truncate-text-1 heading-look-6">
+              {member.name}
+            </h3>
           </div>
         </div>
       ))}

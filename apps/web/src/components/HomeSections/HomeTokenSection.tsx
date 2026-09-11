@@ -29,7 +29,7 @@ export default function HomeTokenSection() {
             external: true,
             title: (
               <>
-                LEARN MORE<span className='sr-only'> about the NFTL token</span>
+                LEARN MORE<span className="sr-only"> about the NFTL token</span>
               </>
             ),
           }}

@@ -117,7 +117,7 @@
  * Keep the 8px dot visual but center it inside a 24px transparent button,
  * so the touch target passes WCAG 2.5.8 without overlapping its neighbours.
  */
-[role="group"][aria-label="Choose slide"] button[aria-label^="Go to slide"] {
+[role='group'][aria-label='Choose slide'] button[aria-label^='Go to slide'] {
   width: 24px;
   height: 24px;
   min-width: 24px;
@@ -128,7 +128,7 @@
   position: relative;
 }
 
-[role="group"][aria-label="Choose slide"] button[aria-label^="Go to slide"]::before {
+[role='group'][aria-label='Choose slide'] button[aria-label^='Go to slide']::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -141,14 +141,15 @@
   opacity: 0.55;
 }
 
-[role="group"][aria-label="Choose slide"] button[aria-label^="Go to slide"][aria-current='true']::before {
+[role='group'][aria-label='Choose slide']
+  button[aria-label^='Go to slide'][aria-current='true']::before {
   background: var(--color-foreground);
   opacity: 1;
 }
 
 /* Prev/next arrows may already be large; only guarantee the minimum. */
-[role="group"][aria-label="Choose slide"] button[aria-label="Go to previous slide"],
-[role="group"][aria-label="Choose slide"] button[aria-label="Go to next slide"] {
+[role='group'][aria-label='Choose slide'] button[aria-label='Go to previous slide'],
+[role='group'][aria-label='Choose slide'] button[aria-label='Go to next slide'] {
   min-width: 24px;
   min-height: 24px;
 }

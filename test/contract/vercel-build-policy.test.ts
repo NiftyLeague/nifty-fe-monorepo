@@ -46,7 +46,9 @@ describe('Vercel build cost policy', () => {
   })
 
   it('builds the migration branch preview for the web project', () => {
-    expect(shouldBuild('feat/web-astro-migration', 'web', ['apps/web/src/pages/index.astro'])).toBe(true)
+    expect(shouldBuild('feat/web-astro-migration', 'web', ['apps/web/src/pages/index.astro'])).toBe(
+      true
+    )
     expect(shouldBuild('feat/web-astro-migration', 'web', ['apps/docs/src/page.tsx'])).toBe(false)
     expect(shouldBuild('feat/web-astro-migration', 'app', ['apps/app/src/app/page.tsx'])).toBe(true)
   })

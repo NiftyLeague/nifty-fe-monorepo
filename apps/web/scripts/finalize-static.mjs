@@ -51,6 +51,7 @@ await writeFile(
   X-Content-Type-Options: nosniff
   Referrer-Policy: origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000
 
 /_astro/*
   Access-Control-Allow-Origin: *
@@ -59,6 +60,18 @@ await writeFile(
 /__images/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
+
+/img/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/icons/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/video/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/favicon/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 `
 )
 await writeFile(

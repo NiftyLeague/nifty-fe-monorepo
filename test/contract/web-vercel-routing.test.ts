@@ -32,7 +32,9 @@ describe('web Vercel routing contract', () => {
   })
 
   it('keeps permanent short links on 308 redirects', () => {
-    const permanent = new Map(config.redirects?.filter((r) => r.permanent).map((r) => [r.source, r.destination]))
+    const permanent = new Map(
+      config.redirects?.filter((r) => r.permanent).map((r) => [r.source, r.destination])
+    )
     expect(permanent.get('/blog')).toBe('https://niftyleague.medium.com')
     expect(permanent.get('/feedback')).toBe('https://feedback.niftyleague.com')
     expect(permanent.get('/snapshot')).toBe('https://snapshot.niftyleague.com')
@@ -42,7 +44,9 @@ describe('web Vercel routing contract', () => {
   })
 
   it('keeps temporary short links and DEGEN deep links on 307 redirects', () => {
-    const temporary = new Map(config.redirects?.filter((r) => !r.permanent).map((r) => [r.source, r.destination]))
+    const temporary = new Map(
+      config.redirects?.filter((r) => !r.permanent).map((r) => [r.source, r.destination])
+    )
     expect(temporary.get('/HUB')).toBe('https://hub.xyz/niftyleague')
     expect(temporary.get('/OS')).toBe('https://opensea.io/collection/niftydegen')
     expect(temporary.get('/ME')).toBe('https://magiceden.io/collections/ethereum/niftydegen')
