@@ -21,21 +21,22 @@ This decision record covers M0.1 through M0.4. It makes later migration work mea
 | `app`      | Next 16 App Router; public server/client boundary plus authenticated dashboard                   | `/`, `/degens`, `/degens/[id]`, `/games/*`, `/leaderboards`, `/mint-o-matic`, `/dashboard/*`, `/verification` | `bun --filter app build` (Webpack); Vercel `app.niftyleague.com`    |
 | `docs`     | Docusaurus 3 static site                                                                         | `/`, `/overview/intro`, guides, FAQ, generated contract docs                                                  | `bun --filter docs build`; Vercel `docs.niftyleague.com`            |
 | `smashers` | Next 16 App Router; server auth and client game/UI islands                                       | `/`, `/loot`, `/login`, `/profile`, `/api/auth/*`, `/api/playfab/*`                                           | `bun --filter smashers build` (Webpack); Vercel `niftysmashers.com` |
-| `template` | Next 16 App Router; static shell with client progress state                                      | `/`                                                                                                           | `bun --filter template build`; local production benchmark only      |
 | `web`      | Astro 7 static; React islands inside Astro shells (Cloudflare Worker variant for special routes) | `/`, `/games`, `/degens`, `/niftyworld`, `/roadmap`, `/gltf/[tokenId]`, invite and party links                | `bun --filter web build` (Astro); Vercel `niftyleague.com`          |
 
 The contract test lists every external route. The benchmark manifest selects one no-auth route per app for repeatable lab data. Authenticated dashboard, profile, and wallet routes need a sanitized fixture before their migration.
 
+> The `template` app was removed on 2026-09-11. It had no production deployment, and the remaining apps cover the framework paths it was kept to exercise.
+
 ### Shared boundaries and major assets
 
-| Boundary                     | Consumers                          | Constraint                                                                         |
-| ---------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------- |
-| `@nl/ui`                     | every frontend app                 | Preserve public exports, themes, and Tailwind source scanning.                     |
-| `@nl/contracts`              | `api`, `app`                       | Contract addresses and ABI compatibility are release-critical.                     |
-| `@nl/imx-passport`           | `app`                              | Wallet/session initialization remains client-only.                                 |
-| `@nl/playfab`                | `smashers`                         | Preserve NextAuth and PlayFab HTTP contracts.                                      |
-| `@nl/sentry-client`          | Next apps                          | Production-only Sentry wrapping must not enter development/preview graphs.         |
-| `assets/img`, `assets/video` | app, docs, smashers, template, web | Reuse through public-tree symlinks; no asset copy or rename in runtime migrations. |
+| Boundary                     | Consumers                | Constraint                                                                         |
+| ---------------------------- | ------------------------ | ---------------------------------------------------------------------------------- |
+| `@nl/ui`                     | every frontend app       | Preserve public exports, themes, and Tailwind source scanning.                     |
+| `@nl/contracts`              | `api`, `app`             | Contract addresses and ABI compatibility are release-critical.                     |
+| `@nl/imx-passport`           | `app`                    | Wallet/session initialization remains client-only.                                 |
+| `@nl/playfab`                | `smashers`               | Preserve NextAuth and PlayFab HTTP contracts.                                      |
+| `@nl/sentry-client`          | Next apps                | Production-only Sentry wrapping must not enter development/preview graphs.         |
+| `assets/img`, `assets/video` | app, docs, smashers, web | Reuse through public-tree symlinks; no asset copy or rename in runtime migrations. |
 
 ## State and data ownership
 
@@ -62,7 +63,7 @@ The owner named here is the only layer allowed to persist, invalidate, or mutate
 2. **High impact / medium risk:** wallet, auth status, and local credential state cross several providers. Preserve initialization order, SSR fallback, disconnect cleanup, and storage compatibility.
 3. **Medium impact / medium risk:** DEGEN catalogue, dashboard DEGENs, gamer profile, and overview reuse derived account data. Separate normalized responses from route presentation/filter state.
 4. **Medium impact / low risk:** app and Smashers feature flag providers have similar names but different runtime boundaries.
-5. **Low impact / low risk:** drawers, dialogs, snackbars, carousels, and template progress remain ephemeral component/context state.
+5. **Low impact / low risk:** drawers, dialogs, snackbars, and carousels remain ephemeral component/context state.
 
 ## Budgets and decision gates
 
@@ -103,13 +104,13 @@ No M1-M5 issue may be marked complete from a claimed improvement alone. It must 
 
 Run `bun scripts/m0-benchmark.mjs --dry-run` to validate the manifest. The runner uses a disposable headless Chrome profile with cache disabled. It captures LCP, synthetic INP, CLS, navigation TTFB, CDP transfer bytes, request count, and best-available JS memory. It writes individual samples and median/spread, or `null` plus an unsupported note where Chrome cannot report a metric. It does not read browser cookies, local storage, or credentials.
 
-The `template` route is local-only because there is no declared production deployment. Start its production server on `127.0.0.1:3005` and add `--include-local --route template-home` to collect its evidence. Add `--build` to capture the manifest's clean and incremental build timing. This mode only touches generated output paths named in the manifest.
-
 Dev-startup and HMR timing require an approved disposable fixture. Record the fixture, edit, server command, Browser/Node/Bun versions, host profile, and run count beside the matching JSON evidence. The runner does not automate product-source edits.
 
 ## Evidence recorded on 2026-09-07
 
+These files are immutable samples from that date. They still list the `template` app, which was removed on 2026-09-11; treat those entries as historical only.
+
 - `benchmarks/results/m0-production-2026-09-07.json`: five cache-disabled production samples for API, app, docs, Smashers, and web.
 - `benchmarks/results/m0-template-2026-09-07.json`: five local production samples for the template route.
-- `benchmarks/results/m0-build-2026-09-07.json`: three clean/incremental build pairs per app. API, app, docs, template, and web exited successfully in all samples.
+- `benchmarks/results/m0-build-2026-09-07.json`: three clean/incremental build pairs per app. API, app, docs, Smashers, template, and web exited successfully in all samples.
 - `benchmarks/results/m0-smashers-build-2026-09-07.json`: one cache-disabled production route sample and three clean/incremental Smashers build pairs. Every build exited successfully with `NEXTAUTH_SECRET` loaded only into the benchmark process from the ignored local Smashers environment file; the secret is neither copied into this worktree nor written to the evidence file.

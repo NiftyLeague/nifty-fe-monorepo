@@ -50,16 +50,13 @@ const sharedInputGroupConsumers = [
 const sharedInputGroup = 'packages/ui/src/components/base/input-group.tsx'
 const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
 const smashersNextConfig = 'apps/smashers/next.config.ts'
-const templateNextConfig = 'apps/template/next.config.ts'
 const docsConfig = 'apps/docs/docusaurus.config.ts'
-const templatePage = 'apps/template/src/app/page.tsx'
 const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
 const incrementalTypecheckConfigs = [
   'apps/api/tsconfig.json',
   'apps/docs/tsconfig.json',
-  'apps/template/tsconfig.json',
   // apps/web/tsconfig.json is excluded: it extends Astro's strict preset, which
   // drives astro check without Next-style incremental build info.
   'apps/app/tsconfig.json',
@@ -69,11 +66,7 @@ const incrementalTypecheckConfigs = [
   'packages/sentry-client/tsconfig.json',
   'packages/ui/tsconfig.json',
 ]
-const nextSourceTypecheckConfigs = [
-  'apps/template/tsconfig.json',
-  'apps/app/tsconfig.json',
-  'apps/smashers/tsconfig.json',
-]
+const nextSourceTypecheckConfigs = ['apps/app/tsconfig.json', 'apps/smashers/tsconfig.json']
 const webTsConfig = 'apps/web/tsconfig.json'
 const deferredSentryClient = 'packages/sentry-client/src/client.ts'
 const deferredSentryModule = 'packages/sentry-client/src/nextjs-client.ts'
@@ -207,7 +200,6 @@ const testHarnessPreload = 'test/preload.ts'
 const appStylesheets = [
   'apps/app/src/styles/app.css',
   'apps/smashers/src/styles/app.css',
-  'apps/template/src/styles/app.css',
   'apps/web/src/styles/app.css',
 ]
 
@@ -262,7 +254,7 @@ describe('app performance contracts', () => {
     expect(source).toContain("'../node_modules/.bun/node_modules/react-dom/index.js'")
     expect(source).toContain('mock.module(workspaceReact')
 
-    for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
+    for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
       expect(source).toContain(`'${workspace}'`)
     }
   })
@@ -599,15 +591,10 @@ describe('app performance contracts', () => {
   })
 
   it('removes the unsupported optional Turbopack path from every Next app', () => {
-    const manifests = [
-      appManifest,
-      webManifest,
-      'apps/smashers/package.json',
-      'apps/template/package.json',
-    ]
+    const manifests = [appManifest, webManifest, 'apps/smashers/package.json']
     // web has no next.config anymore (Astro static); its scripts are still
     // checked above so no turbopack variant can reappear.
-    const configs = [appNextConfig, smashersNextConfig, templateNextConfig]
+    const configs = [appNextConfig, smashersNextConfig]
 
     for (const file of manifests) {
       const scripts = JSON.parse(readFileSync(file, 'utf8')).scripts
@@ -646,16 +633,9 @@ describe('app performance contracts', () => {
 
   it('modularizes shared Lucide imports before the app graph is bundled', () => {
     // web is excluded: Astro/Vite handles its graph without a next.config.
-    for (const file of [appNextConfig, smashersNextConfig, templateNextConfig]) {
+    for (const file of [appNextConfig, smashersNextConfig]) {
       expect(readFileSync(file, 'utf8')).toContain("optimizePackageImports: ['lucide-react']")
     }
-  })
-
-  it('keeps template-local SVG artwork on the shared native image primitive', () => {
-    const source = readFileSync(templatePage, 'utf8')
-
-    expect(source).toContain("from '@nl/ui/custom/native-image'")
-    expect(source).not.toContain("from 'next/image'")
   })
 
   it('keeps Sentry source-map uploads narrow enough for production builds', () => {
@@ -812,20 +792,14 @@ describe('app performance contracts', () => {
     expect(manifest.scripts['dev:turbo']).toBeUndefined()
   })
 
-  it('keeps the tracked template app on the root Next build graph', () => {
+  it('keeps every deployable app on the root build graph', () => {
     const root = JSON.parse(readFileSync(rootManifest, 'utf8'))
-    const template = JSON.parse(readFileSync('apps/template/package.json', 'utf8'))
     const turbo = JSON.parse(readFileSync(turboConfig, 'utf8'))
 
-    expect(template.scripts.build).toBe('next build --webpack')
-    expect(template.scripts['build:turbo']).toBeUndefined()
-    expect(root.scripts.build).toContain('template#build')
-    expect(turbo.tasks['template#build'].inputs).toContain('../../packages/ui/src/**')
-    expect(turbo.tasks['template#build'].outputs).toEqual([
-      '.next/**',
-      '!.next/cache/**',
-      '!.next/dev/**',
-    ])
+    expect(root.scripts.build).toBe(
+      'turbo run api#build app#build docs#build smashers#build web#build'
+    )
+    expect(turbo.tasks['template#build']).toBeUndefined()
   })
 
   it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {

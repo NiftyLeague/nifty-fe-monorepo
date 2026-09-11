@@ -126,7 +126,7 @@ describe('M1 state and data ownership', () => {
   it('records the reviewed non-migrations in every other app', () => {
     const record = read('docs/architecture/m1-state-and-data-layer.md')
 
-    for (const app of ['smashers', 'web', 'docs', 'template', 'api']) {
+    for (const app of ['smashers', 'web', 'docs', 'api']) {
       expect(record).toContain(`\`${app}\``)
     }
     expect(record).toContain('single-consumer launcher version read')
