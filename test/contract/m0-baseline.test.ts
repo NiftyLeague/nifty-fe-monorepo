@@ -22,7 +22,7 @@ describe('M0 baseline and decision gates', () => {
     expect(rootManifest.scripts['benchmark:m0']).toBe('bun scripts/m0-benchmark.mjs')
     expect(config.buildRunCount).toBeGreaterThanOrEqual(3)
     expect(new Set(config.routes.map((route: { app: string }) => route.app))).toEqual(
-      new Set(['api', 'app', 'docs', 'smashers', 'template', 'web'])
+      new Set(['api', 'app', 'docs', 'smashers', 'web'])
     )
     expect(REQUIRED_ROUTE_METRICS).toEqual([
       'lcpMs',

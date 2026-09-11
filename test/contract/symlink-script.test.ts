@@ -19,7 +19,7 @@ describe('workspace asset links', () => {
     // web is no longer managed here: it ships as Astro static with publicDir
     // pointing at ../../assets (see apps/web/astro.config.mjs), so it has no
     // public symlink to repair.
-    for (const app of ['app', 'docs', 'smashers', 'template']) {
+    for (const app of ['app', 'docs', 'smashers']) {
       expect(readlinkSync(`apps/${app}/public`)).toBe('../../assets')
     }
   })

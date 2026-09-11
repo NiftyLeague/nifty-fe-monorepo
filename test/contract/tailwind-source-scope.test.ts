@@ -7,7 +7,6 @@ const appStyles = [
   'apps/app/src/styles/app.css',
   'apps/web/src/styles/app.css',
   'apps/smashers/src/styles/app.css',
-  'apps/template/src/styles/app.css',
 ]
 
 describe('Tailwind source scope', () => {

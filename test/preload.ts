@@ -44,7 +44,7 @@ const rootReactDomClient = await importFirstAvailable(
 // Bun preserves workspace-local React module IDs even when they resolve to the
 // same installed version. Target those IDs directly so shared Testing Library
 // helpers and workspace hooks use one React dispatcher in isolated tests.
-for (const workspace of ['apps/app', 'apps/template', 'apps/web', 'packages/ui']) {
+for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
   const workspaceReact = resolve(import.meta.dir, `../${workspace}/node_modules/react/index.js`)
   mock.module(workspaceReact, () => ({ ...rootReact, default: rootReact }))
 

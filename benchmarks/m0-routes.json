@@ -45,14 +45,6 @@
       "interaction": { "selector": "body" }
     },
     {
-      "id": "template-home",
-      "app": "template",
-      "url": "http://127.0.0.1:3005/",
-      "environment": "local-only",
-      "priority": "P2",
-      "interaction": { "selector": "body" }
-    },
-    {
       "id": "web-home",
       "app": "web",
       "url": "https://niftyleague.com/",
@@ -81,11 +73,6 @@
       "app": "smashers",
       "cleanPaths": ["apps/smashers/.next"],
       "command": ["bun", "--filter", "smashers", "build"]
-    },
-    {
-      "app": "template",
-      "cleanPaths": ["apps/template/.next"],
-      "command": ["bun", "--filter", "template", "build"]
     },
     {
       "app": "web",
