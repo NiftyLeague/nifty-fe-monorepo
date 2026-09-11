@@ -75,6 +75,33 @@ function collectImportNames(dir: string): Set<string> {
   return out
 }
 
+/**
+ * Build-config and script files that live outside `src/`. Imports here are real
+ * runtime dependencies of a build, so they must be declared just like source
+ * imports — a config-only import that only resolves through hoisting fails on a
+ * clean install (this is how an undeclared `@astrojs/mdx` reached a Vercel build).
+ */
+function collectConfigImportNames(pkg: Pkg): Set<string> {
+  const out = new Set<string>()
+  const files = ['next.config.ts', 'next.config.mjs', 'astro.config.mjs', 'astro.config.ts']
+  const scriptsDir = join(pkg.dir, 'scripts')
+  if (existsSync(scriptsDir)) {
+    for (const entry of readdirSync(scriptsDir)) {
+      if (/\.(mjs|cjs|js)$/.test(entry)) files.push(join('scripts', entry))
+    }
+  }
+  for (const file of files) {
+    const p = join(pkg.dir, file)
+    if (!existsSync(p)) continue
+    const src = readFileSync(p, 'utf8')
+    for (const m of src.matchAll(/from\s+['"]([^'"]+)['"]/g)) out.add(m[1])
+    for (const m of src.matchAll(/import\s+['"]([^'"]+)['"]/g)) out.add(m[1])
+    for (const m of src.matchAll(/import\s*\(['"]([^'"]+)['"]/g)) out.add(m[1])
+    for (const m of src.matchAll(/require\(['"]([^'"]+)['"]\)/g)) out.add(m[1])
+  }
+  return out
+}
+
 const NODE_BUILTINS = new Set([
   'node:fs',
   'node:path',
@@ -134,24 +161,27 @@ if (existsSync(join(APP_ROOT, 'package.json'))) {
 const IMPLICIT_PEER_DEPS = new Set(['react-dom', 'react-dom/client', 'react-dom/server'])
 
 // Framework-provided virtual modules and test-only tooling that resolve without a
-// package.json `dependencies` entry (docusaurus aliases, bun test runner).
+// package.json `dependencies` entry (astro virtual modules, bun test runner).
 const VIRTUAL_AND_TEST_MODULES = new Set([
-  '@docusaurus/BrowserOnly',
-  '@docusaurus/Link',
-  '@docusaurus/Translate',
-  '@docusaurus/useBaseUrl',
-  '@docusaurus/useDocusaurusContext',
-  '@theme-original/SearchBar',
-  '@theme/Heading',
-  '@theme/Layout',
-  '@theme/ThemedImage',
-  '@site/public',
-  '@site/src',
+  // Starlight components and virtual style modules used by the docs app.
+  '@astrojs/starlight/components',
+  '@astrojs/starlight/loaders',
+  '@astrojs/starlight/schema',
+  '@astrojs/starlight/expressive-code',
+  '@astrojs/starlight/types',
+  '@astrojs/starlight/style/layers.css',
+  '@astrojs/starlight/style/props.css',
+  '@astrojs/starlight/style/reset.css',
+  '@astrojs/starlight/style/asides.css',
+  '@astrojs/starlight/style/util.css',
+  '@astrojs/starlight/style/print.css?url&no-inline',
   'astro:middleware',
   'astro:actions',
   '@happy-dom/global-registrator',
   '@testing-library/user-event',
   '@nomicfoundation/hardhat-ethers',
+  'astro:assets',
+  'astro:content',
   'bun:test',
 ])
 
@@ -163,7 +193,11 @@ function sourceDirFor(pkg: Pkg): string {
 
 describe('dependency contract', () => {
   for (const pkg of packages) {
-    const imports = collectImportNames(sourceDirFor(pkg))
+    // Source plus build config: an unresolved import in either fails a clean build.
+    const imports = new Set([
+      ...collectImportNames(sourceDirFor(pkg)),
+      ...collectConfigImportNames(pkg),
+    ])
     const declared = new Set([
       ...Object.keys(pkg.deps),
       ...Object.keys(pkg.peerDeps),
@@ -249,15 +283,14 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     '@tailwindcss/vite': 'shared Tailwind pipeline for the Astro build',
   },
   'apps/docs': {
-    '@docusaurus/core': 'docusaurus framework (config + CLI)',
-    '@docusaurus/faster': 'docusaurus Rspack bundler',
-    '@docusaurus/plugin-google-tag-manager': 'docusaurus plugin configured in docusaurus.config.ts',
-    '@docusaurus/preset-classic': 'docusaurus preset configured in docusaurus.config.ts',
-    '@docusaurus/theme-mermaid': 'docusaurus theme configured in docusaurus.config.ts',
-    '@mdx-js/react': 'MDX provider used by docusaurus themes',
-    algoliasearch: 'docusaurus Algolia DocSearch integration',
-    '@nl/ui': 'shared media primitives imported in docs/*.md and *.mdx markdown',
-    'prism-react-renderer': 'docusaurus theme code highlighting',
+    '@astrojs/starlight': 'Starlight framework (config, loaders, components)',
+    '@docsearch/css':
+      'DocSearch v5 stylesheet, imported as a ?url asset and linked on first search use',
+    '@docsearch/js': 'Algolia DocSearch modal mounted by the search component',
+    '@nl/ui': 'shared media primitives imported in content/*.mdx and components',
+    mermaid: 'renders mermaid code fences client side',
+    sharp: 'image optimisation runtime for the Astro image pipeline',
+    react: 'runtime for the shared @nl/ui components rendered inside MDX content',
   },
   'packages/playfab': {
     'iron-session': 'session cookie sealing for the OAuth flow helpers',
@@ -275,29 +308,12 @@ describe('dead dependency scanner', () => {
       const spec = rootPackageSpecifier(imp)
       if (spec) used.add(spec)
     }
-    // Include config and build-script files (next.config, docusaurus.config,
+    // Include config and build-script files (next.config, astro.config,
     // astro.config, scripts/*.mjs) since deps are used there too.
     const configImports = new Set<string>()
-    const referenceFiles = [
-      'next.config.ts',
-      'next.config.mjs',
-      'docusaurus.config.ts',
-      'astro.config.mjs',
-    ]
-    const scriptsDir = join(pkg.dir, 'scripts')
-    if (existsSync(scriptsDir)) {
-      for (const entry of readdirSync(scriptsDir)) {
-        if (entry.endsWith('.mjs')) referenceFiles.push(join('scripts', entry))
-      }
-    }
-    for (const file of referenceFiles) {
-      const p = join(pkg.dir, file)
-      if (!existsSync(p)) continue
-      const src = readFileSync(p, 'utf8')
-      for (const m of src.matchAll(/from\s+['"]([^'"]+)['"]/g)) {
-        const spec = rootPackageSpecifier(m[1])
-        if (spec) configImports.add(spec)
-      }
+    for (const imp of collectConfigImportNames(pkg)) {
+      const spec = rootPackageSpecifier(imp)
+      if (spec) configImports.add(spec)
     }
 
     describe(`${pkg.name} runtime deps`, () => {

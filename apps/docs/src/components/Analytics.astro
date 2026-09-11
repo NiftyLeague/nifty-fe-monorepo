@@ -1,0 +1,61 @@
+---
+/**
+ * Google Tag Manager, deferred.
+ *
+ * The previous site mounted the shared `DeferredGoogleTagManager` React boundary,
+ * which waited for browser idle time before loading GTM and rendered a `<noscript>`
+ * fallback iframe. This reproduces that behaviour with the same shared constants,
+ * without pulling React into every page.
+ */
+import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
+---
+
+<noscript>
+	<iframe
+		src={`https://www.googletagmanager.com/ns.html?id=${GOOGLE_TAG_MANAGER_ID}`}
+		height="0"
+		width="0"
+		style="display:none;visibility:hidden"
+		title="Google Tag Manager"
+	></iframe>
+</noscript>
+
+<script>
+	import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
+
+	declare global {
+		interface Window {
+			dataLayer?: Array<Record<string, unknown>>;
+		}
+	}
+
+	const SCRIPT_ID = '_next-gtm';
+	const SCRIPT_URL = `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`;
+	// Matches the shared deferred-activation idle timeout.
+	const IDLE_TIMEOUT_MS = 1500;
+
+	const loadTagManager = () => {
+		if (document.getElementById(SCRIPT_ID)) return;
+
+		window.dataLayer = window.dataLayer || [];
+		window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+
+		const script = document.createElement('script');
+		script.id = SCRIPT_ID;
+		script.async = true;
+		script.src = SCRIPT_URL;
+		document.head.appendChild(script);
+	};
+
+	const schedule = (callback: () => void) => {
+		if ('requestIdleCallback' in window) {
+			window.requestIdleCallback(callback, { timeout: IDLE_TIMEOUT_MS });
+			return;
+		}
+		// Older browsers have no idle callback; defer a tick instead.
+		globalThis.setTimeout(callback, 1);
+	};
+
+	if (document.readyState === 'complete') schedule(loadTagManager);
+	else window.addEventListener('load', () => schedule(loadTagManager), { once: true });
+</script>

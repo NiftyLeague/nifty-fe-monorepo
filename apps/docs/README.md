@@ -10,7 +10,8 @@
 
 ## Info
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+This website is built using [Astro](https://astro.build/) with the [Starlight](https://starlight.astro.build/) documentation theme, matching the
+rest of the apps in this monorepo.
 
 ## Contributing to Nifty League Docs
 
@@ -91,7 +92,7 @@ bun run clear
 $ bun run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+This command generates static content into the `dist` directory and can be served using any static contents hosting service.
 
 ### Deployment
 
@@ -113,12 +114,12 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 
 We use Crowdin to handle our translations https://crowdin.com/project/niftyleague-docs
 
-Follow docs provided by Docusaurus for initial setup: https://docusaurus.io/docs/i18n/crowdin
+Follow the Starlight i18n guide for initial setup: https://starlight.astro.build/guides/i18n/
 
 After changes generate the JSON translation files for the default language in website/i18n/en:
 
 ```console
-bun run write-translations
+bun run build
 ```
 
 We use Github integration through Crowdin so please skip running `bun run crowdin upload` to upload all the JSON and Markdown translation files.

@@ -1,0 +1,40 @@
+---
+/** Navbar search trigger. The previous site rendered DocSearch's button in both
+ * the navbar and the home hero; both opened the same modal, so this mirrors the
+ * markup and forwards clicks to the single search dialog. */
+const { label = 'Search', class: className } = Astro.props;
+---
+
+<button type="button" data-search-trigger class:list={['search-trigger', className]} aria-label={label}>
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+		<circle cx="11" cy="11" r="7"></circle>
+		<path d="m20 20-3.5-3.5"></path>
+	</svg>
+	<span class="search-trigger-label">{label}</span>
+	<kbd class="search-trigger-keys"><kbd>⌘</kbd><kbd>K</kbd></kbd>
+</button>
+
+<script>
+	class SearchTrigger extends HTMLButtonElement {
+		connectedCallback() {
+			this.addEventListener('click', () => {
+				const target = document.querySelector<HTMLButtonElement>(
+					'site-search button[data-open-modal]'
+				);
+				target?.click();
+			});
+		}
+	}
+	if (!customElements.get('search-trigger'))
+		customElements.define('search-trigger', SearchTrigger, { extends: 'button' });
+</script>
+
+<style>
+	/* The label and shortcut hint collapse to the icon on narrow viewports. */
+	@media (max-width: 50rem) {
+		.search-trigger-label,
+		.search-trigger-keys {
+			display: none;
+		}
+	}
+</style>

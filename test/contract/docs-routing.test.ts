@@ -4,29 +4,36 @@ import { join } from 'node:path'
 import { routeRequest } from '../../apps/web/worker/routes.mjs'
 
 const docsRoot = join(process.cwd(), 'apps/docs')
-const docsConfig = readFileSync(join(docsRoot, 'docusaurus.config.ts'), 'utf8')
+const docsConfig = readFileSync(join(docsRoot, 'astro.config.mjs'), 'utf8')
 const docsVercelConfig = JSON.parse(readFileSync(join(docsRoot, 'vercel.json'), 'utf8')) as {
   rewrites?: Array<{ source: string; destination: string }>
 }
 
 describe('documentation routing contract', () => {
-  it('keeps the historical /docs/ build prefix for the shared routing surface', () => {
-    expect(docsConfig).toContain("baseUrl: '/docs/',")
-    expect(docsConfig).toContain("to: '/docs/overview/intro'")
+  it('keeps the historical /docs build prefix for the shared routing surface', () => {
+    // The Astro build sets `base: '/docs'` so one artifact serves both
+    // niftyleague.com/docs (which strips the prefix when proxying) and the
+    // standalone docs custom domain.
+    expect(docsConfig).toContain("base: '/docs'")
+    expect(docsConfig).toContain("trailingSlash: 'never'")
   })
 
   it('keeps application-owned docs links aligned with the shared /docs prefix', () => {
     const sourceFiles = [
-      'docusaurus.config.ts',
-      'src/components/HomepageFeatures/index.tsx',
-      'src/components/HomepageGuides/index.tsx',
-      'src/components/HomepageHeader/index.tsx',
-      'src/components/HomepageSocials/index.tsx',
+      'src/components/Footer.astro',
+      'src/components/starlight/Header.astro',
+      'src/components/starlight/SiteTitle.astro',
+      'src/components/home/Guides.astro',
+      'src/components/home/Features.astro',
+      'src/components/home/Socials.astro',
+      'src/sidebar.ts',
     ]
 
     for (const file of sourceFiles) {
       const source = readFileSync(join(docsRoot, file), 'utf8')
-      expect(source).not.toMatch(/(?:to|href|src):?\s*["']\/(?!docs\/)/)
+      // Every internal docs link and shared asset must carry the /docs prefix;
+      // bare-root paths would break behind the niftyleague.com/docs proxy.
+      expect(source).not.toMatch(/(?:href|src|to|link):?\s*["']\/(?!docs\/)/)
     }
   })
 

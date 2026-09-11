@@ -1,0 +1,71 @@
+---
+/**
+ * Extends Starlight's head with the tags the previous site emitted: an OpenSearch
+ * descriptor, the social card, and the Algolia DocSearch compat meta tags.
+ */
+import { ClientRouter } from 'astro:transitions';
+import bodyFontUrl from '../../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url';
+
+const { head } = Astro.locals.starlightRoute;
+const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
+---
+
+{/* Client-side routing: the previous site was an SPA-style MPA where the navbar
+    persisted across pages; without this every link reloaded the whole shell. */}
+<ClientRouter />
+
+{
+	/* Starlight always contributes a favicon tag; the docs ship the same icon set
+	   as apps/web instead, declared below, so drop the generated one to avoid a
+	   duplicate `shortcut icon` and a request for a file that is not served. */
+	head
+		.filter(({ attrs }) => attrs?.rel !== 'shortcut icon')
+		.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)
+}
+
+<link
+	rel="search"
+	type="application/opensearchdescription+xml"
+	title="Nifty League Docs"
+	href="/docs/opensearch.xml"
+/>
+{/* The same icon set apps/web ships, under the /docs base. */}
+<link rel="icon" href="/docs/favicon/nl_purple/favicon.ico" />
+<link rel="apple-touch-icon" href="/docs/favicon/nl_purple/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/docs/favicon/nl_purple/android-chrome-192x192.png" />
+<meta name="theme-color" content="#18181b" />
+<link rel="canonical" href={new URL(Astro.url.pathname, site).href} />
+<meta property="og:url" content={new URL(Astro.url.pathname, site).href} />
+<meta property="og:image" content={`${site}docs/img/misc/twitter_card_bg.webp`} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={`${site}docs/img/misc/twitter_card_bg.webp`} />
+<meta name="docsearch:language" content="en" />
+<meta name="docsearch:version" content="current" />
+<meta name="docsearch:docusaurus_tag" content="docs-default-current" />
+
+{/*
+  Body text is set in the self-hosted IBM Plex Sans, so preload it: the font is
+  needed to paint the first paragraph, and letting it arrive after the swap window
+  caused a layout shift.
+*/}
+<link rel="preload" href={bodyFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
+
+{/*
+  Roboto Mono (code blocks) comes from Google Fonts. It only affects code blocks,
+  which sit below the fold on every page, so the stylesheet is loaded off the
+  critical path and promoted once ready.
+*/}
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+	media="print"
+	onload="this.media='all'"
+/>
+<noscript>
+	<link
+		rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+	/>
+</noscript>

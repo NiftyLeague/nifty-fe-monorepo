@@ -1,0 +1,192 @@
+---
+/**
+ * Algolia DocSearch, loaded on demand.
+ *
+ * DocSearch is the largest script on the site and is only useful once the visitor
+ * asks for it, so the module is imported on the first interaction (click or
+ * Cmd/Ctrl+K) instead of on page load. Content pages therefore ship no search
+ * bundle at all.
+ *
+ * The trigger is the site's own button rather than DocSearch's, so the modal is
+ * opened by calling `open()` on the instance: one click opens search, instead of
+ * needing a second click on the button DocSearch would otherwise render.
+ */
+import { Icon } from '@astrojs/starlight/components';
+
+const label = Astro.locals.t('search.label');
+const ctrlKey = Astro.locals.t('search.ctrlKey');
+---
+
+<site-search>
+	{/* The accessible name spells out the visible label and shortcut so it always
+	    contains the text on screen (WCAG 2.5.3); the inline script below rewrites
+	    both together when it switches the hint to the platform's modifier key. */}
+	<button
+		data-open-modal
+		disabled
+		aria-label={`${label} (${ctrlKey}+K)`}
+		aria-keyshortcuts="Control+K"
+	>
+		<Icon name="magnifier" />
+		<span class="sl-hidden md:sl-block" aria-hidden="true">{label}</span>
+		<kbd class="sl-hidden md:sl-flex" style="display: none;" aria-hidden="true">
+			<kbd>{ctrlKey}</kbd><kbd>K</kbd>
+		</kbd>
+	</button>
+
+	{/* DocSearch mounts its own trigger button into this container; the site's
+	    button above is the visible control, so the container stays in the layout
+	    (a display:none mount point leaves the floating panel without a box to
+	    anchor to) while the mounted trigger is kept visually out of the way. */}
+	<div id="starlight__search"></div>
+</site-search>
+
+<script is:inline>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		const isApple = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+		if (platformKey && isApple) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+			// Keep the accessible name in step with the visible shortcut.
+			const label = openBtn.getAttribute('aria-label')?.split(' (')[0];
+			if (label) openBtn.setAttribute('aria-label', `${label} (⌘+K)`);
+		}
+		shortcut.style.display = '';
+	})();
+</script>
+
+<script>
+	import type { DocSearchInstance } from '@docsearch/js/docsearch';
+	import docsearchCssUrl from '@docsearch/css/dist/style.css?url';
+
+	let docSearchPromise: Promise<DocSearchInstance | undefined> | undefined;
+	let docSearchInstance: DocSearchInstance | undefined;
+
+	/* DocSearch v5 does not inject its own stylesheet, and Astro's stylesheet
+	   inlining drops CSS that only a lazy chunk references, so fetch the file
+	   the first time search is used. */
+	let docSearchCssPromise: Promise<unknown> | undefined;
+	function loadDocSearchCss(): Promise<unknown> {
+		docSearchCssPromise ??= new Promise((resolve) => {
+			const link = document.createElement('link');
+			link.rel = 'stylesheet';
+			link.href = docsearchCssUrl;
+			link.addEventListener('load', () => resolve(undefined));
+			link.addEventListener('error', () => resolve(undefined));
+			document.head.append(link);
+		});
+		return docSearchCssPromise;
+	}
+
+	/** Imports DocSearch once and mounts it into the container. */
+	function loadDocSearch(container: HTMLElement): Promise<DocSearchInstance | undefined> {
+		docSearchPromise ??= Promise.all([import('@docsearch/js/docsearch'), loadDocSearchCss()])
+			.then(([{ default: docsearch }]) =>
+				docsearch({
+					container,
+					appId: import.meta.env.PUBLIC_ALGOLIA_APP_ID ?? 'QHFGNYFTED',
+					apiKey: import.meta.env.PUBLIC_ALGOLIA_API_KEY ?? 'a279745db091a62dd51ec3212d11a5d0',
+					indices: ['docs'],
+				})
+			)
+			.catch(() => {
+				/* search is an enhancement: a failed load must not break the page */
+				return undefined;
+			});
+		return docSearchPromise;
+	}
+
+	/* The shortcut listener outlives the element across client-side navigations,
+	   so it is registered once and always resolves the current page's instance. */
+	let openLatest: (() => void | Promise<void>) | undefined;
+	let shortcutBound = false;
+
+	/* A client-side navigation swaps the mounted container out of the DOM; drop
+	   the instance so the next open re-creates it against the live one. */
+	document.addEventListener('astro:before-swap', () => {
+		docSearchInstance?.destroy();
+		docSearchInstance = undefined;
+		docSearchPromise = undefined;
+	});
+
+	class SiteSearch extends HTMLElement {
+		connectedCallback() {
+			const openBtn = this.querySelector<HTMLButtonElement>('button[data-open-modal]')!;
+			const container = this.querySelector<HTMLElement>('#starlight__search')!;
+
+			const openModal = async () => {
+				const instance = await loadDocSearch(container);
+				docSearchInstance = instance;
+				instance?.open();
+			};
+
+			openBtn.addEventListener('click', (event) => {
+				event.stopPropagation();
+				void openModal();
+			});
+			openBtn.disabled = false;
+			openLatest = openModal;
+
+			// The previous site rewrote the shortcut hint to the platform's modifier
+			// key; as an island upgrade this runs for the swapped-in copy too.
+			const shortcut = openBtn.querySelector('kbd');
+			if (shortcut instanceof HTMLElement && shortcut.style.display === 'none') {
+				const platformKey = shortcut.querySelector('kbd');
+				const isApple = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
+				if (platformKey && isApple) {
+					platformKey.textContent = '⌘';
+					openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+					// Keep the accessible name in step with the visible shortcut.
+					const label = openBtn.getAttribute('aria-label')?.split(' (')[0];
+					if (label) openBtn.setAttribute('aria-label', `${label} (⌘+K)`);
+				}
+				shortcut.style.display = '';
+			}
+
+			if (!shortcutBound) {
+				shortcutBound = true;
+				// Ctrl/Cmd+K opens search, matching the previous navbar shortcut.
+				window.addEventListener('keydown', (event) => {
+					if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+						event.preventDefault();
+						void openLatest?.();
+					}
+				});
+			}
+		}
+	}
+
+	if (!customElements.get('site-search')) customElements.define('site-search', SiteSearch);
+</script>
+
+<style>
+	@layer starlight.core {
+		site-search {
+			display: contents;
+		}
+	}
+</style>
+
+<style>
+	/* DocSearch injects its own stylesheet unlayered at runtime, so this rule
+	   must also live outside any cascade layer to win. The mounted trigger
+	   stays measurable — the modal panel anchors to it — but must never appear
+	   next to the site's own search button; it is rendered by DocSearch at
+	   runtime, so it needs :global() to be reached by these scoped styles. */
+	#starlight__search :global(.DocSearch-Button) {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		border: 0;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+		pointer-events: none;
+	}
+</style>

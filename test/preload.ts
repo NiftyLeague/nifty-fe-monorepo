@@ -7,7 +7,7 @@
  * Keep this preload focused on module mocks so those mocks are installed before
  * the test modules and their imports are evaluated.
  *
- * 1. Stubs the Docusaurus virtual modules that the docs app imports.
+ * 1. Stubs framework virtual modules that tests import (next/font).
  */
 import { mock } from 'bun:test'
 import { resolve } from 'node:path'
@@ -63,10 +63,6 @@ for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
     default: rootReactDomClient,
   }))
 }
-
-mock.module('@docusaurus/Link', () => ({ default: (_props: any) => null }))
-
-mock.module('@docusaurus/useBaseUrl', () => ({ default: (s: string) => s }))
 
 // --- next/font (bun's resolver cannot load next's generated font modules) ---
 // Return a permissive stub: any named font export becomes a function returning a

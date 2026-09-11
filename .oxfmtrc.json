@@ -12,13 +12,13 @@
     ".turbo",
     ".venv",
     "**/.venv",
-    "**/.docusaurus",
+    "**/dist",
+    "**/.astro",
     "**/.next",
     "**/build",
     "**/coverage",
     "**/next-env.d.ts",
     "**/node_modules",
-    "**/dist",
     "**/.app",
     "apps/api/api/config",
     ".code-foundry",
@@ -30,7 +30,6 @@
     ".agents/**",
     "packages/playfab/src/sdk/typings/**",
     "**/*.hbs",
-    "**/.astro",
     "**/.wrangler",
     "**/.web-images"
   ]

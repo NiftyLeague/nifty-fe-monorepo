@@ -1,0 +1,36 @@
+---
+// Uses the shared brand logo straight from the public assets directory. The
+// previous site referenced the same unhashed path for both colour modes and
+// inverted it with CSS in dark mode (see `text-decoration` rules in theme.css).
+const { siteTitle, siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex">
+	<img src="/docs/img/logos/NL/logo.svg" alt="Nifty League Logo" width="36" height="36" />
+	<span translate="no">{siteTitle}</span>
+</a>
+
+<style>
+	@layer starlight.core {
+		.site-title {
+			align-items: center;
+			gap: 0.5rem;
+			font-size: var(--sl-text-body);
+			font-weight: 600;
+			color: var(--sl-color-white);
+			text-decoration: none;
+			white-space: nowrap;
+			min-width: 0;
+		}
+
+		span {
+			overflow: hidden;
+		}
+
+		img {
+			height: 2.25rem;
+			width: auto;
+			object-fit: contain;
+		}
+	}
+</style>

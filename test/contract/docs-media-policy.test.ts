@@ -1,46 +1,57 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 
-const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
+const docsPage = 'apps/docs/src/content/docs/overview/nfts/degens/about.mdx'
 const docsMediaPages = [
-  'apps/docs/docs/overview/games/mini-games/arcade-tokens.md',
-  'apps/docs/docs/overview/games/mini-games/crypto-winter.md',
-  'apps/docs/docs/overview/games/mini-games/wen-game.md',
-  'apps/docs/docs/overview/games/niftyworld/niftyworld.mdx',
-  'apps/docs/docs/overview/games/overview.md',
-  'apps/docs/docs/overview/games/mobile-games/nifty-royale.md',
-  'apps/docs/docs/overview/games/mobile-games/nifty-smashers.md',
-  'apps/docs/docs/overview/nfts/nifty-marketplace/items.md',
-  'apps/docs/docs/overview/nfts/nifty-marketplace/comics.md',
+  'apps/docs/src/content/docs/overview/games/mini-games/arcade-tokens.mdx',
+  'apps/docs/src/content/docs/overview/games/mini-games/crypto-winter.mdx',
+  'apps/docs/src/content/docs/overview/games/mini-games/wen-game.mdx',
+  'apps/docs/src/content/docs/overview/games/niftyworld/index.mdx',
+  'apps/docs/src/content/docs/overview/games/games-overview.mdx',
+  'apps/docs/src/content/docs/overview/games/mobile-games/nifty-royale.mdx',
+  'apps/docs/src/content/docs/overview/games/mobile-games/nifty-smashers.mdx',
+  'apps/docs/src/content/docs/overview/nfts/nifty-marketplace/items.mdx',
+  'apps/docs/src/content/docs/overview/nfts/nifty-marketplace/comics.mdx',
   docsPage,
 ]
 
 const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
 const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
 const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
-const roadmapPage = 'apps/docs/docs/overview/roadmap.md'
+const roadmapPage = 'apps/docs/src/content/docs/overview/roadmap.mdx'
 const roadmapPoster = 'assets/img/roadmap/nifty_roadmap.webp'
 
+const youTubePages = [
+  'apps/docs/src/content/docs/overview/games/mini-games/crypto-winter.mdx',
+  'apps/docs/src/content/docs/overview/games/mobile-games/nifty-smashers.mdx',
+  docsPage,
+]
+
 describe('shared docs media policy', () => {
-  it('uses shared lazy media primitives instead of react-player', () => {
+  it('keeps react-player out of docs content', () => {
     for (const page of docsMediaPages) {
       const source = readFileSync(page, 'utf8')
       expect(source).not.toContain('react-player')
-      expect(source).toMatch(
-        /@nl\/ui\/custom\/(deferred-youtube-embed|lazy-youtube-embed|viewport-video)/
-      )
     }
   })
 
-  it('defers every documentation video until after viewport activation settles', () => {
+  it('uses the shared lazy YouTube primitive on pages that embed YouTube', () => {
+    for (const page of youTubePages) {
+      const source = readFileSync(page, 'utf8')
+      expect(source).toMatch(/@nl\/ui\/custom\/(deferred-youtube-embed|lazy-youtube-embed)/)
+    }
+  })
+
+  it('renders decorative videos as native muted looping elements', () => {
+    // Native video elements survive client-side navigation without island
+    // hydration; autoplaying ones must stay muted for browsers to allow it.
     for (const page of docsMediaPages) {
       const source = readFileSync(page, 'utf8')
-      const videoBlocks = [...source.matchAll(/<ViewportVideo\b[\s\S]*?\/>/g)].map(
-        ([block]) => block
-      )
-
-      for (const videoBlock of videoBlocks) {
-        expect(videoBlock).toContain('deferLoad')
+      for (const [tag] of source.matchAll(/<video\b[^>]*>/g)) {
+        expect(tag).toContain('muted')
+        expect(tag).toContain('playsInline')
+        expect(tag).toContain('preload="metadata"')
+        if (tag.includes('autoplay')) expect(tag).toContain('loop')
       }
     }
   })
@@ -60,14 +71,16 @@ describe('shared docs media policy', () => {
     expect(existsSync(legacyAsset)).toBe(false)
   })
 
-  it('keeps the docs roadmap poster accessible, dimensioned, and deferred', () => {
+  it('keeps the docs roadmap poster accessible and optimised', () => {
     const source = readFileSync(roadmapPage, 'utf8')
 
-    expect(source).toContain('<img')
+    // Rendered through the Astro image pipeline so the browser gets a sized,
+    // compressed variant instead of the full poster (which is over 1 MB).
+    expect(source).toContain('<Image')
     expect(source).toContain('alt="Nifty League product roadmap"')
-    expect(source).toContain('width="1800"')
-    expect(source).toContain('height="3791"')
-    expect(source).toContain('loading="lazy"')
+    expect(source).toContain('widths={[400, 640, 761, 1200]}')
+    expect(source).toContain('loading="eager"')
+    expect(source).toContain('fetchpriority="high"')
     expect(source).toContain('decoding="async"')
     expect(statSync(roadmapPoster).size).toBeLessThan(1_100_000)
   })

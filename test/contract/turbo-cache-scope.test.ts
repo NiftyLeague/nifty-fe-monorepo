@@ -229,10 +229,12 @@ describe('Turbo cache environment scope', () => {
     }
   })
 
-  it('caches the deterministic Docusaurus build output', () => {
+  it('caches the deterministic docs build output', () => {
     expect(turbo.tasks['docs#build']?.cache).not.toBe(false)
-    expect(turbo.tasks['docs#build']?.outputs).toEqual(['build/**', '.docusaurus/**'])
-    expect(envFor('docs#build')).toEqual(new Set(['ALGOLIA_API_KEY', 'ALGOLIA_APP_ID']))
+    expect(turbo.tasks['docs#build']?.outputs).toEqual(['dist/**', '.astro/**'])
+    expect(envFor('docs#build')).toEqual(
+      new Set(['PUBLIC_ALGOLIA_API_KEY', 'PUBLIC_ALGOLIA_APP_ID'])
+    )
   })
 
   it('keeps test execution independent from write-mode quality tasks', () => {

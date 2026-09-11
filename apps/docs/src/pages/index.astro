@@ -1,0 +1,46 @@
+---
+// Site home page. Reproduces the previous Docusaurus landing page: a hero band
+// with the search field over a masked backdrop image, feature cards, guide and
+// developer link columns, quick links, social cards and a stream banner.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import Hero from '../components/home/Hero.astro';
+import Features from '../components/home/Features.astro';
+import Guides from '../components/home/Guides.astro';
+import Socials from '../components/home/Socials.astro';
+import { sidebar } from '../sidebar';
+import '../styles/home.css';
+
+// The `sidebar` prop below gives the page the resolved navigation tree: the
+// splash template renders no sidebar column, but the tree feeds the hamburger
+// drawer that the page frame shows below 997px.
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Nifty League Docs',
+		template: 'splash',
+		// The previous landing page title had no site-name suffix. The hero artwork
+		// is the LCP element, so the default (dark) variant is preloaded here.
+		head: [
+			{ tag: 'title', content: 'Nifty League Docs' },
+			{
+				tag: 'link',
+				attrs: {
+					rel: 'preload',
+					as: 'image',
+					href: '/docs/img/games/smashers/3D-levels/sushi_cropped.webp',
+					fetchpriority: 'high',
+				},
+			},
+		],
+	}}
+	sidebar={sidebar}
+>
+	<Hero />
+	{/* `not-content` opts the landing page out of Starlight's markdown spacing. */}
+	<main class="home-container not-content">
+		<Features />
+		<Guides />
+		<Socials />
+	</main>
+</StarlightPage>

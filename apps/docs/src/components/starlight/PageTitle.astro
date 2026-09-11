@@ -1,0 +1,31 @@
+---
+/**
+ * Renders the breadcrumb trail, the mobile table of contents and the page heading.
+ *
+ * `hideTitle` is set on the few pages that carry a leading `<h1>` in their body
+ * (the previous site rendered that heading instead of the frontmatter title),
+ * and on the landing page, which renders its heading inside the hero. The
+ * breadcrumbs still render on those pages.
+ *
+ * The mobile disclosure lives here rather than in `PageSidebar` so it sits
+ * between the breadcrumbs and the title, as the previous layout did.
+ */
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import MobileTableOfContents from 'virtual:starlight/components/MobileTableOfContents';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+const { entry, id } = Astro.locals.starlightRoute;
+const isHome = id === '' || id === 'index';
+---
+
+{
+	!isHome && (
+		<>
+			<Breadcrumbs />
+			<div class="lg:sl-hidden">
+				<MobileTableOfContents />
+			</div>
+		</>
+	)
+}
+{!entry.data.hideTitle && !isHome && <Default />}

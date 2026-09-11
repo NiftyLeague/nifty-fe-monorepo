@@ -1,0 +1,7 @@
+---
+// Keeps the historical /docs/blog URL alive. The previous site shipped an empty
+// blog index (no posts), so this renders the same empty page.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightPage frontmatter={{ title: 'Blog', hideTitle: true }} />

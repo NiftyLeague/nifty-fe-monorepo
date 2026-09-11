@@ -1,0 +1,95 @@
+---
+// The previous site rendered a four-column footer under every page, outside the
+// content column. Starlight's Footer slot sits inside the article, so the link
+// columns live here and are laid out by the PageFrame override.
+const COLUMNS = [
+	{
+		title: 'Official',
+		links: [
+			{ label: 'Nifty League Website', href: 'https://niftyleague.com' },
+			{ label: 'Nifty Smashers Website', href: 'https://niftysmashers.com' },
+			{ label: 'Dune Analytics', href: 'https://dune.com/niftyleague/dashboard' },
+			{
+				label: 'Subgraph',
+				href: 'https://thegraph.com/explorer/subgraphs/Fv2ptHrpfiYGwMumJry3XjS8kS1WfjQ3jAhJCyPcyvTT?view=Overview&chain=arbitrum-one',
+			},
+			{
+				label: 'Nifty DAO Treasury',
+				href: 'https://etherscan.io/address/0xd06ae6fb7eade890f3e295d69a6679380c9456c1',
+			},
+		],
+	},
+	{
+		title: 'Socials',
+		links: [
+			{ label: 'Discord', href: 'https://discord.gg/niftyleague' },
+			{ label: 'Twitter', href: 'https://twitter.com/NiftyLeague' },
+			{ label: 'Twitch', href: 'https://www.twitch.tv/NiftyLeagueOfficial' },
+			{ label: 'YouTube', href: 'https://www.youtube.com/c/NiftyLeague' },
+			{ label: 'Instagram', href: 'https://www.instagram.com/niftyleague' },
+		],
+	},
+	{
+		title: 'NFTL',
+		links: [
+			{
+				label: 'QuickSwap NFTL/ETH LP (Immutable zkEVM)',
+				href: 'https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884',
+			},
+			{
+				label: 'Uniswap NFTL/ETH LP (Ethereum)',
+				href: 'https://app.uniswap.org/explore/tokens/ethereum/0x3c8d2fce49906e11e71cb16fa0ffeb2b16c29638',
+			},
+			{ label: 'CoinGecko', href: 'https://www.coingecko.com/en/coins/nifty-league' },
+			{ label: 'CoinMarketCap', href: 'https://coinmarketcap.com/currencies/nifty-league' },
+		],
+	},
+	{
+		title: 'NFTs',
+		links: [
+			{ label: 'OpenSea - DEGENS', href: 'https://opensea.io/collection/niftydegen' },
+			{ label: 'TokenTrove - COMICS & ITEMS', href: 'https://tokentrove.com/collection/NiftyLeague' },
+			{
+				label: 'NiftyDegen NFT Contract',
+				href: 'https://etherscan.io/token/0x986aea67C7d6A15036e18678065eb663Fc5BE883',
+			},
+			{
+				label: 'NiftyMarketplace (Comics & Items) NFT Contract',
+				href: 'https://explorer.immutable.com/address/0x6b66d473907a715aa573e44031355b34e77bb6de',
+			},
+		],
+	},
+];
+---
+
+<nl-footer>
+	<div class="footer-columns">
+		{
+			COLUMNS.map(({ title, links }) => (
+				<div>
+					<h2>{title}</h2>
+					<ul>
+						{links.map(({ label, href }) => (
+							<li>
+								<a href={href} target="_blank" rel="noopener noreferrer">
+									{label}
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+										aria-hidden="true"
+									>
+										<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+										<path d="M15 3h6v6" />
+										<path d="M10 14 21 3" />
+									</svg>
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			))
+		}
+	</div>
+</nl-footer>

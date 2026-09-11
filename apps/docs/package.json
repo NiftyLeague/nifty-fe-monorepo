@@ -2,43 +2,39 @@
   "name": "docs",
   "version": "1.0.8",
   "private": true,
+  "type": "module",
   "scripts": {
-    "build": "docusaurus build",
-    "clean": "rm -rf node_modules && rm -rf build && rm -rf .turbo && rm -rf .docusaurus",
-    "clear": "docusaurus clear",
-    "deploy": "docusaurus deploy",
-    "dev": "docusaurus start --no-open --port 3002",
-    "docusaurus": "docusaurus",
+    "build": "astro build",
+    "clean": "rm -rf node_modules && rm -rf dist && rm -rf .turbo && rm -rf .astro",
+    "dev": "astro dev --port 3002",
     "format": "oxfmt .",
     "lint": "oxlint --max-warnings=0",
     "lint:fix": "oxlint --fix",
-    "serve": "docusaurus serve",
-    "start": "docusaurus start",
-    "swizzle": "docusaurus swizzle",
+    "preview": "astro preview --port 3002",
+    "start": "astro dev --port 3002",
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
-    "type-check": "tsc --noEmit",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "write-translations": "docusaurus write-translations"
+    "type-check": "astro check"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.10.2",
-    "@docusaurus/faster": "^3.10.2",
-    "@docusaurus/preset-classic": "^3.10.2",
-    "@docusaurus/theme-mermaid": "^3.10.2",
-    "@mdx-js/react": "^3.1.1",
+    "@astrojs/markdown-satteri": "^0.4.1",
+    "@astrojs/react": "6.0.5",
+    "@astrojs/starlight": "0.42.0",
+    "@docsearch/css": "^5.1.0",
+    "@docsearch/js": "^5.1.0",
     "@nl/ui": "workspace:*",
-    "lucide-react": "^1.31.0",
-    "prism-react-renderer": "^2.4.1",
+    "astro": "7.3.2",
+    "mermaid": "^12.0.0",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.10.2",
-    "@docusaurus/types": "^3.10.2",
+    "@astrojs/check": "^0.9.10",
     "@types/node": "^26.4.0",
     "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.7"
+    "@types/react-dom": "19.2.7",
+    "typescript": "~6.0.3"
   }
 }

@@ -1,0 +1,100 @@
+---
+// The previous site switched theme from a small moon/sun icon button rather than
+// a three-option select. This keeps Starlight's storage and system-preference
+// behaviour while swapping the control.
+import { Icon } from '@astrojs/starlight/components';
+---
+
+<starlight-theme-toggle>
+	{/* One icon per theme, toggled by explicit rules. Starlight only generates the
+	    variant utilities it uses itself (the `-hidden` ones), so `dark:sl-block`
+	    does not resolve and both icons would stay hidden. */}
+	<button type="button" class="theme-toggle" aria-label="Toggle dark mode">
+		<span class="theme-icon theme-icon--moon"><Icon name="moon" /></span>
+		<span class="theme-icon theme-icon--sun"><Icon name="sun" /></span>
+	</button>
+</starlight-theme-toggle>
+
+{/* Inlined to avoid FOUC. Uses global scope from `ThemeProvider.astro`. */}
+<script is:inline>
+	window.StarlightThemeProvider.updatePickers();
+</script>
+
+<script>
+	type Theme = 'auto' | 'dark' | 'light';
+	const storageKey = 'starlight-theme';
+
+	const loadTheme = (): Theme => {
+		const stored = typeof localStorage !== 'undefined' && localStorage.getItem(storageKey);
+		return stored === 'light' || stored === 'dark' ? stored : 'auto';
+	};
+	const storeTheme = (theme: Theme) => {
+		if (typeof localStorage === 'undefined') return;
+		localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '');
+	};
+	const getPreferredColorScheme = (): 'dark' | 'light' =>
+		matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+
+	function applyTheme(theme: Theme): void {
+		document.documentElement.dataset.theme = theme === 'auto' ? getPreferredColorScheme() : theme;
+		storeTheme(theme);
+	}
+
+	matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+		if (loadTheme() === 'auto') applyTheme('auto');
+	});
+
+	class StarlightThemeToggle extends HTMLElement {
+		constructor() {
+			super();
+			this.querySelector('button')?.addEventListener('click', () => {
+				const current = document.documentElement.dataset.theme;
+				applyTheme(current === 'dark' ? 'light' : 'dark');
+			});
+		}
+	}
+	if (!customElements.get('starlight-theme-toggle'))
+		customElements.define('starlight-theme-toggle', StarlightThemeToggle);
+</script>
+
+<style>
+	@layer starlight.core {
+		.theme-toggle {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			/* The previous site's toggle was a 36px circular icon button. */
+			width: 2rem;
+			height: 2rem;
+			border: 0;
+			border-radius: 50%;
+			background: transparent;
+			color: var(--sl-color-gray-2);
+			cursor: pointer;
+			padding: 0;
+			transition: background-color 0.15s ease;
+		}
+
+		.theme-toggle:hover {
+			background-color: var(--nl-emphasis-200);
+			color: var(--sl-color-white);
+		}
+
+		.theme-toggle svg {
+			/* 24px at the 18px root size, matching the previous icon. */
+			width: 1.3333rem;
+			height: 1.3333rem;
+		}
+
+		.theme-icon {
+			display: none;
+			align-items: center;
+		}
+
+		/* Dark is the default theme, so an unset `data-theme` counts as dark too. */
+		:global(html[data-theme='dark']) .theme-icon--moon,
+		:global(html:not([data-theme='dark'])) .theme-icon--sun {
+			display: flex;
+		}
+	}
+</style>
