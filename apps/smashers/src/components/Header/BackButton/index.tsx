@@ -11,7 +11,11 @@ export default function BackButton() {
           aria-label="back"
           color="#fff"
           size={48}
-          strokeWidth={4}
+          // absoluteStrokeWidth holds the stroke at a constant 2px rather than
+          // scaling with the 48px box, matching the shared icon default. The
+          // previous width of 4 rendered as 8px at this size and read as bold.
+          strokeWidth={2}
+          absoluteStrokeWidth
           className={styles.logo}
         />
       </div>
