@@ -210,18 +210,7 @@
       ]
     },
     "@nl/playfab#lint": {
-      "env": [
-        "APPLE_CLIENT_ID",
-        "APPLE_CLIENT_SECRET",
-        "FACEBOOK_CLIENT_ID",
-        "FACEBOOK_CLIENT_SECRET",
-        "GOOGLE_CLIENT_ID",
-        "GOOGLE_CLIENT_SECRET",
-        "PLAYFAB_API_KEY",
-        "PUBLIC_PLAYFAB_TITLE_ID",
-        "TWITCH_CLIENT_ID",
-        "TWITCH_CLIENT_SECRET"
-      ]
+      "env": ["NEXT_PUBLIC_PLAYFAB_TITLE_ID", "PLAYFAB_API_KEY"]
     },
     "format": {},
     "type-check": {},
