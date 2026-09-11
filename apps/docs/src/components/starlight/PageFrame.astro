@@ -60,6 +60,28 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 								if (target.closest('[data-drawer-back]')) this.setView('main');
 								if (target.closest('[data-drawer-close]')) this.hidePopover();
 							});
+							// The desktop sidebar column must stop at the footer instead of
+							// running underneath it.
+							this.onScroll = () => this.clampToFooter();
+							window.addEventListener('scroll', this.onScroll, { passive: true });
+							window.addEventListener('resize', this.onScroll);
+							this.clampToFooter();
+						}
+						disconnectedCallback() {
+							window.removeEventListener('scroll', this.onScroll);
+							window.removeEventListener('resize', this.onScroll);
+						}
+						clampToFooter() {
+							if (!matchMedia('(min-width: 997px)').matches) {
+								this.style.insetBlockEnd = '';
+								return;
+							}
+							const footer = document.querySelector('nl-footer');
+							if (!footer) return;
+							// While the footer is on screen, lift the sidebar's bottom edge to
+							// the footer's top so the column fits between nav and footer.
+							const overlap = window.innerHeight - footer.getBoundingClientRect().top;
+							this.style.insetBlockEnd = `${Math.max(0, overlap)}px`;
 						}
 						setView(view: string) {
 							this.dataset.view = view;
@@ -418,6 +440,9 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 				width: var(--sl-sidebar-width);
 				background-color: var(--sl-color-bg-sidebar);
 				border-inline-end: 1px solid var(--sl-color-hairline-shade);
+				/* The clamped column can be shorter than its menu, so it scrolls. */
+				overflow-y: auto;
+				scrollbar-gutter: stable;
 			}
 		}
 	}
