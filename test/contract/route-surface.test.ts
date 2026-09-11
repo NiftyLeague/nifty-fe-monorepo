@@ -805,13 +805,17 @@ describe('Smashers public shell contract', () => {
     expect(pageSource).not.toContain('HomeInteractive')
     expect(pageSource).toContain("from '@/components/Header'")
     expect(pageSource).toContain('type ActiveModal')
-    expect(pageSource).toContain('<Header activeModal={activeModal} />')
+    expect(pageSource).toContain('<Header>')
     expect(pageSource).toContain('<main>')
-    // Only the interactive sections are islands; the shell stays static HTML.
+    // The shell stays static HTML; the interactive header subtrees are islands
+    // injected through Header's slots (asserted by smashers-runtime.test.ts).
     expect(pageSource).toContain('client:visible')
-    expect(pageSource).not.toContain('client:load')
+    expect(pageSource).toContain('client:load')
     expect(headerSource).not.toContain("'use client'")
-    expect(headerSource).toContain("import ActionButtonsGroup from './ActionButtonsGroup'")
+    // Header must not import the interactive children itself: that ships them
+    // without a client directive and they render inert.
+    expect(headerSource).not.toContain("from './ActionButtonsGroup'")
+    expect(headerSource).not.toContain("from './DeferredHeroBackground'")
     expect(actionButtonsSource).toContain("'use client'")
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
     expect(actionButtonsSource).toContain("from '@nl/ui/base/button-variants'")
@@ -841,9 +845,15 @@ describe('Smashers public shell contract', () => {
       'utf8'
     )
 
-    expect(layoutSource).toContain("from '@/contexts/AuthProviders'")
-    expect(layoutSource).toContain('client:only="react"')
+    // Providers live inside each page's island, not in the layout: Astro gives
+    // every client directive its own React root, so an island in the layout
+    // could not supply context to an island in the page.
+    expect(layoutSource).not.toContain("from '@/contexts/AuthProviders'")
     expect(layoutSource).not.toContain("from '@/contexts/FeatureFlagsProvider'")
+    expect(layoutSource).toContain('<slot />')
+    for (const page of [smashersLoginPage, smashersProfilePage]) {
+      expect(readFileSync(join(process.cwd(), page), 'utf8')).toContain('client:only')
+    }
     expect(providersSource).toContain("from './AuthProvider'")
     expect(providersSource).toContain("from './FeatureFlagsProvider'")
     expect(providerSource).toContain("from '@nl/playfab/components/UserContextProvider'")
