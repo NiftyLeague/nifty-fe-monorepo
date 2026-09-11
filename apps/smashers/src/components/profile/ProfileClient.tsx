@@ -12,6 +12,7 @@ import Inventory from '@nl/playfab/components/Inventory'
 import Stats from '@nl/playfab/components/Stats'
 
 import BackButton from '@/components/Header/BackButton'
+import AuthProviders from '@/contexts/AuthProviders'
 import type { User } from '@nl/playfab/types'
 import useFlags from '@/hooks/useFlags'
 
@@ -23,8 +24,26 @@ interface SessionData {
  * The interactive profile island. The Next version deferred each tab panel with
  * `dynamic(..., { ssr: false })`; here the whole page is a `client:only` island,
  * so the account panel loads directly and the tab panels stay behind Suspense.
+ *
+ * It renders the providers itself rather than being wrapped by them in the
+ * layout. Astro gives every `client:*` element its own React root, so a
+ * provider island in `Auth.astro` could not supply context to this one: the
+ * account panel read `isLoggedIn` as false and rendered nothing, the tabs saw
+ * empty feature flags, and `useSnackbar` had no provider.
  */
-export default function ProfileClient({ sessionData: _sessionData }: { sessionData: SessionData }) {
+export default function ProfileClient({ sessionData }: { sessionData: SessionData }) {
+  return (
+    <AuthProviders>
+      <ProfileContent sessionData={sessionData} />
+    </AuthProviders>
+  )
+}
+
+/**
+ * Inner body, inside the provider root. Not exported: mounting it directly
+ * would reintroduce the split-root bug this split exists to prevent.
+ */
+function ProfileContent({ sessionData: _sessionData }: { sessionData: SessionData }) {
   const flags = useFlags()
   const tabsEnabled = flags.enableInventory || flags.enableStats
 

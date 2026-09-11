@@ -1,6 +1,5 @@
 ---
 import Base from './Base.astro'
-import AuthProviders from '@/contexts/AuthProviders'
 import type { RouteMetadata } from '../runtime/metadata'
 
 interface Props {
@@ -10,9 +9,14 @@ interface Props {
 const { metadata = { title: 'Profile', noindex: true }, canonical } = Astro.props
 ---
 <Base metadata={metadata} canonical={canonical}>
-  <AuthProviders client:only="react">
-    <main id="auth-layout" class="min-h-screen">
-      <slot />
-    </main>
-  </AuthProviders>
+  {/*
+    No provider island here. Astro gives every `client:*` element its own React
+    root, so wrapping the slot in `AuthProviders` could not pass context to the
+    page's island: the profile account panel rendered empty and the login form
+    saw no feature flags. Each page island now renders the providers itself, and
+    this stays a plain shell.
+  */}
+  <main id="auth-layout" class="min-h-screen">
+    <slot />
+  </main>
 </Base>
