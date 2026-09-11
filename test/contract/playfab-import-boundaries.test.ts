@@ -3,18 +3,20 @@ import { readFileSync } from 'node:fs'
 
 const read = (path: string) => readFileSync(path, 'utf8')
 
+// smashers ships as Astro SSR: the same narrow entry points are enforced on the
+// src/pages/api endpoints that replaced the Next route handlers.
 const clientRoutes = [
-  'apps/smashers/src/app/(auth_routes)/api/playfab/forgot-password/route.ts',
-  'apps/smashers/src/app/(auth_routes)/api/playfab/login/route.ts',
-  'apps/smashers/src/app/(auth_routes)/api/playfab/signup/route.ts',
-  'apps/smashers/src/app/(auth_routes)/api/playfab/user/info/route.ts',
-  'apps/smashers/src/app/(auth_routes)/api/playfab/user/link-provider/route.ts',
-  'apps/smashers/src/app/(auth_routes)/api/playfab/user/unlink-provider/route.ts',
+  'apps/smashers/src/pages/api/playfab/forgot-password.ts',
+  'apps/smashers/src/pages/api/playfab/login.ts',
+  'apps/smashers/src/pages/api/playfab/signup.ts',
+  'apps/smashers/src/pages/api/playfab/user/info.ts',
+  'apps/smashers/src/pages/api/playfab/user/link-provider.ts',
+  'apps/smashers/src/pages/api/playfab/user/unlink-provider.ts',
 ]
 
 const cloudScriptRoutes = [
-  'apps/smashers/src/app/(auth_routes)/api/playfab/user/link-wallet/route.ts',
-  'apps/smashers/src/app/(auth_routes)/api/playfab/user/unlink-wallet/route.ts',
+  'apps/smashers/src/pages/api/playfab/user/link-wallet.ts',
+  'apps/smashers/src/pages/api/playfab/user/unlink-wallet.ts',
 ]
 
 describe('PlayFab import boundaries', () => {
@@ -27,23 +29,21 @@ describe('PlayFab import boundaries', () => {
   })
 
   it('keeps admin and CloudScript routes on their narrow entry points', () => {
-    expect(
-      read('apps/smashers/src/app/(auth_routes)/api/playfab/user/delete-account/route.ts')
-    ).toContain("from '@nl/playfab/api/admin'")
+    expect(read('apps/smashers/src/pages/api/playfab/user/delete-account.ts')).toContain(
+      "from '@nl/playfab/api/admin'"
+    )
 
     for (const route of cloudScriptRoutes) {
       expect(read(route)).toContain("from '@nl/playfab/api/cloudscript'")
     }
 
-    expect(read('apps/smashers/src/app/(auth_routes)/api/playfab/user/update/route.ts')).toMatch(
+    expect(read('apps/smashers/src/pages/api/playfab/user/update.ts')).toMatch(
       /@nl\/playfab\/api\/(client|cloudscript)/
     )
   })
 
   it('keeps session checks on the client SDK entry point', () => {
-    const source = read(
-      'apps/smashers/src/app/(auth_routes)/api/playfab/user/playfab-session/route.ts'
-    )
+    const source = read('apps/smashers/src/pages/api/playfab/user/playfab-session.ts')
     expect(source).toContain("from '@nl/playfab/sdk/client'")
     expect(source).not.toContain("from '@nl/playfab/sdk'")
   })

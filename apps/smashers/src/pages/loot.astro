@@ -1,0 +1,27 @@
+---
+import Base from '@/layouts/Base.astro'
+import BackButton from '@/components/Header/BackButton'
+import LootTables from '@/components/Loot/LootTables'
+import styles from '@/styles/loot.module.css'
+
+// Static content: no session or query state, so it ships as prerendered HTML.
+export const prerender = true
+---
+<Base canonical="/loot" metadata={{ title: 'Loot' }}>
+  <main class={styles.pageContainer}>
+    <BackButton />
+    <div class="w-full text-center mb-6">
+      <h1
+        class="mb-2"
+        style="background: var(--gradient-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+      >
+        Loot Tables
+      </h1>
+      {/* A subtitle, not a section heading: an <h6> here broke heading order. */}
+      <p class="text-muted-foreground text-base font-subheader">
+        Explore the drop rates and rewards for all available crates and loot boxes.
+      </p>
+    </div>
+    <LootTables />
+  </main>
+</Base>

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
+import { join } from 'node:path'
 
 const turbo = JSON.parse(readFileSync('turbo.json', 'utf8')) as {
   globalEnv?: string[]
@@ -82,12 +83,11 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/package.json',
   ],
   'docs#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
+  // smashers ships as Astro SSR: no Next image-device-sizes config or
+  // sentry-client sources feed its build; shared playfab and ui sources do.
   'smashers#build': [
-    '../../config/image-device-sizes.ts',
     '../../packages/playfab/src/**',
     '../../packages/playfab/package.json',
-    '../../packages/sentry-client/src/**',
-    '../../packages/sentry-client/package.json',
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
@@ -173,11 +173,12 @@ describe('Turbo cache environment scope', () => {
         'GITHUB_ACTIONS',
         'GOOGLE_CLIENT_ID',
         'GOOGLE_CLIENT_SECRET',
-        'NEXT_PHASE',
         'NEXT_RUNTIME',
         'NEXT_PUBLIC_*',
         'NEXTAUTH_SECRET',
         'PLAYFAB_API_KEY',
+        'PUBLIC_*',
+        'SESSION_SECRET',
         'SENTRY_AUTH_TOKEN',
         'SENTRY_ORG',
         'SENTRY_PROJECT',
@@ -186,6 +187,48 @@ describe('Turbo cache environment scope', () => {
         'VERCEL_ENV',
       ])
     )
+  })
+
+  it('names the environment variables each shared package actually reads', () => {
+    // A declared-but-unread name (or a read-but-undeclared one) silently makes
+    // the cache key wrong: the task reuses a result computed under different
+    // configuration. This caught PUBLIC_PLAYFAB_TITLE_ID being declared for
+    // @nl/playfab while the package reads NEXT_PUBLIC_PLAYFAB_TITLE_ID.
+    const sources = {
+      '@nl/playfab#lint': 'packages/playfab/src',
+    } as const
+
+    for (const [task, sourceDir] of Object.entries(sources)) {
+      const declared = envFor(task)
+      const read = new Set<string>()
+      const walk = (dir: string) => {
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+          const full = join(dir, entry.name)
+          if (entry.isDirectory()) {
+            if (entry.name !== 'node_modules') walk(full)
+          } else if (/\.(ts|tsx)$/.test(entry.name) && !/\.test\./.test(entry.name)) {
+            const source = readFileSync(full, 'utf8')
+            for (const match of source.matchAll(/process\.env\.([A-Z0-9_]+)/g)) {
+              read.add(match[1] as string)
+            }
+          }
+        }
+      }
+      walk(sourceDir)
+
+      // Every declared env var must be one the package can actually read, and
+      // every PlayFab variable it reads must be declared.
+      for (const name of declared) {
+        if (name === 'CI' || name === 'VERCEL_ENV') continue
+        expect(read.has(name), `${task} declares ${name} but the package never reads it`).toBe(true)
+      }
+      for (const name of read) {
+        if (!name.startsWith('NEXT_PUBLIC_') && !name.startsWith('PLAYFAB_')) continue
+        expect(declared.has(name), `${task} must declare ${name}, which the package reads`).toBe(
+          true
+        )
+      }
+    }
   })
 
   it('caches the deterministic Docusaurus build output', () => {

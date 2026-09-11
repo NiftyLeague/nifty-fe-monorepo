@@ -39,3 +39,17 @@ GHSA-2v37-7h3g-55p8
 # image-size 2.x. Revisit on the next Next.js bump.
 GHSA-w3rx-r6r6-pgpr
 GHSA-5p2g-fcmc-qvqq
+
+# path-to-regexp 6.1.0 ReDoS (GHSA-9wv6-86v2-598j): introduced by the
+# @astrojs/vercel adapter (smashers), whose @vercel/routing-utils dependency
+# pins path-to-regexp to exactly 6.1.0 while also shipping a patched alias.
+# The pin is upstream, so neither a lockfile override nor `bun audit fix` can
+# move it; a global override is not an option because other consumers in the
+# tree need the 0.x (express) and 8.x (wrangler) APIs.
+#
+# Verified build-time only: the adapter is not imported by application code,
+# the deployed SSR function serves every route with @astrojs/vercel absent from
+# node_modules, and instrumenting the bundled 6.1.0 implementation to throw
+# leaves all routes working — it never executes on a request. Revisit when the
+# adapter's routing-utils dependency stops pinning 6.1.0.
+GHSA-9wv6-86v2-598j

@@ -9,9 +9,10 @@ import {
 
 const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs', 'apps/web']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
-// The Astro migration PR re-enables preview deployments for its own branch
+// The Astro migration PRs re-enable preview deployments for their own branches
 // while the shared policy keeps every other feature branch off.
 const webDeploymentEnabled = { ...deploymentEnabled, 'feat/web-astro-migration': true }
+const smashersDeploymentEnabled = { ...deploymentEnabled, 'feat/smashers-astro-migration': true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
@@ -27,7 +28,11 @@ describe('Vercel build cost policy', () => {
       }
 
       expect(config.git?.deploymentEnabled).toEqual(
-        projectRoot === 'apps/web' ? webDeploymentEnabled : deploymentEnabled
+        projectRoot === 'apps/web'
+          ? webDeploymentEnabled
+          : projectRoot === 'apps/smashers'
+            ? smashersDeploymentEnabled
+            : deploymentEnabled
       )
       expect(config.ignoreCommand).toBe(ignoreCommand)
       expect(config.installCommand).toBe(installCommand)
@@ -51,6 +56,21 @@ describe('Vercel build cost policy', () => {
     )
     expect(shouldBuild('feat/web-astro-migration', 'web', ['apps/docs/src/page.tsx'])).toBe(false)
     expect(shouldBuild('feat/web-astro-migration', 'app', ['apps/app/src/app/page.tsx'])).toBe(true)
+  })
+
+  it('builds the migration branch preview for the smashers project', () => {
+    expect(
+      shouldBuild('feat/smashers-astro-migration', 'smashers', [
+        'apps/smashers/src/pages/index.astro',
+      ])
+    ).toBe(true)
+    expect(
+      shouldBuild('feat/smashers-astro-migration', 'smashers', ['apps/docs/src/page.tsx'])
+    ).toBe(false)
+    // Shared package changes still invalidate the smashers build.
+    expect(
+      shouldBuild('feat/smashers-astro-migration', 'smashers', ['packages/playfab/src/api.ts'])
+    ).toBe(true)
   })
 
   it('maps Vercel project aliases to their monorepo app', () => {

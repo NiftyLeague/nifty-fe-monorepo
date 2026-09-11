@@ -1,0 +1,27 @@
+---
+import Auth from '@/layouts/Auth.astro'
+import ProfileClient from '@/components/profile/ProfileClient'
+import { Skeleton } from '@nl/ui/base/skeleton'
+import { getSession } from '@/utils/session'
+
+const session = await getSession(Astro)
+
+// Redirect to login if not authorized.
+if (!session.user?.isLoggedIn) return Astro.redirect('/login', 302)
+
+const sessionData = { user: session.user }
+---
+<Auth canonical="/profile" metadata={{ title: 'Profile', noindex: true }}>
+  <ProfileClient client:only="react" sessionData={sessionData}>
+    <div
+      slot="fallback"
+      class="flex min-h-screen items-center justify-center p-6"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <Skeleton className="h-[28rem] w-full max-w-[800px] rounded-xl" aria-hidden="true" />
+      <span class="sr-only">Loading profile</span>
+    </div>
+  </ProfileClient>
+</Auth>

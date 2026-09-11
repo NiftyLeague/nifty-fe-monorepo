@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { useSnackbar } from 'notistack'
 
 import { Button } from '@nl/ui/base/button'
@@ -19,12 +18,11 @@ import { Icon } from '@nl/ui/base/icon'
 
 import { fetchJson } from '../../utils/fetchJson'
 import { errorMsgHandler } from '../../utils/errorHandlers'
-import { useUserSession } from '../../hooks/useUserSession'
+import { navigate, useUserSession } from '../../hooks/useUserSession'
 
 export default function DeleteAccountDialog({ loading = false }) {
   const { mutateUser } = useUserSession({ redirectTo: '/login' })
   const { enqueueSnackbar } = useSnackbar()
-  const router = useRouter()
 
   const handleDeleteUser = async () => {
     try {
@@ -34,7 +32,7 @@ export default function DeleteAccountDialog({ loading = false }) {
           headers: { 'Content-Type': 'application/json' },
         })
       )
-      router.push('/login')
+      navigate('/login')
       enqueueSnackbar('Delete Account Success!', { variant: 'success' })
     } catch (e) {
       const msg = errorMsgHandler(e)

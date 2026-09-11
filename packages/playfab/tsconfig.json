@@ -1,7 +1,12 @@
 {
   "extends": "@nl/typescript-config/react-library.json",
-  "compilerOptions": { "incremental": true, "outDir": "dist", "rootDir": "." },
-  "include": ["src/**/*"],
+  "compilerOptions": {
+    "incremental": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "types": ["node"]
+  },
+  "include": ["src/**/*", "../ui/src/@types/**/*.d.ts"],
   "exclude": [
     "node_modules",
     "dist",
