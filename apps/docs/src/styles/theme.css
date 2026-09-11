@@ -890,6 +890,11 @@ header.header {
     --sl-mobile-toc-height: 0rem;
   }
 
+  /* Keep a little air between the inline TOC bar and the page title. */
+  .content-panel h1#_top {
+    margin-top: 0.75rem;
+  }
+
   /**
    * The previous site's mobile TOC was an inline disclosure inside the content
    * column, not a fixed bar: a full-width row with a caret, indented to match the
