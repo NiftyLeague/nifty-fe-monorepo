@@ -317,6 +317,12 @@ h1#_top {
   line-height: 1;
 }
 
+/* Heading anchor icons scale with the heading font size by default, which is
+   enormous on h1s. Pin them to a fixed, discreet size. */
+.sl-markdown-content .sl-heading-wrapper {
+  --sl-anchor-icon-size: 1.1rem;
+}
+
 .sl-markdown-content p:not(:where(.not-content *)) {
   margin-top: 0;
   margin-bottom: 1.25rem;
