@@ -29,6 +29,8 @@ describe('web Vercel routing contract', () => {
     expect(config.outputDirectory).toBe('dist')
     expect(config.trailingSlash).toBe(false)
     expect(config.cleanUrls).toBe(true)
+    // Rewrite destinations use the clean form: with cleanUrls enabled,
+    // .html destinations do not resolve (production regression on release).
   })
 
   it('keeps permanent short links on 308 redirects', () => {
@@ -58,9 +60,9 @@ describe('web Vercel routing contract', () => {
 
   it('serves the deep-link shells for gltf, invite and party routes', () => {
     const bySource = new Map(config.rewrites?.map((r) => [r.source, r.destination]))
-    expect(bySource.get('/gltf/:tokenId')).toBe('/shells/gltf.html')
-    expect(bySource.get('/invite/:game/:refcode')).toBe('/shells/referral.html')
-    expect(bySource.get('/party/:game/:refcode/:partyID')).toBe('/shells/referral.html')
+    expect(bySource.get('/gltf/:tokenId')).toBe('/shells/gltf')
+    expect(bySource.get('/invite/:game/:refcode')).toBe('/shells/referral')
+    expect(bySource.get('/party/:game/:refcode/:partyID')).toBe('/shells/referral')
   })
 
   it('proxies the shop, contact and docs upstreams', () => {

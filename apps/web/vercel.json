@@ -160,15 +160,15 @@
   "rewrites": [
     {
       "source": "/gltf/:tokenId",
-      "destination": "/shells/gltf.html"
+      "destination": "/shells/gltf"
     },
     {
       "source": "/invite/:game/:refcode",
-      "destination": "/shells/referral.html"
+      "destination": "/shells/referral"
     },
     {
       "source": "/party/:game/:refcode/:partyID",
-      "destination": "/shells/referral.html"
+      "destination": "/shells/referral"
     },
     {
       "source": "/contact",
