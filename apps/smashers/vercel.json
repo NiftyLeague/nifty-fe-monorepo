@@ -1,12 +1,16 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "buildCommand": "bun run build",
+  "outputDirectory": ".vercel/output",
+  "installCommand": "bunx bun@1.4.0 install --frozen-lockfile",
   "git": {
     "deploymentEnabled": {
       "codex/*": false,
       "**": false,
+      "feat/smashers-astro-migration": true,
       "main": true
     }
   },
-  "installCommand": "bunx bun@1.4.0 install --frozen-lockfile",
   "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs"
 }

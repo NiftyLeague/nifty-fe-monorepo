@@ -1,0 +1,35 @@
+---
+import Base from '@/layouts/Base.astro'
+import Header, { type ActiveModal } from '@/components/Header'
+import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
+import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
+import { SocialsFooter } from '@nl/ui/custom/socials-footer'
+import { DeferredDegensSection, DeferredGameSection } from '@/components/DeferredHomeSections'
+
+// The referral deep link opens the Play dialog on arrival; the value only
+// selects which modal starts open, so it is validated against the known set.
+const referral = Astro.url.searchParams.get('referral')
+const activeModal: ActiveModal = referral ? 'play' : null
+---
+<Base canonical="/">
+  <main>
+    <section id="header">
+      <Header activeModal={activeModal} />
+    </section>
+    <section id="console-game">
+      <DeferredConsoleGame client:visible={{ rootMargin: '200px' }} deferVideo src="/video/smashers.mp4">
+        <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
+      </DeferredConsoleGame>
+    </section>
+    <section id="game-section" class="container section relative">
+      <div class="purple-bg-orb orb-top-left"></div>
+      <DeferredGameSection client:visible={{ rootMargin: '200px' }} />
+    </section>
+    <section id="degens-section" class="container section relative">
+      <div class="purple-bg-orb orb-top-right"></div>
+      <div class="purple-bg-orb orb-bottom-left"></div>
+      <DeferredDegensSection client:visible={{ rootMargin: '200px' }} />
+    </section>
+    <SocialsFooter />
+  </main>
+</Base>

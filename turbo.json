@@ -118,11 +118,8 @@
     "smashers#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../config/image-device-sizes.ts",
         "../../packages/playfab/src/**",
         "../../packages/playfab/package.json",
-        "../../packages/sentry-client/src/**",
-        "../../packages/sentry-client/package.json",
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
@@ -156,11 +153,12 @@
         "GITHUB_ACTIONS",
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
-        "NEXT_PHASE",
         "NEXT_RUNTIME",
         "NEXT_PUBLIC_*",
         "NEXTAUTH_SECRET",
         "PLAYFAB_API_KEY",
+        "PUBLIC_*",
+        "SESSION_SECRET",
         "SENTRY_AUTH_TOKEN",
         "SENTRY_ORG",
         "SENTRY_PROJECT",
@@ -168,7 +166,7 @@
         "TWITCH_CLIENT_SECRET",
         "VERCEL_ENV"
       ],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "outputs": ["dist/**", ".vercel/output/**"]
     },
     "web#build": {
       "inputs": [
@@ -219,8 +217,8 @@
         "FACEBOOK_CLIENT_SECRET",
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
-        "NEXT_PUBLIC_PLAYFAB_TITLE_ID",
         "PLAYFAB_API_KEY",
+        "PUBLIC_PLAYFAB_TITLE_ID",
         "TWITCH_CLIENT_ID",
         "TWITCH_CLIENT_SECRET"
       ]

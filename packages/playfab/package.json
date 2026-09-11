@@ -8,6 +8,7 @@
   "exports": {
     "./api": "./src/api.ts",
     "./api/*": "./src/api/*.ts",
+    "./auth/*": "./src/auth/*.ts",
     "./components/*": "./src/components/*/index.tsx",
     "./constants": "./src/constants.ts",
     "./hooks/*": "./src/hooks/*.ts",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
+    "iron-session": "^9.0.1",
     "notistack": "^3.0.2",
     "swr": "^2.4.2"
   },
@@ -37,8 +39,6 @@
     "@types/react-dom": "19.2.7"
   },
   "peerDependencies": {
-    "next": "16.3.4",
-    "next-auth": "^4.24.15",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   }

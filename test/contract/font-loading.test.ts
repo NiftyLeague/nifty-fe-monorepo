@@ -9,12 +9,6 @@ const fontLayoutContracts = [
     required: ['default', 'header', 'subheader'],
     omitted: ['special'],
   },
-  {
-    app: 'smashers',
-    layout: 'apps/smashers/src/app/layout.tsx',
-    required: ['default', 'header', 'subheader', 'special'],
-    omitted: [],
-  },
 ] as const
 
 describe('shared font loading contract', () => {
@@ -31,6 +25,29 @@ describe('shared font loading contract', () => {
       }
     })
   }
+
+  it('smashers self-hosts its four families from the Astro base layout', () => {
+    // smashers ships as Astro SSR: `@nl/ui/fonts/*` are next/font modules, so the
+    // base layout self-hosts the same woff2 assets the way apps/web does.
+    const source = readFileSync(join(process.cwd(), 'apps/smashers/src/layouts/Base.astro'), 'utf8')
+
+    expect(source).toContain('woff2')
+    expect(source).toContain('preload')
+    // default (IBM Plex Sans), header (Nexa Rust), subheader (Lilita One), special (Press Start 2P)
+    expect(source).toContain('ibm-plex-sans-400.woff2')
+    expect(source).toContain('NexaRustSans-Black.woff2')
+    expect(source).toContain('lilita-one-400.woff2')
+    expect(source).toContain('press-start-2p-400.woff2')
+    for (const cssVar of [
+      '--font-ibm-plex-sans',
+      '--font-nexa-rust-sans-black',
+      '--font-lilita-one',
+      '--font-press-start',
+    ]) {
+      expect(source).toContain(cssVar)
+    }
+    expect(source).not.toContain('ibm-plex-sans-italic-400.woff2')
+  })
 
   it('web loads only the font families required by its theme via the Astro base layout', () => {
     // web ships as Astro static; fonts come from src/layouts/Base.astro, which

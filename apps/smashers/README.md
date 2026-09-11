@@ -1,10 +1,12 @@
-# Nifty League Template
+# Nifty Smashers
 
-## Getting Started
+Marketing site and player account surface for [niftysmashers.com](https://niftysmashers.com), built with **Astro SSR** and deployed to Vercel through the `@astrojs/vercel` adapter.
+
+## Getting started
 
 ### Set up environment variables
 
-Copy the `.env.example` file in this directory to `.env.local` (which will be ignored by Git):
+Copy `.env.example` to `.env.local` (ignored by Git):
 
 ```bash
 vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
@@ -14,47 +16,69 @@ vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
 ### Run the development server
 
 ```bash
-pnpm dev
+bun run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
+Open [http://localhost:3003](http://localhost:3003).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Layout
 
-To create [API routes](https://nextjs.org/docs/app/building-your-application/routing/router-handlers) add an `api/` directory to the `app/` directory with a `route.ts` file. For individual endpoints, create a subfolder in the `api` directory, like `api/hello/route.ts` would map to [http://localhost:3001/api/hello](http://localhost:3001/api/hello).
+```
+src/
+  pages/            file-based routes
+    index.astro       home (referral deep link opens the Play dialog)
+    login.astro       PlayFab sign-in
+    profile.astro     account surface (redirects to /login when signed out)
+    loot.astro        loot tables (prerendered)
+    404.astro
+    robots.txt.ts / sitemap.xml.ts
+    api/              endpoints (playfab, auth, edge-geo)
+  layouts/          Base.astro (metadata, fonts, telemetry), Auth.astro
+  components/       app components; interactive ones are React islands
+  contexts/         PlayFab session + feature flags
+  runtime/          framework shims: Image, metadata, telemetry, redirects
+  middleware.ts     store + referral deep links
+packages/playfab    shared PlayFab SDK, account components, OAuth helpers
+```
 
-## Learn More
+Only interactive components are islands, marked per component:
 
-To learn more about Next.js, take a look at the following resources:
+```astro
+<LoginClient client:only="react" sessionData={sessionData}>
+  <div slot="fallback" role="status" aria-busy="true">…</div>
+</LoginClient>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn/foundations/about-nextjs) - an interactive Next.js tutorial.
+## Authentication
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Identity is **PlayFab**. There is no next-auth dependency anywhere in this app or in `@nl/playfab`.
 
-## Deploy on Vercel
+Two layers:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
+1. **PlayFab session** — an `iron-session` cookie (`iron_session_playfab`, sealed with `SESSION_SECRET`), created by `/api/playfab/login` and `/api/playfab/signup` and read through `src/utils/session.ts`. Endpoints take the `SessionTicket` from it to call PlayFab.
+2. **OAuth social linking** — a local authorization-code flow that links a Google, Apple, Facebook or Twitch account to the signed-in PlayFab account:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   | Route                                     | Purpose                                                                                                |
+   | ----------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+   | `GET /api/auth/signin/[provider]`         | Mints `state` + PKCE, seals the flow into a short-lived `oauth_flow` cookie, redirects to the provider |
+   | `GET\|POST /api/auth/callback/[provider]` | Validates state, exchanges the code, and calls PlayFab `LinkProvider` **server-side**                  |
 
-## Environment Variables
+   Provider secrets (`GOOGLE_CLIENT_ID`/`_SECRET`, and the same pair for `APPLE`, `FACEBOOK`, `TWITCH`) are read only on the server; no provider token is ever sent to the browser. `SESSION_SECRET` doubles as the flow-seal key.
 
-Environment variables are managed in **Vercel** (source of truth). Sync them locally:
+`@nl/playfab` exports the reusable pieces: `auth/oauth` (provider registry, authorize URL, PKCE, code exchange, link credential selection) and `auth/flow` (sealed flow state). Apple is linked with its OIDC `id_token` and the others with their OAuth access token — see `getLinkCredential`.
+
+Register the callback URL with each provider: `https://niftysmashers.com/api/auth/callback/<provider>`.
+
+## Checks
 
 ```bash
-# Link this project to its Vercel project (one-time)
-vercel link --scope niftyleague
-
-# Pull all env vars into .env.local (gitignored)
-vercel env pull .env.local
+bun run type-check   # astro check
+bun run lint         # oxlint
+bun run format       # oxfmt
+bun run test         # bun test
+bun run build        # astro build -> dist/ + .vercel/output
 ```
 
-To push local changes back to Vercel:
+## Deploy
 
-```bash
-vercel env push .env.local
-# or set them per-environment (Production / Preview) in the Vercel dashboard
-```
-
-> Never commit `.env.local` — it is gitignored. For team projects use `vercel --scope niftyleague`.
+Vercel builds the app with `bun run build` and serves `.vercel/output`. The project deploys from `main`; feature branches deploy only when listed in `vercel.json` → `git.deploymentEnabled` **and** in `scripts/vercel-ignore-build.mjs` (both gates are required).

@@ -1,98 +1,80 @@
-const stubEnv = (k, v) => {
-  process.env[k] = v
+import { afterEach, describe, expect, it } from 'bun:test'
+
+import { SESSION_TIMEOUT, getSessionOptions, json } from './session'
+
+const SECRET = 'a-secure-test-secret-that-is-at-least-32-characters'
+
+const originalEnv = { ...process.env }
+
+const stubEnv = (key: string, value: string | undefined) => {
+  if (value === undefined) delete process.env[key]
+  else process.env[key] = value
 }
-import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
-import { mock } from 'bun:test'
-import { NextResponse } from 'next/server'
-
-const mocks = { getIronSession: mock(), cookies: mock().mockResolvedValue({}) }
-
-beforeEach(() => {
-  mock.module('iron-session', () => ({ getIronSession: mocks.getIronSession }))
-  mock.module('next/headers', () => ({ cookies: mocks.cookies }))
-  mocks.getIronSession.mockClear()
-})
 
 afterEach(() => {
-  mock.restore()
+  process.env = { ...originalEnv }
 })
 
 describe('session configuration', () => {
-  it('uses secure, HTTP-only cookies with explicit timeouts', async () => {
-    stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters')
-    const sessionModule = await import('./session')
-    expect(sessionModule.SESSION_TIMEOUT.remember).toBeGreaterThan(
-      sessionModule.SESSION_TIMEOUT.default
-    )
-    expect(sessionModule.sessionOptions.cookieName).toBe('iron_session_playfab')
-    expect(sessionModule.sessionOptions.cookieOptions).toMatchObject({
-      httpOnly: true,
-      sameSite: 'lax',
-    })
+  it('uses secure, HTTP-only cookies with explicit timeouts', () => {
+    stubEnv('NEXTAUTH_SECRET', SECRET)
+    stubEnv('SESSION_SECRET', undefined)
+
+    expect(SESSION_TIMEOUT.remember).toBeGreaterThan(SESSION_TIMEOUT.default)
+
+    const options = getSessionOptions()
+    expect(options.cookieName).toBe('iron_session_playfab')
+    expect(options.cookieOptions).toMatchObject({ httpOnly: true, sameSite: 'lax' })
+    expect(options.cookieOptions?.maxAge).toBe(SESSION_TIMEOUT.remember)
+  })
+
+  it('prefers the renamed secret and still accepts the legacy name', () => {
+    stubEnv('SESSION_SECRET', SECRET)
+    stubEnv('NEXTAUTH_SECRET', undefined)
+    expect(getSessionOptions().password).toBe(SECRET)
+
+    stubEnv('SESSION_SECRET', undefined)
+    stubEnv('NEXTAUTH_SECRET', SECRET)
+    expect(getSessionOptions().password).toBe(SECRET)
+  })
+
+  it('refuses to build session options without a long enough secret', () => {
+    stubEnv('SESSION_SECRET', 'too-short')
+    stubEnv('NEXTAUTH_SECRET', undefined)
+    expect(() => getSessionOptions()).toThrow(/SESSION_SECRET/)
+
+    stubEnv('SESSION_SECRET', undefined)
+    expect(() => getSessionOptions()).toThrow(/SESSION_SECRET/)
+  })
+
+  it('marks the cookie secure on deployed environments only', () => {
+    stubEnv('SESSION_SECRET', SECRET)
+
+    stubEnv('PUBLIC_DEPLOY_ENV', 'production')
+    expect(getSessionOptions().cookieOptions?.secure).toBe(true)
+
+    stubEnv('PUBLIC_DEPLOY_ENV', 'development')
+    stubEnv('VERCEL_ENV', 'preview')
+    expect(getSessionOptions().cookieOptions?.secure).toBe(true)
+
+    stubEnv('VERCEL_ENV', undefined)
+    expect(getSessionOptions().cookieOptions?.secure).toBe(false)
   })
 })
 
-describe('route wrappers', () => {
-  it('passes the session to handlers and appends saved cookies', async () => {
-    stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters')
-    const sessionModule = await import('./session')
-    const session = {
-      user: { isLoggedIn: true },
-      save: mock().mockResolvedValue(['session=updated']),
-    }
-    mocks.getIronSession.mockResolvedValue(session)
-    const handler = mock().mockResolvedValue(new Response('ok', { status: 200 }))
-
-    const response = await sessionModule.withSessionRoute(handler)(
-      new Request('https://example.com/api')
-    )
-
-    expect(handler).toHaveBeenCalledWith(expect.any(Request), session)
+describe('json response helper', () => {
+  it('serializes the body with a JSON content type', async () => {
+    const response = json({ ok: true })
     expect(response.status).toBe(200)
-    expect(session.save).toHaveBeenCalled()
+    expect(response.headers.get('content-type')).toContain('application/json')
+    await expect(response.json()).resolves.toEqual({ ok: true })
   })
 
-  it('rejects anonymous users before invoking protected handlers', async () => {
-    stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters')
-    const sessionModule = await import('./session')
-    mocks.getIronSession.mockResolvedValue({ user: undefined, save: mock() })
-    const handler = mock()
-
-    const response = await sessionModule.withUserRoute(handler)(
-      new Request('https://example.com/private')
-    )
-
+  it('carries the status and merged headers through', async () => {
+    const response = json({ message: 'nope' }, { status: 401, headers: { 'X-Test': '1' } })
     expect(response.status).toBe(401)
-    await expect(response.json()).resolves.toEqual({ error: 'Unauthorized' })
-    expect(handler).not.toHaveBeenCalled()
-  })
-
-  it('allows authenticated users through protected routes', async () => {
-    stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters')
-    const sessionModule = await import('./session')
-    const session = { user: { isLoggedIn: true }, save: mock() }
-    mocks.getIronSession.mockResolvedValue(session)
-    const handler = mock().mockReturnValue(new Response('private'))
-
-    const response = await sessionModule.withUserRoute(handler)(
-      new Request('https://example.com/private')
-    )
-    await expect(response.text()).resolves.toBe('private')
-    expect(handler).toHaveBeenCalled()
-  })
-
-  it('appends saved cookies directly to a NextResponse', async () => {
-    stubEnv('NEXTAUTH_SECRET', 'a-secure-test-secret-that-is-at-least-32-characters')
-    const sessionModule = await import('./session')
-    const session = { user: { isLoggedIn: true }, save: mock().mockResolvedValue(['session=next']) }
-    mocks.getIronSession.mockResolvedValue(session)
-    const handler = mock().mockReturnValue(NextResponse.json({ ok: true }))
-
-    const response = await sessionModule.withSessionRoute(handler)(
-      new Request('https://example.com/private')
-    )
-
-    expect(response).toBeInstanceOf(NextResponse)
-    expect(response.headers.get('set-cookie')).toContain('session=next')
+    expect(response.headers.get('X-Test')).toBe('1')
+    expect(response.headers.get('content-type')).toContain('application/json')
+    await expect(response.json()).resolves.toEqual({ message: 'nope' })
   })
 })

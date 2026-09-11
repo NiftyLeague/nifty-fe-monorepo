@@ -82,12 +82,11 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/package.json',
   ],
   'docs#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
+  // smashers ships as Astro SSR: no Next image-device-sizes config or
+  // sentry-client sources feed its build; shared playfab and ui sources do.
   'smashers#build': [
-    '../../config/image-device-sizes.ts',
     '../../packages/playfab/src/**',
     '../../packages/playfab/package.json',
-    '../../packages/sentry-client/src/**',
-    '../../packages/sentry-client/package.json',
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
@@ -173,11 +172,12 @@ describe('Turbo cache environment scope', () => {
         'GITHUB_ACTIONS',
         'GOOGLE_CLIENT_ID',
         'GOOGLE_CLIENT_SECRET',
-        'NEXT_PHASE',
         'NEXT_RUNTIME',
         'NEXT_PUBLIC_*',
         'NEXTAUTH_SECRET',
         'PLAYFAB_API_KEY',
+        'PUBLIC_*',
+        'SESSION_SECRET',
         'SENTRY_AUTH_TOKEN',
         'SENTRY_ORG',
         'SENTRY_PROJECT',
