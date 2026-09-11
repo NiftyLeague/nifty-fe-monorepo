@@ -47,6 +47,14 @@ export default defineConfig({
         { find: '@', replacement: local('src') },
       ],
     },
+    // Only values the *client* bundle reads are defined here; they must be
+    // inlined at build time. Server-only configuration (session secret, OAuth
+    // secrets, store links) is read from process.env at request time instead,
+    // so a variable rename or a per-environment value needs no rebuild.
+    //
+    // Each entry takes the PUBLIC_* convention first and falls back to the
+    // NEXT_PUBLIC_* name the Vercel project still holds, so the cutover does not
+    // require renaming variables in lockstep with the deploy.
     define: {
       'process.env.NEXT_PUBLIC_PLAYFAB_TITLE_ID': publicEnv(
         'PUBLIC_PLAYFAB_TITLE_ID',
@@ -57,13 +65,10 @@ export default defineConfig({
         'NEXT_PUBLIC_AUTH_PROVIDERS'
       ),
       'process.env.NEXT_PUBLIC_VERCEL_ENV': publicEnv('PUBLIC_DEPLOY_ENV', 'VERCEL_ENV'),
-      'process.env.NEXT_PUBLIC_SITE_URL': publicEnv('PUBLIC_SITE_URL', 'NEXT_PUBLIC_SITE_URL'),
-      'process.env.NEXT_PUBLIC_APPLE_STORE_ID': publicEnv('PUBLIC_APPLE_STORE_ID'),
-      'process.env.NEXT_PUBLIC_APPLE_STORE_LINK': publicEnv('PUBLIC_APPLE_STORE_LINK'),
-      'process.env.NEXT_PUBLIC_GOOGLE_PLAY_LINK': publicEnv('PUBLIC_GOOGLE_PLAY_LINK'),
-      'process.env.NEXT_PUBLIC_EPIC_LINK': publicEnv('PUBLIC_EPIC_LINK'),
-      'process.env.NEXT_PUBLIC_STEAM_LINK': publicEnv('PUBLIC_STEAM_LINK'),
-      'process.env.NEXT_PUBLIC_FEATURE_FLAGS': publicEnv('PUBLIC_FEATURE_FLAGS'),
+      'process.env.NEXT_PUBLIC_FEATURE_FLAGS': publicEnv(
+        'PUBLIC_FEATURE_FLAGS',
+        'NEXT_PUBLIC_FEATURE_FLAGS'
+      ),
     },
   },
 })

@@ -1,6 +1,7 @@
 import type { APIContext } from 'astro'
 
 import { resolveRedirect } from './redirects.mjs'
+import { getStoreLinks } from './store-links'
 
 /**
  * Shared adapter that turns the pure deep-link resolver into a route response.
@@ -14,6 +15,8 @@ export const deepLinkResponse = (
   context: APIContext,
   { country = false, userAgent = false }: { country?: boolean; userAgent?: boolean } = {}
 ): Response => {
+  const links = getStoreLinks()
+
   const redirect = resolveRedirect(
     {
       pathname: context.url.pathname,
@@ -21,15 +24,22 @@ export const deepLinkResponse = (
       ...(userAgent ? { userAgent: context.request.headers.get('user-agent') ?? '' } : {}),
     },
     {
-      APPLE_STORE_ID: import.meta.env.PUBLIC_APPLE_STORE_ID,
-      APPLE_STORE_LINK: import.meta.env.PUBLIC_APPLE_STORE_LINK,
-      GOOGLE_PLAY: import.meta.env.PUBLIC_GOOGLE_PLAY_LINK,
-      EPIC: import.meta.env.PUBLIC_EPIC_LINK,
-      STEAM: import.meta.env.PUBLIC_STEAM_LINK,
+      APPLE_STORE_ID: links.appleStoreId,
+      APPLE_STORE_LINK: links.appleStoreLink,
+      GOOGLE_PLAY: links.googlePlayLink,
+      EPIC: links.epicLink,
+      STEAM: links.steamLink,
     }
   )
 
   if (redirect) return context.redirect(redirect.destination, redirect.status)
+
   // An unconfigured store link is a deployment gap, not a user-facing route.
+  // Surface it loudly: a silent 404 here previously sent store traffic nowhere.
+  const missing = Object.entries(links)
+    .filter(([, value]) => !value)
+    .map(([name]) => name)
+  console.error(`[deep-link] no destination configured for ${context.url.pathname}`, { missing })
+
   return new Response('Not Found', { status: 404, headers: { 'content-type': 'text/plain' } })
 }
