@@ -7,6 +7,7 @@ import { handleError, handleLocalNotify, sendTransaction } from '@/utils/bnc-not
 import type { NotifyCallback, NotifyError, Tx, TransactionEvent } from '@/types/notify'
 import { VALID_NOTIFY_NETWORKS, TARGET_NETWORK } from '@/constants/networks'
 import { DEBUG } from '@/constants/index'
+import { BLOCKNATIVE_DAPPID } from '@/runtime/env'
 
 const ETHERSCAN_TX_URL = `${TARGET_NETWORK.blockExplorer}/tx/`
 
@@ -20,7 +21,7 @@ const initializeNotify = async (darkMode: boolean): Promise<API | null> => {
 
   const { default: Notify } = await import('bnc-notify')
   const options: InitOptions = {
-    dappId: process.env.NEXT_PUBLIC_BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
+    dappId: BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
     system: 'ethereum',
     networkId: TARGET_NETWORK.chainId,
     darkMode,

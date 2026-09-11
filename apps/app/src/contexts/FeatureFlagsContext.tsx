@@ -2,6 +2,8 @@
 
 import { createContext, type PropsWithChildren, useState } from 'react'
 
+import { FEATURE_FLAGS } from '@/runtime/env'
+
 /**
  * A map of feature flags from their keys to their values.
  */
@@ -36,16 +38,16 @@ export function parseFeatureFlags(value: string | undefined, defaultValue: FlagS
   }
 }
 
-function useProcessFlagsFromEnv(key: string, defaultValue: FlagSet) {
+function useProcessFlagsFromEnv(rawFlags: string, defaultValue: FlagSet) {
   const [flags] = useState<FlagSet>(() => {
-    return parseFeatureFlags(process.env[key], defaultValue)
+    return parseFeatureFlags(rawFlags, defaultValue)
   })
 
   return { flags }
 }
 
 export function FeatureFlagProvider({ children }: PropsWithChildren) {
-  const { flags } = useProcessFlagsFromEnv('NEXT_PUBLIC_FEATURE_FLAGS', {
+  const { flags } = useProcessFlagsFromEnv(FEATURE_FLAGS, {
     displayMyItems: false,
     enableEquip: false,
   })

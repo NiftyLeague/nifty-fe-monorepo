@@ -16,7 +16,9 @@
     ".agents/**",
     "**/.astro/**",
     "**/.wrangler/**",
-    "**/.web-images/**"
+    "**/.web-images/**",
+    "**/routeTree.gen.ts",
+    "**/.vercel/**"
   ],
   "overrides": [
     {

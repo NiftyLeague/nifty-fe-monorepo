@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname } from '@/runtime/navigation'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { Unity, useUnityContext } from 'react-unity-webgl'
 import type { UnityConfig } from 'react-unity-webgl'
@@ -16,6 +16,7 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
 import { getGameViewedAnalyticsContentId } from '@/constants/games'
 import { DEBUG } from '@/constants/index'
+import { SUBGRAPH_VERSION } from '@/runtime/env'
 import withVerification from '@/components/wrapper/Authentication'
 import ArcadeTokensRequired from '@/components/ArcadeTokensRequired'
 import useAuth from '@/hooks/useAuth'
@@ -76,7 +77,7 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
 
   const getConfiguration = useCallback((e: CustomEventWithCallback<string>) => {
     const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
-    const version = process.env.NEXT_PUBLIC_SUBGRAPH_VERSION
+    const version = SUBGRAPH_VERSION
     if (DEBUG) console.log(`${networkName},${version ?? ''}`)
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
   }, [])

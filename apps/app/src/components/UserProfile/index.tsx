@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import Link from '@/runtime/Link'
 import { useMemo } from 'react'
 import { UserRound } from 'lucide-react'
 import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'

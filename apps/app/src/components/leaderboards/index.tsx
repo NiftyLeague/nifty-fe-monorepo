@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo } from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import { useQueryStates } from 'nuqs'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'

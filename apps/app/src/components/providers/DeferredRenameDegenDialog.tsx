@@ -12,7 +12,7 @@ interface DeferredRenameDegenDialogProps {
 }
 
 const loadRenameDegenDialog = () =>
-  import('@/app/(private-routes)/dashboard/degens/_dialogs/RenameDegenDialogContent')
+  import('@/pages/dashboard/degens/_dialogs/RenameDegenDialogContent')
 
 export default function DeferredRenameDegenDialog({
   open = false,

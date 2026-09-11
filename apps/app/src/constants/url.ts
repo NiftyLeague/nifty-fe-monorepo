@@ -1,3 +1,5 @@
+import { NETWORK } from '@/runtime/env'
+
 import { BASE_API_URL } from './api'
 export {
   BASE_API_URL,
@@ -13,9 +15,8 @@ export {
   PROFILE_RENAME_API,
   WALLET_VERIFICATION,
 } from './auth-urls'
-export { DEGEN_PURCHASE_URL, NFTL_PURCHASE_URL } from './public-urls'
 
-const NEXT_PUBLIC_NETWORK = process.env.NEXT_PUBLIC_NETWORK as string
+export { DEGEN_PURCHASE_URL, NFTL_PURCHASE_URL } from './public-urls'
 
 // Degen API url
 // Rentals API url
@@ -63,6 +64,6 @@ export const CONVERT_TOKEN_TO_USD_URL = 'https://price-api.crypto.com/price/v1/e
 export const COW_PROTOCOL_URL = 'https://cow.fi/'
 export const IMX_SQUID_BRIDGE_URL = 'https://toolkit.immutable.com/squid-bridge/'
 export const AXELAR_TRANSACTIONS_URL = (address: `0x${string}`) =>
-  `https://${NEXT_PUBLIC_NETWORK === 'sepolia' ? 'testnet.' : ''}axelarscan.io/address/${address}?transfersType=gmp`
+  `https://${NETWORK === 'sepolia' ? 'testnet.' : ''}axelarscan.io/address/${address}?transfersType=gmp`
 export const SNAPSHOT_PORTAL_URL = 'https://snapshot.niftyleague.com'
 export const GOVERNANCE_PORTAL_URL = 'https://niftyleague.com/tally'

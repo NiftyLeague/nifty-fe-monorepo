@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import NativeImage from '@nl/ui/custom/native-image'
 import { useState } from 'react'
 import { toast } from 'sonner'

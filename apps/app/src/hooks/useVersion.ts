@@ -4,9 +4,10 @@ import { useQuery } from '@tanstack/react-query'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { DEGEN_BASE_API_URL } from '@/constants/api'
 import { fetchApiQuery, queryKeys } from '@/query/app-query'
+import { NETWORK } from '@/runtime/env'
 
 const useVersion = () => {
-  const env = process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? 'prod' : 'stage'
+  const env = NETWORK === 'mainnet' ? 'prod' : 'stage'
   const userAgent = useUserAgent()
   const isWindows = userAgent.isWindows()
   const isMacOs = userAgent.isMacOs()

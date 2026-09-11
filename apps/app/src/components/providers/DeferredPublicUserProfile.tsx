@@ -5,7 +5,7 @@ import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { DEFERRED_RETRY_BUTTON_CLASS } from '@nl/ui/lib/deferred-boundary'
 
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
+import { desktopNavigationMediaQuery } from '@/layouts/_layout/navigation-breakpoints'
 
 type PublicUserProfileProps = {
   placement: 'desktop' | 'mobile'

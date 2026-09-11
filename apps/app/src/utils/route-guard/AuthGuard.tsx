@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/runtime/navigation'
 import type { GuardProps } from '@/types'
 import useAuth from '@/hooks/useAuth'
+import { AUDIT_FIXTURE } from '@/runtime/env'
 
 // ==============================|| AUTH GUARD ||============================== //
 
@@ -14,7 +15,7 @@ import useAuth from '@/hooks/useAuth'
 const AuthGuard = ({ children }: GuardProps) => {
   const router = useRouter()
   const { isLoggedIn } = useAuth()
-  const auditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
+  const auditFixtureEnabled = AUDIT_FIXTURE
 
   useEffect(() => {
     if (!auditFixtureEnabled && !isLoggedIn) router.replace('/')

@@ -6,6 +6,7 @@ import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import { useAccount } from 'wagmi'
 
 import useEthersSigner, { type Signer } from '@/hooks/useEthersSigner'
+import { IS_PRODUCTION } from '@/runtime/env'
 
 type PassportModule = typeof import('@nl/imx-passport')
 
@@ -29,9 +30,7 @@ async function getPassportSigner(): Promise<JsonRpcSigner> {
 }
 
 export function getNetwork(): Chain {
-  return process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
-    ? immutableZkEvm
-    : immutableZkEvmTestnet
+  return IS_PRODUCTION ? immutableZkEvm : immutableZkEvmTestnet
 }
 
 export function useConnectedToIMXCheck(): boolean {
