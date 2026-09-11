@@ -49,17 +49,17 @@ const sharedInputGroupConsumers = [
 ]
 const sharedInputGroup = 'packages/ui/src/components/base/input-group.tsx'
 const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
-// Neither web nor smashers has a next.config anymore (Astro static / Astro
-// SSR), and the template app was removed.
-const docsConfig = 'apps/docs/docusaurus.config.ts'
+// Neither web, smashers, nor docs has a next.config anymore (Astro static /
+// Astro SSR), and the template app was removed.
+const docsConfig = 'apps/docs/astro.config.mjs'
 const sharedSentryConfig = 'config/with-production-sentry.ts'
 const webManifest = 'apps/web/package.json'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
 const incrementalTypecheckConfigs = [
   'apps/api/tsconfig.json',
-  'apps/docs/tsconfig.json',
-  // apps/web/tsconfig.json is excluded: it extends Astro's strict preset, which
-  // drives astro check without Next-style incremental build info.
+  // apps/web/tsconfig.json and apps/docs/tsconfig.json are excluded: both extend
+  // Astro's strict preset, which drives astro check without Next-style
+  // incremental build info.
   'apps/app/tsconfig.json',
   'apps/smashers/tsconfig.json',
   'packages/contracts/tsconfig.json',
@@ -622,28 +622,22 @@ describe('app performance contracts', () => {
     expect(existsSync(join(process.cwd(), 'apps/smashers/next.config.ts'))).toBe(false)
   })
 
-  it('keeps the faster Docusaurus build on one React runtime', () => {
+  it('keeps the Astro docs build on one React runtime', () => {
+    // docs mirrors web: Bun's isolated layout resolves react/react-dom through
+    // distinct store entries, so the SSR graph is bundled to keep one React.
     const source = readFileSync(docsConfig, 'utf8')
 
-    expect(source).toContain('faster: true')
-    expect(source).toContain("const reactEntry = require.resolve('react')")
-    expect(source).toContain("const reactDomEntry = require.resolve('react-dom')")
-    expect(source).toContain("const mdxReactEntry = require.resolve('@mdx-js/react')")
-    expect(source).toContain('react$: reactEntry')
-    expect(source).toContain("'react-dom$': reactDomEntry")
-    expect(source).toContain("'@mdx-js/react$': mdxReactEntry")
+    expect(source).toContain('ssr: { noExternal: true }')
+    expect(source).toContain('environments: { ssr: { resolve: { noExternal: true } } }')
   })
 
-  it('keeps the faster Docusaurus build on one React runtime', () => {
+  it('keeps the Astro docs build on one React runtime', () => {
+    // docs mirrors web: Bun's isolated layout resolves react/react-dom through
+    // distinct store entries, so the SSR graph is bundled to keep one React.
     const source = readFileSync(docsConfig, 'utf8')
 
-    expect(source).toContain('faster: true')
-    expect(source).toContain("const reactEntry = require.resolve('react')")
-    expect(source).toContain("const reactDomEntry = require.resolve('react-dom')")
-    expect(source).toContain("const mdxReactEntry = require.resolve('@mdx-js/react')")
-    expect(source).toContain('react$: reactEntry')
-    expect(source).toContain("'react-dom$': reactDomEntry")
-    expect(source).toContain("'@mdx-js/react$': mdxReactEntry")
+    expect(source).toContain('ssr: { noExternal: true }')
+    expect(source).toContain('environments: { ssr: { resolve: { noExternal: true } } }')
   })
 
   it('modularizes shared Lucide imports before the app graph is bundled', () => {

@@ -1,0 +1,19 @@
+---
+// Filters Starlight's single sidebar down to the section that owns the current
+// page, reproducing the previous site's per-section navigation.
+import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
+import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
+import { sectionEntries, sectionForId } from '../../lib/navigation';
+
+const { sidebar, entry } = Astro.locals.starlightRoute;
+const scoped = sectionEntries(sidebar, sectionForId(entry.id));
+---
+
+<SidebarPersister>
+	<SidebarSublist sublist={scoped} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+	<MobileMenuFooter />
+</div>

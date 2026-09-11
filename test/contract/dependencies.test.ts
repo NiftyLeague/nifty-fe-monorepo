@@ -134,24 +134,27 @@ if (existsSync(join(APP_ROOT, 'package.json'))) {
 const IMPLICIT_PEER_DEPS = new Set(['react-dom', 'react-dom/client', 'react-dom/server'])
 
 // Framework-provided virtual modules and test-only tooling that resolve without a
-// package.json `dependencies` entry (docusaurus aliases, bun test runner).
+// package.json `dependencies` entry (astro virtual modules, bun test runner).
 const VIRTUAL_AND_TEST_MODULES = new Set([
-  '@docusaurus/BrowserOnly',
-  '@docusaurus/Link',
-  '@docusaurus/Translate',
-  '@docusaurus/useBaseUrl',
-  '@docusaurus/useDocusaurusContext',
-  '@theme-original/SearchBar',
-  '@theme/Heading',
-  '@theme/Layout',
-  '@theme/ThemedImage',
-  '@site/public',
-  '@site/src',
+  // Starlight components and virtual style modules used by the docs app.
+  '@astrojs/starlight/components',
+  '@astrojs/starlight/loaders',
+  '@astrojs/starlight/schema',
+  '@astrojs/starlight/expressive-code',
+  '@astrojs/starlight/types',
+  '@astrojs/starlight/style/layers.css',
+  '@astrojs/starlight/style/props.css',
+  '@astrojs/starlight/style/reset.css',
+  '@astrojs/starlight/style/asides.css',
+  '@astrojs/starlight/style/util.css',
+  '@astrojs/starlight/style/print.css?url&no-inline',
   'astro:middleware',
   'astro:actions',
   '@happy-dom/global-registrator',
   '@testing-library/user-event',
   '@nomicfoundation/hardhat-ethers',
+  'astro:assets',
+  'astro:content',
   'bun:test',
 ])
 
@@ -249,15 +252,11 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     '@tailwindcss/vite': 'shared Tailwind pipeline for the Astro build',
   },
   'apps/docs': {
-    '@docusaurus/core': 'docusaurus framework (config + CLI)',
-    '@docusaurus/faster': 'docusaurus Rspack bundler',
-    '@docusaurus/plugin-google-tag-manager': 'docusaurus plugin configured in docusaurus.config.ts',
-    '@docusaurus/preset-classic': 'docusaurus preset configured in docusaurus.config.ts',
-    '@docusaurus/theme-mermaid': 'docusaurus theme configured in docusaurus.config.ts',
-    '@mdx-js/react': 'MDX provider used by docusaurus themes',
-    algoliasearch: 'docusaurus Algolia DocSearch integration',
-    '@nl/ui': 'shared media primitives imported in docs/*.md and *.mdx markdown',
-    'prism-react-renderer': 'docusaurus theme code highlighting',
+    '@astrojs/starlight': 'Starlight framework (config, loaders, components)',
+    '@docsearch/js': 'Algolia DocSearch modal mounted by the search component',
+    '@nl/ui': 'shared media primitives imported in content/*.mdx and components',
+    mermaid: 'renders mermaid code fences client side',
+    react: 'runtime for the shared @nl/ui components rendered inside MDX content',
   },
   'packages/playfab': {
     'iron-session': 'session cookie sealing for the OAuth flow helpers',
@@ -275,13 +274,13 @@ describe('dead dependency scanner', () => {
       const spec = rootPackageSpecifier(imp)
       if (spec) used.add(spec)
     }
-    // Include config and build-script files (next.config, docusaurus.config,
+    // Include config and build-script files (next.config, astro.config,
     // astro.config, scripts/*.mjs) since deps are used there too.
     const configImports = new Set<string>()
     const referenceFiles = [
       'next.config.ts',
       'next.config.mjs',
-      'docusaurus.config.ts',
+      'astro.config.mjs',
       'astro.config.mjs',
     ]
     const scriptsDir = join(pkg.dir, 'scripts')

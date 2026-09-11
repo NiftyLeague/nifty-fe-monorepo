@@ -1,0 +1,53 @@
+---
+/**
+ * Breadcrumb trail, matching the previous site's breadcrumbs: a home icon
+ * followed by the sidebar groups that contain the current page.
+ *
+ * Starlight has no breadcrumb component, so the trail is derived from the
+ * (section-scoped) sidebar tree.
+ */
+import { Icon } from '@astrojs/starlight/components';
+import { sectionEntries, sectionForId, type SidebarEntry } from '../../lib/navigation';
+
+const { entry, sidebar } = Astro.locals.starlightRoute;
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+/** Walk the sidebar for the group path that contains `href`. */
+function trailFor(entries: SidebarEntry[], href: string): Crumb[] {
+  for (const item of entries) {
+    if (item.type === 'link') {
+      if (item.href.replace(/\/$/, '') === href.replace(/\/$/, '')) return [];
+      continue;
+    }
+    const nested = trailFor(item.entries, href);
+    if (nested) return [{ label: item.label }, ...nested];
+  }
+  return undefined as unknown as Crumb[];
+}
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '');
+const crumbPath = trailFor(sectionEntries(sidebar, sectionForId(entry.id)), currentPath) ?? [];
+---
+
+{
+	crumbPath.length > 0 && (
+		<nav class="breadcrumbs" aria-label="Breadcrumb">
+			<ol>
+				<li>
+					<a href="/docs" aria-label="Home">
+						<Icon name="open-book" size="0.9rem" />
+					</a>
+				</li>
+				{crumbPath.map((crumb, index) => (
+					<li aria-current={index === crumbPath.length - 1 ? 'page' : undefined}>
+						{crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span>{crumb.label}</span>}
+					</li>
+				))}
+			</ol>
+		</nav>
+	)
+}

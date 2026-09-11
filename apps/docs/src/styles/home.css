@@ -1,0 +1,195 @@
+/**
+ * Home page layout primitives, ported from the previous Docusaurus home page CSS
+ * modules (Card, Row, Section, StyledIcon, StyledImage and the page container).
+ * These class names are shared by the components in src/components/home.
+ */
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section {
+  padding: 1rem 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 1rem 0;
+  max-width: 900px;
+}
+
+.row-two {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px;
+}
+
+.row-three {
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 16px;
+}
+
+@media (max-width: 960px) {
+  .row {
+    padding: 1rem;
+    max-width: 100%;
+    margin: 0 1rem;
+  }
+  .row-two,
+  .row-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .row-two,
+  .row-three {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card {
+  background-color: var(--nl-emphasis-100);
+  border-radius: 20px;
+  border: 1px solid var(--nl-emphasis-400);
+  color: var(--sl-color-white);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  background-color: var(--nl-emphasis-200);
+  border: 1px solid var(--nl-emphasis-400);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+  transform: scale(1.01);
+}
+
+@media (max-width: 960px) {
+  .card {
+    width: 100%;
+  }
+}
+
+.shadow-card {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+  min-height: 220px;
+}
+
+.shadow-card:hover {
+  background-color: var(--nl-emphasis-100);
+}
+
+.center-card {
+  min-width: 250px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+}
+
+.wide-card {
+  max-height: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .wide-card {
+    margin: 0;
+    max-height: fit-content;
+    width: fit-content;
+  }
+}
+
+/* Home page headings keep the previous scale, independent of the docs H1. */
+.home-container h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+  margin: 0 0 1rem;
+}
+
+.home-container h4 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--sl-color-white);
+  margin: 0 0 0.75rem;
+}
+
+.home-container p {
+  font-size: 1rem;
+  line-height: 1.65;
+  margin-bottom: 0.5rem;
+}
+
+.home-container a {
+  color: var(--sl-color-text-accent);
+}
+
+/* The quick-link rows use the docs accent for their titles. */
+.home-container .quick-link h4 {
+  color: var(--sl-color-white);
+}
+
+.styled-icon svg {
+  fill: currentColor;
+}
+/* Icons inside cards are flex children; block display avoids inline baseline space. */
+.card svg,
+.card img {
+  display: block;
+}
+
+/* The landing hero sits directly under the navbar; Starlight's panel padding
+   would otherwise push it down. */
+.content-panel:has(.hero-header) {
+  padding-top: 0;
+}
+
+/* Card headings and copy: the previous cards had no bottom margin on the
+   heading inside the link row, and a 0.25rem gap under centred card headings. */
+.card .link-row h4,
+.card .link-row p,
+.card p:last-child {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.card .styled-icon h4 {
+  margin-bottom: 0;
+  margin-left: 16px;
+}
+
+.center-card h4 {
+  margin-bottom: 0.25rem;
+}
+
+.center-card p {
+  margin-bottom: 0;
+}
+
+.quick-link,
+.quick-link h4 {
+  margin-bottom: 0;
+}

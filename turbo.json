@@ -112,8 +112,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
-      "outputs": ["build/**", ".docusaurus/**"]
+      "env": ["PUBLIC_ALGOLIA_API_KEY", "PUBLIC_ALGOLIA_APP_ID"],
+      "outputs": ["dist/**", ".astro/**"]
     },
     "smashers#build": {
       "inputs": [

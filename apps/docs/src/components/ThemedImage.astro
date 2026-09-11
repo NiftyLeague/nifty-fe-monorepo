@@ -1,0 +1,36 @@
+---
+/**
+ * Renders a light/dark image pair like the Docusaurus `ThemedImage` component it
+ * replaces: both images are emitted and CSS reveals the one matching the active
+ * theme, so no JavaScript is needed to switch.
+ */
+interface Props {
+	sources: { light: string; dark: string };
+	alt?: string;
+	class?: string;
+}
+
+const { sources, alt = '', class: className } = Astro.props;
+---
+
+<span class:list={['themed-image', className]}>
+	<img src={sources.light} alt={alt} class="themed-image__light" />
+	<img src={sources.dark} alt={alt} class="themed-image__dark" />
+</span>
+
+<style>
+	.themed-image {
+		display: block;
+	}
+
+	.themed-image__light,
+	.themed-image__dark {
+		display: none;
+	}
+
+	/* Mirrors Docusaurus: the light image is the fallback when no theme is set. */
+	:global(html[data-theme='dark']) .themed-image__dark,
+	:global(html:not([data-theme='dark'])) .themed-image__light {
+		display: block;
+	}
+</style>

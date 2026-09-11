@@ -1,0 +1,137 @@
+---
+// Guide, developer and quick link columns plus the themed mascot image, ported
+// from the previous HomepageGuides component.
+import { GITHUB_LINKS, GUIDE_LINKS, QUICK_LINKS } from '../../lib/links';
+import ArrowUpRight from '../icons/ArrowUpRight.astro';
+import Github from '../icons/Github.astro';
+import ThemedImage from '../ThemedImage.astro';
+---
+
+<section class="section">
+	<div class="row row-two">
+		<div>
+			<h2>Getting Started</h2>
+			<p>
+				Explore these docs to learn about our platform and find guides to start playing our games:
+			</p>
+			{
+				GUIDE_LINKS.map(({ title, text, to }) => (
+					<a class="card-link" href={to}>
+						<div class="card guide-card">
+							<div class="link-row">
+								<h4>{title}</h4>
+								<ArrowUpRight />
+							</div>
+							<p>{text}</p>
+						</div>
+					</a>
+				))
+			}
+		</div>
+		<div>
+			<h2>Developer Links</h2>
+			<p>
+				Our codebase is comprised of both open-source and proprietary software. View our public code
+				below:
+			</p>
+			{
+				GITHUB_LINKS.map(({ title, to }) => (
+					<a class="card-link" href={to} target="_blank" rel="noopener noreferrer">
+						<div class="card github-card">
+							<div class="link-row">
+								<span class="styled-icon">
+									<Github />
+									<h4>{title}</h4>
+								</span>
+								<ArrowUpRight />
+							</div>
+						</div>
+					</a>
+				))
+			}
+		</div>
+		<ThemedImage
+			class="themed-mascot"
+			sources={{
+				light: '/docs/img/misc/frog_400.webp',
+				dark: '/docs/img/misc/smash_400.webp',
+			}}
+		/>
+		<div>
+			<h2>Quick Links</h2>
+			{
+				QUICK_LINKS.map(({ title, to }) => (
+					<a class="quick-link" href={to}>
+						<h4>{title}</h4>
+						<ArrowUpRight />
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.guide-card {
+		margin-bottom: 1rem;
+	}
+
+	.github-card {
+		margin-bottom: 0.94rem;
+	}
+
+	.link-row {
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		display: flex;
+		flex-direction: row;
+	}
+
+	.card h4 {
+		margin-bottom: 0;
+	}
+
+	.card .link-row p {
+		margin-bottom: 0;
+	}
+
+	.styled-icon {
+		display: flex;
+		align-items: center;
+	}
+
+	.styled-icon :global(svg) {
+		fill: var(--sl-color-white);
+	}
+
+	.styled-icon h4 {
+		margin-bottom: 0;
+		margin-left: 16px;
+	}
+
+	.themed-mascot {
+		position: relative;
+		z-index: -1;
+		width: 100%;
+		max-height: 400px;
+		margin-top: auto;
+	}
+
+	.themed-mascot :global(img) {
+		width: 100%;
+		max-height: 400px;
+		object-fit: cover;
+	}
+
+	.quick-link {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 0.5rem;
+		text-decoration: none;
+	}
+
+	.quick-link h4 {
+		margin-bottom: 0;
+	}
+</style>

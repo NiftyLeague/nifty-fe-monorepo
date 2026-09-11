@@ -1,10 +1,17 @@
 {
-  "extends": "@nl/typescript-config/react-library.json",
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "incremental": true,
-    "jsx": "preserve",
-    "paths": { "@site/*": ["./*"] }
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "verbatimModuleSyntax": false,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@nl/ui/*": ["../../packages/ui/src/*"]
+    }
   },
-  "include": ["src", "docusaurus.config.ts", "sidebars.ts"],
-  "exclude": ["node_modules", "build", ".docusaurus", "src/**/*.test.ts", "src/**/*.test.tsx"]
+  "include": [".astro/types.d.ts", "src/**/*", "astro.config.mjs"],
+  "exclude": ["node_modules", "dist", ".astro", "**/*.test.ts", "**/*.test.tsx"]
 }

@@ -1,24 +1,24 @@
 import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 
-const docsPage = 'apps/docs/docs/overview/nfts/degens/about.md'
+const docsPage = 'apps/docs/src/content/docs/overview/nfts/degens/about.mdx'
 const docsMediaPages = [
-  'apps/docs/docs/overview/games/mini-games/arcade-tokens.md',
-  'apps/docs/docs/overview/games/mini-games/crypto-winter.md',
-  'apps/docs/docs/overview/games/mini-games/wen-game.md',
-  'apps/docs/docs/overview/games/niftyworld/niftyworld.mdx',
-  'apps/docs/docs/overview/games/overview.md',
-  'apps/docs/docs/overview/games/mobile-games/nifty-royale.md',
-  'apps/docs/docs/overview/games/mobile-games/nifty-smashers.md',
-  'apps/docs/docs/overview/nfts/nifty-marketplace/items.md',
-  'apps/docs/docs/overview/nfts/nifty-marketplace/comics.md',
+  'apps/docs/src/content/docs/overview/games/mini-games/arcade-tokens.mdx',
+  'apps/docs/src/content/docs/overview/games/mini-games/crypto-winter.mdx',
+  'apps/docs/src/content/docs/overview/games/mini-games/wen-game.mdx',
+  'apps/docs/src/content/docs/overview/games/niftyworld/index.mdx',
+  'apps/docs/src/content/docs/overview/games/games-overview.mdx',
+  'apps/docs/src/content/docs/overview/games/mobile-games/nifty-royale.mdx',
+  'apps/docs/src/content/docs/overview/games/mobile-games/nifty-smashers.mdx',
+  'apps/docs/src/content/docs/overview/nfts/nifty-marketplace/items.mdx',
+  'apps/docs/src/content/docs/overview/nfts/nifty-marketplace/comics.mdx',
   docsPage,
 ]
 
 const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
 const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
 const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
-const roadmapPage = 'apps/docs/docs/overview/roadmap.md'
+const roadmapPage = 'apps/docs/src/content/docs/overview/roadmap.md'
 const roadmapPoster = 'assets/img/roadmap/nifty_roadmap.webp'
 
 describe('shared docs media policy', () => {

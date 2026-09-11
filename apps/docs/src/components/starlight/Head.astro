@@ -1,0 +1,25 @@
+---
+// Extends Starlight's head with the tags the previous site emitted: an OpenSearch
+// descriptor, the social card, and the Algolia DocSearch compat meta tags.
+const { head } = Astro.locals.starlightRoute;
+const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
+---
+
+{
+	head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)
+}
+
+<link
+	rel="search"
+	type="application/opensearchdescription+xml"
+	title="Nifty League Docs"
+	href="/docs/opensearch.xml"
+/>
+<link rel="canonical" href={new URL(Astro.url.pathname, site).href} />
+<meta property="og:url" content={new URL(Astro.url.pathname, site).href} />
+<meta property="og:image" content={`${site}docs/img/misc/twitter_card_bg.webp`} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={`${site}docs/img/misc/twitter_card_bg.webp`} />
+<meta name="docsearch:language" content="en" />
+<meta name="docsearch:version" content="current" />
+<meta name="docsearch:docusaurus_tag" content="docs-default-current" />

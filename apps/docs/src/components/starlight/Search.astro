@@ -1,0 +1,146 @@
+---
+// Swaps Starlight's Pagefind dialog for Algolia DocSearch, matching the previous
+// site's search experience (same app id, key and `docs` index).
+import { Icon } from '@astrojs/starlight/components';
+---
+
+<site-search>
+	<button
+		data-open-modal
+		disabled
+		aria-label={Astro.locals.t('search.label')}
+		aria-keyshortcuts="Control+K"
+	>
+		<Icon name="magnifier" />
+		<span class="sl-hidden md:sl-block" aria-hidden="true">{Astro.locals.t('search.label')}</span>
+		<kbd class="sl-hidden md:sl-flex" style="display: none;">
+			<kbd>{Astro.locals.t('search.ctrlKey')}</kbd><kbd>K</kbd>
+		</kbd>
+	</button>
+
+	<dialog style="padding:0" aria-label={Astro.locals.t('search.label')}>
+		<div class="dialog-frame sl-flex">
+			<button data-close-modal class="sl-flex md:sl-hidden">
+				{Astro.locals.t('search.cancelLabel')}
+			</button>
+			<div id="starlight__search"></div>
+		</div>
+	</dialog>
+</site-search>
+
+<script is:inline>
+	(() => {
+		const openBtn = document.querySelector('button[data-open-modal]');
+		const shortcut = openBtn?.querySelector('kbd');
+		if (!openBtn || !(shortcut instanceof HTMLElement)) return;
+		const platformKey = shortcut.querySelector('kbd');
+		if (platformKey && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
+			platformKey.textContent = '⌘';
+			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
+		}
+		shortcut.style.display = '';
+	})();
+</script>
+
+<script>
+	class SiteSearch extends HTMLElement {
+		constructor() {
+			super();
+			const openBtn = this.querySelector<HTMLButtonElement>('button[data-open-modal]')!;
+			const closeBtn = this.querySelector<HTMLButtonElement>('button[data-close-modal]')!;
+			const dialog = this.querySelector('dialog')!;
+			const dialogFrame = this.querySelector('.dialog-frame')!;
+
+			const onClick = (event: MouseEvent) => {
+				const isLink = 'href' in (event.target || {});
+				if (
+					isLink ||
+					(document.body.contains(event.target as Node) &&
+						!dialogFrame.contains(event.target as Node))
+				) {
+					closeModal();
+				}
+			};
+
+			const openModal = (event?: MouseEvent) => {
+				dialog.showModal();
+				document.body.toggleAttribute('data-search-modal-open', true);
+				// DocSearch mounts its own input inside the dialog; focus whichever is
+				// present so keyboard users land in the search field.
+				const input =
+					this.querySelector<HTMLInputElement>('input') ??
+					document.querySelector<HTMLInputElement>('.DocSearch-Input');
+				input?.focus();
+				event?.stopPropagation();
+				window.addEventListener('click', onClick);
+			};
+
+			const closeModal = () => dialog.close();
+
+			openBtn.addEventListener('click', openModal);
+			openBtn.disabled = false;
+			closeBtn.addEventListener('click', closeModal);
+			dialog.addEventListener('close', () => {
+				document.body.removeAttribute('data-search-modal-open');
+				window.removeEventListener('click', onClick);
+			});
+
+			// Ctrl/Cmd+K opens the dialog, matching the previous navbar shortcut.
+			window.addEventListener('keydown', (event) => {
+				if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+					event.preventDefault();
+					openModal();
+				}
+			});
+		}
+	}
+
+	if (!customElements.get('site-search')) customElements.define('site-search', SiteSearch);
+
+	// DocSearch drives one modal instance; Starlight's dialog wraps it so the
+	// trigger and keyboard shortcut behave consistently.
+	const searchRoot = document.querySelector('#starlight__search');
+	if (searchRoot) {
+		import('@docsearch/js/docsearch')
+			.then(({ default: docsearch }) => {
+				docsearch({
+					container: searchRoot as HTMLElement,
+					appId: import.meta.env.PUBLIC_ALGOLIA_APP_ID ?? 'QHFGNYFTED',
+					apiKey: import.meta.env.PUBLIC_ALGOLIA_API_KEY ?? 'a279745db091a62dd51ec3212d11a5d0',
+					indices: ['docs'],
+				});
+			})
+			.catch(() => {
+				/* search is an enhancement: a failed load must not break the page */
+			});
+	}
+</script>
+
+<style>
+	@layer starlight.core {
+		:global(body[data-search-modal-open]) {
+			overflow: hidden;
+		}
+
+
+
+
+
+		dialog {
+			margin: 0 auto;
+			border: 0;
+			background: transparent;
+			max-width: 100%;
+			width: 100%;
+		}
+
+		dialog::backdrop {
+			background-color: var(--docsearch-container-background, rgba(47, 55, 69, 0.7));
+		}
+
+		.dialog-frame {
+			flex-direction: column;
+			align-items: center;
+		}
+	}
+</style>

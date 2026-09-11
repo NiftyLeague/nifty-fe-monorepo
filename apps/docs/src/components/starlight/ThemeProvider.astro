@@ -1,0 +1,31 @@
+---
+/**
+ * Sets the colour theme before first paint.
+ *
+ * The previous site shipped `defaultMode: 'dark'` with
+ * `respectPrefersColorScheme: false`, so dark is the default for every visitor
+ * and a stored choice only takes effect after they toggle it. Starlight's own
+ * provider follows the OS preference instead, so this override pins the default
+ * to dark while keeping the same localStorage key.
+ */
+---
+
+{/* Inlined to avoid a flash of the wrong theme. */}
+<script is:inline>
+	window.StarlightThemeProvider = (() => {
+		const storageKey = 'starlight-theme';
+		let storedTheme = null;
+		try {
+			storedTheme = localStorage.getItem(storageKey);
+		} catch {
+			/* storage can be unavailable in privacy modes */
+		}
+		const isDark = storedTheme !== 'light';
+		document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+		return {
+			updatePickers() {
+				/* the theme toggle renders its own icon based on the active theme */
+			},
+		};
+	})();
+</script>

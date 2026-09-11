@@ -1,0 +1,93 @@
+---
+// Social cards and Twitch stream banner, ported from the previous
+// HomepageSocials component.
+import { SOCIALS } from '../../lib/links';
+import Discord from '../icons/Discord.astro';
+import Twitter from '../icons/Twitter.astro';
+import Github from '../icons/Github.astro';
+
+---
+
+<section class="section">
+	<div class="row row-three">
+		{
+			SOCIALS.map(({ icon, label, text, href }) => (
+				<a class="card-link" href={href}>
+					<div class="card center-card">
+						<span class="styled-icon">
+							{icon === 'discord' && <Discord />}
+							{icon === 'twitter' && <Twitter />}
+							{icon === 'github' && <Github />}
+						</span>
+						<div>
+							<h4>{label}</h4>
+							<p>{text}</p>
+						</div>
+					</div>
+				</a>
+			))
+		}
+	</div>
+	<div class="row">
+		<a
+			class="card-link stream-link"
+			href="https://www.twitch.tv/NiftyLeagueOfficial"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			<div class="card shadow-card wide-card">
+				<img
+					src="/docs/img/misc/twitch-stream.webp"
+					alt="Nifty League Twitch stream"
+					width="120"
+					height="160"
+					loading="lazy"
+					decoding="async"
+				/>
+				<div>
+					<h2>Nifty League Twitch Streamers</h2>
+					<p>
+						Checkout our official Twitch channel for latest gameplay footage and live streams. If
+						you are a streamer and want to help manage the Nifty League Official Twitch channel
+						please reach out to our team on Discord!
+					</p>
+				</div>
+			</div>
+		</a>
+	</div>
+</section>
+
+<style>
+	.styled-icon {
+		display: flex;
+		align-items: center;
+	}
+
+	.styled-icon :global(svg) {
+		width: 48px;
+		height: 48px;
+		fill: var(--sl-color-white);
+	}
+
+	.center-card h4 {
+		margin-bottom: 0.25rem;
+	}
+
+	.center-card p {
+		margin-bottom: 0;
+	}
+
+	.stream-link {
+		max-width: 960px;
+		margin: 0 auto 4rem auto;
+		width: 100%;
+	}
+
+	.wide-card h2 {
+		margin-bottom: 0.5rem;
+	}
+
+	.wide-card p {
+		margin: 0;
+	}
+</style>

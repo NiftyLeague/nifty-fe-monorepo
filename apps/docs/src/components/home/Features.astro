@@ -1,0 +1,63 @@
+---
+// Feature cards, ported from the previous HomepageFeatures component.
+import { FEATURES } from '../../lib/links';
+import ArrowUpRight from '../icons/ArrowUpRight.astro';
+import CodeXml from '../icons/CodeXml.astro';
+---
+
+<section class="section">
+	<div class="row row-three">
+		{
+			FEATURES.map(({ title, icon, to, text }) => (
+				<a class="card-link" href={to}>
+					<div class="card shadow-card">
+						<div class="card-top">
+							<div class="icon-wrapper">
+								<span class="styled-icon">
+									{icon === 'logo' && (
+										<img src="/docs/img/logos/NL/logo.svg" alt="" width="24" height="24" />
+									)}
+									{icon === 'nftl' && (
+										<img src="/docs/img/logos/NFTL/logo.svg" alt="" width="24" height="24" />
+									)}
+									{icon === 'code' && <CodeXml />}
+								</span>
+							</div>
+							<ArrowUpRight />
+						</div>
+						<h4>{title}</h4>
+						<p>{text}</p>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.card-top {
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		display: flex;
+		flex-direction: row;
+		margin-bottom: 1rem;
+	}
+
+	.icon-wrapper {
+		width: 32px;
+		height: 32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 4px;
+	}
+
+	.card h4 {
+		margin-bottom: 0.75rem;
+	}
+
+	.card p {
+		margin-bottom: 0.5rem;
+	}
+</style>

@@ -1,0 +1,35 @@
+---
+// Keeps the historical /docs/search URL alive. The previous site rendered a
+// search page here; search is now the Algolia DocSearch dialog, so this page
+// presents the same heading and opens the dialog for the visitor.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightPage frontmatter={{ title: 'Search the documentation' }}>
+	<p>Use the search dialog to find documentation by keyword.</p>
+	<p>
+		<button type="button" data-open-search class="search-page-button">Open search</button>
+	</p>
+</StarlightPage>
+
+<script>
+	document.querySelector('[data-open-search]')?.addEventListener('click', () => {
+		document.querySelector<HTMLButtonElement>('site-search button[data-open-modal]')?.click();
+	});
+</script>
+
+<style>
+	.search-page-button {
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.45rem;
+		background-color: var(--nl-emphasis-100);
+		padding: 0.75rem 1.5rem;
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-body);
+		cursor: pointer;
+	}
+
+	.search-page-button:hover {
+		background-color: var(--nl-emphasis-200);
+	}
+</style>
