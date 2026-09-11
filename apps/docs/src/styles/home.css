@@ -148,6 +148,13 @@
   line-height: 1.65;
 }
 
+/* The page is `.not-content`, so it opts out of Starlight's paragraph spacing
+   and the reset leaves none; the column intro paragraphs carried Infima's
+   1.5rem bottom margin on the previous home page. */
+.home-container .row > div > p {
+  margin-bottom: 1.5rem;
+}
+
 /* Section-level headings keep the previous 1rem gap below them. */
 .home-container > section > .row > div > h2 {
   margin-bottom: 1rem;
