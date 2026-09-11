@@ -138,10 +138,22 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 			height: 0.75em;
 		}
 
-		/* The previous navbar collapsed its links on narrow viewports. */
-		@media (max-width: 80rem) {
-			.nav-links,
+		/* The previous navbar thinned in two steps rather than dropping everything
+		    at once: the trailing external links went first (1280px), then the
+		    section links and the theme toggle (996px). Matching those queries keeps
+		    the same links visible at the same widths. */
+		@media (max-width: 1280px) {
 			.external-links {
+				display: none;
+			}
+		}
+
+		@media (max-width: 996px) {
+			.nav-links {
+				display: none;
+			}
+
+			:global(starlight-theme-toggle) {
 				display: none;
 			}
 		}

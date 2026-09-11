@@ -155,12 +155,12 @@ html[data-theme='light'] {
 
 /* ------------------------------------------------------------ markdown body -- */
 
-.sl-markdown-content {
+.sl-markdown-content:not(:where(.not-content *)) {
   font-size: 1rem;
   line-height: 1.65;
 }
 
-.sl-markdown-content :is(h1, h2, h3, h4, h5, h6),
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)),
 h1#_top {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 700;
@@ -174,27 +174,27 @@ h1#_top {
   margin-bottom: 1.5625rem;
 }
 
-.sl-markdown-content h2 {
+.sl-markdown-content h2:not(:where(.not-content *)) {
   font-size: 2rem;
   margin-top: 2.5rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content h3 {
+.sl-markdown-content h3:not(:where(.not-content *)) {
   font-size: 1.5rem;
   margin-top: 1.875rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content h4 {
+.sl-markdown-content h4:not(:where(.not-content *)) {
   font-size: 1.25rem;
 }
 
-.sl-markdown-content h5 {
+.sl-markdown-content h5:not(:where(.not-content *)) {
   font-size: 1.125rem;
 }
 
-.sl-markdown-content h6 {
+.sl-markdown-content h6:not(:where(.not-content *)) {
   font-size: 1rem;
 }
 
@@ -206,47 +206,47 @@ h1#_top {
  * and margins on the wrapper itself, and zero the inner heading so margins
  * collapse between siblings exactly as they did before.
  */
-.sl-markdown-content .sl-heading-wrapper {
+.sl-markdown-content .sl-heading-wrapper:not(:where(.not-content *)) {
   line-height: 1.25;
 }
 
-.sl-markdown-content .sl-heading-wrapper.level-h1 {
+.sl-markdown-content .sl-heading-wrapper.level-h1:not(:where(.not-content *)) {
   font-size: 3rem;
   margin-top: 0;
   margin-bottom: 1.5625rem;
 }
 
-.sl-markdown-content .sl-heading-wrapper.level-h2 {
+.sl-markdown-content .sl-heading-wrapper.level-h2:not(:where(.not-content *)) {
   font-size: 2rem;
   margin-top: 2.5rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content .sl-heading-wrapper.level-h3 {
+.sl-markdown-content .sl-heading-wrapper.level-h3:not(:where(.not-content *)) {
   font-size: 1.5rem;
   margin-top: 1.875rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content .sl-heading-wrapper.level-h4 {
+.sl-markdown-content .sl-heading-wrapper.level-h4:not(:where(.not-content *)) {
   font-size: 1.25rem;
   margin-top: 1.5625rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content .sl-heading-wrapper.level-h5 {
+.sl-markdown-content .sl-heading-wrapper.level-h5:not(:where(.not-content *)) {
   font-size: 1.125rem;
   margin-top: 1.5rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content .sl-heading-wrapper.level-h6 {
+.sl-markdown-content .sl-heading-wrapper.level-h6:not(:where(.not-content *)) {
   font-size: 1rem;
   margin-top: 1.5rem;
   margin-bottom: 1.25rem;
 }
 
-.sl-markdown-content .sl-heading-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+.sl-markdown-content .sl-heading-wrapper > :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
   font-size: inherit;
   margin-top: 0;
   margin-bottom: 0;
@@ -290,77 +290,77 @@ h1#_top {
     font-size: 1.25rem;
   }
 
-  .sl-markdown-content .sl-heading-wrapper.level-h1 {
+  .sl-markdown-content .sl-heading-wrapper.level-h1:not(:where(.not-content *)) {
     font-size: 2rem;
   }
 
-  .sl-markdown-content .sl-heading-wrapper.level-h2 {
+  .sl-markdown-content .sl-heading-wrapper.level-h2:not(:where(.not-content *)) {
     font-size: 1.5rem;
   }
 
-  .sl-markdown-content .sl-heading-wrapper.level-h3 {
+  .sl-markdown-content .sl-heading-wrapper.level-h3:not(:where(.not-content *)) {
     font-size: 1.25rem;
   }
 }
 
-.sl-markdown-content .sl-anchor-link {
+.sl-markdown-content .sl-anchor-link:not(:where(.not-content *)) {
   line-height: 1;
 }
 
-.sl-markdown-content p {
+.sl-markdown-content p:not(:where(.not-content *)) {
   margin-top: 0;
   margin-bottom: 1.25rem;
   line-height: 1.65;
 }
 
-.sl-markdown-content ul,
-.sl-markdown-content ol {
+.sl-markdown-content ul:not(:where(.not-content *)),
+.sl-markdown-content ol:not(:where(.not-content *)) {
   padding-inline-start: 2rem;
   margin-top: 0;
   margin-bottom: 1.25rem;
   list-style-position: outside;
 }
 
-.sl-markdown-content ul {
+.sl-markdown-content ul:not(:where(.not-content *)) {
   list-style-type: disc;
 }
 
-.sl-markdown-content li {
+.sl-markdown-content li:not(:where(.not-content *)) {
   line-height: 1.65;
   margin-top: 0;
   margin-bottom: 0;
 }
 
 /* The previous theme set `--ifm-list-item-margin: 0.5rem`. */
-.sl-markdown-content li + li {
+.sl-markdown-content li + li:not(:where(.not-content *)) {
   margin-top: 0.5rem;
 }
 
-.sl-markdown-content li > ul,
-.sl-markdown-content li > ol {
+.sl-markdown-content li > ul:not(:where(.not-content *)),
+.sl-markdown-content li > ol:not(:where(.not-content *)) {
   margin-top: 0.5rem;
 }
 
-.sl-markdown-content a {
+.sl-markdown-content a:not(:where(.not-content *)) {
   color: var(--sl-color-text-accent);
   text-decoration: none;
 }
 
-.sl-markdown-content a:hover {
+.sl-markdown-content a:hover:not(:where(.not-content *)) {
   text-decoration: underline;
 }
 
-.sl-markdown-content strong {
+.sl-markdown-content strong:not(:where(.not-content *)) {
   font-weight: 700;
 }
 
-.sl-markdown-content hr {
+.sl-markdown-content hr:not(:where(.not-content *)) {
   margin: 1.5rem 0;
   border: 0;
   border-top: 1px solid var(--nl-hairline);
 }
 
-.sl-markdown-content img {
+.sl-markdown-content img:not(:where(.not-content *)) {
   max-width: 100%;
 }
 
@@ -371,7 +371,7 @@ h1#_top {
 }
 
 /* Inline code keeps the previous light chip look. */
-.sl-markdown-content :not(pre) > code {
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
   font-size: 0.95em;
   background-color: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -404,7 +404,7 @@ h1#_top {
 /* Scoped to the markdown body so these win over the generic `.sl-markdown-content p`
    rule above (both are unlayered, so specificity decides). The heading typography
    and icon metrics come from the previous Infima admonition styles. */
-.sl-markdown-content .starlight-aside__title {
+.sl-markdown-content .starlight-aside__title:not(:where(.not-content *)) {
   display: block;
   font-size: 1.125rem;
   font-weight: 700;
@@ -414,7 +414,7 @@ h1#_top {
   margin: 0 0 0.3rem;
 }
 
-.sl-markdown-content .starlight-aside__title .starlight-aside__icon {
+.sl-markdown-content .starlight-aside__title .starlight-aside__icon:not(:where(.not-content *)) {
   display: inline-block;
   /* 1.6em of the 1.125rem title, i.e. the previous icon size. The element's own
      font-size differs, so express it in rem instead of em. Sitting on the text
@@ -427,11 +427,14 @@ h1#_top {
 
 /* The previous content block had no top margin and no bottom margin on its
    final paragraph. */
-.sl-markdown-content .starlight-aside > .starlight-aside__content {
+.sl-markdown-content .starlight-aside > .starlight-aside__content:not(:where(.not-content *)) {
   margin-top: 0;
 }
 
-.sl-markdown-content .starlight-aside .starlight-aside__content > :last-child {
+.sl-markdown-content
+  .starlight-aside
+  .starlight-aside__content
+  > :last-child:not(:where(.not-content *)) {
   margin-bottom: 0;
 }
 
@@ -462,7 +465,7 @@ h1#_top {
 /* Collapsible `details` blocks (used throughout the FAQ). The previous theme
    used the browser's native disclosure triangle, so restore that instead of
    Starlight's inline SVG marker, which wraps long summaries onto two lines. */
-.sl-markdown-content details {
+.sl-markdown-content details:not(:where(.not-content *)) {
   margin: 0 0 1rem;
   border: 1px solid #4cb3d4;
   border-radius: 0.4rem;
@@ -476,7 +479,7 @@ h1#_top {
  * rather than using the native marker, so reproduce that: no list marker, a
  * positioned `::before`, and `break-word` wrapping to match its line breaking.
  */
-.sl-markdown-content details > summary {
+.sl-markdown-content details > summary:not(:where(.not-content *)) {
   position: relative;
   display: block;
   list-style: none;
@@ -488,11 +491,11 @@ h1#_top {
   overflow-wrap: break-word;
 }
 
-.sl-markdown-content details > summary::-webkit-details-marker {
+.sl-markdown-content details > summary:not(:where(.not-content *))::-webkit-details-marker {
   display: none;
 }
 
-.sl-markdown-content details > summary::before {
+.sl-markdown-content details > summary:not(:where(.not-content *))::before {
   content: '';
   position: absolute;
   top: 0.45rem;
@@ -507,11 +510,11 @@ h1#_top {
   transform-origin: calc(0.38rem / 2) 50%;
 }
 
-.sl-markdown-content details[open] > summary::before {
+.sl-markdown-content details[open] > summary:not(:where(.not-content *))::before {
   transform: rotate(90deg);
 }
 
-.sl-markdown-content details[open] > summary {
+.sl-markdown-content details[open] > summary:not(:where(.not-content *)) {
   margin-bottom: 1rem;
 }
 
@@ -530,25 +533,25 @@ h1#_top {
 
 /* ------------------------------------------------------------------ tables -- */
 
-.sl-markdown-content table {
+.sl-markdown-content table:not(:where(.not-content *)) {
   display: table;
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
 }
 
-.sl-markdown-content th,
-.sl-markdown-content td {
+.sl-markdown-content th:not(:where(.not-content *)),
+.sl-markdown-content td:not(:where(.not-content *)) {
   border: 1px solid var(--nl-emphasis-400);
   padding: 1rem;
   text-align: start;
 }
 
-.sl-markdown-content th {
+.sl-markdown-content th:not(:where(.not-content *)) {
   font-weight: 700;
 }
 
-.sl-markdown-content tbody tr:nth-child(2n) {
+.sl-markdown-content tbody tr:nth-child(2n):not(:where(.not-content *)) {
   background-color: var(--nl-emphasis-100);
 }
 
@@ -957,13 +960,6 @@ site-search kbd kbd,
   color: var(--sl-color-gray-2);
 }
 
-/* The landing hero paragraph keeps the previous margins, which the generic
-   markdown rule would otherwise override. */
-.sl-markdown-content p.hero-lede {
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-}
-
 .DocSearch {
   --docsearch-primary-color: var(--sl-color-accent);
   --docsearch-container-background: rgba(47, 55, 69, 0.7);
@@ -994,10 +990,10 @@ site-search kbd kbd,
 
 /* -------------------------------------------------------------- 404 / misc -- */
 
-.sl-markdown-content .mermaid-container {
+.sl-markdown-content .mermaid-container:not(:where(.not-content *)) {
   margin: 1.5rem 0;
 }
 
-.sl-markdown-content .mermaid-container svg {
+.sl-markdown-content .mermaid-container svg:not(:where(.not-content *)) {
   max-width: 100%;
 }

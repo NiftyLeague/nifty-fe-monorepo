@@ -45,7 +45,6 @@ export default defineConfig({
     starlight({
       title: 'Nifty League Docs',
       description: 'Documentation & Guides For Nifty League',
-      favicon: '/favicon/nl_purple/favicon.ico',
       customCss: ['./src/styles/theme.css'],
       pagefind: false,
       credits: false,

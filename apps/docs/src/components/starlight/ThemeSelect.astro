@@ -6,9 +6,12 @@ import { Icon } from '@astrojs/starlight/components';
 ---
 
 <starlight-theme-toggle>
+	{/* One icon per theme, toggled by explicit rules. Starlight only generates the
+	    variant utilities it uses itself (the `-hidden` ones), so `dark:sl-block`
+	    does not resolve and both icons would stay hidden. */}
 	<button type="button" class="theme-toggle" aria-label="Toggle dark mode">
-		<span class="sl-hidden dark:sl-block"><Icon name="moon" /></span>
-		<span class="sl-block dark:sl-hidden"><Icon name="sun" /></span>
+		<span class="theme-icon theme-icon--moon"><Icon name="moon" /></span>
+		<span class="theme-icon theme-icon--sun"><Icon name="sun" /></span>
 	</button>
 </starlight-theme-toggle>
 
@@ -59,6 +62,10 @@ import { Icon } from '@astrojs/starlight/components';
 		.theme-toggle {
 			display: flex;
 			align-items: center;
+			justify-content: center;
+			/* The previous site's toggle was a 2.25rem icon button. */
+			width: 2.25rem;
+			height: 2.25rem;
 			border: 0;
 			background: transparent;
 			color: var(--sl-color-gray-2);
@@ -71,8 +78,19 @@ import { Icon } from '@astrojs/starlight/components';
 		}
 
 		.theme-toggle svg {
-			width: 1.4rem;
-			height: 1.4rem;
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+
+		.theme-icon {
+			display: none;
+			align-items: center;
+		}
+
+		/* Dark is the default theme, so an unset `data-theme` counts as dark too. */
+		:global(html[data-theme='dark']) .theme-icon--moon,
+		:global(html:not([data-theme='dark'])) .theme-icon--sun {
+			display: flex;
 		}
 	}
 </style>

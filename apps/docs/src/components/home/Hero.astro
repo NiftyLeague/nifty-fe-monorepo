@@ -19,8 +19,11 @@ const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
 			<SearchTrigger />
 		</div>
 	</div>
-	<img class="hero-title-image dark:sl-block sl-hidden" src={darkImage} alt="Header Background Image" />
-	<img class="hero-title-image dark:sl-hidden sl-block" src={lightImage} alt="Header Background Image" />
+	{/* Theme-conditional artwork. Starlight only generates the variant utilities it
+	    uses itself (the `-hidden` ones), so `dark:sl-block` would not resolve and
+	    both images would stay hidden; these use explicit theme rules instead. */}
+	<img class="hero-title-image hero-title-image--dark" src={darkImage} alt="Header Background Image" />
+	<img class="hero-title-image hero-title-image--light" src={lightImage} alt="Header Background Image" />
 </header>
 
 <style>
@@ -63,7 +66,7 @@ const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
 	.hero-lede {
 		max-width: 550px;
 		margin-top: 1rem;
-		margin-bottom: 1rem;
+		margin-bottom: 1.5rem;
 		font-weight: 500;
 		line-height: 1.65;
 	}
@@ -74,6 +77,16 @@ const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
 
 	.hero-search {
 		margin-top: 0.5rem;
+	}
+
+	.hero-title-image--dark,
+	.hero-title-image--light {
+		display: none;
+	}
+
+	:global(html[data-theme='dark']) .hero-title-image--dark,
+	:global(html:not([data-theme='dark'])) .hero-title-image--light {
+		display: block;
 	}
 
 	.hero-title-image {

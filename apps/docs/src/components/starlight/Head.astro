@@ -10,7 +10,12 @@ const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 ---
 
 {
-	head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)
+	/* Starlight always contributes a favicon tag; the docs ship the same icon set
+	   as apps/web instead, declared below, so drop the generated one to avoid a
+	   duplicate `shortcut icon` and a request for a file that is not served. */
+	head
+		.filter(({ attrs }) => attrs?.rel !== 'shortcut icon')
+		.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)
 }
 
 <link
@@ -19,6 +24,11 @@ const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 	title="Nifty League Docs"
 	href="/docs/opensearch.xml"
 />
+{/* The same icon set apps/web ships, under the /docs base. */}
+<link rel="icon" href="/docs/favicon/nl_purple/favicon.ico" />
+<link rel="apple-touch-icon" href="/docs/favicon/nl_purple/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/docs/favicon/nl_purple/android-chrome-192x192.png" />
+<meta name="theme-color" content="#18181b" />
 <link rel="canonical" href={new URL(Astro.url.pathname, site).href} />
 <meta property="og:url" content={new URL(Astro.url.pathname, site).href} />
 <meta property="og:image" content={`${site}docs/img/misc/twitter_card_bg.webp`} />
