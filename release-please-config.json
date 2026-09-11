@@ -63,10 +63,6 @@
       "release-type": "node",
       "package-name": "smashers"
     },
-    "apps/template": {
-      "release-type": "node",
-      "package-name": "template"
-    },
     "apps/web": {
       "release-type": "node",
       "package-name": "web"

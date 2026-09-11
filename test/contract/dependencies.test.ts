@@ -198,7 +198,7 @@ describe('dependency contract', () => {
   it('keeps Next.js on one exact version across apps and shared peers', () => {
     const expectedNextVersion = '16.3.4'
     // web is excluded: it ships as Astro static (no Next dependency).
-    const packagesWithNext = new Set(['app', 'smashers', 'template', '@nl/playfab', '@nl/ui'])
+    const packagesWithNext = new Set(['app', 'smashers', '@nl/playfab', '@nl/ui'])
 
     for (const pkg of packages) {
       if (!packagesWithNext.has(pkg.name)) continue
@@ -212,7 +212,7 @@ describe('dependency contract', () => {
 
   it('declares the shared PostCSS plugin at every consuming app boundary', () => {
     // web is excluded: it styles through @tailwindcss/vite (no postcss config).
-    for (const appName of ['app', 'smashers', 'template']) {
+    for (const appName of ['app', 'smashers']) {
       const pkg = packages.find((candidate) => candidate.name === appName)
 
       expect(

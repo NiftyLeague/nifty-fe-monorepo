@@ -170,28 +170,6 @@
       ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
-    "template#build": {
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "../../packages/ui/src/**",
-        "../../packages/ui/package.json",
-        ".env*",
-        "!.env.example",
-        "!**/README.md",
-        "!**/CHANGELOG.md",
-        "!**/*.test.*",
-        "!**/*.spec.*",
-        "!**/*.stories.*",
-        "!**/*.story.*",
-        "!**/__tests__/**",
-        "!../../packages/ui/src/**/*.test.*",
-        "!../../packages/ui/src/**/*.spec.*",
-        "!../../packages/ui/src/**/*.stories.*",
-        "!../../packages/ui/src/**/*.story.*",
-        "!../../packages/ui/src/**/__tests__/**"
-      ],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
-    },
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
