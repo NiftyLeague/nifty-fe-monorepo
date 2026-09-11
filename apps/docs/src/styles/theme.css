@@ -785,6 +785,13 @@ header.header {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* The home icon scales with the root font size, as the previous theme's
+   breadcrumb home icon did (1.1rem). */
+.breadcrumbs a svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
 /* Chevron between items, drawn from the same SVG the previous theme used. */
 .breadcrumbs li + li::before {
   content: '';
