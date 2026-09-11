@@ -1,6 +1,6 @@
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
-import YouTubeFacade from '@/components/YouTubeFacade'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 
 import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import DegenGallery from '@/components/DegenGallery'
@@ -10,7 +10,12 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
   <>
     <section className="relative xl:-top-20 2xl:-top-35">
       {slots.webIsland0 ?? (
-        <DeferredConsoleGame deferVideo src="/video/unboxing.mp4">
+        <DeferredConsoleGame
+          loadInteractiveOnViewport
+          activationDelay={1500}
+          deferVideo
+          src="/video/unboxing.mp4"
+        >
           <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
         </DeferredConsoleGame>
       )}
@@ -41,7 +46,7 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
           <div className="w-full md:w-1/2">
             <div className="relative text-right mb-4 md:mb-0 ps-0 lg:pl-5">
               {slots.webIsland1 ?? (
-                <YouTubeFacade
+                <DeferredYouTubeEmbed
                   src="https://www.youtube.com/embed/WWLqE1tnf6U"
                   title="Nifty League DEGENs"
                   className="h-[315px] w-full"

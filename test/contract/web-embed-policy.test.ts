@@ -10,19 +10,13 @@ const marketingEmbedConsumers = [
 ]
 
 describe('marketing video embed policy', () => {
-  it('routes every marketing embed through the click-to-play facade', () => {
+  it('uses the shared deferred YouTube primitive for every marketing embed', () => {
     for (const file of marketingEmbedConsumers) {
       const source = readFileSync(file, 'utf8')
 
-      expect(source).toContain('YouTubeFacade')
+      expect(source).toContain('@nl/ui/custom/deferred-youtube-embed')
       expect(source).not.toMatch(/<iframe\b/)
+      expect(source).not.toContain('YouTubeFacade')
     }
-  })
-
-  it('keeps the facade on the shared lazy embed primitive with autoplay-on-click', () => {
-    const facade = readFileSync('apps/web/src/components/YouTubeFacade.tsx', 'utf8')
-
-    expect(facade).toContain('@nl/ui/custom/lazy-youtube-embed')
-    expect(facade).toContain('autoplay=1')
   })
 })

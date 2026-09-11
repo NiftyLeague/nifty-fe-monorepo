@@ -1,7 +1,7 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { Separator } from '@nl/ui/base/separator'
 import { cx } from '@nl/ui/class-names'
-import YouTubeFacade from '@/components/YouTubeFacade'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import styles from './index.module.css'
 
@@ -51,7 +51,7 @@ const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
         <div className="w-full md:w-1/2">
           <div className="relative text-right mb-4 md:mb-0 ps-0 lg:ps-5">
             {slots.webIsland0 ?? (
-              <YouTubeFacade
+              <DeferredYouTubeEmbed
                 src="https://www.youtube.com/embed/wv_fI1PPBi0"
                 title="Nifty League Compete & Earn"
                 className={styles.video}

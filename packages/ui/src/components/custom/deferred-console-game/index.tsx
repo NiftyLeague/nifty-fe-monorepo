@@ -11,6 +11,14 @@ interface DeferredConsoleGameProps {
   children: ReactNode
   /** Keep the interactive video out of the first idle window after it is visible. */
   deferVideo?: boolean
+  /**
+   * Load the interactive chunk (backdrop, controllers, controls) as soon as the
+   * section nears the viewport instead of waiting for the activation window.
+   * Opt-in so existing consumers keep their current load timing.
+   */
+  loadInteractiveOnViewport?: boolean
+  /** Override the shared activation delay for this section, in milliseconds. */
+  activationDelay?: number
   src: string
 }
 
@@ -24,6 +32,8 @@ const loadConsoleGame = () =>
 const DeferredConsoleGame = memo(function DeferredConsoleGame({
   children,
   deferVideo = false,
+  loadInteractiveOnViewport = false,
+  activationDelay,
   src,
 }: DeferredConsoleGameProps) {
   const rootRef = useRef<HTMLDivElement>(null)
@@ -32,7 +42,14 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({
   // media. The server-rendered backdrop remains visible while it waits.
   const isNearViewport = useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)
   const [videoActivated, setVideoActivated] = useState(!deferVideo)
-  const shouldLoadInteractiveGame = isNearViewport && (!deferVideo || videoActivated)
+  // Consumers that opt in load the interactive chunk (backdrop, controllers,
+  // bonk sticker) as soon as the section approaches the viewport, leaving only
+  // the video source behind the activation window so multi-megabyte files do
+  // not race the page's own critical content. Default keeps the previous
+  // activation-gated behaviour for other apps.
+  const shouldLoadInteractiveGame = loadInteractiveOnViewport
+    ? isNearViewport
+    : isNearViewport && (!deferVideo || videoActivated)
   const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
     loadConsoleGame,
     shouldLoadInteractiveGame
@@ -43,8 +60,9 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({
 
     return scheduleDeferredActivation({
       onActivate: () => setVideoActivated(true),
+      ...(activationDelay === undefined ? {} : { delay: activationDelay }),
     })
-  }, [deferVideo, isNearViewport, videoActivated])
+  }, [activationDelay, deferVideo, isNearViewport, videoActivated])
 
   return (
     <div
