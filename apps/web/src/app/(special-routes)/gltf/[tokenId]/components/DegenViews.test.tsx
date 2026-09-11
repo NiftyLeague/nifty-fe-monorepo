@@ -1,10 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, mock } from 'bun:test'
 
-mock.module('next/dynamic', () => ({
-  default: () => () => null,
-}))
-
 mock.module('./ModelView', () => ({
   default: ({ tokenId }: { tokenId: string }) => (
     <div data-testid="model-view">3D model {tokenId}</div>

@@ -8,8 +8,6 @@
     "deploymentEnabled": {
       "codex/*": false,
       "**": false,
-      "feat/smashers-astro-migration": true,
-      "fix/smashers-astro-runtime-regressions": true,
       "main": true
     }
   },
