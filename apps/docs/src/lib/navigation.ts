@@ -4,6 +4,16 @@ export type SidebarEntry = StarlightRouteData['sidebar'][number]
 export type SidebarLink = Extract<SidebarEntry, { type: 'link' }>
 
 /**
+ * The persistent navbar links, also shown as the drawer's "main menu": one
+ * entry per core documentation section, pointing at its primary page.
+ */
+export const NAV_LINKS = [
+  { label: 'Overview', href: '/docs/overview/intro' },
+  { label: 'Guides', href: '/docs/guides/set-up' },
+  { label: 'FAQ', href: '/docs/faq/general' },
+] as const
+
+/**
  * The previous Docusaurus site rendered one sidebar per documentation section.
  * Starlight has a single sidebar, so the configured tree holds every section and
  * is filtered here to the section that owns the current page.

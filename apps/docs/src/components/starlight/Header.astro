@@ -7,16 +7,10 @@ import Search from 'virtual:starlight/components/Search';
 import SiteTitle from 'virtual:starlight/components/SiteTitle';
 import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
 import config from 'virtual:starlight/user-config';
+import { NAV_LINKS } from '../../lib/navigation';
 
 const shouldRenderSearch =
 	config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
-
-// The previous site's persistent navbar links.
-const NAV_LINKS = [
-	{ label: 'Overview', href: '/docs/overview/intro' },
-	{ label: 'Guides', href: '/docs/guides/set-up' },
-	{ label: 'FAQ', href: '/docs/faq/general' },
-];
 
 const EXTERNAL_LINKS = [
 	{ label: 'Website', href: 'https://niftyleague.com/' },

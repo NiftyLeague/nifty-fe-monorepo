@@ -10,8 +10,12 @@
  */
 import MobileMenuToggle from 'virtual:starlight/components/MobileMenuToggle';
 import Sidebar from 'virtual:starlight/components/Sidebar';
+import SiteTitle from 'virtual:starlight/components/SiteTitle';
+import SocialIcons from 'virtual:starlight/components/SocialIcons';
+import ThemeSelect from 'virtual:starlight/components/ThemeSelect';
 import Footer from '../Footer.astro';
 import Analytics from '../Analytics.astro';
+import { NAV_LINKS, sectionForId } from '../../lib/navigation';
 
 const { hasSidebar, entry } = Astro.locals.starlightRoute;
 
@@ -22,6 +26,10 @@ const headingOffset = entry.data.headingOffset ?? 0;
 // The landing page has no sidebar column (splash template) but still carries the
 // hamburger below 997px, so the collapsed navbar keeps a menu there too.
 const hasMenuButton = hasSidebar || entry.data.template === 'splash';
+
+// The drawer opens on the current section's menu when the page belongs to one,
+// and on the main menu (the umbrella category list) everywhere else.
+const initialView = sectionForId(entry.id) ? 'section' : 'main';
 
 ---
 
@@ -46,6 +54,18 @@ const hasMenuButton = hasSidebar || entry.data.template === 'splash';
 							super();
 							matchMedia('(min-width: 50em)').addEventListener('change', () => this.hidePopover());
 							this.addEventListener('toggle', ({ newState }) => this.trapFocus(newState === 'open'));
+							// The drawer chrome is parsed after this element, so delegate.
+							this.addEventListener('click', ({ target }) => {
+								if (!(target instanceof Element)) return;
+								if (target.closest('[data-drawer-back]')) this.setView('main');
+								if (target.closest('[data-drawer-close]')) this.hidePopover();
+							});
+						}
+						setView(view: string) {
+							this.dataset.view = view;
+							for (const panel of this.querySelectorAll<HTMLElement>('.drawer-panel')) {
+								panel.inert = !panel.classList.contains(`drawer-panel--${view}`);
+							}
 						}
 						trapFocus(shouldTrap: boolean) {
 							document.querySelectorAll<HTMLElement>('.main-frame, .sl-skip-link').forEach((el) => {
@@ -57,12 +77,70 @@ const hasMenuButton = hasSidebar || entry.data.template === 'splash';
 						customElements.define('sl-sidebar-pane', StarlightSidebarPane);
 					}
 				</script>
-				<sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane">
-					{/* Rendered directly rather than through the `sidebar` slot: Starlight's
-					    Page only passes that slot on sidebar pages, and a conditionally
-					    passed slot counts as present, so a fallback would never render. */}
-					<div class="sidebar-content sl-flex">
-						<Sidebar />
+				<sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane" data-view={initialView}>
+					<div class="drawer-header">
+						<SiteTitle />
+						<ThemeSelect />
+						<button class="drawer-close" data-drawer-close>
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+								<path d="M18 6 6 18M6 6l12 12" />
+							</svg>
+							<span class="sr-only">Close menu</span>
+						</button>
+					</div>
+					<div class="drawer-body">
+						<div
+							class="drawer-panel drawer-panel--main"
+							inert={initialView === 'main' ? undefined : 'true'}
+						>
+							<ul class="drawer-menu">
+								{
+									NAV_LINKS.map(({ label, href }) => (
+										<li>
+											<a class="drawer-menu-link" href={href}>
+												{label}
+												<svg
+													class="drawer-caret"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="2"
+													aria-hidden="true"
+												>
+													<path d="m9 6 6 6-6 6" />
+												</svg>
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+						<div
+							class="drawer-panel drawer-panel--section"
+							inert={initialView === 'section' ? undefined : 'true'}
+						>
+							<button class="drawer-back" data-drawer-back>
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									aria-hidden="true"
+								>
+									<path d="M19 12H5m7-7-7 7 7 7" />
+								</svg>
+								Back to main menu
+							</button>
+							{/* Rendered directly rather than through the `sidebar` slot: Starlight's
+							    Page only passes that slot on sidebar pages, and a conditionally
+							    passed slot counts as present, so a fallback would never render. */}
+							<div class="sidebar-content sl-flex">
+								<Sidebar />
+							</div>
+						</div>
+					</div>
+					<div class="drawer-footer">
+						<SocialIcons />
 					</div>
 				</sl-sidebar-pane>
 			</nav>
@@ -111,16 +189,164 @@ const hasMenuButton = hasSidebar || entry.data.template === 'splash';
 
 			position: fixed;
 			z-index: var(--sl-z-index-menu);
-			inset-block: var(--sl-nav-height) 0;
+			inset-block: 0;
 			inset-inline-start: 0;
 			width: 100%;
 			background-color: var(--sl-color-black);
+			overflow: hidden;
+		}
+
+		/* Author display beats the UA's closed-popover `display: none`, so the
+		   flex layout only applies while the drawer is actually open. */
+		.sidebar-pane:popover-open {
+			display: flex;
+			flex-direction: column;
+		}
+
+		/* Drawer chrome: brand, theme toggle and close on top, socials at the
+		   bottom, and the two sliding menu views between them. */
+		.drawer-header {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.5rem 1rem;
+			border-bottom: 1px solid var(--sl-color-hairline-shade);
+			background-color: var(--sl-color-bg-nav);
+		}
+
+		.drawer-header .site-title {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.drawer-close {
+			display: grid;
+			place-items: center;
+			width: 2rem;
+			height: 2rem;
+			border: 0;
+			border-radius: 50%;
+			background: transparent;
+			color: var(--sl-color-gray-2);
+			cursor: pointer;
+		}
+
+		.drawer-close:hover {
+			background-color: var(--nl-emphasis-200);
+			color: var(--sl-color-white);
+		}
+
+		.drawer-close svg {
+			width: 1.25rem;
+			height: 1.25rem;
+		}
+
+		.drawer-body {
+			flex: 1;
+			display: grid;
+			grid-template-columns: 100%;
+			overflow: hidden;
+		}
+
+		.drawer-panel {
+			grid-area: 1 / 1;
 			overflow-y: auto;
-			scrollbar-gutter: stable;
+			overscroll-behavior: contain;
+			transition: transform 0.25s ease;
+		}
+
+		/* The main menu (umbrella categories) sits to the left, the current
+		   section's menu to the right; the active view slides into place. */
+		.drawer-panel--main {
+			transform: translateX(-100%);
+		}
+
+		.drawer-panel--section {
+			transform: translateX(100%);
+		}
+
+		.sidebar-pane[data-view='main'] .drawer-panel--main {
+			transform: translateX(0);
+		}
+
+		.sidebar-pane[data-view='section'] .drawer-panel--section {
+			transform: translateX(0);
+		}
+
+		.drawer-menu {
+			list-style: none;
+			margin: 0;
+			padding: 0.5rem 0;
+		}
+
+		.drawer-menu li + li {
+			border-top: 1px solid var(--nl-hairline);
+		}
+
+		.drawer-menu-link {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 1rem 1.25rem;
+			font-size: 1.125rem;
+			font-weight: 500;
+			color: var(--sl-color-white);
+			text-decoration: none;
+		}
+
+		.drawer-menu-link:hover {
+			background-color: var(--nl-emphasis-200);
+			color: var(--sl-color-white);
+			text-decoration: none;
+		}
+
+		.drawer-caret {
+			width: 1rem;
+			height: 1rem;
+			color: var(--sl-color-gray-3);
+		}
+
+		.drawer-back {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			width: 100%;
+			border: 0;
+			background-color: var(--sl-color-accent-low);
+			padding: 0.75rem 1rem;
+			color: var(--sl-color-white);
+			font: inherit;
+			font-weight: 500;
+			text-align: start;
+			cursor: pointer;
+		}
+
+		.drawer-back:hover {
+			background-color: var(--sl-color-accent);
+		}
+
+		.drawer-back svg {
+			width: 1rem;
+			height: 1rem;
+		}
+
+		.drawer-footer {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			padding: 0.5rem 1rem;
+			border-top: 1px solid var(--sl-color-hairline-shade);
+		}
+
+		.drawer-footer a {
+			color: var(--sl-color-gray-2);
+		}
+
+		.drawer-footer a:hover {
+			color: var(--sl-color-white);
 		}
 
 		.sidebar-content {
-			height: 100%;
 			min-height: max-content;
 			padding: 1rem var(--sl-sidebar-pad-x) 0;
 			flex-direction: column;
@@ -144,11 +370,29 @@ const hasMenuButton = hasSidebar || entry.data.template === 'splash';
 		   links were hidden while the hamburger stayed available. Keeping that
 		   breakpoint means the menu button is rendered at every width below it.
 		   The fixed column only applies to pages with a real sidebar — splash
-		   pages (the landing page) keep a full-width drawer at every width. */
+		   pages (the landing page) keep a full-width drawer at every width. In
+		   the column, the drawer chrome goes away and the section menu renders
+		   statically. */
 		@media (min-width: 997px) {
 			:global([data-has-sidebar]) .header,
 			.header.has-menu-button {
 				padding-inline-end: var(--sl-nav-pad-x);
+			}
+			.drawer-header,
+			.drawer-back,
+			.drawer-footer {
+				display: none;
+			}
+			.drawer-body {
+				display: block;
+				overflow: visible;
+			}
+			.drawer-panel {
+				transform: none;
+				overflow: visible;
+			}
+			.drawer-panel--main {
+				display: none;
 			}
 			:global([data-has-sidebar]) .sidebar-pane {
 				display: block;

@@ -5,7 +5,6 @@
 // drawer still offers every section.
 import SidebarSublist from '@astrojs/starlight/components/SidebarSublist.astro';
 import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
-import MobileMenuFooter from 'virtual:starlight/components/MobileMenuFooter';
 import { sectionEntries, sectionForId } from '../../lib/navigation';
 
 const { sidebar, entry } = Astro.locals.starlightRoute;
@@ -16,7 +15,3 @@ const scoped = section ? sectionEntries(sidebar, section) : sidebar;
 <SidebarPersister>
 	<SidebarSublist sublist={scoped} />
 </SidebarPersister>
-
-<div class="md:sl-hidden">
-	<MobileMenuFooter />
-</div>
