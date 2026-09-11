@@ -75,6 +75,33 @@ function collectImportNames(dir: string): Set<string> {
   return out
 }
 
+/**
+ * Build-config and script files that live outside `src/`. Imports here are real
+ * runtime dependencies of a build, so they must be declared just like source
+ * imports — a config-only import that only resolves through hoisting fails on a
+ * clean install (this is how an undeclared `@astrojs/mdx` reached a Vercel build).
+ */
+function collectConfigImportNames(pkg: Pkg): Set<string> {
+  const out = new Set<string>()
+  const files = ['next.config.ts', 'next.config.mjs', 'astro.config.mjs', 'astro.config.ts']
+  const scriptsDir = join(pkg.dir, 'scripts')
+  if (existsSync(scriptsDir)) {
+    for (const entry of readdirSync(scriptsDir)) {
+      if (/\.(mjs|cjs|js)$/.test(entry)) files.push(join('scripts', entry))
+    }
+  }
+  for (const file of files) {
+    const p = join(pkg.dir, file)
+    if (!existsSync(p)) continue
+    const src = readFileSync(p, 'utf8')
+    for (const m of src.matchAll(/from\s+['"]([^'"]+)['"]/g)) out.add(m[1])
+    for (const m of src.matchAll(/import\s+['"]([^'"]+)['"]/g)) out.add(m[1])
+    for (const m of src.matchAll(/import\s*\(['"]([^'"]+)['"]/g)) out.add(m[1])
+    for (const m of src.matchAll(/require\(['"]([^'"]+)['"]\)/g)) out.add(m[1])
+  }
+  return out
+}
+
 const NODE_BUILTINS = new Set([
   'node:fs',
   'node:path',
@@ -166,7 +193,11 @@ function sourceDirFor(pkg: Pkg): string {
 
 describe('dependency contract', () => {
   for (const pkg of packages) {
-    const imports = collectImportNames(sourceDirFor(pkg))
+    // Source plus build config: an unresolved import in either fails a clean build.
+    const imports = new Set([
+      ...collectImportNames(sourceDirFor(pkg)),
+      ...collectConfigImportNames(pkg),
+    ])
     const declared = new Set([
       ...Object.keys(pkg.deps),
       ...Object.keys(pkg.peerDeps),
@@ -278,26 +309,9 @@ describe('dead dependency scanner', () => {
     // Include config and build-script files (next.config, astro.config,
     // astro.config, scripts/*.mjs) since deps are used there too.
     const configImports = new Set<string>()
-    const referenceFiles = [
-      'next.config.ts',
-      'next.config.mjs',
-      'astro.config.mjs',
-      'astro.config.mjs',
-    ]
-    const scriptsDir = join(pkg.dir, 'scripts')
-    if (existsSync(scriptsDir)) {
-      for (const entry of readdirSync(scriptsDir)) {
-        if (entry.endsWith('.mjs')) referenceFiles.push(join('scripts', entry))
-      }
-    }
-    for (const file of referenceFiles) {
-      const p = join(pkg.dir, file)
-      if (!existsSync(p)) continue
-      const src = readFileSync(p, 'utf8')
-      for (const m of src.matchAll(/from\s+['"]([^'"]+)['"]/g)) {
-        const spec = rootPackageSpecifier(m[1])
-        if (spec) configImports.add(spec)
-      }
+    for (const imp of collectConfigImportNames(pkg)) {
+      const spec = rootPackageSpecifier(imp)
+      if (spec) configImports.add(spec)
     }
 
     describe(`${pkg.name} runtime deps`, () => {

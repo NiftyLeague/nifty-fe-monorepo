@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
 import react from '@astrojs/react'
-import mdx from '@astrojs/mdx'
 import { fileURLToPath } from 'node:url'
 import { sidebar } from './src/sidebar'
 import { satteri } from '@astrojs/markdown-satteri'
@@ -91,7 +90,6 @@ export default defineConfig({
       sidebar,
     }),
     react(),
-    mdx({ processor: docsMarkdownProcessor }),
   ],
   vite: {
     build: {
