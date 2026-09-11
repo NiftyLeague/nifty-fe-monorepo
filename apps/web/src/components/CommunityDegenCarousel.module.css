@@ -1,0 +1,51 @@
+.marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: community-marquee var(--marquee-duration, 42s) linear infinite;
+}
+
+.group {
+  display: flex;
+  gap: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.item {
+  width: 230px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 615px) {
+  .item {
+    width: 170px;
+  }
+}
+
+/* Pause the strip while the visitor inspects a card. */
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes community-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
+  }
+}

@@ -1,5 +1,5 @@
 const ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'touchstart'] as const
-const DEFAULT_DELAY = 5000
+const DEFAULT_DELAY = 1500
 
 interface DeferredActivationOptions {
   delay?: number

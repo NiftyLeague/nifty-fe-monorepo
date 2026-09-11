@@ -1,4 +1,4 @@
-import YouTubeFacade from '@/components/YouTubeFacade'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import { cx } from '@nl/ui/class-names'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
@@ -67,7 +67,7 @@ export default function GameCard({ game, index }: GameCardProps) {
       <div className="w-full md:w-5/12">
         <div className="relative text-right mb-4">
           {video.includes('youtube') ? (
-            <YouTubeFacade src={video} title={name} poster={poster} />
+            <DeferredYouTubeEmbed src={video} title={name} className={styles.video} />
           ) : (
             <ViewportVideo
               id={`game-video-${index}`}

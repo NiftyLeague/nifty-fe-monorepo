@@ -32,7 +32,11 @@ const DeferredConsoleGame = memo(function DeferredConsoleGame({
   // media. The server-rendered backdrop remains visible while it waits.
   const isNearViewport = useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)
   const [videoActivated, setVideoActivated] = useState(!deferVideo)
-  const shouldLoadInteractiveGame = isNearViewport && (!deferVideo || videoActivated)
+  // The interactive chunk (backdrop, controllers, bonk sticker) loads as soon
+  // as the section approaches the viewport; only the video source stays
+  // behind the shared activation window so multi-megabyte files do not race
+  // the page's own critical content.
+  const shouldLoadInteractiveGame = isNearViewport
   const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
     loadConsoleGame,
     shouldLoadInteractiveGame

@@ -3,7 +3,7 @@ import Marketing from '@/layouts/Marketing.astro'
 import LegacyPage from '@/app/(main)/degens/page'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
-import YouTubeFacade from '@/components/YouTubeFacade'
+import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import DegenGallery from '@/components/DegenGallery'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
@@ -17,7 +17,7 @@ import { metadata as routeMetadata } from '@/app/(main)/degens/layout'
       </DeferredConsoleGame>
   </Fragment>
   <Fragment slot="webIsland1">
-<YouTubeFacade client:visible={{ rootMargin: "200px" }}
+<DeferredYouTubeEmbed client:visible={{ rootMargin: "200px" }}
                 src="https://www.youtube.com/embed/WWLqE1tnf6U"
                 title="Nifty League DEGENs"
                 className="h-[315px] w-full"
