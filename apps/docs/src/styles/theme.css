@@ -866,9 +866,10 @@ header.header {
  * means "nothing to show" and both the control and its reserved space go away.
  */
 @media (max-width: 71.99rem) {
-  /* Pages with no headings omit the disclosure entirely, so clear the height the
-     shell reserves for it. */
-  html:not(:has(details#starlight__mobile-toc)) {
+  /* The mobile table of contents renders inline in the article (the PageTitle
+     override), so unlike Starlight's fixed bar it must not reserve viewport
+     space — the reserve pushed the breadcrumbs far below the navbar. */
+  html {
     --sl-mobile-toc-height: 0rem;
   }
 
