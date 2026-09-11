@@ -214,7 +214,10 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 			background-color: var(--sl-color-bg-nav);
 		}
 
-		.drawer-header .site-title {
+		/* The site title is rendered by another component, so it needs :global for
+		   the scope to reach it: growing it pushes the toggle and close button to
+		   the right edge of the drawer header. */
+		.drawer-header > :global(a.site-title) {
 			flex: 1;
 			min-width: 0;
 		}
