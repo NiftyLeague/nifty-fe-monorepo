@@ -3,11 +3,16 @@
  * Extends Starlight's head with the tags the previous site emitted: an OpenSearch
  * descriptor, the social card, and the Algolia DocSearch compat meta tags.
  */
+import { ClientRouter } from 'astro:transitions';
 import bodyFontUrl from '../../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url';
 
 const { head } = Astro.locals.starlightRoute;
 const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 ---
+
+{/* Client-side routing: the previous site was an SPA-style MPA where the navbar
+    persisted across pages; without this every link reloaded the whole shell. */}
+<ClientRouter />
 
 {
 	/* Starlight always contributes a favicon tag; the docs ship the same icon set

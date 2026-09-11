@@ -46,7 +46,9 @@ const headingOffset = entry.data.headingOffset ?? 0;
 							});
 						}
 					}
-					customElements.define('sl-sidebar-pane', StarlightSidebarPane);
+					if (!customElements.get('sl-sidebar-pane')) {
+						customElements.define('sl-sidebar-pane', StarlightSidebarPane);
+					}
 				</script>
 				<sl-sidebar-pane popover="" id="starlight__sidebar" class="sidebar-pane">
 					<div class="sidebar-content sl-flex">
@@ -126,7 +128,11 @@ const headingOffset = entry.data.headingOffset ?? 0;
 			padding-inline-start: var(--sl-content-inline-start);
 		}
 
-		@media (min-width: 50rem) {
+		/* The previous site switched between the hamburger drawer and the fixed
+		   sidebar column at 997px, not at Starlight's 50rem: in between, the nav
+		   links were hidden while the hamburger stayed available. Keeping that
+		   breakpoint means the menu button is rendered at every width below it. */
+		@media (min-width: 997px) {
 			:global([data-has-sidebar]) .header {
 				padding-inline-end: var(--sl-nav-pad-x);
 			}

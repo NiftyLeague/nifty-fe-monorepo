@@ -12,10 +12,10 @@ import TableOfContents from 'virtual:starlight/components/TableOfContents';
 
 {
 	Astro.locals.starlightRoute.toc && (
-		<div class="right-sidebar-panel sl-hidden lg:sl-block">
+		<aside class="right-sidebar-panel sl-hidden lg:sl-block" aria-label="On this page">
 			<div class="sl-container">
 				<TableOfContents />
 			</div>
-		</div>
+		</aside>
 	)
 }

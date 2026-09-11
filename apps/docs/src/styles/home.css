@@ -176,9 +176,18 @@
 }
 
 /* The landing hero sits directly under the navbar; Starlight's panel padding
-   would otherwise push it down. */
+   would otherwise push it down. The panel also keeps no inline gutters at any
+   width: the previous hero painted edge to edge behind its content. */
 .content-panel:has(.hero-header) {
-  padding-top: 0;
+  padding: 0;
+}
+
+/* The previous hero painted its backdrop across the whole viewport. Starlight
+   caps the panel's container at the content width and the hero clips its own
+   overflow, so the capped container would crop the artwork with black bars
+   either side; let the hero's container span the page instead. */
+.content-panel:has(.hero-header) .sl-container {
+  max-width: none;
 }
 
 /* The quick-link rows use the docs accent for their titles. */

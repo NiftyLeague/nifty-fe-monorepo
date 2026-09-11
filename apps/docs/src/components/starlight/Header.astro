@@ -40,7 +40,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 			}
 		</nav>
 	</div>
-	<div class="right-group sl-hidden md:sl-flex print:hidden">
+	<div class="sl-flex print:hidden md:sl-hidden">
+		{shouldRenderSearch && <Search />}
+	</div>
+	<div class="actions sl-hidden md:sl-flex print:hidden">
 		<nav class="external-links" aria-label="Nifty League">
 			{
 				EXTERNAL_LINKS.map(({ label, href }) => (
@@ -63,8 +66,8 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 			}
 		</nav>
 		<ThemeSelect />
+		{shouldRenderSearch && <Search />}
 	</div>
-	<div class="sl-flex print:hidden">{shouldRenderSearch && <Search />}</div>
 </div>
 
 <style>
@@ -107,7 +110,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '');
 			color: var(--sl-color-accent);
 		}
 
-		.right-group {
+		.actions {
 			gap: 1.5rem;
 			align-items: center;
 		}

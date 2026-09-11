@@ -4,13 +4,16 @@
  *
  * The previous site used the Docusaurus Mermaid theme, which rendered only in the
  * browser with the same dark/forest theme selection. Mermaid is imported lazily
- * so pages without diagrams never download it.
+ * so pages without diagrams never download it. `astro:page-load` fires on the
+ * first load and after every client-side navigation, covering both cases.
  */
-const blocks = document.querySelectorAll<HTMLElement>('pre[data-language="mermaid"]')
+document.addEventListener('astro:page-load', () => {
+  const blocks = document.querySelectorAll<HTMLElement>('pre[data-language="mermaid"]')
 
-if (blocks.length > 0) {
-  void renderMermaid(blocks)
-}
+  if (blocks.length > 0) {
+    void renderMermaid(blocks)
+  }
+})
 
 async function renderMermaid(elements: NodeListOf<HTMLElement>): Promise<void> {
   const [{ default: mermaid }, { default: themeVariables }] = await Promise.all([
@@ -27,6 +30,8 @@ async function renderMermaid(elements: NodeListOf<HTMLElement>): Promise<void> {
   })
 
   for (const [index, pre] of Array.from(elements).entries()) {
+    if (!pre.isConnected) continue
+
     const source = extractSource(pre)
     if (!source.trim()) continue
 
@@ -34,7 +39,7 @@ async function renderMermaid(elements: NodeListOf<HTMLElement>): Promise<void> {
     // no stray code frame is left behind.
     const target = pre.closest('figure') ?? pre
     try {
-      const { svg } = await mermaid.render(`mermaid-diagram-${index}`, source)
+      const { svg } = await mermaid.render(`mermaid-diagram-${index}-${Date.now()}`, source)
       const container = document.createElement('div')
       container.className = 'mermaid-container'
       container.innerHTML = svg

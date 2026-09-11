@@ -14,14 +14,20 @@
 <script is:inline>
 	window.StarlightThemeProvider = (() => {
 		const storageKey = 'starlight-theme';
-		let storedTheme = null;
-		try {
-			storedTheme = localStorage.getItem(storageKey);
-		} catch {
-			/* storage can be unavailable in privacy modes */
+		function apply() {
+			let storedTheme = null;
+			try {
+				storedTheme = localStorage.getItem(storageKey);
+			} catch {
+				/* storage can be unavailable in privacy modes */
+			}
+			const isDark = storedTheme !== 'light';
+			document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
 		}
-		const isDark = storedTheme !== 'light';
-		document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+		apply();
+		/* Client-side routing swaps in a fresh <html> element with the server
+		   default; re-pin the stored choice after every navigation. */
+		document.addEventListener('astro:after-swap', apply);
 		return {
 			updatePickers() {
 				/* the theme toggle renders its own icon based on the active theme */

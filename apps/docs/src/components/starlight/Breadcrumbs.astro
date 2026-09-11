@@ -45,8 +45,8 @@ const trail = groups ? [...groups, entry.data.title] : undefined;
 					</a>
 				</li>
 				{trail.map((label, index) => (
-					<li aria-current={index === trail.length - 1 ? 'page' : undefined}>
-						<span>{label}</span>
+					<li>
+						<span aria-current={index === trail.length - 1 ? 'page' : undefined}>{label}</span>
 					</li>
 				))}
 			</ol>

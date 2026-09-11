@@ -93,12 +93,6 @@
   .content-panel {
     padding-inline: 5%;
   }
-
-  /* The landing hero painted edge to edge behind its content, so it kept the
-     full container width rather than the article gutter. */
-  .content-panel:has(.hero-header) {
-    padding-inline: 0;
-  }
 }
 
 :root[data-theme='light'] {
@@ -594,6 +588,31 @@ header.header {
 }
 
 /**
+ * The previous site switched between the hamburger drawer and the fixed sidebar
+ * column at 997px, and the section links hid at 996px — so the menu button was
+ * the navigation for everything below that. Starlight hides its menu button
+ * from 50rem (800px), which would strand the 800–996px range with no nav at
+ * all, so the button stays visible up to the same 997px breakpoint.
+ */
+.sl-menu-button {
+  display: flex;
+}
+
+@media (min-width: 997px) {
+  .sl-menu-button {
+    display: none;
+  }
+}
+
+/* Starlight reserves the sidebar gutter for the content from 50rem; below the
+   997px sidebar breakpoint there is no column to reserve it for. */
+@media (min-width: 50rem) and (max-width: 996.5px) {
+  html[data-has-sidebar] {
+    --sl-content-inline-start: 0rem;
+  }
+}
+
+/**
  * Pages that render their own heading (the landing page and the handful of docs
  * with a leading `<h1>`) still get Starlight's title panel wrapper. It contains
  * nothing, so drop it rather than leaving an empty band of padding behind.
@@ -635,7 +654,7 @@ header.header {
 }
 
 .sidebar-content li + li {
-  margin-top: 0.1rem;
+  margin-top: 0.25rem;
 }
 
 .sidebar-content a,
@@ -656,15 +675,30 @@ header.header {
   background-color: var(--nl-emphasis-200);
 }
 
+/* The current page no longer responds to clicks: as in the previous site, the
+   row only marks the visitor's location. */
 .sidebar-content a[aria-current='page'] {
   color: var(--sl-color-accent-high);
   background-color: var(--sl-color-accent-low);
   font-weight: 500;
+  pointer-events: none;
+  cursor: default;
 }
 
+/* Nested lists keep one continuous hairline on the inline start so an open
+   accordion reads as a single grouped section. Starlight's own per-item
+   borders are reset in favour of it, and the indent reproduces the previous
+   menu (1rem list padding + 1rem link padding). */
 .sidebar-content ul ul {
   margin-inline-start: 0;
-  padding-inline-start: 0.75rem;
+  margin-top: 0.25rem;
+  padding-inline-start: 1rem;
+  border-inline-start: 1px solid var(--nl-hairline);
+}
+
+.sidebar-content ul ul li {
+  margin-inline-start: 0;
+  padding-inline-start: 0;
   border-inline-start: 0;
 }
 
@@ -682,10 +716,12 @@ header.header {
   padding-inline-end: 0;
 }
 
+/* The previous caret drew a small chevron inside a 1.25rem box, so the visible
+   glyph was ~13px; 0.75rem reproduces it on Starlight's full-bleed icon. */
 .sidebar-content summary .caret {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-inline-end: 0.75rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-inline-end: 0.25rem;
   color: var(--sl-color-gray-2);
 }
 
@@ -697,15 +733,15 @@ header.header {
 /* ------------------------------------------------------------- breadcrumbs -- */
 
 /**
- * Breadcrumbs mirror the previous theme: small pill-shaped links separated by a
- * chevron, with the current page highlighted. Infima used a 0.8rem font and a
- * 1.5rem pill radius.
+ * Breadcrumbs mirror the previous Infima markup exactly: 0.8rem pills with a
+ * 1.5rem radius, a 9px chevron image between items at half opacity, and the
+ * current page highlighted in the primary blue on a subtle overlay pill
+ * (`--ifm-breadcrumb-size-multiplier: 0.8` applied to Infima's values).
  */
 .breadcrumbs ol {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem;
   list-style: none;
   padding: 0;
   margin: 0 0 0.8rem;
@@ -716,7 +752,6 @@ header.header {
 .breadcrumbs li {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
 }
 
 .breadcrumbs a,
@@ -724,24 +759,43 @@ header.header {
   display: inline-flex;
   align-items: center;
   border-radius: 1.5rem;
-  padding: 0.35rem 0.7rem;
+  padding: 0.32rem 0.64rem;
   color: var(--sl-color-white);
   text-decoration: none;
+  transition:
+    background-color var(--ifm-transition-fast, 150ms) ease,
+    color var(--ifm-transition-fast, 150ms) ease;
 }
 
+/* The trail always ends on the current page, highlighted as before. */
 .breadcrumbs span[aria-current='page'] {
-  background-color: var(--nl-emphasis-200);
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--sl-color-accent);
+}
+
+:root[data-theme='light'] .breadcrumbs span[aria-current='page'] {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .breadcrumbs a:hover {
-  background-color: var(--nl-emphasis-200);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Chevron between items, as the previous theme rendered. */
+:root[data-theme='light'] .breadcrumbs a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Chevron between items, drawn from the same SVG the previous theme used. */
 .breadcrumbs li + li::before {
-  content: '›';
-  color: var(--sl-color-gray-3);
-  padding-inline: 0.1rem;
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-inline: 0.5rem;
+  opacity: 0.5;
+  background-color: var(--sl-color-white);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpolygon points='79.093,0 48.907,30.187 146.72,128 48.907,225.813 79.093,256 207.093,128'/%3E%3C/svg%3E")
+    center / contain no-repeat;
 }
 
 /* The previous "Edit this page" link was the primary blue, not grey. */
@@ -874,6 +928,25 @@ header.header {
     border-radius: 0.4rem;
     box-shadow: var(--sl-shadow-md);
   }
+}
+
+/* The previous desktop TOC was a sticky right-hand column: the list carried a
+   hairline on its inline start, items sat 0.5rem/1rem apart, and the whole
+   region scrolled independently once it outgrew the viewport. */
+.right-sidebar-panel {
+  position: sticky;
+  top: calc(var(--sl-nav-height) + 1rem);
+  max-height: calc(100vh - var(--sl-nav-height) - 2rem);
+  overflow-y: auto;
+}
+
+.right-sidebar-panel nav ul {
+  border-inline-start: 1px solid var(--sl-color-hairline);
+  padding: 0.5rem 0 0.5rem 1rem;
+}
+
+.right-sidebar-panel li {
+  margin: 0.5rem 1rem 0.5rem 0;
 }
 
 /* The previous TOC faded out until hovered. */

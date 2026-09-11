@@ -108,19 +108,16 @@ const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
 	}
 
 	.hero-title-image {
-		/* Full-bleed: the hero sits inside Starlight's content container, so the
-		   artwork is widened to the viewport and centred rather than being capped
-		   at the container width (which left black bars either side). The hero's
-		   own `overflow: hidden` crops it, as the previous layout did. */
-		width: 100vw;
-		max-width: none;
+		/* Full-bleed: the hero spans the viewport now that its container is
+		   uncapped (see home.css), so the artwork fills the header and the
+		   header's own `overflow: hidden` crops it vertically. */
+		width: 100%;
 		height: 110%;
-		left: 50%;
-		transform: translateX(-50%);
 		object-fit: cover;
 		z-index: -1;
 		position: absolute;
 		top: 0;
+		left: 0;
 		opacity: 0.2;
 		-webkit-mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent);
 		mask-image: linear-gradient(rgba(0, 0, 0, 1), transparent);
