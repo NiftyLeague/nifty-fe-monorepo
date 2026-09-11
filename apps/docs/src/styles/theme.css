@@ -894,6 +894,9 @@ header.header {
   }
 
   mobile-starlight-toc .toggle {
+    /* Full-width bar like the previous collapsible button. */
+    flex: 1;
+    width: 100%;
     justify-content: space-between;
     border: 0;
     border-radius: 0.4rem;
@@ -901,6 +904,12 @@ header.header {
     padding: 0.4rem 0.8rem;
     color: var(--sl-color-white);
     font-size: inherit;
+  }
+
+  /* Starlight echoes the currently-active heading next to the toggle; the
+     previous site didn't, and it reads as clutter. */
+  mobile-starlight-toc .display-current {
+    display: none;
   }
 
   mobile-starlight-toc details[open] .toggle,
