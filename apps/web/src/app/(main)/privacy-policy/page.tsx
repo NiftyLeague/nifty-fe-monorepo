@@ -1,5 +1,3 @@
-import Link from '@/runtime/Link'
-
 const PrivacyPolicy = () => (
   <div className="container pt-30 mb-20">
     <div className="mb-3 mb-md-5">
@@ -17,7 +15,7 @@ const PrivacyPolicy = () => (
       We may use your data to provide and improve the Service. By using the Service, you agree to
       the collection and use of information in accordance with this policy. Unless otherwise defined
       in this Privacy Policy, terms used in this Privacy Policy have the same meanings as in our{' '}
-      <Link href="/terms-of-service">Terms and Conditions</Link>.
+      <a href="/terms-of-service">Terms and Conditions</a>.
     </p>
     <h2 className="my-3 my-md-5 heading-look-5">Information Collection and Use</h2>
     <p>
