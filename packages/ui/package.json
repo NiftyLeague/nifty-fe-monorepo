@@ -20,6 +20,7 @@
     "./degen-tribes": "./src/lib/degen-tribes.ts",
     "./lib/deferred-activation": "./src/lib/deferred-activation.ts",
     "./lib/deferred-boundary": "./src/lib/deferred-boundary.ts",
+    "./lib/image-attributes": "./src/lib/image-attributes.ts",
     "./utils": "./src/lib/utils.ts",
     "./postcss.config": "./postcss.config.mjs",
     "./styles.css": "./src/styles/globals.css",
