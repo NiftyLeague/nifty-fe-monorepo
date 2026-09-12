@@ -60,7 +60,7 @@ export default defineConfig({
     // set explicitly.
     define: {
       'process.env.PUBLIC_PLAYFAB_TITLE_ID': publicEnv('PUBLIC_PLAYFAB_TITLE_ID'),
-      'process.env.PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
+      'import.meta.env.PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
       'process.env.PUBLIC_DEPLOY_ENV': publicEnv('PUBLIC_DEPLOY_ENV', 'VERCEL_ENV'),
       'process.env.PUBLIC_FEATURE_FLAGS': publicEnv('PUBLIC_FEATURE_FLAGS'),
     },

@@ -14,7 +14,6 @@
     "./number-format": "./src/lib/number-format.ts",
     "./gtm": "./src/lib/gtm/index.tsx",
     "./gtm/constants": "./src/lib/gtm/constants.ts",
-    "./gtm/deferred": "./src/lib/gtm/DeferredAnalytics.tsx",
     "./gtm/deferred-manager": "./src/lib/gtm/DeferredGoogleTagManager.tsx",
     "./gtm/events": "./src/lib/gtm/events.ts",
     "./degen-tribes": "./src/lib/degen-tribes.ts",

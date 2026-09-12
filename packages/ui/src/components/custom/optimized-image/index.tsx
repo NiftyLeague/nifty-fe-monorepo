@@ -1,4 +1,4 @@
-import { preload } from 'react-dom'
+import { preload as preloadImage } from 'react-dom'
 import type { ComponentProps, CSSProperties } from 'react'
 
 type ImageSource = string | { src: string; width?: number; height?: number }
@@ -71,7 +71,9 @@ const FILL_STYLE: CSSProperties = {
   height: '100%',
 }
 
-export function getOptimizedImageProps(props: OptimizedImageProps): ComponentProps<'img'> {
+export function getOptimizedImageProps(
+  props: OptimizedImageProps
+): ComponentProps<'img'> & { src: string } {
   const {
     src: suppliedSource,
     priority,
@@ -87,7 +89,7 @@ export function getOptimizedImageProps(props: OptimizedImageProps): ComponentPro
   const source = typeof suppliedSource === 'string' ? suppliedSource : suppliedSource?.src
   if (typeof source !== 'string' || !source) throw new TypeError('Image src is required')
 
-  const imageProps: ComponentProps<'img'> = {
+  const imageProps: ComponentProps<'img'> & { src: string } = {
     ...attributes,
     src: source,
     decoding: attributes.decoding ?? 'async',
@@ -132,7 +134,7 @@ export function OptimizedImage(props: OptimizedImageProps) {
   const imageProps = getOptimizedImageProps(props)
 
   if ((props.priority || props.preload) && typeof imageProps.src === 'string') {
-    preload(imageProps.src, {
+    preloadImage(imageProps.src, {
       as: 'image',
       fetchPriority: 'high',
       ...(imageProps.srcSet

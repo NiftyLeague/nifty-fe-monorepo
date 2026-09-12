@@ -232,7 +232,6 @@ const valueEqualityUtility = 'apps/app/src/utils/value-equality.ts'
 const mainLayout = 'apps/app/src/layouts/_layout/_MainLayout/index.tsx'
 const networkWarning = 'apps/app/src/layouts/_layout/_MainLayout/_Header/NetworkWarning.tsx'
 const staleWalletContextWrapper = 'apps/app/src/contexts/WalletContextWrapper.tsx'
-const deferredAnalyticsSource = 'packages/ui/src/lib/gtm/DeferredAnalytics.tsx'
 const analyticsLayouts = ['apps/app/src/routes/__root.tsx']
 // web ships as Astro static and smashers as Astro SSR: analytics mount through
 // each base layout's telemetry runtime instead of Next.js layout components.
@@ -1809,15 +1808,21 @@ describe('dashboard rentals loading contract', () => {
 })
 
 describe('shared analytics loading contract', () => {
-  it('defers GTM and Web Vitals until the browser is idle', () => {
-    const source = readFileSync(join(process.cwd(), deferredAnalyticsSource), 'utf8')
+  it('defers GTM until the browser is idle and reports vitals lazily', () => {
+    // The app owns this boundary: the shared one was built on a framework
+    // web-vitals hook, so the app reports Core Web Vitals from the
+    // `web-vitals` package instead.
+    const source = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/runtime/DeferredAnalytics.tsx'),
+      'utf8'
+    )
     const schedulerSource = readFileSync(
       join(process.cwd(), 'packages/ui/src/lib/deferred-activation.ts'),
       'utf8'
     )
 
-    expect(source).toContain("import('./GoogleTagManager')")
-    expect(source).toContain("import('./WebVitals')")
+    expect(source).toContain("import('@nl/ui/gtm/deferred-manager')")
+    expect(source).toContain("import('@/runtime/web-vitals')")
     expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
     expect(source).toContain('scheduleDeferredActivation')
     expect(schedulerSource).toContain('requestIdleCallback')
