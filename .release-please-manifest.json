@@ -1,12 +1,14 @@
 {
   ".": "1.2.70",
+  "apps/api": "1.0.0",
   "apps/app": "1.2.0",
   "apps/docs": "1.0.8",
   "apps/smashers": "1.0.15",
   "apps/web": "1.0.32",
+  "packages/astro-config": "1.0.0",
+  "packages/contracts": "1.0.0",
   "packages/imx-passport": "1.0.2",
   "packages/playfab": "1.0.8",
-  "packages/theme": "1.0.1",
   "packages/typescript-config": "1.0.1",
   "packages/ui": "1.0.19"
 }
