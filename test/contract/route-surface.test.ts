@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseReferral, referralTargets, routeRequest } from '../../apps/web/worker/routes.mjs'
+import { HEADERS_FILE } from '../../apps/web/scripts/static-headers.mjs'
 
 /**
  * Contract guard for externally-consumed routes.
@@ -552,24 +553,13 @@ describe('GLTF viewer loading contract', () => {
   })
 
   it('keeps embedded viewer controls loadable in sandboxed frames', () => {
-    // The Next.js /_next/static CORS rewrite is replaced by vercel.json's
-    // `/_astro/(.*)` block. Vercel never consumed the Cloudflare-style headers
-    // file the finalize script used to emit — it served it verbatim as a plain
-    // asset at /_headers — so vercel.json was the working source all along,
-    // which is what #1904 confirmed before retiring the duplicate.
-    const config = JSON.parse(
-      readFileSync(join(process.cwd(), 'apps/web/vercel.json'), 'utf8')
-    ) as { headers?: { source: string; headers: { key: string; value: string }[] }[] }
-    const astroBlock = (config.headers ?? []).find((entry) => entry.source === '/_astro/(.*)')
-
-    expect(astroBlock?.headers).toContainEqual({
-      key: 'Access-Control-Allow-Origin',
-      value: '*',
-    })
-    expect(astroBlock?.headers).toContainEqual({
-      key: 'Cache-Control',
-      value: 'public, max-age=31536000, immutable',
-    })
+    // The Next.js /_next/static CORS rewrite is replaced by the `_headers` file
+    // emitted into the build output: the Workers assets surface consumes it, and
+    // the E2E suite asserts the emitted header against a wrangler dev server.
+    // vercel.json carries the same entries for the Vercel surface, pinned by the
+    // header-sources sync test in vercel-build-policy.test.ts (#1904).
+    expect(HEADERS_FILE).toContain('/_astro/*')
+    expect(HEADERS_FILE).toContain('Access-Control-Allow-Origin: *')
   })
 
   it('preloads only the visible NFT artwork', () => {

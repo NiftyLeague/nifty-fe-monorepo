@@ -2,6 +2,8 @@ import { cp, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { HEADERS_FILE } from './static-headers.mjs'
+
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const output = join(app, 'dist')
 await mkdir(join(output, '__images'), { recursive: true })
@@ -44,6 +46,9 @@ for (const name of await readdir(output)) {
 // Shell documents keep their poster handled by the Worker; skip shells/.
 console.log(`Injected hero image preloads into ${injected} documents.`)
 
+// The Workers assets surface consumes this file; production Vercel reads
+// vercel.json. static-headers.mjs documents why both exist.
+await writeFile(join(output, '_headers'), HEADERS_FILE)
 await writeFile(
   join(output, 'robots.txt'),
   `User-agent: *

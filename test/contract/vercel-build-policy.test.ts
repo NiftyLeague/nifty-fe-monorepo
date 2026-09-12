@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { HEADERS_FILE } from '../../apps/web/scripts/static-headers.mjs'
 import {
   canonicalProjectName,
   isProjectAffected,
@@ -97,7 +98,7 @@ describe('Vercel build cost policy', () => {
   })
 })
 
-describe('response header single source', () => {
+describe('response header sources', () => {
   const securityHeaders = {
     'X-Content-Type-Options': 'nosniff',
     'Referrer-Policy': 'origin-when-cross-origin',
@@ -107,39 +108,57 @@ describe('response header single source', () => {
   const read = (path: string) =>
     readFileSync(join(process.cwd(), path), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
 
+  type HeaderBlock = { source: string; headers: { key: string; value: string }[] }
+  const vercelHeaders = (path: string) => {
+    const config = JSON.parse(read(path)) as { headers?: HeaderBlock[] }
+    return Object.fromEntries(
+      (config.headers ?? []).map((block) => [
+        // vercel.json path-to-regexp syntax to the `_headers` wildcard syntax.
+        block.source.replace('/(.*)', '/*').replace('/:path*', '/*'),
+        Object.fromEntries(block.headers.map(({ key, value }) => [key, value])),
+      ])
+    )
+  }
+  const parseHeadersFile = (file: string) => {
+    const entries: Record<string, Record<string, string>> = {}
+    let path: string | undefined
+    for (const line of file.split('\n')) {
+      if (!line.trim()) continue
+      if (!line.startsWith(' ')) path = line.trim()
+      else {
+        entries[path!] ??= {}
+        const [key, value] = line.trim().split(': ')
+        entries[path!][key] = value
+      }
+    }
+    return entries
+  }
+
   it('keeps the app response headers in vercel.json and nowhere else', () => {
     // On this Build Output API deploy Vercel applies vercel.json `headers`: live
     // `/assets/*` responses carry the vercel.json-only Access-Control-Allow-Origin,
     // which the Nitro output never emitted (#1904). Its duplicate of the four
-    // security headers was the second source that could drift.
+    // security headers was the second source that could drift, so it is gone.
     const viteConfig = read('apps/app/vite.config.ts')
     for (const key of Object.keys(securityHeaders)) expect(viteConfig).not.toContain(key)
 
-    const config = JSON.parse(read('apps/app/vercel.json')) as {
-      headers?: { source: string; headers: { key: string; value: string }[] }[]
-    }
-    const applied = Object.fromEntries(
-      (config.headers ?? [])
-        .find((block) => block.source === '/(.*)')
-        ?.headers.map(({ key, value }) => [key, value]) ?? []
-    )
+    const applied = vercelHeaders('apps/app/vercel.json')['/*']
     expect(applied).toEqual(securityHeaders)
   })
 
-  it('keeps the web response headers in vercel.json and nowhere else', () => {
-    // web is static on Vercel, which never consumes the Cloudflare-style headers
-    // file — the deployed copy was served verbatim as a plain asset at /_headers
-    // while duplicating vercel.json (#1904) — so its generation is gone.
-    expect(read('apps/web/scripts/finalize-static.mjs')).not.toContain('_headers')
-
-    const config = JSON.parse(read('apps/web/vercel.json')) as {
-      headers?: { source: string; headers: { key: string; value: string }[] }[]
+  it('keeps the two web platform header sources in sync', () => {
+    // web serves production from Vercel, whose source is vercel.json, and runs the
+    // Cloudflare Workers assets surface through wrangler, whose source is the
+    // `_headers` file written into dist. Neither platform reads the other's
+    // format, so the sync itself is the contract (#1904).
+    const fileHeaders = parseHeadersFile(HEADERS_FILE)
+    const vercel = vercelHeaders('apps/web/vercel.json')
+    for (const [source, headers] of Object.entries(vercel)) {
+      expect(fileHeaders[source]).toEqual(headers)
     }
-    const applied = Object.fromEntries(
-      (config.headers ?? [])
-        .find((block) => block.source === '/(.*)')
-        ?.headers.map(({ key, value }) => [key, value]) ?? []
-    )
+    expect(Object.keys(fileHeaders).sort()).toEqual(Object.keys(vercel).sort())
+
+    const applied = vercel['/*']
     expect(applied).toEqual(securityHeaders)
   })
 })
