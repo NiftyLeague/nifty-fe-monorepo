@@ -17,7 +17,10 @@
     "**/.wrangler/**",
     "**/.web-images/**",
     "**/routeTree.gen.ts",
-    "**/.vercel/**"
+    "**/.vercel/**",
+    ".devin/**",
+    ".hermes/**",
+    ".pi/**"
   ],
   "overrides": [
     {
