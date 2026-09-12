@@ -18,7 +18,13 @@ import { join } from 'node:path'
  */
 
 const APP_ROOT = process.cwd()
-const WORKSPACE_PACKAGES = ['@nl/imx-passport', '@nl/playfab', '@nl/typescript-config', '@nl/ui']
+const WORKSPACE_PACKAGES = [
+  '@nl/astro-config',
+  '@nl/imx-passport',
+  '@nl/playfab',
+  '@nl/typescript-config',
+  '@nl/ui',
+]
 
 // Packages that keep source files at the package root instead of a src/ dir.
 const PACKAGE_ROOT_SOURCE_DIRS = new Set(['imx-passport'])
