@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react'
 import { afterEach, describe, expect, it } from 'bun:test'
 
-import { GOOGLE_TAG_MANAGER_ID } from '../constants'
+import { GOOGLE_TAG_MANAGER_SCRIPT_ID, googleTagManagerScriptUrl } from '../loadGoogleTagManager'
 import GoogleTagManager from './index'
 
-const scriptId = '_next-gtm'
+const scriptId = GOOGLE_TAG_MANAGER_SCRIPT_ID
 
 afterEach(() => {
   document.getElementById(scriptId)?.remove()
@@ -27,9 +27,7 @@ describe('GoogleTagManager', () => {
     }
 
     expect(appendedScript?.id).toBe(scriptId)
-    expect(appendedScript?.getAttribute('src')).toBe(
-      `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`
-    )
+    expect(appendedScript?.getAttribute('src')).toBe(googleTagManagerScriptUrl())
     expect(appendedScript?.async).toBe(true)
     expect((window as Window & { dataLayer?: unknown[] }).dataLayer).toContainEqual({
       'gtm.start': expect.any(Number),

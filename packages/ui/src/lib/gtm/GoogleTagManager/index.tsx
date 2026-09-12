@@ -2,28 +2,17 @@
 
 import { useEffect } from 'react'
 
-import { GOOGLE_TAG_MANAGER_ID } from '../constants'
-import { pushToDataLayer } from '../dataLayer'
-
-const GOOGLE_TAG_MANAGER_SCRIPT = `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`
-const GOOGLE_TAG_MANAGER_SCRIPT_ID = '_next-gtm'
+import { loadGoogleTagManager } from '../loadGoogleTagManager'
 
 /**
  * Loads GTM after the owning app has decided analytics is appropriate.
- * Keeping the DOM loader framework-neutral lets the shared deferred boundary
- * work in both Next and Docusaurus without carrying next/script into docs.
+ * The DOM loader itself lives in `../loadGoogleTagManager`, so a non-React
+ * surface (the Astro docs page) installs the identical container instead of
+ * restating the id, URL, start push, and append.
  */
 const GoogleTagManager = () => {
   useEffect(() => {
-    if (document.getElementById(GOOGLE_TAG_MANAGER_SCRIPT_ID)) return
-
-    pushToDataLayer({ 'gtm.start': Date.now(), event: 'gtm.js' })
-
-    const script = document.createElement('script')
-    script.id = GOOGLE_TAG_MANAGER_SCRIPT_ID
-    script.async = true
-    script.src = GOOGLE_TAG_MANAGER_SCRIPT
-    document.head.appendChild(script)
+    loadGoogleTagManager()
   }, [])
 
   return null

@@ -1,12 +1,15 @@
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
 import react from '@astrojs/react'
-import { fileURLToPath } from 'node:url'
+import {
+  ASSETS_PUBLIC_DIR,
+  INLINE_STYLESHEETS,
+  bundleSsrGraph,
+  sourceAlias,
+} from '@nl/astro-config'
 import { sidebar } from './src/sidebar'
 import { satteri } from '@astrojs/markdown-satteri'
 import { rehypeLazyImages } from './src/lib/lazy-images.mjs'
-
-const local = (name) => fileURLToPath(new URL(name, import.meta.url))
 
 /**
  * The previous site emitted straight quotes and `...` literally (smart
@@ -30,13 +33,9 @@ export default defineConfig({
   // resolve unchanged.
   trailingSlash: 'never',
   outDir: './dist',
-  build: {
-    // Inline CSS into the HTML so the first paint does not wait on a separate
-    // stylesheet request (the previous build shipped a render-blocking 50 KB CSS).
-    inlineStylesheets: 'always',
-  },
+  build: { inlineStylesheets: INLINE_STYLESHEETS },
   // apps/docs/public is a symlink to the shared ../../assets directory.
-  publicDir: '../../assets',
+  publicDir: ASSETS_PUBLIC_DIR,
   // Docs images are shared brand assets served from ../../assets unchanged; the
   // previous site copied them as-is too, so no transformation pipeline is needed.
   // image service default (sharp)
@@ -97,18 +96,7 @@ export default defineConfig({
       // they cost nothing at runtime.
       sourcemap: true,
     },
-    resolve: {
-      alias: [
-        { find: '@', replacement: local('src') },
-        {
-          find: '@nl/ui/custom/optimized-image',
-          replacement: local('../../packages/ui/src/components/custom/optimized-image'),
-        },
-      ],
-    },
-    // Bun's isolated layout resolves react/react-dom through distinct store
-    // entries; bundling the whole SSR graph keeps one React instance.
-    ssr: { noExternal: true },
-    environments: { ssr: { resolve: { noExternal: true } } },
+    resolve: { alias: [sourceAlias(import.meta.url)] },
+    ...bundleSsrGraph(),
   },
 })

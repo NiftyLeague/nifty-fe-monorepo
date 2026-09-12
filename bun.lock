@@ -119,6 +119,7 @@
       },
       "devDependencies": {
         "@astrojs/check": "^0.9.10",
+        "@nl/astro-config": "workspace:*",
         "@types/node": "^26.4.0",
         "@types/react": "19.2.18",
         "@types/react-dom": "19.2.7",
@@ -176,6 +177,10 @@
         "@types/react-dom": "19.2.7",
         "wrangler": "4.129.0",
       },
+    },
+    "packages/astro-config": {
+      "name": "@nl/astro-config",
+      "version": "1.0.0",
     },
     "packages/contracts": {
       "name": "@nl/contracts",
@@ -811,6 +816,8 @@
     "@multiformats/multiaddr-to-uri": ["@multiformats/multiaddr-to-uri@12.0.0", "", { "dependencies": { "@multiformats/multiaddr": "^13.0.0" } }, "sha512-3uIEBCiy8tfzxYYBl81x1tISiNBQ7mHU4pGjippbJRoQYHzy/ZdZM/7JvTldr8pc/dzpkaNJxnsuxxlhsPOJsA=="],
 
     "@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.2.4", "", { "dependencies": { "@tybys/wasm-util": "^0.10.3" }, "peerDependencies": { "@emnapi/core": "^1.7.1 || ^2.0.0-alpha.4", "@emnapi/runtime": "^1.7.1 || ^2.0.0-alpha.4" } }, "sha512-AJxoUD2/15ESHbvpcyjU274nsAPLuOtPHCk0vKJM5pj//Fg/B1FXNWjPnXTT9PymCYYiHo4zPj0ZomXBKhoy7g=="],
+
+    "@nl/astro-config": ["@nl/astro-config@workspace:packages/astro-config"],
 
     "@nl/contracts": ["@nl/contracts@workspace:packages/contracts"],
 

@@ -79,7 +79,14 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
-  'docs#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
+  // docs ships as Astro Starlight: the shared astro-config defaults and ui
+  // sources (GTM constants + loader, MDX components) both feed its build.
+  'docs#build': [
+    '../../packages/astro-config/**',
+    '../../packages/astro-config/package.json',
+    '../../packages/ui/src/**',
+    '../../packages/ui/package.json',
+  ],
   // smashers ships as Astro SSR: no sentry-client sources feed its build;
   // shared playfab and ui sources do.
   'smashers#build': [

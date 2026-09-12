@@ -16,6 +16,7 @@
     "./gtm/constants": "./src/lib/gtm/constants.ts",
     "./gtm/deferred-manager": "./src/lib/gtm/DeferredGoogleTagManager.tsx",
     "./gtm/events": "./src/lib/gtm/events.ts",
+    "./gtm/load": "./src/lib/gtm/loadGoogleTagManager.ts",
     "./degen-tribes": "./src/lib/degen-tribes.ts",
     "./lib/deferred-activation": "./src/lib/deferred-activation.ts",
     "./lib/deferred-boundary": "./src/lib/deferred-boundary.ts",
