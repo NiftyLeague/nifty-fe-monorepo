@@ -1865,10 +1865,21 @@ describe('shared analytics loading contract', () => {
     it(`defers GTM, Web Vitals and Sentry until activation in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("'gtm.start'")
+      // The schedule and the container loader come from the shared package; the
+      // module keeps its own gating and payload.
+      expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
+      expect(source).toContain('scheduleDeferredActivation')
+      expect(source).toContain("from '@nl/ui/gtm/load'")
+      expect(source).toContain('loadGoogleTagManager(')
       expect(source).toContain("import('web-vitals')")
       expect(source).toContain("import('@sentry/browser')")
-      expect(source).toContain('requestIdleCallback')
+
+      // Neither restated piece may creep back: the data-layer start push and the
+      // idle request belong to the shared primitives (see gtm-source.test.ts and
+      // the deferred-activation unit test).
+      expect(source).not.toContain("'gtm.start'")
+      expect(source).not.toContain('requestIdleCallback')
+      expect(source).not.toContain('createElement')
     })
   }
 })
@@ -2160,7 +2171,14 @@ describe('web public navigation contract', () => {
     expect(sharedMobileSource).not.toContain("'use client'")
     expect(sharedMobileSource).toContain('<details')
     expect(sharedMobileSource).toContain('<summary')
-    expect(sharedMobileSource).toContain('aria-label={label}')
+    // The name comes from visually-hidden text rather than an aria-label, and the
+    // summary keeps its implicit role so the browser exposes aria-expanded.
+    expect(sharedMobileSource).toContain('<span className="sr-only">{label}</span>')
+    // The opening tag must carry no explicit role: `role="button"` on a summary
+    // replaces the browser's disclosure mapping and drops aria-expanded.
+    expect(sharedMobileSource.replace(/\/\*[\s\S]*?\*\//g, '')).toMatch(
+      /<summary\s+aria-controls=\{id\}/
+    )
     const sharedUtilityStyles = readFileSync(
       join(process.cwd(), 'packages/ui/src/styles/04_tailwind.utilities.css'),
       'utf8'

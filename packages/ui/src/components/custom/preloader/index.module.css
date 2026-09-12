@@ -108,3 +108,19 @@
     transform: translateZ(0);
   }
 }
+
+/*
+ * Reduced motion: keep the overlay and its progress visible, drop the looping
+ * pong animation and the entrance transform. The state remains legible without
+ * movement (WCAG 2.3.3 / the repo's reduced-motion convention).
+ */
+@media (prefers-reduced-motion: reduce) {
+  .preloader_inner {
+    animation: none;
+  }
+  .pong_loader_left,
+  .pong_loader_right,
+  .pong_loader:before {
+    animation: none;
+  }
+}
