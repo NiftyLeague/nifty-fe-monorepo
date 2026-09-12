@@ -1,0 +1,1473 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-12T18:27:54.875Z",
+  "gitRevision": "cddb6cbf72f15404dbfbcbb3eb7c87c4a3d41850",
+  "profile": {
+    "browser": "Google Chrome headless",
+    "viewport": "1365x768 @ 1x",
+    "cache": "disabled for every route sample",
+    "network": "unthrottled synthetic desktop; compare only with the same profile",
+    "interaction": "synthetic click on the configured selector after load",
+    "confidence": "synthetic lab data; not a substitute for field RUM p75"
+  },
+  "runCount": 5,
+  "routes": [
+    {
+      "route": {
+        "id": "api-root",
+        "app": "api",
+        "url": "https://api.niftyleague.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 284,
+          "p75": 364,
+          "minimum": 232,
+          "maximum": 380,
+          "standardDeviation": 68.87670143089025,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 188.89999985694885,
+          "p75": 219,
+          "minimum": 174.79999995231628,
+          "maximum": 336.90000009536743,
+          "standardDeviation": 67.23508763210137,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 1236,
+          "p75": 1237,
+          "minimum": 1235,
+          "maximum": 1238,
+          "standardDeviation": 1.3038404810405297,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 2,
+          "p75": 2,
+          "minimum": 2,
+          "maximum": 2,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 824880,
+          "p75": 824880,
+          "minimum": 824880,
+          "maximum": 824880,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-12T18:26:24.801Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 380,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 336.90000009536743,
+          "memoryBytes": 824880,
+          "totalTransferBytes": 1235,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:28.171Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 364,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 188.89999985694885,
+          "memoryBytes": 824880,
+          "totalTransferBytes": 1236,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:31.510Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 284,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 219,
+          "memoryBytes": 824880,
+          "totalTransferBytes": 1237,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:34.775Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 232,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 174.79999995231628,
+          "memoryBytes": 824880,
+          "totalTransferBytes": 1238,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:38.072Z",
+          "url": "https://api.niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 240,
+          "cls": 0,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 182.5,
+          "memoryBytes": 824880,
+          "totalTransferBytes": 1235,
+          "javascriptBytes": 0,
+          "cssBytes": 0,
+          "requestCount": 2,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "app-degens",
+        "app": "app",
+        "url": "https://app.niftyleague.com/degens",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 1152,
+          "p75": 1168,
+          "minimum": 1044,
+          "maximum": 2196,
+          "standardDeviation": 487.89343098672686,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 2,
+          "median": 16,
+          "p75": 16,
+          "minimum": 16,
+          "maximum": 16,
+          "standardDeviation": 0,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0.003726337860094728,
+          "p75": 0.003726337860094728,
+          "minimum": 0.003726337860094728,
+          "maximum": 0.005153890389982423,
+          "standardDeviation": 0.0006384208996561369,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 194.79999995231628,
+          "p75": 223.70000004768372,
+          "minimum": 177.80000019073486,
+          "maximum": 292.7000000476837,
+          "standardDeviation": 47.546535082226,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 593327,
+          "p75": 593358,
+          "minimum": 591884,
+          "maximum": 593383,
+          "standardDeviation": 781.7222652579368,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 422506,
+          "p75": 422521,
+          "minimum": 422369,
+          "maximum": 422700,
+          "standardDeviation": 126.80969994444432,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 20717,
+          "p75": 20793,
+          "minimum": 20682,
+          "maximum": 20837,
+          "standardDeviation": 69.73306245963963,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 129,
+          "p75": 129,
+          "minimum": 127,
+          "maximum": 129,
+          "standardDeviation": 1.0954451150103321,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 8850450,
+          "p75": 8857562,
+          "minimum": 8565406,
+          "maximum": 8882307,
+          "standardDeviation": 137904.32315667265,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-12T18:26:42.534Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 2196,
+          "cls": 0.003726337860094728,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 292.7000000476837,
+          "memoryBytes": 8850450,
+          "totalTransferBytes": 591884,
+          "javascriptBytes": 422369,
+          "cssBytes": 20837,
+          "requestCount": 127,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:46.107Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1080,
+          "cls": 0.005153890389982423,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 194.79999995231628,
+          "memoryBytes": 8857562,
+          "totalTransferBytes": 593358,
+          "javascriptBytes": 422506,
+          "cssBytes": 20682,
+          "requestCount": 129,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:49.766Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1168,
+          "cls": 0.003726337860094728,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 177.80000019073486,
+          "memoryBytes": 8882307,
+          "totalTransferBytes": 591977,
+          "javascriptBytes": 422521,
+          "cssBytes": 20793,
+          "requestCount": 127,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:53.390Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1152,
+          "cls": 0.003726337860094728,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 223.70000004768372,
+          "memoryBytes": 8565406,
+          "totalTransferBytes": 593383,
+          "javascriptBytes": 422700,
+          "cssBytes": 20682,
+          "requestCount": 129,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:26:56.915Z",
+          "url": "https://app.niftyleague.com/degens",
+          "loaded": true,
+          "lcpMs": 1044,
+          "cls": 0.003726337860094728,
+          "inpMs": 16,
+          "unsupported": [],
+          "ttfbMs": 181.20000004768372,
+          "memoryBytes": 8683497,
+          "totalTransferBytes": 593327,
+          "javascriptBytes": 422418,
+          "cssBytes": 20717,
+          "requestCount": 129,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "docs-overview",
+        "app": "docs",
+        "url": "https://docs.niftyleague.com/overview/intro",
+        "environment": "production",
+        "priority": "P1",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 516,
+          "p75": 588,
+          "minimum": 356,
+          "maximum": 828,
+          "standardDeviation": 191.2568953005355,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": null,
+        "cls": {
+          "count": 5,
+          "median": 0.0007534255226992177,
+          "p75": 0.0010213862675658692,
+          "minimum": 0.0007534255226992177,
+          "maximum": 0.0010929028177160903,
+          "standardDeviation": 0.00016826437543487622,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 200.5,
+          "p75": 214.29999995231628,
+          "minimum": 198.90000009536743,
+          "maximum": 356.90000009536743,
+          "standardDeviation": 68.90042092640074,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 342291,
+          "p75": 342312,
+          "minimum": 342268,
+          "maximum": 342319,
+          "standardDeviation": 21.73246419530008,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 145665,
+          "p75": 145673,
+          "minimum": 145657,
+          "maximum": 145748,
+          "standardDeviation": 37.5473034983872,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 2265,
+          "p75": 2265,
+          "minimum": 2264,
+          "maximum": 2265,
+          "standardDeviation": 0.44721359549995787,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 20,
+          "p75": 20,
+          "minimum": 20,
+          "maximum": 20,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 3019250,
+          "p75": 3020234,
+          "minimum": 3017146,
+          "maximum": 3020370,
+          "standardDeviation": 1294.5609294274257,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-12T18:27:00.910Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 828,
+          "cls": 0.0010929028177160903,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 356.90000009536743,
+          "memoryBytes": 3020370,
+          "totalTransferBytes": 342278,
+          "javascriptBytes": 145657,
+          "cssBytes": 2265,
+          "requestCount": 20,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:04.379Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 356,
+          "cls": 0.0007534255226992177,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 200.5,
+          "memoryBytes": 3018990,
+          "totalTransferBytes": 342312,
+          "javascriptBytes": 145665,
+          "cssBytes": 2265,
+          "requestCount": 20,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:07.968Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 516,
+          "cls": 0.0007534255226992177,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 198.90000009536743,
+          "memoryBytes": 3019250,
+          "totalTransferBytes": 342268,
+          "javascriptBytes": 145748,
+          "cssBytes": 2264,
+          "requestCount": 20,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:11.460Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 376,
+          "cls": 0.0010213862675658692,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 200.20000004768372,
+          "memoryBytes": 3017146,
+          "totalTransferBytes": 342319,
+          "javascriptBytes": 145673,
+          "cssBytes": 2265,
+          "requestCount": 20,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:15.162Z",
+          "url": "https://docs.niftyleague.com/overview/intro",
+          "loaded": true,
+          "lcpMs": 588,
+          "cls": 0.0007534255226992177,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 214.29999995231628,
+          "memoryBytes": 3020234,
+          "totalTransferBytes": 342291,
+          "javascriptBytes": 145665,
+          "cssBytes": 2265,
+          "requestCount": 20,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "smashers-home",
+        "app": "smashers",
+        "url": "https://niftysmashers.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 444,
+          "p75": 452,
+          "minimum": 364,
+          "maximum": 496,
+          "standardDeviation": 52.046133381837315,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 5,
+          "median": 40,
+          "p75": 48,
+          "minimum": 32,
+          "maximum": 64,
+          "standardDeviation": 13.386560424545209,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0.00012052581346096198,
+          "p75": 0.00012052581346096198,
+          "minimum": 0.00012052581346096198,
+          "maximum": 0.00012052581346096198,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 183.39999985694885,
+          "p75": 195.70000004768372,
+          "minimum": 170.59999990463257,
+          "maximum": 218.79999995231628,
+          "standardDeviation": 18.879009513687805,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 861873,
+          "p75": 861915,
+          "minimum": 861834,
+          "maximum": 1337509,
+          "standardDeviation": 212712.9003123694,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 465755,
+          "p75": 465758,
+          "minimum": 465701,
+          "maximum": 465780,
+          "standardDeviation": 32.11385993617086,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 47,
+          "p75": 47,
+          "minimum": 47,
+          "maximum": 48,
+          "standardDeviation": 0.4472135954999579,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 11742481,
+          "p75": 11746265,
+          "minimum": 10071985,
+          "maximum": 11819774,
+          "standardDeviation": 756838.7958428136,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-12T18:27:18.970Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 496,
+          "cls": 0.00012052581346096198,
+          "inpMs": 40,
+          "unsupported": [],
+          "ttfbMs": 195.70000004768372,
+          "memoryBytes": 11742481,
+          "totalTransferBytes": 861852,
+          "javascriptBytes": 465755,
+          "cssBytes": 0,
+          "requestCount": 47,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:22.507Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 452,
+          "cls": 0.00012052581346096198,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 218.79999995231628,
+          "memoryBytes": 11742363,
+          "totalTransferBytes": 861915,
+          "javascriptBytes": 465758,
+          "cssBytes": 0,
+          "requestCount": 47,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:26.129Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 444,
+          "cls": 0.00012052581346096198,
+          "inpMs": 64,
+          "unsupported": [],
+          "ttfbMs": 177.90000009536743,
+          "memoryBytes": 11746265,
+          "totalTransferBytes": 861834,
+          "javascriptBytes": 465718,
+          "cssBytes": 0,
+          "requestCount": 47,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:29.841Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 364,
+          "cls": 0.00012052581346096198,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 183.39999985694885,
+          "memoryBytes": 11819774,
+          "totalTransferBytes": 1337509,
+          "javascriptBytes": 465701,
+          "cssBytes": 0,
+          "requestCount": 48,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:34.357Z",
+          "url": "https://niftysmashers.com/",
+          "loaded": true,
+          "lcpMs": 392,
+          "cls": 0.00012052581346096198,
+          "inpMs": 48,
+          "unsupported": [],
+          "ttfbMs": 170.59999990463257,
+          "memoryBytes": 10071985,
+          "totalTransferBytes": 861873,
+          "javascriptBytes": 465780,
+          "cssBytes": 0,
+          "requestCount": 47,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    },
+    {
+      "route": {
+        "id": "web-home",
+        "app": "web",
+        "url": "https://niftyleague.com/",
+        "environment": "production",
+        "priority": "P0",
+        "interaction": {
+          "selector": "body"
+        }
+      },
+      "summary": {
+        "lcpMs": {
+          "count": 5,
+          "median": 380,
+          "p75": 416,
+          "minimum": 340,
+          "maximum": 612,
+          "standardDeviation": 109.01009127599151,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "inpMs": {
+          "count": 4,
+          "median": 48,
+          "p75": 48,
+          "minimum": 32,
+          "maximum": 48,
+          "standardDeviation": 8,
+          "confidence": "low: fewer than 5 runs"
+        },
+        "cls": {
+          "count": 5,
+          "median": 0.00012017116004841839,
+          "p75": 0.00012017116004841839,
+          "minimum": 0,
+          "maximum": 0.00012017116004841839,
+          "standardDeviation": 0.00005374217656065409,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "ttfbMs": {
+          "count": 5,
+          "median": 214.80000019073486,
+          "p75": 220,
+          "minimum": 181,
+          "maximum": 458.2999999523163,
+          "standardDeviation": 113.52789522123562,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "totalTransferBytes": {
+          "count": 5,
+          "median": 876479,
+          "p75": 876528,
+          "minimum": 876427,
+          "maximum": 876547,
+          "standardDeviation": 54.023143188822324,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "javascriptBytes": {
+          "count": 5,
+          "median": 471359,
+          "p75": 471483,
+          "minimum": 471186,
+          "maximum": 471493,
+          "standardDeviation": 131.21166106714753,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "cssBytes": {
+          "count": 5,
+          "median": 0,
+          "p75": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "requestCount": {
+          "count": 5,
+          "median": 46,
+          "p75": 46,
+          "minimum": 46,
+          "maximum": 46,
+          "standardDeviation": 0,
+          "confidence": "moderate: repeated synthetic runs"
+        },
+        "memoryBytes": {
+          "count": 5,
+          "median": 11314850,
+          "p75": 12151724,
+          "minimum": 11159471,
+          "maximum": 12169004,
+          "standardDeviation": 496887.4174792515,
+          "confidence": "moderate: repeated synthetic runs"
+        }
+      },
+      "samples": [
+        {
+          "capturedAt": "2026-09-12T18:27:38.599Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 416,
+          "cls": 0,
+          "inpMs": 48,
+          "unsupported": [],
+          "ttfbMs": 220,
+          "memoryBytes": 11314850,
+          "totalTransferBytes": 876427,
+          "javascriptBytes": 471483,
+          "cssBytes": 0,
+          "requestCount": 46,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:43.116Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 340,
+          "cls": 0.00012017116004841839,
+          "inpMs": null,
+          "unsupported": [],
+          "ttfbMs": 181,
+          "memoryBytes": 11159471,
+          "totalTransferBytes": 876479,
+          "javascriptBytes": 471493,
+          "cssBytes": 0,
+          "requestCount": 46,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:46.832Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 612,
+          "cls": 0.00012017116004841839,
+          "inpMs": 32,
+          "unsupported": [],
+          "ttfbMs": 458.2999999523163,
+          "memoryBytes": 12151724,
+          "totalTransferBytes": 876434,
+          "javascriptBytes": 471284,
+          "cssBytes": 0,
+          "requestCount": 46,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:50.580Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 380,
+          "cls": 0.00012017116004841839,
+          "inpMs": 48,
+          "unsupported": [],
+          "ttfbMs": 214.80000019073486,
+          "memoryBytes": 12169004,
+          "totalTransferBytes": 876528,
+          "javascriptBytes": 471186,
+          "cssBytes": 0,
+          "requestCount": 46,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        },
+        {
+          "capturedAt": "2026-09-12T18:27:54.834Z",
+          "url": "https://niftyleague.com/",
+          "loaded": true,
+          "lcpMs": 368,
+          "cls": 0.00012017116004841839,
+          "inpMs": 48,
+          "unsupported": [],
+          "ttfbMs": 211.09999990463257,
+          "memoryBytes": 11306552,
+          "totalTransferBytes": 876547,
+          "javascriptBytes": 471359,
+          "cssBytes": 0,
+          "requestCount": 46,
+          "measurementNotes": {
+            "inp": "Synthetic click on the configured selector; compare only against the same action.",
+            "memory": "Chromium heap or measureUserAgentSpecificMemory when the browser permits it.",
+            "unsupported": []
+          }
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "app": "api",
+      "clean": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "api",
+            "build"
+          ],
+          "durationMs": 2162.952833999996,
+          "exitCode": 0,
+          "stdout": "api build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/config\napi build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/config\napi build: Bundled 1 module in 6ms\napi build: \napi build:   mainnet.js  153.1 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/mainnet.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/mainnet.js\napi build: Bundled 1 module in 6ms\napi build: \napi build:   sepolia.js  153.47 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/sepolia.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/sepolia.js\napi build: [copy-api-app] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/.app\napi build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "api",
+            "build"
+          ],
+          "durationMs": 2162.041167000003,
+          "exitCode": 0,
+          "stdout": "api build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/config\napi build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/config\napi build: Bundled 1 module in 6ms\napi build: \napi build:   mainnet.js  153.1 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/mainnet.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/mainnet.js\napi build: Bundled 1 module in 5ms\napi build: \napi build:   sepolia.js  153.47 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/sepolia.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/sepolia.js\napi build: [copy-api-app] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/.app\napi build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "api",
+            "build"
+          ],
+          "durationMs": 1991.6588749999937,
+          "exitCode": 0,
+          "stdout": "api build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/config\napi build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/config\napi build: Bundled 1 module in 6ms\napi build: \napi build:   mainnet.js  153.1 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/mainnet.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/mainnet.js\napi build: Bundled 1 module in 6ms\napi build: \napi build:   sepolia.js  153.47 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/sepolia.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/sepolia.js\napi build: [copy-api-app] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/.app\napi build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "api",
+            "build"
+          ],
+          "durationMs": 1503.8891660000081,
+          "exitCode": 0,
+          "stdout": "api build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/config\napi build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/config\napi build: Bundled 1 module in 6ms\napi build: \napi build:   mainnet.js  153.1 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/mainnet.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/mainnet.js\napi build: Bundled 1 module in 6ms\napi build: \napi build:   sepolia.js  153.47 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/sepolia.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/sepolia.js\napi build: [copy-api-app] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/.app\napi build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "api",
+            "build"
+          ],
+          "durationMs": 1545.755375000008,
+          "exitCode": 0,
+          "stdout": "api build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/config\napi build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/config\napi build: Bundled 1 module in 6ms\napi build: \napi build:   mainnet.js  153.1 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/mainnet.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/mainnet.js\napi build: Bundled 1 module in 6ms\napi build: \napi build:   sepolia.js  153.47 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/sepolia.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/sepolia.js\napi build: [copy-api-app] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/.app\napi build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "api",
+            "build"
+          ],
+          "durationMs": 1514.810249999995,
+          "exitCode": 0,
+          "stdout": "api build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/config\napi build: [copy-config] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/config -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/config\napi build: Bundled 1 module in 6ms\napi build: \napi build:   mainnet.js  153.1 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/mainnet.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/mainnet.js\napi build: Bundled 1 module in 6ms\napi build: \napi build:   sepolia.js  153.47 KB  (entry point)\napi build: \napi build: [copy-contract-deployments] bundled /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/packages/contracts/src/deployments/sepolia.ts -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src/contracts/deployments/sepolia.js\napi build: [copy-api-app] copied /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/dist/src -> /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/api/api/.app\napi build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 2162.041167000003,
+        "p75": 2162.4970004999996,
+        "minimum": 1991.6588749999937,
+        "maximum": 2162.952833999996,
+        "standardDeviation": 98.63449105476053,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 1514.810249999995,
+        "p75": 1530.2828125000015,
+        "minimum": 1503.8891660000081,
+        "maximum": 1545.755375000008,
+        "standardDeviation": 21.7165462763337,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "app",
+      "clean": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "app",
+            "build"
+          ],
+          "durationMs": 8461.381083,
+          "exitCode": 0,
+          "stdout": "r/leaderboard-crypto-winter-OH__y4M6.mjs          48.34 kB │ gzip:   9.89 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__ciphers.mjs                             49.19 kB │ gzip:  13.18 kB\napp build: .vercel/output/functions/__server.func/_ssr/select-BNWy5zPx.mjs                             51.24 kB │ gzip:  11.37 kB\napp build: .vercel/output/functions/__server.func/_libs/sonner.mjs                                     55.34 kB │ gzip:  12.93 kB\napp build: .vercel/output/functions/__server.func/_ssr/RentDegenContentDialog-BEBs8v3y.mjs             60.02 kB │ gzip:  13.43 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__hashes.mjs                              64.11 kB │ gzip:  16.03 kB\napp build: .vercel/output/functions/__server.func/_ssr/dist-DAmucePe.mjs                               72.56 kB │ gzip:  17.36 kB\napp build: .vercel/output/functions/__server.func/_ssr/es2015-CkzVGeIg.mjs                             73.39 kB │ gzip:  19.36 kB\napp build: .vercel/output/functions/__server.func/_libs/tanstack__query-core.mjs                       73.56 kB │ gzip:  15.78 kB\napp build: .vercel/output/functions/__server.func/_libs/react-hook-form.mjs                            86.86 kB │ gzip:  20.04 kB\napp build: .vercel/output/functions/__server.func/_libs/adraffy__ens-normalize.mjs                     98.65 kB │ gzip:  57.19 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-adapter-wagmi+[...].mjs         111.08 kB │ gzip:  23.53 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-pay+[...].mjs                   115.01 kB │ gzip:  21.91 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-wen-game-BMQqZdKM.mjs              144.49 kB │ gzip:  23.15 kB\napp build: .vercel/output/functions/__server.func/_ssr/router-2YtyWDPE.mjs                            159.75 kB │ gzip:  36.90 kB\napp build: .vercel/output/functions/__server.func/_libs/@phosphor-icons/webcomponents+[...].mjs       198.16 kB │ gzip:  40.45 kB\napp build: .vercel/output/functions/__server.func/_ssr/ssr.mjs                                        220.01 kB │ gzip:  51.47 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__curves+noble__hashes.mjs               285.26 kB │ gzip:  84.48 kB\napp build: .vercel/output/functions/__server.func/_libs/@coinbase/wallet-sdk+[...].mjs                341.70 kB │ gzip:  87.82 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-scaffold-ui+[...].mjs           377.74 kB │ gzip:  60.63 kB\napp build: .vercel/output/functions/__server.func/_libs/ethers.mjs                                    454.95 kB │ gzip: 108.83 kB\napp build: .vercel/output/functions/__server.func/_libs/bnc-notify+[...].mjs                          546.05 kB │ gzip: 122.20 kB\napp build: .vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs              666.27 kB │ gzip: 139.77 kB\napp build: .vercel/output/functions/__server.func/_ssr/config-BCP6Z2vL.mjs                            892.04 kB │ gzip: 194.61 kB\napp build: .vercel/output/functions/__server.func/_libs/@sentry/browser+[...].mjs                     936.90 kB │ gzip: 222.32 kB\napp build: .vercel/output/functions/__server.func/_libs/@safe-global/safe-apps-provider+[...].mjs   1,004.21 kB │ gzip: 167.26 kB\napp build: .vercel/output/functions/__server.func/_libs/@base-org/account+[...].mjs                 1,307.24 kB │ gzip: 328.89 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-smashers-wPkPDLwK.mjs            1,520.44 kB │ gzip: 319.95 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit.mjs                           3,476.53 kB │ gzip: 879.61 kB\napp build: \napp build: ✓ built in 1.76s\napp build: ℹ Generated .vercel/output/nitro.json\napp build: \napp build: [nitro] ✔ You can preview this build using npx vite preview\napp build: [nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt\napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "app",
+            "build"
+          ],
+          "durationMs": 8205.908041999995,
+          "exitCode": 0,
+          "stdout": "r/leaderboard-crypto-winter-OH__y4M6.mjs          48.34 kB │ gzip:   9.89 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__ciphers.mjs                             49.19 kB │ gzip:  13.18 kB\napp build: .vercel/output/functions/__server.func/_ssr/select-BNWy5zPx.mjs                             51.24 kB │ gzip:  11.37 kB\napp build: .vercel/output/functions/__server.func/_libs/sonner.mjs                                     55.34 kB │ gzip:  12.93 kB\napp build: .vercel/output/functions/__server.func/_ssr/RentDegenContentDialog-BEBs8v3y.mjs             60.02 kB │ gzip:  13.43 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__hashes.mjs                              64.11 kB │ gzip:  16.03 kB\napp build: .vercel/output/functions/__server.func/_ssr/dist-DAmucePe.mjs                               72.56 kB │ gzip:  17.36 kB\napp build: .vercel/output/functions/__server.func/_ssr/es2015-CkzVGeIg.mjs                             73.39 kB │ gzip:  19.36 kB\napp build: .vercel/output/functions/__server.func/_libs/tanstack__query-core.mjs                       73.56 kB │ gzip:  15.78 kB\napp build: .vercel/output/functions/__server.func/_libs/react-hook-form.mjs                            86.86 kB │ gzip:  20.04 kB\napp build: .vercel/output/functions/__server.func/_libs/adraffy__ens-normalize.mjs                     98.65 kB │ gzip:  57.19 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-adapter-wagmi+[...].mjs         111.08 kB │ gzip:  23.53 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-pay+[...].mjs                   115.01 kB │ gzip:  21.91 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-wen-game-BMQqZdKM.mjs              144.49 kB │ gzip:  23.15 kB\napp build: .vercel/output/functions/__server.func/_ssr/router-2YtyWDPE.mjs                            159.75 kB │ gzip:  36.90 kB\napp build: .vercel/output/functions/__server.func/_libs/@phosphor-icons/webcomponents+[...].mjs       198.16 kB │ gzip:  40.45 kB\napp build: .vercel/output/functions/__server.func/_ssr/ssr.mjs                                        220.01 kB │ gzip:  51.47 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__curves+noble__hashes.mjs               285.26 kB │ gzip:  84.48 kB\napp build: .vercel/output/functions/__server.func/_libs/@coinbase/wallet-sdk+[...].mjs                341.70 kB │ gzip:  87.82 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-scaffold-ui+[...].mjs           377.74 kB │ gzip:  60.63 kB\napp build: .vercel/output/functions/__server.func/_libs/ethers.mjs                                    454.95 kB │ gzip: 108.83 kB\napp build: .vercel/output/functions/__server.func/_libs/bnc-notify+[...].mjs                          546.05 kB │ gzip: 122.20 kB\napp build: .vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs              666.27 kB │ gzip: 139.77 kB\napp build: .vercel/output/functions/__server.func/_ssr/config-BCP6Z2vL.mjs                            892.04 kB │ gzip: 194.61 kB\napp build: .vercel/output/functions/__server.func/_libs/@sentry/browser+[...].mjs                     936.90 kB │ gzip: 222.32 kB\napp build: .vercel/output/functions/__server.func/_libs/@safe-global/safe-apps-provider+[...].mjs   1,004.21 kB │ gzip: 167.26 kB\napp build: .vercel/output/functions/__server.func/_libs/@base-org/account+[...].mjs                 1,307.24 kB │ gzip: 328.89 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-smashers-wPkPDLwK.mjs            1,520.44 kB │ gzip: 319.95 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit.mjs                           3,476.53 kB │ gzip: 879.61 kB\napp build: \napp build: ✓ built in 1.58s\napp build: ℹ Generated .vercel/output/nitro.json\napp build: \napp build: [nitro] ✔ You can preview this build using npx vite preview\napp build: [nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt\napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "app",
+            "build"
+          ],
+          "durationMs": 8124.103875000001,
+          "exitCode": 0,
+          "stdout": "r/leaderboard-crypto-winter-OH__y4M6.mjs          48.34 kB │ gzip:   9.89 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__ciphers.mjs                             49.19 kB │ gzip:  13.18 kB\napp build: .vercel/output/functions/__server.func/_ssr/select-BNWy5zPx.mjs                             51.24 kB │ gzip:  11.37 kB\napp build: .vercel/output/functions/__server.func/_libs/sonner.mjs                                     55.34 kB │ gzip:  12.93 kB\napp build: .vercel/output/functions/__server.func/_ssr/RentDegenContentDialog-BEBs8v3y.mjs             60.02 kB │ gzip:  13.43 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__hashes.mjs                              64.11 kB │ gzip:  16.03 kB\napp build: .vercel/output/functions/__server.func/_ssr/dist-DAmucePe.mjs                               72.56 kB │ gzip:  17.36 kB\napp build: .vercel/output/functions/__server.func/_ssr/es2015-CkzVGeIg.mjs                             73.39 kB │ gzip:  19.36 kB\napp build: .vercel/output/functions/__server.func/_libs/tanstack__query-core.mjs                       73.56 kB │ gzip:  15.78 kB\napp build: .vercel/output/functions/__server.func/_libs/react-hook-form.mjs                            86.86 kB │ gzip:  20.04 kB\napp build: .vercel/output/functions/__server.func/_libs/adraffy__ens-normalize.mjs                     98.65 kB │ gzip:  57.19 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-adapter-wagmi+[...].mjs         111.08 kB │ gzip:  23.53 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-pay+[...].mjs                   115.01 kB │ gzip:  21.91 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-wen-game-BMQqZdKM.mjs              144.49 kB │ gzip:  23.15 kB\napp build: .vercel/output/functions/__server.func/_ssr/router-2YtyWDPE.mjs                            159.75 kB │ gzip:  36.90 kB\napp build: .vercel/output/functions/__server.func/_libs/@phosphor-icons/webcomponents+[...].mjs       198.16 kB │ gzip:  40.45 kB\napp build: .vercel/output/functions/__server.func/_ssr/ssr.mjs                                        220.01 kB │ gzip:  51.47 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__curves+noble__hashes.mjs               285.26 kB │ gzip:  84.48 kB\napp build: .vercel/output/functions/__server.func/_libs/@coinbase/wallet-sdk+[...].mjs                341.70 kB │ gzip:  87.82 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-scaffold-ui+[...].mjs           377.74 kB │ gzip:  60.63 kB\napp build: .vercel/output/functions/__server.func/_libs/ethers.mjs                                    454.95 kB │ gzip: 108.83 kB\napp build: .vercel/output/functions/__server.func/_libs/bnc-notify+[...].mjs                          546.05 kB │ gzip: 122.20 kB\napp build: .vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs              666.27 kB │ gzip: 139.77 kB\napp build: .vercel/output/functions/__server.func/_ssr/config-BCP6Z2vL.mjs                            892.04 kB │ gzip: 194.61 kB\napp build: .vercel/output/functions/__server.func/_libs/@sentry/browser+[...].mjs                     936.90 kB │ gzip: 222.32 kB\napp build: .vercel/output/functions/__server.func/_libs/@safe-global/safe-apps-provider+[...].mjs   1,004.21 kB │ gzip: 167.26 kB\napp build: .vercel/output/functions/__server.func/_libs/@base-org/account+[...].mjs                 1,307.24 kB │ gzip: 328.89 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-smashers-wPkPDLwK.mjs            1,520.44 kB │ gzip: 319.95 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit.mjs                           3,476.53 kB │ gzip: 879.61 kB\napp build: \napp build: ✓ built in 1.62s\napp build: ℹ Generated .vercel/output/nitro.json\napp build: \napp build: [nitro] ✔ You can preview this build using npx vite preview\napp build: [nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt\napp build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "app",
+            "build"
+          ],
+          "durationMs": 8465.821083999996,
+          "exitCode": 0,
+          "stdout": "r/leaderboard-crypto-winter-OH__y4M6.mjs          48.34 kB │ gzip:   9.89 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__ciphers.mjs                             49.19 kB │ gzip:  13.18 kB\napp build: .vercel/output/functions/__server.func/_ssr/select-BNWy5zPx.mjs                             51.24 kB │ gzip:  11.37 kB\napp build: .vercel/output/functions/__server.func/_libs/sonner.mjs                                     55.34 kB │ gzip:  12.93 kB\napp build: .vercel/output/functions/__server.func/_ssr/RentDegenContentDialog-BEBs8v3y.mjs             60.02 kB │ gzip:  13.43 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__hashes.mjs                              64.11 kB │ gzip:  16.03 kB\napp build: .vercel/output/functions/__server.func/_ssr/dist-DAmucePe.mjs                               72.56 kB │ gzip:  17.36 kB\napp build: .vercel/output/functions/__server.func/_ssr/es2015-CkzVGeIg.mjs                             73.39 kB │ gzip:  19.36 kB\napp build: .vercel/output/functions/__server.func/_libs/tanstack__query-core.mjs                       73.56 kB │ gzip:  15.78 kB\napp build: .vercel/output/functions/__server.func/_libs/react-hook-form.mjs                            86.86 kB │ gzip:  20.04 kB\napp build: .vercel/output/functions/__server.func/_libs/adraffy__ens-normalize.mjs                     98.65 kB │ gzip:  57.19 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-adapter-wagmi+[...].mjs         111.08 kB │ gzip:  23.53 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-pay+[...].mjs                   115.01 kB │ gzip:  21.91 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-wen-game-BMQqZdKM.mjs              144.49 kB │ gzip:  23.15 kB\napp build: .vercel/output/functions/__server.func/_ssr/router-2YtyWDPE.mjs                            159.75 kB │ gzip:  36.90 kB\napp build: .vercel/output/functions/__server.func/_libs/@phosphor-icons/webcomponents+[...].mjs       198.16 kB │ gzip:  40.45 kB\napp build: .vercel/output/functions/__server.func/_ssr/ssr.mjs                                        220.01 kB │ gzip:  51.47 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__curves+noble__hashes.mjs               285.26 kB │ gzip:  84.48 kB\napp build: .vercel/output/functions/__server.func/_libs/@coinbase/wallet-sdk+[...].mjs                341.70 kB │ gzip:  87.82 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-scaffold-ui+[...].mjs           377.74 kB │ gzip:  60.63 kB\napp build: .vercel/output/functions/__server.func/_libs/ethers.mjs                                    454.95 kB │ gzip: 108.83 kB\napp build: .vercel/output/functions/__server.func/_libs/bnc-notify+[...].mjs                          546.05 kB │ gzip: 122.20 kB\napp build: .vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs              666.27 kB │ gzip: 139.77 kB\napp build: .vercel/output/functions/__server.func/_ssr/config-BCP6Z2vL.mjs                            892.04 kB │ gzip: 194.61 kB\napp build: .vercel/output/functions/__server.func/_libs/@sentry/browser+[...].mjs                     936.90 kB │ gzip: 222.32 kB\napp build: .vercel/output/functions/__server.func/_libs/@safe-global/safe-apps-provider+[...].mjs   1,004.21 kB │ gzip: 167.26 kB\napp build: .vercel/output/functions/__server.func/_libs/@base-org/account+[...].mjs                 1,307.24 kB │ gzip: 328.89 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-smashers-wPkPDLwK.mjs            1,520.44 kB │ gzip: 319.95 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit.mjs                           3,476.53 kB │ gzip: 879.61 kB\napp build: \napp build: ✓ built in 1.42s\napp build: ℹ Generated .vercel/output/nitro.json\napp build: \napp build: [nitro] ✔ You can preview this build using npx vite preview\napp build: [nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt\napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "app",
+            "build"
+          ],
+          "durationMs": 8679.544332999998,
+          "exitCode": 0,
+          "stdout": "r/leaderboard-crypto-winter-OH__y4M6.mjs          48.34 kB │ gzip:   9.89 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__ciphers.mjs                             49.19 kB │ gzip:  13.18 kB\napp build: .vercel/output/functions/__server.func/_ssr/select-BNWy5zPx.mjs                             51.24 kB │ gzip:  11.37 kB\napp build: .vercel/output/functions/__server.func/_libs/sonner.mjs                                     55.34 kB │ gzip:  12.93 kB\napp build: .vercel/output/functions/__server.func/_ssr/RentDegenContentDialog-BEBs8v3y.mjs             60.02 kB │ gzip:  13.43 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__hashes.mjs                              64.11 kB │ gzip:  16.03 kB\napp build: .vercel/output/functions/__server.func/_ssr/dist-DAmucePe.mjs                               72.56 kB │ gzip:  17.36 kB\napp build: .vercel/output/functions/__server.func/_ssr/es2015-CkzVGeIg.mjs                             73.39 kB │ gzip:  19.36 kB\napp build: .vercel/output/functions/__server.func/_libs/tanstack__query-core.mjs                       73.56 kB │ gzip:  15.78 kB\napp build: .vercel/output/functions/__server.func/_libs/react-hook-form.mjs                            86.86 kB │ gzip:  20.04 kB\napp build: .vercel/output/functions/__server.func/_libs/adraffy__ens-normalize.mjs                     98.65 kB │ gzip:  57.19 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-adapter-wagmi+[...].mjs         111.08 kB │ gzip:  23.53 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-pay+[...].mjs                   115.01 kB │ gzip:  21.91 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-wen-game-BMQqZdKM.mjs              144.49 kB │ gzip:  23.15 kB\napp build: .vercel/output/functions/__server.func/_ssr/router-2YtyWDPE.mjs                            159.75 kB │ gzip:  36.90 kB\napp build: .vercel/output/functions/__server.func/_libs/@phosphor-icons/webcomponents+[...].mjs       198.16 kB │ gzip:  40.45 kB\napp build: .vercel/output/functions/__server.func/_ssr/ssr.mjs                                        220.01 kB │ gzip:  51.47 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__curves+noble__hashes.mjs               285.26 kB │ gzip:  84.48 kB\napp build: .vercel/output/functions/__server.func/_libs/@coinbase/wallet-sdk+[...].mjs                341.70 kB │ gzip:  87.82 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-scaffold-ui+[...].mjs           377.74 kB │ gzip:  60.63 kB\napp build: .vercel/output/functions/__server.func/_libs/ethers.mjs                                    454.95 kB │ gzip: 108.83 kB\napp build: .vercel/output/functions/__server.func/_libs/bnc-notify+[...].mjs                          546.05 kB │ gzip: 122.20 kB\napp build: .vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs              666.27 kB │ gzip: 139.77 kB\napp build: .vercel/output/functions/__server.func/_ssr/config-BCP6Z2vL.mjs                            892.04 kB │ gzip: 194.61 kB\napp build: .vercel/output/functions/__server.func/_libs/@sentry/browser+[...].mjs                     936.90 kB │ gzip: 222.32 kB\napp build: .vercel/output/functions/__server.func/_libs/@safe-global/safe-apps-provider+[...].mjs   1,004.21 kB │ gzip: 167.26 kB\napp build: .vercel/output/functions/__server.func/_libs/@base-org/account+[...].mjs                 1,307.24 kB │ gzip: 328.89 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-smashers-wPkPDLwK.mjs            1,520.44 kB │ gzip: 319.95 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit.mjs                           3,476.53 kB │ gzip: 879.61 kB\napp build: \napp build: ✓ built in 1.57s\napp build: ℹ Generated .vercel/output/nitro.json\napp build: \napp build: [nitro] ✔ You can preview this build using npx vite preview\napp build: [nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt\napp build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "app",
+            "build"
+          ],
+          "durationMs": 9606.891917,
+          "exitCode": 0,
+          "stdout": "r/leaderboard-crypto-winter-OH__y4M6.mjs          48.34 kB │ gzip:   9.89 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__ciphers.mjs                             49.19 kB │ gzip:  13.18 kB\napp build: .vercel/output/functions/__server.func/_ssr/select-BNWy5zPx.mjs                             51.24 kB │ gzip:  11.37 kB\napp build: .vercel/output/functions/__server.func/_libs/sonner.mjs                                     55.34 kB │ gzip:  12.93 kB\napp build: .vercel/output/functions/__server.func/_ssr/RentDegenContentDialog-BEBs8v3y.mjs             60.02 kB │ gzip:  13.43 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__hashes.mjs                              64.11 kB │ gzip:  16.03 kB\napp build: .vercel/output/functions/__server.func/_ssr/dist-DAmucePe.mjs                               72.56 kB │ gzip:  17.36 kB\napp build: .vercel/output/functions/__server.func/_ssr/es2015-CkzVGeIg.mjs                             73.39 kB │ gzip:  19.36 kB\napp build: .vercel/output/functions/__server.func/_libs/tanstack__query-core.mjs                       73.56 kB │ gzip:  15.78 kB\napp build: .vercel/output/functions/__server.func/_libs/react-hook-form.mjs                            86.86 kB │ gzip:  20.04 kB\napp build: .vercel/output/functions/__server.func/_libs/adraffy__ens-normalize.mjs                     98.65 kB │ gzip:  57.19 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-adapter-wagmi+[...].mjs         111.08 kB │ gzip:  23.53 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-pay+[...].mjs                   115.01 kB │ gzip:  21.91 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-wen-game-BMQqZdKM.mjs              144.49 kB │ gzip:  23.15 kB\napp build: .vercel/output/functions/__server.func/_ssr/router-2YtyWDPE.mjs                            159.75 kB │ gzip:  36.90 kB\napp build: .vercel/output/functions/__server.func/_libs/@phosphor-icons/webcomponents+[...].mjs       198.16 kB │ gzip:  40.45 kB\napp build: .vercel/output/functions/__server.func/_ssr/ssr.mjs                                        220.01 kB │ gzip:  51.47 kB\napp build: .vercel/output/functions/__server.func/_libs/noble__curves+noble__hashes.mjs               285.26 kB │ gzip:  84.48 kB\napp build: .vercel/output/functions/__server.func/_libs/@coinbase/wallet-sdk+[...].mjs                341.70 kB │ gzip:  87.82 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit-scaffold-ui+[...].mjs           377.74 kB │ gzip:  60.63 kB\napp build: .vercel/output/functions/__server.func/_libs/ethers.mjs                                    454.95 kB │ gzip: 108.83 kB\napp build: .vercel/output/functions/__server.func/_libs/bnc-notify+[...].mjs                          546.05 kB │ gzip: 122.20 kB\napp build: .vercel/output/functions/__server.func/_libs/@tanstack/react-router+[...].mjs              666.27 kB │ gzip: 139.77 kB\napp build: .vercel/output/functions/__server.func/_ssr/config-BCP6Z2vL.mjs                            892.04 kB │ gzip: 194.61 kB\napp build: .vercel/output/functions/__server.func/_libs/@sentry/browser+[...].mjs                     936.90 kB │ gzip: 222.32 kB\napp build: .vercel/output/functions/__server.func/_libs/@safe-global/safe-apps-provider+[...].mjs   1,004.21 kB │ gzip: 167.26 kB\napp build: .vercel/output/functions/__server.func/_libs/@base-org/account+[...].mjs                 1,307.24 kB │ gzip: 328.89 kB\napp build: .vercel/output/functions/__server.func/_ssr/leaderboard-smashers-wPkPDLwK.mjs            1,520.44 kB │ gzip: 319.95 kB\napp build: .vercel/output/functions/__server.func/_libs/@reown/appkit.mjs                           3,476.53 kB │ gzip: 879.61 kB\napp build: \napp build: ✓ built in 1.84s\napp build: ℹ Generated .vercel/output/nitro.json\napp build: \napp build: [nitro] ✔ You can preview this build using npx vite preview\napp build: [nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt\napp build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 8205.908041999995,
+        "p75": 8333.644562499998,
+        "minimum": 8124.103875000001,
+        "maximum": 8461.381083,
+        "standardDeviation": 175.93289982861273,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 8679.544332999998,
+        "p75": 9143.218125,
+        "minimum": 8465.821083999996,
+        "maximum": 9606.891917,
+        "standardDeviation": 606.5879730972094,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "docs",
+      "clean": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "docs",
+            "build"
+          ],
+          "durationMs": 8935.551250000019,
+          "exitCode": 0,
+          "stdout": " 14:29:15   ├─ /tutorial/translate-your-site/index.html (+8ms) \ndocs build: 14:29:15 ✓ Completed in 444ms.\ndocs build: \ndocs build:  generating optimized images \ndocs build: 14:29:15   ▶ /_astro/app_logo_outlined.DC5_y1I3_1PC2YL.webp (reused cache entry) (+2ms) (1/36)\ndocs build: 14:29:15   ▶ /_astro/2.b6p4PmUB_Z19445M.webp (reused cache entry) (+2ms) (2/36)\ndocs build: 14:29:15   ▶ /_astro/1.CQFKyLYn_Z1TpIqG.webp (reused cache entry) (+3ms) (3/36)\ndocs build: 14:29:15   ▶ /_astro/banner-light.Crm2jlm1_1IYb8A.webp (reused cache entry) (+3ms) (4/36)\ndocs build: 14:29:15   ▶ /_astro/3.85EcFLf8_J9tn7.webp (reused cache entry) (+3ms) (5/36)\ndocs build: 14:29:15   ▶ /_astro/4.DWZRudmI_14ync9.webp (reused cache entry) (+3ms) (6/36)\ndocs build: 14:29:15   ▶ /_astro/6.DSTnsmty_1gkCHF.webp (reused cache entry) (+3ms) (7/36)\ndocs build: 14:29:15   ▶ /_astro/5.Ct7tWUIk_CgtpE.webp (reused cache entry) (+3ms) (8/36)\ndocs build: 14:29:15   ▶ /_astro/docsVersionDropdown.DhjdriQm_11RtfD.webp (reused cache entry) (+4ms) (9/36)\ndocs build: 14:29:15   ▶ /_astro/localeDropdown.DJ9RNxjr_1wYPta.webp (reused cache entry) (+4ms) (10/36)\ndocs build: 14:29:15   ▶ /_astro/banner-dark.CaCWSsUO_1tMtJY.webp (reused cache entry) (+4ms) (11/36)\ndocs build: 14:29:15   ▶ /_astro/nifty_roadmap.BFlrW5u1_1SHNCH.webp (reused cache entry) (+4ms) (12/36)\ndocs build: 14:29:15   ▶ /_astro/app_logo_outlined.DC5_y1I3_Z1Fwy3J.webp (reused cache entry) (+3ms) (13/36)\ndocs build: 14:29:15   ▶ /_astro/2.b6p4PmUB_Z2c58RX.webp (reused cache entry) (+3ms) (14/36)\ndocs build: 14:29:15   ▶ /_astro/banner-light.Crm2jlm1_5pe8y.webp (reused cache entry) (+3ms) (15/36)\ndocs build: 14:29:15   ▶ /_astro/1.CQFKyLYn_27KkA4.webp (reused cache entry) (+3ms) (16/36)\ndocs build: 14:29:15   ▶ /_astro/3.85EcFLf8_ZiQAp4.webp (reused cache entry) (+4ms) (17/36)\ndocs build: 14:29:15   ▶ /_astro/4.DWZRudmI_1xioX.webp (reused cache entry) (+4ms) (18/36)\ndocs build: 14:29:15   ▶ /_astro/5.Ct7tWUIk_ZpJAmw.webp (reused cache entry) (+4ms) (19/36)\ndocs build: 14:29:15   ▶ /_astro/6.DSTnsmty_djxUu.webp (reused cache entry) (+4ms) (20/36)\ndocs build: 14:29:15   ▶ /_astro/banner-dark.CaCWSsUO_2mk2re.webp (reused cache entry) (+4ms) (21/36)\ndocs build: 14:29:15   ▶ /_astro/app_logo_outlined.DC5_y1I3_1wXrsR.webp (reused cache entry) (+3ms) (22/36)\ndocs build: 14:29:15   ▶ /_astro/nifty_roadmap.BFlrW5u1_Z1O6vAK.webp (reused cache entry) (+5ms) (23/36)\ndocs build: 14:29:15   ▶ /_astro/banner-light.Crm2jlm1_28i1ov.webp (reused cache entry) (+4ms) (24/36)\ndocs build: 14:29:15   ▶ /_astro/2.b6p4PmUB_Z1PzUGu.webp (reused cache entry) (+5ms) (25/36)\ndocs build: 14:29:15   ▶ /_astro/1.CQFKyLYn_1ohLe.webp (reused cache entry) (+9ms) (26/36)\ndocs build: 14:29:15   ▶ /_astro/4.DWZRudmI_Xm3Lk.webp (reused cache entry) (+10ms) (27/36)\ndocs build: 14:29:15   ▶ /_astro/3.85EcFLf8_L6tYb.webp (reused cache entry) (+10ms) (28/36)\ndocs build: 14:29:15   ▶ /_astro/banner-dark.CaCWSsUO_1wG9Sw.webp (reused cache entry) (+10ms) (29/36)\ndocs build: 14:29:15   ▶ /_astro/nifty_roadmap.BFlrW5u1_1LthEG.webp (reused cache entry) (+9ms) (30/36)\ndocs build: 14:29:15   ▶ /_astro/5.Ct7tWUIk_2lQE5S.webp (reused cache entry) (+12ms) (31/36)\ndocs build: 14:29:15   ▶ /_astro/6.DSTnsmty_1RaMXE.webp (reused cache entry) (+12ms) (32/36)\ndocs build: 14:29:15   ▶ /_astro/banner-light.Crm2jlm1_24IHN4.webp (reused cache entry) (+12ms) (33/36)\ndocs build: 14:29:15   ▶ /_astro/banner-dark.CaCWSsUO_vD8p3.webp (reused cache entry) (+8ms) (34/36)\ndocs build: 14:29:15   ▶ /_astro/nifty_roadmap.BFlrW5u1_ZgFLpu.webp (reused cache entry) (+8ms) (35/36)\ndocs build: 14:29:15   ▶ /_astro/nifty_roadmap.BFlrW5u1_2w31i7.webp (reused cache entry) (+3ms) (36/36)\ndocs build: 14:29:15 ✓ Completed in 31ms.\ndocs build: \ndocs build: 14:29:15 [build] ✓ Completed in 6.20s.\ndocs build: 14:29:15 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\ndocs build: 14:29:15 [build] 55 page(s) built in 6.97s\ndocs build: 14:29:15 [build] Complete!\ndocs build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "docs",
+            "build"
+          ],
+          "durationMs": 8105.018542000005,
+          "exitCode": 0,
+          "stdout": "uild: 14:29:34   ├─ /tutorial/translate-your-site/index.html (+3ms) \ndocs build: 14:29:34 ✓ Completed in 390ms.\ndocs build: \ndocs build:  generating optimized images \ndocs build: 14:29:34   ▶ /_astro/app_logo_outlined.DC5_y1I3_1PC2YL.webp (reused cache entry) (+2ms) (1/36)\ndocs build: 14:29:34   ▶ /_astro/2.b6p4PmUB_Z19445M.webp (reused cache entry) (+1ms) (2/36)\ndocs build: 14:29:34   ▶ /_astro/banner-dark.CaCWSsUO_1tMtJY.webp (reused cache entry) (+2ms) (3/36)\ndocs build: 14:29:34   ▶ /_astro/banner-light.Crm2jlm1_1IYb8A.webp (reused cache entry) (+2ms) (4/36)\ndocs build: 14:29:34   ▶ /_astro/4.DWZRudmI_14ync9.webp (reused cache entry) (+2ms) (5/36)\ndocs build: 14:29:34   ▶ /_astro/5.Ct7tWUIk_CgtpE.webp (reused cache entry) (+2ms) (6/36)\ndocs build: 14:29:34   ▶ /_astro/3.85EcFLf8_J9tn7.webp (reused cache entry) (+2ms) (7/36)\ndocs build: 14:29:34   ▶ /_astro/6.DSTnsmty_1gkCHF.webp (reused cache entry) (+2ms) (8/36)\ndocs build: 14:29:34   ▶ /_astro/docsVersionDropdown.DhjdriQm_11RtfD.webp (reused cache entry) (+2ms) (9/36)\ndocs build: 14:29:34   ▶ /_astro/1.CQFKyLYn_Z1TpIqG.webp (reused cache entry) (+3ms) (10/36)\ndocs build: 14:29:34   ▶ /_astro/nifty_roadmap.BFlrW5u1_1SHNCH.webp (reused cache entry) (+2ms) (11/36)\ndocs build: 14:29:34   ▶ /_astro/localeDropdown.DJ9RNxjr_1wYPta.webp (reused cache entry) (+3ms) (12/36)\ndocs build: 14:29:34   ▶ /_astro/app_logo_outlined.DC5_y1I3_Z1Fwy3J.webp (reused cache entry) (+2ms) (13/36)\ndocs build: 14:29:34   ▶ /_astro/banner-light.Crm2jlm1_5pe8y.webp (reused cache entry) (+2ms) (14/36)\ndocs build: 14:29:34   ▶ /_astro/2.b6p4PmUB_Z2c58RX.webp (reused cache entry) (+3ms) (15/36)\ndocs build: 14:29:34   ▶ /_astro/banner-dark.CaCWSsUO_2mk2re.webp (reused cache entry) (+3ms) (16/36)\ndocs build: 14:29:34   ▶ /_astro/4.DWZRudmI_1xioX.webp (reused cache entry) (+3ms) (17/36)\ndocs build: 14:29:34   ▶ /_astro/3.85EcFLf8_ZiQAp4.webp (reused cache entry) (+3ms) (18/36)\ndocs build: 14:29:34   ▶ /_astro/5.Ct7tWUIk_ZpJAmw.webp (reused cache entry) (+3ms) (19/36)\ndocs build: 14:29:34   ▶ /_astro/6.DSTnsmty_djxUu.webp (reused cache entry) (+3ms) (20/36)\ndocs build: 14:29:34   ▶ /_astro/1.CQFKyLYn_27KkA4.webp (reused cache entry) (+3ms) (21/36)\ndocs build: 14:29:34   ▶ /_astro/app_logo_outlined.DC5_y1I3_1wXrsR.webp (reused cache entry) (+2ms) (22/36)\ndocs build: 14:29:34   ▶ /_astro/banner-light.Crm2jlm1_28i1ov.webp (reused cache entry) (+2ms) (23/36)\ndocs build: 14:29:34   ▶ /_astro/nifty_roadmap.BFlrW5u1_Z1O6vAK.webp (reused cache entry) (+3ms) (24/36)\ndocs build: 14:29:34   ▶ /_astro/banner-dark.CaCWSsUO_1wG9Sw.webp (reused cache entry) (+2ms) (25/36)\ndocs build: 14:29:34   ▶ /_astro/2.b6p4PmUB_Z1PzUGu.webp (reused cache entry) (+4ms) (26/36)\ndocs build: 14:29:34   ▶ /_astro/4.DWZRudmI_Xm3Lk.webp (reused cache entry) (+4ms) (27/36)\ndocs build: 14:29:34   ▶ /_astro/3.85EcFLf8_L6tYb.webp (reused cache entry) (+5ms) (28/36)\ndocs build: 14:29:34   ▶ /_astro/5.Ct7tWUIk_2lQE5S.webp (reused cache entry) (+7ms) (29/36)\ndocs build: 14:29:34   ▶ /_astro/banner-light.Crm2jlm1_24IHN4.webp (reused cache entry) (+6ms) (30/36)\ndocs build: 14:29:34   ▶ /_astro/1.CQFKyLYn_1ohLe.webp (reused cache entry) (+7ms) (31/36)\ndocs build: 14:29:34   ▶ /_astro/nifty_roadmap.BFlrW5u1_1LthEG.webp (reused cache entry) (+8ms) (32/36)\ndocs build: 14:29:34   ▶ /_astro/banner-dark.CaCWSsUO_vD8p3.webp (reused cache entry) (+8ms) (33/36)\ndocs build: 14:29:34   ▶ /_astro/nifty_roadmap.BFlrW5u1_ZgFLpu.webp (reused cache entry) (+2ms) (34/36)\ndocs build: 14:29:34   ▶ /_astro/6.DSTnsmty_1RaMXE.webp (reused cache entry) (+11ms) (35/36)\ndocs build: 14:29:34   ▶ /_astro/nifty_roadmap.BFlrW5u1_2w31i7.webp (reused cache entry) (+1ms) (36/36)\ndocs build: 14:29:34 ✓ Completed in 18ms.\ndocs build: \ndocs build: 14:29:34 [build] ✓ Completed in 5.91s.\ndocs build: 14:29:34 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\ndocs build: 14:29:34 [build] 55 page(s) built in 6.71s\ndocs build: 14:29:34 [build] Complete!\ndocs build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "docs",
+            "build"
+          ],
+          "durationMs": 12010.246707999991,
+          "exitCode": 0,
+          "stdout": ":29:58   ├─ /tutorial/translate-your-site/index.html (+6ms) \ndocs build: 14:29:58 ✓ Completed in 1.17s.\ndocs build: \ndocs build:  generating optimized images \ndocs build: 14:29:58   ▶ /_astro/2.b6p4PmUB_Z19445M.webp (reused cache entry) (+2ms) (1/36)\ndocs build: 14:29:58   ▶ /_astro/4.DWZRudmI_14ync9.webp (reused cache entry) (+3ms) (2/36)\ndocs build: 14:29:58   ▶ /_astro/3.85EcFLf8_J9tn7.webp (reused cache entry) (+4ms) (3/36)\ndocs build: 14:29:58   ▶ /_astro/banner-dark.CaCWSsUO_1tMtJY.webp (reused cache entry) (+4ms) (4/36)\ndocs build: 14:29:58   ▶ /_astro/5.Ct7tWUIk_CgtpE.webp (reused cache entry) (+4ms) (5/36)\ndocs build: 14:29:58   ▶ /_astro/banner-light.Crm2jlm1_1IYb8A.webp (reused cache entry) (+4ms) (6/36)\ndocs build: 14:29:58   ▶ /_astro/localeDropdown.DJ9RNxjr_1wYPta.webp (reused cache entry) (+5ms) (7/36)\ndocs build: 14:29:58   ▶ /_astro/6.DSTnsmty_1gkCHF.webp (reused cache entry) (+5ms) (8/36)\ndocs build: 14:29:58   ▶ /_astro/1.CQFKyLYn_Z1TpIqG.webp (reused cache entry) (+6ms) (9/36)\ndocs build: 14:29:58   ▶ /_astro/docsVersionDropdown.DhjdriQm_11RtfD.webp (reused cache entry) (+6ms) (10/36)\ndocs build: 14:29:58   ▶ /_astro/nifty_roadmap.BFlrW5u1_1SHNCH.webp (reused cache entry) (+6ms) (11/36)\ndocs build: 14:29:58   ▶ /_astro/app_logo_outlined.DC5_y1I3_1PC2YL.webp (reused cache entry) (+7ms) (12/36)\ndocs build: 14:29:58   ▶ /_astro/2.b6p4PmUB_Z2c58RX.webp (reused cache entry) (+6ms) (13/36)\ndocs build: 14:29:58   ▶ /_astro/4.DWZRudmI_1xioX.webp (reused cache entry) (+6ms) (14/36)\ndocs build: 14:29:58   ▶ /_astro/banner-dark.CaCWSsUO_2mk2re.webp (reused cache entry) (+5ms) (15/36)\ndocs build: 14:29:58   ▶ /_astro/3.85EcFLf8_ZiQAp4.webp (reused cache entry) (+5ms) (16/36)\ndocs build: 14:29:58   ▶ /_astro/banner-light.Crm2jlm1_5pe8y.webp (reused cache entry) (+6ms) (17/36)\ndocs build: 14:29:58   ▶ /_astro/5.Ct7tWUIk_ZpJAmw.webp (reused cache entry) (+7ms) (18/36)\ndocs build: 14:29:58   ▶ /_astro/1.CQFKyLYn_27KkA4.webp (reused cache entry) (+6ms) (19/36)\ndocs build: 14:29:58   ▶ /_astro/6.DSTnsmty_djxUu.webp (reused cache entry) (+8ms) (20/36)\ndocs build: 14:29:58   ▶ /_astro/nifty_roadmap.BFlrW5u1_Z1O6vAK.webp (reused cache entry) (+7ms) (21/36)\ndocs build: 14:29:58   ▶ /_astro/app_logo_outlined.DC5_y1I3_Z1Fwy3J.webp (reused cache entry) (+7ms) (22/36)\ndocs build: 14:29:58   ▶ /_astro/banner-dark.CaCWSsUO_1wG9Sw.webp (reused cache entry) (+6ms) (23/36)\ndocs build: 14:29:58   ▶ /_astro/2.b6p4PmUB_Z1PzUGu.webp (reused cache entry) (+9ms) (24/36)\ndocs build: 14:29:58   ▶ /_astro/banner-light.Crm2jlm1_28i1ov.webp (reused cache entry) (+7ms) (25/36)\ndocs build: 14:29:58   ▶ /_astro/4.DWZRudmI_Xm3Lk.webp (reused cache entry) (+9ms) (26/36)\ndocs build: 14:29:58   ▶ /_astro/3.85EcFLf8_L6tYb.webp (reused cache entry) (+12ms) (27/36)\ndocs build: 14:29:58   ▶ /_astro/5.Ct7tWUIk_2lQE5S.webp (reused cache entry) (+17ms) (28/36)\ndocs build: 14:29:58   ▶ /_astro/app_logo_outlined.DC5_y1I3_1wXrsR.webp (reused cache entry) (+16ms) (29/36)\ndocs build: 14:29:58   ▶ /_astro/banner-dark.CaCWSsUO_vD8p3.webp (reused cache entry) (+14ms) (30/36)\ndocs build: 14:29:58   ▶ /_astro/nifty_roadmap.BFlrW5u1_1LthEG.webp (reused cache entry) (+16ms) (31/36)\ndocs build: 14:29:58   ▶ /_astro/1.CQFKyLYn_1ohLe.webp (reused cache entry) (+19ms) (32/36)\ndocs build: 14:29:58   ▶ /_astro/nifty_roadmap.BFlrW5u1_ZgFLpu.webp (reused cache entry) (+8ms) (33/36)\ndocs build: 14:29:58   ▶ /_astro/6.DSTnsmty_1RaMXE.webp (reused cache entry) (+25ms) (34/36)\ndocs build: 14:29:58   ▶ /_astro/banner-light.Crm2jlm1_24IHN4.webp (reused cache entry) (+21ms) (35/36)\ndocs build: 14:29:58   ▶ /_astro/nifty_roadmap.BFlrW5u1_2w31i7.webp (reused cache entry) (+3ms) (36/36)\ndocs build: 14:29:58 ✓ Completed in 43ms.\ndocs build: \ndocs build: 14:29:58 [build] ✓ Completed in 9.84s.\ndocs build: 14:29:58 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\ndocs build: 14:29:58 [build] 55 page(s) built in 10.68s\ndocs build: 14:29:58 [build] Complete!\ndocs build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "docs",
+            "build"
+          ],
+          "durationMs": 9646.528332999995,
+          "exitCode": 0,
+          "stdout": "build: 14:29:25   ├─ /tutorial/translate-your-site/index.html (+3ms) \ndocs build: 14:29:25 ✓ Completed in 324ms.\ndocs build: \ndocs build:  generating optimized images \ndocs build: 14:29:25   ▶ /_astro/app_logo_outlined.DC5_y1I3_1PC2YL.webp (reused cache entry) (+2ms) (1/36)\ndocs build: 14:29:25   ▶ /_astro/banner-dark.CaCWSsUO_1tMtJY.webp (reused cache entry) (+1ms) (2/36)\ndocs build: 14:29:25   ▶ /_astro/2.b6p4PmUB_Z19445M.webp (reused cache entry) (+2ms) (3/36)\ndocs build: 14:29:25   ▶ /_astro/banner-light.Crm2jlm1_1IYb8A.webp (reused cache entry) (+2ms) (4/36)\ndocs build: 14:29:25   ▶ /_astro/5.Ct7tWUIk_CgtpE.webp (reused cache entry) (+2ms) (5/36)\ndocs build: 14:29:25   ▶ /_astro/3.85EcFLf8_J9tn7.webp (reused cache entry) (+2ms) (6/36)\ndocs build: 14:29:25   ▶ /_astro/1.CQFKyLYn_Z1TpIqG.webp (reused cache entry) (+2ms) (7/36)\ndocs build: 14:29:25   ▶ /_astro/4.DWZRudmI_14ync9.webp (reused cache entry) (+2ms) (8/36)\ndocs build: 14:29:25   ▶ /_astro/6.DSTnsmty_1gkCHF.webp (reused cache entry) (+2ms) (9/36)\ndocs build: 14:29:25   ▶ /_astro/localeDropdown.DJ9RNxjr_1wYPta.webp (reused cache entry) (+2ms) (10/36)\ndocs build: 14:29:25   ▶ /_astro/docsVersionDropdown.DhjdriQm_11RtfD.webp (reused cache entry) (+3ms) (11/36)\ndocs build: 14:29:25   ▶ /_astro/nifty_roadmap.BFlrW5u1_1SHNCH.webp (reused cache entry) (+3ms) (12/36)\ndocs build: 14:29:25   ▶ /_astro/app_logo_outlined.DC5_y1I3_Z1Fwy3J.webp (reused cache entry) (+2ms) (13/36)\ndocs build: 14:29:25   ▶ /_astro/banner-dark.CaCWSsUO_2mk2re.webp (reused cache entry) (+2ms) (14/36)\ndocs build: 14:29:25   ▶ /_astro/2.b6p4PmUB_Z2c58RX.webp (reused cache entry) (+2ms) (15/36)\ndocs build: 14:29:25   ▶ /_astro/banner-light.Crm2jlm1_5pe8y.webp (reused cache entry) (+2ms) (16/36)\ndocs build: 14:29:25   ▶ /_astro/5.Ct7tWUIk_ZpJAmw.webp (reused cache entry) (+2ms) (17/36)\ndocs build: 14:29:25   ▶ /_astro/3.85EcFLf8_ZiQAp4.webp (reused cache entry) (+2ms) (18/36)\ndocs build: 14:29:25   ▶ /_astro/4.DWZRudmI_1xioX.webp (reused cache entry) (+2ms) (19/36)\ndocs build: 14:29:25   ▶ /_astro/1.CQFKyLYn_27KkA4.webp (reused cache entry) (+2ms) (20/36)\ndocs build: 14:29:25   ▶ /_astro/6.DSTnsmty_djxUu.webp (reused cache entry) (+2ms) (21/36)\ndocs build: 14:29:25   ▶ /_astro/app_logo_outlined.DC5_y1I3_1wXrsR.webp (reused cache entry) (+2ms) (22/36)\ndocs build: 14:29:25   ▶ /_astro/banner-light.Crm2jlm1_28i1ov.webp (reused cache entry) (+2ms) (23/36)\ndocs build: 14:29:25   ▶ /_astro/nifty_roadmap.BFlrW5u1_Z1O6vAK.webp (reused cache entry) (+3ms) (24/36)\ndocs build: 14:29:25   ▶ /_astro/banner-dark.CaCWSsUO_1wG9Sw.webp (reused cache entry) (+3ms) (25/36)\ndocs build: 14:29:25   ▶ /_astro/2.b6p4PmUB_Z1PzUGu.webp (reused cache entry) (+3ms) (26/36)\ndocs build: 14:29:25   ▶ /_astro/5.Ct7tWUIk_2lQE5S.webp (reused cache entry) (+4ms) (27/36)\ndocs build: 14:29:25   ▶ /_astro/3.85EcFLf8_L6tYb.webp (reused cache entry) (+4ms) (28/36)\ndocs build: 14:29:25   ▶ /_astro/banner-light.Crm2jlm1_24IHN4.webp (reused cache entry) (+6ms) (29/36)\ndocs build: 14:29:25   ▶ /_astro/1.CQFKyLYn_1ohLe.webp (reused cache entry) (+7ms) (30/36)\ndocs build: 14:29:25   ▶ /_astro/4.DWZRudmI_Xm3Lk.webp (reused cache entry) (+7ms) (31/36)\ndocs build: 14:29:25   ▶ /_astro/nifty_roadmap.BFlrW5u1_1LthEG.webp (reused cache entry) (+6ms) (32/36)\ndocs build: 14:29:25   ▶ /_astro/6.DSTnsmty_1RaMXE.webp (reused cache entry) (+9ms) (33/36)\ndocs build: 14:29:25   ▶ /_astro/banner-dark.CaCWSsUO_vD8p3.webp (reused cache entry) (+8ms) (34/36)\ndocs build: 14:29:25   ▶ /_astro/nifty_roadmap.BFlrW5u1_ZgFLpu.webp (reused cache entry) (+4ms) (35/36)\ndocs build: 14:29:25   ▶ /_astro/nifty_roadmap.BFlrW5u1_2w31i7.webp (reused cache entry) (+2ms) (36/36)\ndocs build: 14:29:25 ✓ Completed in 19ms.\ndocs build: \ndocs build: 14:29:25 [build] ✓ Completed in 6.09s.\ndocs build: 14:29:25 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\ndocs build: 14:29:25 [build] 55 page(s) built in 8.57s\ndocs build: 14:29:25 [build] Complete!\ndocs build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "docs",
+            "build"
+          ],
+          "durationMs": 10269.885042000009,
+          "exitCode": 0,
+          "stdout": "build: 14:29:44   ├─ /tutorial/translate-your-site/index.html (+3ms) \ndocs build: 14:29:44 ✓ Completed in 323ms.\ndocs build: \ndocs build:  generating optimized images \ndocs build: 14:29:44   ▶ /_astro/app_logo_outlined.DC5_y1I3_1PC2YL.webp (reused cache entry) (+2ms) (1/36)\ndocs build: 14:29:44   ▶ /_astro/banner-dark.CaCWSsUO_1tMtJY.webp (reused cache entry) (+1ms) (2/36)\ndocs build: 14:29:44   ▶ /_astro/banner-light.Crm2jlm1_1IYb8A.webp (reused cache entry) (+1ms) (3/36)\ndocs build: 14:29:44   ▶ /_astro/1.CQFKyLYn_Z1TpIqG.webp (reused cache entry) (+1ms) (4/36)\ndocs build: 14:29:44   ▶ /_astro/3.85EcFLf8_J9tn7.webp (reused cache entry) (+2ms) (5/36)\ndocs build: 14:29:44   ▶ /_astro/2.b6p4PmUB_Z19445M.webp (reused cache entry) (+2ms) (6/36)\ndocs build: 14:29:44   ▶ /_astro/6.DSTnsmty_1gkCHF.webp (reused cache entry) (+2ms) (7/36)\ndocs build: 14:29:44   ▶ /_astro/5.Ct7tWUIk_CgtpE.webp (reused cache entry) (+2ms) (8/36)\ndocs build: 14:29:44   ▶ /_astro/nifty_roadmap.BFlrW5u1_1SHNCH.webp (reused cache entry) (+2ms) (9/36)\ndocs build: 14:29:44   ▶ /_astro/localeDropdown.DJ9RNxjr_1wYPta.webp (reused cache entry) (+3ms) (10/36)\ndocs build: 14:29:44   ▶ /_astro/docsVersionDropdown.DhjdriQm_11RtfD.webp (reused cache entry) (+3ms) (11/36)\ndocs build: 14:29:44   ▶ /_astro/4.DWZRudmI_14ync9.webp (reused cache entry) (+3ms) (12/36)\ndocs build: 14:29:44   ▶ /_astro/app_logo_outlined.DC5_y1I3_Z1Fwy3J.webp (reused cache entry) (+2ms) (13/36)\ndocs build: 14:29:44   ▶ /_astro/banner-dark.CaCWSsUO_2mk2re.webp (reused cache entry) (+2ms) (14/36)\ndocs build: 14:29:44   ▶ /_astro/1.CQFKyLYn_27KkA4.webp (reused cache entry) (+2ms) (15/36)\ndocs build: 14:29:44   ▶ /_astro/3.85EcFLf8_ZiQAp4.webp (reused cache entry) (+2ms) (16/36)\ndocs build: 14:29:44   ▶ /_astro/2.b6p4PmUB_Z2c58RX.webp (reused cache entry) (+2ms) (17/36)\ndocs build: 14:29:44   ▶ /_astro/6.DSTnsmty_djxUu.webp (reused cache entry) (+2ms) (18/36)\ndocs build: 14:29:44   ▶ /_astro/5.Ct7tWUIk_ZpJAmw.webp (reused cache entry) (+2ms) (19/36)\ndocs build: 14:29:44   ▶ /_astro/banner-light.Crm2jlm1_5pe8y.webp (reused cache entry) (+3ms) (20/36)\ndocs build: 14:29:44   ▶ /_astro/nifty_roadmap.BFlrW5u1_Z1O6vAK.webp (reused cache entry) (+2ms) (21/36)\ndocs build: 14:29:44   ▶ /_astro/app_logo_outlined.DC5_y1I3_1wXrsR.webp (reused cache entry) (+1ms) (22/36)\ndocs build: 14:29:44   ▶ /_astro/4.DWZRudmI_1xioX.webp (reused cache entry) (+2ms) (23/36)\ndocs build: 14:29:44   ▶ /_astro/1.CQFKyLYn_1ohLe.webp (reused cache entry) (+3ms) (24/36)\ndocs build: 14:29:44   ▶ /_astro/banner-dark.CaCWSsUO_1wG9Sw.webp (reused cache entry) (+3ms) (25/36)\ndocs build: 14:29:44   ▶ /_astro/2.b6p4PmUB_Z1PzUGu.webp (reused cache entry) (+3ms) (26/36)\ndocs build: 14:29:44   ▶ /_astro/3.85EcFLf8_L6tYb.webp (reused cache entry) (+3ms) (27/36)\ndocs build: 14:29:44   ▶ /_astro/6.DSTnsmty_1RaMXE.webp (reused cache entry) (+5ms) (28/36)\ndocs build: 14:29:44   ▶ /_astro/banner-light.Crm2jlm1_28i1ov.webp (reused cache entry) (+5ms) (29/36)\ndocs build: 14:29:44   ▶ /_astro/nifty_roadmap.BFlrW5u1_1LthEG.webp (reused cache entry) (+5ms) (30/36)\ndocs build: 14:29:44   ▶ /_astro/banner-dark.CaCWSsUO_vD8p3.webp (reused cache entry) (+4ms) (31/36)\ndocs build: 14:29:44   ▶ /_astro/5.Ct7tWUIk_2lQE5S.webp (reused cache entry) (+7ms) (32/36)\ndocs build: 14:29:44   ▶ /_astro/4.DWZRudmI_Xm3Lk.webp (reused cache entry) (+6ms) (33/36)\ndocs build: 14:29:44   ▶ /_astro/nifty_roadmap.BFlrW5u1_ZgFLpu.webp (reused cache entry) (+2ms) (34/36)\ndocs build: 14:29:44   ▶ /_astro/banner-light.Crm2jlm1_24IHN4.webp (reused cache entry) (+3ms) (35/36)\ndocs build: 14:29:44   ▶ /_astro/nifty_roadmap.BFlrW5u1_2w31i7.webp (reused cache entry) (+1ms) (36/36)\ndocs build: 14:29:44 ✓ Completed in 14ms.\ndocs build: \ndocs build: 14:29:44 [build] ✓ Completed in 6.28s.\ndocs build: 14:29:44 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\ndocs build: 14:29:44 [build] 55 page(s) built in 8.98s\ndocs build: 14:29:44 [build] Complete!\ndocs build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "docs",
+            "build"
+          ],
+          "durationMs": 31769.246874999983,
+          "exitCode": 0,
+          "stdout": "├─ /tutorial/translate-your-site/index.html (+9ms) \ndocs build: 14:30:29 ✓ Completed in 1.14s.\ndocs build: \ndocs build:  generating optimized images \ndocs build: 14:30:29   ▶ /_astro/banner-light.Crm2jlm1_1IYb8A.webp (reused cache entry) (+41ms) (1/36)\ndocs build: 14:30:29   ▶ /_astro/banner-dark.CaCWSsUO_1tMtJY.webp (reused cache entry) (+44ms) (2/36)\ndocs build: 14:30:29   ▶ /_astro/1.CQFKyLYn_Z1TpIqG.webp (reused cache entry) (+45ms) (3/36)\ndocs build: 14:30:29   ▶ /_astro/2.b6p4PmUB_Z19445M.webp (reused cache entry) (+45ms) (4/36)\ndocs build: 14:30:29   ▶ /_astro/app_logo_outlined.DC5_y1I3_1PC2YL.webp (reused cache entry) (+45ms) (5/36)\ndocs build: 14:30:29   ▶ /_astro/3.85EcFLf8_J9tn7.webp (reused cache entry) (+45ms) (6/36)\ndocs build: 14:30:29   ▶ /_astro/4.DWZRudmI_14ync9.webp (reused cache entry) (+45ms) (7/36)\ndocs build: 14:30:29   ▶ /_astro/5.Ct7tWUIk_CgtpE.webp (reused cache entry) (+45ms) (8/36)\ndocs build: 14:30:29   ▶ /_astro/6.DSTnsmty_1gkCHF.webp (reused cache entry) (+45ms) (9/36)\ndocs build: 14:30:29   ▶ /_astro/docsVersionDropdown.DhjdriQm_11RtfD.webp (reused cache entry) (+45ms) (10/36)\ndocs build: 14:30:29   ▶ /_astro/localeDropdown.DJ9RNxjr_1wYPta.webp (reused cache entry) (+45ms) (11/36)\ndocs build: 14:30:29   ▶ /_astro/nifty_roadmap.BFlrW5u1_1SHNCH.webp (reused cache entry) (+45ms) (12/36)\ndocs build: 14:30:29   ▶ /_astro/banner-dark.CaCWSsUO_2mk2re.webp (reused cache entry) (+3ms) (13/36)\ndocs build: 14:30:29   ▶ /_astro/4.DWZRudmI_1xioX.webp (reused cache entry) (+3ms) (14/36)\ndocs build: 14:30:29   ▶ /_astro/2.b6p4PmUB_Z2c58RX.webp (reused cache entry) (+3ms) (15/36)\ndocs build: 14:30:29   ▶ /_astro/1.CQFKyLYn_27KkA4.webp (reused cache entry) (+3ms) (16/36)\ndocs build: 14:30:29   ▶ /_astro/3.85EcFLf8_ZiQAp4.webp (reused cache entry) (+4ms) (17/36)\ndocs build: 14:30:29   ▶ /_astro/5.Ct7tWUIk_ZpJAmw.webp (reused cache entry) (+4ms) (18/36)\ndocs build: 14:30:29   ▶ /_astro/app_logo_outlined.DC5_y1I3_Z1Fwy3J.webp (reused cache entry) (+4ms) (19/36)\ndocs build: 14:30:29   ▶ /_astro/6.DSTnsmty_djxUu.webp (reused cache entry) (+4ms) (20/36)\ndocs build: 14:30:29   ▶ /_astro/banner-light.Crm2jlm1_5pe8y.webp (reused cache entry) (+7ms) (21/36)\ndocs build: 14:30:29   ▶ /_astro/nifty_roadmap.BFlrW5u1_Z1O6vAK.webp (reused cache entry) (+6ms) (22/36)\ndocs build: 14:30:29   ▶ /_astro/banner-dark.CaCWSsUO_1wG9Sw.webp (reused cache entry) (+4ms) (23/36)\ndocs build: 14:30:29   ▶ /_astro/4.DWZRudmI_Xm3Lk.webp (reused cache entry) (+5ms) (24/36)\ndocs build: 14:30:29   ▶ /_astro/2.b6p4PmUB_Z1PzUGu.webp (reused cache entry) (+8ms) (25/36)\ndocs build: 14:30:29   ▶ /_astro/app_logo_outlined.DC5_y1I3_1wXrsR.webp (reused cache entry) (+8ms) (26/36)\ndocs build: 14:30:29   ▶ /_astro/3.85EcFLf8_L6tYb.webp (reused cache entry) (+9ms) (27/36)\ndocs build: 14:30:29   ▶ /_astro/1.CQFKyLYn_1ohLe.webp (reused cache entry) (+9ms) (28/36)\ndocs build: 14:30:29   ▶ /_astro/5.Ct7tWUIk_2lQE5S.webp (reused cache entry) (+9ms) (29/36)\ndocs build: 14:30:29   ▶ /_astro/banner-light.Crm2jlm1_28i1ov.webp (reused cache entry) (+10ms) (30/36)\ndocs build: 14:30:29   ▶ /_astro/nifty_roadmap.BFlrW5u1_1LthEG.webp (reused cache entry) (+11ms) (31/36)\ndocs build: 14:30:29   ▶ /_astro/banner-dark.CaCWSsUO_vD8p3.webp (reused cache entry) (+11ms) (32/36)\ndocs build: 14:30:29   ▶ /_astro/banner-light.Crm2jlm1_24IHN4.webp (reused cache entry) (+2ms) (33/36)\ndocs build: 14:30:29   ▶ /_astro/6.DSTnsmty_1RaMXE.webp (reused cache entry) (+14ms) (34/36)\ndocs build: 14:30:29   ▶ /_astro/nifty_roadmap.BFlrW5u1_ZgFLpu.webp (reused cache entry) (+3ms) (35/36)\ndocs build: 14:30:29   ▶ /_astro/nifty_roadmap.BFlrW5u1_2w31i7.webp (reused cache entry) (+4ms) (36/36)\ndocs build: 14:30:30 ✓ Completed in 73ms.\ndocs build: \ndocs build: 14:30:30 [build] ✓ Completed in 18.06s.\ndocs build: 14:30:30 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`\ndocs build: 14:30:30 [build] 55 page(s) built in 27.02s\ndocs build: 14:30:30 [build] Complete!\ndocs build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 8935.551250000019,
+        "p75": 10472.898979000005,
+        "minimum": 8105.018542000005,
+        "maximum": 12010.246707999991,
+        "standardDeviation": 2057.2774795435803,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 10269.885042000009,
+        "p75": 21019.565958499996,
+        "minimum": 9646.528332999995,
+        "maximum": 31769.246874999983,
+        "standardDeviation": 12596.466491980078,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "smashers",
+      "clean": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "smashers",
+            "build"
+          ],
+          "durationMs": 23643.700583000027,
+          "exitCode": 0,
+          "stdout": "smashers build: 14:30:46 [types] Generated 305ms\nsmashers build: 14:30:48 [build] output: \"server\"\nsmashers build: 14:30:48 [build] mode: \"server\"\nsmashers build: 14:30:48 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/smashers/dist/\nsmashers build: 14:30:48 [build] adapter: @astrojs/vercel\nsmashers build: 14:30:48 [build] Collecting build info...\nsmashers build: 14:30:48 [build] ✓ Completed in 3.10s.\nsmashers build: 14:30:48 [build] Building server entrypoints...\nsmashers build: 14:30:50 [vite] ✓ built in 1.59s\nsmashers build: 14:30:52 [vite] ✓ built in 2.54s\nsmashers build: 14:30:58 [vite] ✓ built in 5.79s\nsmashers build: \nsmashers build:  prerendering static routes \nsmashers build: 14:30:58   ├─ /404.html (+107ms) \nsmashers build: 14:30:58   ├─ /loot/index.html (+24ms) \nsmashers build: 14:30:58 ✓ Completed in 165ms.\nsmashers build: \nsmashers build: 14:30:58 [build] Rearranging server assets...\nsmashers build: 14:30:58 [build] ✓ Completed in 10.21s.\nsmashers build: 14:30:59 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs\nsmashers build: 14:31:01 [@astrojs/vercel] Copying static files to .vercel/output/static\nsmashers build: 14:31:06 [build] Server built in 20.38s\nsmashers build: 14:31:06 [build] Complete!\nsmashers build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "smashers",
+            "build"
+          ],
+          "durationMs": 11500.777374999947,
+          "exitCode": 0,
+          "stdout": "smashers build: 14:31:23 [types] Generated 83ms\nsmashers build: 14:31:24 [build] output: \"server\"\nsmashers build: 14:31:24 [build] mode: \"server\"\nsmashers build: 14:31:24 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/smashers/dist/\nsmashers build: 14:31:24 [build] adapter: @astrojs/vercel\nsmashers build: 14:31:24 [build] Collecting build info...\nsmashers build: 14:31:24 [build] ✓ Completed in 1.17s.\nsmashers build: 14:31:24 [build] Building server entrypoints...\nsmashers build: 14:31:24 [vite] ✓ built in 396ms\nsmashers build: 14:31:25 [vite] ✓ built in 843ms\nsmashers build: 14:31:28 [vite] ✓ built in 3.00s\nsmashers build: \nsmashers build:  prerendering static routes \nsmashers build: 14:31:28   ├─ /404.html (+84ms) \nsmashers build: 14:31:28   ├─ /loot/index.html (+21ms) \nsmashers build: 14:31:28 ✓ Completed in 133ms.\nsmashers build: \nsmashers build: 14:31:28 [build] Rearranging server assets...\nsmashers build: 14:31:28 [build] ✓ Completed in 4.46s.\nsmashers build: 14:31:28 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs\nsmashers build: 14:31:30 [@astrojs/vercel] Copying static files to .vercel/output/static\nsmashers build: 14:31:33 [build] Server built in 10.39s\nsmashers build: 14:31:33 [build] Complete!\nsmashers build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "smashers",
+            "build"
+          ],
+          "durationMs": 11057.523041999957,
+          "exitCode": 0,
+          "stdout": "smashers build: 14:31:48 [types] Generated 128ms\nsmashers build: 14:31:49 [build] output: \"server\"\nsmashers build: 14:31:49 [build] mode: \"server\"\nsmashers build: 14:31:49 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/smashers/dist/\nsmashers build: 14:31:49 [build] adapter: @astrojs/vercel\nsmashers build: 14:31:49 [build] Collecting build info...\nsmashers build: 14:31:49 [build] ✓ Completed in 1.15s.\nsmashers build: 14:31:49 [build] Building server entrypoints...\nsmashers build: 14:31:50 [vite] ✓ built in 387ms\nsmashers build: 14:31:50 [vite] ✓ built in 766ms\nsmashers build: 14:31:53 [vite] ✓ built in 3.03s\nsmashers build: \nsmashers build:  prerendering static routes \nsmashers build: 14:31:53   ├─ /404.html (+90ms) \nsmashers build: 14:31:54   ├─ /loot/index.html (+20ms) \nsmashers build: 14:31:54 ✓ Completed in 141ms.\nsmashers build: \nsmashers build: 14:31:54 [build] Rearranging server assets...\nsmashers build: 14:31:54 [build] ✓ Completed in 4.41s.\nsmashers build: 14:31:54 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs\nsmashers build: 14:31:56 [@astrojs/vercel] Copying static files to .vercel/output/static\nsmashers build: 14:31:58 [build] Server built in 9.94s\nsmashers build: 14:31:58 [build] Complete!\nsmashers build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "smashers",
+            "build"
+          ],
+          "durationMs": 14857.271958999976,
+          "exitCode": 0,
+          "stdout": "smashers build: 14:31:08 [types] Generated 146ms\nsmashers build: 14:31:09 [build] output: \"server\"\nsmashers build: 14:31:09 [build] mode: \"server\"\nsmashers build: 14:31:09 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/smashers/dist/\nsmashers build: 14:31:09 [build] adapter: @astrojs/vercel\nsmashers build: 14:31:09 [build] Collecting build info...\nsmashers build: 14:31:09 [build] ✓ Completed in 1.53s.\nsmashers build: 14:31:12 [build] Building server entrypoints...\nsmashers build: 14:31:12 [vite] ✓ built in 485ms\nsmashers build: 14:31:13 [vite] ✓ built in 801ms\nsmashers build: 14:31:16 [vite] ✓ built in 3.03s\nsmashers build: \nsmashers build:  prerendering static routes \nsmashers build: 14:31:16   ├─ /404.html (+86ms) \nsmashers build: 14:31:16   ├─ /loot/index.html (+20ms) \nsmashers build: 14:31:16 ✓ Completed in 135ms.\nsmashers build: \nsmashers build: 14:31:16 [build] Rearranging server assets...\nsmashers build: 14:31:16 [build] ✓ Completed in 4.54s.\nsmashers build: 14:31:16 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs\nsmashers build: 14:31:18 [@astrojs/vercel] Copying static files to .vercel/output/static\nsmashers build: 14:31:20 [build] Server built in 12.51s\nsmashers build: 14:31:20 [build] Complete!\nsmashers build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "smashers",
+            "build"
+          ],
+          "durationMs": 12543.831583000021,
+          "exitCode": 0,
+          "stdout": "smashers build: 14:31:34 [types] Generated 118ms\nsmashers build: 14:31:35 [build] output: \"server\"\nsmashers build: 14:31:35 [build] mode: \"server\"\nsmashers build: 14:31:35 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/smashers/dist/\nsmashers build: 14:31:35 [build] adapter: @astrojs/vercel\nsmashers build: 14:31:35 [build] Collecting build info...\nsmashers build: 14:31:35 [build] ✓ Completed in 984ms.\nsmashers build: 14:31:37 [build] Building server entrypoints...\nsmashers build: 14:31:37 [vite] ✓ built in 502ms\nsmashers build: 14:31:38 [vite] ✓ built in 868ms\nsmashers build: 14:31:41 [vite] ✓ built in 3.03s\nsmashers build: \nsmashers build:  prerendering static routes \nsmashers build: 14:31:41   ├─ /404.html (+86ms) \nsmashers build: 14:31:41   ├─ /loot/index.html (+21ms) \nsmashers build: 14:31:41 ✓ Completed in 135ms.\nsmashers build: \nsmashers build: 14:31:41 [build] Rearranging server assets...\nsmashers build: 14:31:41 [build] ✓ Completed in 4.62s.\nsmashers build: 14:31:41 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs\nsmashers build: 14:31:43 [@astrojs/vercel] Copying static files to .vercel/output/static\nsmashers build: 14:31:46 [build] Server built in 11.69s\nsmashers build: 14:31:46 [build] Complete!\nsmashers build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "smashers",
+            "build"
+          ],
+          "durationMs": 13763.066082999983,
+          "exitCode": 0,
+          "stdout": "smashers build: 14:31:59 [types] Generated 116ms\nsmashers build: 14:32:00 [build] output: \"server\"\nsmashers build: 14:32:00 [build] mode: \"server\"\nsmashers build: 14:32:00 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/smashers/dist/\nsmashers build: 14:32:00 [build] adapter: @astrojs/vercel\nsmashers build: 14:32:00 [build] Collecting build info...\nsmashers build: 14:32:00 [build] ✓ Completed in 1.05s.\nsmashers build: 14:32:02 [build] Building server entrypoints...\nsmashers build: 14:32:03 [vite] ✓ built in 1.14s\nsmashers build: 14:32:04 [vite] ✓ built in 894ms\nsmashers build: 14:32:07 [vite] ✓ built in 2.87s\nsmashers build: \nsmashers build:  prerendering static routes \nsmashers build: 14:32:07   ├─ /404.html (+88ms) \nsmashers build: 14:32:07   ├─ /loot/index.html (+19ms) \nsmashers build: 14:32:07 ✓ Completed in 136ms.\nsmashers build: \nsmashers build: 14:32:07 [build] Rearranging server assets...\nsmashers build: 14:32:07 [build] ✓ Completed in 5.17s.\nsmashers build: 14:32:07 [@astrojs/vercel] Bundling function ../../../../dist/server/entry.mjs\nsmashers build: 14:32:09 [@astrojs/vercel] Copying static files to .vercel/output/static\nsmashers build: 14:32:12 [build] Server built in 12.90s\nsmashers build: 14:32:12 [build] Complete!\nsmashers build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 11500.777374999947,
+        "p75": 17572.238978999987,
+        "minimum": 11057.523041999957,
+        "maximum": 23643.700583000027,
+        "standardDeviation": 7142.115974190057,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 13763.066082999983,
+        "p75": 14310.16902099998,
+        "minimum": 12543.831583000021,
+        "maximum": 14857.271958999976,
+        "standardDeviation": 1157.283142995545,
+        "confidence": "low: fewer than 5 runs"
+      }
+    },
+    {
+      "app": "web",
+      "clean": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "web",
+            "build"
+          ],
+          "durationMs": 20790.989583,
+          "exitCode": 0,
+          "stdout": "web build: Prepared responsive variants for 153 source images.\nweb build: 14:54:12 [types] Generated 186ms\nweb build: 14:54:12 [build] output: \"static\"\nweb build: 14:54:12 [build] mode: \"static\"\nweb build: 14:54:12 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/web/dist/\nweb build: 14:54:12 [build] Collecting build info...\nweb build: 14:54:12 [build] ✓ Completed in 266ms.\nweb build: 14:54:12 [build] Building static entrypoints...\nweb build: 14:54:14 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/TeamDesktop/index.tsx is dynamically imported by src/components/DeferredTeamSections.tsx but also statically imported by src/app/(main)/team/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:14 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/OverviewFAQ.tsx is dynamically imported by src/components/DeferredOverviewSections.tsx but also statically imported by src/pages/overview.astro, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:14 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/DegenGallery.tsx is dynamically imported by src/components/DeferredDegenSections.tsx but also statically imported by src/app/(main)/degens/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:14 [vite] ✓ built in 1.52s\nweb build: 14:54:22 [WARN] [vite] [plugin builtin:vite-reporter] \nweb build: (!) Some chunks are larger than 500 kB after minification. Consider:\nweb build: - Using dynamic import() to code-split the application\nweb build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\nweb build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\nweb build: 14:54:22 [vite] ✓ built in 8.18s\nweb build: 14:54:22 [build] Rearranging server assets...\nweb build: \nweb build:  generating static routes \nweb build: 14:54:22   ├─ /404.html (+19ms) \nweb build: 14:54:22   ├─ /careers.html (+71ms) \nweb build: 14:54:22   ├─ /community.html (+33ms) \nweb build: 14:54:22   ├─ /compete-and-earn.html (+45ms) \nweb build: 14:54:22   ├─ /degens.html (+33ms) \nweb build: 14:54:22   ├─ /disclaimer.html (+25ms) \nweb build: 14:54:22   ├─ /games.html (+28ms) \nweb build: 14:54:23   ├─ /lore.html (+21ms) \nweb build: 14:54:23   ├─ /niftyworld.html (+27ms) \nweb build: 14:54:23   ├─ /overview.html (+175ms) \nweb build: 14:54:23   ├─ /privacy-policy.html (+11ms) \nweb build: 14:54:23   ├─ /roadmap.html (+27ms) \nweb build: 14:54:23   ├─ /shells/gltf.html (+7ms) \nweb build: 14:54:23   ├─ /shells/referral.html (+4ms) \nweb build: 14:54:23   ├─ /sitemap.xml (+4ms) \nweb build: 14:54:23   ├─ /team.html (+16ms) \nweb build: 14:54:23   ├─ /terms-of-service.html (+19ms) \nweb build: 14:54:23   ├─ /index.html (+32ms) \nweb build: 14:54:23 ✓ Completed in 675ms.\nweb build: \nweb build: 14:54:23 [build] ✓ Completed in 10.50s.\nweb build: 14:54:23 [build] 17 page(s) built in 10.77s\nweb build: 14:54:23 [build] Complete!\nweb build: Injected hero image preloads into 8 documents.\nweb build: Wrote robots.txt and generated image variants.\nweb build: {\nweb build:   \"staticFiles\": 15449,\nweb build:   \"emittedJavaScriptBytes\": 1662612\nweb build: }\nweb build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "web",
+            "build"
+          ],
+          "durationMs": 14299.573707999996,
+          "exitCode": 0,
+          "stdout": "web build: Prepared responsive variants for 153 source images.\nweb build: 14:54:54 [types] Generated 97ms\nweb build: 14:54:54 [build] output: \"static\"\nweb build: 14:54:54 [build] mode: \"static\"\nweb build: 14:54:54 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/web/dist/\nweb build: 14:54:54 [build] Collecting build info...\nweb build: 14:54:54 [build] ✓ Completed in 130ms.\nweb build: 14:54:54 [build] Building static entrypoints...\nweb build: 14:54:55 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/TeamDesktop/index.tsx is dynamically imported by src/components/DeferredTeamSections.tsx but also statically imported by src/app/(main)/team/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:55 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/OverviewFAQ.tsx is dynamically imported by src/components/DeferredOverviewSections.tsx but also statically imported by src/pages/overview.astro, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:55 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/DegenGallery.tsx is dynamically imported by src/components/DeferredDegenSections.tsx but also statically imported by src/app/(main)/degens/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:55 [vite] ✓ built in 547ms\nweb build: 14:55:01 [WARN] [vite] [plugin builtin:vite-reporter] \nweb build: (!) Some chunks are larger than 500 kB after minification. Consider:\nweb build: - Using dynamic import() to code-split the application\nweb build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\nweb build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\nweb build: 14:55:01 [vite] ✓ built in 6.20s\nweb build: 14:55:01 [build] Rearranging server assets...\nweb build: \nweb build:  generating static routes \nweb build: 14:55:01   ├─ /404.html (+14ms) \nweb build: 14:55:01   ├─ /careers.html (+35ms) \nweb build: 14:55:01   ├─ /community.html (+8ms) \nweb build: 14:55:01   ├─ /compete-and-earn.html (+28ms) \nweb build: 14:55:01   ├─ /degens.html (+17ms) \nweb build: 14:55:01   ├─ /disclaimer.html (+8ms) \nweb build: 14:55:01   ├─ /games.html (+10ms) \nweb build: 14:55:01   ├─ /lore.html (+7ms) \nweb build: 14:55:01   ├─ /niftyworld.html (+10ms) \nweb build: 14:55:01   ├─ /overview.html (+90ms) \nweb build: 14:55:01   ├─ /privacy-policy.html (+5ms) \nweb build: 14:55:01   ├─ /roadmap.html (+14ms) \nweb build: 14:55:01   ├─ /shells/gltf.html (+6ms) \nweb build: 14:55:01   ├─ /shells/referral.html (+2ms) \nweb build: 14:55:01   ├─ /sitemap.xml (+2ms) \nweb build: 14:55:01   ├─ /team.html (+10ms) \nweb build: 14:55:01   ├─ /terms-of-service.html (+6ms) \nweb build: 14:55:01   ├─ /index.html (+15ms) \nweb build: 14:55:01 ✓ Completed in 331ms.\nweb build: \nweb build: 14:55:01 [build] ✓ Completed in 7.14s.\nweb build: 14:55:01 [build] 17 page(s) built in 7.27s\nweb build: 14:55:01 [build] Complete!\nweb build: Injected hero image preloads into 8 documents.\nweb build: Wrote robots.txt and generated image variants.\nweb build: {\nweb build:   \"staticFiles\": 15449,\nweb build:   \"emittedJavaScriptBytes\": 1662612\nweb build: }\nweb build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "web",
+            "build"
+          ],
+          "durationMs": 8030.346959000002,
+          "exitCode": 0,
+          "stdout": "web build: Prepared responsive variants for 153 source images.\nweb build: 14:55:23 [types] Generated 92ms\nweb build: 14:55:23 [build] output: \"static\"\nweb build: 14:55:23 [build] mode: \"static\"\nweb build: 14:55:23 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/web/dist/\nweb build: 14:55:23 [build] Collecting build info...\nweb build: 14:55:23 [build] ✓ Completed in 120ms.\nweb build: 14:55:23 [build] Building static entrypoints...\nweb build: 14:55:24 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/TeamDesktop/index.tsx is dynamically imported by src/components/DeferredTeamSections.tsx but also statically imported by src/app/(main)/team/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:24 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/OverviewFAQ.tsx is dynamically imported by src/components/DeferredOverviewSections.tsx but also statically imported by src/pages/overview.astro, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:24 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/DegenGallery.tsx is dynamically imported by src/components/DeferredDegenSections.tsx but also statically imported by src/app/(main)/degens/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:24 [vite] ✓ built in 540ms\nweb build: 14:55:27 [WARN] [vite] [plugin builtin:vite-reporter] \nweb build: (!) Some chunks are larger than 500 kB after minification. Consider:\nweb build: - Using dynamic import() to code-split the application\nweb build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\nweb build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\nweb build: 14:55:27 [vite] ✓ built in 2.88s\nweb build: 14:55:27 [build] Rearranging server assets...\nweb build: \nweb build:  generating static routes \nweb build: 14:55:27   ├─ /404.html (+9ms) \nweb build: 14:55:27   ├─ /careers.html (+24ms) \nweb build: 14:55:27   ├─ /community.html (+8ms) \nweb build: 14:55:27   ├─ /compete-and-earn.html (+13ms) \nweb build: 14:55:27   ├─ /degens.html (+9ms) \nweb build: 14:55:27   ├─ /disclaimer.html (+5ms) \nweb build: 14:55:27   ├─ /games.html (+8ms) \nweb build: 14:55:27   ├─ /lore.html (+5ms) \nweb build: 14:55:27   ├─ /niftyworld.html (+7ms) \nweb build: 14:55:27   ├─ /overview.html (+82ms) \nweb build: 14:55:27   ├─ /privacy-policy.html (+5ms) \nweb build: 14:55:27   ├─ /roadmap.html (+9ms) \nweb build: 14:55:27   ├─ /shells/gltf.html (+3ms) \nweb build: 14:55:27   ├─ /shells/referral.html (+2ms) \nweb build: 14:55:27   ├─ /sitemap.xml (+1ms) \nweb build: 14:55:27   ├─ /team.html (+5ms) \nweb build: 14:55:27   ├─ /terms-of-service.html (+5ms) \nweb build: 14:55:27   ├─ /index.html (+10ms) \nweb build: 14:55:27 ✓ Completed in 243ms.\nweb build: \nweb build: 14:55:27 [build] ✓ Completed in 3.72s.\nweb build: 14:55:27 [build] 17 page(s) built in 3.84s\nweb build: 14:55:27 [build] Complete!\nweb build: Injected hero image preloads into 8 documents.\nweb build: Wrote robots.txt and generated image variants.\nweb build: {\nweb build:   \"staticFiles\": 15449,\nweb build:   \"emittedJavaScriptBytes\": 1662612\nweb build: }\nweb build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "incremental": [
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "web",
+            "build"
+          ],
+          "durationMs": 19587.392207999997,
+          "exitCode": 0,
+          "stdout": "web build: Prepared responsive variants for 153 source images.\nweb build: 14:54:31 [types] Generated 167ms\nweb build: 14:54:31 [build] output: \"static\"\nweb build: 14:54:31 [build] mode: \"static\"\nweb build: 14:54:31 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/web/dist/\nweb build: 14:54:31 [build] Collecting build info...\nweb build: 14:54:31 [build] ✓ Completed in 229ms.\nweb build: 14:54:34 [build] Building static entrypoints...\nweb build: 14:54:35 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/TeamDesktop/index.tsx is dynamically imported by src/components/DeferredTeamSections.tsx but also statically imported by src/app/(main)/team/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:35 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/OverviewFAQ.tsx is dynamically imported by src/components/DeferredOverviewSections.tsx but also statically imported by src/pages/overview.astro, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:35 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/DegenGallery.tsx is dynamically imported by src/components/DeferredDegenSections.tsx but also statically imported by src/app/(main)/degens/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:54:35 [vite] ✓ built in 981ms\nweb build: 14:54:41 [WARN] [vite] [plugin builtin:vite-reporter] \nweb build: (!) Some chunks are larger than 500 kB after minification. Consider:\nweb build: - Using dynamic import() to code-split the application\nweb build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\nweb build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\nweb build: 14:54:41 [vite] ✓ built in 5.63s\nweb build: 14:54:41 [build] Rearranging server assets...\nweb build: \nweb build:  generating static routes \nweb build: 14:54:41   ├─ /404.html (+18ms) \nweb build: 14:54:41   ├─ /careers.html (+44ms) \nweb build: 14:54:41   ├─ /community.html (+15ms) \nweb build: 14:54:41   ├─ /compete-and-earn.html (+22ms) \nweb build: 14:54:41   ├─ /degens.html (+16ms) \nweb build: 14:54:41   ├─ /disclaimer.html (+9ms) \nweb build: 14:54:41   ├─ /games.html (+12ms) \nweb build: 14:54:41   ├─ /lore.html (+12ms) \nweb build: 14:54:41   ├─ /niftyworld.html (+14ms) \nweb build: 14:54:41   ├─ /overview.html (+150ms) \nweb build: 14:54:41   ├─ /privacy-policy.html (+8ms) \nweb build: 14:54:41   ├─ /roadmap.html (+17ms) \nweb build: 14:54:41   ├─ /shells/gltf.html (+5ms) \nweb build: 14:54:41   ├─ /shells/referral.html (+5ms) \nweb build: 14:54:41   ├─ /sitemap.xml (+3ms) \nweb build: 14:54:41   ├─ /team.html (+12ms) \nweb build: 14:54:41   ├─ /terms-of-service.html (+10ms) \nweb build: 14:54:41   ├─ /index.html (+20ms) \nweb build: 14:54:41 ✓ Completed in 445ms.\nweb build: \nweb build: 14:54:41 [build] ✓ Completed in 7.15s.\nweb build: 14:54:41 [build] 17 page(s) built in 10.29s\nweb build: 14:54:41 [build] Complete!\nweb build: Injected hero image preloads into 8 documents.\nweb build: Wrote robots.txt and generated image variants.\nweb build: {\nweb build:   \"staticFiles\": 15449,\nweb build:   \"emittedJavaScriptBytes\": 1662612\nweb build: }\nweb build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "web",
+            "build"
+          ],
+          "durationMs": 12760.995958,
+          "exitCode": 0,
+          "stdout": "web build: Prepared responsive variants for 153 source images.\nweb build: 14:55:08 [types] Generated 85ms\nweb build: 14:55:08 [build] output: \"static\"\nweb build: 14:55:08 [build] mode: \"static\"\nweb build: 14:55:08 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/web/dist/\nweb build: 14:55:08 [build] Collecting build info...\nweb build: 14:55:08 [build] ✓ Completed in 115ms.\nweb build: 14:55:13 [build] Building static entrypoints...\nweb build: 14:55:14 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/TeamDesktop/index.tsx is dynamically imported by src/components/DeferredTeamSections.tsx but also statically imported by src/app/(main)/team/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:14 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/OverviewFAQ.tsx is dynamically imported by src/components/DeferredOverviewSections.tsx but also statically imported by src/pages/overview.astro, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:14 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/DegenGallery.tsx is dynamically imported by src/components/DeferredDegenSections.tsx but also statically imported by src/app/(main)/degens/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:14 [vite] ✓ built in 921ms\nweb build: 14:55:17 [WARN] [vite] [plugin builtin:vite-reporter] \nweb build: (!) Some chunks are larger than 500 kB after minification. Consider:\nweb build: - Using dynamic import() to code-split the application\nweb build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\nweb build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\nweb build: 14:55:17 [vite] ✓ built in 3.18s\nweb build: 14:55:17 [build] Rearranging server assets...\nweb build: \nweb build:  generating static routes \nweb build: 14:55:17   ├─ /404.html (+8ms) \nweb build: 14:55:17   ├─ /careers.html (+20ms) \nweb build: 14:55:17   ├─ /community.html (+7ms) \nweb build: 14:55:17   ├─ /compete-and-earn.html (+11ms) \nweb build: 14:55:18   ├─ /degens.html (+7ms) \nweb build: 14:55:18   ├─ /disclaimer.html (+10ms) \nweb build: 14:55:18   ├─ /games.html (+7ms) \nweb build: 14:55:18   ├─ /lore.html (+4ms) \nweb build: 14:55:18   ├─ /niftyworld.html (+5ms) \nweb build: 14:55:18   ├─ /overview.html (+72ms) \nweb build: 14:55:18   ├─ /privacy-policy.html (+4ms) \nweb build: 14:55:18   ├─ /roadmap.html (+8ms) \nweb build: 14:55:18   ├─ /shells/gltf.html (+3ms) \nweb build: 14:55:18   ├─ /shells/referral.html (+2ms) \nweb build: 14:55:18   ├─ /sitemap.xml (+1ms) \nweb build: 14:55:18   ├─ /team.html (+4ms) \nweb build: 14:55:18   ├─ /terms-of-service.html (+4ms) \nweb build: 14:55:18   ├─ /index.html (+12ms) \nweb build: 14:55:18 ✓ Completed in 215ms.\nweb build: \nweb build: 14:55:18 [build] ✓ Completed in 4.39s.\nweb build: 14:55:18 [build] 17 page(s) built in 9.35s\nweb build: 14:55:18 [build] Complete!\nweb build: Injected hero image preloads into 8 documents.\nweb build: Wrote robots.txt and generated image variants.\nweb build: {\nweb build:   \"staticFiles\": 15449,\nweb build:   \"emittedJavaScriptBytes\": 1662612\nweb build: }\nweb build: Exited with code 0\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "bun",
+            "--filter",
+            "web",
+            "build"
+          ],
+          "durationMs": 9991.25979099999,
+          "exitCode": 0,
+          "stdout": "web build: Prepared responsive variants for 153 source images.\nweb build: 14:55:31 [types] Generated 77ms\nweb build: 14:55:31 [build] output: \"static\"\nweb build: 14:55:31 [build] mode: \"static\"\nweb build: 14:55:31 [build] directory: /Users/amf/Developer/NiftyLeague/nifty-fe-monorepo/apps/web/dist/\nweb build: 14:55:31 [build] Collecting build info...\nweb build: 14:55:31 [build] ✓ Completed in 109ms.\nweb build: 14:55:33 [build] Building static entrypoints...\nweb build: 14:55:34 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/TeamDesktop/index.tsx is dynamically imported by src/components/DeferredTeamSections.tsx but also statically imported by src/app/(main)/team/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:34 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/OverviewFAQ.tsx is dynamically imported by src/components/DeferredOverviewSections.tsx but also statically imported by src/pages/overview.astro, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:34 [WARN] [vite] \u001b[33m[INEFFECTIVE_DYNAMIC_IMPORT] \u001b[0msrc/components/DegenGallery.tsx is dynamically imported by src/components/DeferredDegenSections.tsx but also statically imported by src/app/(main)/degens/page.tsx, dynamic import will not move module into another chunk.\nweb build: \nweb build: 14:55:34 [vite] ✓ built in 762ms\nweb build: 14:55:37 [WARN] [vite] [plugin builtin:vite-reporter] \nweb build: (!) Some chunks are larger than 500 kB after minification. Consider:\nweb build: - Using dynamic import() to code-split the application\nweb build: - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting\nweb build: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\nweb build: 14:55:37 [vite] ✓ built in 3.41s\nweb build: 14:55:37 [build] Rearranging server assets...\nweb build: \nweb build:  generating static routes \nweb build: 14:55:37   ├─ /404.html (+10ms) \nweb build: 14:55:37   ├─ /careers.html (+22ms) \nweb build: 14:55:37   ├─ /community.html (+8ms) \nweb build: 14:55:37   ├─ /compete-and-earn.html (+14ms) \nweb build: 14:55:37   ├─ /degens.html (+9ms) \nweb build: 14:55:37   ├─ /disclaimer.html (+4ms) \nweb build: 14:55:37   ├─ /games.html (+7ms) \nweb build: 14:55:37   ├─ /lore.html (+5ms) \nweb build: 14:55:37   ├─ /niftyworld.html (+7ms) \nweb build: 14:55:37   ├─ /overview.html (+74ms) \nweb build: 14:55:37   ├─ /privacy-policy.html (+4ms) \nweb build: 14:55:37   ├─ /roadmap.html (+9ms) \nweb build: 14:55:37   ├─ /shells/gltf.html (+2ms) \nweb build: 14:55:37   ├─ /shells/referral.html (+2ms) \nweb build: 14:55:37   ├─ /sitemap.xml (+1ms) \nweb build: 14:55:37   ├─ /team.html (+5ms) \nweb build: 14:55:37   ├─ /terms-of-service.html (+5ms) \nweb build: 14:55:37   ├─ /index.html (+8ms) \nweb build: 14:55:37 ✓ Completed in 226ms.\nweb build: \nweb build: 14:55:37 [build] ✓ Completed in 4.47s.\nweb build: 14:55:37 [build] 17 page(s) built in 6.44s\nweb build: 14:55:37 [build] Complete!\nweb build: Injected hero image preloads into 8 documents.\nweb build: Wrote robots.txt and generated image variants.\nweb build: {\nweb build:   \"staticFiles\": 15449,\nweb build:   \"emittedJavaScriptBytes\": 1662612\nweb build: }\nweb build: Exited with code 0\n",
+          "stderr": ""
+        }
+      ],
+      "cleanDurationMs": {
+        "count": 3,
+        "median": 14299.573707999996,
+        "p75": 17545.2816455,
+        "minimum": 8030.346959000002,
+        "maximum": 20790.989583,
+        "standardDeviation": 6380.643701461797,
+        "confidence": "low: fewer than 5 runs"
+      },
+      "incrementalDurationMs": {
+        "count": 3,
+        "median": 12760.995958,
+        "p75": 16174.194082999998,
+        "minimum": 9991.25979099999,
+        "maximum": 19587.392207999997,
+        "standardDeviation": 4938.908137793892,
+        "confidence": "low: fewer than 5 runs"
+      }
+    }
+  ],
+  "buildNote": "web clean/incremental re-measured with outputs-only cleanPaths (image cache warm, matching the M0 baseline semantics); the true cold build including WebP pre-generation is ~236 s and is a deliberate pipeline trade documented in docs/architecture/m5-performance-budgets.md"
+}

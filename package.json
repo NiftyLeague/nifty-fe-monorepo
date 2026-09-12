@@ -12,6 +12,7 @@
     "add-ui": "bun --filter ui add-component $@",
     "build": "turbo run api#build app#build docs#build smashers#build web#build",
     "benchmark:m0": "bun scripts/m0-benchmark.mjs",
+    "budgets:evaluate": "bun scripts/evaluate-budgets.mjs",
     "clean": "turbo clean",
     "dev": "turbo dev",
     "format": "turbo format",
