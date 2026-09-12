@@ -49,7 +49,6 @@ const sharedInputGroup = 'packages/ui/src/components/base/input-group.tsx'
 const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
 // Neither web, smashers, nor docs has a next.config anymore (Astro static /
 // Astro SSR), and the template app was removed.
-const docsConfig = 'apps/docs/astro.config.mjs'
 const webManifest = 'apps/web/package.json'
 const webHome = 'apps/web/src/app/(main)/page.tsx'
 const incrementalTypecheckConfigs = [
