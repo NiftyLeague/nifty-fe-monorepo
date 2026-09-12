@@ -15,13 +15,12 @@ const SHARED_LOADER = 'packages/ui/src/lib/gtm/loadGoogleTagManager.ts'
 const REACT_BOUNDARY = 'packages/ui/src/lib/gtm/GoogleTagManager/index.tsx'
 const DOCS_ANALYTICS = 'apps/docs/src/components/Analytics.astro'
 
-// Deferred-web/smashers telemetry still inline the bootstrap. They are registered
-// here deliberately: when M4.2 moves them onto the shared loader, this test fails
-// and the entry is removed rather than the debt going unnoticed.
-const PENDING_MIGRATION = [
-  'apps/web/src/runtime/telemetry.ts',
-  'apps/smashers/src/runtime/telemetry.ts',
-]
+/**
+ * Every surface that loads the container now calls the shared loader, so the URL
+ * literal must appear nowhere else. The deferred web/smashers modules were the
+ * last holdouts; they pass their own script id so their DOM is unchanged.
+ */
+const PENDING_MIGRATION: string[] = []
 
 const read = (path: string) => readFileSync(join(process.cwd(), path), 'utf8')
 
@@ -51,6 +50,22 @@ describe('GTM container loading', () => {
     const exports = JSON.parse(read('packages/ui/package.json')).exports as Record<string, string>
 
     expect(exports['./gtm/load']).toBe(`./src/lib/gtm/loadGoogleTagManager.ts`)
+  })
+
+  it('loads the container in the deferred apps through the shared loader', () => {
+    const web = read('apps/web/src/runtime/telemetry.ts')
+    const smashers = read('apps/smashers/src/runtime/telemetry.ts')
+
+    for (const [app, source, scriptId] of [
+      ['web', web, 'web-gtm'],
+      ['smashers', smashers, 'smashers-gtm'],
+    ] as const) {
+      expect(source, `${app} must call the shared loader`).toContain('loadGoogleTagManager(')
+      // Their own script ids are preserved, so adopting the loader changes
+      // nothing observable in the DOM.
+      expect(source, `${app} must keep its script id`).toContain(`'${scriptId}'`)
+      expect(source, `${app} must not restate the append`).not.toContain('createElement')
+    }
   })
 
   it('loads the container in docs through the shared loader', () => {
