@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseReferral, referralTargets, routeRequest } from '../../apps/web/worker/routes.mjs'
+import { HEADERS_FILE } from '../../apps/web/scripts/static-headers.mjs'
 
 /**
  * Contract guard for externally-consumed routes.
@@ -552,15 +553,13 @@ describe('GLTF viewer loading contract', () => {
   })
 
   it('keeps embedded viewer controls loadable in sandboxed frames', () => {
-    // The Next.js /_next/static CORS rewrite is replaced by the Cloudflare
-    // _headers file emitted for the static asset bundle.
-    const finalizeSource = readFileSync(
-      join(process.cwd(), 'apps/web/scripts/finalize-static.mjs'),
-      'utf8'
-    )
-
-    expect(finalizeSource).toContain('/_astro/*')
-    expect(finalizeSource).toContain('Access-Control-Allow-Origin: *')
+    // The Next.js /_next/static CORS rewrite is replaced by the `_headers` file
+    // emitted into the build output: the Workers assets surface consumes it, and
+    // the E2E suite asserts the emitted header against a wrangler dev server.
+    // vercel.json carries the same entries for the Vercel surface, pinned by the
+    // header-sources sync test in vercel-build-policy.test.ts (#1904).
+    expect(HEADERS_FILE).toContain('/_astro/*')
+    expect(HEADERS_FILE).toContain('Access-Control-Allow-Origin: *')
   })
 
   it('preloads only the visible NFT artwork', () => {
