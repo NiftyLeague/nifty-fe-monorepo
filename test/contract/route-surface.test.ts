@@ -127,30 +127,30 @@ const rendersSharedLoadingSkeleton = (source: string) =>
 
 const leaderboardProviders = 'apps/app/src/contexts/LeaderboardProviders.tsx'
 const leaderboardWalletBoundary = 'apps/app/src/components/leaderboards/LeaderboardRankBoundary.tsx'
-const dashboardOverview = 'apps/app/src/pages/dashboard/overview/page.tsx'
+const dashboardOverview = 'apps/app/src/routes/dashboard.overview.tsx'
 const dashboardOverviewBoundary =
   'apps/app/src/pages/dashboard/overview/DashboardOverviewRouteBoundary.tsx'
 const dashboardOverviewClient = 'apps/app/src/pages/dashboard/overview/DashboardOverviewClient.tsx'
-const dashboardDegens = 'apps/app/src/pages/dashboard/degens/page.tsx'
+const dashboardDegens = 'apps/app/src/routes/dashboard.degens.tsx'
 const dashboardDegensBoundary =
   'apps/app/src/pages/dashboard/degens/DashboardDegensRouteBoundary.tsx'
 const dashboardDegensClient = 'apps/app/src/pages/dashboard/degens/DashboardDegensClient.tsx'
 const dashboardDegensContent = 'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx'
-const dashboardItems = 'apps/app/src/pages/dashboard/items/page.tsx'
+const dashboardItems = 'apps/app/src/routes/dashboard.items.tsx'
 const dashboardItemsBoundary = 'apps/app/src/pages/dashboard/items/DashboardItemsRouteBoundary.tsx'
 const dashboardItemsClient = 'apps/app/src/pages/dashboard/items/DashboardItemsClient.tsx'
 const dashboardItemsContent = 'apps/app/src/pages/dashboard/items/DashboardItemsContent.tsx'
-const dashboardBurner = 'apps/app/src/pages/dashboard/items/burner/page.tsx'
+const dashboardBurner = 'apps/app/src/routes/dashboard.items.burner.tsx'
 const dashboardBurnerBoundary =
   'apps/app/src/pages/dashboard/items/burner/ComicsBurnerRouteBoundary.tsx'
 const dashboardBurnerClient = 'apps/app/src/pages/dashboard/items/burner/ComicsBurnerClient.tsx'
 const dashboardBurnerContent = 'apps/app/src/pages/dashboard/items/burner/ComicsBurnerContent.tsx'
-const gamerProfile = 'apps/app/src/pages/dashboard/gamer-profile/page.tsx'
+const gamerProfile = 'apps/app/src/routes/dashboard.gamer-profile.tsx'
 const gamerProfileBoundary =
   'apps/app/src/pages/dashboard/gamer-profile/GamerProfileRouteBoundary.tsx'
 const gamerProfileClient = 'apps/app/src/pages/dashboard/gamer-profile/GamerProfileClient.tsx'
 const gamerProfileContent = 'apps/app/src/pages/dashboard/gamer-profile/GamerProfileContent.tsx'
-const dashboardRentals = 'apps/app/src/pages/dashboard/rentals/page.tsx'
+const dashboardRentals = 'apps/app/src/routes/dashboard.rentals.tsx'
 const dashboardRentalsBoundary =
   'apps/app/src/pages/dashboard/rentals/DashboardRentalsRouteBoundary.tsx'
 const dashboardRentalsClient = 'apps/app/src/pages/dashboard/rentals/DashboardRentalsClient.tsx'
@@ -248,13 +248,20 @@ const deferredConsoleGameRoutes = [
 ]
 const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-section/index.tsx'
 const sharedRouteLoading = 'packages/ui/src/components/custom/route-loading/index.tsx'
-// smashers is excluded: Astro has no app-router `loading.tsx`; its route-level
+// Per-route loading is each dashboard boundary's `<RouteLoading>`; the router's
+// full-document fallback is error/404 only. Astro has no app-router `loading.tsx`,
+// so web's Next-era one is gone, and smashers never had one — its route-level
 // loading state is the `slot="fallback"` on each client-only island, asserted by
 // the Smashers island fallback contract below.
-const routeLoadingFiles = [
-  'apps/app/src/components/runtime/RouteFallbacks.tsx',
-  'apps/web/src/app/(main)/loading.tsx',
+const routeLoadingBoundaries = [
+  dashboardOverviewBoundary,
+  dashboardDegensBoundary,
+  dashboardItemsBoundary,
+  dashboardBurnerBoundary,
+  gamerProfileBoundary,
+  dashboardRentalsBoundary,
 ]
+const routeFallbacks = 'apps/app/src/components/runtime/RouteFallbacks.tsx'
 const webHomePage = 'apps/web/src/app/(main)/page.tsx'
 const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const gltfPage = 'apps/web/src/pages/shells/gltf.astro'
@@ -758,7 +765,7 @@ describe('shared deferred loader contract', () => {
 })
 
 describe('shared route loading contract', () => {
-  it('uses the themed shadcn skeleton boundary for every Next app', () => {
+  it('keeps every route loading state on the themed shadcn skeleton boundary', () => {
     const sharedSource = readFileSync(join(process.cwd(), sharedRouteLoading), 'utf8')
 
     expect(usesSharedLoadingSkeleton(sharedSource)).toBe(true)
@@ -767,15 +774,22 @@ describe('shared route loading contract', () => {
     expect(sharedSource).toContain('aria-busy="true"')
     expect(sharedSource).toContain('bg-background')
 
-    for (const file of routeLoadingFiles) {
+    for (const file of routeLoadingBoundaries) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
       expect(source).toContain("from '@nl/ui/custom/route-loading'")
       expect(source).not.toContain("from '@nl/ui/custom/loading'")
     }
 
+    // The full-document fallback only renders errors; a pending route is the
+    // boundary's job, so it must not pull a second loading implementation.
+    expect(readFileSync(join(process.cwd(), routeFallbacks), 'utf8')).not.toContain(
+      "from '@nl/ui/custom/route-loading'"
+    )
+
     expect(
       existsSync(join(process.cwd(), 'packages/ui/src/components/custom/loading/index.tsx'))
     ).toBe(false)
+    expect(existsSync(join(process.cwd(), 'apps/web/src/app/(main)/loading.tsx'))).toBe(false)
   })
 })
 
@@ -1451,7 +1465,7 @@ describe('private provider loading contract', () => {
     )
 
     expect(
-      readFileSync(join(process.cwd(), 'apps/app/src/pages/dashboard/rentals/page.tsx'), 'utf8')
+      readFileSync(join(process.cwd(), 'apps/app/src/routes/dashboard.rentals.tsx'), 'utf8')
     ).not.toContain('DashboardDataProviders')
   })
 
@@ -1603,7 +1617,7 @@ describe('shared value equality contract', () => {
 
 describe('dashboard overview loading contract', () => {
   it('defers the overview client graph behind the shared route loading boundary', () => {
-    const pageSource = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), dashboardOverview), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), dashboardOverviewBoundary), 'utf8')
     const source = readFileSync(join(process.cwd(), dashboardOverviewClient), 'utf8')
     const nftlSource = readFileSync(
@@ -1611,8 +1625,10 @@ describe('dashboard overview loading contract', () => {
       'utf8'
     )
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './DashboardOverviewRouteBoundary'")
+    expect(routeSource).not.toContain("'use client'")
+    expect(routeSource).toContain(
+      "from '@/pages/dashboard/overview/DashboardOverviewRouteBoundary'"
+    )
     expect(boundarySource).toContain("dynamic(() => import('./DashboardOverviewClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading dashboard overview" />')
@@ -1658,13 +1674,13 @@ describe('dashboard overview loading contract', () => {
 
 describe('dashboard DEGEN loading contract', () => {
   it('keeps the card and filter graph behind the route loading boundary', () => {
-    const pageSource = readFileSync(join(process.cwd(), dashboardDegens), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), dashboardDegens), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), dashboardDegensBoundary), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), dashboardDegensClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardDegensContent), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './DashboardDegensRouteBoundary'")
+    expect(routeSource).not.toContain("'use client'")
+    expect(routeSource).toContain("from '@/pages/dashboard/degens/DashboardDegensRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./DashboardDegensClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading dashboard DEGENs" />')
@@ -1688,13 +1704,13 @@ describe('dashboard DEGEN loading contract', () => {
 
 describe('dashboard items loading contract', () => {
   it('keeps the comic and item graph behind the route loading boundary', () => {
-    const pageSource = readFileSync(join(process.cwd(), dashboardItems), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), dashboardItems), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), dashboardItemsBoundary), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), dashboardItemsClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardItemsContent), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './DashboardItemsRouteBoundary'")
+    expect(routeSource).not.toContain("'use client'")
+    expect(routeSource).toContain("from '@/pages/dashboard/items/DashboardItemsRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./DashboardItemsClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading dashboard comics and items" />')
@@ -1713,13 +1729,13 @@ describe('dashboard items loading contract', () => {
 
 describe('dashboard burner loading contract', () => {
   it('keeps the burner machine and wallet graph behind the route loading boundary', () => {
-    const pageSource = readFileSync(join(process.cwd(), dashboardBurner), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), dashboardBurner), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), dashboardBurnerBoundary), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), dashboardBurnerClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardBurnerContent), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './ComicsBurnerRouteBoundary'")
+    expect(routeSource).not.toContain("'use client'")
+    expect(routeSource).toContain("from '@/pages/dashboard/items/burner/ComicsBurnerRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./ComicsBurnerClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading comics burner" />')
@@ -1756,13 +1772,15 @@ describe('private app bar contract', () => {
 
 describe('gamer profile loading contract', () => {
   it('keeps profile, wallet, and inventory graphs behind the route loading boundary', () => {
-    const pageSource = readFileSync(join(process.cwd(), gamerProfile), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), gamerProfile), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), gamerProfileBoundary), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gamerProfileClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), gamerProfileContent), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './GamerProfileRouteBoundary'")
+    expect(routeSource).not.toContain("'use client'")
+    expect(routeSource).toContain(
+      "from '@/pages/dashboard/gamer-profile/GamerProfileRouteBoundary'"
+    )
     expect(boundarySource).toContain("dynamic(() => import('./GamerProfileClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading gamer profile" />')
@@ -1782,13 +1800,13 @@ describe('gamer profile loading contract', () => {
 
 describe('dashboard rentals loading contract', () => {
   it('keeps the rental grid and auth query graph behind the route loading boundary', () => {
-    const pageSource = readFileSync(join(process.cwd(), dashboardRentals), 'utf8')
+    const routeSource = readFileSync(join(process.cwd(), dashboardRentals), 'utf8')
     const boundarySource = readFileSync(join(process.cwd(), dashboardRentalsBoundary), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), dashboardRentalsClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardRentalsContent), 'utf8')
 
-    expect(pageSource).not.toContain("'use client'")
-    expect(pageSource).toContain("from './DashboardRentalsRouteBoundary'")
+    expect(routeSource).not.toContain("'use client'")
+    expect(routeSource).toContain("from '@/pages/dashboard/rentals/DashboardRentalsRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./DashboardRentalsClient')")
     expect(boundarySource).toContain('ssr: false')
     expect(boundarySource).toContain('<RouteLoading label="Loading rentals" />')

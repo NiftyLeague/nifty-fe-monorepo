@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Error404 } from '@nl/ui/custom/error-404'
 import { GlobalErrorPage } from '@nl/ui/custom/global-error'
-import RouteLoading from '@nl/ui/custom/route-loading'
 
 import { sentryOptions } from '@/constants/sentry'
 
@@ -32,8 +31,4 @@ export function RootNotFound() {
       <Error404 className="min-h-[75vh] overflow-auto" />
     </div>
   )
-}
-
-export function RoutePending() {
-  return <RouteLoading label="Loading Nifty League" />
 }

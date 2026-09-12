@@ -1,6 +1,4 @@
 import type { RouteMetadata } from '@/runtime/metadata'
-import type { PropsWithChildren } from 'react'
-import MainLayout from '@/components/MainLayout'
 
 export const metadata: RouteMetadata = {
   title: 'Compete & Earn',
@@ -10,8 +8,4 @@ export const metadata: RouteMetadata = {
     description: 'Adrenaline fueled, fast-paced brawl mode where the winner takes ALL',
     images: 'https://niftyleague.com/img/compete-and-earn/splash.webp',
   },
-}
-
-export default function Layout({ children }: PropsWithChildren) {
-  return <MainLayout classes={{ root: 'compete-pg' }}>{children}</MainLayout>
 }
