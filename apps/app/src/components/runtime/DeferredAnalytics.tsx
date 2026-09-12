@@ -1,6 +1,8 @@
 import { startTransition, useEffect, useState } from 'react'
 
+import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
+import { IS_PRODUCTION, TELEMETRY } from '@/runtime/env'
 
 /**
  * Defers analytics until first interaction or idle, matching the app's previous
@@ -9,8 +11,11 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
  */
 export default function DeferredAnalytics(): React.ReactNode {
   const [GoogleTagManager, setGoogleTagManager] = useState<React.ComponentType | null>(null)
+  // The shared analytics gate (#1903): production deploys only, VITE_TELEMETRY opts out.
+  const enabled = productionTelemetryEnabled(IS_PRODUCTION, TELEMETRY)
 
   useEffect(() => {
+    if (!enabled) return
     let cancelled = false
 
     const activate = async () => {

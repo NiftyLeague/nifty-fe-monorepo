@@ -1,4 +1,5 @@
 ---
+import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate'
 import '../styles/app.css'
 import { DEFAULT_METADATA, metadataValues, type RouteMetadata } from '../runtime/metadata'
 import { getImagePreloadProps } from '../runtime/Image'
@@ -30,14 +31,19 @@ const shellCss = `
 astro-island{display:contents}
 `
 const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development'
-const telemetryEnabled = import.meta.env.PUBLIC_TELEMETRY !== 'false' && environment === 'production'
+// The shared analytics gate (#1903): GTM is production-only and per-page opt-out;
+// Sentry keeps the same production gate it already had.
+const telemetryEnabled = productionTelemetryEnabled(
+  environment === 'production',
+  import.meta.env.PUBLIC_TELEMETRY
+)
 ---
 <!doctype html>
 <html
   lang="en"
   class="dark"
   data-sentry-enabled={String(telemetryEnabled)}
-  data-analytics={String(analytics)}
+  data-analytics={String(telemetryEnabled && analytics)}
 >
   <head>
     <meta charset="utf-8" />
