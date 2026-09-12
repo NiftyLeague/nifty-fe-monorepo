@@ -412,14 +412,16 @@ describe('app performance contracts', () => {
   })
 
   it('keeps the Smashers Astro shell off every class-merging utility', () => {
-    // The Next layout joined font variables with cx(); the Astro base layout
-    // declares them in one inline @font-face block instead, so there is no
-    // class composition left to introduce a conflict-merge dependency.
+    // The Next layout joined font variables with cx(); the Astro base layout now
+    // owns neither: the faces and the `--font-*` properties live in
+    // @nl/ui/styles/fonts.css (pinned by font-loading.test.ts), so the shell
+    // imports no font runtime and has no class composition left to merge.
     const source = readFileSync(smashersRootLayout, 'utf8')
 
     expect(source).not.toContain("from '@nl/ui/utils'")
     expect(source).not.toContain("from '@nl/ui/class-names'")
-    expect(source).toContain('--font-ibm-plex-sans')
+    expect(source).not.toContain('@font-face')
+    expect(source).toContain('astro-island{display:contents}')
   })
 
   it('does not prioritize the GLTF logo that is hidden in the initial 2D view', () => {
