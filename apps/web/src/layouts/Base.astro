@@ -3,7 +3,6 @@ import '../styles/app.css'
 import { DEFAULT_METADATA, metadataValues } from '../runtime/metadata'
 import defaultFontUrl from '../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url'
 import headerFontUrl from '../../../../packages/ui/src/lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2?url'
-import specialFontUrl from '../../../../packages/ui/src/lib/fonts/assets/press-start-2p-400.woff2?url'
 
 interface Props {
   metadata?: object
@@ -13,11 +12,10 @@ interface Props {
 }
 const { metadata = {}, canonical = Astro.url.pathname, noindex = false, analytics = true } = Astro.props
 const values = metadataValues(metadata as Record<string, unknown>, canonical)
-const fontCss = `
-@font-face{font-family:"Web IBM Plex Sans";src:url("${defaultFontUrl}") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
-@font-face{font-family:"Web Nexa Rust";src:url("${headerFontUrl}") format("woff2");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Web Press Start 2P";src:url("${specialFontUrl}") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-:root{--font-ibm-plex-sans:"Web IBM Plex Sans";--font-nexa-rust-sans-black:"Web Nexa Rust";--font-press-start-2p:"Web Press Start 2P"}
+// The faces and the `--font-*` properties they map onto come from
+// `@nl/ui/styles/fonts.css`, imported by styles/app.css. Only the island
+// wrapper rule is page-shell specific.
+const shellCss = `
 astro-island{display:contents}
 `
 const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development'
@@ -54,7 +52,7 @@ const telemetryEnabled = import.meta.env.PUBLIC_TELEMETRY !== 'false' && environ
     <link rel="shortcut icon" href="/favicon/nl_purple/android-chrome-192x192.png" />
     <link rel="preload" href={defaultFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={headerFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
-    <style is:inline set:html={fontCss} />
+    <style is:inline set:html={shellCss} />
   </head>
   <body>
     <slot />

@@ -4,8 +4,6 @@ import { DEFAULT_METADATA, metadataValues, type RouteMetadata } from '../runtime
 import { getImagePreloadProps } from '../runtime/Image'
 import defaultFontUrl from '../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url'
 import headerFontUrl from '../../../../packages/ui/src/lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2?url'
-import subheaderFontUrl from '../../../../packages/ui/src/lib/fonts/assets/lilita-one-400.woff2?url'
-import specialFontUrl from '../../../../packages/ui/src/lib/fonts/assets/press-start-2p-400.woff2?url'
 
 interface Props {
   metadata?: RouteMetadata
@@ -25,22 +23,10 @@ const {
   preloadImages = [],
 } = Astro.props
 const values = metadataValues(metadata, canonical)
-const fontCss = `
-@font-face{font-family:"Web IBM Plex Sans";src:url("${defaultFontUrl}") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
-@font-face{font-family:"Web Nexa Rust";src:url("${headerFontUrl}") format("woff2");font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Web Lilita One";src:url("${subheaderFontUrl}") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Web Press Start 2P";src:url("${specialFontUrl}") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-/*
- * Metric-matched local fallbacks. next/font generated these size-adjust and
- * ascent/descent overrides from the real font tables so the fallback occupies
- * the same space and the swap causes no layout shift. Without them the swap is
- * a measured CLS of ~0.08 on the loot tables.
- */
-@font-face{font-family:"Web IBM Plex Sans fallback";src:local("Arial");ascent-override:101.35%;descent-override:27.19%;line-gap-override:0.00%;size-adjust:101.13%}
-@font-face{font-family:"Web Nexa Rust fallback";src:local("Arial");ascent-override:60.84%;descent-override:16.01%;line-gap-override:0.00%;size-adjust:156.14%}
-@font-face{font-family:"Web Lilita One fallback";src:local("Arial");ascent-override:95.73%;descent-override:22.82%;line-gap-override:0.00%;size-adjust:96.42%}
-@font-face{font-family:"Web Press Start 2P fallback";src:local("Arial");ascent-override:45.63%;descent-override:0.00%;line-gap-override:0.00%;size-adjust:219.15%}
-:root{--font-ibm-plex-sans:"Web IBM Plex Sans","Web IBM Plex Sans fallback";--font-nexa-rust-sans-black:"Web Nexa Rust","Web Nexa Rust fallback";--font-lilita-one:"Web Lilita One","Web Lilita One fallback";--font-press-start:"Web Press Start 2P","Web Press Start 2P fallback"}
+// The faces, their metric-matched fallbacks, and the `--font-*` properties they
+// map onto come from `@nl/ui/styles/fonts.css`, imported by styles/app.css.
+// Only the island wrapper rule is page-shell specific.
+const shellCss = `
 astro-island{display:contents}
 `
 const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development'
@@ -98,7 +84,7 @@ const telemetryEnabled = import.meta.env.PUBLIC_TELEMETRY !== 'false' && environ
         />
       )
     })}
-    <style is:inline set:html={fontCss} />
+    <style is:inline set:html={shellCss} />
   </head>
   <body>
     <slot />

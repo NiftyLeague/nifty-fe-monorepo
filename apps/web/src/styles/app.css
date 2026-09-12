@@ -1,4 +1,5 @@
 @import '@nl/ui/styles.css';
+@import '@nl/ui/styles/fonts.css';
 @source "../**/*.{ts,tsx}";
 @source not "../**/*.test.{ts,tsx}";
 @source not "../**/*.spec.{ts,tsx}";
