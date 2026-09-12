@@ -2888,12 +2888,13 @@ describe('public route dependency contract', () => {
   })
 })
 
+const isAstroRoute = (entry: string) =>
+  (entry.endsWith('.astro') || entry.endsWith('.ts')) && !entry.endsWith('.test.ts')
+
 function countRouteFiles(dir: string): number {
   // Next names routes page.tsx/route.ts/layout.tsx; Astro names them
   // <route>.astro for pages and <route>.ts for endpoints.
   const routeFileNames = new Set(['page.tsx', 'route.ts', 'layout.tsx'])
-  const isAstroRoute = (entry: string) =>
-    (entry.endsWith('.astro') || entry.endsWith('.ts')) && !entry.endsWith('.test.ts')
 
   let count = 0
   for (const entry of readdirSync(dir)) {
