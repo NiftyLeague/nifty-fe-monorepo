@@ -6,7 +6,6 @@
   },
   "ignorePatterns": [
     "node_modules/**",
-    "**/.next/**",
     "**/.turbo/**",
     "**/src/types/typechain/**",
     "**/build/**",
@@ -16,7 +15,9 @@
     ".agents/**",
     "**/.astro/**",
     "**/.wrangler/**",
-    "**/.web-images/**"
+    "**/.web-images/**",
+    "**/routeTree.gen.ts",
+    "**/.vercel/**"
   ],
   "overrides": [
     {

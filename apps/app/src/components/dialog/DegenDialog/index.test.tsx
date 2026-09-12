@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 import { DEGEN_CONTRACT } from '@/constants/contracts'
 import type { DashboardDegen } from '@/types/degens'
 
-mock.module('next/dynamic', () => ({
+mock.module('@/runtime/dynamic', () => ({
   default:
     () =>
     ({

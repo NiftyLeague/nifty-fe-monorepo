@@ -3,8 +3,7 @@ import { readFileSync, statSync } from 'node:fs'
 
 const itemIds = [1, 2, 3, 4, 5, 6, 7]
 const imageCard = 'apps/app/src/components/cards/ImageCard.tsx'
-const burnerGrid =
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/items-grid.tsx'
+const burnerGrid = 'apps/app/src/pages/dashboard/items/burner/_components/items-grid.tsx'
 
 describe('app animated item media policy', () => {
   it('keeps every animated item paired with a smaller WebP source', () => {

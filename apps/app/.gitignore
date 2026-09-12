@@ -1,2 +1,9 @@
 .vercel
 .env*.local
+
+# TanStack Start / Vite build output
+dist/
+.output/
+.vite/
+.tanstack/
+.env*

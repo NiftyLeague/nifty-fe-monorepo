@@ -5,7 +5,7 @@ import { useStore } from 'zustand'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
+import { desktopNavigationMediaQuery } from '@/layouts/_layout/navigation-breakpoints'
 
 import {
   createNavigationStore,

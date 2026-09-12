@@ -93,11 +93,11 @@ describe('Vercel build cost policy', () => {
     expect(isProjectAffected('web', ['apps/web/worker/routes.mjs'])).toBe(true)
     expect(isProjectAffected('web', ['packages/ui/src/base/button.tsx'])).toBe(true)
     expect(isProjectAffected('web', ['assets/img/hero/bg.webp'])).toBe(true)
-    expect(isProjectAffected('web', ['apps/app/src/app/page.tsx'])).toBe(false)
+    expect(isProjectAffected('web', ['apps/app/src/pages/page.tsx'])).toBe(false)
   })
 
   it('builds only projects affected by app or shared paths', () => {
-    expect(isProjectAffected('app', ['apps/app/src/app/page.tsx'])).toBe(true)
+    expect(isProjectAffected('app', ['apps/app/src/pages/page.tsx'])).toBe(true)
     expect(isProjectAffected('app', ['apps/smashers/src/app/page.tsx'])).toBe(false)
     expect(isProjectAffected('smashers-web', ['apps/smashers/src/app/page.tsx'])).toBe(true)
     expect(isProjectAffected('docs', ['packages/ui/src/base/button.tsx'])).toBe(true)
@@ -105,7 +105,6 @@ describe('Vercel build cost policy', () => {
     expect(isProjectAffected('app', ['packages/contracts/src/index.ts'])).toBe(true)
     expect(isProjectAffected('api', ['packages/playfab/src/api.ts'])).toBe(false)
     expect(isProjectAffected('smashers', ['packages/playfab/src/api.ts'])).toBe(true)
-    expect(isProjectAffected('docs', ['packages/typescript-config/nextjs.json'])).toBe(true)
     expect(isProjectAffected('app', ['config/image-device-sizes.ts'])).toBe(true)
     expect(isProjectAffected('smashers', ['config/image-device-sizes.ts'])).toBe(true)
     expect(isProjectAffected('docs', ['packages/new-runtime/src/index.ts'])).toBe(true)

@@ -49,7 +49,7 @@ const config: RcFile = {
       label: 'Use exact versions for critical packages',
       range: '',
       packages: ['**'],
-      dependencies: ['next', 'react', 'react-dom', '@types/react', '@types/react-dom'],
+      dependencies: ['react', 'react-dom', '@types/react', '@types/react-dom'],
     },
     {
       label: 'Keep root security overrides pinned',

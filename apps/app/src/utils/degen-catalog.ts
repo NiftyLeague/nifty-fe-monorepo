@@ -12,9 +12,9 @@ let cachedPublicCatalog: { value: PublicDegen[]; expiresAt: number } | undefined
 let pendingCatalogRequest: Promise<CatalogSource> | undefined
 
 /**
- * The source is larger than Next's persistent Data Cache limit. A bounded
- * process-local cache still avoids repeating the full S3 download for warm
- * instances serving different page or owned-token queries.
+ * The source is large enough that a bounded process-local cache still avoids
+ * repeating the full S3 download for warm instances serving different page or
+ * owned-token queries.
  */
 export async function getDegenCatalogSource(): Promise<CatalogSource> {
   if (cachedCatalog && cachedCatalog.expiresAt > Date.now()) {

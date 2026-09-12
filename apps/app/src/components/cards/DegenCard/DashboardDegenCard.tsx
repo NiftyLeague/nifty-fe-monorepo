@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
 import DegenCard, { type DegenCardProps } from './index'
 

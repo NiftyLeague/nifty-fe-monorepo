@@ -60,14 +60,9 @@ export default defineConfig({
     // set explicitly.
     define: {
       'process.env.PUBLIC_PLAYFAB_TITLE_ID': publicEnv('PUBLIC_PLAYFAB_TITLE_ID'),
-      'process.env.PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
+      'import.meta.env.PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
       'process.env.PUBLIC_DEPLOY_ENV': publicEnv('PUBLIC_DEPLOY_ENV', 'VERCEL_ENV'),
       'process.env.PUBLIC_FEATURE_FLAGS': publicEnv('PUBLIC_FEATURE_FLAGS'),
-      // Shim for the shared @nl/ui `useProviders` hook, which still reads the
-      // legacy name because apps/app (still Next.js) relies on Next's own
-      // inlining of it. Feed it the PUBLIC_* value until app's TanStack
-      // migration retires the name there.
-      'process.env.NEXT_PUBLIC_AUTH_PROVIDERS': publicEnv('PUBLIC_AUTH_PROVIDERS'),
     },
   },
 })

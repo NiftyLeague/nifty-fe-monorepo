@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
-import MainLayout from '@/app/_layout/_MainLayout'
+import MainLayout from '@/layouts/_layout/_MainLayout'
 import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'

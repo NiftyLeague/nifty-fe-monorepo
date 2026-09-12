@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import { useCallback, useState } from 'react'
 
 import { Avatar, AvatarFallback } from '@nl/ui/base/avatar'
@@ -9,7 +9,7 @@ import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { UserRound } from 'lucide-react'
 
-import { desktopNavigationMediaQuery } from '@/app/_layout/navigation-breakpoints'
+import { desktopNavigationMediaQuery } from '@/layouts/_layout/navigation-breakpoints'
 import WalletAuthProvidersBoundary from '@/contexts/WalletAuthProvidersBoundary'
 
 type PublicUserProfileProps = {

@@ -2,33 +2,53 @@ import { describe, expect, it } from 'bun:test'
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const fontLayoutContracts = [
-  {
-    app: 'app',
-    layout: 'apps/app/src/app/layout.tsx',
-    required: ['default', 'header', 'subheader'],
-    omitted: ['special'],
-  },
-] as const
+const appFontStylesheet = 'apps/app/src/styles/fonts.css'
+const appFontRuntime = 'apps/app/src/runtime/fonts.ts'
+const appRootLayout = 'apps/app/src/routes/__root.tsx'
 
 describe('shared font loading contract', () => {
-  for (const contract of fontLayoutContracts) {
-    it(`${contract.app} loads only the font families required by its theme`, () => {
-      const source = readFileSync(join(process.cwd(), contract.layout), 'utf8')
+  it('app self-hosts its three families from a dedicated stylesheet', () => {
+    // The app ships as TanStack Start: the shared `@nl/ui/fonts/*` helpers are a
+    // build-time font pipeline, so the woff2 assets are self-hosted from CSS and
+    // mapped onto the same `--font-*` custom properties the Tailwind theme uses.
+    const source = readFileSync(join(process.cwd(), appFontStylesheet), 'utf8')
 
-      expect(source).not.toContain("from '@nl/ui/fonts'")
-      for (const font of contract.required) {
-        expect(source).toContain(`from '@nl/ui/fonts/${font}'`)
-      }
-      for (const font of contract.omitted) {
-        expect(source).not.toContain(`from '@nl/ui/fonts/${font}'`)
-      }
-    })
-  }
+    expect(source).toContain('woff2')
+    for (const family of ['NL IBM Plex Sans', 'NL Nexa Rust Sans Black', 'NL Lilita One']) {
+      expect(source).toContain(`font-family: '${family}'`)
+    }
+    for (const cssVar of [
+      '--font-ibm-plex-sans',
+      '--font-nexa-rust-sans-black',
+      '--font-lilita-one',
+    ]) {
+      expect(source).toContain(cssVar)
+    }
+    // The Press Start 2P display face is only used by smashers.
+    expect(source).not.toContain('press-start-2p-400.woff2')
+    // The build-time font pipeline must not come back.
+    expect(source).not.toContain('next/font')
+  })
+
+  it('app keeps a framework-neutral stand-in for the shared font exports', () => {
+    const source = readFileSync(join(process.cwd(), appFontRuntime), 'utf8')
+
+    for (const family of ['NL IBM Plex Sans', 'NL Nexa Rust Sans Black', 'NL Lilita One']) {
+      expect(source).toContain(family)
+    }
+  })
+
+  it('app loads the font stylesheet from the root route', () => {
+    const source = readFileSync(join(process.cwd(), appRootLayout), 'utf8')
+    const css = readFileSync(join(process.cwd(), 'apps/app/src/styles/app.css'), 'utf8')
+
+    expect(css).toContain("import './fonts.css'")
+    expect(source).toContain('appCss')
+  })
 
   it('smashers self-hosts its four families from the Astro base layout', () => {
-    // smashers ships as Astro SSR: `@nl/ui/fonts/*` are next/font modules, so the
-    // base layout self-hosts the same woff2 assets the way apps/web does.
+    // smashers ships as Astro SSR: the base layout self-hosts the same woff2
+    // assets the way apps/web does.
     const source = readFileSync(join(process.cwd(), 'apps/smashers/src/layouts/Base.astro'), 'utf8')
 
     expect(source).toContain('woff2')
@@ -85,19 +105,17 @@ describe('shared font loading contract', () => {
     }
   })
 
-  it('does not ship an unused dedicated italic body font', () => {
-    const defaultFontSource = readFileSync(
-      join(process.cwd(), 'packages/ui/src/lib/fonts/default.ts'),
-      'utf8'
-    )
-
-    expect(defaultFontSource).toContain("src: './assets/ibm-plex-sans-400.woff2'")
-    expect(defaultFontSource).not.toContain('ibm-plex-sans-italic-400.woff2')
-    expect(defaultFontSource).not.toContain("style: 'italic'")
+  it('keeps the committed woff2 assets the app self-hosts', () => {
+    // The font modules that wrapped these in a build-time pipeline are gone,
+    // but the woff2 files stay: the app's stylesheet serves them.
+    const assets = 'packages/ui/src/lib/fonts/assets'
+    for (const file of ['ibm-plex-sans-400.woff2', 'lilita-one-400.woff2']) {
+      expect(existsSync(join(process.cwd(), assets, file)), file).toBe(true)
+    }
     expect(
       existsSync(
-        join(process.cwd(), 'packages/ui/src/lib/fonts/assets/ibm-plex-sans-italic-400.woff2')
+        join(process.cwd(), 'packages/ui/src/lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2')
       )
-    ).toBe(false)
+    ).toBe(true)
   })
 })

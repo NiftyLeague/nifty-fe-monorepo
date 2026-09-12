@@ -11,8 +11,7 @@ type CharacterCreatorProps = {
 }
 
 const loadCharacterCreator = async () => {
-  const { default: CharacterCreator } =
-    await import('@/app/(public-routes)/mint-o-matic/_CharacterCreator')
+  const { default: CharacterCreator } = await import('@/pages/mint-o-matic/_CharacterCreator')
 
   return {
     default: (props: CharacterCreatorProps) => (

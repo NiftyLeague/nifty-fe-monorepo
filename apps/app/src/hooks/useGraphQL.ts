@@ -10,9 +10,10 @@ import { TARGET_NETWORK } from '@/constants/networks'
 import useAuth from '@/hooks/useAuth'
 import { requestGraphQL } from '@/utils/graphql'
 import { AUTHENTICATED_STALE_TIME_MS, queryKeys } from '@/query/app-query'
+import { GRAPH_API_KEY } from '@/runtime/env'
 
 const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI
-const headers = { Authorization: `Bearer ${process.env.NEXT_PUBLIC_GRAPH_API_KEY}` }
+const headers = { Authorization: `Bearer ${GRAPH_API_KEY}` }
 
 export function useOwnerSearch(
   overrideAddress?: `0x${string}`

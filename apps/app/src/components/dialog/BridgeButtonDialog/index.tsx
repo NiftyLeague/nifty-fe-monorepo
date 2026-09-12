@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import { useState } from 'react'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'

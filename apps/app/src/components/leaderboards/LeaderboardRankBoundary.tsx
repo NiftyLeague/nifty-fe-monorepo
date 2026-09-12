@@ -1,6 +1,6 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 
 import { AuthStatusProvider, useAuthStatus } from '@/contexts/AuthStatusContext'
 

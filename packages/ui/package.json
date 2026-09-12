@@ -12,11 +12,8 @@
     "./class-names": "./src/lib/class-names.ts",
     "./image-sizes": "./src/lib/image-sizes.ts",
     "./number-format": "./src/lib/number-format.ts",
-    "./fonts": "./src/lib/fonts/index.ts",
-    "./fonts/*": "./src/lib/fonts/*.ts",
     "./gtm": "./src/lib/gtm/index.tsx",
     "./gtm/constants": "./src/lib/gtm/constants.ts",
-    "./gtm/deferred": "./src/lib/gtm/DeferredAnalytics.tsx",
     "./gtm/deferred-manager": "./src/lib/gtm/DeferredGoogleTagManager.tsx",
     "./gtm/events": "./src/lib/gtm/events.ts",
     "./degen-tribes": "./src/lib/degen-tribes.ts",
@@ -60,7 +57,6 @@
     "tailwindcss": "^4.3.3"
   },
   "peerDependencies": {
-    "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   }

@@ -5,7 +5,7 @@ let isDesktopViewport = false
 
 const LoadedUserProfile = () => <div data-testid="loaded-user-profile" />
 
-mock.module('next/dynamic', () => ({
+mock.module('@/runtime/dynamic', () => ({
   default: () => LoadedUserProfile,
 }))
 

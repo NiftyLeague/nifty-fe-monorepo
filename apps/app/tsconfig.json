@@ -1,10 +1,16 @@
 {
-  "extends": "@nl/typescript-config/nextjs.json",
+  "extends": "@nl/typescript-config/base.json",
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "noEmit": true,
     "incremental": true,
-    "paths": { "@/*": ["./src/*"], "@nl/ui/*": ["../../packages/ui/src/*"] },
-    "plugins": [{ "name": "next" }]
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@nl/ui/*": ["../../packages/ui/src/*"]
+    }
   },
-  "include": ["src", "next-env.d.ts", "next.config.ts", ".next/types/**/*.ts"],
+  "include": ["src", "vite.config.ts"],
   "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "src/types/typechain/**"]
 }

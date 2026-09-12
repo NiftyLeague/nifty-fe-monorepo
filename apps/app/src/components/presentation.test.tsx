@@ -8,14 +8,6 @@ let MainCard: typeof import('./cards/MainCard').default
 let Breadcrumbs: typeof import('./extended/Breadcrumbs').default
 
 beforeEach(async () => {
-  mock.module('next/image', () => ({
-    default: ({
-      fill: _fill,
-      sizes: _sizes,
-      alt,
-      ...props
-    }: ComponentProps<'img'> & { fill?: boolean }) => <img alt={alt ?? ''} {...props} />,
-  }))
   mock.module('@nl/ui/custom/optimized-image', () => ({
     default: ({
       fill: _fill,
@@ -28,6 +20,14 @@ beforeEach(async () => {
   }))
   mock.module('@/components/AppNavIcon', () => ({
     AppNavIcon: ({ name }: { name: string }) => <span data-icon={name}>{name}</span>,
+  }))
+  // The router-backed Link needs a RouterProvider; render a plain anchor here.
+  mock.module('@/runtime/Link', () => ({
+    default: ({ children, href, ...props }: ComponentProps<'a'> & { href: string }) => (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    ),
   }))
   mock.module('@nl/ui/custom/external-icon', () => ({ ExternalIcon: () => <span>external</span> }))
   window.history.replaceState({}, '', '/')

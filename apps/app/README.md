@@ -7,7 +7,9 @@
 
 ## Info
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The web3 app is built on [TanStack Start](https://tanstack.com/start) (React +
+[TanStack Router](https://tanstack.com/router) file routes, bundled by Vite and
+deployed to Vercel through [Nitro](https://nitro.build)).
 
 ## Getting Started
 
@@ -20,32 +22,70 @@ vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
 # fallback: cp .env.example .env.local
 ```
 
+Client-visible settings use the `VITE_` prefix and are read through
+`src/runtime/env.ts`. Never put a secret behind `VITE_` — those values are
+embedded in the browser bundle.
+
 ### Run the development server
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
 
-You can start editing the page by modifying `src/app/**/*`. The page auto-updates as you edit the file.
+## Project layout
 
-To create [API routes](https://nextjs.org/docs/app/building-your-application/routing/router-handlers) add an `api/` directory to the `app/` directory with a `route.ts` file. For individual endpoints, create a subfolder in the `api` directory, like `api/hello/route.ts` would map to [http://localhost:3001/api/hello](http://localhost:3001/api/hello).
+| Path              | Purpose                                                         |
+| ----------------- | --------------------------------------------------------------- |
+| `src/routes/**`   | File-based routes. `__root.tsx` owns the HTML document shell.   |
+| `src/pages/**`    | Route components and dialogs, grouped by feature.               |
+| `src/layouts/**`  | Shared app shell, header, sidebar, and public navigation.       |
+| `src/runtime/**`  | Framework adapters: router hooks, link, lazy loading, metadata. |
+| `src/server/**`   | Server-only request handlers and SEO document generators.       |
+| `src/contexts/**` | Wallet, network, and feature-flag providers.                    |
+| `src/url/**`      | nuqs search-param parsers and normalization.                    |
 
-## Learn More
+`src/routeTree.gen.ts` is generated from `src/routes/**` on the first `dev` or
+`build` run. It is committed because `type-check` reads it, but never edit it by
+hand.
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn/foundations/about-nextjs) - an interactive Next.js tutorial.
+```bash
+bun dev          # Vite dev server on :3001
+bun run build    # production build into .vercel/output
+bun run preview  # serve the production build locally
+bun test         # bun:test unit and component tests
+bun run type-check
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Performance benchmarks
 
-## Deploy on Vercel
+`scripts/benchmark.mjs` runs Lighthouse against a running build and writes a
+JSON report plus a console table.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
+```bash
+bun run build
+bunx vite preview --port 4402 --strictPort
+BENCH_RUNS=3 node scripts/benchmark.mjs http://localhost:4402 baseline
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Options: `BENCH_RUNS` (per route, median reported), `BENCH_FORMS`
+(`mobile,desktop`), `BENCH_THROTTLE` (`devtools` or `simulate`), and an optional
+routes file argument. `scripts/measure-eager.mjs` reports just the initial script
+payload for a route, which is useful when a score drops.
+
+Use `BENCH_THROTTLE=devtools` (the default) when comparing scores. Lighthouse's
+`simulate` mode models the network analytically and under-reports this app by
+roughly 15 points, which is enough to hide or invent a regression.
+
+Compare against the pre-migration Next.js build with a checkout of the parent
+commit: build `apps/app`, serve it on another port, and pass that URL as the
+base. Local builds are unminified for transfer-size purposes but the request
+counts and timings remain comparable.
+
+Reports land in `artifacts/benchmarks/` (gitignored).
 
 ## Environment Variables
 

@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 
 import { Label } from '@nl/ui/base/label'
 import { Input } from '@nl/ui/base/input'

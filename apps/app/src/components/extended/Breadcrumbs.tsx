@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import Link from '@/runtime/Link'
 
 import { AppNavIcon } from '@/components/AppNavIcon'
 import type { AppNavIconName } from '@/components/AppNavIcon'
