@@ -24,14 +24,10 @@ export default defineConfig({
   // Resolve the `@/*` alias from tsconfig.json so app imports keep working.
   resolve: {
     tsconfigPaths: true,
-    alias: [
-      // The shared optimized-image component depends on a framework image
-      // pipeline. This app renders the same props contract natively instead.
-      {
-        find: '@nl/ui/custom/optimized-image',
-        replacement: local('./src/runtime/OptimizedImage.tsx'),
-      },
-    ],
+    // No aliases remain. `@nl/ui/custom/optimized-image` resolves to the shared
+    // framework-agnostic component, and the font families come from
+    // @nl/ui/styles/fonts.css; both specifiers used to be redirected to
+    // app-local copies.
   },
   plugins: [
     tailwindcss(),
