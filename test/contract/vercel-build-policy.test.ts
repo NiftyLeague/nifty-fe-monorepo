@@ -9,9 +9,6 @@ import {
 
 const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs', 'apps/web']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
-// The docs migration PR keeps its own preview deployments enabled until it
-// merges; every other feature branch stays off.
-const docsDeploymentEnabled = { ...deploymentEnabled, 'feat/docs-astro-starlight': true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
@@ -26,9 +23,7 @@ describe('Vercel build cost policy', () => {
         ignoreCommand?: string
       }
 
-      expect(config.git?.deploymentEnabled).toEqual(
-        projectRoot === 'apps/docs' ? docsDeploymentEnabled : deploymentEnabled
-      )
+      expect(config.git?.deploymentEnabled).toEqual(deploymentEnabled)
       expect(config.ignoreCommand).toBe(ignoreCommand)
       expect(config.installCommand).toBe(installCommand)
     })
@@ -54,33 +49,9 @@ describe('Vercel build cost policy', () => {
         'apps/smashers/src/pages/index.astro',
       ])
     ).toBe(false)
-  })
-
-  it('builds the migration branch preview for the docs project', () => {
     expect(shouldBuild('feat/docs-astro-starlight', 'docs', ['apps/docs/astro.config.mjs'])).toBe(
-      true
-    )
-    // A docs-only change must not pull the other projects into a deployment.
-    expect(shouldBuild('feat/docs-astro-starlight', 'api', ['apps/docs/astro.config.mjs'])).toBe(
       false
     )
-    expect(shouldBuild('feat/docs-astro-starlight', 'app', ['apps/docs/astro.config.mjs'])).toBe(
-      false
-    )
-    expect(shouldBuild('feat/docs-astro-starlight', 'smashers', ['apps/docs/vercel.json'])).toBe(
-      false
-    )
-    // The ignore-command gate is only half the story: a deployment also needs the
-    // branch enabled in that project's vercel.json, which the per-project config
-    // assertions above cover. Listing the branch in BUILD_BRANCHES alone must not
-    // let a docs-only change deploy another project.
-    for (const projectRoot of projectRoots) {
-      if (projectRoot === 'apps/docs') continue
-      const config = JSON.parse(
-        readFileSync(join(process.cwd(), projectRoot, 'vercel.json'), 'utf8')
-      )
-      expect(config.git?.deploymentEnabled?.['feat/docs-astro-starlight']).toBeUndefined()
-    }
   })
 
   it('maps Vercel project aliases to their monorepo app', () => {
@@ -105,8 +76,9 @@ describe('Vercel build cost policy', () => {
     expect(isProjectAffected('app', ['packages/contracts/src/index.ts'])).toBe(true)
     expect(isProjectAffected('api', ['packages/playfab/src/api.ts'])).toBe(false)
     expect(isProjectAffected('smashers', ['packages/playfab/src/api.ts'])).toBe(true)
-    expect(isProjectAffected('app', ['config/image-device-sizes.ts'])).toBe(true)
-    expect(isProjectAffected('smashers', ['config/image-device-sizes.ts'])).toBe(true)
+    // The retired shared Next image config no longer maps to any project.
+    expect(isProjectAffected('app', ['config/image-device-sizes.ts'])).toBe(false)
+    expect(isProjectAffected('smashers', ['config/image-device-sizes.ts'])).toBe(false)
     expect(isProjectAffected('docs', ['packages/new-runtime/src/index.ts'])).toBe(true)
     expect(isProjectAffected('api', ['scripts/audit.sh'])).toBe(false)
     expect(isProjectAffected('api', ['apps/web/src/app/page.tsx'])).toBe(false)

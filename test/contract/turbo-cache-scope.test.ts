@@ -72,7 +72,6 @@ const buildInputExclusions: Record<string, string[]> = {
 const sharedBuildInputs: Record<string, string[]> = {
   'api#build': ['../../packages/contracts/src/**', '../../packages/contracts/package.json'],
   'app#build': [
-    '../../config/image-device-sizes.ts',
     '../../packages/contracts/src/**',
     '../../packages/contracts/package.json',
     '../../packages/imx-passport/src/**',
@@ -81,16 +80,16 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/package.json',
   ],
   'docs#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
-  // smashers ships as Astro SSR: no Next image-device-sizes config or
-  // sentry-client sources feed its build; shared playfab and ui sources do.
+  // smashers ships as Astro SSR: no sentry-client sources feed its build;
+  // shared playfab and ui sources do.
   'smashers#build': [
     '../../packages/playfab/src/**',
     '../../packages/playfab/package.json',
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
-  // web ships as Astro static: no Next image-device-sizes config or
-  // sentry-client sources feed its build; only shared ui sources do.
+  // web ships as Astro static: no sentry-client sources feed its build; only
+  // shared ui sources do.
   'web#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
 }
 const packageJson = (path: string) =>

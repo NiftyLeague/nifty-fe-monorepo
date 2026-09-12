@@ -11,7 +11,7 @@ type LinkProps = Omit<ComponentProps<'a'>, 'href'> & {
   passHref?: boolean
 }
 
-/** App-local native navigation; other workspaces continue to use Next's Link. */
+/** App-local native navigation. */
 export default function Link({
   href,
   prefetch: _prefetch,

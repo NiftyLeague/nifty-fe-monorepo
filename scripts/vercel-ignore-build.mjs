@@ -2,10 +2,9 @@ import { execFileSync } from 'node:child_process'
 import { basename, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
-// Open migration pull requests opt their own branches into preview deployments
-// (each app's vercel.json deploymentEnabled); production still only deploys
-// from main.
-const BUILD_BRANCHES = new Set(['main', 'feat/docs-astro-starlight'])
+// Production deployments run from main only; feature branches are skipped
+// (a branch can be listed here temporarily while a migration preview is live).
+const BUILD_BRANCHES = new Set(['main'])
 const ZERO_SHA = /^0+$/
 
 const GLOBAL_SHARED_PATH_PREFIXES = [
@@ -26,14 +25,8 @@ const PROJECT_PATH_PREFIXES = {
 }
 
 const PROJECT_SHARED_PATH_PREFIXES = {
-  app: [
-    'config/image-device-sizes.ts',
-    'packages/contracts/',
-    'packages/imx-passport/',
-    'packages/sentry-client/',
-    'packages/ui/',
-  ],
-  smashers: ['config/image-device-sizes.ts', 'packages/playfab/', 'packages/ui/'],
+  app: ['packages/contracts/', 'packages/imx-passport/', 'packages/sentry-client/', 'packages/ui/'],
+  smashers: ['packages/playfab/', 'packages/ui/'],
   docs: ['packages/ui/'],
   api: ['packages/contracts/'],
   web: ['packages/ui/'],
