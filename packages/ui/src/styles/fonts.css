@@ -1,0 +1,68 @@
+/**
+ * Canonical font faces for every surface that renders the shared theme.
+ *
+ * The four families were declared separately in each app and had drifted apart:
+ * one app had renamed the special-face custom property, so the theme's
+ * `--special-font` chain resolved to nothing. A family is now declared once, and
+ * each app maps the `--font-*` properties the Tailwind theme consumes by
+ * importing this file.
+ *
+ * These are the real faces only. The metric-matched Arial fallbacks the previous
+ * Next build generated alongside them are deliberately *not* here: measured
+ * against the real faces, their advance widths are faithful for two families and
+ * not for the others (Arial at `size-adjust: 219%` for Press Start 2P is 2.4x
+ * too wide, and +2.2% for Nexa Rust rewrapped a heading into an extra line,
+ * which measured as 0.0336 CLS on the app's games page). A fallback policy
+ * changes wrapping, so it is adopted per app against that app's own pages —
+ * smashers carries its validated set in `src/styles/app.css`.
+ */
+
+/* ------------------------------------------------------------- families -- */
+
+@font-face {
+  font-family: 'NL IBM Plex Sans';
+  src: url('../lib/fonts/assets/ibm-plex-sans-400.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NL Nexa Rust Sans Black';
+  src: url('../lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NL Lilita One';
+  src: url('../lib/fonts/assets/lilita-one-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NL Press Start 2P';
+  src: url('../lib/fonts/assets/press-start-2p-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------- theme custom props -- */
+
+/*
+ * These four names are the contract with `01_tailwind.theme.css`: it builds
+ * `--default-font`, `--header-font`, `--subheader-font`, `--special-font`, and
+ * `--btn-font` from them. An app that overrides one of the derived fonts (web
+ * points `--subheader-font` at `--special-font`) still needs the underlying
+ * property declared here, which is exactly what had drifted.
+ */
+:root {
+  --font-ibm-plex-sans: 'NL IBM Plex Sans';
+  --font-nexa-rust-sans-black: 'NL Nexa Rust Sans Black';
+  --font-lilita-one: 'NL Lilita One';
+  --font-press-start: 'NL Press Start 2P';
+}

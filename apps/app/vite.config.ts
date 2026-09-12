@@ -31,9 +31,6 @@ export default defineConfig({
         find: '@nl/ui/custom/optimized-image',
         replacement: local('./src/runtime/OptimizedImage.tsx'),
       },
-      // The shared font helpers are a build-time primitive with no runtime
-      // counterpart; the app loads the woff2 files from its own stylesheet.
-      { find: '@nl/ui/fonts', replacement: local('./src/runtime/fonts.ts') },
     ],
   },
   plugins: [
