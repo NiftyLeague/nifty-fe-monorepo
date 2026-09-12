@@ -1,4 +1,3 @@
-import Link from '@/runtime/Link'
 import Definitions from '@/components/Definitions'
 
 const ToS = () => (
@@ -50,9 +49,9 @@ const ToS = () => (
       these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others
       who access or use the Service. By accessing or using the Service You agree to be bound by
       these Terms and Conditions. Your access to and use of the Service is also conditioned on Your
-      acceptance of and compliance with our <Link href="/disclaimer">Disclaimer</Link> and{' '}
-      <Link href="/privacy-policy">Privacy Policy</Link>. If You disagree with any part of these
-      Terms and Conditions, Disclaimer, or Privacy Policy then You may not access our Application.
+      acceptance of and compliance with our <a href="/disclaimer">Disclaimer</a> and{' '}
+      <a href="/privacy-policy">Privacy Policy</a>. If You disagree with any part of these Terms and
+      Conditions, Disclaimer, or Privacy Policy then You may not access our Application.
     </p>
     <p>
       The Site is intended for users who are at least 18 years old. People under the age of 18 are
@@ -182,7 +181,7 @@ const ToS = () => (
     <p>
       You represent and warrant that: (i) You have the legal right to use the payment method in
       connection with any Order; and that (ii) You are not residing in a country excluded by the{' '}
-      <Link href="/disclaimer">Disclaimer</Link>.
+      <a href="/disclaimer">Disclaimer</a>.
     </p>
     <h3 className="heading-look-3">Order Cancellation</h3>
     <p>
@@ -367,7 +366,7 @@ const ToS = () => (
       Our Disclaimer includes important statements intended to specify or delimit the scope of
       rights and obligations that may be exercised or enforced, and is hereby incorporated by this
       reference into these Terms. You agree to the warnings and expectations outlined in our{' '}
-      <Link href="/disclaimer">Disclaimer</Link>.
+      <a href="/disclaimer">Disclaimer</a>.
     </p>
     <h2 className="my-3 my-md-5 heading-look-5">Governing Law</h2>
     <p>
@@ -442,7 +441,7 @@ const ToS = () => (
       United States government embargo, or that has been designated by the United States government
       as a &quot;terrorist supporting&quot; country, and (ii) You are not listed on any United
       States government list of prohibited or restricted parties. Please read our{' '}
-      <Link href="/disclaimer">Disclaimer</Link> for more details.
+      <a href="/disclaimer">Disclaimer</a> for more details.
     </p>
     <h2 className="my-3 my-md-5 heading-look-5">Severability and Waiver</h2>
     <h3 className="heading-look-3">Severability</h3>
@@ -482,10 +481,10 @@ const ToS = () => (
     </p>
     <h2 className="my-3 my-md-5 heading-look-5">Privacy Policy</h2>
     <p>
-      Our <Link href="/privacy-policy">Privacy Policy</Link> describes the ways we collect, use,
-      store and disclose Your personal information, and is hereby incorporated by this reference
-      into these Terms. You agree to the collection, use, storage, and disclosure of Your data in
-      accordance with our Privacy Policy.
+      Our <a href="/privacy-policy">Privacy Policy</a> describes the ways we collect, use, store and
+      disclose Your personal information, and is hereby incorporated by this reference into these
+      Terms. You agree to the collection, use, storage, and disclosure of Your data in accordance
+      with our Privacy Policy.
     </p>
     <h2 className="my-3 my-md-5 heading-look-5">Changes to These Terms and Conditions</h2>
     <p>
