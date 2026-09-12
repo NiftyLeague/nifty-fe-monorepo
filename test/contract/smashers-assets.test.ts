@@ -6,34 +6,18 @@ const deferredBackgroundSource = 'apps/smashers/src/components/Header/DeferredHe
 const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 const rocketVideo = 'assets/video/rocket.mp4'
+const heroVideo = 'assets/video/smashers-hero.mp4'
+const partyModesVideo = 'assets/video/party-modes.mp4'
 const rocketPoster = 'assets/img/games/smashers/rocket-poster.webp'
 const heroPoster = 'assets/img/games/smashers/background-poster.webp'
 
-const assets = [
-  ['assets/img/games/smashers/background.gif', 'assets/img/games/smashers/background.webp'],
-] as const
-
 describe('Smashers asset delivery contracts', () => {
-  it('keeps optimized animated WebP sources smaller than GIF fallbacks', () => {
-    for (const [gif, webp] of assets) {
-      expect(statSync(webp).size).toBeLessThan(statSync(gif).size)
-    }
-  })
-
-  it('keeps the party modes animation within its delivery budget', () => {
-    expect(statSync('assets/img/games/smashers/party_modes.webp').size).toBeLessThan(9_250_000)
-  })
-
-  it('keeps the deferred hero animation within its delivery budget', () => {
-    expect(statSync('assets/img/games/smashers/background.webp').size).toBeLessThan(3_600_000)
-  })
-
-  it('keeps the above-the-fold hero screenshot small and static', () => {
-    expect(statSync(heroPoster).size).toBeLessThan(400_000)
-  })
-
-  it('keeps the deferred hero animation within its delivery budget', () => {
-    expect(statSync('assets/img/games/smashers/background.webp').size).toBeLessThan(3_600_000)
+  it('keeps both home-page animations on the video pipeline within budget', () => {
+    // Animated WebP carried 3.4 MB (hero) and 8.3 MB (party modes) for the same
+    // frames; the video encodes are 464 KB and 1.2 MB. These budgets are the
+    // regression guard that the previous 3.6 MB and 9.25 MB limits were not.
+    expect(statSync(heroVideo).size).toBeLessThan(700_000)
+    expect(statSync(partyModesVideo).size).toBeLessThan(1_500_000)
   })
 
   it('keeps the above-the-fold hero screenshot small and static', () => {
@@ -58,24 +42,29 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredBackground).not.toContain("'use client'")
     expect(deferredBackground).toContain('background-poster.webp')
     expect(deferredBackground).toContain('data-smashers-hero-background')
-    expect(deferredAnimation).toContain('background.webp')
-    expect(deferredAnimation).toContain('background.gif')
+    expect(deferredAnimation).toContain('/video/smashers-hero.mp4')
     expect(deferredAnimation).toContain('data-smashers-hero-background')
     expect(deferredAnimation).toContain('prefers-reduced-motion: reduce')
     expect(deferredAnimation).toContain('navigator.connection?.saveData')
-    expect(deferredAnimation).toContain('if (prefersReducedMotion || prefersDataSaving) return')
-    expect(deferredAnimation).toContain("removeAttribute('srcset')")
-    expect(statSync('assets/img/games/smashers/party_modes-poster.webp').size).toBeLessThan(
-      statSync('assets/img/games/smashers/party_modes.webp').size
+    expect(deferredAnimation).toContain(
+      'if (prefersReducedMotion || prefersDataSaving || slowConnection) return'
     )
-    expect(gameSection).toContain('party_modes.webp')
+    expect(deferredAnimation).toContain('navigator.connection?.downlink')
+    expect(deferredAnimation).toContain("canPlayType('video/mp4')")
+    // The poster stays in the document: the video is an overlay that is only
+    // revealed once a frame is decodable, so a failed or blocked video leaves the
+    // hero intact.
+    expect(deferredAnimation).toContain('picture.parentElement.insertBefore(probe, picture)')
+    expect(deferredAnimation).toContain("addEventListener('error'")
+    expect(gameSection).toContain('/video/party-modes.mp4')
     expect(gameSection).toContain('party_modes-poster.webp')
-    expect(gameSection).toContain('prefers-reduced-motion: no-preference')
-    expect(gameSection).toContain('deferAnimation')
-    expect(gameSection).toContain('activationDelay={1000}')
+    expect(gameSection).toContain('deferLoad')
     expect(gameSection).toContain('height={566}')
     expect(gameSection).not.toContain('unoptimized')
+    // No animated WebP or GIF path remains for the montage.
+    expect(gameSection).not.toContain('party_modes.webp')
     expect(gameSection).not.toContain('party_modes.gif')
+    expect(gameSection).not.toContain('DeferredAnimatedImage')
   })
 
   it('keeps the muted Smashers viewport video on the compact delivery asset', () => {
