@@ -87,17 +87,24 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
-  // smashers ships as Astro SSR: no sentry-client sources feed its build;
-  // shared playfab and ui sources do.
+  // The Astro apps share their build defaults through @nl/astro-config, so a
+  // change there has to invalidate every build that imports it.
   'smashers#build': [
+    '../../packages/astro-config/**',
+    '../../packages/astro-config/package.json',
     '../../packages/playfab/src/**',
     '../../packages/playfab/package.json',
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
-  // web ships as Astro static: no sentry-client sources feed its build; only
-  // shared ui sources do.
-  'web#build': ['../../packages/ui/src/**', '../../packages/ui/package.json'],
+  // web ships as Astro static: no sentry-client sources feed its build; the
+  // shared astro-config defaults and ui sources do.
+  'web#build': [
+    '../../packages/astro-config/**',
+    '../../packages/astro-config/package.json',
+    '../../packages/ui/src/**',
+    '../../packages/ui/package.json',
+  ],
 }
 const packageJson = (path: string) =>
   JSON.parse(readFileSync(path, 'utf8')) as {

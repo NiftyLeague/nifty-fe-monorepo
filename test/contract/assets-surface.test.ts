@@ -31,7 +31,10 @@ describe('shared assets surface contract', () => {
 
   it('web serves the shared assets dir directly via its Astro publicDir', () => {
     const astroConfig = readFileSync(join(process.cwd(), 'apps/web/astro.config.mjs'), 'utf8')
-    expect(astroConfig).toContain("publicDir: '../../assets'")
+    // The value now comes from @nl/astro-config, shared with smashers and docs.
+    expect(astroConfig).toContain('publicDir: ASSETS_PUBLIC_DIR')
+    const shared = readFileSync(join(process.cwd(), 'packages/astro-config/index.mjs'), 'utf8')
+    expect(shared).toContain("export const ASSETS_PUBLIC_DIR = '../../assets'")
   })
 
   for (const app of APPS) {

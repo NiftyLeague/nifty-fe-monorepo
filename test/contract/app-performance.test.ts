@@ -618,10 +618,11 @@ describe('app performance contracts', () => {
   it('scopes the Astro web TypeScript program to Astro-generated and source inputs', () => {
     const tsConfig = JSON.parse(readFileSync(webTsConfig, 'utf8')) as {
       include?: string[]
-      extends?: string
+      extends?: string[]
     }
 
-    expect(tsConfig.extends).toBe('astro/tsconfigs/strict')
+    // The Astro preset plus the shared option base; see astro-config.test.ts.
+    expect(tsConfig.extends).toEqual(['astro/tsconfigs/strict', '@nl/typescript-config/astro.json'])
     expect(tsConfig.include).toEqual([
       '.astro/types.d.ts',
       'src/**/*',
@@ -634,10 +635,11 @@ describe('app performance contracts', () => {
   it('scopes the Astro smashers TypeScript program to Astro-generated and source inputs', () => {
     const tsConfig = JSON.parse(readFileSync(smashersTsConfig, 'utf8')) as {
       include?: string[]
-      extends?: string
+      extends?: string[]
     }
 
-    expect(tsConfig.extends).toBe('astro/tsconfigs/strict')
+    // The Astro preset plus the shared option base; see astro-config.test.ts.
+    expect(tsConfig.extends).toEqual(['astro/tsconfigs/strict', '@nl/typescript-config/astro.json'])
     expect(tsConfig.include).toEqual(['.astro/types.d.ts', 'src/**/*', 'astro.config.mjs'])
   })
 
