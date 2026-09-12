@@ -2,10 +2,9 @@ import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import vercel from '@astrojs/vercel'
 import tailwind from '@tailwindcss/vite'
-import { fileURLToPath } from 'node:url'
+import { INLINE_STYLESHEETS, appLocal, bundleSsrGraph, sourceAlias } from '@nl/astro-config'
 
-const root = new URL('.', import.meta.url)
-const local = (name) => fileURLToPath(new URL(name, root))
+const local = appLocal(import.meta.url)
 
 // Public runtime config, allowlisted one key at a time. Never expose
 // process.env wholesale, and never define a server-only secret here: anything
@@ -27,27 +26,18 @@ export default defineConfig({
   // `/_vercel/image?url=...&w=...` URLs, which this makes resolvable.
   adapter: vercel({ imageService: true }),
   integrations: [react()],
-  // Inline the stylesheet: a single linked CSS file is render-blocking, and on
-  // the throttled mobile profile that alone pushed first paint past 3s. The
-  // Next build inlined its critical CSS, so this restores parity.
-  build: { inlineStylesheets: 'always' },
+  build: { inlineStylesheets: INLINE_STYLESHEETS },
   vite: {
     plugins: [tailwind()],
     css: { postcss: { plugins: [] } },
-    // Bun's isolated layout resolves react-dom and the Radix packages through
-    // distinct store entries. Bundling the whole SSR graph keeps one React
-    // instance; a mixed externalized/bundled split duplicates the hooks
-    // dispatcher. Both the legacy and environments keys are set because
-    // @astrojs/react's configEnvironment hook reads the environments form.
-    ssr: { noExternal: true },
-    environments: { ssr: { resolve: { noExternal: true } } },
+    ...bundleSsrGraph(),
     resolve: {
       alias: [
         // The shared primitive reads next/image internals, so the app swaps in
         // a plain <img> adapter. Do not also add a tsconfig path: Bun resolves
         // the alias through the isolated store and the two disagree.
         { find: '@nl/ui/custom/optimized-image', replacement: local('src/runtime/Image.tsx') },
-        { find: '@', replacement: local('src') },
+        sourceAlias(import.meta.url),
       ],
     },
     // Only values the *client* bundle reads are defined here; they must be

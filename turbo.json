@@ -109,6 +109,8 @@
     "smashers#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "../../packages/astro-config/**",
+        "../../packages/astro-config/package.json",
         "../../packages/playfab/src/**",
         "../../packages/playfab/package.json",
         "../../packages/ui/src/**",
@@ -160,6 +162,8 @@
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "../../packages/astro-config/**",
+        "../../packages/astro-config/package.json",
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
