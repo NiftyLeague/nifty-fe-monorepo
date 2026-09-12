@@ -84,6 +84,8 @@
     "docs#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "../../packages/astro-config/**",
+        "../../packages/astro-config/package.json",
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",

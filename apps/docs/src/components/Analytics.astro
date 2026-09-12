@@ -4,8 +4,9 @@
  *
  * The previous site mounted the shared `DeferredGoogleTagManager` React boundary,
  * which waited for browser idle time before loading GTM and rendered a `<noscript>`
- * fallback iframe. This reproduces that behaviour with the same shared constants,
- * without pulling React into every page.
+ * fallback iframe. This reproduces that behaviour without pulling React into every
+ * page, and installs the container through the shared loader so the script id,
+ * URL, and data-layer start push have one definition.
  */
 import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
 ---
@@ -21,31 +22,11 @@ import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
 </noscript>
 
 <script>
-	import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
+	import { loadGoogleTagManager } from '@nl/ui/gtm/load';
 
-	declare global {
-		interface Window {
-			dataLayer?: Array<Record<string, unknown>>;
-		}
-	}
-
-	const SCRIPT_ID = '_next-gtm';
-	const SCRIPT_URL = `https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_MANAGER_ID}`;
-	// Matches the shared deferred-activation idle timeout.
+	// Docs-specific: the load event is already the deferred point here, so the
+	// idle callback only needs a short ceiling rather than the shared 5s delay.
 	const IDLE_TIMEOUT_MS = 1500;
-
-	const loadTagManager = () => {
-		if (document.getElementById(SCRIPT_ID)) return;
-
-		window.dataLayer = window.dataLayer || [];
-		window.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
-
-		const script = document.createElement('script');
-		script.id = SCRIPT_ID;
-		script.async = true;
-		script.src = SCRIPT_URL;
-		document.head.appendChild(script);
-	};
 
 	const schedule = (callback: () => void) => {
 		if ('requestIdleCallback' in window) {
@@ -56,6 +37,6 @@ import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
 		globalThis.setTimeout(callback, 1);
 	};
 
-	if (document.readyState === 'complete') schedule(loadTagManager);
-	else window.addEventListener('load', () => schedule(loadTagManager), { once: true });
+	if (document.readyState === 'complete') schedule(loadGoogleTagManager);
+	else window.addEventListener('load', () => schedule(loadGoogleTagManager), { once: true });
 </script>
