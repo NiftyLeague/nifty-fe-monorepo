@@ -49,7 +49,11 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredAnimation).toContain(
       'if (prefersReducedMotion || prefersDataSaving || slowConnection) return'
     )
-    expect(deferredAnimation).toContain('navigator.connection?.downlink')
+    expect(deferredAnimation).toContain('navigator.connection?.effectiveType')
+    expect(deferredAnimation).toContain("effectiveType === 'slow-2g' || effectiveType === '2g'")
+    // `downlink` defaults to 1.75 when unmeasured, so a threshold on it reads
+    // "unknown" as "slow" and silently disables the animation.
+    expect(deferredAnimation).not.toContain('navigator.connection?.downlink')
     expect(deferredAnimation).toContain("canPlayType('video/mp4')")
     // The poster stays in the document: the video is an overlay that is only
     // revealed once a frame is decodable, so a failed or blocked video leaves the
