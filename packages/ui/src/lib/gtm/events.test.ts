@@ -51,13 +51,26 @@ describe('Google Tag Manager events', () => {
       redirect_route: '/play',
       referrer_id: 'player-9',
     })
-    sendWebVitals({ id: 'metric-1', name: 'CLS', value: 0.123 } as never)
+    sendWebVitals({
+      id: 'metric-1',
+      name: 'CLS',
+      value: 0.123,
+      rating: 'good',
+    } as never)
 
     expect(getDataLayer()).toContainEqual(
       expect.objectContaining({ event: EVENTS.GAME_REFERRAL, game_name: 'Smashers' })
     )
-    expect(getDataLayer()?.at(-1)).toEqual(
-      expect.objectContaining({ event: EVENTS.WEB_VITALS, metric_name: 'CLS', metric_value: 123 })
-    )
+    // The unified payload (#1903): the web/smashers shape — metric_id and
+    // metric_rating with raw values — plus non_interaction, and none of the
+    // sendEvent extras the old shape carried.
+    expect(getDataLayer()?.at(-1)).toEqual({
+      event: EVENTS.WEB_VITALS,
+      metric_name: 'CLS',
+      metric_value: 0.123,
+      metric_id: 'metric-1',
+      metric_rating: 'good',
+      non_interaction: true,
+    })
   })
 })

@@ -9,8 +9,19 @@
  * URL, and data-layer start push have one definition.
  */
 import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
+import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate';
+
+// The shared analytics gate (#1903): GTM is production-only, with an explicit
+// opt-out. Before this gate the container loaded on every build, so preview
+// deployments and local builds were writing into the production dashboards.
+const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development';
+const telemetryEnabled = productionTelemetryEnabled(
+  environment === 'production',
+  import.meta.env.PUBLIC_TELEMETRY
+);
 ---
 
+{telemetryEnabled && (
 <noscript>
 	<iframe
 		src={`https://www.googletagmanager.com/ns.html?id=${GOOGLE_TAG_MANAGER_ID}`}
@@ -20,7 +31,9 @@ import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
 		title="Google Tag Manager"
 	></iframe>
 </noscript>
+)}
 
+{telemetryEnabled && (
 <script>
 	import { loadGoogleTagManager } from '@nl/ui/gtm/load';
 
@@ -40,3 +53,4 @@ import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
 	if (document.readyState === 'complete') schedule(loadGoogleTagManager);
 	else window.addEventListener('load', () => schedule(loadGoogleTagManager), { once: true });
 </script>
+)}

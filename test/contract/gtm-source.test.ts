@@ -89,3 +89,35 @@ describe('GTM container loading', () => {
     expect(source).not.toContain('_next-gtm')
   })
 })
+
+describe('web-vitals payload and analytics gates (#1903)', () => {
+  // One payload shape everywhere: the web/smashers shape — metric_id,
+  // metric_rating, raw values, non_interaction — owned by the shared reporter.
+  // The inline `layer.push` payloads this decision retired must not return.
+  it('reports web vitals through the shared reporter only', () => {
+    expect(read('packages/ui/src/lib/gtm/events.ts')).toContain('metric_rating')
+
+    for (const surface of [
+      'apps/web/src/runtime/telemetry.ts',
+      'apps/smashers/src/runtime/telemetry.ts',
+    ]) {
+      const source = read(surface)
+      expect(source, `${surface} must use the shared reporter`).toContain('sendWebVitals')
+      expect(source, `${surface} must not inline the payload`).not.toContain("event: 'web_vitals'")
+    }
+  })
+
+  it('gates analytics to production on every surface through the shared policy', () => {
+    const gated = [
+      'apps/web/src/layouts/Base.astro',
+      'apps/smashers/src/layouts/Base.astro',
+      'apps/docs/src/components/Analytics.astro',
+      'apps/app/src/components/runtime/DeferredAnalytics.tsx',
+    ]
+    for (const surface of gated) {
+      expect(read(surface), `${surface} must use the shared gate`).toContain(
+        'productionTelemetryEnabled'
+      )
+    }
+  })
+})

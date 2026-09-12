@@ -48,6 +48,9 @@ export const GRAPH_API_KEY = optional(import.meta.env.VITE_GRAPH_API_KEY)
 export const GRAPH_ID = optional(import.meta.env.VITE_GRAPH_ID)
 export const SUBGRAPH_VERSION = optional(import.meta.env.VITE_SUBGRAPH_VERSION)
 
+/** Analytics opt-out (#1903). Same policy as the other surfaces. */
+export const TELEMETRY = boolean(import.meta.env.VITE_TELEMETRY, true)
+
 /** Feature flags and local visual-audit fixtures. */
 export const FEATURE_FLAGS = optional(import.meta.env.VITE_FEATURE_FLAGS, '{}')
 export const AUDIT_FIXTURE = boolean(import.meta.env.VITE_AUDIT_FIXTURE)
