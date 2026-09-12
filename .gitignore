@@ -48,6 +48,16 @@ coverage.json
 tests/.bin/
 **/.app/
 
+# Generated SEO files belong to the app that serves them, never to the shared
+# assets directory. Every Astro app uses ../../assets as its publicDir, so a file
+# left here is copied into each app's output: stale staging files from the
+# pre-migration build sat here and silently replaced apps/web's own sitemap in
+# local builds.
+assets/robots.txt
+assets/sitemap.xml
+assets/sitemap-*.xml
+assets/sitemap-index.xml
+
 # Logs and temporary files
 *.log
 *.tmp

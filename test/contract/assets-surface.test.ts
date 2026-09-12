@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { existsSync, lstatSync, readFileSync, readlinkSync } from 'node:fs'
+import { existsSync, lstatSync, readdirSync, readFileSync, readlinkSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
@@ -18,6 +18,15 @@ const APPS = ['app', 'smashers', 'docs']
 
 const ASSET_SUBDIRS = ['img', 'icons', 'favicon', 'video']
 
+/**
+ * Files each app generates into its own output. They must never live in the
+ * shared assets directory: every Astro app uses `../../assets` as its publicDir,
+ * so anything left here is copied into *every* app's build. Stale staging files
+ * from the pre-migration build sat here and replaced apps/web's own sitemap in
+ * local builds, which is how this guard came about.
+ */
+const GENERATED_SEO_FILES = ['robots.txt', 'sitemap.xml', 'sitemap-index.xml', 'sitemap-0.xml']
+
 describe('shared assets surface contract', () => {
   it('assets dir exists at repo root', () => {
     expect(existsSync(join(process.cwd(), 'assets')), 'Missing repo-root assets/ dir').toBe(true)
@@ -35,6 +44,21 @@ describe('shared assets surface contract', () => {
     expect(astroConfig).toContain('publicDir: ASSETS_PUBLIC_DIR')
     const shared = readFileSync(join(process.cwd(), 'packages/astro-config/index.mjs'), 'utf8')
     expect(shared).toContain("export const ASSETS_PUBLIC_DIR = '../../assets'")
+  })
+
+  it('keeps generated SEO files out of the shared assets dir', () => {
+    const root = join(process.cwd(), 'assets')
+    const present = readdirSync(root).filter(
+      (entry) =>
+        GENERATED_SEO_FILES.includes(entry) ||
+        /^sitemap.*\.xml$/.test(entry) ||
+        entry === 'robots.txt'
+    )
+
+    expect(
+      present,
+      `Generated files must be written to an app's own output: ${present.join(', ')}`
+    ).toEqual([])
   })
 
   for (const app of APPS) {
