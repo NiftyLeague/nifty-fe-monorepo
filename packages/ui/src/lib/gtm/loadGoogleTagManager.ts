@@ -15,22 +15,26 @@ export const googleTagManagerScriptUrl = (containerId: string = GOOGLE_TAG_MANAG
  * Bootstraps Google Tag Manager once per document: start the data layer, then
  * append the async container script.
  *
- * Framework-neutral by design. The shared React boundary and the Astro docs
- * page both need the same script id, the same `gtm.js` start push, and the same
- * append; keeping this function free of React is what lets a non-React surface
- * reuse it instead of restating the loader. Callers own the schedule — whether
- * this runs on idle, on an interaction, or immediately is an app decision.
+ * Framework-neutral by design. The shared React boundary, the Astro docs page,
+ * and the deferred telemetry modules in web and smashers all need the same
+ * `gtm.js` start push and the same append; keeping this function free of React is
+ * what lets a non-React surface reuse it instead of restating the loader.
  *
- * Returns whether this call installed the script.
+ * `scriptId` defaults to the id the shared surfaces have always used. The
+ * deferred-web/smashers modules keep their own ids so adopting this function
+ * changes nothing observable in their DOM.
+ *
+ * Callers own the schedule — whether this runs on idle, on an interaction, or
+ * immediately is an app decision. Returns whether this call installed the script.
  */
-export const loadGoogleTagManager = (): boolean => {
+export const loadGoogleTagManager = (scriptId: string = GOOGLE_TAG_MANAGER_SCRIPT_ID): boolean => {
   if (typeof document === 'undefined') return false
-  if (document.getElementById(GOOGLE_TAG_MANAGER_SCRIPT_ID)) return false
+  if (document.getElementById(scriptId)) return false
 
   pushToDataLayer({ 'gtm.start': Date.now(), event: 'gtm.js' })
 
   const script = document.createElement('script')
-  script.id = GOOGLE_TAG_MANAGER_SCRIPT_ID
+  script.id = scriptId
   script.async = true
   script.src = googleTagManagerScriptUrl()
   document.head.appendChild(script)

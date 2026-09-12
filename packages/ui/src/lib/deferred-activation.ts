@@ -1,8 +1,19 @@
 const ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'touchstart'] as const
 const DEFAULT_DELAY = 5000
+const DEFAULT_IDLE_TIMEOUT = 1000
 
 interface DeferredActivationOptions {
+  /**
+   * How long to wait before asking the browser for idle time. Interaction still
+   * activates immediately.
+   */
   delay?: number
+  /**
+   * Ceiling passed to `requestIdleCallback`. A caller that wants the work to run
+   * at the first idle period rather than after a fixed wait passes `delay: 0`
+   * and its own ceiling.
+   */
+  idleTimeout?: number
   onActivate: () => void
 }
 
@@ -42,7 +53,7 @@ const activate = () => {
   for (const subscriber of pendingSubscribers) subscriber()
 }
 
-const scheduleActivation = (delay: number) => {
+const scheduleActivation = (delay: number, idleTimeout: number) => {
   if (scheduledDelay !== null && scheduledDelay <= delay) return
 
   cancelScheduledActivation()
@@ -55,7 +66,7 @@ const scheduleActivation = (delay: number) => {
   if (window.requestIdleCallback) {
     timeoutId = window.setTimeout(() => {
       timeoutId = null
-      idleId = window.requestIdleCallback(activate, { timeout: 1000 })
+      idleId = window.requestIdleCallback(activate, { timeout: idleTimeout })
     }, delay)
   } else {
     timeoutId = window.setTimeout(activate, delay)
@@ -69,10 +80,11 @@ const scheduleActivation = (delay: number) => {
  */
 export function scheduleDeferredActivation({
   delay = DEFAULT_DELAY,
+  idleTimeout = DEFAULT_IDLE_TIMEOUT,
   onActivate,
 }: DeferredActivationOptions): () => void {
   subscribers.add(onActivate)
-  scheduleActivation(delay)
+  scheduleActivation(delay, idleTimeout)
 
   return () => {
     subscribers.delete(onActivate)

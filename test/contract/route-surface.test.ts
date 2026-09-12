@@ -1865,10 +1865,21 @@ describe('shared analytics loading contract', () => {
     it(`defers GTM, Web Vitals and Sentry until activation in ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("'gtm.start'")
+      // The schedule and the container loader come from the shared package; the
+      // module keeps its own gating and payload.
+      expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
+      expect(source).toContain('scheduleDeferredActivation')
+      expect(source).toContain("from '@nl/ui/gtm/load'")
+      expect(source).toContain('loadGoogleTagManager(')
       expect(source).toContain("import('web-vitals')")
       expect(source).toContain("import('@sentry/browser')")
-      expect(source).toContain('requestIdleCallback')
+
+      // Neither restated piece may creep back: the data-layer start push and the
+      // idle request belong to the shared primitives (see gtm-source.test.ts and
+      // the deferred-activation unit test).
+      expect(source).not.toContain("'gtm.start'")
+      expect(source).not.toContain('requestIdleCallback')
+      expect(source).not.toContain('createElement')
     })
   }
 })
