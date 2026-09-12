@@ -11,7 +11,11 @@ describe('PublicNavigation', () => {
       </PublicNavigation>
     )
 
-    const toggle = screen.getByRole('button', { name: 'Toggle sidebar' })
+    // Selected by the panel it controls: the summary keeps its implicit role so
+    // the browser supplies aria-expanded, which means a role query cannot find it.
+    const toggle = document.querySelector(
+      '[aria-controls="public-desktop-navigation"]'
+    ) as HTMLElement
     const disclosure = toggle.closest('details')
     const shell = document.querySelector('[data-public-navigation]')
 
