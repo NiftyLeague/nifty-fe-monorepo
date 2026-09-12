@@ -1,16 +1,5 @@
 import type { AppNavIconName } from '@/components/AppNavIcon'
 
-// Local MUI-compatible minimal types (MUI support dropped)
-export type Theme = {
-  palette?: { mode?: 'light' | 'dark' }
-  breakpoints?: {
-    up: (key: string) => string
-    down: (key: string) => string
-    values?: Record<string, number>
-  }
-  spacing?: (...args: number[]) => string
-}
-
 export type SxProps = React.CSSProperties | Record<string, unknown> | undefined
 
 export interface GenericCardProps {

@@ -63,19 +63,3 @@ export function clampPagination<T extends { href: string }>(
     next: isInSection(pagination.next?.href, section) ? pagination.next : undefined,
   }
 }
-
-/**
- * Groups whose entries include the directory's own index page (the old
- * Docusaurus "category index") render that label as a link instead of as a
- * duplicated child entry.
- */
-export function splitCategoryIndex(entries: SidebarEntry[]): {
-  index?: SidebarLink
-  rest: SidebarEntry[]
-} {
-  const index = entries.find(
-    (entry): entry is SidebarLink => isLink(entry) && entry.href.endsWith('/')
-  )
-  if (!index) return { rest: entries }
-  return { index, rest: entries.filter((entry) => entry !== index) }
-}

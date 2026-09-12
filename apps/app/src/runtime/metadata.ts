@@ -36,9 +36,6 @@ const TWITTER_CREATOR = '@NiftyLeague'
 
 export const APP_TITLE = 'Nifty League App'
 export const APP_DESCRIPTION = 'Web3 gaming app brought to you by Nifty League'
-export const TITLE_TEMPLATE = `%s | ${APP_TITLE}`
-
-export const metadataBase = new URL(APP_ORIGIN)
 
 export function formatTitle(title: string, metadata?: RouteMetadata): string {
   if (metadata?.absoluteTitle) return title
@@ -130,9 +127,3 @@ export function degenShareMeta(tokenId: string, imageUrl: string): MetaTag[] {
     { name: 'twitter:card', content: 'summary_large_image' },
   ]
 }
-
-export const siteMeta = {
-  description: APP_DESCRIPTION,
-  keywords: ['Nifty League', 'NFT', 'Gaming', 'Web3', 'Metaverse'],
-  title: APP_TITLE,
-} as const

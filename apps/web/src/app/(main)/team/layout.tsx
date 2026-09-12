@@ -1,6 +1,4 @@
 import type { RouteMetadata } from '@/runtime/metadata'
-import type { PropsWithChildren } from 'react'
-import MainLayout from '@/components/MainLayout'
 
 export const metadata: RouteMetadata = {
   title: 'Team',
@@ -10,8 +8,4 @@ export const metadata: RouteMetadata = {
     description: 'Build a decentralized future with the Nifty DAO',
     images: 'https://niftyleague.com/img/niftyworld/mansion_livingroom_int_03.webp',
   },
-}
-
-export default function Layout({ children }: PropsWithChildren) {
-  return <MainLayout classes={{ root: 'team-pg' }}>{children}</MainLayout>
 }

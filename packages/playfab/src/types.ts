@@ -2,8 +2,6 @@
 /// <reference path="./sdk/typings/PlayFabClient.d.ts" />
 /// <reference path="./sdk/typings/PlayFabAdmin.d.ts" />
 /// <reference path="./sdk/typings/PlayFabCloudScript.d.ts" />
-import type { KeyedMutator } from 'swr'
-export type PlayFabClient = PlayFabClientModule.IPlayFabClient
 export type PlayFabError = PlayFabModule.IPlayFabError | null
 export type LoginResult = PlayFabClientModels.LoginResult
 export type RegisterUserResult = PlayFabClientModels.RegisterPlayFabUserResult
@@ -59,7 +57,6 @@ export type Provider =
   | 'discord' // not implemented in playfab
   | 'twitter' // not implemented in playfab
 
-export type UserSettings = PlayFabClientModels.UserSettings
 export type UserAccountInfo = PlayFabClientModels.UserAccountInfo
 export type AccountResult = PlayFabClientModels.GetAccountInfoResult
 export type Currencies = { [key: string]: number }
@@ -117,12 +114,4 @@ export interface UserContextType {
   publisherData?: UserData
   stats?: Stats
   refetchPlayer: () => Promise<UserInfo | undefined>
-}
-
-export type UseUserSessionFunction = (params: {
-  redirectTo?: string
-  redirectIfFound?: boolean
-}) => {
-  user: User | undefined
-  mutateUser: KeyedMutator<User>
 }

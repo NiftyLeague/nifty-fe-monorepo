@@ -16,6 +16,7 @@
     "dev": "turbo dev",
     "format": "turbo format",
     "format:check": "oxfmt --check .",
+    "find-unused-exports": "bun scripts/find-unused-exports.mjs",
     "install:ci": "bun install --frozen-lockfile",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",

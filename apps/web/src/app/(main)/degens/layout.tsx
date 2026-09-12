@@ -1,6 +1,4 @@
 import type { RouteMetadata } from '@/runtime/metadata'
-import type { PropsWithChildren } from 'react'
-import MainLayout from '@/components/MainLayout'
 
 export const metadata: RouteMetadata = {
   title: 'DEGENs',
@@ -12,8 +10,4 @@ export const metadata: RouteMetadata = {
       'Community-generated DEGEN NFTs. Playable avatars in all Nifty League and partner games.',
     images: 'https://niftyleague.com/img/careers/careers_v02_2x.webp',
   },
-}
-
-export default function Layout({ children }: PropsWithChildren) {
-  return <MainLayout classes={{ root: 'degens-pg' }}>{children}</MainLayout>
 }
