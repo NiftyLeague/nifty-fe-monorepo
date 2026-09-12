@@ -40,7 +40,12 @@ export function SocialIconButton({
       onClick={onClick}
     >
       {loading ? (
-        <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
+        <Loader
+          absoluteStrokeWidth
+          className="animate-spin motion-reduce:animate-none"
+          size={20}
+          strokeWidth={1.5}
+        />
       ) : (
         <AuthIcon />
       )}

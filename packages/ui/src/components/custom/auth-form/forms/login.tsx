@@ -161,7 +161,12 @@ export function LoginForm({
         />
         <Button type="submit" className="w-full" disabled={disabled}>
           {disabled ? (
-            <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
+            <Loader
+              absoluteStrokeWidth
+              className="animate-spin motion-reduce:animate-none"
+              size={20}
+              strokeWidth={1.5}
+            />
           ) : (
             <>
               <Lock absoluteStrokeWidth size={20} strokeWidth={1.5} />

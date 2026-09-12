@@ -27,7 +27,12 @@ describe('PublicNavigation', () => {
     expect(disclosure?.open).toBe(true)
     expect(shell?.getAttribute('data-public-sidebar-state')).toBe('open')
 
-    const mobileToggle = screen.getByRole('button', { name: 'Toggle navigation' })
+    // The disclosure keeps its implicit `summary` role so the browser supplies
+    // aria-expanded, which means an explicit role query cannot find it here; the
+    // shell renders a desktop disclosure too, so select by the panel it controls.
+    const mobileToggle = document.querySelector(
+      '[aria-controls="public-mobile-navigation"]'
+    ) as HTMLElement
     const mobileDisclosure = mobileToggle.closest('details')
 
     expect(mobileToggle.getAttribute('aria-controls')).toBe('public-mobile-navigation')
