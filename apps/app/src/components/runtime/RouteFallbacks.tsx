@@ -6,11 +6,15 @@ import RouteLoading from '@nl/ui/custom/route-loading'
 import { sentryOptions } from '@/constants/sentry'
 
 /** Full-document fallback for errors that escape every route boundary. */
-export function RootErrorBoundary({ error, reset }: { error: Error; reset: () => void }) {
+export function RootErrorBoundary({ error, reset }: { error: unknown; reset: () => void }) {
   useEffect(() => {
-    void import('@/runtime/sentry').then(({ captureException }) =>
-      captureException(error, sentryOptions)
-    )
+    // The router hands the thrown value through as `unknown`; only report the
+    // ones that are actual Errors so the Sentry payload stays structured.
+    if (error instanceof Error) {
+      void import('@/runtime/sentry').then(({ captureException }) =>
+        captureException(error, sentryOptions)
+      )
+    }
   }, [error])
 
   return (

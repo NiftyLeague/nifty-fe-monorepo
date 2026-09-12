@@ -1,14 +1,22 @@
-import type { MetaDescriptor } from '@tanstack/react-router'
+import type { DetailedHTMLProps, MetaHTMLAttributes, LinkHTMLAttributes } from 'react'
 
-type MetaTag =
-  | Extract<MetaDescriptor, { name?: string }>
-  | Extract<MetaDescriptor, { title: string }>
+/** Props for a single `<meta>` element rendered into the document head. */
+export type MetaTag = DetailedHTMLProps<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>
+
+/** Props for a single `<link>` element rendered into the document head. */
+export type LinkTag = DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>
+
+/** The `head()` return shape TanStack Router expects for route metadata. */
+export interface RouteHeadContent {
+  meta?: MetaTag[]
+  links?: LinkTag[]
+}
 
 const ROBOTS_DEFAULT = 'index, follow'
 
 /**
- * Route metadata, flattened into the tags TanStack Router renders through
- * `head()`.
+ * Route metadata in a declarative shape, converted into `head()` tags by
+ * `buildHead`.
  */
 export interface RouteMetadata {
   title: string
@@ -50,11 +58,11 @@ const absoluteUrl = (value: string) => {
  * Open Graph, and Twitter cards. Defaults come from the app-level metadata so
  * each route only supplies what differs.
  */
-export function buildMeta(metadata: RouteMetadata): Array<MetaDescriptor> {
+export function buildMeta(metadata: RouteMetadata): MetaTag[] {
   const description = metadata.description ?? APP_DESCRIPTION
   const images = (metadata.images ?? [DEFAULT_IMAGE]).map(absoluteUrl)
 
-  const tags: Array<MetaDescriptor> = [
+  const tags: MetaTag[] = [
     { title: formatTitle(metadata.title, metadata) },
     { name: 'description', content: description },
     { name: 'robots', content: metadata.noindex ? 'noindex, nofollow' : ROBOTS_DEFAULT },
@@ -85,7 +93,7 @@ export function buildMeta(metadata: RouteMetadata): Array<MetaDescriptor> {
 }
 
 /** Root-level tags shared by every route. */
-export function buildRootMeta(): Array<MetaDescriptor> {
+export function buildRootMeta(): MetaTag[] {
   return [
     { charSet: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -100,7 +108,9 @@ export function buildRootMeta(): Array<MetaDescriptor> {
   ]
 }
 
-export const buildHead = (metadata: RouteMetadata) => ({ meta: buildMeta(metadata) })
+export const buildHead = (metadata: RouteMetadata): RouteHeadContent => ({
+  meta: buildMeta(metadata),
+})
 
 export const DEGEN_IMAGE_ORIGIN = APP_ORIGIN
 
@@ -108,7 +118,7 @@ export const DEGEN_IMAGE_ORIGIN = APP_ORIGIN
  * Share tags for a single DEGEN deep link. The token id resolves to a `.gif`
  * for the animated legendaries and a `.webp` otherwise.
  */
-export function degenShareMeta(tokenId: string, imageUrl: string): Array<MetaDescriptor> {
+export function degenShareMeta(tokenId: string, imageUrl: string): MetaTag[] {
   const title = `NL DEGEN #${tokenId}`
 
   return [
@@ -126,5 +136,3 @@ export const siteMeta = {
   keywords: ['Nifty League', 'NFT', 'Gaming', 'Web3', 'Metaverse'],
   title: APP_TITLE,
 } as const
-
-export type { MetaTag }
