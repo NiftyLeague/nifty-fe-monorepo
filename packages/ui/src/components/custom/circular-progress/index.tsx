@@ -35,6 +35,15 @@ const resolveSize = (size: CircularProgressSize) =>
 const resolveColor = (color: CircularProgressColor) =>
   DEFAULT_COLORS[color as keyof typeof DEFAULT_COLORS] ?? color
 
+/**
+ * Spinner for pending states.
+ *
+ * Decorative by default: the surrounding region is expected to carry the status
+ * (see `route-loading`), so the SVG is hidden from the accessibility tree and a
+ * caller that wants it announced can override via props. The spin is suppressed
+ * under `prefers-reduced-motion`, which keeps the indicator visible while
+ * removing the rotation.
+ */
 export function CircularProgress({
   absoluteStrokeWidth = true,
   className = '',
@@ -51,7 +60,10 @@ export function CircularProgress({
       fill={resolveColor(fill)}
       size={resolveSize(size)}
       strokeWidth={strokeWidth}
-      className={cn('inline-block flex-shrink-0 animate-spin', className)}
+      className={cn(
+        'inline-block flex-shrink-0 animate-spin motion-reduce:animate-none',
+        className
+      )}
       aria-hidden="true"
       {...props}
     />

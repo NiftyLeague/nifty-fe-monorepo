@@ -32,18 +32,33 @@ interface PreloaderProps {
   showWarning?: boolean
 }
 
+/**
+ * Full-screen loading overlay for the Unity game shells.
+ *
+ * The overlay is the status region: `aria-busy` stays true until the game
+ * reports ready, and a visually-hidden text node carries the state so it is
+ * announced rather than only visible. The arcade artwork is decorative and
+ * hidden from the accessibility tree; its former `role="img"` had no accessible
+ * name (an `img` role takes its name from `aria-label`, not from a nested
+ * `<title>`), which announced an unlabelled image. Progress itself is exposed by
+ * the `Progress` bar's `progressbar` role, so the percentage does not need to be
+ * live text.
+ */
 export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
+      role="status"
+      aria-busy={ready ? undefined : true}
       className={styles.preloader_overlay}
       style={ready ? { transform: 'translateY(100%)', display: 'none' } : undefined}
     >
+      <span className="sr-only">Loading</span>
       <div id="js-preloader" className={styles.preloader}>
         <div className={cn(styles.preloader_inner, styles.fadeInUp)}>
           <div className={styles.pong_loader} />
           <div className={styles.pong_loader_left} />
           <div className={styles.pong_loader_right} />
-          <svg role="img" className={cn(styles.df_icon, styles.df_icon_preloader_arcade)}>
+          <svg aria-hidden="true" className={cn(styles.df_icon, styles.df_icon_preloader_arcade)}>
             <PreloaderSVG />
           </svg>
         </div>

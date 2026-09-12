@@ -57,6 +57,8 @@ export function ThemeButton({
     >
       {content}
       {external && <ExternalIcon />}
+      {/* The icon is decorative, so the new-tab behaviour needs its own text. */}
+      {external && <span className="sr-only">(opens in a new tab)</span>}
     </a>
   )
 }
