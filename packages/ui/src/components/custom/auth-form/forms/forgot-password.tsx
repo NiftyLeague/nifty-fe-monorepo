@@ -60,7 +60,12 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
         />
         <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? (
-            <Loader absoluteStrokeWidth className="animate-spin" size={20} strokeWidth={1.5} />
+            <Loader
+              absoluteStrokeWidth
+              className="animate-spin motion-reduce:animate-none"
+              size={20}
+              strokeWidth={1.5}
+            />
           ) : (
             <>
               <Inbox absoluteStrokeWidth size={20} strokeWidth={1.5} />

@@ -26,8 +26,22 @@ function Tooltip({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Root
   )
 }
 
-function TooltipTrigger({ ...props }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+function TooltipTrigger({
+  asChild,
+  type,
+  ...props
+}: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
+  return (
+    <TooltipPrimitive.Trigger
+      data-slot="tooltip-trigger"
+      // Same reasoning as the shared Button: an implicit `submit` inside a form
+      // would turn a tooltip trigger into a submitter. `asChild` renders the
+      // caller's own element, which has no button type.
+      {...(asChild ? {} : { type: type ?? 'button' })}
+      asChild={asChild}
+      {...props}
+    />
+  )
 }
 
 function TooltipContent({

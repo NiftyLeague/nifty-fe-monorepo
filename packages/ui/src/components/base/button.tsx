@@ -10,12 +10,18 @@ function Button({
   variant,
   size,
   asChild = false,
+  type,
   ...props
 }: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
   const Comp = asChild ? SlotPrimitive.Slot : 'button'
 
   return (
     <Comp
+      // A button outside a form ignores `type`, but inside one the implicit
+      // `submit` turns every action button into a submitter. Callers that do
+      // submit a form pass `type="submit"` explicitly. `asChild` renders the
+      // caller's own element (an anchor, usually), which has no button type.
+      {...(asChild ? {} : { type: type ?? 'button' })}
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}

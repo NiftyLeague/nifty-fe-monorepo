@@ -13,6 +13,11 @@ function Progress({
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
+      // The value has to reach the primitive: it is what exposes
+      // `aria-valuenow`, so without it the bar reports progress visually and
+      // tells assistive technology nothing. An undefined value stays
+      // indeterminate, which correctly omits the value attribute.
+      value={value}
       className={cn(
         'bg-primary/20 dark:bg-success/20 relative h-2 w-full overflow-hidden rounded-full',
         className

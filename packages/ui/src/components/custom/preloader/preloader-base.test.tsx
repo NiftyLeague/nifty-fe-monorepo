@@ -53,10 +53,14 @@ describe('PreloaderBase', () => {
     expect(root.style.transform).toBe('')
   })
 
-  it('renders the preloader inner with SVG via role="img"', () => {
+  it('renders the preloader art as a decorative image beside a status region', () => {
     const { container } = render(<PreloaderBase />)
-    expect(container.querySelector('svg[role="img"]')).toBeTruthy()
+    // The art carries no accessible name of its own, so it is hidden and the
+    // loading state is announced by the surrounding status region.
+    expect(container.querySelector('svg[role="img"]')).toBeNull()
+    expect(container.querySelector('svg[aria-hidden="true"]')).toBeTruthy()
     expect(container.querySelector('#preloader-arcade')).toBeTruthy()
+    expect(container.querySelector('[role="status"]')?.textContent).toContain('Loading')
   })
 
   it('shows warning only when percent is present', () => {

@@ -5,7 +5,7 @@ import MobileNavigationDisclosure from './index'
 
 describe('MobileNavigationDisclosure', () => {
   it('renders a native, accessible disclosure', () => {
-    render(
+    const { container } = render(
       <MobileNavigationDisclosure id="public-mobile-navigation" label="Toggle navigation">
         <nav aria-label="Primary navigation">
           <a href="/games">Games</a>
@@ -13,13 +13,17 @@ describe('MobileNavigationDisclosure', () => {
       </MobileNavigationDisclosure>
     )
 
-    const summary = screen.getByRole('button', { name: 'Toggle navigation' })
+    // Queried by element rather than by role: the disclosure keeps its implicit
+    // `summary` role so the browser supplies aria-expanded, and this DOM maps
+    // `summary` to no role at all.
+    const summary = container.querySelector('summary') as HTMLElement
 
-    expect(summary?.getAttribute('aria-controls')).toBe('public-mobile-navigation')
+    expect(summary.getAttribute('role')).toBeNull()
+    expect(summary.getAttribute('aria-controls')).toBe('public-mobile-navigation')
     expect(screen.getByRole('navigation', { name: 'Primary navigation' })).not.toBeNull()
 
     fireEvent.click(summary)
 
-    expect(summary?.closest('details')?.hasAttribute('open')).toBe(true)
+    expect(summary.closest('details')?.hasAttribute('open')).toBe(true)
   })
 })
