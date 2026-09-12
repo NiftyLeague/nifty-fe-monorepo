@@ -66,67 +66,28 @@
   "builds": [
     {
       "app": "api",
-      "cleanPaths": [
-        "apps/api/dist",
-        "apps/api/api/.app"
-      ],
-      "command": [
-        "bun",
-        "--filter",
-        "api",
-        "build"
-      ]
+      "cleanPaths": ["apps/api/dist", "apps/api/api/.app"],
+      "command": ["bun", "--filter", "api", "build"]
     },
     {
       "app": "app",
-      "cleanPaths": [
-        "apps/app/.vercel/output"
-      ],
-      "command": [
-        "bun",
-        "--filter",
-        "app",
-        "build"
-      ]
+      "cleanPaths": ["apps/app/.vercel/output"],
+      "command": ["bun", "--filter", "app", "build"]
     },
     {
       "app": "docs",
-      "cleanPaths": [
-        "apps/docs/dist",
-        "apps/docs/.astro"
-      ],
-      "command": [
-        "bun",
-        "--filter",
-        "docs",
-        "build"
-      ]
+      "cleanPaths": ["apps/docs/dist", "apps/docs/.astro"],
+      "command": ["bun", "--filter", "docs", "build"]
     },
     {
       "app": "smashers",
-      "cleanPaths": [
-        "apps/smashers/dist",
-        "apps/smashers/.astro"
-      ],
-      "command": [
-        "bun",
-        "--filter",
-        "smashers",
-        "build"
-      ]
+      "cleanPaths": ["apps/smashers/dist", "apps/smashers/.astro"],
+      "command": ["bun", "--filter", "smashers", "build"]
     },
     {
       "app": "web",
-      "cleanPaths": [
-        "apps/web/dist",
-        "apps/web/.astro"
-      ],
-      "command": [
-        "bun",
-        "--filter",
-        "web",
-        "build"
-      ]
+      "cleanPaths": ["apps/web/dist", "apps/web/.astro"],
+      "command": ["bun", "--filter", "web", "build"]
     }
   ]
 }
