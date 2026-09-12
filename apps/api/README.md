@@ -25,8 +25,9 @@ bun --filter api build
 
 The API's local environment file is `apps/api/.env.local` and is ignored by
 Git. Copy the variables from `.env.example` or pull them from the linked Vercel
-project. Every value is server-side configuration; never expose these names as
-`NEXT_PUBLIC_*` variables or import `node-config-ts` from a client bundle.
+project. Every value is server-side configuration; never expose these names
+through client-visible env prefixes (`VITE_*`/`PUBLIC_*`) or import
+`node-config-ts` from a client bundle.
 
 ## Deployment
 

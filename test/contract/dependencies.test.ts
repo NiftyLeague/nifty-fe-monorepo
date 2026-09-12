@@ -266,9 +266,6 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     three: 'peer dep of @google/model-viewer (bundles its own three)',
     cookie: 'Astro runtime dependency (cookie handling in the Astro toolchain)',
   },
-  'apps/app': {
-    sharp: 'Next.js image optimization runtime dep',
-  },
   'apps/smashers': {
     '@astrojs/vercel': 'Astro Vercel adapter referenced from astro.config.mjs',
     '@astrojs/react': 'Astro React integration referenced from astro.config.mjs',
