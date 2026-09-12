@@ -1,7 +1,7 @@
 'use client'
 
 import type { PropsWithChildren } from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import type { UnityConfig } from 'react-unity-webgl'
 
 import RouteLoading from '@nl/ui/custom/route-loading'

@@ -16,8 +16,6 @@
         "../../packages/contracts/package.json",
         "../../packages/imx-passport/src/**",
         "../../packages/imx-passport/package.json",
-        "../../packages/sentry-client/src/**",
-        "../../packages/sentry-client/package.json",
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",
@@ -36,16 +34,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": [
-        "CI",
-        "NEXT_RUNTIME",
-        "NEXT_PUBLIC_*",
-        "SENTRY_AUTH_TOKEN",
-        "SENTRY_ORG",
-        "SENTRY_PROJECT",
-        "VERCEL_ENV"
-      ],
-      "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
+      "env": ["CI", "VITE_*", "VERCEL_ENV"],
+      "outputs": [".vercel/output/**", "!**/.vercel/project.json"]
     },
     "api#build": {
       "inputs": [

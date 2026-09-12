@@ -15,8 +15,9 @@ import {
   MY_PROFILE_API_URL,
   PROFILE_FAV_DEGENS_API,
 } from '@/constants/api'
+import { AUDIT_FIXTURE } from '@/runtime/env'
 
-export const isAuditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
+export const isAuditFixtureEnabled = AUDIT_FIXTURE
 
 export const AUDIT_FIXTURE_ADDRESS = '0x0000000000000000000000000000000000000a01' as const
 export const AUDIT_FIXTURE_TOKEN = 'audit-fixture-token'

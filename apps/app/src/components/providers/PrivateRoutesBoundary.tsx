@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import type { PropsWithChildren } from 'react'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'

@@ -1,9 +1,22 @@
 'use client'
 
-import type { NextWebVitalsMetric } from 'next/app'
 import { EVENTS, EVENT_CATEGORIES } from './constants'
 import { pushToDataLayer } from './dataLayer'
 import type { CustomEventNames } from './constants'
+
+/**
+ * A web-vitals metric as reported by the `web-vitals` package. The name set is
+ * the Core Web Vitals plus the paint/timing metrics that package emits.
+ */
+export interface WebVitalsMetric {
+  /** Unique id for the metric on this page load. */
+  id: string
+  name: 'CLS' | 'FCP' | 'INP' | 'LCP' | 'TTFB' | (string & {})
+  value: number
+  rating?: 'good' | 'needs-improvement' | 'poor'
+  delta?: number
+  entries?: unknown[]
+}
 
 const getUserID = () => {
   if (typeof window === 'undefined') return null
@@ -93,9 +106,8 @@ interface WebVitalsParams extends EventParams {
   non_interaction: boolean
 }
 
-// Send Web Vitals or custom Next.js events to Google Tag Manager
-// https://nextjs.org/docs/app/api-reference/functions/use-report-web-vitals
-export const sendWebVitals = (metric: NextWebVitalsMetric) => {
+// Send Core Web Vitals to Google Tag Manager
+export const sendWebVitals = (metric: WebVitalsMetric) => {
   sendEvent(EVENTS.WEB_VITALS, {
     metric_name: metric.name, // "CLS" | "FCP" | "FID" | "INP" | "LCP" | "TTFB" | "Next.js-hydration" | "Next.js-route-change-to-render" | "Next.js-render"
     metric_label: metric.id, // id unique to current page load

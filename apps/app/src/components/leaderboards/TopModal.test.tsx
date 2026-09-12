@@ -17,9 +17,6 @@ beforeEach(() => {
   mock.module('./CustomModal', () => ({
     default: ({ child }: { child: React.ReactNode }) => <>{child}</>,
   }))
-  mock.module('next/image', () => ({
-    default: ({ alt }: { alt?: string }) => <span data-image-alt={alt ?? ''} />,
-  }))
 })
 
 afterEach(() => {

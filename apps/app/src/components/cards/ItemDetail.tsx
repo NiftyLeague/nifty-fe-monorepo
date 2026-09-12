@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 import useFlags from '@/hooks/useFlags'
 import type { Item } from '@/types/marketplace'

@@ -7,11 +7,12 @@ import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { DegenOwnershipProvider } from '@/contexts/DegenOwnershipContext'
 import WalletStorageProviders from '@/contexts/WalletStorageProviders'
+import { AUDIT_FIXTURE } from '@/runtime/env'
 
 type MintProvidersProps = PropsWithChildren<{ cookies?: string | null }>
 
 export default function MintProviders({ children, cookies }: MintProvidersProps) {
-  const auditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
+  const auditFixtureEnabled = AUDIT_FIXTURE
 
   const walletContexts = auditFixtureEnabled ? (
     <AuditFixtureMintContextWrapper>{children}</AuditFixtureMintContextWrapper>

@@ -1,10 +1,12 @@
 'use client'
 
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import type { PropsWithChildren } from 'react'
 
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
 import WalletAuthProviders from '@/contexts/WalletAuthProviders'
+import { AUDIT_FIXTURE } from '@/runtime/env'
+import { getRequestCookieHeader } from '@/runtime/request-cookies'
 
 const WalletFeatureProviders = dynamic(() => import('@/contexts/WalletFeatureProviders'), {
   ssr: false,
@@ -23,8 +25,8 @@ export default function GameWalletProviders({
   loadWalletFeatures = true,
   children,
 }: GameWalletProvidersProps) {
-  const cookies = typeof document === 'undefined' ? null : document.cookie
-  const auditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
+  const cookies = getRequestCookieHeader()
+  const auditFixtureEnabled = AUDIT_FIXTURE
 
   const walletFeatures = auditFixtureEnabled ? (
     <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>

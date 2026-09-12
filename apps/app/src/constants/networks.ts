@@ -1,5 +1,6 @@
 import { mainnet, sepolia, hardhat, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import type { Network, NetworkName } from '@/types/web3'
+import { INFURA_PROJECT_ID, NETWORK as DEPLOY_NETWORK } from '@/runtime/env'
 
 export const MAINNET_ID = mainnet.id
 export const SEPOLIA_ID = sepolia.id
@@ -26,8 +27,8 @@ export const NETWORK_NAME: { [chainId: number]: NetworkName } = {
 }
 
 export const RPC = {
-  [MAINNET_ID]: `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID as string}`,
-  [SEPOLIA_ID]: `https://sepolia.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_PROJECT_ID as string}`,
+  [MAINNET_ID]: `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`,
+  [SEPOLIA_ID]: `https://sepolia.infura.io/v3/${INFURA_PROJECT_ID}`,
   [LOCAL_CHAIN_ID]: hardhat.rpcUrls.default.http[0],
   [IMX_ID]: immutableZkEvm.rpcUrls.default.http[0],
   [IMX_TESTNET_ID]: immutableZkEvmTestnet.rpcUrls.default.http[0],
@@ -70,8 +71,6 @@ export const NETWORKS: Record<NetworkName, Network> = {
   },
 }
 
-export const TARGET_NETWORK: Network = NETWORKS[
-  process.env.NEXT_PUBLIC_NETWORK as NetworkName
-] as Network
+export const TARGET_NETWORK: Network = NETWORKS[DEPLOY_NETWORK as NetworkName] as Network
 
 export const VALID_NOTIFY_NETWORKS: number[] = [MAINNET_ID, SEPOLIA_ID]

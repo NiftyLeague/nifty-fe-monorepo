@@ -1,4 +1,4 @@
-import RouterLink from 'next/link'
+import RouterLink from '@/runtime/Link'
 import NativeImage from '@nl/ui/custom/native-image'
 
 // ==============================|| LOGO PNG/SVG ||============================== //

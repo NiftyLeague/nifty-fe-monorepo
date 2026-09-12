@@ -11,8 +11,7 @@ interface DeferredChangeNicknameDialogProps {
   updateNickname: (name: string, id: string) => void
 }
 
-const loadChangeNicknameDialog = () =>
-  import('@/app/(private-routes)/dashboard/rentals/ChangeNicknameDialog')
+const loadChangeNicknameDialog = () => import('@/pages/dashboard/rentals/ChangeNicknameDialog')
 
 export default function DeferredChangeNicknameDialog({
   open = false,

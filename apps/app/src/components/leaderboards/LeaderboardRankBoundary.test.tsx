@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const dynamicLoaders: Array<() => Promise<unknown>> = []
 
-mock.module('next/dynamic', () => ({
+mock.module('@/runtime/dynamic', () => ({
   default: (loader: () => Promise<unknown>) => {
     const Deferred = () => {
       dynamicLoaders.push(loader)

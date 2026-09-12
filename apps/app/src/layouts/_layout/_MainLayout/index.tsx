@@ -1,0 +1,31 @@
+'use client'
+
+// third party
+import { type PropsWithChildren } from 'react'
+import dynamic from '@/runtime/dynamic'
+
+// project imports
+import AppShell from '@/layouts/_layout/AppShell'
+import Header from './_Header'
+import Sidebar from './_Sidebar'
+
+const NetworkWarning = dynamic(() => import('./_Header/NetworkWarning'), { ssr: false })
+
+// ==============================|| MAIN LAYOUT ||============================== //
+
+const MainLayout = ({
+  children,
+  walletReady = true,
+}: PropsWithChildren<{ walletReady?: boolean }>) => {
+  return (
+    <AppShell
+      header={<Header />}
+      sidebar={<Sidebar walletReady={walletReady} />}
+      networkWarning={walletReady ? <NetworkWarning /> : undefined}
+    >
+      {children}
+    </AppShell>
+  )
+}
+
+export default MainLayout

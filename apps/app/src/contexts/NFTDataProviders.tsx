@@ -6,6 +6,7 @@ import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
 import { IMXProvider } from '@/contexts/IMXContext'
 import { NetworkProvider } from '@/contexts/NetworkProvider'
 import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext'
+import { AUDIT_FIXTURE } from '@/runtime/env'
 
 /**
  * Shared contract and Immutable NFT providers for routes that render NFT data.
@@ -15,7 +16,7 @@ import { NFTsBalanceProvider } from '@/contexts/NFTsBalanceContext'
  * pages can load their own data without pulling in the extra token graph.
  */
 export default function NFTDataProviders({ children }: PropsWithChildren) {
-  if (process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true') {
+  if (AUDIT_FIXTURE) {
     return <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
   }
 

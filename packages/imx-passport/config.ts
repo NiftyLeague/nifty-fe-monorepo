@@ -27,7 +27,7 @@ const env = {
 }
 
 const baseURL = typeof window !== 'undefined' && window?.location?.origin
-const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
+const isProduction = import.meta.env.VITE_VERCEL_ENV === 'production'
 const environment = isProduction ? config.Environment.PRODUCTION : config.Environment.SANDBOX
 
 const passportConfig: PassportModuleConfiguration = {

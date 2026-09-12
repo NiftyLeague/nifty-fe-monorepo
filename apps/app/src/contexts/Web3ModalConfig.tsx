@@ -8,12 +8,13 @@ import {
 } from 'viem/chains'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { cookieStorage, createStorage } from 'wagmi'
+import { WALLET_CONNECT_PROJECT_ID } from '@/runtime/env'
 
 export { immutableZkEvm, immutableZkEvmTestnet, mainnet, sepolia }
 
 // Get projectId at https://cloud.walletconnect.com
-export const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string
-if (!projectId) throw new Error('Project ID is not defined')
+export const projectId = WALLET_CONNECT_PROJECT_ID
+if (!projectId) throw new Error('VITE_WALLET_CONNECT_PROJECT_ID is not defined')
 
 export const metadata = {
   name: 'Nifty League App',

@@ -1,22 +1,34 @@
-import { preload } from 'react-dom'
-import { getImgProps, type ImageProps } from 'next/dist/shared/lib/get-img-props'
-import type { ImageConfigComplete } from 'next/dist/shared/lib/image-config'
-import defaultLoader from 'next/dist/shared/lib/image-loader'
+import { preload as preloadImage } from 'react-dom'
+import type { ComponentProps, CSSProperties } from 'react'
 
-export type OptimizedImageProps = ImageProps
+type ImageSource = string | { src: string; width?: number; height?: number }
 
-// Next injects this build-time value so the shared helper keeps each app's
-// configured responsive image ladder and loader behavior.
-// oxlint-disable-next-line no-underscore-dangle
-const nextImageOpts = process.env.__NEXT_IMAGE_OPTS as unknown as ImageConfigComplete
+/**
+ * Framework-agnostic image primitive.
+ *
+ * Every app that renders this component aliases the specifier to its own
+ * implementation (web and smashers generate responsive variants at build time;
+ * the app serves originals natively). This shared copy is the fallback: it
+ * keeps the loader-hint contract the tests pin down and renders a native
+ * `<img>` at the supplied source.
+ */
+export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> {
+  src: ImageSource
+  priority?: boolean
+  preload?: boolean
+  fill?: boolean
+  unoptimized?: boolean
+  quality?: number
+  placeholder?: 'blur' | 'empty'
+  blurDataURL?: string
+}
 
 const FIXED_PIXEL_SIZE_PATTERN = /^\s*(\d+(?:\.\d+)?)px\s*$/
 
 /**
- * Next's `sizes` prop switches to the complete device ladder whenever it is
- * present. That is correct for fluid layouts, but it is unnecessarily large
- * for artwork whose rendered width is a fixed number of pixels. Keep one
- * candidate for a 1x display and one for a 2x display in that narrow case.
+ * A `sizes` value in whole pixels only needs one candidate for a 1x display and
+ * one for a 2x display. Fluid sizes (`vw`, `%`, media queries) keep the full
+ * candidate ladder.
  */
 export function trimFixedWidthSrcSet(srcSet: string | undefined, sizes: string | undefined) {
   if (!srcSet || !sizes) return srcSet
@@ -52,74 +64,77 @@ export function trimFixedWidthSrcSet(srcSet: string | undefined, sizes: string |
   return unique.length > 0 ? unique.map(({ source }) => source).join(', ') : srcSet
 }
 
-export function getOptimizedImageProps(props: OptimizedImageProps) {
-  const { props: imageProps, meta } = getImgProps(props, {
-    defaultLoader,
-    imgConf: nextImageOpts,
-  })
+const FILL_STYLE: CSSProperties = {
+  position: 'absolute',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+}
 
-  // Keep the shared native renderer conservative by default. Callers can
-  // still opt into eager loading explicitly, while Next's priority/preload
-  // metadata continues to win for above-the-fold assets.
-  if (imageProps.loading === undefined) {
-    imageProps.loading = props.priority || meta.preload ? 'eager' : 'lazy'
+export function getOptimizedImageProps(
+  props: OptimizedImageProps
+): ComponentProps<'img'> & { src: string } {
+  const {
+    src: suppliedSource,
+    priority,
+    preload,
+    quality: _quality,
+    placeholder: _placeholder,
+    blurDataURL: _blurDataURL,
+    fill,
+    unoptimized: _unoptimized,
+    ...attributes
+  } = props
+
+  const source = typeof suppliedSource === 'string' ? suppliedSource : suppliedSource?.src
+  if (typeof source !== 'string' || !source) throw new TypeError('Image src is required')
+
+  const imageProps: ComponentProps<'img'> & { src: string } = {
+    ...attributes,
+    src: source,
+    decoding: attributes.decoding ?? 'async',
+    loading: attributes.loading ?? (priority || preload ? 'eager' : 'lazy'),
   }
 
-  // The native <img> renderer cannot consume Next's preload metadata. Carry
-  // its priority signal across as standard browser hints instead of silently
-  // dropping it when the shared primitive avoids the stateful next/image
-  // client component.
-  if (meta.preload) {
-    imageProps.loading ??= 'eager'
-    imageProps.fetchPriority ??= 'high'
+  if (imageProps.width === undefined && typeof suppliedSource !== 'string') {
+    imageProps.width = suppliedSource?.width
+  }
+  if (imageProps.height === undefined && typeof suppliedSource !== 'string') {
+    imageProps.height = suppliedSource?.height
   }
 
-  // Keep below-the-fold artwork from competing with the route's LCP resource.
-  // Respect explicit priorities for hero and above-the-fold images.
-  if (imageProps.loading === 'lazy' && imageProps.fetchPriority === undefined) {
-    imageProps.fetchPriority = 'low'
+  // Keep below-the-fold artwork from competing with the route's LCP resource
+  // while explicit priority and eager loading still win.
+  if (imageProps.fetchPriority === undefined) {
+    if (priority || preload) imageProps.fetchPriority = 'high'
+    else if (imageProps.loading === 'lazy') imageProps.fetchPriority = 'low'
   }
 
-  // Decode artwork off the critical rendering path by default, matching the
-  // shared NativeImage primitive used by client-only consumers.
-  imageProps.decoding ??= 'async'
-
-  imageProps.srcSet = trimFixedWidthSrcSet(imageProps.srcSet, props.sizes)
-
-  // Keep below-the-fold artwork from competing with the route's LCP resource.
-  // Respect explicit priorities for hero and above-the-fold images.
-  if (imageProps.loading === 'lazy' && imageProps.fetchPriority === undefined) {
-    imageProps.fetchPriority = 'low'
+  if (fill) {
+    delete imageProps.width
+    delete imageProps.height
+    imageProps.style = { ...FILL_STYLE, ...attributes.style }
   }
 
-  // Keep below-the-fold artwork from competing with the route's LCP resource.
-  // Respect explicit priorities for hero and above-the-fold images.
-  if (imageProps.loading === 'lazy' && imageProps.fetchPriority === undefined) {
-    imageProps.fetchPriority = 'low'
-  }
-
-  for (const [key, value] of Object.entries(imageProps)) {
-    if (value === undefined) delete imageProps[key as keyof typeof imageProps]
+  for (const key of Object.keys(imageProps)) {
+    if (imageProps[key as keyof ComponentProps<'img'>] === undefined) {
+      delete imageProps[key as keyof ComponentProps<'img'>]
+    }
   }
 
   return imageProps
 }
 
 /**
- * Keeps Next's responsive image generation on the server without shipping the
- * stateful next/image client component for static artwork. The public
- * `next/image` entry re-exports that client component, so this stays on the
- * shared server-side implementation used by the pinned Next version.
+ * Renders a native `<img>`. Above-the-fold artwork (`priority` / `preload`)
+ * also emits a matching `<link rel="preload">` so the browser starts the
+ * request before React resolves the element.
  */
 export function OptimizedImage(props: OptimizedImageProps) {
   const imageProps = getOptimizedImageProps(props)
 
-  // The native renderer replaces Next's client image component, so carry its
-  // explicit priority signal through as a matching resource hint. Keeping the
-  // preload URL and responsive candidates derived from the same props avoids a
-  // second request for a different image variant.
-  if (props.priority || props.preload) {
-    preload(imageProps.src, {
+  if ((props.priority || props.preload) && typeof imageProps.src === 'string') {
+    preloadImage(imageProps.src, {
       as: 'image',
       fetchPriority: 'high',
       ...(imageProps.srcSet

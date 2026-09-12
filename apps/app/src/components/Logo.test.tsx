@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('next/link', () => ({
+mock.module('@/runtime/Link', () => ({
   default: ({
     children,
     href,

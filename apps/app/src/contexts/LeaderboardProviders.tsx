@@ -1,10 +1,12 @@
 'use client'
 
 import type { PropsWithChildren } from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 
 import WalletAuthProviders from '@/contexts/WalletAuthProviders'
 import WalletStorageProviders from '@/contexts/WalletStorageProviders'
+import { AUDIT_FIXTURE } from '@/runtime/env'
+import { getRequestCookieHeader } from '@/runtime/request-cookies'
 
 const DeferredAuditFixtureContextWrapper = dynamic(
   () => import('@/contexts/AuditFixtureContextWrapper'),
@@ -16,8 +18,8 @@ const DeferredAuditFixtureContextWrapper = dynamic(
  * network, Immutable, NFT, and token-balance clients out of this public route.
  */
 export default function LeaderboardProviders({ children }: PropsWithChildren) {
-  const auditFixtureEnabled = process.env.NEXT_PUBLIC_AUDIT_FIXTURE === 'true'
-  const cookies = typeof document === 'undefined' ? null : document.cookie
+  const auditFixtureEnabled = AUDIT_FIXTURE
+  const cookies = getRequestCookieHeader()
 
   if (!auditFixtureEnabled) {
     return <WalletAuthProviders cookies={cookies}>{children}</WalletAuthProviders>

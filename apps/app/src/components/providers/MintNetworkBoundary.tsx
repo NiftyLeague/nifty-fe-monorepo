@@ -6,11 +6,13 @@ import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 
+import { AUDIT_FIXTURE } from '@/runtime/env'
+
 const loadMintNetworkProvider = () =>
   import('@/contexts/NetworkProvider').then(({ NetworkProvider }) => ({ default: NetworkProvider }))
 
 export default function MintNetworkBoundary({ children }: PropsWithChildren) {
-  const shouldLoadProvider = process.env.NEXT_PUBLIC_AUDIT_FIXTURE !== 'true'
+  const shouldLoadProvider = !AUDIT_FIXTURE
 
   return (
     <DeferredComponent

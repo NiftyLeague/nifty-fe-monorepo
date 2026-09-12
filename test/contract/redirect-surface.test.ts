@@ -139,17 +139,17 @@ const surfaces: Record<string, SurfaceEntry[]> = {
   app: [
     {
       type: 'file',
-      path: 'src/app/(public-routes)/degens/[id]/page.tsx',
+      path: 'src/routes/_public/degens.$id.tsx',
       reason: 'DEGEN profile deep link',
     },
     {
       type: 'file',
-      path: 'src/app/(public-routes)/games/smashers/page.tsx',
+      path: 'src/routes/_public/games.smashers.tsx',
       reason: 'Game deep link',
     },
     {
       type: 'file',
-      path: 'src/app/verification/page.tsx',
+      path: 'src/routes/verification.index.tsx',
       reason: 'Auth verification route',
     },
   ],

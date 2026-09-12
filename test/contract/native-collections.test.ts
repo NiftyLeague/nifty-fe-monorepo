@@ -2,12 +2,12 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 
 const appCollectionConsumers = [
-  'apps/app/src/app/(public-routes)/degens/AllDegensPage.tsx',
+  'apps/app/src/pages/degens/AllDegensPage.tsx',
   'apps/app/src/components/extended/DegensFilter/index.tsx',
   'apps/app/src/components/dialog/DegenDialog/ViewTraitsContentDialog.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/degens/DashboardDegensContent.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/overview/MyDegens.tsx',
-  'apps/app/src/app/(private-routes)/dashboard/items/burner/_components/comics-grid.tsx',
+  'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
+  'apps/app/src/pages/dashboard/overview/MyDegens.tsx',
+  'apps/app/src/pages/dashboard/items/burner/_components/comics-grid.tsx',
 ]
 
 describe('native collection contracts', () => {

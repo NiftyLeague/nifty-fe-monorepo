@@ -1,9 +1,0 @@
-{
-  "extends": "@nl/typescript-config/react-library.json",
-  "compilerOptions": {
-    "incremental": true,
-    "outDir": "dist",
-    "types": ["node", "react"]
-  },
-  "include": ["."]
-}

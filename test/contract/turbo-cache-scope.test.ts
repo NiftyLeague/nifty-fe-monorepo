@@ -77,8 +77,6 @@ const sharedBuildInputs: Record<string, string[]> = {
     '../../packages/contracts/package.json',
     '../../packages/imx-passport/src/**',
     '../../packages/imx-passport/package.json',
-    '../../packages/sentry-client/src/**',
-    '../../packages/sentry-client/package.json',
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
@@ -148,17 +146,7 @@ describe('Turbo cache environment scope', () => {
   })
 
   it('keeps environment inputs on the builds that read them', () => {
-    expect(envFor('app#build')).toEqual(
-      new Set([
-        'CI',
-        'NEXT_RUNTIME',
-        'NEXT_PUBLIC_*',
-        'SENTRY_AUTH_TOKEN',
-        'SENTRY_ORG',
-        'SENTRY_PROJECT',
-        'VERCEL_ENV',
-      ])
-    )
+    expect(envFor('app#build')).toEqual(new Set(['CI', 'VITE_*', 'VERCEL_ENV']))
     expect(envFor('web#build')).toEqual(
       new Set(['CI', 'PUBLIC_DEPLOY_ENV', 'PUBLIC_TELEMETRY', 'PUBLIC_INFURA_ID'])
     )
@@ -268,7 +256,6 @@ describe('Turbo cache environment scope', () => {
     for (const packagePath of [
       'packages/imx-passport/package.json',
       'packages/playfab/package.json',
-      'packages/sentry-client/package.json',
       'packages/ui/package.json',
     ]) {
       expect(packageJson(packagePath).scripts?.build).toBeUndefined()

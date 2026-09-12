@@ -1,0 +1,36 @@
+/*
+ * The shared `@nl/ui/fonts/*` helpers are tied to a build-time font pipeline
+ * that this app does not run. These declarations load the same committed woff2
+ * assets and set the same `--font-*` custom properties the Tailwind theme in
+ * `@nl/ui/styles.css` already consumes.
+ */
+@font-face {
+  font-family: 'NL IBM Plex Sans';
+  src: url('../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NL Nexa Rust Sans Black';
+  src: url('../../../../packages/ui/src/lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2')
+    format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NL Lilita One';
+  src: url('../../../../packages/ui/src/lib/fonts/assets/lilita-one-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-ibm-plex-sans: 'NL IBM Plex Sans';
+  --font-nexa-rust-sans-black: 'NL Nexa Rust Sans Black';
+  --font-lilita-one: 'NL Lilita One';
+}

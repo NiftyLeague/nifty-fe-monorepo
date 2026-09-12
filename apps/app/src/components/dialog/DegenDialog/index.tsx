@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'

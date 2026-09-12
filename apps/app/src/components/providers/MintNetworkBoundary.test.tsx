@@ -14,18 +14,18 @@ mock.module('@nl/ui/custom/deferred-component', () => ({
 }))
 
 describe('MintNetworkBoundary', () => {
-  const previousAuditFixture = process.env.NEXT_PUBLIC_AUDIT_FIXTURE
+  const previousAuditFixture = process.env.VITE_AUDIT_FIXTURE
 
   afterEach(() => {
     if (previousAuditFixture === undefined) {
-      delete process.env.NEXT_PUBLIC_AUDIT_FIXTURE
+      delete process.env.VITE_AUDIT_FIXTURE
     } else {
-      process.env.NEXT_PUBLIC_AUDIT_FIXTURE = previousAuditFixture
+      process.env.VITE_AUDIT_FIXTURE = previousAuditFixture
     }
   })
 
   it('bypasses the network provider in audit fixtures without hiding the canvas', async () => {
-    process.env.NEXT_PUBLIC_AUDIT_FIXTURE = 'true'
+    process.env.VITE_AUDIT_FIXTURE = 'true'
     const { default: MintNetworkBoundary } = await import('./MintNetworkBoundary')
 
     render(

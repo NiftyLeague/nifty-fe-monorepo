@@ -1,6 +1,6 @@
 'use client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/runtime/navigation'
 import { toast } from 'sonner'
 import { isAddress } from 'ethers'
 import { AlertCircle, Info, X } from 'lucide-react'

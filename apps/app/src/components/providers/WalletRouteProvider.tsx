@@ -1,7 +1,7 @@
 'use client'
 
 import type { PropsWithChildren } from 'react'
-import dynamic from 'next/dynamic'
+import dynamic from '@/runtime/dynamic'
 
 const WalletFeatureLoading = () => (
   <div className="sr-only" role="status" aria-live="polite" aria-busy="true">

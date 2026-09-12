@@ -1,0 +1,363 @@
+// @ts-nocheck
+'use client'
+
+import { memo, useCallback, useEffect, useState } from 'react'
+import { Unity, useUnityContext } from 'react-unity-webgl'
+import { useOrientation } from '@nl/ui/hooks/useOrientation'
+
+import useRemovedTraits from '@/hooks/useRemovedTraits'
+import { submitTxWithGasEstimate } from '@/utils/bnc-notify'
+import type { NotifyCallback } from '@/types/notify'
+import useNetworkContext from '@/hooks/useNetworkContext'
+import { DEGEN_CONTRACT } from '@/constants/contracts'
+import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
+import { DEBUG } from '@/constants/index'
+import { characterCreatorBuild } from '@/constants/unity-builds'
+import { SUBGRAPH_VERSION } from '@/runtime/env'
+import { getMintableTraits, TraitArray } from './helpers'
+import { setCanvasInteraction } from '@/utils/canvas-interaction'
+
+const isMobileOnly =
+  typeof navigator !== 'undefined' &&
+  /Android|iPhone|iPod/i.test(navigator.userAgent) &&
+  !/iPad/i.test(navigator.userAgent)
+
+const { config: creatorConfig } = characterCreatorBuild(isMobileOnly)
+
+const WIDTH_SCALE = 280
+const HEIGHT_SCALE = 210
+let DEFAULT_WIDTH = WIDTH_SCALE * 3
+let DEFAULT_HEIGHT = HEIGHT_SCALE * 3
+
+const getMobileSize = (isPortrait: boolean) => {
+  if (typeof window !== 'undefined') {
+    const { innerWidth } = window
+    const width = innerWidth > 0 ? innerWidth : window.screen.width
+    let height = width
+    if (!isPortrait) {
+      height = width / 1.333333
+    }
+    return { width, height }
+  }
+  return { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT }
+}
+
+const getBrowserGameSize = () => {
+  if (typeof window !== 'undefined') {
+    const { innerWidth, innerHeight } = window
+    const scale = 1.333333
+    const percent = 93
+    let height = Math.floor((innerHeight * percent) / 100)
+    let width = height * scale
+    if (width > innerWidth) {
+      width = innerWidth
+      height = innerWidth / scale
+    }
+    return { width, height }
+  }
+  return { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT }
+}
+
+if (isMobileOnly) {
+  const { width, height } = getMobileSize(true)
+  DEFAULT_WIDTH = width
+  DEFAULT_HEIGHT = height
+} else {
+  const { width, height } = getBrowserGameSize()
+  DEFAULT_WIDTH = width
+  DEFAULT_HEIGHT = height
+}
+
+const RemovedTraits = ({
+  callback,
+  refreshKey,
+}: {
+  callback: (arg0: string) => void
+  refreshKey: number
+}) => {
+  const { readContracts } = useNetworkContext()
+  const removedTraits = useRemovedTraits(readContracts)
+
+  useEffect(() => {
+    if (DEBUG) console.log('Removed Traits:', removedTraits)
+    callback(JSON.stringify(removedTraits))
+  }, [callback, removedTraits, refreshKey])
+
+  return null
+}
+
+interface CharacterCreatorContainerProps {
+  isLoaded: boolean
+  isPortrait?: boolean
+  setLoaded: (loaded: boolean) => void
+  setProgress: (progress: number) => void
+}
+interface CharacterCreatorProps extends CharacterCreatorContainerProps {
+  onMintCharacter: (e: MintEvent) => Promise<void> | void
+  unityContext: ReturnType<typeof useUnityContext>
+}
+
+type MintEvent = CustomEvent<{ callback: (reset: string) => void; traits: TraitArray }>
+
+const CharacterCreator = memo(
+  ({
+    isLoaded,
+    isPortrait,
+    onMintCharacter,
+    setLoaded,
+    setProgress,
+    unityContext,
+  }: CharacterCreatorProps) => {
+    const { sendMessage, addEventListener, removeEventListener, unityProvider } = unityContext
+    const [removedTraitsCallback, setRemovedTraitsCallback] = useState<
+      null | ((removedTraits: string) => void)
+    >(null)
+    const [width, setWidth] = useState(DEFAULT_WIDTH)
+    const [height, setHeight] = useState(DEFAULT_HEIGHT)
+    const [refreshKey, setRefreshKey] = useState(0)
+    const [, setIsMinting] = useState(false)
+
+    const [unityError, setUnityError] = useState<Error | null>(null)
+    // Conditionally throw errors to be caught by the ErrorBoundary
+    if (unityError) throw unityError
+
+    const getRemovedTraits = useCallback(
+      (e: CustomEvent<{ callback: (removedTraits: string) => void }>) => {
+        setRemovedTraitsCallback(() => e.detail.callback)
+        setRefreshKey(Math.random() + 1)
+      },
+      []
+    )
+
+    useEffect(() => {
+      if (isMobileOnly && isLoaded) {
+        sendMessage('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false')
+        const safeIsPortrait = isPortrait ?? true
+        const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait)
+        setWidth(newWidth)
+        setHeight(newHeight)
+      }
+    }, [isPortrait, isLoaded, sendMessage])
+
+    const reportWindowSize = useCallback(() => {
+      if (isMobileOnly) {
+        const safeIsPortrait = isPortrait ?? true
+        const { width: newWidth, height: newHeight } = getMobileSize(safeIsPortrait)
+        setWidth(newWidth)
+        setHeight(newHeight)
+      } else {
+        const { width: newWidth, height: newHeight } = getBrowserGameSize()
+        setWidth(newWidth)
+        setHeight(newHeight)
+      }
+    }, [isPortrait])
+
+    const getConfiguration = useCallback(
+      (e: CustomEvent<{ callback: (network: string) => void }>) => {
+        const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
+        const version = SUBGRAPH_VERSION
+        setTimeout(() => e.detail.callback(`${networkName},${version}`), 1000)
+      },
+      []
+    )
+
+    const toggleIsMinting = useCallback((e: CustomEvent<boolean>) => {
+      setIsMinting(e.detail)
+    }, [])
+
+    const onScroll = useCallback(() => {
+      setCanvasInteraction('character-canvas', false)
+    }, [])
+
+    const onMouse = useCallback(() => {
+      setCanvasInteraction('character-canvas', true)
+    }, [])
+
+    const handleCanvas = useCallback(() => {
+      setWidth(DEFAULT_WIDTH)
+      setHeight(DEFAULT_HEIGHT)
+      setTimeout(() => {
+        if (isMobileOnly)
+          sendMessage('CharacterCreatorLevel', 'UI_SetPortrait', isPortrait ? 'true' : 'false')
+      }, 2000)
+    }, [isPortrait, sendMessage])
+
+    const handleLoaded = useCallback(() => {
+      setLoaded(true)
+    }, [setLoaded])
+
+    const handleError = useCallback((error: string) => {
+      setUnityError(new Error(error || 'Unity loading error'))
+    }, [])
+
+    const handleProgress = useCallback(
+      (progress: number) => {
+        setProgress(progress * 100)
+      },
+      [setProgress]
+    )
+
+    useEffect(() => {
+      addEventListener('canvas', handleCanvas)
+      addEventListener('loaded', handleLoaded)
+      addEventListener('error', handleError)
+      addEventListener('progress', handleProgress)
+      window.addEventListener('resize', reportWindowSize as EventListener)
+      window.addEventListener('GetConfiguration', getConfiguration as EventListener)
+      window.addEventListener('GetRemovedTraits', getRemovedTraits as EventListener)
+      window.addEventListener('OnMintEffectToggle', toggleIsMinting as EventListener)
+      window.addEventListener('SubmitTraits', onMintCharacter as EventListener)
+      document.addEventListener('wheel', onScroll, false)
+      document.addEventListener('mousemove', onMouse, false)
+      return () => {
+        removeEventListener('canvas', handleCanvas)
+        removeEventListener('loaded', handleLoaded)
+        removeEventListener('error', handleError)
+        removeEventListener('progress', handleProgress)
+        window.removeEventListener('resize', reportWindowSize as EventListener)
+        window.removeEventListener('GetConfiguration', getConfiguration as EventListener)
+        window.removeEventListener('GetRemovedTraits', getRemovedTraits as EventListener)
+        window.removeEventListener('OnMintEffectToggle', toggleIsMinting as EventListener)
+        window.removeEventListener('SubmitTraits', onMintCharacter as EventListener)
+        document.removeEventListener('wheel', onScroll, false)
+        document.removeEventListener('mousemove', onMouse, false)
+      }
+    }, [
+      addEventListener,
+      removeEventListener,
+      handleCanvas,
+      handleLoaded,
+      handleError,
+      handleProgress,
+      getConfiguration,
+      getRemovedTraits,
+      onMintCharacter,
+      onMouse,
+      onScroll,
+      reportWindowSize,
+      toggleIsMinting,
+    ])
+
+    return (
+      <>
+        <div
+          className="pixelated"
+          style={{
+            backgroundSize: height / 21,
+            backgroundImage: `url('/img/backgrounds/character-creator-repeat.webp')`,
+            backgroundRepeat: 'repeat-x',
+          }}
+        >
+          <Unity
+            className="character-canvas"
+            unityProvider={unityProvider}
+            style={{ width, height, visibility: isLoaded ? 'visible' : 'hidden' }}
+          />
+        </div>
+        {removedTraitsCallback && refreshKey ? (
+          <RemovedTraits callback={removedTraitsCallback} refreshKey={refreshKey} />
+        ) : null}
+      </>
+    )
+  }
+)
+
+const CharacterCreatorContainer = memo(
+  ({ isPortrait, setLoaded, setProgress }: Omit<CharacterCreatorContainerProps, 'isLoaded'>) => {
+    const { address, tx, writeContracts } = useNetworkContext()
+    const [saleLocked, setSaleLocked] = useState(false)
+
+    const unityCtx = useUnityContext(creatorConfig)
+
+    const [asyncError, setAsyncError] = useState<Error | null>(null)
+    // Conditionally throw errors to be caught by the ErrorBoundary
+    if (asyncError) throw asyncError
+
+    const totalSupply = 9900
+
+    useEffect(() => {
+      const count = totalSupply ?? 0
+      if (count < 3 || count >= 9900) {
+        setSaleLocked(true)
+      } else {
+        setSaleLocked(false)
+      }
+    }, [totalSupply, address])
+
+    const { sendMessage } = unityCtx
+
+    // Bridge sendMessage to window.unityInstance for external callers
+    useEffect(() => {
+      window.unityInstance = {
+        SendMessage: (...args) => sendMessage(...args),
+        removeAllEventListeners: () => {
+          // Cleanup is handled by the CharacterCreator component
+        },
+      }
+    }, [sendMessage])
+
+    const stashMintState = useCallback((e: MintEvent) => {
+      setTimeout(() => e.detail.callback('false'), 1000)
+    }, [])
+
+    const mintCharacter = useCallback(
+      async (e: MintEvent) => {
+        try {
+          const { character, head, clothing, accessories, items } = getMintableTraits(e.detail)
+          const nftContract = writeContracts[DEGEN_CONTRACT]
+          const args = [character, head, clothing, accessories, items]
+          const value = (await nftContract.getNFTPrice()) as bigint
+          const minimumGas = 250000n
+          const txCallback: NotifyCallback = (mintTx) => {
+            if (mintTx?.status === 'pending') e.detail.callback('true')
+          }
+          const res = await submitTxWithGasEstimate(
+            tx,
+            nftContract,
+            'purchase',
+            args,
+            { value },
+            minimumGas,
+            txCallback
+          )
+          if (!res) e.detail.callback('false')
+        } catch (error) {
+          // If an error occurs, set the state to trigger a re-render
+          // The re-render will then trigger the conditional throw.
+          setAsyncError(error as Error)
+          e.detail.callback('false') // Ensure the Unity app is notified
+        }
+      },
+      [writeContracts, tx]
+    )
+
+    return (
+      <>
+        {window.unityInstance && (
+          <CharacterCreator
+            isLoaded={unityCtx.isLoaded}
+            isPortrait={isPortrait}
+            onMintCharacter={
+              writeContracts[DEGEN_CONTRACT] && !saleLocked ? mintCharacter : stashMintState
+            }
+            setLoaded={setLoaded}
+            setProgress={setProgress}
+            unityContext={unityCtx}
+          />
+        )}
+      </>
+    )
+  }
+)
+
+CharacterCreator.displayName = 'CharacterCreator'
+CharacterCreatorContainer.displayName = 'CharacterCreatorContainer'
+
+const CharacterCreatorWithOrientation = (
+  props: Omit<CharacterCreatorContainerProps, 'isLoaded'>
+) => {
+  const { isPortrait } = useOrientation()
+  return <CharacterCreatorContainer {...props} isPortrait={isPortrait} />
+}
+
+export default CharacterCreatorWithOrientation

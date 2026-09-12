@@ -7,7 +7,7 @@ import MobileNavigationDisclosure from '@nl/ui/custom/mobile-navigation'
 
 import PublicLogo from '@/components/PublicLogo'
 import { APP_EXTERNAL_LINKS } from '@/constants/navigation'
-import styles from '@/app/_layout/_MainLayout/MainLayout.module.css'
+import styles from '@/layouts/_layout/_MainLayout/MainLayout.module.css'
 import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicDesktopNavigationToggle from './PublicDesktopNavigationToggle'
 import PublicNavLinks from './PublicNavLinks'
