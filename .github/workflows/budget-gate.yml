@@ -1,0 +1,54 @@
+name: Budget Gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'benchmarks/**'
+      - 'scripts/evaluate-budgets.mjs'
+  push:
+    branches: [main]
+    paths:
+      - 'benchmarks/results/**'
+      - 'scripts/evaluate-budgets.mjs'
+      - 'benchmarks/m0-routes.json'
+
+# The gate evaluates the committed evidence against the M0 budget rules
+# (scripts/evaluate-budgets.mjs). A PR that regresses a metric beyond a recorded
+# exception must either fix the regression or extend the exception table in the
+# same change — regressing silently is what this gate exists to prevent.
+
+concurrency:
+  group: budget-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  budgets:
+    name: Budgets
+    if: vars.CI_BILLING_PAUSED != 'true'
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+
+      # The evaluator is dependency-free; no install step is needed.
+      - name: Evaluate committed evidence against the budget table
+        run: |
+          bun scripts/evaluate-budgets.mjs \
+            --baseline benchmarks/results/m0-production-2026-09-07.json \
+            --build-baseline benchmarks/results/m0-build-2026-09-07.json \
+            --current benchmarks/results/m5-production-2026-09-12.json \
+            --strict
