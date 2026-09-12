@@ -1,6 +1,4 @@
 import type { RouteMetadata } from '@/runtime/metadata'
-import type { PropsWithChildren } from 'react'
-import MainLayout from '@/components/MainLayout'
 
 export const metadata: RouteMetadata = {
   title: 'Roadmap',
@@ -10,8 +8,4 @@ export const metadata: RouteMetadata = {
     description: 'Nifty League roadmap... or moonmap?',
     images: 'https://niftyleague.com/img/roadmap/roadmap.webp',
   },
-}
-
-export default function Layout({ children }: PropsWithChildren) {
-  return <MainLayout classes={{ root: 'roadmap-pg' }}>{children}</MainLayout>
 }
