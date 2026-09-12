@@ -29,6 +29,7 @@
     "**/*.hbs",
     "**/.wrangler",
     "**/.web-images",
-    "**/routeTree.gen.ts"
+    "**/routeTree.gen.ts",
+    "benchmarks/results/**"
   ]
 }
