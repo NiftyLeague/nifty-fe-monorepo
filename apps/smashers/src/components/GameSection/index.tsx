@@ -1,4 +1,3 @@
-import { DeferredAnimatedImage } from '@nl/ui/custom/deferred-animated-image'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 const GameSection = () => {
@@ -43,21 +42,29 @@ const GameSection = () => {
           </div>
         </div>
       </div>
-      <DeferredAnimatedImage
-        containerClassName="my-10 block text-center transition-fade-slow"
-        animatedSrc="/img/games/smashers/party_modes.webp"
-        animatedType="image/webp"
-        animatedMedia="(prefers-reduced-motion: no-preference)"
-        src="/img/games/smashers/party_modes-poster.webp"
-        alt="Smashers Party Modes"
-        width={1350}
-        height={566}
-        className="w-full h-auto rounded-[40px]"
-        deferAnimation
-        activationDelay={1000}
-        loading="lazy"
-        sizes="(max-width: 768px) 100vw, 1350px"
-      />
+      {/*
+       * The party-modes montage ships as a muted H.264 loop: the animated WebP was
+       * 8.3 MB for 229 frames and the same frames are 1.2 MB as video. The poster
+       * is what renders first and what stays for reduced-motion visitors —
+       * ViewportVideo loads on idle, waits for the viewport, and never plays when
+       * `prefers-reduced-motion: reduce` is set.
+       */}
+      <div className="my-10 block text-center transition-fade-slow">
+        <ViewportVideo
+          id="party-modes-video"
+          className="w-full h-auto rounded-[40px]"
+          width={1350}
+          height={566}
+          aria-label="Smashers Party Modes"
+          deferLoad
+          muted
+          loop
+          playsInline
+          data-keepplaying
+          poster="/img/games/smashers/party_modes-poster.webp"
+          src="/video/party-modes.mp4"
+        />
+      </div>
     </div>
   )
 }
