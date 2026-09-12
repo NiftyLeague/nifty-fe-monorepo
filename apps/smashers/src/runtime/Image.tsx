@@ -1,5 +1,6 @@
 import { preload as preloadImage } from 'react-dom'
 import type { ComponentProps } from 'react'
+import { imageAttributes, imageSource, stripUndefinedAttributes } from '@nl/ui/lib/image-attributes'
 
 /**
  * App-local replacement for `@nl/ui/custom/optimized-image`, which is built on
@@ -82,6 +83,14 @@ export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> 
   blurDataURL?: string
 }
 
+/**
+ * Smashers' image props: the shared attribute contract plus this app's optimiser.
+ *
+ * The optimiser is Vercel's image service, which only exists on Vercel, so the
+ * URL is gated on `import.meta.env.VERCEL` and every other environment (dev,
+ * local builds, tests) gets the plain asset path. Only local artwork under
+ * `/img/` is optimised; remote URLs and SVGs pass through untouched.
+ */
 export function getOptimizedImageProps({
   src: suppliedSource,
   priority,
@@ -93,35 +102,18 @@ export function getOptimizedImageProps({
   blurDataURL: _blurDataURL,
   ...attributes
 }: OptimizedImageProps): ComponentProps<'img'> & { src: string } {
-  const source = typeof suppliedSource === 'string' ? suppliedSource : suppliedSource?.src
-  if (typeof source !== 'string' || !source) throw new TypeError('Image src is required')
+  const source = imageSource(suppliedSource)
 
-  const props: ComponentProps<'img'> & { src: string; srcSet?: string } = {
+  // `sizes` stays in `attributes`: pulling it out here would reorder the emitted
+  // attributes, and the rendered output is compared against the previous build.
+  const props = imageAttributes({
     ...attributes,
-    src: source,
-    decoding: attributes.decoding ?? 'async',
-    loading: attributes.loading ?? (priority || preload ? 'eager' : 'lazy'),
-  }
-  if (!props.width && typeof suppliedSource === 'object' && suppliedSource?.width)
-    props.width = suppliedSource.width
-  if (!props.height && typeof suppliedSource === 'object' && suppliedSource?.height)
-    props.height = suppliedSource.height
-  if (!props.fetchPriority)
-    props.fetchPriority =
-      priority || preload ? 'high' : props.loading === 'lazy' ? 'low' : undefined
-  if (fill) {
-    delete props.width
-    delete props.height
-    props.style = {
-      position: 'absolute',
-      inset: 0,
-      width: '100%',
-      height: '100%',
-      ...attributes.style,
-    }
-  }
+    src: suppliedSource,
+    priority,
+    preload,
+    fill,
+  })
 
-  // Only local artwork is optimised; remote URLs and SVGs pass through.
   const optimizable = canOptimize() && !unoptimized && source.startsWith('/img/')
   if (optimizable) {
     const nativeWidth =
@@ -133,9 +125,7 @@ export function getOptimizedImageProps({
       .join(', ')
   }
 
-  for (const key of Object.keys(props) as (keyof typeof props)[])
-    if (props[key] === undefined) delete props[key]
-  return props
+  return stripUndefinedAttributes(props)
 }
 
 /**
