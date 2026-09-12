@@ -1,3 +1,4 @@
+import { sendWebVitals } from '@nl/ui/gtm/events'
 import { loadGoogleTagManager } from '@nl/ui/gtm/load'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
@@ -12,10 +13,9 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
  *
  *  - GTM is included only when the page says `data-analytics="true"`, and the
  *    module only ships on a production build (see layouts/Base.astro).
- *  - The web-vitals payload this app has always sent (`metric_id`,
- *    `metric_rating`) differs from the shared `sendWebVitals` shape
- *    (`metric_label`, `non_interaction`), so adopting that helper is an
- *    analytics decision rather than a refactor.
+ *  - Web Vitals are reported through the shared `sendWebVitals`, whose payload
+ *    is this app's shape (`metric_id`, `metric_rating`, raw values) unified
+ *    across every surface in #1903.
  */
 const settings = document.getElementById('web-telemetry')
 
@@ -26,17 +26,9 @@ if (settings) {
     onActivate: () => {
       if (settings.dataset.analytics === 'true') {
         loadGoogleTagManager('web-gtm')
-        const layer = (window as unknown as { dataLayer?: unknown[] }).dataLayer ?? []
         void import('web-vitals')
           .then(({ onCLS, onINP, onLCP }) => {
-            const report = (metric: { name: string; value: number; id: string; rating: string }) =>
-              layer.push({
-                event: 'web_vitals',
-                metric_name: metric.name,
-                metric_value: metric.value,
-                metric_id: metric.id,
-                metric_rating: metric.rating,
-              })
+            const report = (metric: Parameters<typeof sendWebVitals>[0]) => sendWebVitals(metric)
             onCLS(report)
             onINP(report)
             onLCP(report)

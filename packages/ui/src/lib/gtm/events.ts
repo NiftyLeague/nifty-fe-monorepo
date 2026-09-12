@@ -97,21 +97,19 @@ export const sendGameReferral = (params: GameReferralParams) => {
 
 /* =================================|| WEBVITALS ||================================= */
 
-interface WebVitalsParams extends EventParams {
-  // Required Dimensions
-  event_category: string
-  metric_name: string
-  metric_label: string
-  metric_value: number
-  non_interaction: boolean
-}
-
 // Send Core Web Vitals to Google Tag Manager
 export const sendWebVitals = (metric: WebVitalsMetric) => {
-  sendEvent(EVENTS.WEB_VITALS, {
-    metric_name: metric.name, // "CLS" | "FCP" | "FID" | "INP" | "LCP" | "TTFB" | "Next.js-hydration" | "Next.js-route-change-to-render" | "Next.js-render"
-    metric_label: metric.id, // id unique to current page load
-    metric_value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value), // values must be integers
-    non_interaction: true, // avoids affecting bounce rate.
-  } as WebVitalsParams)
+  // One payload shape for every surface (#1903): the web/smashers shape —
+  // `metric_id`/`metric_rating` with raw values — so the GTM dashboards that
+  // already read `metric_id` keep working. `non_interaction` keeps the events
+  // out of bounce-rate calculations. This intentionally bypasses `sendEvent`:
+  // the web-vitals rows never carried `event_category` or `user_id`.
+  pushToDataLayer({
+    event: EVENTS.WEB_VITALS,
+    metric_name: metric.name,
+    metric_value: metric.value,
+    metric_id: metric.id,
+    ...(metric.rating ? { metric_rating: metric.rating } : {}),
+    non_interaction: true,
+  })
 }
