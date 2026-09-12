@@ -87,6 +87,28 @@ describe('shared primitives: markup patterns', () => {
     expect(source).toContain('motion-reduce:transition-none')
   })
 
+  it('keeps every app-local disclosure on its native role too', () => {
+    // The app's own sidebar toggle repeated the pattern the shared component had.
+    // A `role="button"` inside a summary tag is the signal, wherever it lives.
+    // Scoped to the directories that hold UI: the whole `apps` tree is ~900 files,
+    // which is too slow to read inside a test.
+    const uiRoots = [
+      UI_COMPONENTS,
+      'apps/app/src/components',
+      'apps/app/src/layouts',
+      'apps/web/src/components',
+      'apps/smashers/src/components',
+      'apps/docs/src/components',
+    ]
+
+    const offenders = uiRoots
+      .flatMap((root) => collect(root))
+      .filter((file) => file.endsWith('.tsx'))
+      .filter((file) => /<summary[\s\S]{0,400}?role="button"/.test(markup(file)))
+
+    expect(offenders).toEqual([])
+  }, 15000)
+
   it('forwards the progress value to the primitive that exposes it', () => {
     const source = read(`${UI_COMPONENTS}/base/progress.tsx`)
 
