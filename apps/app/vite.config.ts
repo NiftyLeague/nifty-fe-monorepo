@@ -37,19 +37,10 @@ export default defineConfig({
     // Nitro produces the deployable server bundle (Vercel on this project).
     nitro({
       preset: 'vercel',
-      // Response headers are declared here rather than in vercel.json because a
-      // Build Output API deploy uses the generated .vercel/output/config.json as
-      // the source of truth for routing and headers.
-      routeRules: {
-        '/**': {
-          headers: {
-            'X-Content-Type-Options': 'nosniff',
-            'Referrer-Policy': 'origin-when-cross-origin',
-            'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
-            'Strict-Transport-Security': 'max-age=31536000',
-          },
-        },
-      },
+      // Response headers live in vercel.json only. On this Build Output API deploy
+      // Vercel applies vercel.json `headers` anyway — proven live because
+      // `/assets/*` responses carry the vercel.json-only `Access-Control-Allow-Origin:
+      // *` — so declaring them here as well was a second source that would drift.
       rollupConfig: {
         // The Coinbase connector wagmi pulls in optionally declares `@x402/*`
         // peer dependencies that are not installed. Nitro bundles the whole
