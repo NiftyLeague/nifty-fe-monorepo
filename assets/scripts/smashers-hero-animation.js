@@ -8,15 +8,19 @@
     typeof window.matchMedia === 'function' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
   const prefersDataSaving = navigator.connection?.saveData === true
-  // 464 KB is the whole animation. On a connection slower than ~2 Mbit/s that is
-  // seconds of bandwidth spent on a decorative backdrop, so the poster stays
-  // instead. `downlink` is Chromium-only; elsewhere the gate simply does not apply.
-  const downlink = navigator.connection?.downlink
-  const slowConnection = typeof downlink === 'number' && downlink > 0 && downlink < 2
+  // 464 KB is the whole animation, which is a lot of bandwidth to spend on a
+  // decorative backdrop on a bad connection, so the poster stays for the two
+  // slowest tiers. Gate on `effectiveType`, never on `downlink`: Chrome reports
+  // `downlink: 1.75` as the spec default when it has not measured the connection
+  // yet, and a `< 2` threshold reads that "unknown" as "slow" — which silently
+  // disabled the animation in every fresh profile, including synthetic runs.
+  // `effectiveType` defaults to '4g' in that case, so only real slowness matches.
+  const effectiveType = navigator.connection?.effectiveType
+  const slowConnection = effectiveType === 'slow-2g' || effectiveType === '2g'
 
   // The poster is already the complete hero surface. Skip the animation when the
-  // user asked for less motion or lower data usage, on a slow connection, or when
-  // the browser cannot play the video at all.
+  // user asked for less motion or lower data usage, on a very slow connection, or
+  // when the browser cannot play the video at all.
   if (prefersReducedMotion || prefersDataSaving || slowConnection) return
 
   const probe = document.createElement('video')
