@@ -1,7 +1,10 @@
 import { preload as preloadImage } from 'react-dom'
-import type { ComponentProps, CSSProperties } from 'react'
-
-type ImageSource = string | { src: string; width?: number; height?: number }
+import type { ComponentProps } from 'react'
+import {
+  imageAttributes,
+  stripUndefinedAttributes,
+  type ImageSource,
+} from '@nl/ui/lib/image-attributes'
 
 /**
  * Framework-agnostic image primitive.
@@ -64,18 +67,20 @@ export function trimFixedWidthSrcSet(srcSet: string | undefined, sizes: string |
   return unique.length > 0 ? unique.map(({ source }) => source).join(', ') : srcSet
 }
 
-const FILL_STYLE: CSSProperties = {
-  position: 'absolute',
-  inset: 0,
-  width: '100%',
-  height: '100%',
-}
-
+/**
+ * The framework-agnostic image primitive.
+ *
+ * Every app that renders this component either uses it directly (the app) or
+ * aliases the specifier to its own optimiser (web generates build-time variants,
+ * smashers calls the Vercel image service). The attribute contract lives in
+ * `@nl/ui/lib/image-attributes`; this file keeps the loader-hint contract the
+ * tests pin down and renders a native `<img>` at the supplied source.
+ */
 export function getOptimizedImageProps(
   props: OptimizedImageProps
 ): ComponentProps<'img'> & { src: string } {
   const {
-    src: suppliedSource,
+    src,
     priority,
     preload,
     quality: _quality,
@@ -86,43 +91,11 @@ export function getOptimizedImageProps(
     ...attributes
   } = props
 
-  const source = typeof suppliedSource === 'string' ? suppliedSource : suppliedSource?.src
-  if (typeof source !== 'string' || !source) throw new TypeError('Image src is required')
-
-  const imageProps: ComponentProps<'img'> & { src: string } = {
-    ...attributes,
-    src: source,
-    decoding: attributes.decoding ?? 'async',
-    loading: attributes.loading ?? (priority || preload ? 'eager' : 'lazy'),
-  }
-
-  if (imageProps.width === undefined && typeof suppliedSource !== 'string') {
-    imageProps.width = suppliedSource?.width
-  }
-  if (imageProps.height === undefined && typeof suppliedSource !== 'string') {
-    imageProps.height = suppliedSource?.height
-  }
-
-  // Keep below-the-fold artwork from competing with the route's LCP resource
-  // while explicit priority and eager loading still win.
-  if (imageProps.fetchPriority === undefined) {
-    if (priority || preload) imageProps.fetchPriority = 'high'
-    else if (imageProps.loading === 'lazy') imageProps.fetchPriority = 'low'
-  }
-
-  if (fill) {
-    delete imageProps.width
-    delete imageProps.height
-    imageProps.style = { ...FILL_STYLE, ...attributes.style }
-  }
-
-  for (const key of Object.keys(imageProps)) {
-    if (imageProps[key as keyof ComponentProps<'img'>] === undefined) {
-      delete imageProps[key as keyof ComponentProps<'img'>]
-    }
-  }
-
-  return imageProps
+  // Callers feed `result.src` straight into the preload hints, so the resolved
+  // source has to stay part of the contract.
+  return stripUndefinedAttributes(
+    imageAttributes({ ...attributes, src, priority, preload, fill })
+  ) as ComponentProps<'img'> & { src: string }
 }
 
 /**

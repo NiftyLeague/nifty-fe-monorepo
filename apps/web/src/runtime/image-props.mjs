@@ -1,3 +1,5 @@
+import { imageAttributes, imageSource, stripUndefinedAttributes } from '@nl/ui/lib/image-attributes'
+
 export const DEVICE_WIDTHS = [384, 480, 640, 750, 828, 1080, 1200, 1440, 1920, 2560, 3840]
 export const SMALL_WIDTHS = [32, 48, 64, 96, 128, 256]
 export const IMAGE_QUALITIES = [60, 65, 75]
@@ -22,6 +24,19 @@ export function selectWidths(widths, sizes, width) {
   return widths.filter((value) => value >= DEVICE_WIDTHS[0] || value === widths.at(-1))
 }
 
+/**
+ * Web's image props: the shared attribute contract plus this app's build-time
+ * manifest. The manifest holds one pre-generated WebP variant per width (see
+ * `apps/web/scripts/prepare-images.mjs`), so the optimizer here is a lookup
+ * rather than a service.
+ *
+ * Three things stay web-only, which is why this file still exists:
+ *   - `overrideSrc`, the escape hatch for artwork whose served URL is not the
+ *     imported one;
+ *   - rejecting unsafe schemes, since an API-supplied `src` reaches this path;
+ *   - the `1x` fallback, because `ResponsiveOnlyImage` reads `srcSet` even for
+ *     SVGs, GIFs, and other assets that have no manifest entry.
+ */
 export function imageProps(input, manifest = {}) {
   const {
     src: suppliedSource,
@@ -37,38 +52,29 @@ export function imageProps(input, manifest = {}) {
     onLoadingComplete: _onLoadingComplete,
     ...attributes
   } = input
-  const source = typeof suppliedSource === 'string' ? suppliedSource : suppliedSource?.src
-  if (typeof source !== 'string' || !source) throw new TypeError('Image src is required')
+
+  const source = imageSource(suppliedSource)
   if (/^(?:javascript|vbscript):/i.test(source) || source.startsWith('//'))
     throw new TypeError('Unsafe image source')
-  const props = {
+
+  // `sizes` stays in `attributes`: pulling it out here would reorder the emitted
+  // attributes, and the built pages are compared byte-for-byte.
+  const props = imageAttributes({
     ...attributes,
-    src: overrideSrc ?? source,
-    decoding: attributes.decoding ?? 'async',
-    loading: attributes.loading ?? (priority || preload ? 'eager' : 'lazy'),
-  }
-  if (!props.width && suppliedSource?.width) props.width = suppliedSource.width
-  if (!props.height && suppliedSource?.height) props.height = suppliedSource.height
-  if (!props.fetchPriority)
-    props.fetchPriority =
-      priority || preload ? 'high' : props.loading === 'lazy' ? 'low' : undefined
-  if (fill) {
-    delete props.width
-    delete props.height
-    props.style = {
-      position: 'absolute',
-      inset: 0,
-      width: '100%',
-      height: '100%',
-      ...attributes.style,
-    }
-  }
+    src: suppliedSource,
+    priority,
+    preload,
+    fill,
+  })
+  // The shared contract resolves `src` from the source; web may override it.
+  props.src = overrideSrc ?? props.src
+
   const entry = !unoptimized && manifest[source]
   if (entry) {
     const q = IMAGE_QUALITIES.reduce((best, current) =>
       Math.abs(current - Number(quality)) < Math.abs(best - Number(quality)) ? current : best
     )
-    const widths = selectWidths(candidateWidths(entry.width), attributes.sizes, props.width)
+    const widths = selectWidths(candidateWidths(entry.width), props.sizes, props.width)
     const url = (w) => `/__images/${entry.hash}-${w}-q${q}.webp`
     props.src = overrideSrc ?? url(widths.at(-1))
     props.srcSet = widths.map((w) => `${url(w)} ${w}w`).join(', ')
@@ -76,6 +82,6 @@ export function imageProps(input, manifest = {}) {
     // ResponsiveOnlyImage consumes srcSet even for SVGs, GIFs and dynamic assets.
     props.srcSet = `${props.src} 1x`
   }
-  for (const key of Object.keys(props)) if (props[key] === undefined) delete props[key]
-  return props
+
+  return stripUndefinedAttributes(props)
 }
