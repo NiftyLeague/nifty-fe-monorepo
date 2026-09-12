@@ -260,8 +260,6 @@ const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
 const gltfPage = 'apps/web/src/pages/shells/gltf.astro'
 const gltfClientRuntime = 'apps/web/src/runtime/GltfClient.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
-const gltfRouteBoundary =
-  'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViewsRouteBoundary.tsx'
 const gltfModelView = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/ModelView.tsx'
 const webClaimableNFTL = 'apps/web/src/hooks/useClaimableNFTL.ts'
 const webDegenAssets = 'apps/web/src/constants/degen-assets.ts'
@@ -514,7 +512,6 @@ describe('GLTF viewer loading contract', () => {
     const shellSource = readFileSync(join(process.cwd(), gltfPage), 'utf8')
     const runtimeSource = readFileSync(join(process.cwd(), gltfClientRuntime), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
-    const routeBoundarySource = readFileSync(join(process.cwd(), gltfRouteBoundary), 'utf8')
     const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
     expect(shellSource).not.toContain("'use client'")
@@ -524,14 +521,15 @@ describe('GLTF viewer loading contract', () => {
     expect(runtimeSource).toContain("from '@nl/ui/custom/optimized-image'")
     expect(runtimeSource).toContain('import DegenViews')
     expect(runtimeSource).toContain('initialImage={null}')
-    expect(routeBoundarySource).toContain("'use client'")
-    expect(routeBoundarySource).toContain("dynamic(() => import('./DegenViews')")
-    expect(routeBoundarySource).toContain('ssr: false')
-    expect(routeBoundarySource).toContain('className={styles.viewer__shell}')
-    expect(routeBoundarySource).toContain('className={styles.initial__image}')
-    expect(routeBoundarySource).toContain('initialImage={null}')
-    expect(routeBoundarySource).toContain('role="status"')
-    expect(routeBoundarySource).not.toContain('@nl/ui/custom/route-loading')
+    // The viewer used to load through a Next-era `dynamic(..., { ssr: false })`
+    // boundary component. Astro replaced it with `client:only` on the shell
+    // itself (asserted above) plus the island's own fallback slot, and the
+    // boundary file was unreferenced by anything — so its assertions moved here.
+    expect(shellSource).toContain('slot="fallback"')
+    expect(shellSource).toContain('class="sr-only"')
+    expect(shellSource).toContain('styles.viewer__shell')
+    expect(shellSource).toContain('styles.initial__image')
+    expect(shellSource).not.toContain('@nl/ui/custom/route-loading')
     expect(clientSource).toContain("'use client'")
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain('image__surface')
