@@ -44,36 +44,6 @@ for (const name of await readdir(output)) {
 // Shell documents keep their poster handled by the Worker; skip shells/.
 console.log(`Injected hero image preloads into ${injected} documents.`)
 
-// Write only to web's generated output. apps/web/public points at shared assets.
-await writeFile(
-  join(output, '_headers'),
-  `/*
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Strict-Transport-Security: max-age=31536000
-
-/_astro/*
-  Access-Control-Allow-Origin: *
-  Cache-Control: public, max-age=31536000, immutable
-
-/__images/*
-  Access-Control-Allow-Origin: *
-  Cache-Control: public, max-age=31536000, immutable
-
-/img/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-
-/icons/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-
-/video/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-
-/favicon/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-`
-)
 await writeFile(
   join(output, 'robots.txt'),
   `User-agent: *
@@ -84,4 +54,4 @@ Disallow: /party/
 Sitemap: https://niftyleague.com/sitemap.xml
 `
 )
-console.log('Wrote app-scoped static headers, robots.txt and generated image variants.')
+console.log('Wrote robots.txt and generated image variants.')

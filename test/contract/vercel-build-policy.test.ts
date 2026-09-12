@@ -96,3 +96,50 @@ describe('Vercel build cost policy', () => {
     expect(readme).toContain(consolidatedStatusPolicy)
   })
 })
+
+describe('response header single source', () => {
+  const securityHeaders = {
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Strict-Transport-Security': 'max-age=31536000',
+  }
+  const read = (path: string) =>
+    readFileSync(join(process.cwd(), path), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
+
+  it('keeps the app response headers in vercel.json and nowhere else', () => {
+    // On this Build Output API deploy Vercel applies vercel.json `headers`: live
+    // `/assets/*` responses carry the vercel.json-only Access-Control-Allow-Origin,
+    // which the Nitro output never emitted (#1904). Its duplicate of the four
+    // security headers was the second source that could drift.
+    const viteConfig = read('apps/app/vite.config.ts')
+    for (const key of Object.keys(securityHeaders)) expect(viteConfig).not.toContain(key)
+
+    const config = JSON.parse(read('apps/app/vercel.json')) as {
+      headers?: { source: string; headers: { key: string; value: string }[] }[]
+    }
+    const applied = Object.fromEntries(
+      (config.headers ?? [])
+        .find((block) => block.source === '/(.*)')
+        ?.headers.map(({ key, value }) => [key, value]) ?? []
+    )
+    expect(applied).toEqual(securityHeaders)
+  })
+
+  it('keeps the web response headers in vercel.json and nowhere else', () => {
+    // web is static on Vercel, which never consumes the Cloudflare-style headers
+    // file — the deployed copy was served verbatim as a plain asset at /_headers
+    // while duplicating vercel.json (#1904) — so its generation is gone.
+    expect(read('apps/web/scripts/finalize-static.mjs')).not.toContain('_headers')
+
+    const config = JSON.parse(read('apps/web/vercel.json')) as {
+      headers?: { source: string; headers: { key: string; value: string }[] }[]
+    }
+    const applied = Object.fromEntries(
+      (config.headers ?? [])
+        .find((block) => block.source === '/(.*)')
+        ?.headers.map(({ key, value }) => [key, value]) ?? []
+    )
+    expect(applied).toEqual(securityHeaders)
+  })
+})

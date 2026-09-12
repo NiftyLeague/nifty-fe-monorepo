@@ -552,15 +552,24 @@ describe('GLTF viewer loading contract', () => {
   })
 
   it('keeps embedded viewer controls loadable in sandboxed frames', () => {
-    // The Next.js /_next/static CORS rewrite is replaced by the Cloudflare
-    // _headers file emitted for the static asset bundle.
-    const finalizeSource = readFileSync(
-      join(process.cwd(), 'apps/web/scripts/finalize-static.mjs'),
-      'utf8'
-    )
+    // The Next.js /_next/static CORS rewrite is replaced by vercel.json's
+    // `/_astro/(.*)` block. Vercel never consumed the Cloudflare-style headers
+    // file the finalize script used to emit — it served it verbatim as a plain
+    // asset at /_headers — so vercel.json was the working source all along,
+    // which is what #1904 confirmed before retiring the duplicate.
+    const config = JSON.parse(
+      readFileSync(join(process.cwd(), 'apps/web/vercel.json'), 'utf8')
+    ) as { headers?: { source: string; headers: { key: string; value: string }[] }[] }
+    const astroBlock = (config.headers ?? []).find((entry) => entry.source === '/_astro/(.*)')
 
-    expect(finalizeSource).toContain('/_astro/*')
-    expect(finalizeSource).toContain('Access-Control-Allow-Origin: *')
+    expect(astroBlock?.headers).toContainEqual({
+      key: 'Access-Control-Allow-Origin',
+      value: '*',
+    })
+    expect(astroBlock?.headers).toContainEqual({
+      key: 'Cache-Control',
+      value: 'public, max-age=31536000, immutable',
+    })
   })
 
   it('preloads only the visible NFT artwork', () => {
