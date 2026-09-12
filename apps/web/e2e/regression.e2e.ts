@@ -89,11 +89,15 @@ test('the mobile disclosure opens, navigates, and closes', async ({ page }, test
 test('the community marquee stops under prefers-reduced-motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
 
-  // The carousel mounts behind a deferred boundary once the section approaches
-  // the viewport, so the element only exists after the island loads.
+  // The carousel mounts behind a deferred boundary once its section approaches
+  // the viewport. Scrolling straight to the bottom can jump past it, so walk the
+  // page in viewport steps until the island loads.
   const track = page.locator('[class*="marquee"] [class*="track"]').first()
+  for (let step = 0; step < 20 && (await track.count()) === 0; step += 1) {
+    await page.evaluate(() => window.scrollBy(0, 700))
+    await page.waitForTimeout(200)
+  }
   await track.waitFor({ state: 'attached', timeout: 20_000 })
 
   const animation = await track.evaluate((el) => getComputedStyle(el).animationName)
