@@ -110,3 +110,16 @@ incremental cache. Framework property.
   JS/heap audit.
 - [#1903](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1903) — the third-party
   GTM payload decision that owns web's transfer/JS/requests/memory exceptions.
+
+## RUM loop (#1886)
+
+Field data collection is live on all four surfaces: every app reports the Core Web Vitals
+through the unified `sendWebVitals` payload into the GTM container (`web_vitals` events,
+#1903's single shape), which forwards to GA4 — that is the real-user CWV source. The
+dashboard lives in GA4 (GTM container `GTM-MHCXVXJZ`, property `G-9945XVW2E5`); the query
+is the `web_vitals` event explored by `metric_name`/`metric_rating`. Gates added in #1903
+mean previews and local builds no longer contaminate the field data. Sentry captures
+hard failures separately. Lab gates: this document plus `bun run budgets:evaluate
+--strict`, enforced on CI by the Budget Gate workflow; per-route Lighthouse runs use the
+unified `scripts/lighthouse-benchmark.mjs` (`bun run lighthouse:<app>`) with devtools
+throttling, medians of N, and mobile + desktop form factors.

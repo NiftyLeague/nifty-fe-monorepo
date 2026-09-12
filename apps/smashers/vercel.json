@@ -11,5 +11,16 @@
       "main": true
     }
   },
-  "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs"
+  "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs",
+  "headers": [
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
 }
