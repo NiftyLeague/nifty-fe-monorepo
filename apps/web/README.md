@@ -18,8 +18,8 @@ special routes: DEGEN 3D viewer deep links (`/gltf/:tokenId`), referral deep lin
   Worker serves for the special routes (they are **not** publicly routable).
 - `src/runtime/` — app-local shims shared by the React components: the image component
   and manifest (`Image.tsx`, `image-props.mjs`, generated variants in `.web-images/`),
-  native navigation (`Link.tsx`), the `next/dynamic` replacement (`client-only.tsx`),
-  metadata, and lazy telemetry (`telemetry.ts`).
+  the `next/dynamic` replacement (`client-only.tsx`), metadata, and lazy telemetry
+  (`telemetry.ts`). Internal links are plain `<a>` anchors; the app has no router.
 - `worker/routes.mjs` — pure routing functions (redirects, proxies, deep links) covered
   by `checks/routes.node.mjs`; `worker/index.ts` applies them on Cloudflare.
 - `publicDir` points at the shared `../../assets` directory; no app-local `public/`.

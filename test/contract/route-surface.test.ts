@@ -2465,6 +2465,20 @@ describe('static legal route performance contract', () => {
     expect(source).not.toContain('AnimatedWrapper')
     expect(source).not.toContain('transition-fade-start')
   })
+
+  it('links the legal pages with plain anchors, not a Next compat shim', () => {
+    // apps/web has no router, so the runtime `Link` shim only swallowed Next-only
+    // props (prefetch/replace/scroll/shallow/locale/legacyBehavior/passHref) and
+    // serialized an object href that no caller passed. Removing it left the built
+    // pages byte-identical; keep the indirection from coming back.
+    expect(existsSync(join(process.cwd(), 'apps/web/src/runtime/Link.tsx'))).toBe(false)
+
+    for (const file of staticLegalPages) {
+      const source = readFileSync(join(process.cwd(), file), 'utf8')
+      expect(source, `${file} must not import the removed shim`).not.toContain('runtime/Link')
+      expect(source).not.toContain('<Link')
+    }
+  })
 })
 
 const sentryClientBoundaries = [
