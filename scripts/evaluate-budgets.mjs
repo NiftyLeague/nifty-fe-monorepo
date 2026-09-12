@@ -12,20 +12,6 @@
  */
 import { readFile } from 'node:fs/promises'
 
-const args = process.argv.slice(2)
-const read = (flag) => {
-  const value = args[args.indexOf(flag) + 1]
-  if (!value) throw new Error(`Missing value for ${flag}`)
-  return value
-}
-if (!args.includes('--baseline') || !args.includes('--current')) {
-  console.error(
-    'Usage: bun scripts/evaluate-budgets.mjs --baseline <results.json> --current <results.json> [--strict]'
-  )
-  process.exit(2)
-}
-const strict = args.includes('--strict')
-
 const median = (summary) => summary?.median
 const max = (summary) => summary?.maximum
 const pct = (before, after) => (before ? ((after - before) / before) * 100 : null)
@@ -153,19 +139,9 @@ function checkBuilds(baselineBuilds, currentBuilds, config, buildExceptions) {
   return findings
 }
 
-const load = async (path) => JSON.parse(await readFile(path, 'utf8'))
-const baseline = await load(read('--baseline'))
-const buildBaseline = args.includes('--build-baseline')
-  ? await load(read('--build-baseline'))
-  : baseline
-const current = await load(read('--current'))
-const config = JSON.parse(
-  await readFile(new URL('../benchmarks/m0-routes.json', import.meta.url), 'utf8')
-)
-
 // Recorded exceptions: numeric budget breaches with an owner and a bounded reason.
 // Anything here must also appear in docs/architecture/m5-performance-budgets.md.
-const exceptions = [
+export const exceptions = [
   {
     route: 'web-home',
     metric: 'transfer',
@@ -221,7 +197,7 @@ const exceptions = [
 ]
 
 // Build exceptions must also appear in docs/architecture/m5-performance-budgets.md.
-const buildExceptions = [
+export const buildExceptions = [
   {
     app: 'api',
     kind: 'clean',
@@ -247,44 +223,91 @@ const buildExceptions = [
   },
 ]
 
-let regressions = 0
-let exceptionsHit = 0
-for (const currentRoute of current.routes) {
-  const baselineRoute = baseline.routes.find((r) => r.route.id === currentRoute.route.id)
-  if (!baselineRoute) continue
-  const priority = priorityOf(config, currentRoute.route.app)
-  const { id, findings } = checkRoute(baselineRoute, currentRoute, priority, exceptions)
-  if (findings.length === 0) {
-    console.log(`PASS  ${id}`)
-    continue
-  }
-  console.log(`\n${id} (priority ${priority})`)
-  for (const finding of findings) {
-    console.log(`  ${finding.startsWith('EXCEPTION') ? 'EXCEPT' : 'REGRESS'}  ${finding}`)
-    if (finding.startsWith('EXCEPTION')) exceptionsHit += 1
-    else regressions += 1
-  }
-}
-
-const buildFindings = checkBuilds(
-  buildBaseline.builds ?? [],
-  current.builds ?? [],
+/**
+ * Pure evaluation of `current` against `baseline` under the budget table.
+ * Returns the per-route/build findings and the regression/exception counts, so
+ * the CLI report and the seeded-regression test exercise the same logic.
+ */
+export function evaluateBudgets({
+  baseline,
+  current,
+  buildBaseline,
   config,
-  buildExceptions
-)
-if (buildFindings.length) {
-  console.log('\nbuild benchmarks')
-  for (const finding of buildFindings) {
-    console.log(`  ${finding.startsWith('EXCEPTION') ? 'EXCEPT' : 'REGRESS'}  ${finding}`)
-    if (finding.startsWith('EXCEPTION')) exceptionsHit += 1
-    else regressions += 1
+  exceptions,
+  buildExceptions,
+}) {
+  const lines = []
+  let regressions = 0
+  let exceptionsHit = 0
+  for (const currentRoute of current.routes) {
+    const baselineRoute = baseline.routes.find((r) => r.route.id === currentRoute.route.id)
+    if (!baselineRoute) continue
+    const priority = priorityOf(config, currentRoute.route.app)
+    const { id, findings } = checkRoute(baselineRoute, currentRoute, priority, exceptions)
+    if (findings.length === 0) {
+      lines.push(`PASS  ${id}`)
+      continue
+    }
+    lines.push(`\n${id} (priority ${priority})`)
+    for (const finding of findings) {
+      lines.push(`  ${finding.startsWith('EXCEPTION') ? 'EXCEPT' : 'REGRESS'}  ${finding}`)
+      if (finding.startsWith('EXCEPTION')) exceptionsHit += 1
+      else regressions += 1
+    }
   }
-} else if (current.builds?.length) {
-  console.log('\nPASS  build benchmarks (clean + incremental within budget)')
+
+  const buildFindings = checkBuilds(
+    buildBaseline?.builds ?? [],
+    current.builds ?? [],
+    config,
+    buildExceptions
+  )
+  if (buildFindings.length) {
+    lines.push('\nbuild benchmarks')
+    for (const finding of buildFindings) {
+      lines.push(`  ${finding.startsWith('EXCEPTION') ? 'EXCEPT' : 'REGRESS'}  ${finding}`)
+      if (finding.startsWith('EXCEPTION')) exceptionsHit += 1
+      else regressions += 1
+    }
+  } else if (current.builds?.length) {
+    lines.push('\nbuild benchmarks: clean + incremental within budget')
+  }
+
+  return { lines, regressions, exceptionsHit }
 }
 
-console.log(
-  `\n${regressions} regression(s), ${exceptionsHit} recorded exception(s)` +
-    (strict && regressions > 0 ? ' — strict mode: exiting 1' : '')
-)
-if (strict && regressions > 0) process.exit(1)
+if (import.meta.main) {
+  const args = process.argv.slice(2)
+  const read = (flag) => {
+    const value = args[args.indexOf(flag) + 1]
+    if (!value) throw new Error(`Missing value for ${flag}`)
+    return value
+  }
+  if (!args.includes('--baseline') || !args.includes('--current')) {
+    console.error(
+      'Usage: bun scripts/evaluate-budgets.mjs --baseline <results.json> --current <results.json> [--strict]'
+    )
+    process.exit(2)
+  }
+  const strict = args.includes('--strict')
+  const load = async (path) => JSON.parse(await readFile(path, 'utf8'))
+  const config = JSON.parse(
+    await readFile(new URL('../benchmarks/m0-routes.json', import.meta.url), 'utf8')
+  )
+  const { lines, regressions, exceptionsHit } = evaluateBudgets({
+    baseline: await load(read('--baseline')),
+    current: await load(read('--current')),
+    buildBaseline: args.includes('--build-baseline')
+      ? await load(read('--build-baseline'))
+      : undefined,
+    config,
+    exceptions,
+    buildExceptions,
+  })
+  for (const line of lines) console.log(line)
+  console.log(
+    `\n${regressions} regression(s), ${exceptionsHit} recorded exception(s)` +
+      (strict && regressions > 0 ? ' — strict mode: exiting 1' : '')
+  )
+  if (strict && regressions > 0) process.exit(1)
+}
