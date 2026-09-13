@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 1,
+  "app": "docs",
+  "generatedAt": "2026-09-13T19:31:50.064Z",
+  "gitRevision": "cfd199a6730a8cc4f2ba078bc13225bb6f78ef19",
+  "label": "production-postfix",
+  "runs": 5,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 5,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1654.7,
+        "minimum": 1621.336,
+        "maximum": 1980.508
+      },
+      "tbtMs": {
+        "median": 34.30300000000034,
+        "minimum": 22.0999997558597,
+        "maximum": 64.01600000000008
+      },
+      "cls": {
+        "median": 0.01149174216751759,
+        "minimum": 0.01149174216751759,
+        "maximum": 0.01149174216751759
+      },
+      "fcpMs": {
+        "median": 916.982,
+        "minimum": 820.421,
+        "maximum": 1007.865
+      },
+      "siMs": {
+        "median": 1088,
+        "minimum": 1007,
+        "maximum": 1233
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.0 s)",
+        "max-potential-fid (80 ms)",
+        "interactive (3.6 s)",
+        "cache-insight (Est savings of 15 KiB)",
+        "image-delivery-insight (Est savings of 15 KiB)",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (1.6 s)",
+        "max-potential-fid (70 ms)",
+        "largest-contentful-paint (1.7 s)",
+        "max-potential-fid (110 ms)",
+        "interactive (3.7 s)"
+      ]
+    },
+    {
+      "route": "/overview/intro",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1879.345,
+        "minimum": 1855.985,
+        "maximum": 1891.236
+      },
+      "tbtMs": {
+        "median": 60.815000000000055,
+        "minimum": 21.4079999999999,
+        "maximum": 142.2149999999997
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 873.349,
+        "minimum": 851.643,
+        "maximum": 893.232
+      },
+      "siMs": {
+        "median": 1109,
+        "minimum": 1092,
+        "maximum": 1130
+      },
+      "diagnostics": [
+        "largest-contentful-paint (1.9 s)",
+        "max-potential-fid (100 ms)",
+        "interactive (3.5 s)",
+        "cache-insight (Est savings of 37 KiB)",
+        "image-delivery-insight (Est savings of 28 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (140 ms)",
+        "max-potential-fid (180 ms)",
+        "interactive (3.7 s)",
+        "max-potential-fid (110 ms)",
+        "total-blocking-time (120 ms)",
+        "max-potential-fid (170 ms)",
+        "interactive (3.6 s)",
+        "max-potential-fid (70 ms)"
+      ]
+    },
+    {
+      "route": "/overview/roadmap",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2651.335,
+        "minimum": 2608.127,
+        "maximum": 2681.374
+      },
+      "tbtMs": {
+        "median": 47.91300000000001,
+        "minimum": 29.57300000000032,
+        "maximum": 102.12299975585893
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 868.248,
+        "minimum": 833.672,
+        "maximum": 889.603
+      },
+      "siMs": {
+        "median": 1811,
+        "minimum": 1773,
+        "maximum": 1832
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.6 s)",
+        "max-potential-fid (80 ms)",
+        "interactive (4.1 s)",
+        "cache-insight (Est savings of 1 KiB)",
+        "image-delivery-insight (Est savings of 51 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.7 s)",
+        "max-potential-fid (100 ms)",
+        "total-blocking-time (100 ms)",
+        "max-potential-fid (120 ms)",
+        "total-blocking-time (90 ms)",
+        "max-potential-fid (140 ms)"
+      ]
+    },
+    {
+      "route": "/overview/nifty-dao/nftl/supply",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 885.713,
+        "minimum": 837.607,
+        "maximum": 929.947
+      },
+      "tbtMs": {
+        "median": 106.76700000000005,
+        "minimum": 52.05199999999968,
+        "maximum": 212.98299999999972
+      },
+      "cls": {
+        "median": 0.05415591330170146,
+        "minimum": 0.05415591330170146,
+        "maximum": 0.05415591330170146
+      },
+      "fcpMs": {
+        "median": 885.713,
+        "minimum": 837.607,
+        "maximum": 929.947
+      },
+      "siMs": {
+        "median": 901,
+        "minimum": 858,
+        "maximum": 946
+      },
+      "diagnostics": [
+        "max-potential-fid (80 ms)",
+        "cumulative-layout-shift (0.054)",
+        "interactive (3.9 s)",
+        "cache-insight (Est savings of 31 KiB)",
+        "image-delivery-insight (Est savings of 34 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (110 ms)",
+        "max-potential-fid (140 ms)",
+        "interactive (4.0 s)",
+        "total-blocking-time (160 ms)",
+        "max-potential-fid (180 ms)",
+        "total-blocking-time (80 ms)",
+        "max-potential-fid (100 ms)",
+        "total-blocking-time (210 ms)",
+        "max-potential-fid (200 ms)",
+        "interactive (4.1 s)"
+      ]
+    },
+    {
+      "route": "/overview/nfts/nifty-marketplace/comics",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 993.938,
+        "minimum": 901.176,
+        "maximum": 1167.408
+      },
+      "tbtMs": {
+        "median": 123.03400000000056,
+        "minimum": 46.00699999999961,
+        "maximum": 157.64400000000023
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 993.938,
+        "minimum": 901.176,
+        "maximum": 1167.408
+      },
+      "siMs": {
+        "median": 1358,
+        "minimum": 1263,
+        "maximum": 1549
+      },
+      "diagnostics": [
+        "total-blocking-time (150 ms)",
+        "max-potential-fid (190 ms)",
+        "interactive (7.9 s)",
+        "total-byte-weight (Total size was 3,742 KiB)",
+        "cache-insight (Est savings of 145 KiB)",
+        "image-delivery-insight (Est savings of 508 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (120 ms)",
+        "max-potential-fid (170 ms)",
+        "interactive (7.8 s)",
+        "max-potential-fid (100 ms)",
+        "interactive (7.6 s)",
+        "first-contentful-paint (1.2 s)",
+        "total-blocking-time (160 ms)",
+        "interactive (8.0 s)",
+        "mainthread-work-breakdown (2.1 s)",
+        "first-contentful-paint (1.1 s)",
+        "max-potential-fid (110 ms)",
+        "interactive (7.7 s)"
+      ]
+    },
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1810.223,
+        "minimum": 1796.189,
+        "maximum": 1923.884
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.002200420825672008,
+        "minimum": 0.002200420825672008,
+        "maximum": 0.002200420825672008
+      },
+      "fcpMs": {
+        "median": 809.537,
+        "minimum": 796.707,
+        "maximum": 1080.676
+      },
+      "siMs": {
+        "median": 1109,
+        "minimum": 1096,
+        "maximum": 1351
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.8 s)",
+        "speed-index (1.1 s)",
+        "interactive (1.9 s)",
+        "cache-insight (Est savings of 40 KiB)",
+        "image-delivery-insight (Est savings of 78 KiB)",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (1.1 s)",
+        "largest-contentful-paint (1.9 s)",
+        "speed-index (1.4 s)",
+        "interactive (2.1 s)"
+      ]
+    },
+    {
+      "route": "/overview/intro",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1877.63,
+        "minimum": 1859.534,
+        "maximum": 2604.694
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009090814070571755,
+        "minimum": 0.0009090814070571755,
+        "maximum": 0.0009112201755538045
+      },
+      "fcpMs": {
+        "median": 816.071,
+        "minimum": 803.71,
+        "maximum": 826.004
+      },
+      "siMs": {
+        "median": 1059,
+        "minimum": 1046,
+        "maximum": 1291
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.9 s)",
+        "speed-index (1.1 s)",
+        "interactive (1.8 s)",
+        "cache-insight (Est savings of 37 KiB)",
+        "image-delivery-insight (Est savings of 54 KiB)",
+        "network-dependency-tree-insight",
+        "interactive (1.9 s)",
+        "speed-index (1.0 s)",
+        "largest-contentful-paint (2.6 s)",
+        "speed-index (1.3 s)",
+        "lcp-breakdown-insight"
+      ]
+    },
+    {
+      "route": "/overview/roadmap",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 84,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2638.233,
+        "minimum": 2585.265,
+        "maximum": 2660.154
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009664558434025042,
+        "minimum": 0.0009664558434025042,
+        "maximum": 0.0009664558434025042
+      },
+      "fcpMs": {
+        "median": 807.674,
+        "minimum": 783.992,
+        "maximum": 811.849
+      },
+      "siMs": {
+        "median": 1424,
+        "minimum": 1392,
+        "maximum": 1446
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.7 s)",
+        "speed-index (1.4 s)",
+        "interactive (1.9 s)",
+        "cache-insight (Est savings of 1 KiB)",
+        "image-delivery-insight (Est savings of 24 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.6 s)"
+      ]
+    },
+    {
+      "route": "/overview/nifty-dao/nftl/supply",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2014.999,
+        "minimum": 2006.994,
+        "maximum": 2347.712
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0018490474418468902,
+        "minimum": 0.0018490474418468902,
+        "maximum": 0.0018490474418468902
+      },
+      "fcpMs": {
+        "median": 788.753,
+        "minimum": 788.368,
+        "maximum": 827.249
+      },
+      "siMs": {
+        "median": 960,
+        "minimum": 958,
+        "maximum": 1017
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.3 s)",
+        "speed-index (1.0 s)",
+        "interactive (1.9 s)",
+        "cache-insight (Est savings of 31 KiB)",
+        "image-delivery-insight (Est savings of 34 KiB)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.0 s)",
+        "interactive (1.8 s)"
+      ]
+    },
+    {
+      "route": "/overview/nfts/nifty-marketplace/comics",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 83,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2857.695,
+        "minimum": 2786.612,
+        "maximum": 2911.782
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009112201755538045,
+        "minimum": 0.0009112201755538045,
+        "maximum": 0.0009112201755538045
+      },
+      "fcpMs": {
+        "median": 854.972,
+        "minimum": 826.573,
+        "maximum": 918.145
+      },
+      "siMs": {
+        "median": 1299,
+        "minimum": 1266,
+        "maximum": 1438
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.9 s)",
+        "largest-contentful-paint (2.8 s)",
+        "speed-index (1.3 s)",
+        "interactive (1.9 s)",
+        "total-byte-weight (Total size was 3,742 KiB)",
+        "cache-insight (Est savings of 145 KiB)",
+        "image-delivery-insight (Est savings of 493 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.9 s)",
+        "speed-index (1.4 s)",
+        "interactive (2.0 s)",
+        "first-contentful-paint (0.8 s)"
+      ]
+    }
+  ]
+}
