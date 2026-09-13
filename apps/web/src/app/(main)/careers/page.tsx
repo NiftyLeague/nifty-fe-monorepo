@@ -21,7 +21,7 @@ const Careers = (slots: Record<string, React.ReactNode> = {}) => (
       <div className="w-full md:w-1/2">
         <div className="flex-1 text-center md:text-left">
           <div className="mb-3">
-            <h3 className="whitespace-nowrap">JOIN NIFTY LEAGUE</h3>
+            <h3 className="whitespace-nowrap text-highlight-purple">JOIN NIFTY LEAGUE</h3>
           </div>
           <p>
             Nifty League&apos;s mission is to create an open & efficient path for indie studios to

@@ -25,7 +25,9 @@ export default function HomeNiftyWorldSection() {
           <h2 className="mb-3 section-title section-heading transition-vertical-fade">
             DISCOVER
             <br />
-            <span className="whitespace-nowrap font-default font-normal">NIFTY WORLD</span>
+            <span className="whitespace-nowrap font-default font-normal text-highlight-purple">
+              NIFTY WORLD
+            </span>
           </h2>
           <p className="my-0 py-1 lg:py-3 section-description transition-vertical-fade">
             A VIRTUAL SOCIAL HUB LIKE NONE OTHER FOR GAMERS.

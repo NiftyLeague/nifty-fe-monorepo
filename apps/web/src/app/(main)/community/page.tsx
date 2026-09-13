@@ -12,7 +12,7 @@ const Community = () => {
       <section className="relative min-h-screen">
         <div className="container pt-40 relative flex flex-col md:flex-row z-[2]">
           <div className="w-full md:w-1/2 px-0 text-center md:text-left">
-            <h4 className="whitespace-nowrap">Nifty League</h4>
+            <h4 className="whitespace-nowrap text-highlight-purple">Nifty League</h4>
             <h2>Community</h2>
             <p className="mt-3">Meet our global community of gamers</p>
           </div>

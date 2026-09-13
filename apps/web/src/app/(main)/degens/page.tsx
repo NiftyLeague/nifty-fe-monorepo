@@ -32,7 +32,9 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
               <h1 className="text-center">DEGENs</h1>
             </div>
             <div className="mb-4">
-              <h2 className="text-center heading-look-6">FIRST CLASS CITIZENS</h2>
+              <h2 className="text-center heading-look-6 text-highlight-purple">
+                FIRST CLASS CITIZENS
+              </h2>
             </div>
             <div className="relative">
               <p className="text-center">
@@ -74,7 +76,7 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
       <section className="section">
         <div className="mb-10 max-w-3xl mx-auto">
           <div className="mb-5">
-            <h2 className="text-center">DEGEN TRIBES</h2>
+            <h2 className="text-center text-highlight-purple">DEGEN TRIBES</h2>
           </div>
           <div className="relative">
             <p className="text-center">

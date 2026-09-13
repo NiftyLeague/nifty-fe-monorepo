@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react'
+import { Check, X } from 'lucide-react'
 
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
@@ -13,6 +13,7 @@ export const getRoadmapCardSide = (index: number): RoadmapCardSide =>
 
 interface RoadmapCardProps {
   body: React.ReactNode
+  cancelled?: boolean
   current?: boolean
   completed?: boolean
   completionDate?: string
@@ -30,6 +31,7 @@ interface RoadmapCardProps {
 
 const RoadmapCard = ({
   body,
+  cancelled,
   current,
   completed,
   completionDate,
@@ -38,15 +40,35 @@ const RoadmapCard = ({
   side = 'left',
   title,
 }: RoadmapCardProps): React.ReactNode => (
-  <div className={cx(styles.cd_timeline_block, styles.fade_in)} data-timeline-side={side}>
+  <div
+    className={cx(styles.cd_timeline_block, styles.fade_in)}
+    data-roadmap-card
+    data-roadmap-status={
+      cancelled ? 'cancelled' : completed ? 'completed' : current ? 'current' : 'planned'
+    }
+    data-roadmap-title={typeof title === 'string' ? title : undefined}
+    data-timeline-side={side}
+  >
     {divider ? (
       <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
     ) : (
       <div
-        className={cx(styles.cd_timeline_checkpoint, { [styles.completed as string]: completed })}
+        className={cx(styles.cd_timeline_checkpoint, {
+          [styles.completed as string]: completed,
+          [styles.cancelled as string]: cancelled,
+        })}
       >
         {completed && (
           <Check
+            absoluteStrokeWidth
+            aria-hidden="true"
+            className="m-auto"
+            size={20}
+            strokeWidth={2.5}
+          />
+        )}
+        {cancelled && (
+          <X
             absoluteStrokeWidth
             aria-hidden="true"
             className="m-auto"
@@ -99,10 +121,12 @@ const RoadmapCard = ({
 
     <div className={styles.cd_timeline_content}>
       <div className={styles.timeline_content_body}>
-        <h3 className="[word-spacing:-10px] heading-look-5">{title}</h3>
-        {completed && (
+        <h3 className="[word-spacing:-10px] heading-look-5 text-highlight-purple">{title}</h3>
+        {(completed || cancelled) && (
           <div className={styles.timeline_content_info}>
-            <span className={styles.timeline_content_info_title}>Mission Accomplished</span>
+            <span className={styles.timeline_content_info_title}>
+              {cancelled ? 'Cancelled' : 'Mission Accomplished'}
+            </span>
             <span className={styles.timeline_content_info_date}>{completionDate}</span>
           </div>
         )}

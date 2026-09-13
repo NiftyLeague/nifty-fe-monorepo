@@ -83,6 +83,15 @@
   line-height: var(--text-base--line-height);
 }
 
+.heading-look-1.text-highlight-purple,
+.heading-look-2.text-highlight-purple,
+.heading-look-3.text-highlight-purple,
+.heading-look-4.text-highlight-purple,
+.heading-look-5.text-highlight-purple,
+.heading-look-6.text-highlight-purple {
+  color: var(--color-highlight-purple);
+}
+
 /* ==============================|| MEDIA QUERIES ||============================== */
 
 @media (min-width: 769px) {

@@ -205,6 +205,8 @@
   /* ======================|| COLORS ||====================== */
   --color-blue: var(--secondary);
   --color-purple: var(--primary);
+  /* Highlight Purple: a brighter accent for emphasis, distinct from primary. */
+  --color-highlight-purple: #d8c2ff;
 
   --gradient-brand: linear-gradient(90deg, var(--color-purple) 0%, var(--color-blue) 100%);
   --gradient-brand-pink: linear-gradient(

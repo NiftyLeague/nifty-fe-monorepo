@@ -3,74 +3,91 @@ import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
 
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import GameCard from '@/components/GameCard'
-import { DeferredGamesBelowFold } from '@/components/DeferredGamesSections'
 import { NIFTY_GAMES } from '@/constants/games'
+import { NIFTY_APP_URL } from '@/constants/links'
 
 const Games = (slots: Record<string, React.ReactNode> = {}) => {
-  const firstGame = NIFTY_GAMES[0]
+  const [flagship, ...games] = NIFTY_GAMES
 
   return (
-    <div className="container relative pt-20">
-      <div className="purple-bg-orb orb-top-right" />
-      <section className="section flex items-center justify-center flex-wrap">
-        <div className="w-1/3 md:w-1/2 md:px-2 lg:px-3">
-          <div className="animate-zoom-out">
-            {slots.webIsland0 ?? (
-              <ViewportVideo
-                id="lobby"
-                width="100%"
-                height="100%"
-                muted
-                loop
-                playsInline
-                data-keepplaying
-                className="hidden md:block"
-                deferLoad
-                poster="/img/games/smashers/lobby.webp"
-                src="/video/lobby.mp4"
-              />
-            )}
-            <div className="block md:hidden">
-              <MobileOnlyImage
-                alt="Arcade"
-                width={339}
-                height={661}
-                loading="eager"
-                src="/img/games/smashers/arcade.webp"
-                sizes="33vw"
-                style={{ width: '100%', height: 'auto', marginBottom: '6rem' }}
-              />
+    <>
+      <section className="container relative pt-20">
+        <div className="purple-bg-orb orb-top-right" />
+        <div className="section flex flex-col-reverse md:flex-row items-center justify-center">
+          <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
+            <p className="mb-3 font-special text-[0.625rem] leading-[1.9] tracking-[0.02em] uppercase text-highlight-purple">
+              PICK YOUR NEXT ADVENTURE
+            </p>
+            <h1 className="m-0">GAMES</h1>
+            <p className="mt-4 mb-0">
+              Jump into Nifty League&apos;s growing lineup of browser games, mini-games, and social
+              worlds. Everything is waiting for you in the app.
+            </p>
+            <ThemeBtnGroup
+              className="justify-center md:justify-start"
+              primary={{ href: NIFTY_APP_URL, title: 'PLAY NOW', external: true }}
+            />
+          </div>
+
+          <div className="w-full md:w-1/2 lg:w-5/12">
+            <div className="animate-zoom-out">
+              {slots.webIsland0 ?? (
+                <ViewportVideo
+                  id="lobby"
+                  width="100%"
+                  height="100%"
+                  muted
+                  loop
+                  playsInline
+                  data-keepplaying
+                  className="hidden md:block"
+                  deferLoad
+                  poster="/img/games/smashers/lobby.webp"
+                  src="/video/lobby.mp4"
+                />
+              )}
+              <div className="block md:hidden">
+                <MobileOnlyImage
+                  alt="Arcade"
+                  width={339}
+                  height={661}
+                  loading="eager"
+                  src="/img/games/smashers/arcade.webp"
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="w-full md:w-1/2 px-2 lg:px-3">
-          <div className="mb-4">
-            <h1 className="text-center whitespace-nowrap">GAMES</h1>
-          </div>
-          <div className="mb-5">
-            <p className="text-center">
-              Join thousands of players around the world competing for the top spot in Nifty
-              League!{' '}
+      <div className="container relative">
+        <div className="purple-bg-orb orb-top-right" />
+        <section aria-labelledby="games-lineup-heading" className="section">
+          <div className="mb-4 text-center">
+            <p className="mb-3 font-special text-[0.625rem] leading-[1.9] tracking-[0.02em] uppercase text-highlight-purple">
+              THE LINEUP
             </p>
+            <h2 id="games-lineup-heading" className="m-0">
+              PLAY TOGETHER.
+            </h2>
           </div>
-        </div>
-      </section>
 
-      <section className="section">
-        {firstGame ? (slots.webIsland1 ?? <GameCard game={firstGame} index={0} />) : null}
-        {slots.webIsland2 ?? <DeferredGamesBelowFold />}
+          {flagship ? <GameCard game={flagship} index={0} highlight /> : null}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8">
+            {games.map((game, index) => (
+              <GameCard key={game.name} game={game} index={index + 1} compact />
+            ))}
+          </div>
 
-        <ThemeBtnGroup
-          className="mt-6 xl:mt-8"
-          primary={{
-            href: '/docs/guides/nifty-smashers/general-info',
-            title: 'VIEW DOCS',
-            external: true,
-          }}
-        />
-      </section>
-    </div>
+          <ThemeBtnGroup
+            className="mt-6 xl:mt-8"
+            primary={{ href: NIFTY_APP_URL, title: 'PLAY NOW', external: true }}
+          />
+        </section>
+      </div>
+    </>
   )
 }
 

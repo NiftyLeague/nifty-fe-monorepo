@@ -40,7 +40,9 @@ const LearnCard = ({
 
       <div className="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
         <div className="mb-4 md:mb-6">
-          <h2 className="text-center uppercase text-xl font-bold heading-look-5">{title}</h2>
+          <h2 className="text-center uppercase text-xl font-bold heading-look-5 text-highlight-purple">
+            {title}
+          </h2>
         </div>
         <div className="mb-0">
           <p className="text-center">{subtitle}</p>

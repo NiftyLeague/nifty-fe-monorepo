@@ -8,7 +8,7 @@ const Team = (slots: Record<string, React.ReactNode> = {}) => {
       <div className="container pt-20">
         <section className="section relative">
           <div className="flex flex-col items-center">
-            <h1 className="text-center">NIFTY DAO</h1>
+            <h1 className="text-center text-highlight-purple">NIFTY DAO</h1>
             <div className="mt-5 sm:mt-3 max-w-2xl">
               <p className="text-center p1">
                 Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire

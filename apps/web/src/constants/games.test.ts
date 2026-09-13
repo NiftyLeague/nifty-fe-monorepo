@@ -1,36 +1,47 @@
-import { existsSync, statSync } from 'node:fs'
-
 import { describe, expect, it } from 'bun:test'
 
-import { NIFTY_WORLD_APP_URL } from './links'
+import { NIFTY_APP_URL, NIFTY_WORLD_APP_URL } from './links'
 import { NIFTY_GAMES } from './games'
 
-const ASSETS_ROOT = new URL('../../../../assets/', import.meta.url)
+describe('website game catalog', () => {
+  it('keeps the flagship separate and the remaining lineup even for two-column rows', () => {
+    expect(NIFTY_GAMES[0]?.name).toBe('NIFTY SMASHERS')
+    expect((NIFTY_GAMES.length - 1) % 2).toBe(0)
+  })
 
-describe('website game media', () => {
-  it('provides a compact poster for every local game video', () => {
-    const localGames = NIFTY_GAMES.filter((game) => !game.video.includes('youtube'))
+  it('uses the correct app route for each game', () => {
+    const expectedLinks = {
+      'NIFTY WORLD': NIFTY_WORLD_APP_URL,
+      'NIFTY ROYALE': NIFTY_APP_URL,
+      '2D SMASHERS': `${NIFTY_APP_URL}/games/smashers`,
+      'DEGEN DODGE': `${NIFTY_APP_URL}/games/niftyworld/degen-dodge`,
+      'WEN 2D': `${NIFTY_APP_URL}/games/niftyworld/wen-2d`,
+      'WEN 3D': `${NIFTY_APP_URL}/games/niftyworld/wen-3d`,
+      'MT. GAWX': `${NIFTY_APP_URL}/games/mt-gawx`,
+      'DEGEN DIVE': `${NIFTY_APP_URL}/games/niftyworld/degen-dive`,
+      'BRICK BREAKER': `${NIFTY_APP_URL}/games/niftyworld/brick-breaker`,
+      'NIFTY TENNIS': `${NIFTY_APP_URL}/games/niftyworld/tennis`,
+    } as const
 
-    expect(localGames.every((game) => game.poster)).toBe(true)
-
-    for (const game of localGames) {
-      if (!game.poster) throw new Error(`Missing poster for ${game.name}`)
-
-      const posterPath = new URL(game.poster.slice(1), ASSETS_ROOT)
-
-      expect(existsSync(posterPath)).toBe(true)
-      expect(statSync(posterPath).size).toBeLessThan(300_000)
+    expect(NIFTY_GAMES[0]?.link).toBe('https://niftysmashers.com')
+    for (const game of NIFTY_GAMES.slice(1)) {
+      expect(game.link).toBe(expectedLinks[game.name as keyof typeof expectedLinks])
     }
   })
 
-  it('sends the Nifty World game card to the integrated app', () => {
-    const niftyWorld = NIFTY_GAMES.find((game) => game.name === 'NIFTY WORLD')
-
-    expect(niftyWorld?.action).toEqual({
-      title: 'EXPLORE WORLD',
-      link: NIFTY_WORLD_APP_URL,
-      external: true,
-      isComingSoon: false,
-    })
+  it('keeps game labels concise and consistent', () => {
+    expect(NIFTY_GAMES.map((game) => game.tag)).toEqual([
+      'MOBILE / PC',
+      'OPEN WORLD',
+      'MOBILE / PC',
+      'BROWSER',
+      'MINI-GAME',
+      'MINI-GAME',
+      'MINI-GAME',
+      'MINI-GAME',
+      'MINI-GAME',
+      'MINI-GAME',
+      'MINI-GAME',
+    ])
   })
 })

@@ -3,14 +3,29 @@ import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
 interface NavigationLinkProps {
   className?: string
   description?: string
+  descriptionClassName?: string
   external?: boolean
   href: string
   title: string
 }
 
 /** Uses client-side navigation only for routes owned by the current app. */
-function NavigationLink({ className, description, external, href, title }: NavigationLinkProps) {
-  const content = <NavLinkContent description={description} external={external} title={title} />
+function NavigationLink({
+  className,
+  description,
+  descriptionClassName,
+  external,
+  href,
+  title,
+}: NavigationLinkProps) {
+  const content = (
+    <NavLinkContent
+      description={description}
+      descriptionClassName={descriptionClassName}
+      external={external}
+      title={title}
+    />
+  )
   const resolvedClassName = className ?? NAV_LINK_CONTENT_CLASS
 
   if (external) {

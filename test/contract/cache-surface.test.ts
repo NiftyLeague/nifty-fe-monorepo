@@ -129,4 +129,14 @@ describe('cache surfaces', () => {
       }
     }
   })
+
+  it('pins the Worker response policies for deep-link shells', () => {
+    const worker = readFileSync(join('apps', 'web', 'worker', 'index.ts'), 'utf8')
+
+    expect(worker).toContain("response.headers.set('Cache-Control', 'no-store')")
+    expect(worker).toContain("response.headers.set('X-Robots-Tag', 'noindex, nofollow')")
+    expect(worker).toContain(
+      "response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=3600')"
+    )
+  })
 })

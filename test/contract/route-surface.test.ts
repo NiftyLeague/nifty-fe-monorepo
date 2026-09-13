@@ -2281,7 +2281,7 @@ describe('web marketing image sizing contract', () => {
         'sizes="(min-width: 768px) 50vw, 100vw"',
       ],
       ['apps/web/src/app/(main)/careers/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
-      ['apps/web/src/app/(main)/games/page.tsx', 'sizes="33vw"'],
+      ['apps/web/src/app/(main)/games/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
       ['apps/web/src/components/DegenGallery.tsx', 'sizes="(max-width: 768px) 33vw, 205px"'],
       [
         'apps/web/src/components/NiftyWorldProperties.tsx',
@@ -2711,12 +2711,16 @@ describe('public route dependency contract', () => {
     expect(enhancer).toContain("video.preload = shouldLoad ? 'metadata' : 'none'")
   })
 
-  it('keeps marketing game video identifiers unique', () => {
+  it('keeps marketing game cards accessible and uniquely identified', () => {
     const source = readFileSync(join(process.cwd(), 'apps/web/src/components/GameCard.tsx'), 'utf8')
 
-    expect(source).toContain('id={`game-video-${index}`}')
-    expect(source).toMatch(/<ViewportVideo[\s\S]*deferLoad[\s\S]*src={video}/)
-    expect(source).not.toContain('id="console-video"')
+    expect(source).toContain('const headingId = `game-card-${index}-heading`')
+    expect(source).toContain('aria-labelledby={headingId}')
+    expect(source).toContain('id={headingId}')
+    expect(source).toContain('data-game-name={name}')
+    expect(source).toContain('<OptimizedImage')
+    expect(source).toContain('alt={`${name} game artwork`}')
+    expect(source).not.toContain('game-video-')
   })
 
   it('keeps API-only constants separate from the contract registry', () => {

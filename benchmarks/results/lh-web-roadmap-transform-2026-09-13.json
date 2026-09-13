@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "app": "web",
+  "generatedAt": "2026-09-13T10:05:17.691Z",
+  "gitRevision": "dfda2edae16d4e09f99bf4c0941af959156f6339",
+  "label": "roadmap-transform",
+  "runs": 5,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 5,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/roadmap",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2457.729,
+        "minimum": 2453.986,
+        "maximum": 2466.967
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.06842819753653438,
+        "minimum": 0.06842819753653438,
+        "maximum": 0.06842819753653438
+      },
+      "fcpMs": {
+        "median": 836.975,
+        "minimum": 827.404,
+        "maximum": 840.668
+      },
+      "siMs": {
+        "median": 2047,
+        "minimum": 1999,
+        "maximum": 2057
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.5 s)",
+        "speed-index (2.0 s)",
+        "cumulative-layout-shift (0.068)",
+        "interactive (3.6 s)",
+        "unused-javascript (Est savings of 29 KiB)",
+        "forced-reflow-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "speed-index (2.1 s)"
+      ]
+    },
+    {
+      "route": "/roadmap",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 82,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2724.367,
+        "minimum": 2717.634,
+        "maximum": 2733.848
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.004371559846973443,
+        "minimum": 0.004371559846973443,
+        "maximum": 0.004371559846973443
+      },
+      "fcpMs": {
+        "median": 803.824,
+        "minimum": 798.756,
+        "maximum": 805.774
+      },
+      "siMs": {
+        "median": 1686,
+        "minimum": 1675,
+        "maximum": 1743
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.7 s)",
+        "speed-index (1.7 s)",
+        "interactive (3.6 s)",
+        "unused-javascript (Est savings of 29 KiB)",
+        "image-delivery-insight (Est savings of 50 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight"
+      ]
+    }
+  ]
+}

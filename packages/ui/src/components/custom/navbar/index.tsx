@@ -40,14 +40,16 @@ const DESKTOP_LINK_CLASS =
 function DesktopNavLink({
   className,
   description,
+  descriptionClassName,
   external,
   href,
   title,
-}: NavPage & { className?: string }) {
+}: NavPage & { className?: string; descriptionClassName?: string }) {
   return (
     <NavigationLink
       className={cx(NAV_LINK_CONTENT_CLASS, className)}
       description={description}
+      descriptionClassName={descriptionClassName}
       external={external}
       href={href}
       title={title}
@@ -61,6 +63,7 @@ function ListItem({ page }: { page: NavPage }) {
       <DesktopNavLink
         className="text-base font-medium"
         description={page.description}
+        descriptionClassName="whitespace-nowrap"
         external={page.external}
         href={page.href}
         title={page.title}
@@ -88,7 +91,7 @@ function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
           </span>
         </summary>
         <div className="absolute top-full left-1/2 z-50 mt-1.5 -translate-x-1/2 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow">
-          <ul className="flex w-[300px] max-w-max flex-col p-2">
+          <ul className="flex w-max min-w-[300px] flex-col p-2">
             {pages.map((page) => (
               <ListItem key={page.title} page={page} />
             ))}

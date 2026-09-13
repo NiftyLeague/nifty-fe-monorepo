@@ -14,8 +14,9 @@ special routes: DEGEN 3D viewer deep links (`/gltf/:tokenId`), referral deep lin
   (`client:load` / `client:visible`); anything not islanded renders as static HTML.
 - `src/layouts/Base.astro` — document shell (metadata, canonical, fonts, analytics
   bootstrap). `src/layouts/Marketing.astro` adds the shared Navbar/Footer islands.
-- `src/pages/shells/gltf.astro` + `src/pages/shells/referral.astro` — minimal shells the
-  Worker serves for the special routes (they are **not** publicly routable).
+- `src/pages/shells/gltf.astro` + `src/pages/shells/referral.astro` — minimal shells for the
+  special routes. The Worker keeps them private; Vercel serves the direct shell paths as
+  noindex, robots-disallowed compatibility documents.
 - `src/runtime/` — app-local shims shared by the React components: the image component
   and manifest (`Image.tsx`, `image-props.mjs`, generated variants in `.web-images/`),
   the `next/dynamic` replacement (`client-only.tsx`), metadata, and lazy telemetry
@@ -60,9 +61,12 @@ docs proxies, and `/gltf/:tokenId` + `/invite` + `/party` deep links served by t
 shells in `src/pages/shells/`. Set `PUBLIC_DEPLOY_ENV=production` (and optionally
 `PUBLIC_TELEMETRY`, `PUBLIC_INFURA_ID`) in the Vercel project settings.
 
-Two deliberate differences on Vercel, both handled client-side: `/gltf/:tokenId` posters
-are corrected by an inline script in the shell (the Worker uses HTMLRewriter), and the
-`/shells/` documents respond 200 directly (robots.txt disallows them).
+Two deliberate differences on Vercel, both handled client-side: numeric `/gltf/:tokenId`
+posters are corrected by an inline script in the shell (the Worker uses HTMLRewriter), and
+the direct `/shells/` compatibility documents respond 200 with `noindex,nofollow`
+metadata (robots.txt disallows the directory). The Vercel rewrite only accepts 1–12 digit
+token IDs; malformed `/gltf/*` paths fall through to the normal 404. The Worker keeps the
+stronger behavior of returning 404 for direct shell and malformed deep-link requests.
 
 A full-fidelity **Cloudflare Worker** variant ships alongside (`wrangler.jsonc`,
 `worker/`): it rewrites the poster per token, 404s the shells and malformed deep links,

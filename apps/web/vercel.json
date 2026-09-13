@@ -163,7 +163,7 @@
   ],
   "rewrites": [
     {
-      "source": "/gltf/:tokenId",
+      "source": "/gltf/:tokenId(\\d{1,12})",
       "destination": "/shells/gltf"
     },
     {
