@@ -182,18 +182,20 @@ https://niftysmashers.com --label m5.6-postfix --runs 5`.
 ## M5.7 — apps/docs (#1884)
 
 Deep-dive app for the M4.0 dedup work. Measured with the shared harness at medians of five
-against production (`lh-docs-production-median5-2026-09-13.json`, the pre-fix deploy with
-the corrected route list) and of three against the branch build served by `astro preview`
-(`lh-docs-local-m57-v2-2026-09-13.json`; the preview server's uncompressed HTML caps the
-desktop numbers locally, so the branch's production capture follows the deploy).
+against production, before the fixes (`lh-docs-production-median5-2026-09-13.json`, the
+pre-fix deploy with the corrected route list) and after (`lh-docs-production-postfix-2026-09-13.json`,
+captured once #1933's deploy was live, with `scripts/cache-probe.mjs` passing all four
+route classes). Branch-build medians of three (`lh-docs-local-m57-v2-2026-09-13.json`)
+guided the work; the preview server's uncompressed HTML caps local desktop numbers, so
+production is the evidence of record.
 
-| route (mobile, before → after-local)    | perf      | a11y      | notes                                       |
-| --------------------------------------- | --------- | --------- | ------------------------------------------- |
-| /                                       | 98 → 100  | 100 → 100 | hero artwork now astro:assets AVIF variants |
-| /overview/intro                         | 100 → 99  | 96 → 100  | contrast tokens, dimensioned images         |
-| /overview/roadmap                       | 95 → 97   | 96 → 100  | LCP preloaded, AVIF variants                |
-| /overview/nifty-dao/nftl/supply         | 94 → 100  | 96 → 100  | mermaid scroll-gated, CLS reserved          |
-| /overview/nfts/nifty-marketplace/comics | 100 → 100 | 96 → 100  | already image-floor clean                   |
+| route                                   | perf mobile (before → after) | perf desktop (before → after) | a11y (before → after) |
+| --------------------------------------- | ---------------------------- | ----------------------------- | --------------------- |
+| /                                       | 98 → 100                     | 86 → 91                       | 100 → 100             |
+| /overview/intro                         | 100 → 100                    | 91 → 91                       | 96 → 100              |
+| /overview/roadmap                       | 95 → 97                      | 82 → 84                       | 96 → 100              |
+| /overview/nifty-dao/nftl/supply         | 94 → 99                      | 90 → 90                       | 96 → 100              |
+| /overview/nfts/nifty-marketplace/comics | 100 → 99                     | 83 → 83                       | 96 → 100              |
 
 Harness correction: the routes file listed `/nftl/supply` and `/marketplace/comics`, which
 404 on the docs domain — the #1923 capture recorded them as "WAF-blocked", but they were
@@ -251,8 +253,9 @@ by curl: prefixed path `max-age=0, must-revalidate`, bare path immutable). verce
 declares both forms immutable plus the web-style refresh policy for the `/docs/img`,
 `/docs/video` and `/docs/favicon` classes and their bare twins, all pinned by
 `cache-surface.test.ts`; `scripts/cache-probe.mjs` re-captures live evidence per route
-class on demand (pre-deploy it reports the mismatch above; the post-deploy run must pass
-and its output belongs in this file). HTML stays on the revalidating default — long-lived
+class on demand — the post-deploy run passes all four classes (HTML revalidate,
+`/docs/_astro/*` immutable, img/favicon refresh) and was executed against the live
+deploy on 2026-09-13. HTML stays on the revalidating default — long-lived
 
 - SWR was considered and rejected in #1923 (DocSearch index and content freshness favour
   revalidation).
