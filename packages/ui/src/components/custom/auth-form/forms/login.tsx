@@ -145,15 +145,23 @@ export function LoginForm({
                 </FormControl>
                 <FormLabel>Remember Me</FormLabel>
                 {view === VIEWS.LOGIN && (
-                  <a
+                  // A button, not an anchor: it switches the form view in
+                  // place, so it needs `type="button"` to stay out of the
+                  // submit path, keyboard focusability, and no bare-anchor
+                  // crawl/contrast findings (M5.6 audit #1883). The muted
+                  // foreground matches the adjacent label, which holds AA on
+                  // the auth backdrop where the accent blue did not.
+                  <button
+                    type="button"
                     onClick={() => !disabled && setAuthView(VIEWS.FORGOT_PASSWORD)}
+                    disabled={disabled}
                     className={cn(
-                      'ml-auto mt-0.5 text-sm underline-offset-4',
-                      !disabled && 'hover:underline cursor-pointer'
+                      'ml-auto mt-0.5 text-sm text-muted-foreground underline underline-offset-4',
+                      !disabled && 'cursor-pointer hover:text-foreground'
                     )}
                   >
                     Forgot your password?
-                  </a>
+                  </button>
                 )}
               </div>
             </FormItem>
@@ -184,14 +192,22 @@ export function LoginForm({
         {enableAccountCreation && (
           <div className="text-center text-sm">
             {view === VIEWS.LOGIN ? "Don't have an account? " : 'Already have an account? '}
-            <a
+            {/* A view switch, not navigation: a type="button" is keyboard
+                focusable and carries no bare-anchor crawl/contrast findings
+                (M5.6 audit #1883). */}
+            <button
+              type="button"
               onClick={() =>
                 !disabled && setAuthView(view === VIEWS.LOGIN ? VIEWS.SIGN_UP : VIEWS.LOGIN)
               }
-              className={cn('underline underline-offset-4', !disabled && 'cursor-pointer')}
+              disabled={disabled}
+              className={cn(
+                'underline underline-offset-4',
+                !disabled && 'cursor-pointer hover:text-foreground'
+              )}
             >
               {view === VIEWS.LOGIN ? 'Sign up' : 'Login'}
-            </a>
+            </button>
           </div>
         )}
       </form>

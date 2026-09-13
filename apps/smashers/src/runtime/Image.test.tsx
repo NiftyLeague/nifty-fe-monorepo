@@ -34,7 +34,14 @@ describe('optimizer width ladder', () => {
     const sizes = '(max-width: 571px) 70vw, 400px'
     const widths = selectWidths(824, sizes)
     expect(widths).toEqual([640])
-    expect(getImagePreloadProps({ src: '/img/logos/smashers/app_wordmark_logo.webp', width: 824, sizes, quality: 85 }).imageSizes).toBe(sizes)
+    expect(
+      getImagePreloadProps({
+        src: '/img/logos/smashers/app_wordmark_logo.webp',
+        width: 824,
+        sizes,
+        quality: 85,
+      }).imageSizes
+    ).toBe(sizes)
   })
 
   it('caps a full-bleed image by the viewport, not by its native width', () => {

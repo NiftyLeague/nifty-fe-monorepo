@@ -21,7 +21,8 @@ const read = (path: string) => readFileSync(join(SMASHERS, path), 'utf8')
 const ENDPOINT_PATHS = ['/android', '/epic', '/ios', '/steam']
 const PAGE_PATHS = ALL_PATHS.filter((path) => !ENDPOINT_PATHS.includes(path))
 
-const pageFile = (path: string) => join(SMASHERS, 'src/pages', path === '/' ? 'index.astro' : `${path}.astro`)
+const pageFile = (path: string) =>
+  join(SMASHERS, 'src/pages', path === '/' ? 'index.astro' : `${path}.astro`)
 
 describe('smashers SEO surface', () => {
   it('keeps the noindex surfaces out of the sitemap', () => {
