@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 1,
+  "app": "docs",
+  "generatedAt": "2026-09-12T23:30:37.197Z",
+  "gitRevision": "416a00fad88b45d8a3469b242e51a0e2a36f963c",
+  "label": "production",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2417.327,
+        "minimum": 2414.446,
+        "maximum": 2712.759
+      },
+      "tbtMs": {
+        "median": 44.659999999999854,
+        "minimum": 41.10499999999956,
+        "maximum": 56.01099999999997
+      },
+      "cls": {
+        "median": 0.01149174216751759,
+        "minimum": 0.01149174216751759,
+        "maximum": 0.01149174216751759
+      },
+      "fcpMs": {
+        "median": 866.967,
+        "minimum": 861.183,
+        "maximum": 1158.468
+      },
+      "siMs": {
+        "median": 1203,
+        "minimum": 1195,
+        "maximum": 1490
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.2 s)",
+        "largest-contentful-paint (2.7 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (4.2 s)",
+        "image-delivery-insight (Est savings of 63 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.4 s)",
+        "max-potential-fid (110 ms)",
+        "interactive (3.9 s)"
+      ]
+    },
+    {
+      "route": "/overview/intro",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1876.221,
+        "minimum": 1867.562,
+        "maximum": 1881.79
+      },
+      "tbtMs": {
+        "median": 60.90099999999984,
+        "minimum": 43.870000000000346,
+        "maximum": 80.83200000000033
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 855.341,
+        "minimum": 849.125,
+        "maximum": 865.357
+      },
+      "siMs": {
+        "median": 1100,
+        "minimum": 1097,
+        "maximum": 1106
+      },
+      "diagnostics": [
+        "largest-contentful-paint (1.9 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (3.5 s)",
+        "unsized-images",
+        "color-contrast",
+        "image-delivery-insight (Est savings of 28 KiB)",
+        "network-dependency-tree-insight",
+        "max-potential-fid (110 ms)",
+        "total-blocking-time (80 ms)",
+        "max-potential-fid (130 ms)",
+        "interactive (3.6 s)"
+      ]
+    },
+    {
+      "route": "/overview/roadmap",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 94,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2959.448,
+        "minimum": 2958.378,
+        "maximum": 2967.271
+      },
+      "tbtMs": {
+        "median": 79.42300000000068,
+        "minimum": 61.08800000000065,
+        "maximum": 116.32200000000012
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 841.001,
+        "minimum": 839.261,
+        "maximum": 865.403
+      },
+      "siMs": {
+        "median": 1672,
+        "minimum": 1672,
+        "maximum": 1691
+      },
+      "diagnostics": [
+        "largest-contentful-paint (3.0 s)",
+        "total-blocking-time (80 ms)",
+        "max-potential-fid (130 ms)",
+        "interactive (4.5 s)",
+        "color-contrast",
+        "image-delivery-insight (Est savings of 112 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight",
+        "total-blocking-time (120 ms)",
+        "max-potential-fid (170 ms)",
+        "max-potential-fid (110 ms)"
+      ]
+    },
+    {
+      "route": "/nftl/supply",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/marketplace/comics",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2454.917,
+        "minimum": 2446.432,
+        "maximum": 2457.252
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.002200420825672008,
+        "minimum": 0.002200420825672008,
+        "maximum": 0.002200420825672008
+      },
+      "fcpMs": {
+        "median": 811.757,
+        "minimum": 802.218,
+        "maximum": 823.51
+      },
+      "siMs": {
+        "median": 1256,
+        "minimum": 1250,
+        "maximum": 1264
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.5 s)",
+        "speed-index (1.3 s)",
+        "interactive (1.9 s)",
+        "label-content-name-mismatch",
+        "image-delivery-insight (Est savings of 104 KiB)",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.4 s)"
+      ]
+    },
+    {
+      "route": "/overview/intro",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 91,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1859.523,
+        "minimum": 1853.106,
+        "maximum": 1861.12
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009090814070571755,
+        "minimum": 0.0009090814070571755,
+        "maximum": 0.0009090814070571755
+      },
+      "fcpMs": {
+        "median": 801.628,
+        "minimum": 792.642,
+        "maximum": 801.994
+      },
+      "siMs": {
+        "median": 1044,
+        "minimum": 1036,
+        "maximum": 1045
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.9 s)",
+        "speed-index (1.0 s)",
+        "interactive (1.9 s)",
+        "unsized-images",
+        "color-contrast",
+        "label-content-name-mismatch",
+        "image-delivery-insight (Est savings of 54 KiB)",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/roadmap",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 82,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2954.63,
+        "minimum": 2953.832,
+        "maximum": 2956.832
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009664558434025042,
+        "minimum": 0.0009664558434025042,
+        "maximum": 0.0009664558434025042
+      },
+      "fcpMs": {
+        "median": 793.67,
+        "minimum": 784.998,
+        "maximum": 798.654
+      },
+      "siMs": {
+        "median": 1329,
+        "minimum": 1324,
+        "maximum": 1334
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (3.0 s)",
+        "speed-index (1.3 s)",
+        "interactive (1.9 s)",
+        "color-contrast",
+        "label-content-name-mismatch",
+        "image-delivery-insight (Est savings of 82 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/nftl/supply",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/marketplace/comics",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    }
+  ]
+}

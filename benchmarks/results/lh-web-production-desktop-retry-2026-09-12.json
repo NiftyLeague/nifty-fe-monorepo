@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "app": "web",
+  "generatedAt": "2026-09-12T23:26:51.971Z",
+  "gitRevision": "416a00fad88b45d8a3469b242e51a0e2a36f963c",
+  "label": "production-desktop-retry",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/niftyworld",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/lore",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/careers",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/team",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    }
+  ]
+}

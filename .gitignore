@@ -87,3 +87,4 @@ mise.local.toml
 mise.local.lock
 .mise.local.lock
 *.code-workspace
+test-results/

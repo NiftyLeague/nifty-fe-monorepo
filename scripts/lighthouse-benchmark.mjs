@@ -24,7 +24,8 @@
  * per-sample variance — same schema discipline as the m0/m1/m5 artifacts, which
  * are treated as immutable evidence.
  */
-import { execSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { execSync } from 'node:child_process'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -129,17 +130,24 @@ try {
         samples.push(result.lhr)
       }
 
-      const medians = {
-        performance: median(samples.map((r) => score(r, 'performance'))),
-        accessibility: median(samples.map((r) => score(r, 'accessibility'))),
-        'best-practices': median(samples.map((r) => score(r, 'best-practices'))),
-        seo: median(samples.map((r) => score(r, 'seo'))),
+      const medianScore = (id) => {
+        const values = samples.map((r) => score(r, id)).filter((v) => v !== null)
+        return values.length ? median(values) : null
       }
-      const metrics = (pick) => ({
-        median: median(samples.map(pick)),
-        minimum: Math.min(...samples.map(pick)),
-        maximum: Math.max(...samples.map(pick)),
-      })
+      const medians = {
+        performance: medianScore('performance'),
+        accessibility: medianScore('accessibility'),
+        'best-practices': medianScore('best-practices'),
+        seo: medianScore('seo'),
+      }
+      // A null metric means Lighthouse marked the audit not-applicable for every
+      // sample (error pages, blocked routes) — recorded as unmeasured, never zero.
+      const metrics = (pick) => {
+        const values = samples.map(pick).filter((value) => value !== null && value !== undefined)
+        return values.length
+          ? { median: median(values), minimum: Math.min(...values), maximum: Math.max(...values) }
+          : { median: null, minimum: null, maximum: null }
+      }
 
       results.push({
         route,
@@ -155,7 +163,7 @@ try {
 
       const row = results.at(-1)
       console.log(
-        `${formFactor.padEnd(7)} ${route.padEnd(28)} perf=${String(row.scores.performance).padStart(3)} a11y=${String(row.scores.accessibility).padStart(3)} bp=${String(row.scores['best-practices']).padStart(3)} seo=${String(row.scores.seo).padStart(3)}  LCP=${Math.round(row.lcpMs.median)}ms TBT=${Math.round(row.tbtMs.median)}ms CLS=${row.cls.median.toFixed(4)}`
+        `${formFactor.padEnd(7)} ${route.padEnd(28)} perf=${String(row.scores.performance).padStart(3)} a11y=${String(row.scores.accessibility).padStart(3)} bp=${String(row.scores['best-practices']).padStart(3)} seo=${String(row.scores.seo).padStart(3)}  LCP=${row.lcpMs.median === null ? 'n/a' : Math.round(row.lcpMs.median) + 'ms'} TBT=${row.tbtMs.median === null ? 'n/a' : Math.round(row.tbtMs.median) + 'ms'} CLS=${row.cls.median === null ? 'n/a' : row.cls.median.toFixed(4)}`
       )
       diagnostics[`${formFactor} ${route}`] = row.diagnostics
     }
