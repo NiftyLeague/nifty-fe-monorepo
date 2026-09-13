@@ -38,6 +38,7 @@ import { Route as PublicGamesWenGameRouteImport } from './routes/_public/games.w
 import { Route as PublicLeaderboardsIndexRouteImport } from './routes/_public/leaderboards.index'
 import { Route as PublicMintOMaticIndexRouteImport } from './routes/_public/mint-o-matic.index'
 import { Route as DashboardItemsBurnerRouteImport } from './routes/dashboard.items.burner'
+import { Route as PublicGamesNiftyworldGameRouteImport } from './routes/_public/games.niftyworld.$game'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -183,6 +184,12 @@ const DashboardItemsBurnerRoute = DashboardItemsBurnerRouteImport.update({
   path: '/burner',
   getParentRoute: () => DashboardItemsRoute,
 } as any)
+const PublicGamesNiftyworldGameRoute =
+  PublicGamesNiftyworldGameRouteImport.update({
+    id: '/niftyworld/$game',
+    path: '/niftyworld/$game',
+    getParentRoute: () => PublicGamesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/games/': typeof PublicGamesIndexRoute
   '/leaderboards/': typeof PublicLeaderboardsIndexRoute
   '/mint-o-matic/': typeof PublicMintOMaticIndexRoute
+  '/games/niftyworld/$game': typeof PublicGamesNiftyworldGameRoute
 }
 export interface FileRoutesByTo {
   '/robots.txt': typeof RobotsDottxtRoute
@@ -237,6 +245,7 @@ export interface FileRoutesByTo {
   '/games': typeof PublicGamesIndexRoute
   '/leaderboards': typeof PublicLeaderboardsIndexRoute
   '/mint-o-matic': typeof PublicMintOMaticIndexRoute
+  '/games/niftyworld/$game': typeof PublicGamesNiftyworldGameRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -269,6 +278,7 @@ export interface FileRoutesById {
   '/_public/games/': typeof PublicGamesIndexRoute
   '/_public/leaderboards/': typeof PublicLeaderboardsIndexRoute
   '/_public/mint-o-matic/': typeof PublicMintOMaticIndexRoute
+  '/_public/games/niftyworld/$game': typeof PublicGamesNiftyworldGameRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -301,6 +311,7 @@ export interface FileRouteTypes {
     | '/games/'
     | '/leaderboards/'
     | '/mint-o-matic/'
+    | '/games/niftyworld/$game'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/robots.txt'
@@ -325,6 +336,7 @@ export interface FileRouteTypes {
     | '/games'
     | '/leaderboards'
     | '/mint-o-matic'
+    | '/games/niftyworld/$game'
   id:
     | '__root__'
     | '/_public'
@@ -356,6 +368,7 @@ export interface FileRouteTypes {
     | '/_public/games/'
     | '/_public/leaderboards/'
     | '/_public/mint-o-matic/'
+    | '/_public/games/niftyworld/$game'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -573,6 +586,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardItemsBurnerRouteImport
       parentRoute: typeof DashboardItemsRoute
     }
+    '/_public/games/niftyworld/$game': {
+      id: '/_public/games/niftyworld/$game'
+      path: '/niftyworld/$game'
+      fullPath: '/games/niftyworld/$game'
+      preLoaderRoute: typeof PublicGamesNiftyworldGameRouteImport
+      parentRoute: typeof PublicGamesRoute
+    }
   }
 }
 
@@ -596,6 +616,7 @@ interface PublicGamesRouteChildren {
   PublicGamesSmashersRoute: typeof PublicGamesSmashersRoute
   PublicGamesWenGameRoute: typeof PublicGamesWenGameRoute
   PublicGamesIndexRoute: typeof PublicGamesIndexRoute
+  PublicGamesNiftyworldGameRoute: typeof PublicGamesNiftyworldGameRoute
 }
 
 const PublicGamesRouteChildren: PublicGamesRouteChildren = {
@@ -604,6 +625,7 @@ const PublicGamesRouteChildren: PublicGamesRouteChildren = {
   PublicGamesSmashersRoute: PublicGamesSmashersRoute,
   PublicGamesWenGameRoute: PublicGamesWenGameRoute,
   PublicGamesIndexRoute: PublicGamesIndexRoute,
+  PublicGamesNiftyworldGameRoute: PublicGamesNiftyworldGameRoute,
 }
 
 const PublicGamesRouteWithChildren = PublicGamesRoute._addFileChildren(

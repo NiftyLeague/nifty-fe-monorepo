@@ -33,7 +33,7 @@ mock.module('@/components/cards/GameCard', () => ({
   ),
 }))
 
-describe('web3 game list navigation', () => {
+describe('mini game list navigation', () => {
   let Web3GameList: typeof import('./index').default
 
   beforeEach(async () => {
@@ -52,14 +52,22 @@ describe('web3 game list navigation', () => {
         .getAllByRole('link')
         .filter((link) => link.hasAttribute('data-prefetch'))
         .map((link) => link.getAttribute('data-prefetch'))
-    ).toEqual(['false', 'false', 'false'])
+    ).toEqual(['false', 'false', 'false', 'false', 'false', 'false'])
   })
 
-  it('uses the compact Mobile label on the Smashers game card link', () => {
+  it('links every Nifty World mini game into the app', () => {
     render(<Web3GameList />)
 
-    const mobileLink = screen.getByRole('link', { name: 'Mobile' })
-    expect(mobileLink.getAttribute('href')).toBe('https://niftysmashers.com/')
-    expect(screen.queryByRole('link', { name: 'Smashers Mobile' })).toBeNull()
+    expect(
+      screen.getAllByRole('link', { name: 'Play in App' }).map((link) => link.getAttribute('href'))
+    ).toEqual([
+      '/games/niftyworld/degen-dodge',
+      '/games/niftyworld/wen-2d',
+      '/games/niftyworld/degen-dive',
+      '/games/niftyworld/brick-breaker',
+      '/games/niftyworld/tennis',
+      '/games/niftyworld/wen-3d',
+    ])
+    expect(screen.queryByText(/required/i)).toBeNull()
   })
 })
