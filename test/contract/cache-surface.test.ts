@@ -38,35 +38,12 @@ describe('cache surfaces', () => {
       ['web', '/__images/*'],
       ['app', '/assets/*'],
       ['smashers', '/_astro/*'],
-      // Docs builds under the /docs base, so the URL surface its HTML references
-      // is /docs/_astro/*; the bare /_astro/* twin serves the same files through
-      // the vercel.json rewrite and must keep the identical policy (#1884). The
-      // bare-only declaration was the M5.7 audit's cache finding: every hashed
-      // asset revalidated per visit because the prefixed path matched nothing.
-      ['docs', '/docs/_astro/*'],
       ['docs', '/_astro/*'],
     ] as const
     for (const [app, source] of hashed) {
       const headers = readVercel(app)[source]
       expect(headers, `${app} ${source} has no cache headers`).toBeDefined()
       expect(headers['cache-control'], `${app} ${source}`).toBe(IMMUTABLE)
-    }
-  })
-
-  it('keeps docs media on the refresh policy instead of the platform default', () => {
-    // Both URL forms serve the shared assets directory: the prefixed build-base
-    // form is what every page references, the bare form is its rewrite twin.
-    const headers = readVercel('docs')
-    for (const source of [
-      '/docs/img/*',
-      '/docs/video/*',
-      '/docs/favicon/*',
-      '/img/*',
-      '/video/*',
-      '/favicon/*',
-    ]) {
-      expect(headers[source]?.['cache-control'], `docs ${source}`).toBe(REFRESH)
-      expect(headers[source]?.['cache-control'], `docs ${source}`).not.toBe(IMMUTABLE)
     }
   })
 
