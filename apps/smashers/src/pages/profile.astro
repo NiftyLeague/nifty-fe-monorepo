@@ -12,9 +12,9 @@ const sessionData = { user: session.user }
 ---
 <Auth canonical="/profile" metadata={{ title: 'Profile', noindex: true }}>
   {/* Server-rendered (M5.6 audit #1883): the panel shell painted nothing
-      contentful until the client:only island hydrated, which put FCP/LCP at
-      hydration time (~4 s on the Lighthouse mobile profile). The surface is
-      SSR-safe — first render is the deterministic logged-out state, and the
-      session data arrives client-side through SWR. */}
+      contentful until the island hydrated, which put FCP/LCP at hydration time
+      (~4 s on the Lighthouse mobile profile). The surface is SSR-safe — first
+      render is the deterministic logged-out state, and the session data arrives
+      client-side through SWR. */}
   <ProfileClient client:load sessionData={sessionData} />
 </Auth>
