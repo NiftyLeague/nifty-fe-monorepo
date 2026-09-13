@@ -58,7 +58,8 @@ if (!plan) {
   process.exit(2)
 }
 
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
+const UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36'
 
 const probe = async (path) => {
   const response = await fetch(`${baseUrl}${path}`, { headers: { 'user-agent': UA } })
@@ -89,7 +90,9 @@ report(
 )
 
 // Extract a hashed-asset URL from the served HTML itself.
-const htmlBody = await (await fetch(`${baseUrl}${plan.htmlPath}`, { headers: { 'user-agent': UA } })).text()
+const htmlBody = await (
+  await fetch(`${baseUrl}${plan.htmlPath}`, { headers: { 'user-agent': UA } })
+).text()
 const assetMatch = plan.hashedPattern.exec(htmlBody)
 if (!assetMatch) {
   console.log(`FAIL  hashed assets: no ${plan.hashedPattern} URL found in ${plan.htmlPath}`)
@@ -97,13 +100,25 @@ if (!assetMatch) {
 } else {
   const assetPath = assetMatch[0]
   const asset = await probe(assetPath)
-  report('hashed (immutable)', assetPath, asset, (r) => r.status === 200 && r.cacheControl === IMMUTABLE)
+  report(
+    'hashed (immutable)',
+    assetPath,
+    asset,
+    (r) => r.status === 200 && r.cacheControl === IMMUTABLE
+  )
 }
 
 for (const sample of plan.mediaSamples) {
   const media = await probe(sample.path)
-  report(`media ${sample.label} (refresh)`, sample.path, media, (r) => r.status === 200 && r.cacheControl === REFRESH)
+  report(
+    `media ${sample.label} (refresh)`,
+    sample.path,
+    media,
+    (r) => r.status === 200 && r.cacheControl === REFRESH
+  )
 }
 
-console.log(failed ? '\nCache surface does not match the contract.' : '\nCache surface matches the contract.')
+console.log(
+  failed ? '\nCache surface does not match the contract.' : '\nCache surface matches the contract.'
+)
 process.exit(failed ? 1 : 0)

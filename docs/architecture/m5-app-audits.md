@@ -187,13 +187,13 @@ the corrected route list) and of three against the branch build served by `astro
 (`lh-docs-local-m57-v2-2026-09-13.json`; the preview server's uncompressed HTML caps the
 desktop numbers locally, so the branch's production capture follows the deploy).
 
-| route (mobile, before → after-local)    | perf    | a11y     | notes                                       |
-| --------------------------------------- | ------- | -------- | ------------------------------------------- |
-| /                                       | 98 → 100 | 100 → 100 | hero artwork now astro:assets AVIF variants |
-| /overview/intro                         | 100 → 99 | 96 → 100 | contrast tokens, dimensioned images         |
-| /overview/roadmap                       | 95 → 97 | 96 → 100 | LCP preloaded, AVIF variants                |
-| /overview/nifty-dao/nftl/supply         | 94 → 100 | 96 → 100 | mermaid scroll-gated, CLS reserved          |
-| /overview/nfts/nifty-marketplace/comics | 100 → 100 | 96 → 100 | already image-floor clean                   |
+| route (mobile, before → after-local)    | perf      | a11y      | notes                                       |
+| --------------------------------------- | --------- | --------- | ------------------------------------------- |
+| /                                       | 98 → 100  | 100 → 100 | hero artwork now astro:assets AVIF variants |
+| /overview/intro                         | 100 → 99  | 96 → 100  | contrast tokens, dimensioned images         |
+| /overview/roadmap                       | 95 → 97   | 96 → 100  | LCP preloaded, AVIF variants                |
+| /overview/nifty-dao/nftl/supply         | 94 → 100  | 96 → 100  | mermaid scroll-gated, CLS reserved          |
+| /overview/nfts/nifty-marketplace/comics | 100 → 100 | 96 → 100  | already image-floor clean                   |
 
 Harness correction: the routes file listed `/nftl/supply` and `/marketplace/comics`, which
 404 on the docs domain — the #1923 capture recorded them as "WAF-blocked", but they were
@@ -253,8 +253,9 @@ declares both forms immutable plus the web-style refresh policy for the `/docs/i
 `cache-surface.test.ts`; `scripts/cache-probe.mjs` re-captures live evidence per route
 class on demand (pre-deploy it reports the mismatch above; the post-deploy run must pass
 and its output belongs in this file). HTML stays on the revalidating default — long-lived
-+ SWR was considered and rejected in #1923 (DocSearch index and content freshness favour
-revalidation).
+
+- SWR was considered and rejected in #1923 (DocSearch index and content freshness favour
+  revalidation).
 
 ## M5.8 — apps/app (#1885)
 
@@ -304,11 +305,11 @@ API contract. Prerender/SWR for public routes is the remaining bounded item.
 
 ## Exceptions summary
 
-| Exception                             | Route               | Bound                                                   |
-| ------------------------------------- | ------------------- | ------------------------------------------------------- |
-| satoshi `left/top` animation CLS      | web `/roadmap`      | transform rewrite scoped; needs container height as CSS |
-| AppKit shadow-DOM modal axe findings  | app `/verification` | third-party; upstream-file option                       |
-| AppKit/wagmi chunk weight             | app game routes     | lazy-loaded; chunk groups tracked                       |
-| Authenticated dashboard data variance | app + smashers      | live contract APIs; shell-level assertions              |
-| Roadmap poster mobile LCP (~2.6 s)    | docs `/overview/roadmap` | 1800×3791 poster below q55 AVIF starts to smudge; all levers applied, perf 97 |
-| Mermaid figure→SVG swap CLS (0.054)   | docs `/overview/nifty-dao/nftl/supply` | render-time swap reserves the source height; growth shifts remain possible |
+| Exception                             | Route                                  | Bound                                                                         |
+| ------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------- |
+| satoshi `left/top` animation CLS      | web `/roadmap`                         | transform rewrite scoped; needs container height as CSS                       |
+| AppKit shadow-DOM modal axe findings  | app `/verification`                    | third-party; upstream-file option                                             |
+| AppKit/wagmi chunk weight             | app game routes                        | lazy-loaded; chunk groups tracked                                             |
+| Authenticated dashboard data variance | app + smashers                         | live contract APIs; shell-level assertions                                    |
+| Roadmap poster mobile LCP (~2.6 s)    | docs `/overview/roadmap`               | 1800×3791 poster below q55 AVIF starts to smudge; all levers applied, perf 97 |
+| Mermaid figure→SVG swap CLS (0.054)   | docs `/overview/nifty-dao/nftl/supply` | render-time swap reserves the source height; growth shifts remain possible    |
