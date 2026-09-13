@@ -51,7 +51,7 @@ jobs:
         run: bunx playwright test e2e/visual.e2e.ts --update-snapshots
 
       - name: Upload baselines
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: visual-baselines
           path: apps/web/e2e/__screenshots__/
