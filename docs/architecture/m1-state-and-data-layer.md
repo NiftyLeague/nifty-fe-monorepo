@@ -57,7 +57,7 @@ The order is intentionally additive until each replacement is covered. No route 
 - Removed dashboard DEGEN filter/default/result mirrors. Filtered results are derived once from the URL state and current catalogue data.
 - Removed the unused `usePagination` hook. DEGEN, leaderboard, and rental pages read their route-specific URL contracts directly while the shared pagination-window helper remains pure.
 - Retained `GamerProfileContext` only as a presentation aggregation boundary for loading flags used by its nested profile UI. It does not own or cache remote data.
-- Retained `DegenOwnershipContext` only for the isolated mint provider boundary. The underlying remote/on-chain owner remains wagmi/TanStack Query.
+- Mint-o-Matic no longer mounts wallet or ownership providers, so it can render without an account or wallet provider. The underlying remote/on-chain owner remains wagmi/TanStack Query where ownership-aware flows still use it.
 
 ## Evidence and acceptance
 

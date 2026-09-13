@@ -116,12 +116,13 @@ const stalePublicProviderBoundary = 'apps/app/src/contexts/PublicAppContextWrapp
 const walletStorageBoundaries = [
   'apps/app/src/contexts/WalletAuthProviders.tsx',
   'apps/app/src/contexts/WalletStorageProviders.tsx',
-  'apps/app/src/components/providers/MintProviders.tsx',
 ]
 
 const usesSharedLoadingSkeleton = (source: string) =>
   source.includes("from '@nl/ui/base/skeleton'") ||
-  source.includes("from '@nl/ui/custom/deferred-skeleton'")
+  source.includes("from '@nl/ui/custom/deferred-skeleton'") ||
+  source.includes("from '@nl/ui/custom/route-loading'") ||
+  source.includes("from '@nl/ui/custom/preloader'")
 
 const rendersSharedLoadingSkeleton = (source: string) =>
   source.includes('<Skeleton') || source.includes('<DeferredSkeleton')
@@ -183,8 +184,6 @@ const mintNetworkBoundary = 'apps/app/src/components/providers/MintNetworkBounda
 const mintPage = 'apps/app/src/routes/_public/mint-o-matic.index.tsx'
 const mintPageContent = 'apps/app/src/components/providers/MintPageContent.tsx'
 const deferredMintPage = 'apps/app/src/components/providers/DeferredMintPage.tsx'
-const mintWalletBoundary = 'apps/app/src/components/providers/MintProviders.tsx'
-const deferredMintWalletBoundary = 'apps/app/src/components/providers/DeferredMintProviders.tsx'
 const walletProviderFallbacks = 'apps/app/src/components/providers/WalletProviderFallbacks.tsx'
 const gameRoute = 'apps/app/src/components/wrapper/GameRoute.tsx'
 const unityGamePages = [
@@ -441,9 +440,8 @@ describe('public leaderboard loading contract', () => {
     expect(pageSource).not.toContain("from '@/components/leaderboards'")
     expect(deferredSource).toContain("import('@/components/leaderboards')")
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(deferredSource).toContain('LeaderboardsLoading')
-    expect(deferredSource).toContain('role="status"')
-    expect(deferredSource).toContain('aria-busy="true"')
+    expect(deferredSource).toContain("from '@nl/ui/custom/route-loading'")
+    expect(deferredSource).toContain('loadingFallback={<RouteLoading')
     expect(usesSharedLoadingSkeleton(deferredSource)).toBe(true)
     expect(sharedSource).toContain('role="alert"')
     expect(sharedSource).toContain('Retry')
@@ -492,9 +490,8 @@ describe('public degen loading contract', () => {
     expect(clientPageSource).not.toContain('useSearchParams')
     expect(clientPageSource).not.toContain('useRouter')
     expect(clientPageSource).not.toContain('ssr: false')
-    expect(routeBoundarySource).toContain('role="status"')
-    expect(routeBoundarySource).toContain('aria-live="polite"')
-    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).toContain('DegenRouteLoading')
+    expect(routeBoundarySource).toContain('Loading degens')
     expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
     expect(topNavSource).toContain("import('./DegensTopNavControls')")
     expect(topNavControlsSource).toContain("from 'lucide-react'")
@@ -507,9 +504,8 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
     expect(routeBoundarySource).toContain('ssr: false')
     expect(usesSharedLoadingSkeleton(routeBoundarySource)).toBe(true)
-    expect(routeBoundarySource).toContain('role="status"')
-    expect(routeBoundarySource).toContain('aria-live="polite"')
-    expect(routeBoundarySource).toContain('aria-busy="true"')
+    expect(routeBoundarySource).toContain('DegenRouteLoading')
+    expect(routeBoundarySource).toContain('Loading degens')
   })
 })
 
@@ -729,12 +725,7 @@ describe('shared notification loading contract', () => {
 
 describe('shared deferred loader contract', () => {
   it('uses the shared cancellable loader for app-only boundaries', () => {
-    for (const file of [
-      deferredCharacterCreator,
-      deferredMintWalletBoundary,
-      mintNetworkBoundary,
-      deferredNotifications,
-    ]) {
+    for (const file of [deferredCharacterCreator, mintNetworkBoundary, deferredNotifications]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       if (file === deferredNotifications) {
@@ -764,13 +755,12 @@ describe('shared deferred loader contract', () => {
 })
 
 describe('shared route loading contract', () => {
-  it('keeps every route loading state on the themed shadcn skeleton boundary', () => {
+  it('keeps every route loading state on the shared themed preloader boundary', () => {
     const sharedSource = readFileSync(join(process.cwd(), sharedRouteLoading), 'utf8')
 
     expect(usesSharedLoadingSkeleton(sharedSource)).toBe(true)
-    expect(sharedSource).toContain('role="status"')
-    expect(sharedSource).toContain('aria-live="polite"')
-    expect(sharedSource).toContain('aria-busy="true"')
+    expect(sharedSource).toContain("from '@nl/ui/custom/preloader'")
+    expect(sharedSource).toContain('<Preloader ready={false} progress={0}')
     expect(sharedSource).toContain('bg-background')
 
     for (const file of routeLoadingBoundaries) {
@@ -1104,19 +1094,29 @@ describe('NFT-only route provider contract', () => {
     it(`keeps dashboard token balances out of ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain('DeferredMintProviders')
+      expect(source).toContain('<PublicContentContainer flush>')
+      expect(source).not.toContain('DeferredMintProviders')
       expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
       expect(source).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
+      expect(
+        existsSync(
+          join(process.cwd(), 'apps/app/src/components/providers/DeferredMintProviders.tsx')
+        )
+      ).toBe(false)
     })
   }
 })
 
 describe('mint route provider loading contract', () => {
-  it('keeps the heavy network provider out of the mint eligibility boundary', () => {
-    const source = readFileSync(join(process.cwd(), mintWalletBoundary), 'utf8')
+  it('keeps the public mint route independent from wallet providers', () => {
+    const source = readFileSync(
+      join(process.cwd(), 'apps/app/src/routes/_public/mint-o-matic.tsx'),
+      'utf8'
+    )
 
-    expect(source).not.toContain('NetworkProvider')
-    expect(source).toContain('DegenOwnershipProvider')
+    expect(source).not.toContain('MintProviders')
+    expect(source).not.toContain('DegenOwnership')
+    expect(source).not.toContain('Wallet')
   })
 
   it('loads the network provider only for the mint canvas with an accessible state', () => {
@@ -1133,29 +1133,11 @@ describe('mint route provider loading contract', () => {
   it('keeps wallet and mint content out of the initial route client segment', () => {
     const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
     const deferredPageSource = readFileSync(join(process.cwd(), deferredMintPage), 'utf8')
-    const deferredProvidersSource = readFileSync(
-      join(process.cwd(), deferredMintWalletBoundary),
-      'utf8'
-    )
 
     expect(pageSource).toContain('DeferredMintPage')
     expect(pageSource).not.toContain("from '@/contexts/")
     expect(deferredPageSource).toContain("import('./MintPageContent')")
-    expect(deferredProvidersSource).toContain("import('./MintProviders')")
-  })
-
-  it('keeps wallet and mint content out of the initial route client segment', () => {
-    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
-    const deferredPageSource = readFileSync(join(process.cwd(), deferredMintPage), 'utf8')
-    const deferredProvidersSource = readFileSync(
-      join(process.cwd(), deferredMintWalletBoundary),
-      'utf8'
-    )
-
-    expect(pageSource).toContain('DeferredMintPage')
-    expect(pageSource).not.toContain("from '@/contexts/")
-    expect(deferredPageSource).toContain("import('./MintPageContent')")
-    expect(deferredProvidersSource).toContain("import('./MintProviders')")
+    expect(deferredPageSource).toContain("from '@nl/ui/custom/route-loading'")
   })
 
   it('keeps the network context definition lightweight', () => {
@@ -1322,7 +1304,10 @@ describe('public app shell contract', () => {
     expect(linksSource).toContain("from '@nl/ui/custom/nav-icon'")
     expect(linksSource).not.toContain("from 'lucide-react'")
     expect(linksSource).not.toContain("from 'next/link'")
-    expect(linksSource).toContain('<a')
+    expect(linksSource).toContain("from '@/runtime/Link'")
+    expect(linksSource).toContain("from '@/runtime/navigation'")
+    expect(linksSource).toContain('<Link')
+    expect(linksSource).toContain('aria-current')
     expect(linksSource).not.toContain("from './PublicActiveNavLink'")
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicActiveNavLink.tsx'))
@@ -2637,7 +2622,8 @@ describe('public route dependency contract', () => {
     const source = readFileSync(join(process.cwd(), web3GameList), 'utf8')
 
     expect(source).not.toContain("'use client'")
-    expect(source).toContain("from '@nl/ui/base/button-variants'")
+    expect(source).toContain("from '@/components/cards/NiftyWorldCard'")
+    expect(source).toContain('hoverActionLabel="Play game"')
     expect(source).not.toContain("from '@nl/ui/base/button'")
     expect(source).not.toContain('asChild')
     expect(source).not.toContain('WalletFeatureProviders')
@@ -2790,7 +2776,8 @@ describe('public route dependency contract', () => {
     expect(gamesPage).toContain('<DeferredWeb3GameList />')
     expect(homePage).toContain("from '@/pages/games/DeferredWeb3GameList'")
     expect(homePage).toContain('<DeferredWeb3GameList />')
-    expect(list).toContain("from '@nl/ui/base/button-variants'")
+    expect(list).toContain("from '@/components/cards/NiftyWorldCard'")
+    expect(list).toContain('hoverActionLabel="Play game"')
     expect(list).not.toContain('WalletFeatureProviders')
     expect(list).not.toContain('ConnectWrapper')
     expect(list).not.toContain('useTokensBalances')
@@ -2824,9 +2811,14 @@ describe('public route dependency contract', () => {
       join(process.cwd(), 'apps/app/src/pages/games/_Web3GameList/index.tsx'),
       'utf8'
     )
+    const sharedWorldCard = readFileSync(
+      join(process.cwd(), 'apps/app/src/components/cards/NiftyWorldCard.tsx'),
+      'utf8'
+    )
 
     expect(freeToPlayList).toContain("from '../grid-item.module.css'")
-    expect(web3List).toContain("from '../grid-item.module.css'")
+    expect(web3List).toContain("from '@/components/cards/NiftyWorldCard'")
+    expect(sharedWorldCard).toContain("from '@/pages/games/grid-item.module.css'")
     expect(gridStyles).toContain('@media (max-width: 639.95px)')
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/pages/games/_GameList/grid-item.module.css'))
