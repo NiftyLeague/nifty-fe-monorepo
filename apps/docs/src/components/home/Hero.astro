@@ -1,9 +1,16 @@
 ---
 // Home page hero, ported from the previous HomepageHeader component.
+import { Image } from 'astro:assets';
 import SearchTrigger from './SearchTrigger.astro';
-
-const lightImage = '/docs/img/games/smashers/2D-levels/mars.webp';
-const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
+import {
+  HERO_FALLBACK_WIDTH,
+  HERO_FORMAT,
+  HERO_QUALITY,
+  HERO_SIZES,
+  HERO_WIDTHS,
+  heroDark,
+  heroLight,
+} from '../../lib/hero-artwork';
 ---
 
 <header class="hero-header not-content">
@@ -25,19 +32,31 @@ const darkImage = '/docs/img/games/smashers/3D-levels/sushi_cropped.webp';
 
 	    Dark is the default theme, so that variant is the LCP element: it is
 	    preloaded (see the page's `head`) and fetched eagerly. The light variant is
-	    only needed after an explicit toggle, so it stays lazy. */}
-	<img
+	    only needed after an explicit toggle, so it stays lazy. Both render through
+	    astro:assets so the full-bleed background ships as sized AVIF variants
+	    instead of the raw multi-hundred-KB webp originals. */}
+	<Image
 		class="hero-title-image hero-title-image--dark"
-		src={darkImage}
+		src={heroDark}
 		alt="Header Background Image"
+		widths={[...HERO_WIDTHS]}
+		width={HERO_FALLBACK_WIDTH}
+		sizes={HERO_SIZES}
+		format={HERO_FORMAT}
+		quality={HERO_QUALITY}
 		fetchpriority="high"
 		loading="eager"
-		decoding="async"
+		decoding="sync"
 	/>
-	<img
+	<Image
 		class="hero-title-image hero-title-image--light"
-		src={lightImage}
+		src={heroLight}
 		alt="Header Background Image"
+		widths={[...HERO_WIDTHS]}
+		width={HERO_FALLBACK_WIDTH}
+		sizes={HERO_SIZES}
+		format={HERO_FORMAT}
+		quality={HERO_QUALITY}
 		loading="lazy"
 		decoding="async"
 	/>

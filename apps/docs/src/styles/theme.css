@@ -41,9 +41,14 @@
   --sl-color-gray-7: #18181b;
   --sl-color-black: #09090b;
 
-  --sl-color-accent-low: #4158e7;
-  --sl-color-accent: #5e72eb;
-  --sl-color-accent-high: #b6bff6;
+  /* The M5.7 audit raised these one step above the historical Infima blues:
+     #5e72eb measured 4.28:1 on the nav background and 4.41:1 on the breadcrumb
+     pill (both need 4.5), and accent-high measured 3.11:1 on accent-low for the
+     current sidebar item. The lighter pair keeps the hue while clearing WCAG AA
+     on every surface they sit on. */
+  --sl-color-accent-low: #3a51dd;
+  --sl-color-accent: #7587ef;
+  --sl-color-accent-high: #e4e7fc;
 
   --nl-emphasis-100: #18181b;
   --nl-emphasis-200: #27272a;
@@ -128,7 +133,10 @@
   --sl-color-bg: #fafafa;
   --sl-color-bg-sidebar: #fafafa;
   --sl-color-text: #09090b;
-  --sl-color-text-accent: oklch(59.2% 0.249 0.584);
+  /* The oklch() literal this replaced carried a 0.584-degree hue (pink
+     #e60076) that measured 4.0:1 on the page background; the accent below is
+     the palette purple at 6.9:1. */
+  --sl-color-text-accent: var(--sl-color-accent);
 }
 
 /* The previous theme set the base size on the root element, which also scales
@@ -357,13 +365,21 @@ h1#_top {
   margin-top: 0.5rem;
 }
 
+/* Markdown links carry a persistent underline: colour alone does not
+   distinguish them from the surrounding text (WCAG 1.4.1 — axe's
+   link-in-text-block measured 2.5:1 between the light-theme accent and the
+   body text, under its 3:1 floor). Navigation chrome keeps hover-only
+   underlines; the previous site underlined body links on hover only, which is
+   the finding this replaces. */
 .sl-markdown-content a:not(:where(.not-content *)) {
   color: var(--sl-color-text-accent);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+  text-underline-offset: 0.15em;
 }
 
 .sl-markdown-content a:hover:not(:where(.not-content *)) {
-  text-decoration: underline;
+  text-decoration-color: currentColor;
 }
 
 .sl-markdown-content strong:not(:where(.not-content *)) {
