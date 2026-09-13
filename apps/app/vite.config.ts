@@ -36,7 +36,9 @@ export default defineConfig({
     viteReact(),
     // Nitro produces the deployable server bundle (Vercel on this project).
     nitro({
-      preset: 'vercel',
+      // Production deploys use the Vercel Build Output API; the E2E suite builds
+      // a self-servable node server with NITRO_PRESET=node-server.
+      preset: (process.env.NITRO_PRESET as 'vercel' | 'node-server' | undefined) ?? 'vercel',
       // Response headers live in vercel.json only. On this Build Output API deploy
       // Vercel applies vercel.json `headers` anyway — proven live because
       // `/assets/*` responses carry the vercel.json-only `Access-Control-Allow-Origin:

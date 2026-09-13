@@ -1,0 +1,1231 @@
+{
+  "schemaVersion": 1,
+  "app": "web",
+  "generatedAt": "2026-09-12T23:21:46.917Z",
+  "gitRevision": "416a00fad88b45d8a3469b242e51a0e2a36f963c",
+  "label": "production",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 80,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2347.602,
+        "minimum": 2346.278,
+        "maximum": 2399.137
+      },
+      "tbtMs": {
+        "median": 8.603000000000065,
+        "minimum": 8.233000000000175,
+        "maximum": 9.900000000000546
+      },
+      "cls": {
+        "median": 0.001404908793054424,
+        "minimum": 0.001404908793054424,
+        "maximum": 0.001404908793054424
+      },
+      "fcpMs": {
+        "median": 846.715,
+        "minimum": 845.693,
+        "maximum": 950.855
+      },
+      "siMs": {
+        "median": 2761,
+        "minimum": 2747,
+        "maximum": 2806
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.3 s)",
+        "speed-index (2.7 s)",
+        "interactive (6.8 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 14 KiB)",
+        "image-delivery-insight (Est savings of 19 KiB)",
+        "network-dependency-tree-insight",
+        "speed-index (2.8 s)",
+        "interactive (6.7 s)",
+        "first-contentful-paint (1.0 s)",
+        "largest-contentful-paint (2.4 s)"
+      ]
+    },
+    {
+      "route": "/careers",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 87,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1865.422,
+        "minimum": 1808.415,
+        "maximum": 1869.849
+      },
+      "tbtMs": {
+        "median": 36.57800000000043,
+        "minimum": 2.845999999999549,
+        "maximum": 37.76899999999932
+      },
+      "cls": {
+        "median": 0.003366087528738155,
+        "minimum": 0.003366087528738155,
+        "maximum": 0.003366087528738155
+      },
+      "fcpMs": {
+        "median": 837.738,
+        "minimum": 820.733,
+        "maximum": 894.113
+      },
+      "siMs": {
+        "median": 2077,
+        "minimum": 2001,
+        "maximum": 2122
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.9 s)",
+        "largest-contentful-paint (1.9 s)",
+        "speed-index (2.1 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (5.6 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 13 KiB)",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.8 s)",
+        "speed-index (2.0 s)",
+        "interactive (5.5 s)"
+      ]
+    },
+    {
+      "route": "/community",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 75,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 4169.694,
+        "minimum": 4148.279,
+        "maximum": 4189.916
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 1.0029999999997017
+      },
+      "cls": {
+        "median": 0.0001003894982578361,
+        "minimum": 0.0001003894982578361,
+        "maximum": 0.0001003894982578361
+      },
+      "fcpMs": {
+        "median": 839.837,
+        "minimum": 835.133,
+        "maximum": 850.341
+      },
+      "siMs": {
+        "median": 1918,
+        "minimum": 1915,
+        "maximum": 1925
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.9 s)",
+        "largest-contentful-paint (4.1 s)",
+        "speed-index (1.9 s)",
+        "interactive (2.0 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 35 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (4.2 s)",
+        "interactive (6.0 s)"
+      ]
+    },
+    {
+      "route": "/compete-and-earn",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 85,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2435.868,
+        "minimum": 2431.367,
+        "maximum": 2451.676
+      },
+      "tbtMs": {
+        "median": 9.954999999999927,
+        "minimum": 1.53899999999976,
+        "maximum": 21.37800000000061
+      },
+      "cls": {
+        "median": 0.0001003894982578361,
+        "minimum": 0.0001003894982578361,
+        "maximum": 0.0001003894982578361
+      },
+      "fcpMs": {
+        "median": 832.84,
+        "minimum": 829.388,
+        "maximum": 837.473
+      },
+      "siMs": {
+        "median": 1340,
+        "minimum": 1338,
+        "maximum": 1358
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.4 s)",
+        "speed-index (1.4 s)",
+        "interactive (5.5 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 47 KiB)",
+        "font-display-insight (Est savings of 80 ms)",
+        "image-delivery-insight (Est savings of 24 KiB)",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.5 s)",
+        "speed-index (1.3 s)",
+        "max-potential-fid (70 ms)",
+        "interactive (5.6 s)",
+        "unused-javascript (Est savings of 69 KiB)",
+        "cache-insight (Est savings of 46 KiB)",
+        "font-display-insight (Est savings of 60 ms)",
+        "interactive (5.7 s)",
+        "unused-javascript (Est savings of 70 KiB)",
+        "font-display-insight (Est savings of 50 ms)"
+      ]
+    },
+    {
+      "route": "/degens",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 78,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2404.314,
+        "minimum": 2399.051,
+        "maximum": 2425.146
+      },
+      "tbtMs": {
+        "median": 30.442000000000007,
+        "minimum": 30.06800000000021,
+        "maximum": 31.59900000000016
+      },
+      "cls": {
+        "median": 0.0001003894982578361,
+        "minimum": 0.0001003894982578361,
+        "maximum": 0.0001003894982578361
+      },
+      "fcpMs": {
+        "median": 843.204,
+        "minimum": 841.397,
+        "maximum": 871.914
+      },
+      "siMs": {
+        "median": 3790,
+        "minimum": 3790,
+        "maximum": 3816
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.9 s)",
+        "largest-contentful-paint (2.4 s)",
+        "speed-index (3.8 s)",
+        "max-potential-fid (80 ms)",
+        "interactive (7.8 s)",
+        "third-party-cookies (4 cookies found)",
+        "total-byte-weight (Total size was 5,557 KiB)",
+        "unused-javascript (Est savings of 70 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 179 KiB)",
+        "font-display-insight (Est savings of 60 ms)",
+        "forced-reflow-insight",
+        "image-delivery-insight (Est savings of 182 KiB)",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (0.8 s)",
+        "interactive (7.7 s)",
+        "total-byte-weight (Total size was 5,556 KiB)",
+        "unused-javascript (Est savings of 71 KiB)"
+      ]
+    },
+    {
+      "route": "/games",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 75,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 3823.989,
+        "minimum": 3756.186,
+        "maximum": 3907.529
+      },
+      "tbtMs": {
+        "median": 33.45100000000002,
+        "minimum": 19.415999755859048,
+        "maximum": 41.33600000000024
+      },
+      "cls": {
+        "median": 0.0766885310553776,
+        "minimum": 0.0766885310553776,
+        "maximum": 0.0766885310553776
+      },
+      "fcpMs": {
+        "median": 839.347,
+        "minimum": 838.656,
+        "maximum": 857.886
+      },
+      "siMs": {
+        "median": 1845,
+        "minimum": 1808,
+        "maximum": 1853
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (3.9 s)",
+        "speed-index (1.9 s)",
+        "max-potential-fid (70 ms)",
+        "cumulative-layout-shift (0.077)",
+        "interactive (7.4 s)",
+        "third-party-cookies (4 cookies found)",
+        "total-byte-weight (Total size was 4,507 KiB)",
+        "unused-javascript (Est savings of 70 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 364 KiB)",
+        "font-display-insight (Est savings of 170 ms)",
+        "image-delivery-insight (Est savings of 104 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (3.8 s)",
+        "speed-index (1.8 s)",
+        "max-potential-fid (80 ms)",
+        "total-byte-weight (Total size was 4,501 KiB)",
+        "unused-javascript (Est savings of 69 KiB)",
+        "font-display-insight (Est savings of 60 ms)",
+        "first-contentful-paint (0.9 s)",
+        "max-potential-fid (90 ms)",
+        "forced-reflow-insight"
+      ]
+    },
+    {
+      "route": "/lore",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 69,
+        "accessibility": 100,
+        "best-practices": 73,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 4403.017,
+        "minimum": 4344.4,
+        "maximum": 4466.496
+      },
+      "tbtMs": {
+        "median": 21.868999999999687,
+        "minimum": 18.834999755859826,
+        "maximum": 35.375
+      },
+      "cls": {
+        "median": 0.0004232245808592249,
+        "minimum": 0.0004232245808592249,
+        "maximum": 0.0004232245808592249
+      },
+      "fcpMs": {
+        "median": 841.661,
+        "minimum": 836.092,
+        "maximum": 886.931
+      },
+      "siMs": {
+        "median": 3586,
+        "minimum": 3552,
+        "maximum": 3629
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (4.4 s)",
+        "speed-index (3.6 s)",
+        "max-potential-fid (70 ms)",
+        "interactive (6.1 s)",
+        "image-aspect-ratio",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 13 KiB)",
+        "image-delivery-insight (Est savings of 54 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (4.3 s)",
+        "first-contentful-paint (0.9 s)",
+        "largest-contentful-paint (4.5 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (6.3 s)"
+      ]
+    },
+    {
+      "route": "/niftyworld",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 79,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2448.924,
+        "minimum": 2445.949,
+        "maximum": 3778.322
+      },
+      "tbtMs": {
+        "median": 31.40399975585933,
+        "minimum": 17.86200000000008,
+        "maximum": 33.73400000000038
+      },
+      "cls": {
+        "median": 0.0001003894982578361,
+        "minimum": 0.0001003894982578361,
+        "maximum": 0.0001003894982578361
+      },
+      "fcpMs": {
+        "median": 837.953,
+        "minimum": 831.668,
+        "maximum": 967.786
+      },
+      "siMs": {
+        "median": 3267,
+        "minimum": 3259,
+        "maximum": 4206
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.0 s)",
+        "largest-contentful-paint (3.8 s)",
+        "speed-index (4.2 s)",
+        "max-potential-fid (80 ms)",
+        "interactive (8.0 s)",
+        "third-party-cookies (8 cookies found)",
+        "total-byte-weight (Total size was 8,078 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 169 KiB)",
+        "image-delivery-insight (Est savings of 416 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.4 s)",
+        "speed-index (3.3 s)",
+        "max-potential-fid (70 ms)",
+        "interactive (7.7 s)",
+        "third-party-cookies (5 cookies found)",
+        "total-byte-weight (Total size was 8,074 KiB)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "unused-javascript (Est savings of 70 KiB)"
+      ]
+    },
+    {
+      "route": "/overview",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 78,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 3477.339,
+        "minimum": 3403.5,
+        "maximum": 3508.059
+      },
+      "tbtMs": {
+        "median": 1.9469997558599061,
+        "minimum": 0,
+        "maximum": 3.980999999999767
+      },
+      "cls": {
+        "median": 0.006809243601251944,
+        "minimum": 0.006809243601251944,
+        "maximum": 0.006809243601251944
+      },
+      "fcpMs": {
+        "median": 842.934,
+        "minimum": 825.121,
+        "maximum": 876.629
+      },
+      "siMs": {
+        "median": 1590,
+        "minimum": 1555,
+        "maximum": 1619
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (3.4 s)",
+        "speed-index (1.6 s)",
+        "interactive (2.0 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 13 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (3.5 s)",
+        "interactive (5.9 s)",
+        "first-contentful-paint (0.9 s)"
+      ]
+    },
+    {
+      "route": "/roadmap",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1722.117,
+        "minimum": 1710.819,
+        "maximum": 1733.958
+      },
+      "tbtMs": {
+        "median": 8.918999999999869,
+        "minimum": 3.0799999999999272,
+        "maximum": 84.51300000000083
+      },
+      "cls": {
+        "median": 0.04756361875811239,
+        "minimum": 0.047526672232972446,
+        "maximum": 0.04756361875811239
+      },
+      "fcpMs": {
+        "median": 832.269,
+        "minimum": 830.017,
+        "maximum": 834.699
+      },
+      "siMs": {
+        "median": 1636,
+        "minimum": 1634,
+        "maximum": 1640
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.7 s)",
+        "speed-index (1.6 s)",
+        "cumulative-layout-shift (0.048)",
+        "interactive (6.0 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 33 KiB)",
+        "forced-reflow-insight",
+        "image-delivery-insight (Est savings of 50 KiB)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "total-blocking-time (80 ms)",
+        "max-potential-fid (110 ms)",
+        "interactive (6.1 s)",
+        "cache-insight (Est savings of 34 KiB)"
+      ]
+    },
+    {
+      "route": "/team",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 852.922,
+        "minimum": 841.809,
+        "maximum": 882.291
+      },
+      "tbtMs": {
+        "median": 0.7849999999998545,
+        "minimum": 0,
+        "maximum": 37.313999755859186
+      },
+      "cls": {
+        "median": 0.0041554460703244174,
+        "minimum": 0.0041554460703244174,
+        "maximum": 0.0041554460703244174
+      },
+      "fcpMs": {
+        "median": 852.922,
+        "minimum": 841.809,
+        "maximum": 882.291
+      },
+      "siMs": {
+        "median": 1252,
+        "minimum": 1241,
+        "maximum": 1290
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (0.8 s)",
+        "speed-index (1.2 s)",
+        "interactive (5.8 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 10 KiB)",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (0.9 s)",
+        "largest-contentful-paint (0.9 s)",
+        "speed-index (1.3 s)",
+        "interactive (2.0 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (5.9 s)"
+      ]
+    },
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 915.955,
+        "minimum": 898.572,
+        "maximum": 1070.388
+      },
+      "tbtMs": {
+        "median": 341.40899975585944,
+        "minimum": 256.2430000000004,
+        "maximum": 358.54900000000134
+      },
+      "cls": {
+        "median": 0.006063317890846724,
+        "minimum": 0.006063317890846724,
+        "maximum": 0.006063317890846724
+      },
+      "fcpMs": {
+        "median": 915.955,
+        "minimum": 898.572,
+        "maximum": 1070.388
+      },
+      "siMs": {
+        "median": 988,
+        "minimum": 977,
+        "maximum": 1107
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.1 s)",
+        "total-blocking-time (340 ms)",
+        "max-potential-fid (260 ms)",
+        "interactive (6.3 s)",
+        "third-party-cookies (8 cookies found)",
+        "inspector-issues",
+        "cache-insight (Est savings of 12 KiB)",
+        "forced-reflow-insight",
+        "image-delivery-insight (Est savings of 30 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (260 ms)",
+        "max-potential-fid (220 ms)",
+        "interactive (5.8 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "total-blocking-time (360 ms)",
+        "interactive (5.9 s)"
+      ]
+    },
+    {
+      "route": "/careers",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 892.402,
+        "minimum": 888.245,
+        "maximum": 904.58
+      },
+      "tbtMs": {
+        "median": 295.81400000000076,
+        "minimum": 257.116,
+        "maximum": 332.8049999999994
+      },
+      "cls": {
+        "median": 0.0009428184840319457,
+        "minimum": 0.0009428184840319457,
+        "maximum": 0.0009428184840319457
+      },
+      "fcpMs": {
+        "median": 892.402,
+        "minimum": 888.245,
+        "maximum": 904.58
+      },
+      "siMs": {
+        "median": 1117,
+        "minimum": 1105,
+        "maximum": 1121
+      },
+      "diagnostics": [
+        "total-blocking-time (260 ms)",
+        "max-potential-fid (230 ms)",
+        "interactive (5.8 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 13 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (330 ms)",
+        "max-potential-fid (270 ms)",
+        "interactive (5.9 s)",
+        "total-blocking-time (300 ms)",
+        "max-potential-fid (260 ms)"
+      ]
+    },
+    {
+      "route": "/community",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1361.746,
+        "minimum": 1361.586,
+        "maximum": 1399.675
+      },
+      "tbtMs": {
+        "median": 335.97299999999814,
+        "minimum": 141.26499999999987,
+        "maximum": 398.2300000000014
+      },
+      "cls": {
+        "median": 0.003153352505967651,
+        "minimum": 0.003153352505967651,
+        "maximum": 0.003153352505967651
+      },
+      "fcpMs": {
+        "median": 937.399,
+        "minimum": 862.121,
+        "maximum": 952.293
+      },
+      "siMs": {
+        "median": 1349,
+        "minimum": 1289,
+        "maximum": 1357
+      },
+      "diagnostics": [
+        "total-blocking-time (140 ms)",
+        "max-potential-fid (160 ms)",
+        "interactive (5.9 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 35 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (340 ms)",
+        "max-potential-fid (280 ms)",
+        "interactive (6.2 s)",
+        "total-blocking-time (400 ms)",
+        "max-potential-fid (330 ms)",
+        "interactive (6.3 s)"
+      ]
+    },
+    {
+      "route": "/compete-and-earn",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2448.327,
+        "minimum": 2441.15,
+        "maximum": 2455.451
+      },
+      "tbtMs": {
+        "median": 455.63099999999986,
+        "minimum": 381.7949999999996,
+        "maximum": 510.3830000000007
+      },
+      "cls": {
+        "median": 0.01731075758604755,
+        "minimum": 0.01731075758604755,
+        "maximum": 0.01731075758604755
+      },
+      "fcpMs": {
+        "median": 926.025,
+        "minimum": 905.199,
+        "maximum": 950.022
+      },
+      "siMs": {
+        "median": 1585,
+        "minimum": 1585,
+        "maximum": 1605
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.4 s)",
+        "total-blocking-time (460 ms)",
+        "max-potential-fid (340 ms)",
+        "interactive (6.0 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 70 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 47 KiB)",
+        "font-display-insight (Est savings of 90 ms)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (380 ms)",
+        "max-potential-fid (280 ms)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "cache-insight (Est savings of 46 KiB)",
+        "font-display-insight (Est savings of 50 ms)",
+        "largest-contentful-paint (2.5 s)",
+        "total-blocking-time (510 ms)",
+        "max-potential-fid (320 ms)",
+        "interactive (6.1 s)",
+        "font-display-insight (Est savings of 60 ms)"
+      ]
+    },
+    {
+      "route": "/degens",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1737.036,
+        "minimum": 1722.951,
+        "maximum": 1760.839
+      },
+      "tbtMs": {
+        "median": 409.56700000000046,
+        "minimum": 261.67500000000064,
+        "maximum": 690.2440000000001
+      },
+      "cls": {
+        "median": 0.0025677718434489833,
+        "minimum": 0.0025677718434489833,
+        "maximum": 0.0025677718434489833
+      },
+      "fcpMs": {
+        "median": 929.778,
+        "minimum": 917.454,
+        "maximum": 954.619
+      },
+      "siMs": {
+        "median": 2165,
+        "minimum": 2151,
+        "maximum": 2205
+      },
+      "diagnostics": [
+        "largest-contentful-paint (1.8 s)",
+        "speed-index (2.2 s)",
+        "total-blocking-time (690 ms)",
+        "max-potential-fid (430 ms)",
+        "interactive (8.2 s)",
+        "third-party-cookies (5 cookies found)",
+        "mainthread-work-breakdown (4.6 s)",
+        "bootup-time (1.5 s)",
+        "total-byte-weight (Total size was 5,531 KiB)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 180 KiB)",
+        "font-display-insight (Est savings of 60 ms)",
+        "forced-reflow-insight",
+        "image-delivery-insight (Est savings of 211 KiB)",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (1.7 s)",
+        "total-blocking-time (410 ms)",
+        "max-potential-fid (260 ms)",
+        "interactive (7.9 s)",
+        "mainthread-work-breakdown (3.1 s)",
+        "font-display-insight (Est savings of 70 ms)",
+        "total-blocking-time (260 ms)",
+        "max-potential-fid (240 ms)",
+        "mainthread-work-breakdown (2.6 s)"
+      ]
+    },
+    {
+      "route": "/games",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 87,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2238.03,
+        "minimum": 2195.7,
+        "maximum": 2243.634
+      },
+      "tbtMs": {
+        "median": 412.28800000000047,
+        "minimum": 356.8409999999999,
+        "maximum": 508.1770000000006
+      },
+      "cls": {
+        "median": 0.07469452276185869,
+        "minimum": 0.07469452276185869,
+        "maximum": 0.07469452276185869
+      },
+      "fcpMs": {
+        "median": 913.182,
+        "minimum": 894.935,
+        "maximum": 921.754
+      },
+      "siMs": {
+        "median": 1453,
+        "minimum": 1428,
+        "maximum": 1466
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.2 s)",
+        "total-blocking-time (510 ms)",
+        "max-potential-fid (380 ms)",
+        "cumulative-layout-shift (0.075)",
+        "interactive (6.4 s)",
+        "third-party-cookies (5 cookies found)",
+        "total-byte-weight (Total size was 3,852 KiB)",
+        "unused-javascript (Est savings of 70 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 99 KiB)",
+        "font-display-insight (Est savings of 80 ms)",
+        "image-delivery-insight (Est savings of 12 KiB)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "total-blocking-time (410 ms)",
+        "max-potential-fid (320 ms)",
+        "interactive (6.3 s)",
+        "total-byte-weight (Total size was 3,843 KiB)",
+        "cache-insight (Est savings of 98 KiB)",
+        "font-display-insight (Est savings of 50 ms)",
+        "total-blocking-time (360 ms)",
+        "max-potential-fid (270 ms)",
+        "total-byte-weight (Total size was 3,848 KiB)"
+      ]
+    },
+    {
+      "route": "/lore",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 900.334,
+        "minimum": 885.267,
+        "maximum": 906.536
+      },
+      "tbtMs": {
+        "median": 305.2760000000003,
+        "minimum": 298.85999999999876,
+        "maximum": 335.23600000000033
+      },
+      "cls": {
+        "median": 0.0004993880374234678,
+        "minimum": 0.0004993880374234678,
+        "maximum": 0.0004993880374234678
+      },
+      "fcpMs": {
+        "median": 900.334,
+        "minimum": 885.267,
+        "maximum": 906.536
+      },
+      "siMs": {
+        "median": 1563,
+        "minimum": 1535,
+        "maximum": 1568
+      },
+      "diagnostics": [
+        "total-blocking-time (310 ms)",
+        "max-potential-fid (230 ms)",
+        "interactive (5.8 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 10 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (300 ms)",
+        "max-potential-fid (260 ms)",
+        "total-blocking-time (340 ms)",
+        "max-potential-fid (270 ms)",
+        "interactive (5.9 s)"
+      ]
+    },
+    {
+      "route": "/niftyworld",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1723.887,
+        "minimum": 1699.221,
+        "maximum": 1726.4
+      },
+      "tbtMs": {
+        "median": 493.3859997558575,
+        "minimum": 375.55200000000013,
+        "maximum": 515.4539999999988
+      },
+      "cls": {
+        "median": 0.001183331666544518,
+        "minimum": 0.001183331666544518,
+        "maximum": 0.001183331666544518
+      },
+      "fcpMs": {
+        "median": 926.506,
+        "minimum": 926.468,
+        "maximum": 932.214
+      },
+      "siMs": {
+        "median": 3893,
+        "minimum": 3884,
+        "maximum": 3893
+      },
+      "diagnostics": [
+        "largest-contentful-paint (1.7 s)",
+        "speed-index (3.9 s)",
+        "total-blocking-time (520 ms)",
+        "max-potential-fid (400 ms)",
+        "interactive (8.5 s)",
+        "third-party-cookies (5 cookies found)",
+        "mainthread-work-breakdown (3.6 s)",
+        "total-byte-weight (Total size was 10,387 KiB)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 169 KiB)",
+        "forced-reflow-insight",
+        "image-delivery-insight (Est savings of 430 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (490 ms)",
+        "max-potential-fid (320 ms)",
+        "interactive (8.4 s)",
+        "total-blocking-time (380 ms)",
+        "max-potential-fid (310 ms)",
+        "third-party-cookies (4 cookies found)",
+        "mainthread-work-breakdown (3.3 s)"
+      ]
+    },
+    {
+      "route": "/overview",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 87,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2177.25,
+        "minimum": 2139.714,
+        "maximum": 3269.699
+      },
+      "tbtMs": {
+        "median": 311.0309999999995,
+        "minimum": 259.8129999999992,
+        "maximum": 892.9409999999984
+      },
+      "cls": {
+        "median": 0.009230884712910808,
+        "minimum": 0.009230884712910808,
+        "maximum": 0.009230884712910808
+      },
+      "fcpMs": {
+        "median": 949.743,
+        "minimum": 913.782,
+        "maximum": 1158.415
+      },
+      "siMs": {
+        "median": 1620,
+        "minimum": 1534,
+        "maximum": 1690
+      },
+      "diagnostics": [
+        "largest-contentful-paint (3.3 s)",
+        "total-blocking-time (260 ms)",
+        "max-potential-fid (230 ms)",
+        "interactive (5.9 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 70 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 13 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "first-contentful-paint (1.2 s)",
+        "largest-contentful-paint (2.2 s)",
+        "total-blocking-time (890 ms)",
+        "max-potential-fid (470 ms)",
+        "interactive (6.5 s)",
+        "mainthread-work-breakdown (2.6 s)",
+        "bootup-time (1.6 s)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "forced-reflow-insight",
+        "largest-contentful-paint (2.1 s)",
+        "total-blocking-time (310 ms)",
+        "max-potential-fid (240 ms)"
+      ]
+    },
+    {
+      "route": "/roadmap",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 89,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1771.52,
+        "minimum": 1759.747,
+        "maximum": 1806.735
+      },
+      "tbtMs": {
+        "median": 318.7340000000004,
+        "minimum": 257.18699999999944,
+        "maximum": 523.7589999999987
+      },
+      "cls": {
+        "median": 0.1159343821529088,
+        "minimum": 0.11593353645527298,
+        "maximum": 0.11648090607528681
+      },
+      "fcpMs": {
+        "median": 913.924,
+        "minimum": 911.376,
+        "maximum": 990.748
+      },
+      "siMs": {
+        "median": 2018,
+        "minimum": 2007,
+        "maximum": 2127
+      },
+      "diagnostics": [
+        "largest-contentful-paint (1.8 s)",
+        "speed-index (2.0 s)",
+        "total-blocking-time (320 ms)",
+        "max-potential-fid (250 ms)",
+        "cumulative-layout-shift (0.116)",
+        "interactive (5.8 s)",
+        "third-party-cookies (5 cookies found)",
+        "mainthread-work-breakdown (2.1 s)",
+        "layout-shifts (15 layout shifts found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 34 KiB)",
+        "cls-culprits-insight",
+        "forced-reflow-insight",
+        "network-dependency-tree-insight",
+        "total-blocking-time (260 ms)",
+        "max-potential-fid (230 ms)",
+        "speed-index (2.1 s)",
+        "total-blocking-time (520 ms)",
+        "max-potential-fid (340 ms)",
+        "interactive (6.0 s)",
+        "mainthread-work-breakdown (3.0 s)"
+      ]
+    },
+    {
+      "route": "/team",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 91,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 979.746,
+        "minimum": 963.702,
+        "maximum": 1030.277
+      },
+      "tbtMs": {
+        "median": 369.7190000000005,
+        "minimum": 364.2919999999999,
+        "maximum": 375.6849999999995
+      },
+      "cls": {
+        "median": 0.0016683231351037665,
+        "minimum": 0.0016683231351037665,
+        "maximum": 0.001684602814593536
+      },
+      "fcpMs": {
+        "median": 979.746,
+        "minimum": 963.702,
+        "maximum": 1030.277
+      },
+      "siMs": {
+        "median": 995,
+        "minimum": 979,
+        "maximum": 1041
+      },
+      "diagnostics": [
+        "total-blocking-time (370 ms)",
+        "max-potential-fid (300 ms)",
+        "interactive (6.0 s)",
+        "third-party-cookies (4 cookies found)",
+        "unused-javascript (Est savings of 71 KiB)",
+        "inspector-issues",
+        "cache-insight (Est savings of 13 KiB)",
+        "network-dependency-tree-insight",
+        "total-blocking-time (360 ms)",
+        "max-potential-fid (270 ms)",
+        "forced-reflow-insight",
+        "total-blocking-time (380 ms)",
+        "interactive (6.1 s)"
+      ]
+    }
+  ],
+  "note": "desktop /niftyworld,/lore,/careers,/team re-measured after a WAF rate-limit cooldown (first pass returned 403s, recorded via lh-web-production-desktop-retry-2026-09-12.json)"
+}

@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "app": "docs",
+  "generatedAt": "2026-09-12T23:46:19.320Z",
+  "gitRevision": "416a00fad88b45d8a3469b242e51a0e2a36f963c",
+  "label": "production-retry",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/nftl/supply",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/marketplace/comics",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/nftl/supply",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    },
+    {
+      "route": "/marketplace/comics",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": null,
+        "accessibility": null,
+        "best-practices": null,
+        "seo": null
+      },
+      "lcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "cls": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "fcpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "siMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "diagnostics": []
+    }
+  ]
+}
