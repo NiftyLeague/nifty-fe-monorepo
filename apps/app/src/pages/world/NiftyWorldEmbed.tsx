@@ -6,6 +6,7 @@ import { ArrowLeft, Maximize2, Minimize2 } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
+import { Preloader } from '@nl/ui/custom/preloader'
 
 import Link from '@/runtime/Link'
 
@@ -128,16 +129,7 @@ export default function NiftyWorldEmbed({
           {isFullscreen ? <Minimize2 aria-hidden="true" /> : <Maximize2 aria-hidden="true" />}
           <span>{isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}</span>
         </Button>
-        {frameState === 'loading' && (
-          <div
-            className="absolute inset-0 z-20 flex items-center justify-center bg-black/90 p-6 text-center text-sm text-white"
-            role="status"
-            aria-live="polite"
-            aria-label={`Loading ${title}`}
-          >
-            Loading {title}…
-          </div>
-        )}
+        <Preloader ready={frameState !== 'loading'} progress={0} label={`Loading ${title}`} />
         {frameState === 'error' && (
           <div
             className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-black/95 p-6 text-center text-white"

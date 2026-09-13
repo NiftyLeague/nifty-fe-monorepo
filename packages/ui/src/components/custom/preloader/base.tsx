@@ -27,6 +27,7 @@ const PreloaderSVG = () => (
 )
 
 interface PreloaderProps {
+  label?: string
   ready?: boolean
   percent?: number
   showWarning?: boolean
@@ -44,15 +45,17 @@ interface PreloaderProps {
  * the `Progress` bar's `progressbar` role, so the percentage does not need to be
  * live text.
  */
-export function PreloaderBase({ ready, percent, showWarning }: PreloaderProps) {
+export function PreloaderBase({ label = 'Loading', ready, percent, showWarning }: PreloaderProps) {
   return (
     <div
       role="status"
+      aria-label={label}
+      aria-live="polite"
       aria-busy={ready ? undefined : true}
       className={styles.preloader_overlay}
       style={ready ? { transform: 'translateY(100%)', display: 'none' } : undefined}
     >
-      <span className="sr-only">Loading</span>
+      <span className="sr-only">{label}</span>
       <div id="js-preloader" className={styles.preloader}>
         <div className={cn(styles.preloader_inner, styles.fadeInUp)}>
           <div className={styles.pong_loader} />

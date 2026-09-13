@@ -105,24 +105,29 @@ describe('Preloader', () => {
     expect(state.stop).toHaveBeenCalled()
   })
 
-  it('locks scroll when not ready', () => {
+  it('does not lock document scroll while loading', () => {
     const html = document.querySelector('html') as HTMLElement
     render(<Preloader ready={false} progress={0.5} />)
-    expect(html.style.overflow).toBe('hidden')
+    expect(html.style.overflow).toBe('')
   })
 
-  it('unlocks scroll when ready', () => {
+  it('keeps document scroll unchanged when ready', () => {
     const html = document.querySelector('html') as HTMLElement
     render(<Preloader ready progress={0.5} />)
     expect(html.style.overflow).toBe('')
   })
 
-  it('restores overflow on unmount', () => {
+  it('does not change document scroll on unmount', () => {
     const html = document.querySelector('html') as HTMLElement
     const { unmount } = render(<Preloader ready={false} progress={0.5} />)
-    expect(html.style.overflow).toBe('hidden')
     unmount()
     expect(html.style.overflow).toBe('')
+  })
+
+  it('uses the caller label for the loading status', () => {
+    render(<Preloader ready={false} progress={0} label="Loading maps" />)
+    expect(screen.getByText('Loading maps')).toBeTruthy()
+    expect(screen.getByRole('status', { name: 'Loading maps' })).toBeTruthy()
   })
 
   it('shows mobile warning when milliseconds exceed 1200 on mobile', async () => {
@@ -161,10 +166,10 @@ describe('Preloader', () => {
     jest.useRealTimers()
   })
 
-  it('stops stopwatch and unlocks scroll when ready transitions from false to true', () => {
+  it('stops stopwatch without changing document scroll when ready transitions', () => {
     const html = document.querySelector('html') as HTMLElement
     const { rerender } = render(<Preloader ready={false} progress={0.5} />)
-    expect(html.style.overflow).toBe('hidden')
+    expect(html.style.overflow).toBe('')
 
     rerender(<Preloader ready progress={0.5} />)
     expect(html.style.overflow).toBe('')

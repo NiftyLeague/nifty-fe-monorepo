@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, type SetStateAction } from 'react'
 
-import { CircularProgress } from '@nl/ui/custom/circular-progress'
+import { Preloader } from '@nl/ui/custom/preloader'
 import { ResponsiveTable } from '@/components/ResponsiveTable'
 import type { TableProps, TableRowType } from '@/types/leaderboard'
 import { useLeaderboardScores } from '@/hooks/queries/useLeaderboardScores'
@@ -74,9 +74,7 @@ export default function EnhancedTable({
   return (
     <div className="relative mb-20 min-h-96 sm:mb-0">
       {isPending ? (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <CircularProgress size="lg" />
-        </div>
+        <Preloader ready={false} progress={0} label="Loading leaderboard" />
       ) : error ? (
         <QueryErrorState
           error={error}

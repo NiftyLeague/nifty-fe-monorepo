@@ -155,8 +155,8 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
   }
 
   return (
-    <>
-      <Preloader ready={isLoaded} progress={loadingProgression * 100} />
+    <div className="relative">
+      <Preloader ready={isLoaded} progress={loadingProgression * 100} label="Loading game" />
       <div className="flex flex-row items-start">
         <div className="flex flex-col items-start">
           <Unity
@@ -179,7 +179,7 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
