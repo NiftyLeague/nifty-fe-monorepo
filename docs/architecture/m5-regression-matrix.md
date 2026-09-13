@@ -50,20 +50,21 @@ is exercised per-app in the M5.5 audit.
 
 ## apps/app — TanStack Start (Vercel, Build Output API)
 
-Public routes: `/`, `/degens`, `/degens/:id`, `/games` (+ crypto-winter, mt-gawx,
-smashers, wen-game), `/leaderboards`, `/mint-o-matic`, `/verification`, `/gm`.
-Authenticated: `/dashboard` (overview, degens, gamer-profile, items, items/burner,
-rentals) behind the private shell.
+Public routes: `/`, `/world` (+ `/world/niftyworld/:scene`), `/degens`, `/degens/:id`,
+`/games` (+ crypto-winter, mt-gawx, smashers, wen-game, `/games/niftyworld/:game`),
+`/leaderboards`, `/mint-o-matic`, `/verification`. Authenticated: `/dashboard`
+(overview, degens, gamer-profile, items, items/burner, rentals) behind the private shell.
 
-| State                                                             | Verification                                                                                                             |
-| ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Route surface / module graphs                                     | `route-surface.test.ts` (dashboard boundaries, search-state wiring), `route-behavior.test.ts`, `app-performance.test.ts` |
-| Component behavior                                                | 97 unit test files (283 tests): contexts, hooks, providers, pages                                                        |
-| Navigation / metadata                                             | `route-surface.test.ts` head/boundary assertions; TanStack route tree is generated and type-checked                      |
-| Performance                                                       | benchmark route `app-degens`; chunk-granularity gap tracked in #1885                                                     |
-| Authenticated dashboard, data, modal, sidebar states in a browser | **GAP → [#1915]** — no browser E2E infra and no PlayFab test identity                                                    |
-| Screenshots                                                       | **GAP → [#1913]**                                                                                                        |
-| A11y sweep                                                        | **GAP → [#1914]**; primitive-level a11y is pinned by `packages/ui` tests the app consumes                                |
+| State                                                             | Verification                                                                                                                                                                  |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Route surface / module graphs                                     | `route-surface.test.ts` (dashboard boundaries, search-state wiring), `route-behavior.test.ts`, `app-performance.test.ts`                                                      |
+| Component behavior                                                | unit suite (`bun run test` in apps/app): contexts, hooks, providers, pages                                                                                                    |
+| Navigation / metadata / canonicals                                | `route-surface.test.ts` head/boundary assertions + `app-seo-surface.test.ts` (canonical path per route, sitemap agreement); TanStack route tree is generated and type-checked |
+| Performance (chunk groups, image variants, prerender)             | `app-performance.test.ts` + the M5.8 section of `m5-app-audits.md`; build-time variants pinned by `image-props` unit tests                                                    |
+| Caching surfaces                                                  | `cache-surface.test.ts` (hashed `/assets/*` + `/__images/*` immutable, media refresh policy, HTML never immutable)                                                            |
+| Authenticated dashboard, data, modal, sidebar states in a browser | `apps/app/e2e/app.e2e.ts` (#1915, fixture-mode shell renders; the PlayFab test identity remains open for data-level states)                                                   |
+| A11y sweep + keyboard-only pass                                   | `apps/app/e2e/app.e2e.ts` (#1914 axe floor, #1885 tab-traversal + connect-trigger reachability); primitives pinned by `packages/ui` tests                                     |
+| Screenshots                                                       | **GAP → [#1913]** (workflow_dispatch baseline capture)                                                                                                                        |
 
 ## apps/smashers — Astro SSR + OAuth
 

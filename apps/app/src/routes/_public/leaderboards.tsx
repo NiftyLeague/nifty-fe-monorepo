@@ -5,7 +5,7 @@ import AppQueryProvider from '@/query/AppQueryProvider'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/leaderboards')({
-  head: () => buildHead({ title: 'Leaderboards' }),
+  head: () => buildHead({ path: '/leaderboards', title: 'Leaderboards' }),
   component: LeaderboardsLayout,
 })
 

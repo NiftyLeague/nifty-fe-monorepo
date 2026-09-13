@@ -23,10 +23,15 @@ describe('application metadata routes', () => {
   it('lists unique canonical routes with valid priorities', () => {
     const urls = SITEMAP_ENTRIES.map(({ path }) => `${APP_ORIGIN}${path}`)
 
-    expect(SITEMAP_ENTRIES).toHaveLength(16)
+    // 16 static surfaces + the /world index, 9 scenes, and 6 mini games
+    // enumerated from the route constants (#1885).
+    expect(SITEMAP_ENTRIES).toHaveLength(32)
     expect(new Set(urls).size).toBe(SITEMAP_ENTRIES.length)
     expect(urls).toContain(`${APP_ORIGIN}/dashboard`)
     expect(urls).toContain(`${APP_ORIGIN}/mint-o-matic`)
+    expect(urls).toContain(`${APP_ORIGIN}/world`)
+    expect(urls).toContain(`${APP_ORIGIN}/world/niftyworld/isla-azul`)
+    expect(urls).toContain(`${APP_ORIGIN}/games/niftyworld/degen-dodge`)
     expect(SITEMAP_ENTRIES.every(({ priority }) => priority > 0 && priority <= 1)).toBe(true)
   })
 

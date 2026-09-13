@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .output && rm -rf .vite",
-    "dev": "vite dev",
+    "build": "bun scripts/prepare-images.mjs && vite build",
+    "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .output && rm -rf .vite && rm -rf .vercel && rm -rf .app-images",
+    "dev": "bun scripts/prepare-images.mjs && vite dev",
     "format": "oxfmt .",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
@@ -57,6 +57,7 @@
     "chrome-launcher": "^1.2.1",
     "lighthouse": "^13.4.1",
     "nitro": "^3.0.260903-beta",
+    "sharp": "^0.35.4",
     "vite": "^8.3.0"
   }
 }

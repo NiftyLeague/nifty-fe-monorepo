@@ -4,7 +4,7 @@ import PublicContentContainer from '@/components/wrapper/PublicContentContainer'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/mint-o-matic')({
-  head: () => buildHead({ title: 'Mint-o-Matic' }),
+  head: () => buildHead({ path: '/mint-o-matic', title: 'Mint-o-Matic' }),
   component: MintOMaticLayout,
 })
 
