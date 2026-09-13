@@ -1,7 +1,9 @@
 import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import NativeImage from '@nl/ui/custom/native-image'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 import GameCard from '@/components/cards/GameCard'
+import Link from '@/runtime/Link'
 
 import styles from '../grid-item.module.css'
 
@@ -99,7 +101,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
   </div>
 )
 
-const F2PGameList = () => (
+const FlagshipGameList = () => (
   <>
     <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
@@ -139,7 +141,26 @@ const F2PGameList = () => (
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
       />
     </div>
+    <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
+      <GameCard
+        title="2D Smashers"
+        externalLink={{ title: 'Mobile', src: 'https://niftysmashers.com/' }}
+        required="Legacy Unity browser version"
+        description="The original Nifty Smashers browser game is still available while the new game runtime is being migrated."
+        image="/img/games/smashers/nifty-smashers-poster.webp"
+        autoHeight={false}
+        actions={
+          <Link
+            href="/games/smashers"
+            prefetch={false}
+            className={buttonVariants({ variant: 'outline', className: 'w-full' })}
+          >
+            Play in Browser
+          </Link>
+        }
+      />
+    </div>
   </>
 )
 
-export default F2PGameList
+export default FlagshipGameList

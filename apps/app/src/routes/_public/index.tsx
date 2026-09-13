@@ -15,12 +15,12 @@ function Home() {
   return (
     <PublicContentContainer>
       <h1 className="sr-only">Nifty League App</h1>
-      <StaticSection firstSection title="Free-2-Play Games">
+      <StaticSection firstSection title="Flagship Games">
         <div className="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
           <GameList />
         </div>
       </StaticSection>
-      <StaticSection firstSection title="Web3 Games">
+      <StaticSection firstSection title="Mini Games">
         <DeferredWeb3GameList />
       </StaticSection>
     </PublicContentContainer>

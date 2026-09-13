@@ -10,7 +10,7 @@ mock.module('@nl/ui/custom/deferred-section', () => ({
   },
 }))
 
-describe('deferred Web3 game list', () => {
+describe('deferred mini game list', () => {
   beforeEach(async () => {
     deferredProps = {}
   })
@@ -21,7 +21,7 @@ describe('deferred Web3 game list', () => {
     render(<DeferredWeb3GameList />)
 
     expect(screen.getByTestId('deferred-game-list').getAttribute('data-label')).toBe(
-      'Web3 game cards'
+      'Mini game cards'
     )
     expect(deferredProps.load).toBeFunction()
   })

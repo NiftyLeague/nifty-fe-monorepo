@@ -15,6 +15,7 @@ const REDUNDANT_EXPORTS = {
   'apps/api/src/classes/marketplaceCollection.ts': ['MarketplaceCollectionConfig'],
   'apps/api/src/imx/client.ts': ['ImxMintResult', 'ImxMintV2Params', 'ImxUser', 'MetadataProperty'],
   'apps/api/src/utils/request-json.ts': ['JsonRequestError', 'JsonRequestOptions'],
+  'apps/app/src/constants/niftyworld-games.ts': ['NIFTY_WORLD_ORIGIN'],
   'apps/app/src/constants/unity-builds.ts': ['UnityConfigWithMeta'],
   'apps/app/src/contexts/NavigationContext.tsx': ['useNavigation'],
   'apps/app/src/contexts/NotificationContext.tsx': ['useNotification'],

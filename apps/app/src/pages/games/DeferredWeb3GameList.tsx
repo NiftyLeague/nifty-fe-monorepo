@@ -21,5 +21,5 @@ const loadWeb3GameGrid = async () => {
 }
 
 export default function DeferredWeb3GameList() {
-  return <DeferredSection label="Web3 game cards" load={loadWeb3GameGrid} />
+  return <DeferredSection label="Mini game cards" load={loadWeb3GameGrid} />
 }
