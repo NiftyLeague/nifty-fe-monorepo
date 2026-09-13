@@ -664,6 +664,34 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
+    completed: true,
+    completionDate: 'April 20th, 2025',
+    image: {
+      src: '/img/roadmap/niftyroyale_v01.webp',
+      style: { top: '-110px' },
+      width: 541,
+      height: 381,
+    },
+    title: 'Nifty Royale - Alpha',
+    body: (
+      <>
+        <p>
+          Nifty Royale is an action-packed battle royale set in Nifty World, designed to deliver an
+          immersive and competitive experience for DEGENs.
+        </p>
+        <p className="mb-0">
+          Alpha development was completed in April 2025. Find the latest build{' '}
+          <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
+            on our webapp
+          </a>
+          .
+        </p>
+      </>
+    ),
+  },
+  {
+    cancelled: true,
+    completionDate: 'June 1st, 2025',
     image: {
       src: '/img/logos/smashers/app_wordmark_logo.webp',
       style: { top: '-115px' },
@@ -677,16 +705,68 @@ export const ROADMAP_CARDS = [
           We&apos;ve achieved an exceptional 55% CVR (app unit/page views), and Day 1 Retention of
           over 30%!
         </p>
+        <p>
+          While the initial conversion results were exceptional, they were not enough to justify
+          launching the game with significant investment. We struggled with long-term retention and
+          ultimately could not secure publisher support, so we sunset the game.
+        </p>
         <p className="mb-0">
-          We are very close! After a few more iterations and monetization testing we look forward to
-          releasing Smashers worldwide! Smashers will be available on multiple platforms (Android,
-          iOS, Epic, Steam, and maybe Switch???)
+          While that decision is difficult, it is a common part of game development. Many promising
+          games are shelved when the numbers show that a launch would not be profitable.
         </p>
       </>
     ),
   },
   {
+    completed: true,
+    completionDate: 'Sept 12th, 2026',
+    image: {
+      src: '/img/roadmap/niftyworld_v02.webp',
+      style: { top: '-165px' },
+      width: 757,
+      height: 675,
+    },
+    title: 'Nifty World - Alpha',
+    body: (
+      <p className="mb-0">
+        The Nifty World Alpha is live on{' '}
+        <a href="https://niftyleague.com/app/world" target="_blank" rel="noreferrer">
+          niftyleague.com/app/world
+        </a>
+        . It is an open environment for exploration with no gameplay available yet. Built as a
+        Three.js browser world, it is intended for open-source contribution and invites developers
+        to help build games and experiences in Nifty World.
+      </p>
+    ),
+  },
+  {
     current: true,
+    image: {
+      src: '/img/roadmap/niftyworld_v02.webp',
+      style: { top: '-165px' },
+      width: 757,
+      height: 675,
+    },
+    title: 'Nifty World - Beta',
+    body: (
+      <>
+        <p>
+          Nifty World Beta will expand the Alpha into a gamified social hub for hanging out, meeting
+          friends, and gaming together.
+        </p>
+        <p>
+          Games are the centerpiece: players can visit an arcade room filled with mini-games,
+          explore destinations across the map, and jump into titles like Nifty Smashers and Nifty
+          Kart.
+        </p>
+        <p className="mb-0">
+          The long-term vision also gives creators room to build the world, design assets, and shape
+          new experiences for the community.
+        </p>
+      </>
+    ),
+  },
+  {
     image: {
       height: 375,
       src: '/img/roadmap/marketplace_v02.webp',
@@ -706,69 +786,9 @@ export const ROADMAP_CARDS = [
           !
         </p>
         <p className="mb-0">
-          Future items will be provided to community testers as well as found in our games.
-          Free-2-play mobile players that includes you! Players may get lucky and find rare
-          wearables or weapons in game that are mintable on IMX!
-        </p>
-      </>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/niftyroyale_v01.webp',
-      style: { top: '-110px' },
-      width: 541,
-      height: 381,
-    },
-    title: 'Nifty Royale - Alpha/Beta',
-    body: (
-      <>
-        <p>
-          An upcoming battle royale game set in Nifty World, a virtual world our team strategically
-          designed for limitless creativity. Building on the success of Nifty Smashers, Nifty Royale
-          delivers an immersive and competitive experience.
-        </p>
-        <p className="mb-0">
-          Early-access is now available for playtesting! Additional polish and work is needed to get
-          the game in Alpha state. Follow our latest updates on Twitter & Discord and find the
-          latest build{' '}
-          <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
-            on our webapp
-          </a>
-          .
-        </p>
-      </>
-    ),
-  },
-  {
-    image: {
-      src: '/img/roadmap/niftyworld_v02.webp',
-      style: { top: '-145px' },
-      width: 757,
-      height: 675,
-    },
-    title: 'Nifty World',
-    body: (
-      <>
-        <p>
-          Welcome to Nifty World; a world filled with DEGENs and NFT communities alike with a shared
-          vision to have fun and build a thriving gaming ecosystem. What makes Nifty World stand
-          apart from other metaverses is our games being the centerpiece. Walk into our arcade room
-          filled with fun mini-games or venture to destinations on the map to jump into our classic
-          titles like Nifty Smashers and Nifty Kart.
-        </p>
-        <p>
-          While Nifty League focuses on building a decentralized game platform with titles such as
-          Nifty Smashers and other Nintendo-inspired games, Nifty World stands at the heart of our
-          ecosystem tying everything together. It&apos;s not only the central lobby system or launch
-          point for many of these games, but the main hub for all social interactions (and quite
-          frankly our biggest game in and of itself).
-        </p>
-        <p className="mb-0">
-          If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset
-          store for you to design assets such as buildings or trees and list them for sale based on
-          your defined limits and pricing. Do you want a cool DEGEN theme park or Cyber Kongz
-          meetup? Build out Nifty World to whatever your heart desires!
+          Future items will be provided to community testers as well as found in our games. Free-2-
+          play mobile players that includes you! Players may get lucky and find rare wearables or
+          weapons in game that are mintable on IMX!
         </p>
       </>
     ),
@@ -777,7 +797,7 @@ export const ROADMAP_CARDS = [
     divider: true,
     image: {
       src: '/img/logos/niftyworld/app_logo.webp',
-      style: { top: '-90px' },
+      style: { top: '90px' },
       width: 1920,
       height: 1080,
     },

@@ -6,7 +6,7 @@ import ResponsiveLabel from '@/components/HomeSections/ResponsiveLabel'
 export default function HomeDegensSection() {
   return (
     <section className="section w-screen relative flex flex-col text-center sliding-nfts">
-      <h2 className="my-3 lg:my-5 px-5 sm:px-8 transition-vertical-fade">
+      <h2 className="my-3 px-5 transition-vertical-fade whitespace-nowrap lg:my-5 sm:px-8">
         <ResponsiveLabel mobile="OWN YOUR AVATAR" desktop="COMMUNITY-GENERATED AVATARS" />
       </h2>
 

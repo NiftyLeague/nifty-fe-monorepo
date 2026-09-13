@@ -107,7 +107,7 @@ describe('Navbar', () => {
     const header = container.querySelector('header')
     expect(header?.className).toContain('navbar-scroll-frame')
     expect(header?.className).toContain('bg-transparent')
-    expect(header?.className.split(/\s+/)).toContain('data-[scrolled=true]:backdrop-blur-xs')
+    expect(header?.className.split(/\s+/)).toContain('md:data-[scrolled=true]:backdrop-blur-xs')
     expect(header?.className.split(/\s+/)).not.toContain('backdrop-blur-xs')
     expect(header?.dataset.scrolled).toBe('false')
     expect(header?.previousElementSibling).toBeNull()
