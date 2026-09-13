@@ -1,14 +1,31 @@
 import type { ComponentProps } from 'react'
+import type { PropsWithChildren } from 'react'
 import { render, screen } from '@testing-library/react'
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
-describe('free-to-play game list', () => {
+describe('flagship game list', () => {
   beforeEach(() => {
+    mock.module('@/runtime/Link', () => ({
+      default: ({
+        children,
+        href,
+        prefetch,
+        ...props
+      }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
+        <a href={href} data-prefetch={String(prefetch)} {...props}>
+          {children}
+        </a>
+      ),
+    }))
     mock.module('@nl/ui/custom/optimized-image', () => ({
       default: ({ fill: _fill, alt = '', ...props }: ComponentProps<'img'>) => (
         <img alt={alt} {...props} />
       ),
     }))
+  })
+
+  afterEach(() => {
+    mock.restore()
   })
 
   it('prioritizes the first game artwork while deferring later cards', async () => {
@@ -18,6 +35,7 @@ describe('free-to-play game list', () => {
 
     const firstCardImage = screen.getByAltText('Nifty Smashers (Beta)')
     const secondCardImage = screen.getByAltText('Party Royale (Early-Alpha)')
+    const thirdCardImage = screen.getByAltText('2D Smashers')
 
     expect(firstCardImage.getAttribute('loading')).toBe('eager')
     expect(firstCardImage.getAttribute('fetchpriority')).toBe('high')
@@ -26,6 +44,7 @@ describe('free-to-play game list', () => {
     expect(secondCardImage.getAttribute('loading')).toBe('lazy')
     expect(secondCardImage.getAttribute('fetchpriority')).toBeNull()
     expect(secondCardImage.getAttribute('quality')).toBe('60')
+    expect(thirdCardImage.getAttribute('loading')).toBe('lazy')
   })
 
   it('keeps game cards in the page heading hierarchy', async () => {
@@ -38,5 +57,6 @@ describe('free-to-play game list', () => {
     expect(heading).not.toBeNull()
     expect(heading.className).toContain('text-xl')
     expect(heading.className).toContain('font-subheader')
+    expect(screen.getByRole('heading', { level: 3, name: '2D Smashers' })).not.toBeNull()
   })
 })

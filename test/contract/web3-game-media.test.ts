@@ -1,21 +1,23 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync, statSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 
-const web3GameList = 'apps/app/src/pages/games/_Web3GameList/index.tsx'
+const gameCatalog = 'apps/app/src/constants/niftyworld-games.ts'
 
-const CARD_ARTWORK = [
-  ['assets/img/games/wen-poster-640.webp', 15_000],
-  ['assets/img/games/crypto-winter-640.webp', 50_000],
-  ['assets/img/games/nifty-tennis-640.webp', 70_000],
+const MINI_GAME_ARTWORK = [
+  'degen-dodge',
+  'wen-2d',
+  'degen-dive',
+  'brick-breaker',
+  'tennis',
+  'wen-3d',
 ] as const
 
-describe('Web3 game card media', () => {
-  it('keeps deferred game cards on the shared, card-sized artwork variants', () => {
-    const source = readFileSync(web3GameList, 'utf8')
+describe('Nifty World mini game card media', () => {
+  it('uses the canonical Nifty World map artwork for every card', () => {
+    const source = readFileSync(gameCatalog, 'utf8')
 
-    for (const [asset, maxBytes] of CARD_ARTWORK) {
-      expect(source).toContain(`/img/games/${asset.split('/').pop()}`)
-      expect(statSync(asset).size).toBeLessThan(maxBytes)
+    for (const game of MINI_GAME_ARTWORK) {
+      expect(source).toContain(`/assets/maps/${game}.webp`)
     }
   })
 })
