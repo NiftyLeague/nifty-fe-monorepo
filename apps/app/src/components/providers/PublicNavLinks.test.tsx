@@ -7,6 +7,18 @@ describe('public navigation links', () => {
   it('renders the static menu as server-compatible accessible links', () => {
     render(<PublicNavLinks />)
 
+    const navLinks = screen.getAllByRole('link')
+    expect(navLinks.map((link) => link.textContent)).toEqual([
+      'Games',
+      'World',
+      'DEGENs',
+      'Leaderboards',
+      'Mint-O-Matic',
+    ])
+
+    const worldLink = screen.getByRole('link', { name: 'World' })
+    expect(worldLink.getAttribute('href')).toBe('/world')
+
     const degensLink = screen.getByRole('link', { name: 'DEGENs' })
     expect(degensLink.getAttribute('href')).toBe('/degens')
     expect(degensLink.className).toContain('text-sidebar-foreground')
