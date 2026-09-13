@@ -4,6 +4,6 @@ import DashboardOverviewRouteBoundary from '@/pages/dashboard/overview/Dashboard
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/dashboard/overview')({
-  head: () => buildHead({ title: 'Dashboard Overview' }),
+  head: () => buildHead({ path: '/dashboard/overview', title: 'Dashboard Overview' }),
   component: DashboardOverviewRouteBoundary,
 })

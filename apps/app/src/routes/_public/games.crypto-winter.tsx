@@ -5,7 +5,7 @@ import { cryptoWinterBuild } from '@/constants/unity-builds'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/games/crypto-winter')({
-  head: () => buildHead({ title: 'Crypto Winter' }),
+  head: () => buildHead({ path: '/games/crypto-winter', title: 'Crypto Winter' }),
   component: CryptoWinterGame,
 })
 

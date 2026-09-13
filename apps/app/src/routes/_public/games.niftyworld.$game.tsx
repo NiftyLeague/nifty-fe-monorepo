@@ -11,7 +11,10 @@ export const Route = createFileRoute('/_public/games/niftyworld/$game')({
     }
   },
   head: ({ params }) =>
-    buildHead({ title: getNiftyWorldGame(params.game)?.title ?? 'Nifty World Mini Game' }),
+    buildHead({
+      path: `/games/niftyworld/${params.game}`,
+      title: getNiftyWorldGame(params.game)?.title ?? 'Nifty World Mini Game',
+    }),
   component: NiftyWorldGameRoute,
 })
 

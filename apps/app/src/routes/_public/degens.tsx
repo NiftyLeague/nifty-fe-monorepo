@@ -4,7 +4,7 @@ import AppQueryProvider from '@/query/AppQueryProvider'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/degens')({
-  head: () => buildHead({ title: 'DEGENs' }),
+  head: () => buildHead({ path: '/degens', title: 'DEGENs' }),
   component: DegensLayout,
 })
 

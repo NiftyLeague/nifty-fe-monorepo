@@ -11,7 +11,6 @@ export interface RouteHeadContent {
   meta?: MetaTag[]
   links?: LinkTag[]
 }
-
 const ROBOTS_DEFAULT = 'index, follow'
 
 /**
@@ -27,6 +26,14 @@ export interface RouteMetadata {
   images?: readonly string[]
   /** Set for private or duplicate surfaces that should stay out of the index. */
   noindex?: boolean
+  /**
+   * The route's canonical path from the app root (e.g. `/games/smashers`).
+   * When set, the route emits `<link rel="canonical">` and a matching
+   * `og:url` instead of the bare origin — the M5.8 audit (#1885) found every
+   * route shared one `og:url` and no canonical at all, leaving parameterized
+   * surfaces (`/degens/$id`, `/world/niftyworld/$scene`) unaddressable.
+   */
+  path?: string
 }
 
 const APP_ORIGIN = 'https://app.niftyleague.com'
@@ -58,6 +65,7 @@ const absoluteUrl = (value: string) => {
 export function buildMeta(metadata: RouteMetadata): MetaTag[] {
   const description = metadata.description ?? APP_DESCRIPTION
   const images = (metadata.images ?? [DEFAULT_IMAGE]).map(absoluteUrl)
+  const url = metadata.path ? `${APP_ORIGIN}${metadata.path}` : APP_ORIGIN
 
   const tags: MetaTag[] = [
     { title: formatTitle(metadata.title, metadata) },
@@ -67,7 +75,7 @@ export function buildMeta(metadata: RouteMetadata): MetaTag[] {
     { property: 'og:site_name', content: SITE_NAME },
     { property: 'og:title', content: metadata.title },
     { property: 'og:description', content: description },
-    { property: 'og:url', content: APP_ORIGIN },
+    { property: 'og:url', content: url },
     { property: 'og:locale', content: 'en_US' },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:site', content: TWITTER_CREATOR },
@@ -107,6 +115,7 @@ export function buildRootMeta(): MetaTag[] {
 
 export const buildHead = (metadata: RouteMetadata): RouteHeadContent => ({
   meta: buildMeta(metadata),
+  links: metadata.path ? [{ rel: 'canonical', href: `${APP_ORIGIN}${metadata.path}` }] : undefined,
 })
 
 export const DEGEN_IMAGE_ORIGIN = APP_ORIGIN

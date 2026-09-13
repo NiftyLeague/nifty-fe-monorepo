@@ -4,6 +4,6 @@ import DashboardItemsRouteBoundary from '@/pages/dashboard/items/DashboardItemsR
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/dashboard/items')({
-  head: () => buildHead({ title: 'My Items' }),
+  head: () => buildHead({ path: '/dashboard/items', title: 'My Items' }),
   component: DashboardItemsRouteBoundary,
 })

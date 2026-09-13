@@ -5,7 +5,7 @@ import AppQueryProvider from '@/query/AppQueryProvider'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/games')({
-  head: () => buildHead({ title: 'Games' }),
+  head: () => buildHead({ path: '/games', title: 'Games' }),
   component: GamesLayout,
 })
 

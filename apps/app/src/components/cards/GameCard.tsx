@@ -20,7 +20,7 @@ const GameDescriptionDisclosure = ({ description }: GameDescriptionDisclosurePro
       <span className="hidden group-open:inline">less</span>
     </summary>
     <p
-      className="order-1 max-h-[42px] overflow-y-hidden text-sm text-muted-foreground group-open:max-h-none"
+      className="order-1 max-h-[42px] overflow-y-clip text-sm text-muted-foreground group-open:max-h-none"
       style={{ whiteSpace: 'pre-wrap' }}
     >
       {description}
@@ -104,7 +104,7 @@ const CardGameContent = ({
             style={
               overlay
                 ? { whiteSpace: 'nowrap' }
-                : { whiteSpace: 'pre-wrap', maxHeight: 42, overflowY: 'hidden' }
+                : { whiteSpace: 'pre-wrap', maxHeight: 42, overflowY: 'clip' }
             }
           >
             {description}

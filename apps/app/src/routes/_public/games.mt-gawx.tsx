@@ -5,7 +5,7 @@ import { mtGawxBuild } from '@/constants/unity-builds'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/games/mt-gawx')({
-  head: () => buildHead({ title: 'Mt. Gawx' }),
+  head: () => buildHead({ path: '/games/mt-gawx', title: 'Mt. Gawx' }),
   component: MtGawxGame,
 })
 

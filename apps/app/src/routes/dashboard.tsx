@@ -6,7 +6,7 @@ import { buildHead } from '@/runtime/metadata'
 import { getRequestCookieHeader } from '@/runtime/request-cookies'
 
 export const Route = createFileRoute('/dashboard')({
-  head: () => buildHead({ title: 'Dashboard' }),
+  head: () => buildHead({ path: '/dashboard', title: 'Dashboard' }),
   component: DashboardLayout,
 })
 

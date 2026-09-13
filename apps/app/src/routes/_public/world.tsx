@@ -5,7 +5,7 @@ import PublicContentContainer from '@/components/wrapper/PublicContentContainer'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/world')({
-  head: () => buildHead({ title: 'World' }),
+  head: () => buildHead({ path: '/world', title: 'World' }),
   component: WorldLayout,
 })
 

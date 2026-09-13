@@ -37,6 +37,9 @@ describe('cache surfaces', () => {
       ['web', '/_astro/*'],
       ['web', '/__images/*'],
       ['app', '/assets/*'],
+      // The app's build-time image variants (#1885) are content-addressed like
+      // the hashed chunks, so they take the same immutable policy.
+      ['app', '/__images/*'],
       ['smashers', '/_astro/*'],
       // Docs builds under the /docs base, so the URL surface its HTML references
       // is /docs/_astro/*; the bare /_astro/* twin serves the same files through
@@ -90,6 +93,17 @@ describe('cache surfaces', () => {
     for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
       expect(headers[source]?.['cache-control'], `smashers ${source}`).toBe(REFRESH)
       expect(headers[source]?.['cache-control'], `smashers ${source}`).not.toBe(IMMUTABLE)
+    }
+  })
+
+  it('keeps app media on the refresh policy instead of the platform default', () => {
+    // The app shares the repo-root assets dir as its public surface; until the
+    // M5.8 audit (#1885) its media rode Vercel's `max-age=0, must-revalidate`
+    // default, exactly the finding the smashers audit fixed on its surface.
+    const headers = readVercel('app')
+    for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
+      expect(headers[source]?.['cache-control'], `app ${source}`).toBe(REFRESH)
+      expect(headers[source]?.['cache-control'], `app ${source}`).not.toBe(IMMUTABLE)
     }
   })
 

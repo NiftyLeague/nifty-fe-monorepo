@@ -20,7 +20,9 @@
     "**/.vercel/**",
     ".devin/**",
     ".hermes/**",
-    ".pi/**"
+    ".pi/**",
+    "**/.output/**",
+    "**/.app-images/**"
   ],
   "overrides": [
     {
