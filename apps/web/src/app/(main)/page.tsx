@@ -10,6 +10,7 @@ import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
 
 import '@/styles/home.css'
+import '@/styles/home-v3.css'
 import '@/styles/marketing.css'
 
 const ResponsiveIntroBackground = () => {
@@ -128,7 +129,7 @@ const DesktopIntro = () => {
         </h1>
         <div className="my-2 lg:my-4">
           <p className="home-content-description transition-vertical-fade">
-            <span className="whitespace-nowrap">DECENTRALIZED GAME STUDIO & PUBLISHER.</span>
+            <span className="whitespace-nowrap">OPEN-SOURCE GAME STUDIO.</span>
             <br />
             <span className="whitespace-nowrap">BY GAMERS, FOR GAMERS.</span>
           </p>

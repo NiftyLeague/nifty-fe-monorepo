@@ -1,5 +1,4 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
-import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 import { NIFTYWORLD_PROPERTIES } from '@/constants/niftyworld'
 
@@ -24,7 +23,7 @@ export default function NiftyWorldProperties() {
               <div>
                 <OptimizedImage
                   src={image}
-                  alt="NiftyWorld District Highlight"
+                  alt="Nifty World District Highlight"
                   width={500}
                   height={283}
                   sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
@@ -35,13 +34,6 @@ export default function NiftyWorldProperties() {
           </div>
         ))}
       </div>
-      <ThemeBtnGroup
-        primary={{
-          href: '/docs/overview/games/niftyworld',
-          title: 'VIEW DOCS',
-          external: true,
-        }}
-      />
     </section>
   )
 }

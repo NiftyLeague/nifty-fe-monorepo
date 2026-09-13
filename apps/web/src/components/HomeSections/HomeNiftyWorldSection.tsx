@@ -1,6 +1,8 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
+import { NIFTY_WORLD_APP_URL } from '@/constants/links'
+
 export default function HomeNiftyWorldSection() {
   return (
     <section className="home-static-section container section relative flex flex-row flex-wrap items-center">
@@ -8,7 +10,7 @@ export default function HomeNiftyWorldSection() {
         <div className="transition-fade">
           <OptimizedImage
             src="/img/logos/niftyworld/app_logo.webp"
-            alt="Land in NiftyWorld"
+            alt="Land in Nifty World"
             width={612}
             height={482}
             loading="lazy"
@@ -23,15 +25,19 @@ export default function HomeNiftyWorldSection() {
           <h2 className="mb-3 section-title section-heading transition-vertical-fade">
             DISCOVER
             <br />
-            <span className="whitespace-nowrap font-default font-normal">NIFTYWORLD</span>
+            <span className="whitespace-nowrap font-default font-normal">NIFTY WORLD</span>
           </h2>
           <p className="my-0 py-1 lg:py-3 section-description transition-vertical-fade">
             A VIRTUAL SOCIAL HUB LIKE NONE OTHER FOR GAMERS.
           </p>
           <ThemeButtonGroup
             className="md:justify-start"
-            primary={{ title: 'COMING SOON', disabled: true }}
-            secondary={{ href: '/niftyworld', title: 'LEARN MORE' }}
+            primary={{ href: NIFTY_WORLD_APP_URL, title: 'EXPLORE', external: true }}
+            secondary={{
+              href: '/docs/overview/games/niftyworld',
+              title: 'VIEW DOCS',
+              external: true,
+            }}
           />
         </div>
       </div>

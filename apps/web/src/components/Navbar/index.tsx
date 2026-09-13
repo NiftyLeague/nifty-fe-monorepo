@@ -1,6 +1,6 @@
 import { Navbar as NiftyNavbar, type NavItemData } from '@nl/ui/custom/navbar'
 
-const ACTION_BUTTON = { title: 'Web3 App', href: '/app', external: true }
+const ACTION_BUTTON = { title: 'Game App', href: '/app', external: true }
 
 const NAV_ITEMS: NavItemData[] = [
   { type: 'single', title: 'Home', href: '/' },
@@ -9,11 +9,16 @@ const NAV_ITEMS: NavItemData[] = [
     group: 'Products',
     pages: [
       { title: 'Games', href: '/games', description: 'Explore and play Nifty League games' },
-      { title: 'DEGENs', href: '/degens', description: 'Discover our flagship NFT collection' },
       {
-        title: 'NiftyWorld',
+        title: 'Nifty World',
         href: '/niftyworld',
         description: 'Take a sneak peek of our virtual world',
+      },
+      { title: 'DEGENs', href: '/degens', description: 'Discover our flagship NFT collection' },
+      {
+        title: 'NFTL',
+        href: '/compete-and-earn',
+        description: 'Compete, earn, and govern across Nifty League',
       },
     ],
   },
@@ -27,12 +32,7 @@ const NAV_ITEMS: NavItemData[] = [
         description: 'Quick introduction and common Q/As',
       },
       { title: 'Roadmap', href: '/roadmap', description: 'Track our progress and future plans' },
-      {
-        title: 'Community',
-        href: '/community',
-        description: 'Join and connect with other players',
-      },
-      { title: 'Nifty Lore', href: '/lore', description: "Dive into NiftyWorld's rich history" },
+      { title: 'Nifty Lore', href: '/lore', description: "Dive into Nifty World's rich history" },
       {
         title: 'Docs',
         href: '/docs',
@@ -55,8 +55,19 @@ const NAV_ITEMS: NavItemData[] = [
   },
   {
     type: 'group',
-    group: 'DAO',
+    group: 'CONTRIBUTE',
     pages: [
+      {
+        title: 'Community',
+        href: '/community',
+        description: 'Join and connect with other players',
+      },
+      {
+        title: 'GitHub',
+        href: 'https://github.com/NiftyLeague',
+        external: true,
+        description: 'Explore our open-source projects',
+      },
       {
         title: 'DAO Docs',
         href: '/docs/overview/nifty-dao/about',

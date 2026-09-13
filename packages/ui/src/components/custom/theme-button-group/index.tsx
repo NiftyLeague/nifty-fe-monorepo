@@ -21,7 +21,13 @@ export function ThemeButton({
   external = false,
   isPrimary = false,
 }: ThemeButtonProps & { isPrimary?: boolean }) {
-  const buttonClassName = cx(isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent', className)
+  const buttonClassName = cx(
+    isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
+    // The shared button recipe supplies a compact default size. Keep the
+    // marketing button scale from theme-btn across responsive breakpoints.
+    '!h-[40px] md:!h-[50px] lg:!h-[60px] xl:!h-[70px] 2xl:!h-[80px]',
+    className
+  )
   const content = responsiveTitle ? (
     <>
       <span className="responsive-label-mobile">{responsiveTitle.mobile}</span>
