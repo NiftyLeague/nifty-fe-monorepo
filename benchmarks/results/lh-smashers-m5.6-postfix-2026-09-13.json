@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 1,
+  "app": "smashers",
+  "generatedAt": "2026-09-13T17:02:22.298Z",
+  "gitRevision": "dbd3654cfd1fd60aea7ddd51f34c01ee34575183",
+  "label": "m5.6-postfix",
+  "runs": 5,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 5,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/login",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 83,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 69
+      },
+      "lcpMs": {
+        "median": 1472.177,
+        "minimum": 1462.563,
+        "maximum": 1674.761
+      },
+      "tbtMs": {
+        "median": 692.340999755857,
+        "minimum": 215.23100000000068,
+        "maximum": 928.0689997558597
+      },
+      "cls": {
+        "median": 0.0003126942372170689,
+        "minimum": 0.0003126942372170689,
+        "maximum": 0.0003126942372170689
+      },
+      "fcpMs": {
+        "median": 875.307,
+        "minimum": 853.568,
+        "maximum": 1095.787
+      },
+      "siMs": {
+        "median": 912,
+        "minimum": 891,
+        "maximum": 1152
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.1 s)",
+        "largest-contentful-paint (1.7 s)",
+        "total-blocking-time (910 ms)",
+        "max-potential-fid (460 ms)",
+        "interactive (6.6 s)",
+        "third-party-cookies (8 cookies found)",
+        "mainthread-work-breakdown (2.3 s)",
+        "bootup-time (1.6 s)",
+        "inspector-issues",
+        "is-crawlable",
+        "cache-insight (Est savings of 12 KiB)",
+        "forced-reflow-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "total-blocking-time (930 ms)",
+        "max-potential-fid (410 ms)",
+        "interactive (6.3 s)",
+        "third-party-cookies (5 cookies found)",
+        "mainthread-work-breakdown (2.4 s)",
+        "bootup-time (1.7 s)",
+        "unused-javascript (Est savings of 68 KiB)",
+        "total-blocking-time (220 ms)",
+        "max-potential-fid (210 ms)",
+        "interactive (5.8 s)",
+        "total-blocking-time (330 ms)",
+        "max-potential-fid (240 ms)",
+        "interactive (5.9 s)",
+        "unused-javascript (Est savings of 69 KiB)",
+        "total-blocking-time (690 ms)",
+        "max-potential-fid (390 ms)",
+        "interactive (8.4 s)",
+        "bootup-time (1.4 s)"
+      ]
+    },
+    {
+      "route": "/profile",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 80,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 69
+      },
+      "lcpMs": {
+        "median": 2121.47,
+        "minimum": 2051.946,
+        "maximum": 2158.847
+      },
+      "tbtMs": {
+        "median": 757.1170000000002,
+        "minimum": 561.1829999999991,
+        "maximum": 914.3799999999987
+      },
+      "cls": {
+        "median": 0.0003126942372170689,
+        "minimum": 0.0003126942372170689,
+        "maximum": 0.0003126942372170689
+      },
+      "fcpMs": {
+        "median": 1515.896,
+        "minimum": 1452.525,
+        "maximum": 1557.297
+      },
+      "siMs": {
+        "median": 1554,
+        "minimum": 1490,
+        "maximum": 1630
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.5 s)",
+        "largest-contentful-paint (2.2 s)",
+        "total-blocking-time (910 ms)",
+        "max-potential-fid (440 ms)",
+        "interactive (10.0 s)",
+        "redirects (Est savings of 640 ms)",
+        "third-party-cookies (5 cookies found)",
+        "mainthread-work-breakdown (2.3 s)",
+        "bootup-time (1.7 s)",
+        "unused-javascript (Est savings of 69 KiB)",
+        "inspector-issues",
+        "is-crawlable",
+        "cache-insight (Est savings of 12 KiB)",
+        "document-latency-insight (Est savings of 640 ms)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.1 s)",
+        "total-blocking-time (560 ms)",
+        "max-potential-fid (330 ms)",
+        "interactive (6.7 s)",
+        "redirects (Est savings of 580 ms)",
+        "unused-javascript (Est savings of 68 KiB)",
+        "document-latency-insight (Est savings of 580 ms)",
+        "first-contentful-paint (1.6 s)",
+        "total-blocking-time (730 ms)",
+        "max-potential-fid (480 ms)",
+        "interactive (7.1 s)",
+        "bootup-time (1.3 s)",
+        "total-blocking-time (770 ms)",
+        "max-potential-fid (450 ms)",
+        "interactive (6.9 s)",
+        "mainthread-work-breakdown (2.2 s)",
+        "bootup-time (1.5 s)",
+        "forced-reflow-insight",
+        "total-blocking-time (760 ms)"
+      ]
+    },
+    {
+      "route": "/login",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 69
+      },
+      "lcpMs": {
+        "median": 1420.348,
+        "minimum": 1409.321,
+        "maximum": 1429.468
+      },
+      "tbtMs": {
+        "median": 12.063999999999396,
+        "minimum": 3.2089999999998327,
+        "maximum": 40.80799999999999
+      },
+      "cls": {
+        "median": 0.0001337174940898345,
+        "minimum": 0.0001337174940898345,
+        "maximum": 0.0001337174940898345
+      },
+      "fcpMs": {
+        "median": 807.936,
+        "minimum": 803.295,
+        "maximum": 821.354
+      },
+      "siMs": {
+        "median": 834,
+        "minimum": 830,
+        "maximum": 850
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.4 s)",
+        "speed-index (0.8 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (5.7 s)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 68 KiB)",
+        "inspector-issues",
+        "is-crawlable",
+        "cache-insight (Est savings of 12 KiB)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "interactive (5.5 s)",
+        "unused-javascript (Est savings of 69 KiB)",
+        "interactive (5.6 s)",
+        "speed-index (0.9 s)"
+      ]
+    },
+    {
+      "route": "/profile",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 77,
+        "seo": 69
+      },
+      "lcpMs": {
+        "median": 1999.536,
+        "minimum": 1986.715,
+        "maximum": 2039.454
+      },
+      "tbtMs": {
+        "median": 38.36999999999989,
+        "minimum": 37.17900000000009,
+        "maximum": 42.20899999999983
+      },
+      "cls": {
+        "median": 0.0001337174940898345,
+        "minimum": 0.0001337174940898345,
+        "maximum": 0.0001337174940898345
+      },
+      "fcpMs": {
+        "median": 1387.912,
+        "minimum": 1378.728,
+        "maximum": 1433.495
+      },
+      "siMs": {
+        "median": 1414,
+        "minimum": 1405,
+        "maximum": 1460
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.4 s)",
+        "largest-contentful-paint (2.0 s)",
+        "speed-index (1.5 s)",
+        "max-potential-fid (90 ms)",
+        "interactive (6.2 s)",
+        "redirects (Est savings of 610 ms)",
+        "third-party-cookies (5 cookies found)",
+        "unused-javascript (Est savings of 68 KiB)",
+        "inspector-issues",
+        "is-crawlable",
+        "cache-insight (Est savings of 12 KiB)",
+        "document-latency-insight (Est savings of 610 ms)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "speed-index (1.4 s)",
+        "interactive (6.3 s)",
+        "redirects (Est savings of 570 ms)",
+        "unused-javascript (Est savings of 69 KiB)",
+        "document-latency-insight (Est savings of 570 ms)",
+        "document-latency-insight (Est savings of 580 ms)",
+        "interactive (6.0 s)"
+      ]
+    }
+  ]
+}
