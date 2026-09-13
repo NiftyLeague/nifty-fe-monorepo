@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowLeft, Maximize2, Minimize2 } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
@@ -8,6 +8,7 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { Preloader } from '@nl/ui/custom/preloader'
 
+import { NIFTY_WORLD_ORIGIN } from '@/constants/niftyworld-games'
 import Link from '@/runtime/Link'
 
 interface NiftyWorldEmbedProps {
@@ -23,6 +24,9 @@ interface NiftyWorldEmbedProps {
 type FrameState = 'loading' | 'ready' | 'error'
 
 const FRAME_LOAD_TIMEOUT_MS = 10_000
+const NIFTY_WORLD_THEME_MESSAGE = 'niftyworld:theme'
+const NIFTY_WORLD_THEME_READY_MESSAGE = 'niftyworld:theme-ready'
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
 let nextEmbedVisitId = 0
 
 const createEmbedVisitId = () => `${Date.now()}-${++nextEmbedVisitId}`
@@ -37,6 +41,7 @@ export default function NiftyWorldEmbed({
   getEmbedUrl,
 }: NiftyWorldEmbedProps) {
   const experienceShellRef = useRef<HTMLDivElement>(null)
+  const frameRef = useRef<HTMLIFrameElement>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [isHydrated, setIsHydrated] = useState(false)
   const [embedVisitId, setEmbedVisitId] = useState<string | null>(null)
@@ -75,6 +80,50 @@ export default function NiftyWorldEmbed({
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
   }, [])
 
+  useIsomorphicLayoutEffect(() => {
+    const handleThemeReady = (event: MessageEvent) => {
+      if (event.origin !== NIFTY_WORLD_ORIGIN) return
+      if (event.source !== frameRef.current?.contentWindow) return
+      if (!event.data || typeof event.data !== 'object') return
+      if (event.data.type !== NIFTY_WORLD_THEME_READY_MESSAGE) return
+
+      frameRef.current?.contentWindow?.postMessage(
+        {
+          type: NIFTY_WORLD_THEME_MESSAGE,
+          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+        },
+        NIFTY_WORLD_ORIGIN
+      )
+    }
+
+    window.addEventListener('message', handleThemeReady)
+    return () => window.removeEventListener('message', handleThemeReady)
+  }, [])
+
+  useEffect(() => {
+    if (frameState !== 'ready') return
+
+    const sendThemeNotice = () => {
+      frameRef.current?.contentWindow?.postMessage(
+        {
+          type: NIFTY_WORLD_THEME_MESSAGE,
+          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+        },
+        NIFTY_WORLD_ORIGIN
+      )
+    }
+
+    sendThemeNotice()
+
+    const themeObserver = new MutationObserver(sendThemeNotice)
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class'],
+    })
+
+    return () => themeObserver.disconnect()
+  }, [frameState])
+
   const handleToggleFullscreen = () => {
     const experienceShell = experienceShellRef.current
     if (!experienceShell) return
@@ -85,6 +134,18 @@ export default function NiftyWorldEmbed({
     }
 
     void experienceShell.requestFullscreen().catch(() => undefined)
+  }
+
+  const handleFrameLoad = () => {
+    setFrameState('ready')
+    frameRef.current?.focus()
+    frameRef.current?.contentWindow?.postMessage(
+      {
+        type: NIFTY_WORLD_THEME_MESSAGE,
+        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      },
+      NIFTY_WORLD_ORIGIN
+    )
   }
 
   return (
@@ -151,14 +212,16 @@ export default function NiftyWorldEmbed({
         {isHydrated && embedVisitId && (
           <iframe
             key={`${frameTitle}-${loadAttempt}`}
+            ref={frameRef}
             src={getEmbedUrl(loadAttempt, embedVisitId)}
             title={frameTitle}
             className="h-full min-h-[520px] w-full border-0"
+            tabIndex={0}
             allow="autoplay; fullscreen; gamepad"
             allowFullScreen
             loading="eager"
             referrerPolicy="strict-origin-when-cross-origin"
-            onLoad={() => setFrameState('ready')}
+            onLoad={handleFrameLoad}
             onError={() => setFrameState('error')}
           />
         )}

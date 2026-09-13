@@ -35,7 +35,7 @@ describe('flagship game list', () => {
 
     const firstCardImage = screen.getByAltText('Nifty Smashers (Beta)')
     const secondCardImage = screen.getByAltText('Party Royale (Early-Alpha)')
-    const thirdCardImage = screen.getByAltText('2D Smashers')
+    const thirdCardImage = screen.getByAltText('Smashers Origins (Beta)')
 
     expect(firstCardImage.getAttribute('loading')).toBe('eager')
     expect(firstCardImage.getAttribute('fetchpriority')).toBe('high')
@@ -57,7 +57,9 @@ describe('flagship game list', () => {
     expect(heading).not.toBeNull()
     expect(heading.className).toContain('text-xl')
     expect(heading.className).toContain('font-subheader')
-    expect(screen.getByRole('heading', { level: 3, name: '2D Smashers' })).not.toBeNull()
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Smashers Origins (Beta)' })
+    ).not.toBeNull()
   })
 
   it('links flagship cards to their primary destinations while preserving store actions', async () => {
@@ -71,6 +73,18 @@ describe('flagship game list', () => {
     expect(screen.getByRole('link', { name: 'Open Party Royale' }).getAttribute('href')).toBe(
       'https://testflight.apple.com/join/VXxbaZrw'
     )
+    expect(screen.getByRole('link', { name: 'Open Smashers Origins' }).getAttribute('href')).toBe(
+      'https://store.steampowered.com/app/4297830/Nifty_Smashers_Origins/'
+    )
     expect(screen.getAllByRole('link', { name: 'Apple Store Badge' })).toHaveLength(2)
+    expect(
+      screen
+        .getAllByRole('link', { name: 'Steam Store Badge' })
+        .map((link) => link.getAttribute('href'))
+    ).toEqual([
+      'https://niftysmashers.com/steam',
+      'https://store.steampowered.com/app/4297830/Nifty_Smashers_Origins/',
+    ])
+    expect(screen.queryByRole('link', { name: 'Mobile' })).toBeNull()
   })
 })

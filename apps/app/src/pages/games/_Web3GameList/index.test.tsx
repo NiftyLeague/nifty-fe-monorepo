@@ -38,11 +38,11 @@ describe('mini game list navigation', () => {
       screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
       '/games/niftyworld/degen-dodge',
-      '/games/niftyworld/wen-2d',
-      '/games/niftyworld/degen-dive',
       '/games/niftyworld/brick-breaker',
-      '/games/niftyworld/tennis',
+      '/games/niftyworld/wen-2d',
       '/games/niftyworld/wen-3d',
+      '/games/niftyworld/degen-dive',
+      '/games/niftyworld/tennis',
     ])
     expect(screen.queryByText('Play in App')).toBeNull()
     expect(screen.queryByText(/required/i)).toBeNull()

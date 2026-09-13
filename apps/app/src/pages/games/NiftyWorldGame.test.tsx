@@ -64,6 +64,66 @@ describe('NiftyWorldGame', () => {
     expect(screen.queryByRole('status', { name: `Loading ${game.title}` })).toBeNull()
   })
 
+  it('focuses the embedded game when it finishes loading', async () => {
+    const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
+    const game = NIFTY_WORLD_GAMES[0]
+    const originalClassName = document.documentElement.className
+    document.documentElement.classList.add('dark')
+
+    render(<NiftyWorldGame game={game} />)
+
+    const iframe = screen.getByTitle(`${game.title} mini game`)
+    const focusSpy = jest.spyOn(iframe, 'focus')
+    const postMessage = jest.fn()
+    Object.defineProperty(iframe, 'contentWindow', {
+      configurable: true,
+      value: { postMessage },
+    })
+
+    fireEvent.load(iframe)
+
+    expect(focusSpy).toHaveBeenCalledTimes(1)
+    expect(postMessage).toHaveBeenCalledWith(
+      { type: 'niftyworld:theme', theme: 'dark' },
+      'https://niftyworld.gg'
+    )
+
+    document.documentElement.className = originalClassName
+  })
+
+  it('re-sends the theme when the embedded world confirms its listener is ready', async () => {
+    const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
+    const game = NIFTY_WORLD_GAMES[0]
+    const originalClassName = document.documentElement.className
+    document.documentElement.classList.add('dark')
+
+    render(<NiftyWorldGame game={game} />)
+
+    const iframe = screen.getByTitle(`${game.title} mini game`)
+    const postMessage = jest.fn()
+    Object.defineProperty(iframe, 'contentWindow', {
+      configurable: true,
+      value: { postMessage },
+    })
+
+    fireEvent.load(iframe)
+    postMessage.mockClear()
+    window.dispatchEvent(
+      new MessageEvent('message', {
+        data: { type: 'niftyworld:theme-ready' },
+        origin: 'https://niftyworld.gg',
+        source: iframe.contentWindow,
+      })
+    )
+
+    expect(postMessage).toHaveBeenCalledWith(
+      { type: 'niftyworld:theme', theme: 'dark' },
+      'https://niftyworld.gg'
+    )
+
+    document.documentElement.className = originalClassName
+  })
+
   it('cache-busts a stalled iframe when retrying the game', async () => {
     jest.useFakeTimers()
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')

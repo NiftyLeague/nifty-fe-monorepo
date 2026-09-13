@@ -8,10 +8,22 @@ export const NIFTY_WORLD_GAMES = [
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/degen-dodge.webp`,
   },
   {
+    id: 'brick-breaker',
+    title: 'Brick Breaker',
+    description: 'Smash bricks and climb the levels.',
+    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/brick-breaker.webp`,
+  },
+  {
     id: 'wen-2d',
     title: 'Wen 2D',
     description: 'Run, jump, and swing through Wen 2D.',
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/wen-2d.webp`,
+  },
+  {
+    id: 'wen-3d',
+    title: 'Wen 3D',
+    description: 'Take Wen into a 3D baseball adventure.',
+    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/wen-3d.webp`,
   },
   {
     id: 'degen-dive',
@@ -20,22 +32,10 @@ export const NIFTY_WORLD_GAMES = [
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/degen-dive.webp`,
   },
   {
-    id: 'brick-breaker',
-    title: 'Brick Breaker',
-    description: 'Smash bricks and climb the levels.',
-    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/brick-breaker.webp`,
-  },
-  {
     id: 'tennis',
     title: 'Nifty Tennis',
     description: 'Serve, rally, and return in Nifty Tennis.',
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/tennis.webp`,
-  },
-  {
-    id: 'wen-3d',
-    title: 'Wen 3D',
-    description: 'Take Wen into a 3D baseball adventure.',
-    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/wen-3d.webp`,
   },
 ] as const
 

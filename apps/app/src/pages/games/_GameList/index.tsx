@@ -1,9 +1,7 @@
 import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import NativeImage from '@nl/ui/custom/native-image'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
-import { buttonVariants } from '@nl/ui/base/button-variants'
 import GameCard from '@/components/cards/GameCard'
-import Link from '@/runtime/Link'
 
 import styles from '../grid-item.module.css'
 
@@ -108,8 +106,8 @@ const FlagshipGameList = () => (
         title="Nifty Smashers (Beta)"
         externalHref="https://niftysmashers.com/"
         cardLinkLabel="Open Nifty Smashers"
-        required="Party Platform Fighter"
-        description="Our flagship game - free-to-play, online multiplayer, PARTY platform fighter. Play on iOS, Android, and Steam with full cross-play support!"
+        required="3D Party Platform Fighter"
+        description="Free-to-play 3D party platform fighter with full cross-play."
         imageContent={
           <GameArtwork
             src="/img/games/smashers/smashers-poster.jpg"
@@ -134,7 +132,7 @@ const FlagshipGameList = () => (
         externalHref="https://testflight.apple.com/join/VXxbaZrw"
         cardLinkLabel="Open Party Royale"
         required="Party Battle Royale"
-        description="Step into NiftyWorld - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
+        description="Playtest NiftyWorld's early-alpha party battle royale."
         imageContent={
           <GameArtwork
             src="/img/games/nifty-royale/nifty-royale-poster.jpg"
@@ -147,20 +145,15 @@ const FlagshipGameList = () => (
     </div>
     <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
-        title="2D Smashers"
-        externalLink={{ title: 'Mobile', src: 'https://niftysmashers.com/' }}
-        required="Legacy Unity browser version"
-        description="The original Nifty Smashers browser game is still available while the new game runtime is being migrated."
+        title="Smashers Origins (Beta)"
+        externalHref="https://store.steampowered.com/app/4297830/Nifty_Smashers_Origins/"
+        cardLinkLabel="Open Smashers Origins"
+        required="OG 2D Platform Fighter"
+        description="The original 2D Nifty Smashers browser game."
         image="/img/games/smashers/nifty-smashers-poster.webp"
         autoHeight={false}
         actions={
-          <Link
-            href="/games/smashers"
-            prefetch={false}
-            className={buttonVariants({ variant: 'outline', className: 'w-full' })}
-          >
-            Play in Browser
-          </Link>
+          <StoreButtons steam="https://store.steampowered.com/app/4297830/Nifty_Smashers_Origins/" />
         }
       />
     </div>
