@@ -11,7 +11,10 @@ export const Route = createFileRoute('/_public/world/niftyworld/$scene')({
     }
   },
   head: ({ params }) =>
-    buildHead({ title: getNiftyWorldScene(params.scene)?.title ?? 'Nifty World' }),
+    buildHead({
+      path: `/world/niftyworld/${params.scene}`,
+      title: getNiftyWorldScene(params.scene)?.title ?? 'Nifty World',
+    }),
   component: NiftyWorldSceneRoute,
 })
 

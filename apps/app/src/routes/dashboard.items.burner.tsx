@@ -4,6 +4,6 @@ import ComicsBurnerRouteBoundary from '@/pages/dashboard/items/burner/ComicsBurn
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/dashboard/items/burner')({
-  head: () => buildHead({ title: 'Comics Burner' }),
+  head: () => buildHead({ path: '/dashboard/items/burner', title: 'Comics Burner' }),
   component: ComicsBurnerRouteBoundary,
 })

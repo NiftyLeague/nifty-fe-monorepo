@@ -19,13 +19,25 @@ const REDUNDANT_EXPORTS = {
   'apps/app/src/contexts/NavigationContext.tsx': ['useNavigation'],
   'apps/app/src/contexts/NotificationContext.tsx': ['useNotification'],
   'apps/app/src/hooks/merkleDistributor/useUserUnclaimedAmount.ts': ['ClaimResult'],
+  // The app's OptimizedImage implementation is wired through the vite alias
+  // (`@nl/ui/custom/optimized-image` -> src/runtime/Image.tsx), which the
+  // type-aware detector does not resolve; its exports are the public surface
+  // every app consumer reaches (M5.8, #1885).
+  'apps/app/src/runtime/Image.tsx': [
+    'OptimizedImage',
+    'OptimizedImageProps',
+    'default',
+    'getOptimizedImageProps',
+  ],
+  // `IMAGE_QUALITIES` is consumed by scripts/prepare-images.mjs, which runs
+  // outside the type graph.
+  'apps/app/src/runtime/image-props.mjs': ['DEVICE_WIDTHS', 'IMAGE_QUALITIES', 'SMALL_WIDTHS'],
   'apps/app/src/runtime/env.ts': ['DEPLOY_ENV'],
   'apps/app/src/runtime/metadata.ts': [
     'LinkTag',
     'MetaTag',
     'RouteHeadContent',
     'RouteMetadata',
-    'buildMeta',
     'formatTitle',
   ],
   'apps/app/src/url/search-schema.ts': ['RawSearch'],

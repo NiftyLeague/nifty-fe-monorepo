@@ -7,7 +7,8 @@ import StaticSection from '@/components/sections/StaticSection'
 import { APP_DESCRIPTION, APP_TITLE, buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/')({
-  head: () => buildHead({ title: APP_TITLE, description: APP_DESCRIPTION, absoluteTitle: true }),
+  head: () =>
+    buildHead({ path: '/', title: APP_TITLE, description: APP_DESCRIPTION, absoluteTitle: true }),
   component: Home,
 })
 

@@ -5,7 +5,7 @@ import { smashersBuild } from '@/constants/unity-builds'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/games/smashers')({
-  head: () => buildHead({ title: 'Nifty Smashers' }),
+  head: () => buildHead({ path: '/games/smashers', title: 'Nifty Smashers' }),
   component: SmashersGame,
 })
 

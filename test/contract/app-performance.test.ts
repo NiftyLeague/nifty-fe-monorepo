@@ -571,9 +571,11 @@ describe('app performance contracts', () => {
   it('runs local app development through Vite on port 3001', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    expect(manifest.scripts.dev).toBe('vite dev')
+    // Dev prepends the image-variant preparation (#1885) so `/__images/*`
+    // resolves before Vite starts; the server itself stays Vite.
+    expect(manifest.scripts.dev).toContain('vite dev')
     expect(manifest.scripts.dev).not.toContain('next dev')
-    expect(manifest.scripts.build).toBe('vite build')
+    expect(manifest.scripts.build).toContain('vite build')
   })
 
   it('leaves no Next.js build surface behind', () => {

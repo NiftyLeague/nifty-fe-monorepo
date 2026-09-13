@@ -7,3 +7,8 @@ dist/
 .vite/
 .tanstack/
 .env*
+
+# Generated at build time by scripts/prepare-images.mjs and emitted into the
+# client build by the vite config (never committed — apps/app/public is a
+# symlink to the shared assets dir, so generated files cannot live there).
+.app-images/

@@ -4,6 +4,6 @@ import GamerProfileRouteBoundary from '@/pages/dashboard/gamer-profile/GamerProf
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/dashboard/gamer-profile')({
-  head: () => buildHead({ title: 'Gamer Profile' }),
+  head: () => buildHead({ path: '/dashboard/gamer-profile', title: 'Gamer Profile' }),
   component: GamerProfileRouteBoundary,
 })

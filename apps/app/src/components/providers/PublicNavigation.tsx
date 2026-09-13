@@ -94,10 +94,13 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
           </div>
         </AppBar>
       </header>
-
       <PublicSidebar />
-
-      <main className={styles.publicMain}>{children}</main>
+      // Keyboard-scrollable: the shell constrains this region's height, so // without a tab stop
+      keyboard users cannot reach overflowing content // (axe `scrollable-region-focusable`,
+      surfaced by the M5.8 E2E once the // deferred mint page mounted before the sweep ran).
+      <main className={styles.publicMain} tabIndex={0}>
+        {children}
+      </main>
     </div>
   )
 }
