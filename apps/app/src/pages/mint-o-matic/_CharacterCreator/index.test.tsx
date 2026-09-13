@@ -96,6 +96,8 @@ describe('CharacterCreatorContainer', () => {
       />
     )
 
+    expect(setLoaded).toHaveBeenCalledWith(true)
+
     rerender(
       <CharacterCreatorContainer
         isLoaded={true}

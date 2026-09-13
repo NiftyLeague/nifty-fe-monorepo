@@ -1,34 +1,21 @@
-import type { PropsWithChildren } from 'react'
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('@/runtime/Link', () => ({
-  default: ({
-    children,
-    href,
-    prefetch,
-    ...props
-  }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
-    <a href={href} data-prefetch={String(prefetch)} {...props}>
-      {children}
-    </a>
-  ),
-}))
-
-mock.module('@/components/cards/GameCard', () => ({
+mock.module('@/components/cards/NiftyWorldCard', () => ({
   default: ({
     title,
-    actions,
-    externalLink,
+    href,
+    hoverActionLabel,
   }: {
     title: string
-    actions?: React.ReactNode
-    externalLink?: { title: string; src: string }
+    href: string
+    hoverActionLabel?: string
   }) => (
     <article>
       <h2>{title}</h2>
-      {externalLink && <a href={externalLink.src}>{externalLink.title}</a>}
-      {actions}
+      <a href={href} aria-label={`Explore ${title}`}>
+        {hoverActionLabel}
+      </a>
     </article>
   ),
 }))
@@ -44,30 +31,21 @@ describe('mini game list navigation', () => {
     mock.restore()
   })
 
-  it('does not prefetch game routes until a player chooses one', () => {
-    render(<Web3GameList />)
-
-    expect(
-      screen
-        .getAllByRole('link')
-        .filter((link) => link.hasAttribute('data-prefetch'))
-        .map((link) => link.getAttribute('data-prefetch'))
-    ).toEqual(['false', 'false', 'false', 'false', 'false', 'false'])
-  })
-
   it('links every Nifty World mini game into the app', () => {
     render(<Web3GameList />)
 
     expect(
-      screen.getAllByRole('link', { name: 'Play in App' }).map((link) => link.getAttribute('href'))
+      screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
       '/games/niftyworld/degen-dodge',
-      '/games/niftyworld/wen-2d',
-      '/games/niftyworld/degen-dive',
       '/games/niftyworld/brick-breaker',
-      '/games/niftyworld/tennis',
+      '/games/niftyworld/wen-2d',
       '/games/niftyworld/wen-3d',
+      '/games/niftyworld/degen-dive',
+      '/games/niftyworld/tennis',
     ])
+    expect(screen.queryByText('Play in App')).toBeNull()
     expect(screen.queryByText(/required/i)).toBeNull()
+    expect(screen.getAllByText('Play game')).toHaveLength(6)
   })
 })

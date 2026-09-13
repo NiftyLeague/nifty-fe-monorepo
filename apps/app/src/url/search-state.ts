@@ -1,6 +1,5 @@
 import {
   parseAsArrayOf,
-  parseAsBoolean,
   parseAsInteger,
   parseAsString,
   parseAsStringLiteral,
@@ -55,10 +54,6 @@ export const rentalSearchParsers = {
   pageSize: parseAsStringLiteral(rentalPageSizes).withDefault('10'),
   sort: parseAsString.withDefault(''),
   direction: parseAsStringLiteral(rentalSortDirections).withDefault('asc'),
-}
-
-export const mintSearchParsers = {
-  nifty_artists: parseAsBoolean.withDefault(false),
 }
 
 export type DegenSearchState = inferParserType<typeof degenSearchParsers>

@@ -11,6 +11,7 @@ describe('RouteLoading', () => {
     expect(status.getAttribute('aria-live')).toBe('polite')
     expect(status.getAttribute('aria-busy')).toBe('true')
     expect(screen.getByText('Loading Nifty League')).toBeTruthy()
-    expect(container.querySelector('[data-slot="skeleton"]')).toBeTruthy()
+    expect(container.querySelector('svg#preloader-arcade')).toBeTruthy()
+    expect(container.querySelector('[data-slot="skeleton"]')).toBeNull()
   })
 })

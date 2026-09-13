@@ -10,7 +10,6 @@ const migratedUrlOwners = [
   'apps/app/src/pages/dashboard/rentals/DashboardRentalsContent.tsx',
   'apps/app/src/pages/dashboard/rentals/MyRentalsDataGrid.tsx',
   'apps/app/src/pages/dashboard/degens/DashboardDegensContent.tsx',
-  'apps/app/src/components/providers/MintPageContent.tsx',
 ]
 
 const migratedRemoteOwners = [

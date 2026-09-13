@@ -23,8 +23,13 @@ beforeEach(async () => {
   }))
   // The router-backed Link needs a RouterProvider; render a plain anchor here.
   mock.module('@/runtime/Link', () => ({
-    default: ({ children, href, ...props }: ComponentProps<'a'> & { href: string }) => (
-      <a href={href} {...props}>
+    default: ({
+      children,
+      href,
+      prefetch,
+      ...props
+    }: ComponentProps<'a'> & { href: string; prefetch?: boolean }) => (
+      <a href={href} data-prefetch={String(prefetch)} {...props}>
         {children}
       </a>
     ),
@@ -173,6 +178,84 @@ describe('card presentation', () => {
 
     expect(screen.getByAltText('Deferred artwork').getAttribute('loading')).toBe('lazy')
     expect(screen.getByAltText('Deferred artwork').getAttribute('fetchpriority')).toBe('low')
+  })
+
+  it('supports a full-card scene link with a visible hover cue', () => {
+    render(
+      <GameCard
+        title="Isla Azul"
+        description="Explore the island"
+        image="/isla-azul.webp"
+        href="/world/niftyworld/isla-azul"
+        prefetch={false}
+      />
+    )
+
+    const sceneLink = screen.getByRole('link', { name: 'Explore Isla Azul' })
+
+    expect(sceneLink.getAttribute('href')).toBe('/world/niftyworld/isla-azul')
+    expect(sceneLink.getAttribute('data-prefetch')).toBe('false')
+    expect(screen.getByText('Explore map')).not.toBeNull()
+    expect(screen.queryByRole('button', { name: /Play on/ })).toBeNull()
+
+    const sceneCard = sceneLink.firstElementChild
+    expect(sceneCard?.getAttribute('class')).toContain('group-hover:border-purple/70')
+    expect(sceneCard?.getAttribute('class')).not.toContain('translate-y')
+    expect(sceneCard?.querySelector('img')?.getAttribute('class')).toContain(
+      'group-hover:scale-105'
+    )
+  })
+
+  it('renders scene artwork full-bleed with the content in a translucent lower overlay', () => {
+    render(
+      <GameCard
+        title="Isla Azul"
+        description="Explore the island"
+        image="/isla-azul.webp"
+        href="/world/niftyworld/isla-azul"
+        overlayContent
+        prefetch={false}
+      />
+    )
+
+    const sceneCard = screen.getByRole('link', { name: 'Explore Isla Azul' }).firstElementChild
+    const overlay = screen.getByText('Explore the island').parentElement?.parentElement
+
+    expect(sceneCard?.getAttribute('class')).toContain('aspect-[16/10]')
+    expect(sceneCard?.querySelector('img')?.parentElement?.getAttribute('class')).toContain(
+      'absolute'
+    )
+    expect(overlay?.getAttribute('class')).not.toContain('min-h-[50%]')
+    expect(overlay?.querySelector('[data-slot="card-content"]')?.getAttribute('class')).toContain(
+      'pb-3'
+    )
+    expect(overlay?.getAttribute('class')).toContain('bg-black/65')
+  })
+
+  it('keeps store badges clickable when a flagship card links externally', () => {
+    render(
+      <GameCard
+        title="Nifty Smashers (Beta)"
+        image="/smashers.webp"
+        externalHref="https://niftysmashers.com/"
+        cardLinkLabel="Open Nifty Smashers"
+        actions={<a href="https://niftysmashers.com/ios">App Store badge</a>}
+      />
+    )
+
+    const cardLink = screen.getByRole('link', { name: 'Open Nifty Smashers' })
+    const badgeLink = screen.getByRole('link', { name: 'App Store badge' })
+
+    expect(cardLink.getAttribute('href')).toBe('https://niftysmashers.com/')
+    expect(cardLink.getAttribute('target')).toBe('_blank')
+    expect(cardLink.closest('[data-slot="card"]')?.getAttribute('class')).toContain(
+      'hover:border-purple/70'
+    )
+    expect(badgeLink.getAttribute('href')).toBe('https://niftysmashers.com/ios')
+    expect(cardLink.contains(badgeLink)).toBe(false)
+    expect(badgeLink.parentElement?.parentElement?.getAttribute('class')).toContain(
+      'pointer-events-auto'
+    )
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {

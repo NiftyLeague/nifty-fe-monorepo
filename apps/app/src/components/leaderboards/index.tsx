@@ -15,10 +15,11 @@ import {
 } from '@/constants/leaderboards'
 import './modal-table.css'
 import { leaderboardSearchParsers } from '@/url/search-state'
+import RouteLoading from '@nl/ui/custom/route-loading'
 
 const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
   ssr: false,
-  loading: () => <div className="flex min-h-96 items-center justify-center" aria-busy="true" />,
+  loading: () => <RouteLoading label="Loading leaderboards" />,
 })
 
 export default function LeaderBoards(): React.ReactNode {

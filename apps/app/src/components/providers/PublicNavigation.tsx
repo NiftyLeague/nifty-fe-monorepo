@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react'
+import { memo, type PropsWithChildren } from 'react'
 
 import AppBar from '@nl/ui/custom/app-bar'
 import { cx } from '@nl/ui/class-names'
@@ -11,6 +11,31 @@ import styles from '@/layouts/_layout/_MainLayout/MainLayout.module.css'
 import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicDesktopNavigationToggle from './PublicDesktopNavigationToggle'
 import PublicNavLinks from './PublicNavLinks'
+
+const PublicSidebar = memo(function PublicSidebar() {
+  return (
+    <nav
+      id="public-desktop-navigation"
+      aria-label="Primary navigation"
+      className="hidden w-[260px] shrink-0 lg:block"
+    >
+      <aside
+        className={cx(
+          styles.publicDesktopSidebar,
+          'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
+        )}
+        style={{ width: 260, top: 60 }}
+      >
+        <div className="h-full overflow-y-auto px-4 py-5">
+          <div className="mb-5">
+            <DeferredPublicUserProfile placement="desktop" />
+          </div>
+          <PublicNavLinks />
+        </div>
+      </aside>
+    </nav>
+  )
+})
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
@@ -28,18 +53,27 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 label="Toggle navigation"
                 className="lg:hidden"
                 summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
-                panelClassName="fixed top-[60px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
+                panelClassName="fixed top-[56px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
               >
                 <div className="border-b border-sidebar-border px-4 py-3">
                   <div className="flex items-center gap-3 text-sidebar-foreground">
                     <PublicLogo />
-                    <span>Primary navigation</span>
+                    <span>Nifty League</span>
                   </div>
                 </div>
                 <div className="border-b border-sidebar-border p-4">
                   <DeferredPublicUserProfile placement="mobile" />
                 </div>
-                <nav aria-label="Primary navigation" className="px-4">
+                <nav
+                  aria-label="Primary navigation"
+                  className="px-4"
+                  onClick={(event) => {
+                    const target = event.target
+                    if (target instanceof Element && target.closest('a')) {
+                      target.closest('details')?.removeAttribute('open')
+                    }
+                  }}
+                >
                   <PublicNavLinks />
                 </nav>
               </MobileNavigationDisclosure>
@@ -61,26 +95,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         </AppBar>
       </header>
 
-      <nav
-        id="public-desktop-navigation"
-        aria-label="Primary navigation"
-        className="hidden w-[260px] shrink-0 lg:block"
-      >
-        <aside
-          className={cx(
-            styles.publicDesktopSidebar,
-            'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
-          )}
-          style={{ width: 260, top: 60 }}
-        >
-          <div className="h-full overflow-y-auto px-4 py-5">
-            <div className="mb-5">
-              <DeferredPublicUserProfile placement="desktop" />
-            </div>
-            <PublicNavLinks />
-          </div>
-        </aside>
-      </nav>
+      <PublicSidebar />
 
       <main className={styles.publicMain}>{children}</main>
     </div>

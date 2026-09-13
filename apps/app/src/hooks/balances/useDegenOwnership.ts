@@ -6,7 +6,7 @@ import { useOwnerSearch } from '@/hooks/useGraphQL'
 import useAuth from '@/hooks/useAuth'
 import type { Character } from '@/types/graph'
 
-export interface DegenOwnershipState {
+interface DegenOwnershipState {
   degenCount: number
   degensBalances: Character[]
   degenTokenIndices: number[]
