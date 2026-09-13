@@ -15,6 +15,7 @@ describe('HomeV3Characters', () => {
     expect(screen.getByRole('heading', { name: /PIXEL ROOTS.*A NEW DIMENSION/i })).toBeTruthy()
     expect(screen.getByRole('article', { name: 'DOGE: from 2D to 3D' })).toBeTruthy()
     const studioLink = screen.getByRole('link', { name: 'RetroStyle Games' })
+    expect(studioLink.className).toContain('home-v3-inline-link')
     expect(studioLink.getAttribute('href')).toBe(
       'https://retrostylegames.com/portfolio/nifty-league-pixel-nft-characters-and-animations/'
     )

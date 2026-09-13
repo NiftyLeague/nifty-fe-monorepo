@@ -74,6 +74,12 @@
   color: #d8c2ff;
 }
 
+.home-v3-inline-link {
+  color: var(--color-foreground);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .home-v3-characters {
   padding-top: clamp(5.5rem, 9vw, 10.625rem);
 }

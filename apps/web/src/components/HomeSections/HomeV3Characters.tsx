@@ -136,6 +136,7 @@ export default function HomeV3Characters() {
           <p>
             3D character development:{' '}
             <a
+              className="home-v3-inline-link"
               href="https://retrostylegames.com/portfolio/nifty-league-pixel-nft-characters-and-animations/"
               target="_blank"
               rel="noreferrer"
