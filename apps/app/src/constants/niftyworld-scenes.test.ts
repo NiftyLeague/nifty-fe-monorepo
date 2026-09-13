@@ -26,4 +26,9 @@ describe('Nifty World scene catalog', () => {
       'https://niftyworld.gg/scenes/isla-azul?zone=dungeon&embed=1&visit=visit-1&attempt=2'
     )
   })
+
+  it('keeps map descriptions compact enough for one-line cards', () => {
+    expect(NIFTY_WORLD_SCENES.every(({ description }) => description.length <= 42)).toBe(true)
+    expect(NIFTY_WORLD_SCENES.every(({ description }) => !description.includes('\n'))).toBe(true)
+  })
 })

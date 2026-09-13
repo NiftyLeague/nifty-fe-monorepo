@@ -64,7 +64,13 @@ describe('PublicNavigation', () => {
     expect(mobileDisclosure?.open).toBe(true)
 
     const mobilePanel = document.getElementById('public-mobile-navigation')
-    expect(mobilePanel?.className).toContain('top-[60px]')
+    expect(mobilePanel?.className).toContain('top-[56px]')
+    expect(screen.getByText('Nifty League')).not.toBeNull()
+
+    const worldLink = mobilePanel?.querySelector('a[href="/world"]')
+    expect(worldLink).not.toBeNull()
+    fireEvent.click(worldLink as Element)
+    expect(mobileDisclosure?.open).toBe(false)
 
     expect(screen.getByRole('link', { name: /^Website/ }).getAttribute('href')).toBe(
       'https://niftyleague.com/'
