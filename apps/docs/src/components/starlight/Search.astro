@@ -19,20 +19,26 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 
 <site-search>
 	{/* The accessible name spells out the visible label and shortcut so it always
-	    contains the text on screen (WCAG 2.5.3); the inline script below rewrites
-	    both together when it switches the hint to the platform's modifier key. */}
+	    contains the text on screen (WCAG 2.5.3): Lighthouse's label-content-name
+	    check rejects the parenthesised form because it does not contain the
+	    rendered "Search Ctrl K" run, so the name mirrors that exact sequence and
+	    the whitespace between the keycaps keeps it a single normalised string. */}
 	<button
 		data-open-modal
 		disabled
-		aria-label={`${label} (${ctrlKey}+K)`}
+		data-label={label}
+		aria-label={`${label} ${ctrlKey} K`}
 		aria-keyshortcuts="Control+K"
 	>
 		<Icon name="magnifier" />
 		<span class="sl-hidden md:sl-block" aria-hidden="true">{label}</span>
+		{/* The single space between the keycaps must stay on one line: the Astro
+		    compiler trims whitespace-only lines, and the rendered "Ctrl K" run is
+		    what the accessible name (label + keycaps) has to contain verbatim for
+		    the label-content-name check. */}
 		<kbd class="sl-hidden md:sl-flex" style="display: none;" aria-hidden="true">
-			<kbd>{ctrlKey}</kbd><kbd>K</kbd>
-		</kbd>
-	</button>
+			<kbd>{ctrlKey}</kbd> <kbd>K</kbd>
+		</kbd>	</button>
 
 	{/* DocSearch mounts its own trigger button into this container; the site's
 	    button above is the visible control, so the container stays in the layout
@@ -52,8 +58,7 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 			platformKey.textContent = '⌘';
 			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
 			// Keep the accessible name in step with the visible shortcut.
-			const label = openBtn.getAttribute('aria-label')?.split(' (')[0];
-			if (label) openBtn.setAttribute('aria-label', `${label} (⌘+K)`);
+			openBtn.setAttribute('aria-label', `${openBtn.dataset.label} ⌘ K`);
 		}
 		shortcut.style.display = '';
 	})();
@@ -131,6 +136,17 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 			openBtn.disabled = false;
 			openLatest = openModal;
 
+			// The chunk is ~50 KB gzipped and immutable-cached once fetched, so
+			// warming it on hover or keyboard focus makes the first open feel
+			// instant without putting any search code on the critical path.
+			const warm = () => {
+				void loadDocSearch(container);
+				openBtn.removeEventListener('pointerenter', warm);
+				openBtn.removeEventListener('focus', warm);
+			};
+			openBtn.addEventListener('pointerenter', warm);
+			openBtn.addEventListener('focus', warm);
+
 			// The previous site rewrote the shortcut hint to the platform's modifier
 			// key; as an island upgrade this runs for the swapped-in copy too.
 			const shortcut = openBtn.querySelector('kbd');
@@ -141,8 +157,7 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 					platformKey.textContent = '⌘';
 					openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
 					// Keep the accessible name in step with the visible shortcut.
-					const label = openBtn.getAttribute('aria-label')?.split(' (')[0];
-					if (label) openBtn.setAttribute('aria-label', `${label} (⌘+K)`);
+					openBtn.setAttribute('aria-label', `${openBtn.dataset.label} ⌘ K`);
 				}
 				shortcut.style.display = '';
 			}

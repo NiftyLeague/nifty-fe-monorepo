@@ -51,10 +51,22 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 				<script>
 					class StarlightSidebarPane extends HTMLElement {
 						private onScroll: () => void;
+						private onBreakpoint: () => void;
 						constructor() {
 							super();
+							this.onBreakpoint = () => this.syncPanels();
 							matchMedia('(min-width: 50em)').addEventListener('change', () => this.hidePopover());
-							this.addEventListener('toggle', ({ newState }) => this.trapFocus(newState === 'open'));
+							matchMedia('(min-width: 997px)').addEventListener('change', this.onBreakpoint);
+							this.addEventListener('toggle', ({ newState }) => {
+								const open = newState === 'open';
+								this.trapFocus(open);
+								// Native popover dismissal can land focus on <body>; the menu
+								// button is the control that opened the drawer, so keyboard
+								// users keep their place when it closes.
+								if (!open && document.activeElement === document.body) {
+									document.querySelector<HTMLElement>('.sl-menu-button')?.focus();
+								}
+							});
 							// The drawer chrome is parsed after this element, so delegate.
 							this.addEventListener('click', ({ target }) => {
 								if (!(target instanceof Element)) return;
@@ -67,10 +79,27 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 							window.addEventListener('scroll', this.onScroll, { passive: true });
 							window.addEventListener('resize', this.onScroll);
 							this.clampToFooter();
+							this.syncPanels();
 						}
 						disconnectedCallback() {
 							window.removeEventListener('scroll', this.onScroll);
 							window.removeEventListener('resize', this.onScroll);
+							matchMedia('(min-width: 997px)').removeEventListener('change', this.onBreakpoint);
+						}
+						syncPanels() {
+							// The fixed desktop column always shows the section panel (the
+							// main view is display: none there), so the drawer's view-state
+							// inert flags must not strand it inert on pages whose initial
+							// view is `main` — the /search column rendered visible but
+							// unreachable links (#1884). Below the breakpoint the drawer
+							// semantics apply again.
+							if (matchMedia('(min-width: 997px)').matches) {
+								for (const panel of this.querySelectorAll<HTMLElement>('.drawer-panel')) {
+									panel.inert = false;
+								}
+							} else {
+								this.setView(this.dataset.view ?? 'main');
+							}
 						}
 						clampToFooter() {
 							if (!matchMedia('(min-width: 997px)').matches) {

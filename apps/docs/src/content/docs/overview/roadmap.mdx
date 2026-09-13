@@ -3,7 +3,14 @@ title: Roadmap
 ---
 
 import { Image } from 'astro:assets'
-import roadmap from '../../../../../../assets/img/roadmap/nifty_roadmap.webp'
+import {
+  ROADMAP_POSTER_FALLBACK_WIDTH,
+  ROADMAP_POSTER_FORMAT,
+  ROADMAP_POSTER_QUALITY,
+  ROADMAP_POSTER_SIZES,
+  ROADMAP_POSTER_WIDTHS,
+  roadmapPoster,
+} from '../../../lib/roadmap-poster'
 
 :::tip[What now?]
 
@@ -12,11 +19,13 @@ View our latest progress on our [website](https://niftyleague.com/roadmap)!
 :::
 
 <Image
-  src={roadmap}
+  src={roadmapPoster}
   alt="Nifty League product roadmap"
-  widths={[400, 640, 761, 1200]}
-  sizes="(min-width: 60rem) 761px, 90vw"
-  quality={76}
+  widths={[...ROADMAP_POSTER_WIDTHS]}
+  width={ROADMAP_POSTER_FALLBACK_WIDTH}
+  sizes={ROADMAP_POSTER_SIZES}
+  format={ROADMAP_POSTER_FORMAT}
+  quality={ROADMAP_POSTER_QUALITY}
   loading="eager"
   fetchpriority="high"
   decoding="async"
