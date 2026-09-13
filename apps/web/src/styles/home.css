@@ -358,6 +358,21 @@
 }
 
 @media (max-width: 768px) {
+  /* The mobile hero historically used the static cover background. Disable
+   * the desktop zoom animation so the artwork keeps a predictable focal point
+   * while the page loads on narrow screens. */
+  .home-intro-background img {
+    animation: none !important;
+    object-position: top left;
+    transform: none !important;
+  }
+
+  /* Static sections sit directly after the preceding home section on mobile;
+   * their content provides the intended rhythm. */
+  .home-pg .home-static-section {
+    margin-top: 0;
+  }
+
   .home-satoshi {
     width: 80px;
     height: 84px;

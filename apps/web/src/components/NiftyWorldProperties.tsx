@@ -7,7 +7,9 @@ export default function NiftyWorldProperties() {
     <section className="section relative">
       <div className="purple-bg-orb orb-top-left" />
       <div className="mb-3 mb-md-5">
-        <h2 className="text-center heading-look-3">PROPERTY TYPES FOR EVERYONE</h2>
+        <h2 className="text-center heading-look-3 text-highlight-purple">
+          PROPERTY TYPES FOR EVERYONE
+        </h2>
       </div>
       <div className="flex flex-col items-start md:flex-row w-full justify-between flex-wrap">
         {NIFTYWORLD_PROPERTIES.map(({ name, description, image }) => (

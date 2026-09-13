@@ -1,95 +1,99 @@
-import { NIFTY_WORLD_APP_URL } from '@/constants/links'
+import { NIFTY_APP_URL, NIFTY_WORLD_APP_URL } from '@/constants/links'
 
 export interface NiftyGame {
   name: string
   description: string
-  video: string
-  poster?: string
+  image: string
   tag: string
-  action: {
-    title?: string
-    link?: string
-    secondaryLink?: string
-    secondaryTitle?: string
-    external?: boolean
-    isComingSoon?: boolean
-  }
+  link: string
 }
 
 export const NIFTY_GAMES: NiftyGame[] = [
   {
     name: 'NIFTY SMASHERS',
-    description: `As Nifty League's flagship game, this brawl-style party game will have you white-knuckled and on the edge of your seat as you try to out-click, out-smart and out-smash your opponent in a winner-takes-all DEGEN battle!`,
-    video: 'https://www.youtube.com/embed/4lnDrx4aDq8?autoplay=1&enablejsapi=1&html5=1',
-    tag: 'MOBILE / PC GAME',
-    action: {
-      title: "LET'S BRAWL!",
-      link: 'https://niftysmashers.com',
-      isComingSoon: false,
-    },
+    description:
+      'A flagship brawler for fast, chaotic matches with friends and rivals across the Nifty League.',
+    image: '/img/home/smashers-spotlight.webp',
+    tag: 'MOBILE / PC',
+    link: 'https://niftysmashers.com',
   },
   {
     name: 'NIFTY WORLD',
     description:
-      'A virtual social hub like none other for gamers. The vision is for Nifty World to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
-    video: '/video/mansion_showcase.mp4',
-    poster: '/img/games/video-posters/niftyworld.webp',
-    tag: 'METAVERSE',
-    action: {
-      title: 'EXPLORE WORLD',
-      link: NIFTY_WORLD_APP_URL,
-      external: true,
-      isComingSoon: false,
-    },
+      'An open world to explore, meet the community, and create player-made games together.',
+    image: '/img/home/niftyworld-marina.webp',
+    tag: 'OPEN WORLD',
+    link: NIFTY_WORLD_APP_URL,
   },
   {
     name: 'NIFTY ROYALE',
     description:
-      "One of the first games we'd like to introduce to Nifty World is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
-    video: '/video/arcade-token.mp4',
-    poster: '/img/games/video-posters/nifty-royale.webp',
-    tag: 'MOBILE / PC GAME',
-    action: {
-      title: 'PLAYTEST EARLY-ACCESS!',
-      link: 'https://app.niftyleague.com',
-      isComingSoon: false,
-    },
+      'A competitive battle royale where DEGENs outplay rivals and chase victory in Nifty World.',
+    image: '/img/games/video-posters/nifty-royale.webp',
+    tag: 'MOBILE / PC',
+    link: NIFTY_APP_URL,
   },
   {
-    name: 'WEN GAME',
-    description: `Never thought you'd see a batting cage on the blockchain huh? Think again. Put your baseball team cap on and get ready to hit the balls in the WEN game for your first blockchain home run. Easy to pick up, difficult to master. Wen lambo?!`,
-    video: '/video/wen-ape.mp4',
-    poster: '/img/games/video-posters/wen-game.webp',
-    tag: 'MINI-GAME',
-    action: {
-      title: 'SWING AWAY!',
-      link: 'https://app.niftyleague.com/games/wen-game',
-      isComingSoon: false,
-    },
+    name: '2D SMASHERS',
+    description:
+      'The original browser brawler, preserved in the app for classic Nifty Smashers competition.',
+    image: '/img/games/smashers/nifty-smashers-poster.webp',
+    tag: 'BROWSER',
+    link: `${NIFTY_APP_URL}/games/smashers`,
   },
   {
-    name: 'CRYPTO WINTER',
-    description: `The crypto market is currently going through an extended winter season, and only few will survive until the next cycle. Dodge snowballs, bombs and icicles and utilise pickups to defeat Pengweevil to achieve a seat at the ranking table. Weak hands need not apply, diamond hands only!`,
-    video: '/video/crypto-winter.mp4',
-    poster: '/img/games/video-posters/crypto-winter.webp',
+    name: 'DEGEN DODGE',
+    description:
+      'Dodge danger, swing your bat, and survive a fast-paced Nifty World arcade challenge.',
+    image: 'https://niftyworld.gg/assets/maps/degen-dodge.webp',
     tag: 'MINI-GAME',
-    action: {
-      title: 'START PLAYING!',
-      link: 'https://app.niftyleague.com/games/crypto-winter',
-      isComingSoon: false,
-    },
+    link: `${NIFTY_APP_URL}/games/niftyworld/degen-dodge`,
+  },
+  {
+    name: 'WEN 2D',
+    description:
+      'A timing-based baseball mini-game where every hit builds your score and tests your reflexes.',
+    image: '/img/games/video-posters/wen-game.webp',
+    tag: 'MINI-GAME',
+    link: `${NIFTY_APP_URL}/games/niftyworld/wen-2d`,
+  },
+  {
+    name: 'WEN 3D',
+    description:
+      'A 3D baseball adventure built for quick matches, sharp timing, and competitive browser play.',
+    image: 'https://niftyworld.gg/assets/maps/wen-3d.webp',
+    tag: 'MINI-GAME',
+    link: `${NIFTY_APP_URL}/games/niftyworld/wen-3d`,
   },
   {
     name: 'MT. GAWX',
     description:
-      "No DEGEN story is ever complete without a kickass lore behind it. DEGENs come here while the volcano is active to sink NFTL and watch the volcano roar, belching molten lava in response. It would be cute if it wasn't so scary.",
-    video: '/video/rugmans-peak.mp4',
-    poster: '/img/games/video-posters/mt-gawx.webp',
+      'Climb an active volcano, burn NFTL, and see how much you can sacrifice in this arcade challenge.',
+    image: '/img/games/video-posters/mt-gawx.webp',
     tag: 'MINI-GAME',
-    action: {
-      title: 'MOUNTAIN CLOSED',
-      link: 'https://app.niftyleague.com/games/mt-gawx',
-      isComingSoon: false,
-    },
+    link: `${NIFTY_APP_URL}/games/mt-gawx`,
+  },
+  {
+    name: 'DEGEN DIVE',
+    description: 'Dive, dodge hazards, and chase the high score in a fast arcade challenge.',
+    image: 'https://niftyworld.gg/assets/maps/degen-dive.webp',
+    tag: 'MINI-GAME',
+    link: `${NIFTY_APP_URL}/games/niftyworld/degen-dive`,
+  },
+  {
+    name: 'BRICK BREAKER',
+    description:
+      'Break through colorful bricks, clear every level, and climb the leaderboard for a high score.',
+    image: 'https://niftyworld.gg/assets/maps/brick-breaker.webp',
+    tag: 'MINI-GAME',
+    link: `${NIFTY_APP_URL}/games/niftyworld/brick-breaker`,
+  },
+  {
+    name: 'NIFTY TENNIS',
+    description:
+      'Serve, rally, and return the ball in a fast-paced match built for quick, competitive play.',
+    image: 'https://niftyworld.gg/assets/maps/tennis.webp',
+    tag: 'MINI-GAME',
+    link: `${NIFTY_APP_URL}/games/niftyworld/tennis`,
   },
 ]

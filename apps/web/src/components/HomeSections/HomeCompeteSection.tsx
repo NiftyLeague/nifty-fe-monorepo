@@ -31,7 +31,7 @@ export default function HomeCompeteSection() {
           <h2 className="mb-3 max-w-[400px] section-heading transition-vertical-fade">
             NFTL
             <br />
-            <span className="font-default font-normal">GOVERN TOGETHER</span>
+            <span className="font-default font-normal text-highlight-purple">GOVERN TOGETHER</span>
           </h2>
           <p className="my-0 py-1 md:py-3 section-description transition-vertical-fade">
             Compete, earn, and help govern the future of the Nifty League ecosystem.

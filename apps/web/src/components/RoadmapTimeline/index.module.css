@@ -229,6 +229,16 @@
 .cd_timeline_checkpoint.completed {
   background: linear-gradient(to left, #4faa5c, #225953);
 }
+.cd_timeline_checkpoint.cancelled {
+  background: var(--color-error);
+  box-shadow:
+    0 0 0 4px var(--color-purple),
+    inset 0 2px 0 rgba(0, 0, 0, 0.08),
+    0 3px 0 4px rgba(0, 0, 0, 0.05);
+}
+.cd_timeline_checkpoint.cancelled > svg {
+  color: var(--color-foreground);
+}
 
 .cd_timeline_divider {
   border-bottom: var(--color-foreground) dotted 2px;

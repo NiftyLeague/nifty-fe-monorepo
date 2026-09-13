@@ -93,6 +93,17 @@
     -webkit-backdrop-filter: none !important;
   }
 
+  /* A filtered fixed header creates a containing block for fixed descendants.
+   * On mobile that makes the drawer collapse to the header when opened after
+   * scrolling. The drawer is the only mobile scroll surface, so the header
+   * must never establish that containing block. */
+  @media (max-width: 767px) {
+    .navbar-scroll-frame {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+  }
+
   @keyframes navbar-scroll-frame-background {
     from {
       background-color: transparent;

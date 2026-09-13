@@ -10,7 +10,9 @@ const Overview = (slots: Record<string, React.ReactNode> = {}) => (
       <section className="section relative">
         <h1 className="text-center">OVERVIEW</h1>
         <div className="mt-3">
-          <p className="text-center">Learn how to navigate the Nifty League Platform</p>
+          <p className="text-center text-highlight-purple">
+            Learn how to navigate the Nifty League Platform
+          </p>
         </div>
         <LearnCards />
         <div className="purple-bg-orb orb-bottom-left" />

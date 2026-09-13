@@ -16,7 +16,7 @@
 
 .home-v3-eyebrow {
   margin: 0 0 0.75rem;
-  color: #bca0ef;
+  color: var(--color-highlight-purple);
   font-family: var(--special-font);
   font-size: 0.625rem;
   line-height: 1.9;
@@ -33,7 +33,7 @@
 }
 
 .home-v3-accent-text {
-  color: #d8c2ff;
+  color: var(--color-highlight-purple);
 }
 
 .home-v3-section-intro {
@@ -71,7 +71,7 @@
 }
 
 .home-v3-text-link:hover {
-  color: #d8c2ff;
+  color: var(--color-highlight-purple);
 }
 
 .home-v3-inline-link {
@@ -176,7 +176,7 @@
 }
 
 .home-v3-evolution-arrow {
-  color: #bca0ef;
+  color: var(--color-highlight-purple);
   font-size: clamp(1rem, 1.6vw, 1.5rem);
 }
 
@@ -923,7 +923,7 @@
   .home-v3-studio {
     display: block;
     min-height: 0;
-    margin-top: 1.75rem;
+    margin-top: 0;
     padding-top: 55vw;
   }
 
@@ -935,8 +935,8 @@
 
   .home-v3-studio-shade {
     background:
-      linear-gradient(90deg, #09090bd9 0%, #09090ba8 62%, #09090bd1 100%),
-      linear-gradient(180deg, #09090bc7 0%, transparent 38%, #09090be0 100%);
+      linear-gradient(90deg, #09090be5 0%, #09090bc0 62%, #09090be8 100%),
+      linear-gradient(180deg, #09090bd4 0%, transparent 38%, #09090bef 100%);
   }
 
   .home-v3-studio-copy {

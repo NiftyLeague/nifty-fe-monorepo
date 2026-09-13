@@ -11,6 +11,8 @@ export const DEFAULT_DEFERRED_YOUTUBE_ROOT_MARGIN = '160px'
 export type DeferredYouTubeEmbedProps = LazyYouTubeEmbedProps & {
   /** Load the third-party iframe this many pixels before it enters the viewport. */
   rootMargin?: string
+  /** Render the iframe in the server-rendered shell while retaining native lazy loading. */
+  loadImmediately?: boolean
 }
 
 /**
@@ -19,15 +21,17 @@ export type DeferredYouTubeEmbedProps = LazyYouTubeEmbedProps & {
  */
 export const DeferredYouTubeEmbed = memo(function DeferredYouTubeEmbed({
   rootMargin = DEFAULT_DEFERRED_YOUTUBE_ROOT_MARGIN,
+  loadImmediately = false,
   title,
   ...props
 }: DeferredYouTubeEmbedProps) {
   const embedRef = useRef<HTMLDivElement>(null)
   const isNearViewport = useOnScreen(embedRef, rootMargin, { once: true })
+  const shouldRenderEmbed = loadImmediately || isNearViewport
 
   return (
-    <div ref={embedRef} aria-busy={!isNearViewport}>
-      {isNearViewport ? (
+    <div ref={embedRef} aria-busy={!shouldRenderEmbed}>
+      {shouldRenderEmbed ? (
         <LazyYouTubeEmbed title={title} {...props} />
       ) : (
         <DeferredSkeleton

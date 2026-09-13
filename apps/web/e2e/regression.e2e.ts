@@ -204,6 +204,28 @@ test('the mobile drawer stays fixed and scrolls independently', async ({ page },
     .toEqual({ html: 'visible', body: 'visible' })
 })
 
+test('the mobile drawer fills the viewport after the page has scrolled', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'the drawer is the compact-viewport nav')
+  await page.goto('/')
+
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
+
+  await page.locator(MOBILE_TOGGLE).click()
+  const panel = page.locator(MOBILE_NAV)
+  const viewportHeight = page.viewportSize()?.height ?? 852
+
+  await expect(panel).toBeVisible()
+  await expect
+    .poll(() => panel.evaluate((element) => element.getBoundingClientRect().height))
+    .toBeGreaterThan(viewportHeight - 120)
+  await expect
+    .poll(() => panel.evaluate((element) => Math.round(element.getBoundingClientRect().bottom)))
+    .toBe(viewportHeight)
+})
+
 test('mobile marketing pages keep one document scroll surface', async ({ page }, testInfo) => {
   test.skip(
     testInfo.project.name !== 'mobile',

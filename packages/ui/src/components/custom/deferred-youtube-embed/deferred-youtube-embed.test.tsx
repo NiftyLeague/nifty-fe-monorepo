@@ -59,4 +59,22 @@ describe('DeferredYouTubeEmbed', () => {
     expect(iframe?.getAttribute('allow')).toContain('autoplay')
     expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('false')
   })
+
+  it('can render the iframe in the initial shell while keeping native lazy loading', () => {
+    const { container } = render(
+      <DeferredYouTubeEmbed
+        loadImmediately
+        src="about:blank"
+        title="Initial shell trailer"
+        className="h-[315px] w-full"
+      />
+    )
+
+    const iframe = container.querySelector('iframe')
+    expect(iframe).toBeTruthy()
+    expect(iframe?.getAttribute('src')).toBe('about:blank')
+    expect(iframe?.getAttribute('loading')).toBe('lazy')
+    expect(screen.queryByRole('status')).toBeNull()
+    expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('false')
+  })
 })

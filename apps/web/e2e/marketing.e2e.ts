@@ -82,41 +82,344 @@ test('Nifty World exposes live explore and docs actions', async ({ page }) => {
   await expect(page.getByRole('button', { name: /^COMING SOON/ })).toHaveCount(0)
 })
 
-test('Games labels Nifty World and exposes its app action as an external link', async ({
-  page,
-}) => {
+test('Games groups the lineup with direct game destinations', async ({ page }, testInfo) => {
   await page.goto('/games')
-  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
 
-  const niftyWorldCard = page.locator('article').filter({
-    has: page.getByRole('heading', { name: 'NIFTY WORLD', exact: true }),
-  })
-  await expect(niftyWorldCard).toHaveCount(1)
+  const playNowLinks = page.getByRole('link', { name: /^PLAY NOW/ })
+  await expect(playNowLinks).toHaveCount(2)
+  await expect(playNowLinks.nth(0)).toHaveAttribute('href', '/app')
+  await expect(playNowLinks.nth(1)).toHaveAttribute('href', '/app')
+  await expect(playNowLinks.nth(0)).toHaveAttribute('target', '_blank')
+  await expect(playNowLinks.nth(1)).toHaveAttribute('target', '_blank')
 
-  const exploreWorld = niftyWorldCard.getByRole('link', { name: /^EXPLORE WORLD/ })
-  await expect(exploreWorld).toHaveCount(1)
-  await expect(exploreWorld).toHaveAttribute('href', '/app/world')
-  await expect(exploreWorld).toHaveAttribute('target', '_blank')
-  await expect(exploreWorld).toContainText('EXPLORE WORLD')
+  const gameCards = page.locator('[data-game-name]')
+  await expect(gameCards).toHaveCount(11)
+  await expect(gameCards.first()).toHaveAttribute('data-game-name', 'NIFTY SMASHERS')
+
+  const flagshipLink = gameCards.first().getByRole('link', { name: /NIFTY SMASHERS/ })
+  await expect(flagshipLink).toHaveAttribute('href', 'https://niftysmashers.com')
+  await expect(flagshipLink).toHaveAttribute('target', '_blank')
+
+  const titleLinks = gameCards.locator('h2 > a')
+  const expectedTags = [
+    'MOBILE / PC',
+    'OPEN WORLD',
+    'MOBILE / PC',
+    'BROWSER',
+    'MINI-GAME',
+    'MINI-GAME',
+    'MINI-GAME',
+    'MINI-GAME',
+    'MINI-GAME',
+    'MINI-GAME',
+    'MINI-GAME',
+  ]
+  const expectedTitleLinks = [
+    'https://niftysmashers.com',
+    '/app/world',
+    '/app',
+    '/app/games/smashers',
+    '/app/games/niftyworld/degen-dodge',
+    '/app/games/niftyworld/wen-2d',
+    '/app/games/niftyworld/wen-3d',
+    '/app/games/mt-gawx',
+    '/app/games/niftyworld/degen-dive',
+    '/app/games/niftyworld/brick-breaker',
+    '/app/games/niftyworld/tennis',
+  ]
+
+  await expect(titleLinks).toHaveCount(expectedTitleLinks.length)
+  for (const [index, expectedHref] of expectedTitleLinks.entries()) {
+    await expect(titleLinks.nth(index)).toHaveAttribute('href', expectedHref)
+    await expect(titleLinks.nth(index).locator('svg')).toHaveCount(0)
+    await expect(gameCards.nth(index).locator('h2')).toHaveCSS('white-space', 'nowrap')
+    await expect(gameCards.nth(index).locator('p').first()).toHaveText(expectedTags[index])
+  }
+
+  if (testInfo.project.name === 'desktop') {
+    const copyHeights = await gameCards.evaluateAll((cards) =>
+      cards
+        .slice(1)
+        .map((card) => Math.round(card.children[0]?.getBoundingClientRect().height ?? 0))
+    )
+    expect(new Set(copyHeights).size).toBe(1)
+  }
+
+  const descriptionWidths = await gameCards.evaluateAll((cards) =>
+    cards.map((card) => {
+      const copy = card.children[0]
+      const description = copy?.querySelector(':scope > p')
+      const copyStyle = copy ? getComputedStyle(copy) : null
+      const horizontalPadding = copyStyle
+        ? Number.parseFloat(copyStyle.paddingLeft) + Number.parseFloat(copyStyle.paddingRight)
+        : 0
+      return {
+        copy: Math.round((copy?.getBoundingClientRect().width ?? 0) - horizontalPadding),
+        description: Math.round(description?.getBoundingClientRect().width ?? 0),
+      }
+    })
+  )
+  for (const { copy, description } of descriptionWidths) {
+    expect(description).toBe(copy)
+  }
 })
 
-test('NFTL prioritizes the token section and leaves game modes last', async ({ page }) => {
+test('marketing pages use the highlight purple accent for their key labels', async ({ page }) => {
+  const accents = [
+    { path: '/overview', selector: 'p', text: 'Learn how to navigate the Nifty League Platform' },
+    { path: '/overview', selector: 'h2', text: 'GETTING STARTED' },
+    { path: '/degens', selector: 'h2', text: 'FIRST CLASS CITIZENS' },
+    { path: '/community', selector: 'h4', text: 'Nifty League' },
+    { path: '/community', selector: 'h4', text: 'Discord' },
+    { path: '/compete-and-earn', selector: 'h2', text: 'HOW IT WORKS' },
+    { path: '/careers', selector: 'h3', text: 'JOIN NIFTY LEAGUE' },
+    { path: '/team', selector: 'h1', text: 'NIFTY DAO' },
+  ]
+
+  for (const { path, selector, text } of accents) {
+    await page.goto(path)
+    const accent = page.locator(`${selector}:has-text("${text}")`).first()
+    await expect(accent).toHaveClass(/text-highlight-purple/)
+    await expect(accent).toHaveCSS('color', 'rgb(216, 194, 255)')
+  }
+})
+
+test('Lore keeps its title white and positions Satoshi above the story panel', async ({ page }) => {
+  await page.goto('/lore')
+
+  const foreground = await page.evaluate(() => {
+    const probe = document.createElement('span')
+    document.body.append(probe)
+    probe.style.color = 'var(--color-foreground)'
+    const color = getComputedStyle(probe).color
+    probe.remove()
+    return color
+  })
+  await expect(page.getByRole('heading', { name: 'LORE' })).toHaveCSS('color', foreground)
+
+  const viewportWidth = page.viewportSize()?.width ?? 0
+  const expectedSatoshiTop =
+    viewportWidth <= 420
+      ? '260px'
+      : viewportWidth <= 768
+        ? '165px'
+        : viewportWidth <= 920
+          ? '155px'
+          : '145px'
+  const satoshiContainer = page.locator('img[alt="Satoshi"]').locator('..').locator('..')
+  await expect(satoshiContainer).toHaveCSS('top', expectedSatoshiTop)
+})
+
+test('roadmap reflects the updated milestone phases and outcomes', async ({ page }) => {
+  await page.goto('/roadmap')
+
+  const themeColors = await page.evaluate(() => {
+    const probe = document.createElement('span')
+    document.body.append(probe)
+    probe.style.color = 'var(--color-foreground)'
+    const foreground = getComputedStyle(probe).color
+    probe.style.color = 'var(--color-highlight-purple)'
+    const highlight = getComputedStyle(probe).color
+    probe.remove()
+    return { foreground, highlight }
+  })
+  await expect(page.getByRole('heading', { name: 'Nifty League Moonmap' })).toHaveCSS(
+    'color',
+    themeColors.foreground
+  )
+
+  const cards = page.locator('[data-roadmap-card]')
+  const titles = await cards.locator('h3').allTextContents()
+  const indexOf = (title: string) => titles.findIndex((candidate) => candidate.trim() === title)
+  await expect(cards.locator('h3').first()).toHaveCSS('color', themeColors.highlight)
+
+  expect(indexOf('Nifty Royale - Alpha')).toBeGreaterThanOrEqual(0)
+  expect(indexOf('Nifty Smashers - Global Launch')).toBeGreaterThanOrEqual(0)
+  expect(indexOf('Nifty Royale - Alpha')).toBeLessThan(indexOf('Nifty Smashers - Global Launch'))
+  expect(indexOf('Nifty World - Alpha')).toBeLessThan(indexOf('Nifty World - Beta'))
+  expect(indexOf('Nifty World - Beta')).toBeLessThan(indexOf('Items Marketplace'))
+  expect(indexOf('Items Marketplace')).toBeLessThan(indexOf('Land'))
+
+  const royaleAlpha = page.locator('[data-roadmap-card][data-roadmap-title="Nifty Royale - Alpha"]')
+  await expect(royaleAlpha).toHaveAttribute('data-roadmap-status', 'completed')
+  await expect(royaleAlpha).toContainText('April 20th, 2025')
+
+  const smashersLaunch = page.locator(
+    '[data-roadmap-card][data-roadmap-title="Nifty Smashers - Global Launch"]'
+  )
+  await expect(smashersLaunch).toHaveAttribute('data-roadmap-status', 'cancelled')
+  await expect(smashersLaunch).toContainText('Cancelled')
+  await expect(smashersLaunch).toContainText('June 1st, 2025')
+  await expect(smashersLaunch).toContainText('long-term retention')
+  await expect(smashersLaunch).toContainText('publisher support')
+  const cancelledCheckpoint = smashersLaunch.locator('[class*="cd_timeline_checkpoint"]')
+  const cancelledStyles = await cancelledCheckpoint.evaluate((element) => {
+    const icon = element.querySelector('svg')
+    const styles = getComputedStyle(element)
+    return {
+      backgroundColor: styles.backgroundColor,
+      backgroundImage: styles.backgroundImage,
+      boxShadow: styles.boxShadow,
+      foregroundColor: styles.color,
+      iconColor: icon ? getComputedStyle(icon).color : '',
+    }
+  })
+  const statusColors = await page.evaluate(() => {
+    const probe = document.createElement('span')
+    document.body.append(probe)
+    probe.style.backgroundColor = 'var(--color-error)'
+    const errorColor = getComputedStyle(probe).backgroundColor
+    probe.style.backgroundColor = 'transparent'
+    probe.style.borderColor = 'var(--color-purple)'
+    const purpleColor = getComputedStyle(probe).borderColor
+    probe.style.color = 'var(--color-foreground)'
+    const foregroundColor = getComputedStyle(probe).color
+    probe.remove()
+    return { errorColor, purpleColor, foregroundColor }
+  })
+  expect(cancelledStyles.backgroundColor).toBe(statusColors.errorColor)
+  expect(cancelledStyles.backgroundImage).toBe('none')
+  expect(cancelledStyles.iconColor).toBe(statusColors.foregroundColor)
+  expect(cancelledStyles.boxShadow).toContain(statusColors.purpleColor)
+
+  const worldAlpha = page.locator('[data-roadmap-card][data-roadmap-title="Nifty World - Alpha"]')
+  await expect(worldAlpha).toHaveAttribute('data-roadmap-status', 'completed')
+  await expect(worldAlpha).toContainText('Sept 12th, 2026')
+  await expect(worldAlpha).toContainText('Three.js')
+  await expect(worldAlpha).toContainText('niftyleague.com/app/world')
+
+  const worldBeta = page.locator('[data-roadmap-card][data-roadmap-title="Nifty World - Beta"]')
+  await expect(worldBeta).toHaveAttribute('data-roadmap-status', 'current')
+  await expect(worldBeta).toContainText('gamified social hub')
+  const worldAlphaImage = worldAlpha.locator('[class*="timeline_content_img"]')
+  const worldBetaImage = worldBeta.locator('[class*="timeline_content_img"]')
+  await expect(worldAlphaImage).toHaveCount(1)
+  await expect(worldBetaImage).toHaveCount(1)
+  await expect(worldAlphaImage).toHaveAttribute('style', /top:\s*-165px/)
+  await expect(worldBetaImage).toHaveAttribute('style', /top:\s*-165px/)
+  expect(await worldBetaImage.locator('img').getAttribute('src')).toBe(
+    await worldAlphaImage.locator('img').getAttribute('src')
+  )
+  expect(await worldBetaImage.getAttribute('style')).toBe(
+    await worldAlphaImage.getAttribute('style')
+  )
+  await expect(worldBeta.locator('[class*="satoshiStationary"]')).toHaveCount(1)
+
+  await expect(
+    page.locator('[data-roadmap-card][data-roadmap-title="Items Marketplace"]')
+  ).toHaveAttribute('data-roadmap-status', 'planned')
+  await expect(
+    page.locator('[data-roadmap-card][data-roadmap-title="Land"] [class*="timeline_content_img"]')
+  ).toHaveAttribute('style', /top:\s*90px/)
+})
+
+test('Compete & Earn keeps the token section first and the governance section last', async ({
+  page,
+}) => {
   await page.goto('/compete-and-earn')
 
-  await expect(page.getByRole('heading', { name: 'NFTL TOKEN', level: 1 })).toBeVisible()
+  const tokenHeading = page.getByRole('heading', { name: 'NFTL TOKEN', level: 1 })
+  await expect(tokenHeading).toBeVisible()
   await expect(page.getByRole('img', { name: 'Compete and Earn logo' })).toBeAttached()
-  const headings = await page
-    .locator('main.compete-pg h1, main.compete-pg h2, main.compete-pg h3')
-    .allTextContents()
+  const themeColors = await page.evaluate(() => {
+    const probe = document.createElement('span')
+    document.body.append(probe)
+    probe.style.color = 'var(--color-foreground)'
+    const foreground = getComputedStyle(probe).color
+    probe.style.color = 'var(--color-highlight-purple)'
+    const highlight = getComputedStyle(probe).color
+    probe.remove()
+    return { foreground, highlight }
+  })
+  await expect(tokenHeading).toHaveCSS('color', themeColors.foreground)
+  const gameModes = page.locator('main.compete-pg section').filter({ hasText: 'GAME MODES' })
+  await expect(gameModes.locator('h3')).toHaveCSS('color', themeColors.foreground)
+  for (const header of ['FEATURES:', 'PUBLIC', 'PRIVATE']) {
+    await expect(gameModes.locator('h4').filter({ hasText: header })).toHaveCSS(
+      'color',
+      themeColors.highlight
+    )
+  }
+  const headings = (
+    await page
+      .locator('main.compete-pg h1, main.compete-pg h2, main.compete-pg h3')
+      .allTextContents()
+  ).map((heading) => heading.replace(/\s+/g, ' ').trim())
 
   expect(headings[0]?.trim()).toBe('NFTL TOKEN')
-  expect(headings.at(-1)?.trim()).toBe('GAME MODES')
+  expect(headings.at(-1)).toContain('GOVERN TOGETHER')
+  expect(headings.indexOf('GAME MODES')).toBeLessThan(headings.length - 1)
   await expect(
     page.getByText('Compete, earn, and help govern the future of the Nifty League ecosystem.', {
       exact: true,
     })
   ).toHaveCount(1)
   await expect(page.getByRole('heading', { name: /SMASHERS/ })).toHaveCount(0)
+})
+
+test('Compete & Earn hydrates its video loader on page load', async ({ request }) => {
+  const html = await (await request.get('/compete-and-earn')).text()
+  const videoSourceIndex = html.indexOf('https://www.youtube.com/embed/wv_fI1PPBi0')
+  const islandStart = html.lastIndexOf('<astro-island', videoSourceIndex)
+  const islandEnd = html.indexOf('</astro-island>', videoSourceIndex)
+  const videoIsland = html.slice(islandStart, islandEnd)
+
+  expect(videoIsland).toContain('client="load"')
+  expect(videoIsland).toContain('loadImmediately')
+  expect(videoIsland).toContain('<iframe')
+  expect(videoIsland).toContain('loading="lazy"')
+})
+
+test('mobile Compete & Earn keeps its video visible while YouTube loads', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'the video shell regression is mobile-specific')
+  await page.goto('/compete-and-earn')
+
+  const video = page.locator('iframe[src*="wv_fI1PPBi0"]')
+  await expect(video).toBeVisible()
+  await expect(
+    page.getByRole('status', { name: 'Loading Nifty League Compete & Earn' })
+  ).toHaveCount(0)
+})
+
+test('mobile home keeps the historical intro background focal point', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'the compact viewport uses the mobile intro crop')
+  await page.goto('/')
+
+  await expect(page.locator('.home-intro-background img')).toHaveCSS('object-position', '0% 0%')
+})
+
+test('mobile Compete & Earn removes the game modes spacer', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'the compact viewport hides the comparison table')
+  await page.goto('/compete-and-earn')
+
+  const gameModes = page.locator('main.compete-pg section').filter({ hasText: 'GAME MODES' })
+  await expect(gameModes).toHaveCount(1)
+  await expect(gameModes).toHaveCSS('display', 'none')
+})
+
+test('desktop navigation keeps every dropdown description on one line', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'the desktop dropdown is hidden below md')
+  await page.goto('/roadmap')
+
+  const groups = page.locator('nav[aria-label="Primary navigation"] details')
+  for (const group of await groups.all()) {
+    await group.locator('summary').click()
+  }
+
+  const descriptions = page.locator('nav[aria-label="Primary navigation"] details li span.text-xs')
+  await expect(descriptions).not.toHaveCount(0)
+  for (const description of await descriptions.all()) {
+    await expect(description).toHaveCSS('white-space', 'nowrap')
+    expect(await description.evaluate((element) => element.scrollWidth)).toBeLessThanOrEqual(
+      await description.evaluate((element) => element.clientWidth)
+    )
+  }
 })
 
 test('GLTF initially presents its server-supplied token poster without fetching the 3D runtime', async ({

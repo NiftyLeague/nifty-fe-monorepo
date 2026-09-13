@@ -68,7 +68,7 @@
 
 @media (max-width: 920px) {
   .satoshiContainer {
-    top: 175px;
+    top: 155px;
   }
   .degensContainer {
     bottom: 185px;
@@ -80,7 +80,7 @@
     padding: 400px 18% 400px 14%;
   }
   .satoshiContainer {
-    top: 185px;
+    top: 165px;
   }
   .degensContainer {
     bottom: 200px;
@@ -95,7 +95,7 @@
     padding: 550px 17% 550px 13%;
   }
   .satoshiContainer {
-    top: 280px;
+    top: 260px;
   }
 }
 
