@@ -11,9 +11,9 @@ describe('Nifty World scene catalog', () => {
       'little-tokyo',
       'mansion',
       'exchange',
-      'arcade',
       'marina',
       'rugmans-peak',
+      'arcade',
     ])
     expect(NIFTY_WORLD_SCENES.some((scene) => scene.id === 'gas-station')).toBe(false)
   })
@@ -25,5 +25,10 @@ describe('Nifty World scene catalog', () => {
     expect(getNiftyWorldSceneUrl(dungeon!, true, 2, 'visit-1')).toBe(
       'https://niftyworld.gg/scenes/isla-azul?zone=dungeon&embed=1&visit=visit-1&attempt=2'
     )
+  })
+
+  it('keeps map descriptions compact enough for one-line cards', () => {
+    expect(NIFTY_WORLD_SCENES.every(({ description }) => description.length <= 42)).toBe(true)
+    expect(NIFTY_WORLD_SCENES.every(({ description }) => !description.includes('\n'))).toBe(true)
   })
 })

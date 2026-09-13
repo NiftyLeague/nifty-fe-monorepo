@@ -10,6 +10,14 @@ const iconPaths = {
     </>
   ),
   dot: <circle cx="12" cy="12" r="1" />,
+  earth: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a14.5 14.5 0 0 1 0 18" />
+      <path d="M12 3a14.5 14.5 0 0 0 0 18" />
+    </>
+  ),
   gamepad: (
     <>
       <line x1="6" x2="10" y1="12" y2="12" />

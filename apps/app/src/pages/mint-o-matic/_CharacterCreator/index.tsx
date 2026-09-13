@@ -269,6 +269,16 @@ const CharacterCreatorContainer = memo(
 
     const unityCtx = useUnityContext(creatorConfig)
 
+    // The Unity loaded event can fire before CharacterCreator mounts its event
+    // listeners. Mirror the hook state as well so the page preloader cannot
+    // remain visible after the canvas is already ready.
+    useEffect(() => {
+      setLoaded(unityCtx.isLoaded)
+      if (typeof unityCtx.loadingProgression === 'number') {
+        setProgress(unityCtx.loadingProgression * 100)
+      }
+    }, [setLoaded, setProgress, unityCtx.isLoaded, unityCtx.loadingProgression])
+
     const [asyncError, setAsyncError] = useState<Error | null>(null)
     // Conditionally throw errors to be caught by the ErrorBoundary
     if (asyncError) throw asyncError

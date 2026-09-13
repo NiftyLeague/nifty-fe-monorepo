@@ -1,25 +1,21 @@
-import type { PropsWithChildren } from 'react'
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('@/runtime/Link', () => ({
+mock.module('@/components/cards/NiftyWorldCard', () => ({
   default: ({
-    children,
+    title,
     href,
-    prefetch,
-    ...props
-  }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
-    <a href={href} data-prefetch={String(prefetch)} {...props}>
-      {children}
-    </a>
-  ),
-}))
-
-mock.module('@/components/cards/GameCard', () => ({
-  default: ({ title, actions }: { title: string; actions?: React.ReactNode }) => (
+    hoverActionLabel,
+  }: {
+    title: string
+    href: string
+    hoverActionLabel?: string
+  }) => (
     <article>
       <h2>{title}</h2>
-      {actions}
+      <a href={href} aria-label={`Explore ${title}`}>
+        {hoverActionLabel}
+      </a>
     </article>
   ),
 }))
@@ -45,13 +41,13 @@ describe('Nifty World scene list', () => {
       'Little Tokyo',
       'Mansion',
       'Nifty Exchange',
-      'Nifty Arcade',
       'Marina',
       "Rugman's Peak",
+      'Nifty Arcade',
     ])
     expect(screen.queryByText('Gas Station')).toBeNull()
     expect(
-      screen.getAllByRole('link', { name: 'Enter World' }).map((link) => link.getAttribute('href'))
+      screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
       '/world/niftyworld/isla-azul',
       '/world/niftyworld/dungeon',
@@ -59,19 +55,11 @@ describe('Nifty World scene list', () => {
       '/world/niftyworld/little-tokyo',
       '/world/niftyworld/mansion',
       '/world/niftyworld/exchange',
-      '/world/niftyworld/arcade',
       '/world/niftyworld/marina',
       '/world/niftyworld/rugmans-peak',
+      '/world/niftyworld/arcade',
     ])
-  })
-
-  it('does not prefetch scene routes until a player chooses one', () => {
-    render(<WorldSceneList />)
-
-    expect(
-      screen
-        .getAllByRole('link', { name: 'Enter World' })
-        .map((link) => link.getAttribute('data-prefetch'))
-    ).toEqual(Array(9).fill('false'))
+    expect(screen.queryByText('Enter World')).toBeNull()
+    expect(screen.getAllByText('Explore map')).toHaveLength(9)
   })
 })

@@ -19,18 +19,17 @@ describe('DegensTopNav', () => {
     )
 
     const searchInput = screen.getByRole('textbox', { name: 'Search degens by token # or name' })
-    const label = screen.getByText('Search degens by token # or name')
     const searchField = searchInput.parentElement
     const inputToolbar = searchField?.parentElement
     const toolbar = inputToolbar?.parentElement
 
     expect(searchInput).toBeTruthy()
     expect(searchInput.getAttribute('placeholder')).toBe('Search degens by token # or name')
-    expect(label.tagName).toBe('LABEL')
+    expect(screen.queryByText('Search degens by token # or name')).toBeNull()
     expect(toolbar?.getAttribute('data-slot')).toBe('degen-top-nav')
     expect(inputToolbar?.getAttribute('data-slot')).toBe('degen-search-toolbar')
     expect(searchField?.getAttribute('data-slot')).toBe('degen-search-field')
-    expect(label.parentElement).toBe(searchField)
+    expect(searchInput.parentElement).toBe(searchField)
 
     const sortTrigger = await screen.findByRole(
       'combobox',

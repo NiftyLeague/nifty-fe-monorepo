@@ -3,8 +3,6 @@
 import { Button } from '@nl/ui/base/button'
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 
-import MintNetworkBoundary from './MintNetworkBoundary'
-
 type CharacterCreatorProps = {
   setLoaded: (loaded: boolean) => void
   setProgress: (progress: number) => void
@@ -14,11 +12,7 @@ const loadCharacterCreator = async () => {
   const { default: CharacterCreator } = await import('@/pages/mint-o-matic/_CharacterCreator')
 
   return {
-    default: (props: CharacterCreatorProps) => (
-      <MintNetworkBoundary>
-        <CharacterCreator {...props} />
-      </MintNetworkBoundary>
-    ),
+    default: (props: CharacterCreatorProps) => <CharacterCreator {...props} />,
   }
 }
 

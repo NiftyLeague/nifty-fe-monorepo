@@ -24,4 +24,10 @@ describe('AppNavIcon', () => {
     expect(labeledIcon?.getAttribute('aria-hidden')).toBeNull()
     expect(labeledIcon?.getAttribute('aria-label')).toBe('Settings')
   })
+
+  it('supports the earth icon used by World navigation', () => {
+    const { container } = render(<AppNavIcon name="earth" />)
+
+    expect(container.querySelector('.lucide-earth')).not.toBeNull()
+  })
 })

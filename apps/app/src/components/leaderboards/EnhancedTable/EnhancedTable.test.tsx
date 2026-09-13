@@ -33,4 +33,24 @@ describe('leaderboard table query ownership', () => {
 
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
   })
+
+  it('uses the shared preloader while scores are pending', () => {
+    fetchScores.mockImplementationOnce(() => new Promise(() => undefined))
+    const client = createAppQueryClient()
+    const props = {
+      page: 1,
+      onPageChange: mock(),
+      selectedGame: 'nifty_smashers',
+      selectedTable: { key: 'win_rate', display: 'Win rate', rows: [] },
+      selectedTimeFilter: 'all_time',
+    }
+
+    const { container } = render(
+      <QueryClientProvider client={client}>
+        <EnhancedTable {...props} />
+      </QueryClientProvider>
+    )
+
+    expect(container.querySelector('svg#preloader-arcade')).toBeTruthy()
+  })
 })

@@ -9,9 +9,11 @@ import { PreloaderBase } from './base'
 export function Preloader({
   ready,
   progress,
+  label = 'Loading',
 }: {
   ready: boolean
   progress: number
+  label?: string
 }): React.ReactNode {
   const loadingPercentage = Math.round(progress <= 1 ? progress * 100 : progress)
   const [percent, setPercent] = useState<number>(loadingPercentage)
@@ -49,15 +51,7 @@ export function Preloader({
     }
   }, [loadingPercentage, stop])
 
-  useEffect(() => {
-    const htmlElement = document.querySelector('html') as HTMLElement
-    htmlElement.style.overflow = !ready ? 'hidden' : ''
-    return function cleanup() {
-      htmlElement.style.overflow = ''
-    }
-  }, [ready])
-
-  return <PreloaderBase ready={ready} percent={percent} showWarning={showWarning} />
+  return <PreloaderBase ready={ready} percent={percent} showWarning={showWarning} label={label} />
 }
 
 export default Preloader

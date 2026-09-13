@@ -144,7 +144,7 @@ export const DEGENS_PER_PAGE = 12
 export const getGridSizeClass = (isGridView: boolean, isDrawerOpen: boolean) => {
   if (isGridView) {
     return isDrawerOpen
-      ? 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-4 xl:col-span-4'
+      ? 'col-span-12 sm:col-span-6 md:col-span-6 lg:col-span-6 xl:col-span-4'
       : 'col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-3'
   }
   return isDrawerOpen
