@@ -47,12 +47,11 @@ const TrailerContent = () => {
       ref={modalIframe}
       id="trailer-modal-iframe"
       title="Nifty Smashers - Trailer"
-      className=" -m-6 mt-0 w-[calc(100%+3rem)] aspect-video"
+      className="-m-6 mt-0 aspect-video w-[calc(100%+3rem)] border-0"
       src="https://www.youtube.com/embed/4lnDrx4aDq8?enablejsapi=1&html5=1&autoplay=1&playsinline=1&rel=0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
       loading="lazy"
-      frameBorder="0"
     />
   )
 }
