@@ -17,9 +17,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@nl/contracts": "workspace:*",
     "@nl/imx-passport": "workspace:*",
     "@nl/ui": "workspace:*",
+    "@playwright/test": "^1.63.0",
     "@reown/appkit": "^1.8.23",
     "@reown/appkit-adapter-wagmi": "^1.8.23",
     "@sentry/browser": "^10.69.0",
