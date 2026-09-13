@@ -12,7 +12,7 @@ export default function NiftyWorldScene({ scene }: NiftyWorldSceneProps) {
       eyebrow="Nifty World"
       backHref="/world"
       backLabel="Back to maps"
-      frameTitle={`${scene.title} world scene`}
+      frameTitle={`${scene.title} world map`}
       canonicalUrl={getNiftyWorldSceneUrl(scene)}
       getEmbedUrl={(attempt, visitId) => getNiftyWorldSceneUrl(scene, true, attempt, visitId)}
     />

@@ -59,4 +59,18 @@ describe('flagship game list', () => {
     expect(heading.className).toContain('font-subheader')
     expect(screen.getByRole('heading', { level: 3, name: '2D Smashers' })).not.toBeNull()
   })
+
+  it('links flagship cards to their primary destinations while preserving store actions', async () => {
+    const { default: GameList } = await import('./index')
+
+    render(<GameList />)
+
+    expect(screen.getByRole('link', { name: 'Open Nifty Smashers' }).getAttribute('href')).toBe(
+      'https://niftysmashers.com/'
+    )
+    expect(screen.getByRole('link', { name: 'Open Party Royale' }).getAttribute('href')).toBe(
+      'https://testflight.apple.com/join/VXxbaZrw'
+    )
+    expect(screen.getAllByRole('link', { name: 'Apple Store Badge' })).toHaveLength(2)
+  })
 })

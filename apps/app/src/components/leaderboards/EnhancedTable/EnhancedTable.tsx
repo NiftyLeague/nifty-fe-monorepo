@@ -72,9 +72,9 @@ export default function EnhancedTable({
   }, [selectedTable.rows])
 
   return (
-    <div className="mb-20 sm:mb-0">
+    <div className="relative mb-20 min-h-96 sm:mb-0">
       {isPending ? (
-        <div className="absolute flex h-[70%] w-full items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center">
           <CircularProgress size="lg" />
         </div>
       ) : error ? (

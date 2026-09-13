@@ -71,7 +71,7 @@ function SignedOutProfile({ onConnect }: { onConnect: () => void }) {
         <span>Login to view dashboards</span>
       </div>
       <Button type="button" className="w-full" onClick={onConnect}>
-        Connect Wallet
+        Connect Account
       </Button>
     </div>
   )

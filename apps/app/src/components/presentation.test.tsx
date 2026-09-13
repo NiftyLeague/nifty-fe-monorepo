@@ -195,7 +195,7 @@ describe('card presentation', () => {
 
     expect(sceneLink.getAttribute('href')).toBe('/world/niftyworld/isla-azul')
     expect(sceneLink.getAttribute('data-prefetch')).toBe('false')
-    expect(screen.getByText('Explore scene')).not.toBeNull()
+    expect(screen.getByText('Explore map')).not.toBeNull()
     expect(screen.queryByRole('button', { name: /Play on/ })).toBeNull()
 
     const sceneCard = sceneLink.firstElementChild
@@ -225,7 +225,10 @@ describe('card presentation', () => {
     expect(sceneCard?.querySelector('img')?.parentElement?.getAttribute('class')).toContain(
       'absolute'
     )
-    expect(overlay?.getAttribute('class')).toContain('min-h-[50%]')
+    expect(overlay?.getAttribute('class')).not.toContain('min-h-[50%]')
+    expect(overlay?.querySelector('[data-slot="card-content"]')?.getAttribute('class')).toContain(
+      'pb-3'
+    )
     expect(overlay?.getAttribute('class')).toContain('bg-black/65')
   })
 
@@ -245,6 +248,9 @@ describe('card presentation', () => {
 
     expect(cardLink.getAttribute('href')).toBe('https://niftysmashers.com/')
     expect(cardLink.getAttribute('target')).toBe('_blank')
+    expect(cardLink.closest('[data-slot="card"]')?.getAttribute('class')).toContain(
+      'hover:border-purple/70'
+    )
     expect(badgeLink.getAttribute('href')).toBe('https://niftysmashers.com/ios')
     expect(cardLink.contains(badgeLink)).toBe(false)
     expect(badgeLink.parentElement?.parentElement?.getAttribute('class')).toContain(

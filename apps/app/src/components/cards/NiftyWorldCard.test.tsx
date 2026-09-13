@@ -6,6 +6,7 @@ mock.module('./GameCard', () => ({
     autoHeight,
     description,
     href,
+    hoverActionLabel,
     image,
     overlayContent,
     prefetch,
@@ -14,6 +15,7 @@ mock.module('./GameCard', () => ({
     autoHeight?: boolean
     description?: string
     href?: string
+    hoverActionLabel?: string
     image?: string
     overlayContent?: boolean
     prefetch?: boolean
@@ -23,6 +25,7 @@ mock.module('./GameCard', () => ({
       data-auto-height={String(autoHeight)}
       data-description={description}
       data-href={href}
+      data-hover-action-label={hoverActionLabel}
       data-image={image}
       data-overlay-content={String(overlayContent)}
       data-prefetch={String(prefetch)}
@@ -54,5 +57,6 @@ describe('NiftyWorldCard', () => {
     expect(card.getAttribute('data-overlay-content')).toBe('true')
     expect(card.getAttribute('data-prefetch')).toBe('false')
     expect(card.getAttribute('data-href')).toBe('/games/niftyworld/degen-dodge')
+    expect(card.getAttribute('data-hover-action-label')).toBe('Explore map')
   })
 })

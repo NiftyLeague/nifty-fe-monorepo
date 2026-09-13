@@ -40,7 +40,7 @@ describe('PublicUserProfile', () => {
     expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
     expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Connect Wallet' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Connect Account' }))
 
     await waitFor(() => {
       expect(screen.getAllByTestId('wallet-auth-boundary')).toHaveLength(1)
@@ -62,7 +62,7 @@ describe('PublicUserProfile', () => {
     expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
     expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Connect Wallet' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Connect Account' }))
 
     await waitFor(() => {
       expect(screen.getAllByTestId('wallet-auth-boundary')).toHaveLength(1)

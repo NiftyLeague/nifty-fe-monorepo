@@ -131,6 +131,8 @@ const FlagshipGameList = () => (
     <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Party Royale (Early-Alpha)"
+        externalHref="https://testflight.apple.com/join/VXxbaZrw"
+        cardLinkLabel="Open Party Royale"
         required="Party Battle Royale"
         description="Step into NiftyWorld - our next hit game is ready to playtest! This game is still in early development so bugs are expected!"
         imageContent={

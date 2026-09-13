@@ -61,12 +61,15 @@ const CardGameContent = ({
     <div
       className={cx(
         'flex grow flex-col justify-between',
-        overlay
-          ? 'absolute inset-x-0 bottom-0 z-10 min-h-[50%] bg-black/65 backdrop-blur-[2px]'
-          : 'bg-card'
+        overlay ? 'absolute inset-x-0 bottom-0 z-10 bg-black/65 backdrop-blur-[2px]' : 'bg-card'
       )}
     >
-      <CardContent className={cx(overlay ? 'p-4 md:p-5' : 'p-6', linked ? 'pb-6' : 'pb-0')}>
+      <CardContent
+        className={cx(
+          overlay ? 'px-4 pb-3 pt-4 md:px-5 md:pb-4 md:pt-5' : 'p-6',
+          overlay ? undefined : linked ? 'pb-6' : 'pb-0'
+        )}
+      >
         <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2 md:flex-nowrap">
           <Title
             level={3}
@@ -156,6 +159,7 @@ interface GameCardProps {
   description?: string
   externalLink?: { title: string; src: string }
   externalHref?: string
+  hoverActionLabel?: string
   image?: string
   imageContent?: React.ReactNode
   imageFetchPriority?: 'auto' | 'high' | 'low'
@@ -181,6 +185,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   description,
   externalLink,
   externalHref,
+  hoverActionLabel,
   image,
   imageContent,
   imageFetchPriority,
@@ -206,7 +211,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
       className={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
         cardLink &&
-          'transition-[border-color,box-shadow] duration-200 group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
+          'transition-[border-color,box-shadow] duration-200 hover:border-purple/70 hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
         hasExternalCardLink && 'relative group',
         overlayContent ? 'relative aspect-[16/10]' : autoHeight ? 'h-auto' : 'h-full'
       )}
@@ -258,7 +263,8 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
               )}
             >
               <span className="rounded-full bg-purple px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
-                {externalHref ? 'Open game' : 'Explore scene'} <span aria-hidden="true">↗</span>
+                {hoverActionLabel ?? (externalHref ? 'Open game' : 'Explore map')}{' '}
+                <span aria-hidden="true">↗</span>
               </span>
             </div>
           )}

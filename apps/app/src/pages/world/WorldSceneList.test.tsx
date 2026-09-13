@@ -2,11 +2,19 @@ import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@/components/cards/NiftyWorldCard', () => ({
-  default: ({ title, href }: { title: string; href: string }) => (
+  default: ({
+    title,
+    href,
+    hoverActionLabel,
+  }: {
+    title: string
+    href: string
+    hoverActionLabel?: string
+  }) => (
     <article>
       <h2>{title}</h2>
       <a href={href} aria-label={`Explore ${title}`}>
-        Explore scene
+        {hoverActionLabel}
       </a>
     </article>
   ),
@@ -52,5 +60,6 @@ describe('Nifty World scene list', () => {
       '/world/niftyworld/arcade',
     ])
     expect(screen.queryByText('Enter World')).toBeNull()
+    expect(screen.getAllByText('Explore map')).toHaveLength(9)
   })
 })

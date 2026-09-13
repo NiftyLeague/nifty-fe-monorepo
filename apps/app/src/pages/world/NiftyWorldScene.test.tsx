@@ -27,7 +27,7 @@ describe('NiftyWorldScene', () => {
 
     render(<NiftyWorldScene scene={scene} />)
 
-    const iframe = screen.getByTitle(`${scene.title} world scene`)
+    const iframe = screen.getByTitle(`${scene.title} world map`)
     expect(new URL(iframe.getAttribute('src') ?? '').pathname).toBe('/scenes/isla-azul')
     expect(screen.getByText('Nifty World')).toBeTruthy()
     expect(screen.getByRole('link', { name: 'Back to maps' }).getAttribute('href')).toBe('/world')

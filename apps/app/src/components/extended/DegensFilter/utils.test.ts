@@ -5,6 +5,7 @@ import DEFAULT_STATIC_FILTER from './constants'
 import {
   applySeventhTribesFix,
   getDefaultFilterValueFromData,
+  getGridSizeClass,
   transformDataByFilter,
   updateFilterValue,
 } from './utils'
@@ -106,6 +107,14 @@ describe('degen filtering', () => {
 })
 
 describe('filter state helpers', () => {
+  it('uses two columns while the filter drawer is open below xl', () => {
+    const gridClass = getGridSizeClass(true, true)
+
+    expect(gridClass).toContain('md:col-span-6')
+    expect(gridClass).toContain('lg:col-span-6')
+    expect(gridClass).toContain('xl:col-span-4')
+  })
+
   it('hydrates scalar, numeric, and list query parameters and invokes matching actions', () => {
     const tribesAction = mock()
     const result = updateFilterValue(

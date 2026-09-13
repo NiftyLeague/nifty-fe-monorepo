@@ -1,6 +1,5 @@
 import dynamic from '@/runtime/dynamic'
 
-import { Label } from '@nl/ui/base/label'
 import { Input } from '@nl/ui/base/input'
 
 import styles from './index.module.css'
@@ -38,8 +37,8 @@ const DegensTopNav = ({
   <div className={styles.topNav} data-slot="degen-top-nav">
     <div className={styles.searchToolbar} data-slot="degen-search-toolbar">
       <div className={styles.searchField} data-slot="degen-search-field">
-        <Label htmlFor="search-degen-by-token-id-name">Search degens by token # or name</Label>
         <Input
+          aria-label="Search degens by token # or name"
           id="search-degen-by-token-id-name"
           className={`${styles.searchTextField} h-8 border-0 bg-muted`}
           name="search-degen-by-token-id-name"

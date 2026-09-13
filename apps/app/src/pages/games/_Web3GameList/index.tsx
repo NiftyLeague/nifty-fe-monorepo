@@ -10,6 +10,7 @@ const Web3GameList = () => (
         description={game.description}
         image={game.image}
         href={`/games/niftyworld/${game.id}`}
+        hoverActionLabel="Play game"
       />
     ))}
   </>
