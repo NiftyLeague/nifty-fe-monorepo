@@ -1,7 +1,6 @@
 ---
 import Auth from '@/layouts/Auth.astro'
 import ProfileClient from '@/components/profile/ProfileClient'
-import { Skeleton } from '@nl/ui/base/skeleton'
 import { getSession } from '@/utils/session'
 
 const session = await getSession(Astro)
@@ -12,16 +11,10 @@ if (!session.user?.isLoggedIn) return Astro.redirect('/login', 302)
 const sessionData = { user: session.user }
 ---
 <Auth canonical="/profile" metadata={{ title: 'Profile', noindex: true }}>
-  <ProfileClient client:only="react" sessionData={sessionData}>
-    <div
-      slot="fallback"
-      class="flex min-h-screen items-center justify-center p-6"
-      role="status"
-      aria-live="polite"
-      aria-busy="true"
-    >
-      <Skeleton className="h-[28rem] w-full max-w-[800px] rounded-xl" aria-hidden="true" />
-      <span class="sr-only">Loading profile</span>
-    </div>
-  </ProfileClient>
+  {/* Server-rendered (M5.6 audit #1883): the panel shell painted nothing
+      contentful until the client:only island hydrated, which put FCP/LCP at
+      hydration time (~4 s on the Lighthouse mobile profile). The surface is
+      SSR-safe — first render is the deterministic logged-out state, and the
+      session data arrives client-side through SWR. */}
+  <ProfileClient client:load sessionData={sessionData} />
 </Auth>
