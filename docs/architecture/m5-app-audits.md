@@ -181,21 +181,81 @@ https://niftysmashers.com --label m5.6-postfix --runs 5`.
 
 ## M5.7 — apps/docs (#1884)
 
-Performance: overview/intro, roadmap, supply, comics and the home measured (evidence:
-`lh-docs-production-2026-09-12.json`); the M5 production run already showed docs as the
-best surface (transfer −72%, requests −53% vs M0). DocSearch stays interaction-gated;
-mermaid loading is interaction-gated; font loading is non-blocking with CLS at the floor.
+Deep-dive app for the M4.0 dedup work. Measured with the shared harness at medians of five
+against production (`lh-docs-production-median5-2026-09-13.json`, the pre-fix deploy with
+the corrected route list) and of three against the branch build served by `astro preview`
+(`lh-docs-local-m57-v2-2026-09-13.json`; the preview server's uncompressed HTML caps the
+desktop numbers locally, so the branch's production capture follows the deploy).
 
-Accessibility: the axe sweep covers the rendered routes; DocSearch's modal focus trap is
-the vendor implementation (accessible by default); the sidebar and mobile drawer keyboard
-behavior are pinned by the docs navigation contract and the #1872 fixes.
+| route (mobile, before → after-local)    | perf      | a11y      | notes                                       |
+| --------------------------------------- | --------- | --------- | ------------------------------------------- |
+| /                                       | 98 → 100  | 100 → 100 | hero artwork now astro:assets AVIF variants |
+| /overview/intro                         | 100 → 99  | 96 → 100  | contrast tokens, dimensioned images         |
+| /overview/roadmap                       | 95 → 97   | 96 → 100  | LCP preloaded, AVIF variants                |
+| /overview/nifty-dao/nftl/supply         | 94 → 100  | 96 → 100  | mermaid scroll-gated, CLS reserved          |
+| /overview/nfts/nifty-marketplace/comics | 100 → 100 | 96 → 100  | already image-floor clean                   |
 
-SEO: canonical per doc page, OG/Twitter, sitemap completeness, and the old-Docusaurus URL
-redirects are pinned by `docs-routing.test.ts` and the docs contract tests.
+Harness correction: the routes file listed `/nftl/supply` and `/marketplace/comics`, which
+404 on the docs domain — the #1923 capture recorded them as "WAF-blocked", but they were
+simply wrong slugs (the real routes are `/overview/nifty-dao/nftl/supply` and
+`/overview/nfts/nifty-marketplace/comics`). Fixed in `scripts/lighthouse-routes/docs.json`.
 
-Caching: `/_astro/*` immutable now declared in vercel.json (#1920); HTML on the
-revalidating default (long-lived + SWR was considered and rejected — the DocSearch index
-and content updates favour revalidation); curl evidence in the M5.5–M5.7 evidence files.
+Performance: the roadmap poster — the route's LCP — is preloaded from the head with an
+`imagesrcset` resolved per-width through the same shared constants module as the `<Image>`
+(`src/lib/roadmap-poster.ts`), so the preloaded URLs are exactly the srcset candidates (a
+single `getImage({ widths })` call produces a differently-hashed variant; the per-width
+shape is what matches). Variants moved to AVIF q55 (761w: 262 KB webp q76 → 190 KB) and the
+1200w candidate was dropped — the article column caps at 761 px, so it existed only for
+desktop-DPR2 (483 KB per visit). Remaining floor: the throttled mobile LCP sits at
+~2.6 s because the 1800×3791 poster at q50 and below starts to smudge; going lower trades
+legibility of the roadmap text for single-digit score points, so 97 is recorded as the
+route's image-bound floor with every prescribed lever (variants, AVIF, `sizes`, priority
+preload for the LCP image only) applied. The landing hero artwork ports from raw public
+paths (460 KB light webp, 8000×6000 source) to astro:assets AVIF variants (1350w ≈ 88 KB)
+with the dark variant's exact srcset preloaded. Mermaid stays auto-rendering (it is page
+content, not an interaction target) but is now viewport-gated with a 100 px margin: the
+supply pie chart rendered during load for 210 ms TBT and 7 s TTI, and the render's
+figure→SVG swap reserves the source block's height to keep CLS at the 0.054 floor.
+DocSearch remains interaction-gated — verified: content pages ship no search code until
+first use, and the chunk now warms on hover/focus; the warm open issues zero new requests.
+Fonts unchanged: self-hosted IBM Plex preloaded, Roboto Mono non-blocking, CLS at floor.
+
+Accessibility: axe (dark + light, all five routes + /search) and the keyboard passes are
+clean — skip link first, desktop sidebar focusable while the footer clamps the column, FAQ
+disclosures toggle from the keyboard, the DocSearch modal traps focus, closes on Escape and
+returns focus, and the mobile drawer's two-level navigation opens, navigates and closes
+with focus returned. Fixes landed for what the sweep found: the dark accent tokens
+(#5e72eb/#4158e7/#b6bff6 measured 4.28:1/4.41:1/3.11:1) moved to #7587ef/#3a51dd/#e4e7fc;
+the light `--sl-color-text-accent` was an `oklch()` literal with a 0.584-degree hue
+(pink #e60076, 4.0:1) and now resolves to the palette accent (6.9:1); markdown links carry
+a persistent underline (colour alone was 2.5:1 against surrounding text — axe
+link-in-text-block); both search buttons' accessible names mirror their rendered
+"Search ⌘ K" run (label-content-name-mismatch); the sidebar pane clears its drawer
+view-state `inert` at the desktop breakpoint, which had left the /search column's links
+visible but unreachable; and the four flagged public-path markdown images gained intrinsic
+dimensions.
+
+SEO: every page now emits exactly one canonical, og:url, og:image and twitter:card — the
+override drops Starlight's generated copies instead of duplicating them, and the broken
+relative `og:image` from the config head is gone (the override's absolute URL is first in
+crawl order). robots.txt is served from the domain root pointing at the sitemap index,
+which Starlight's built-in sitemap already provides (54 URLs, every route); /search is
+noindex; the Algolia crawler config's `sitemap_urls` entry now resolves. All of this is
+pinned by `docs-seo-surface.test.ts`, and `docs-routing.test.ts` continues to pin the
+/docs prefix rewrites (the old-URL surface unchanged).
+
+Caching: the audit's headline finding — every hashed asset revalidated per visit. Docs
+builds under the `/docs` base, so the URL surface the HTML references is `/docs/_astro/*`,
+while vercel.json declared immutable caching only for the bare `/_astro/*` twin (verified
+by curl: prefixed path `max-age=0, must-revalidate`, bare path immutable). vercel.json now
+declares both forms immutable plus the web-style refresh policy for the `/docs/img`,
+`/docs/video` and `/docs/favicon` classes and their bare twins, all pinned by
+`cache-surface.test.ts`; `scripts/cache-probe.mjs` re-captures live evidence per route
+class on demand (pre-deploy it reports the mismatch above; the post-deploy run must pass
+and its output belongs in this file). HTML stays on the revalidating default — long-lived
+
+- SWR was considered and rejected in #1923 (DocSearch index and content freshness favour
+  revalidation).
 
 ## M5.8 — apps/app (#1885)
 
@@ -245,9 +305,11 @@ API contract. Prerender/SWR for public routes is the remaining bounded item.
 
 ## Exceptions summary
 
-| Exception                             | Route               | Bound                                                   |
-| ------------------------------------- | ------------------- | ------------------------------------------------------- |
-| satoshi `left/top` animation CLS      | web `/roadmap`      | transform rewrite scoped; needs container height as CSS |
-| AppKit shadow-DOM modal axe findings  | app `/verification` | third-party; upstream-file option                       |
-| AppKit/wagmi chunk weight             | app game routes     | lazy-loaded; chunk groups tracked                       |
-| Authenticated dashboard data variance | app + smashers      | live contract APIs; shell-level assertions              |
+| Exception                             | Route                                  | Bound                                                                         |
+| ------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------- |
+| satoshi `left/top` animation CLS      | web `/roadmap`                         | transform rewrite scoped; needs container height as CSS                       |
+| AppKit shadow-DOM modal axe findings  | app `/verification`                    | third-party; upstream-file option                                             |
+| AppKit/wagmi chunk weight             | app game routes                        | lazy-loaded; chunk groups tracked                                             |
+| Authenticated dashboard data variance | app + smashers                         | live contract APIs; shell-level assertions                                    |
+| Roadmap poster mobile LCP (~2.6 s)    | docs `/overview/roadmap`               | 1800×3791 poster below q55 AVIF starts to smudge; all levers applied, perf 97 |
+| Mermaid figure→SVG swap CLS (0.054)   | docs `/overview/nifty-dao/nftl/supply` | render-time swap reserves the source height; growth shifts remain possible    |

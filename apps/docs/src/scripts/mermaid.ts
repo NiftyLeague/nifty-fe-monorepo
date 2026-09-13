@@ -6,16 +6,37 @@
  * browser with the same dark/forest theme selection. Mermaid is imported lazily
  * so pages without diagrams never download it. `astro:page-load` fires on the
  * first load and after every client-side navigation, covering both cases.
+ *
+ * Rendering waits until a block approaches the viewport: importing and laying
+ * out the diagram is a long main-thread task, and the supply page's pie chart
+ * sits below the fold, so gating on scroll keeps that work out of the load's
+ * blocking window (the M5.7 audit measured 210 ms TBT from it). Diagrams already
+ * in view still render during load.
  */
 document.addEventListener('astro:page-load', () => {
   const blocks = document.querySelectorAll<HTMLElement>('pre[data-language="mermaid"]')
 
-  if (blocks.length > 0) {
-    void renderMermaid(blocks)
-  }
+  if (blocks.length === 0) return
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const pending = entries
+        .filter((entry) => entry.isIntersecting)
+        .map((entry) => entry.target as HTMLElement)
+      if (pending.length === 0) return
+      for (const entry of pending) observer.unobserve(entry)
+      void renderMermaid(pending)
+    },
+    // A tight margin keeps the import+render work out of the load window on
+    // pages whose diagrams sit below the fold (the audit measured 210 ms TBT
+    // and 7 s TTI when it fired during load) while still finishing a render
+    // before a normal scroll reaches the block.
+    { rootMargin: '0px 0px 100px 0px' }
+  )
+  for (const block of blocks) observer.observe(block)
 })
 
-async function renderMermaid(elements: NodeListOf<HTMLElement>): Promise<void> {
+async function renderMermaid(elements: readonly HTMLElement[]): Promise<void> {
   const [{ default: mermaid }, { default: themeVariables }] = await Promise.all([
     import('mermaid'),
     import('../lib/mermaid-theme'),
@@ -36,12 +57,15 @@ async function renderMermaid(elements: NodeListOf<HTMLElement>): Promise<void> {
     if (!source.trim()) continue
 
     // Expressive Code wraps the block in a <figure>; replace the whole wrapper so
-    // no stray code frame is left behind.
+    // no stray code frame is left behind. The replacement reserves the figure's
+    // height first — the rendered pie chart is shorter than the source block, so
+    // without this the swap pulls the page up and records a layout shift.
     const target = pre.closest('figure') ?? pre
     try {
       const { svg } = await mermaid.render(`mermaid-diagram-${index}-${Date.now()}`, source)
       const container = document.createElement('div')
       container.className = 'mermaid-container'
+      container.style.minHeight = `${target.getBoundingClientRect().height}px`
       container.innerHTML = svg
       target.replaceWith(container)
     } catch (error) {
