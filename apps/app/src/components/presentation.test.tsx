@@ -197,6 +197,13 @@ describe('card presentation', () => {
     expect(sceneLink.getAttribute('data-prefetch')).toBe('false')
     expect(screen.getByText('Explore scene')).not.toBeNull()
     expect(screen.queryByRole('button', { name: /Play on/ })).toBeNull()
+
+    const sceneCard = sceneLink.firstElementChild
+    expect(sceneCard?.getAttribute('class')).toContain('group-hover:border-purple/70')
+    expect(sceneCard?.getAttribute('class')).not.toContain('translate-y')
+    expect(sceneCard?.querySelector('img')?.getAttribute('class')).toContain(
+      'group-hover:scale-105'
+    )
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {

@@ -174,7 +174,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
       className={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
         href &&
-          'transition-[border-color,box-shadow,transform] duration-200 group-hover:-translate-y-1 group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
+          'transition-[border-color,box-shadow] duration-200 group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
         autoHeight ? 'h-auto' : 'h-full'
       )}
       style={sx as React.CSSProperties | undefined}
