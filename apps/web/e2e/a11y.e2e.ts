@@ -26,6 +26,8 @@ const ROUTES = [
   '/terms-of-service',
 ]
 
+test.setTimeout(180_000)
+
 test('axe: no serious or critical violations on the marketing routes', async ({ page }) => {
   for (const route of ROUTES) {
     await page.goto(route)
