@@ -11,9 +11,9 @@ describe('Nifty World scene catalog', () => {
       'little-tokyo',
       'mansion',
       'exchange',
-      'arcade',
       'marina',
       'rugmans-peak',
+      'arcade',
     ])
     expect(NIFTY_WORLD_SCENES.some((scene) => scene.id === 'gas-station')).toBe(false)
   })

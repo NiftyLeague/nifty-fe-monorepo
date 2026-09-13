@@ -12,7 +12,7 @@ const PublicItems: NavItemType = {
       title: 'World',
       type: 'item',
       url: '/world',
-      icon: 'layout-grid',
+      icon: 'earth',
       breadcrumbs: false,
     },
     {

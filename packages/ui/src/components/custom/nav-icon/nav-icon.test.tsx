@@ -22,4 +22,12 @@ describe('NavIcon', () => {
     expect(icon?.getAttribute('aria-label')).toBe('Mint-O-Matic')
     expect(icon?.getAttribute('aria-hidden')).toBeNull()
   })
+
+  it('renders the earth glyph for world navigation', () => {
+    const { container } = render(<NavIcon name="earth" />)
+    const icon = container.querySelector('svg')
+
+    expect(icon?.querySelector('circle')).not.toBeNull()
+    expect(icon?.querySelectorAll('path')).toHaveLength(3)
+  })
 })

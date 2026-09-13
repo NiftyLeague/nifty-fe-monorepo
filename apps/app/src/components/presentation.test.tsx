@@ -23,8 +23,13 @@ beforeEach(async () => {
   }))
   // The router-backed Link needs a RouterProvider; render a plain anchor here.
   mock.module('@/runtime/Link', () => ({
-    default: ({ children, href, ...props }: ComponentProps<'a'> & { href: string }) => (
-      <a href={href} {...props}>
+    default: ({
+      children,
+      href,
+      prefetch,
+      ...props
+    }: ComponentProps<'a'> & { href: string; prefetch?: boolean }) => (
+      <a href={href} data-prefetch={String(prefetch)} {...props}>
         {children}
       </a>
     ),
@@ -173,6 +178,25 @@ describe('card presentation', () => {
 
     expect(screen.getByAltText('Deferred artwork').getAttribute('loading')).toBe('lazy')
     expect(screen.getByAltText('Deferred artwork').getAttribute('fetchpriority')).toBe('low')
+  })
+
+  it('supports a full-card scene link with a visible hover cue', () => {
+    render(
+      <GameCard
+        title="Isla Azul"
+        description="Explore the island"
+        image="/isla-azul.webp"
+        href="/world/niftyworld/isla-azul"
+        prefetch={false}
+      />
+    )
+
+    const sceneLink = screen.getByRole('link', { name: 'Explore Isla Azul' })
+
+    expect(sceneLink.getAttribute('href')).toBe('/world/niftyworld/isla-azul')
+    expect(sceneLink.getAttribute('data-prefetch')).toBe('false')
+    expect(screen.getByText('Explore scene')).not.toBeNull()
+    expect(screen.queryByRole('button', { name: /Play on/ })).toBeNull()
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {

@@ -1,12 +1,7 @@
-import { buttonVariants } from '@nl/ui/base/button-variants'
-
 import GameCard from '@/components/cards/GameCard'
-import Link from '@/runtime/Link'
 import { NIFTY_WORLD_SCENES } from '@/constants/niftyworld-scenes'
 
 import styles from '../games/grid-item.module.css'
-
-const sceneActionClassName = 'w-full min-w-20 flex-1'
 
 const WorldSceneList = () => (
   <>
@@ -16,16 +11,9 @@ const WorldSceneList = () => (
           title={scene.title}
           description={scene.description}
           image={scene.image}
+          href={`/world/niftyworld/${scene.id}`}
           autoHeight={false}
-          actions={
-            <Link
-              href={`/world/niftyworld/${scene.id}`}
-              prefetch={false}
-              className={buttonVariants({ variant: 'outline', className: sceneActionClassName })}
-            >
-              Enter World
-            </Link>
-          }
+          prefetch={false}
         />
       </div>
     ))}

@@ -10,8 +10,8 @@ const publicLinks = PublicItems.items.flatMap((item) =>
 function PublicNavIcon({ name }: { name?: string }) {
   const iconName =
     name === 'cat' ||
+    name === 'earth' ||
     name === 'gamepad' ||
-    name === 'layout-grid' ||
     name === 'list-ordered' ||
     name === 'sparkles'
       ? name

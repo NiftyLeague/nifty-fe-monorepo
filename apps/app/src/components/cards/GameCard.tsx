@@ -5,6 +5,8 @@ import { Title } from '@nl/ui/custom/typography'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import { cx } from '@nl/ui/class-names'
+
+import Link from '@/runtime/Link'
 import type { SxProps } from '@/types'
 
 interface GameDescriptionDisclosureProps {
@@ -31,6 +33,7 @@ type CardGameContentProps = {
   description?: string
   externalLink?: { title: string; src: string }
   isComingSoon?: boolean
+  linked?: boolean
   onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
   onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
   required?: string
@@ -43,6 +46,7 @@ const CardGameContent = ({
   description,
   externalLink,
   isComingSoon,
+  linked = false,
   onPlayOnDesktopClick,
   onPlayOnWebClick,
   required,
@@ -51,7 +55,7 @@ const CardGameContent = ({
 }: CardGameContentProps) => {
   return (
     <div className="flex grow flex-col justify-between bg-card">
-      <CardContent className="p-6 pb-0">
+      <CardContent className={cx('p-6', linked ? 'pb-6' : 'pb-0')}>
         <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2 md:flex-nowrap">
           <Title
             level={3}
@@ -87,34 +91,36 @@ const CardGameContent = ({
           </p>
         )}
       </CardContent>
-      <div className="flex items-center gap-2 px-6 pb-6">
-        <div className="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
-          {actions || (
-            <>
-              <button
-                type="button"
-                className={buttonVariants({
-                  variant: 'default',
-                  className: 'min-w-20 w-full flex-1',
-                })}
-                onClick={onPlayOnDesktopClick}
-              >
-                Play on Desktop
-              </button>
-              <button
-                type="button"
-                className={buttonVariants({
-                  variant: 'outline',
-                  className: 'min-w-20 w-full flex-1',
-                })}
-                onClick={onPlayOnWebClick}
-              >
-                Play on Web
-              </button>
-            </>
-          )}
+      {actions !== null && (
+        <div className="flex items-center gap-2 px-6 pb-6">
+          <div className="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
+            {actions ?? (
+              <>
+                <button
+                  type="button"
+                  className={buttonVariants({
+                    variant: 'default',
+                    className: 'min-w-20 w-full flex-1',
+                  })}
+                  onClick={onPlayOnDesktopClick}
+                >
+                  Play on Desktop
+                </button>
+                <button
+                  type="button"
+                  className={buttonVariants({
+                    variant: 'outline',
+                    className: 'min-w-20 w-full flex-1',
+                  })}
+                  onClick={onPlayOnWebClick}
+                >
+                  Play on Web
+                </button>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -129,9 +135,11 @@ interface GameCardProps {
   imageContent?: React.ReactNode
   imageFetchPriority?: 'auto' | 'high' | 'low'
   imageLoading?: 'eager' | 'lazy'
+  href?: string
   isComingSoon?: boolean
   onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
   onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
+  prefetch?: boolean
   required?: string
   showMore?: boolean
   sx?: SxProps
@@ -148,9 +156,11 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   imageContent,
   imageFetchPriority,
   imageLoading = 'lazy',
+  href,
   isComingSoon,
   onPlayOnDesktopClick,
   onPlayOnWebClick,
+  prefetch,
   required,
   showMore = false,
   sx,
@@ -159,17 +169,19 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   const resolvedImageFetchPriority =
     imageFetchPriority ?? (imageLoading === 'lazy' ? 'low' : undefined)
 
-  return (
+  const card = (
     <Card
       className={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
+        href &&
+          'transition-[border-color,box-shadow,transform] duration-200 group-hover:-translate-y-1 group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
         autoHeight ? 'h-auto' : 'h-full'
       )}
       style={sx as React.CSSProperties | undefined}
     >
       <div
+        className="relative overflow-hidden"
         style={{
-          position: 'relative',
           width: '100%',
           paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
         }}
@@ -183,16 +195,27 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
               sizes={GAME_CARD_IMAGE_SIZES}
               loading={imageLoading}
               fetchPriority={resolvedImageFetchPriority}
-              className="object-cover"
+              className={cx(
+                'object-cover transition-transform duration-500',
+                href && 'group-hover:scale-105 motion-reduce:transition-none'
+              )}
             />
           ))}
+        {href && (
+          <div className="pointer-events-none absolute inset-0 flex items-end justify-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none">
+            <span className="rounded-full bg-purple px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+              Explore scene <span aria-hidden="true">↗</span>
+            </span>
+          </div>
+        )}
       </div>
       {contents || (
         <CardGameContent
-          actions={actions}
+          actions={href ? null : actions}
           description={description}
-          externalLink={externalLink}
+          externalLink={href ? undefined : externalLink}
           isComingSoon={isComingSoon}
+          linked={Boolean(href)}
           onPlayOnDesktopClick={onPlayOnDesktopClick}
           onPlayOnWebClick={onPlayOnWebClick}
           required={required}
@@ -201,6 +224,19 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
         />
       )}
     </Card>
+  )
+
+  if (!href) return card
+
+  return (
+    <Link
+      href={href}
+      prefetch={prefetch}
+      aria-label={title ? `Explore ${title}` : undefined}
+      className="group block h-full rounded-md outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    >
+      {card}
+    </Link>
   )
 }
 

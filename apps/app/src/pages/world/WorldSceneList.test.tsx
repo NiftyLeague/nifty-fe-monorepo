@@ -16,10 +16,14 @@ mock.module('@/runtime/Link', () => ({
 }))
 
 mock.module('@/components/cards/GameCard', () => ({
-  default: ({ title, actions }: { title: string; actions?: React.ReactNode }) => (
+  default: ({ title, href, prefetch }: { title: string; href?: string; prefetch?: boolean }) => (
     <article>
       <h2>{title}</h2>
-      {actions}
+      {href && (
+        <a href={href} data-prefetch={String(prefetch)} aria-label={`Explore ${title}`}>
+          Explore scene
+        </a>
+      )}
     </article>
   ),
 }))
@@ -45,13 +49,13 @@ describe('Nifty World scene list', () => {
       'Little Tokyo',
       'Mansion',
       'Nifty Exchange',
-      'Nifty Arcade',
       'Marina',
       "Rugman's Peak",
+      'Nifty Arcade',
     ])
     expect(screen.queryByText('Gas Station')).toBeNull()
     expect(
-      screen.getAllByRole('link', { name: 'Enter World' }).map((link) => link.getAttribute('href'))
+      screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
       '/world/niftyworld/isla-azul',
       '/world/niftyworld/dungeon',
@@ -59,10 +63,11 @@ describe('Nifty World scene list', () => {
       '/world/niftyworld/little-tokyo',
       '/world/niftyworld/mansion',
       '/world/niftyworld/exchange',
-      '/world/niftyworld/arcade',
       '/world/niftyworld/marina',
       '/world/niftyworld/rugmans-peak',
+      '/world/niftyworld/arcade',
     ])
+    expect(screen.queryByText('Enter World')).toBeNull()
   })
 
   it('does not prefetch scene routes until a player chooses one', () => {
@@ -70,7 +75,7 @@ describe('Nifty World scene list', () => {
 
     expect(
       screen
-        .getAllByRole('link', { name: 'Enter World' })
+        .getAllByRole('link', { name: /^Explore/ })
         .map((link) => link.getAttribute('data-prefetch'))
     ).toEqual(Array(9).fill('false'))
   })

@@ -44,13 +44,6 @@ export const NIFTY_WORLD_SCENES = [
     path: '/scenes/exchange',
   },
   {
-    id: 'arcade',
-    title: 'Nifty Arcade',
-    description: 'Drop into the Nifty Arcade for a neon-lit stop in the city.',
-    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/arcade.webp`,
-    path: '/scenes/arcade',
-  },
-  {
     id: 'marina',
     title: 'Marina',
     description: 'Wander the waterfront and docks of the Nifty World Marina.',
@@ -63,6 +56,13 @@ export const NIFTY_WORLD_SCENES = [
     description: 'Climb toward Rugman’s Peak for a view across Nifty World.',
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/rugmans-peak.webp`,
     path: '/scenes/rugmans-peak',
+  },
+  {
+    id: 'arcade',
+    title: 'Nifty Arcade',
+    description: 'Drop into the Nifty Arcade for a neon-lit stop in the city.',
+    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/arcade.webp`,
+    path: '/scenes/arcade',
   },
 ] as const
 
