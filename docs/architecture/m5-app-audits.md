@@ -20,7 +20,7 @@ in `benchmarks/results/lh-web-m5.5-current-2026-09-13.json`; the route manifest 
 the indexable sitemap surface. Build-injected LCP preloads and CSS inlining were already
 shipped. The `/roadmap` Satoshi milestone now uses compositor-friendly `translate3d`
 keyframes and reduced motion ends hidden; the targeted follow-up evidence is
-`lh-web-m5.5-roadmap-transform-2026-09-13.json` (mobile CLS improved from 0.1221 to 0.0684
+`lh-web-roadmap-transform-2026-09-13.json` (mobile CLS improved from 0.1221 to 0.0684
 in that comparison). Desktop performance and LCP remain below the issue's 100/100 and
 2.5-second acceptance targets on several media-heavy routes, so M5.5 is still in progress.
 Third-party weight is the GTM container (GA4 + Clarity), owned by #1903's decision; YouTube
