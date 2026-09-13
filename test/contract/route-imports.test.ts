@@ -3,7 +3,6 @@ import { describe, expect, it } from 'bun:test'
 // The smashers session helper reads SESSION_SECRET lazily, but the OAuth flow
 // helpers still need a valid-length secret available during import.
 process.env.SESSION_SECRET = process.env.SESSION_SECRET ?? 'contract-test-secret-0123456789abcdef'
-process.env.NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET ?? process.env.SESSION_SECRET
 
 /**
  * Route module import guard.

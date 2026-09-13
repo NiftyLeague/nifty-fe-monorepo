@@ -2,12 +2,64 @@
 /**
  * Extends Starlight's head with the tags the previous site emitted: an OpenSearch
  * descriptor, the social card, and the Algolia DocSearch compat meta tags.
+ *
+ * Starlight generates its own canonical/OG/Twitter tags, so every tag this
+ * component also emits is filtered out of Starlight's list first — emitting both
+ * left duplicate canonical, og:url and twitter:card tags on every page, and put
+ * a broken relative og:image first in crawl order. og:title, og:description,
+ * og:type and og:locale stay: they are per-page values Starlight derives from
+ * the entry and this component does not override them.
  */
 import { ClientRouter } from 'astro:transitions';
+import { getImage } from 'astro:assets';
 import bodyFontUrl from '../../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url';
+import {
+  ROADMAP_POSTER_FORMAT,
+  ROADMAP_POSTER_QUALITY,
+  ROADMAP_POSTER_SIZES,
+  ROADMAP_POSTER_WIDTHS,
+  roadmapPoster,
+} from '../../lib/roadmap-poster';
 
-const { head } = Astro.locals.starlightRoute;
+const { head, entry } = Astro.locals.starlightRoute;
 const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
+
+/*
+ * Tags this component owns; Starlight's generated copies are dropped.
+ */
+const OVERRIDDEN = new Set(['og:url', 'og:image', 'twitter:card', 'twitter:image']);
+
+/*
+ * The utility search page is a thin client surface: keep it out of the index
+ * (it is also listed in the sitemap, which Google drops once noindex is seen).
+ * The check runs on the URL rather than the entry: the search page is
+ * Starlight-generated and has no content entry to read an id from.
+ */
+const isSearchPage = Astro.url.pathname.replace(/\/$/, '').endsWith('/search');
+
+/*
+ * The roadmap poster is the route's LCP image; preload its exact srcset so the
+ * request starts with the head instead of after the article markup is parsed.
+ * The variants are resolved one getImage call per width — the same shape the
+ * <Image> component uses internally, so the hashed URLs come out identical
+ * (a single `widths` array produces a differently-hashed 400w variant).
+ */
+const isRoadmapPage = entry.id === 'overview/roadmap';
+const roadmapPreload = isRoadmapPage
+  ? await Promise.all(
+      ROADMAP_POSTER_WIDTHS.map(async (width) => ({
+        width,
+        url: (
+          await getImage({
+            src: roadmapPoster,
+            width,
+            format: ROADMAP_POSTER_FORMAT,
+            quality: ROADMAP_POSTER_QUALITY,
+          })
+        ).src,
+      }))
+    )
+  : undefined;
 ---
 
 {/* Client-side routing: the previous site was an SPA-style MPA where the navbar
@@ -15,12 +67,17 @@ const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 <ClientRouter />
 
 {
-	/* Starlight always contributes a favicon tag; the docs ship the same icon set
-	   as apps/web instead, declared below, so drop the generated one to avoid a
-	   duplicate `shortcut icon` and a request for a file that is not served. */
 	head
-		.filter(({ attrs }) => attrs?.rel !== 'shortcut icon')
+		.filter(({ tag, attrs }) => {
+			if (tag === 'link' && (attrs?.rel === 'search' || attrs?.rel === 'canonical')) return false;
+			if (tag === 'meta' && OVERRIDDEN.has(String(attrs?.property ?? attrs?.name))) return false;
+			return true;
+		})
 		.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)
+}
+
+{
+	isSearchPage && <meta name="robots" content="noindex" />
 }
 
 <link
@@ -42,6 +99,18 @@ const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
 <meta name="docsearch:language" content="en" />
 <meta name="docsearch:version" content="current" />
 <meta name="docsearch:docusaurus_tag" content="docs-default-current" />
+
+{
+	isRoadmapPage && (
+		<link
+			rel="preload"
+			as="image"
+			imagesrcset={roadmapPreload?.map((variant) => `${variant.url} ${variant.width}w`).join(', ')}
+			imagesizes={ROADMAP_POSTER_SIZES}
+			fetchpriority="high"
+		/>
+	)
+}
 
 {/*
   Body text is set in the self-hosted IBM Plex Sans, so preload it: the font is

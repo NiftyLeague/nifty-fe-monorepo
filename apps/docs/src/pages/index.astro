@@ -3,24 +3,49 @@
 // with the search field over a masked backdrop image, feature cards, guide and
 // developer link columns, quick links, social cards and a stream banner.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import { getImage } from 'astro:assets';
 import Hero from '../components/home/Hero.astro';
 import Features from '../components/home/Features.astro';
 import Guides from '../components/home/Guides.astro';
 import Socials from '../components/home/Socials.astro';
 import { sidebar } from '../sidebar';
+import {
+  HERO_FORMAT,
+  HERO_PRELOAD_WIDTHS,
+  HERO_QUALITY,
+  HERO_SIZES,
+  heroDark,
+} from '../lib/hero-artwork';
 import '../styles/home.css';
 
 // The `sidebar` prop below gives the page the resolved navigation tree: the
 // splash template renders no sidebar column, but the tree feeds the hamburger
 // drawer that the page frame shows below 997px.
+
+// The hero artwork is the LCP element and dark is the default theme, so the
+// dark variant is preloaded with its exact srcset — one getImage call per
+// width, mirroring how the <Image> in Hero.astro resolves its variants so the
+// hashed URLs match what the srcset emits.
+const heroPreload = await Promise.all(
+	HERO_PRELOAD_WIDTHS.map(async (width) => ({
+		width,
+		url: (
+			await getImage({
+				src: heroDark,
+				width,
+				format: HERO_FORMAT,
+				quality: HERO_QUALITY,
+			})
+		).src,
+	})),
+);
 ---
 
 <StarlightPage
 	frontmatter={{
 		title: 'Nifty League Docs',
 		template: 'splash',
-		// The previous landing page title had no site-name suffix. The hero artwork
-		// is the LCP element, so the default (dark) variant is preloaded here.
+		// The previous landing page title had no site-name suffix.
 		head: [
 			{ tag: 'title', content: 'Nifty League Docs' },
 			{
@@ -28,7 +53,8 @@ import '../styles/home.css';
 				attrs: {
 					rel: 'preload',
 					as: 'image',
-					href: '/docs/img/games/smashers/3D-levels/sushi_cropped.webp',
+					imagesrcset: heroPreload.map((variant) => `${variant.url} ${variant.width}w`).join(', '),
+					imagesizes: HERO_SIZES,
 					fetchpriority: 'high',
 				},
 			},

@@ -9,6 +9,17 @@ const formatPercentage = (value: string | number): string => {
   return value.endsWith('%') ? value : `${value}%`
 }
 
+/**
+ * The tables scroll inside a fixed-height container, so the container needs
+ * keyboard access to scroll (axe `scrollable-region-focusable`, M5.6 #1883):
+ * focusable, and named as a region so the focus target means something.
+ */
+const ScrollableTable = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <div className={styles.itemsTable} role="region" aria-label={label} tabIndex={0}>
+    {children}
+  </div>
+)
+
 interface LootTablesProps {
   data?: CrateData
 }
@@ -31,7 +42,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
             </Typography.Title>
             <Typography className="mb-4">Drop Tables & Odds</Typography>
 
-            <div className={styles.itemsTable}>
+            <ScrollableTable label={`${crateKey} drop items`}>
               <table>
                 <thead>
                   <tr>
@@ -52,7 +63,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                   ))}
                 </tbody>
               </table>
-            </div>
+            </ScrollableTable>
 
             {/* Section heading at outline level 3 (the crate name is the h2).
                 The level-6 utilities reproduce the original visual size, so the
@@ -81,7 +92,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                 <Typography.Title level={3} className="mt-4 mb-2">
                   Currency Rewards
                 </Typography.Title>
-                <div className={styles.itemsTable}>
+                <ScrollableTable label={`${crateKey} currency rewards`}>
                   <table>
                     <thead>
                       <tr>
@@ -102,7 +113,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                       ))}
                     </tbody>
                   </table>
-                </div>
+                </ScrollableTable>
               </>
             )}
           </div>

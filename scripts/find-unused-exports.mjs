@@ -100,6 +100,7 @@ const isTs = (name) => /\.tsx?$/.test(name)
 /** Ambient declarations export nothing reportable but they do reference types. */
 const isDeclaration = (name) => name.endsWith('.d.ts')
 const isAstro = (name) => name.endsWith('.astro')
+const isMdx = (name) => name.endsWith('.mdx')
 
 function hasExportModifier(node) {
   const modifiers = ts.canHaveModifiers(node) ? ts.getModifiers(node) : undefined
@@ -170,14 +171,19 @@ function kindOf(statement) {
   return 'value'
 }
 
-/** Import statements from an `.astro` frontmatter block, which TypeScript cannot parse. */
-function astroImportSpecifiers(text) {
+/**
+ * Import statements from an `.astro` frontmatter block, which TypeScript cannot
+ * parse. `wholeFile` reads an `.mdx` page instead, whose imports sit after the
+ * frontmatter (the M5.7 audit's roadmap-poster constants are reached only by
+ * roadmap.mdx, and without this scan they report as unreachable).
+ */
+function importSpecifiersIn(text, { wholeFile = false } = {}) {
   const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text)
-  if (!frontmatter) return []
+  if (!frontmatter && !wholeFile) return []
   const found = []
   const statement = /\bimport\s+([^'"]*?)\s*from\s*['"]([^'"]+)['"]/g
   let match
-  while ((match = statement.exec(frontmatter[1]))) {
+  while ((match = statement.exec(wholeFile ? text : frontmatter[1]))) {
     const clause = match[1].replace(/^\s*type\s+/, '').trim()
     const names = []
     if (clause.startsWith('*')) names.push('*')
@@ -199,6 +205,9 @@ function astroImportSpecifiers(text) {
   }
   return found
 }
+
+const astroImportSpecifiers = (text) => importSpecifiersIn(text)
+const mdxImportSpecifiers = (text) => importSpecifiersIn(text, { wholeFile: true })
 
 function buildProgram(workspace) {
   const parsed = readTsconfig(workspace.dir)
@@ -334,8 +343,10 @@ function analyzeWorkspace(workspace, entries, referenced, selfReferenced, ambigu
     ts.forEachChild(sourceFile, visit)
   }
 
-  for (const file of walk(workspace.dir, isAstro)) {
-    for (const { specifier, names } of astroImportSpecifiers(readFileSync(file, 'utf8'))) {
+  const componentPages = [...walk(workspace.dir, isAstro), ...walk(workspace.dir, isMdx)]
+  for (const file of componentPages) {
+    const extract = file.endsWith('.mdx') ? mdxImportSpecifiers : astroImportSpecifiers
+    for (const { specifier, names } of extract(readFileSync(file, 'utf8'))) {
       const resolved = ts.resolveModuleName(specifier, file, options, ts.sys)
       const target = resolved.resolvedModule?.resolvedFileName
       if (!target) continue

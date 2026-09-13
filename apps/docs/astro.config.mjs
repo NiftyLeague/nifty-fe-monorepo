@@ -55,19 +55,10 @@ export default defineConfig({
         baseUrl: 'https://github.com/NiftyLeague/nifty-fe-monorepo/tree/main/apps/docs',
       },
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 3 },
-      head: [
-        { tag: 'meta', attrs: { property: 'og:image', content: 'img/twitter_card_bg.webp' } },
-        { tag: 'meta', attrs: { name: 'twitter:card', content: 'summary_large_image' } },
-        {
-          tag: 'link',
-          attrs: {
-            rel: 'search',
-            type: 'application/opensearchdescription+xml',
-            title: 'Nifty League Docs',
-            href: '/docs/opensearch.xml',
-          },
-        },
-      ],
+      // The OpenSearch descriptor, social-card and canonical tags are emitted by
+      // the Head override with absolute URLs; entries here would render a second,
+      // relative copy of them ahead of it in every page's head.
+      head: [],
       expressiveCode: {
         themes: ['github-light', 'dracula'],
         styleOverrides: { borderRadius: '0.45rem', codeFontSize: '0.95rem' },
