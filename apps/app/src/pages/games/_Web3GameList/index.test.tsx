@@ -1,34 +1,13 @@
-import type { PropsWithChildren } from 'react'
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
-mock.module('@/runtime/Link', () => ({
-  default: ({
-    children,
-    href,
-    prefetch,
-    ...props
-  }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
-    <a href={href} data-prefetch={String(prefetch)} {...props}>
-      {children}
-    </a>
-  ),
-}))
-
-mock.module('@/components/cards/GameCard', () => ({
-  default: ({
-    title,
-    actions,
-    externalLink,
-  }: {
-    title: string
-    actions?: React.ReactNode
-    externalLink?: { title: string; src: string }
-  }) => (
+mock.module('@/components/cards/NiftyWorldCard', () => ({
+  default: ({ title, href }: { title: string; href: string }) => (
     <article>
       <h2>{title}</h2>
-      {externalLink && <a href={externalLink.src}>{externalLink.title}</a>}
-      {actions}
+      <a href={href} aria-label={`Explore ${title}`}>
+        Explore scene
+      </a>
     </article>
   ),
 }))
@@ -44,22 +23,11 @@ describe('mini game list navigation', () => {
     mock.restore()
   })
 
-  it('does not prefetch game routes until a player chooses one', () => {
-    render(<Web3GameList />)
-
-    expect(
-      screen
-        .getAllByRole('link')
-        .filter((link) => link.hasAttribute('data-prefetch'))
-        .map((link) => link.getAttribute('data-prefetch'))
-    ).toEqual(['false', 'false', 'false', 'false', 'false', 'false'])
-  })
-
   it('links every Nifty World mini game into the app', () => {
     render(<Web3GameList />)
 
     expect(
-      screen.getAllByRole('link', { name: 'Play in App' }).map((link) => link.getAttribute('href'))
+      screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
       '/games/niftyworld/degen-dodge',
       '/games/niftyworld/wen-2d',
@@ -68,6 +36,7 @@ describe('mini game list navigation', () => {
       '/games/niftyworld/tennis',
       '/games/niftyworld/wen-3d',
     ])
+    expect(screen.queryByText('Play in App')).toBeNull()
     expect(screen.queryByText(/required/i)).toBeNull()
   })
 })

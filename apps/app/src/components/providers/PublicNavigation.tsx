@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from 'react'
+import { memo, type PropsWithChildren } from 'react'
 
 import AppBar from '@nl/ui/custom/app-bar'
 import { cx } from '@nl/ui/class-names'
@@ -11,6 +11,31 @@ import styles from '@/layouts/_layout/_MainLayout/MainLayout.module.css'
 import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicDesktopNavigationToggle from './PublicDesktopNavigationToggle'
 import PublicNavLinks from './PublicNavLinks'
+
+const PublicSidebar = memo(function PublicSidebar() {
+  return (
+    <nav
+      id="public-desktop-navigation"
+      aria-label="Primary navigation"
+      className="hidden w-[260px] shrink-0 lg:block"
+    >
+      <aside
+        className={cx(
+          styles.publicDesktopSidebar,
+          'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
+        )}
+        style={{ width: 260, top: 60 }}
+      >
+        <div className="h-full overflow-y-auto px-4 py-5">
+          <div className="mb-5">
+            <DeferredPublicUserProfile placement="desktop" />
+          </div>
+          <PublicNavLinks />
+        </div>
+      </aside>
+    </nav>
+  )
+})
 
 export default function PublicNavigation({ children }: PropsWithChildren) {
   return (
@@ -61,26 +86,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         </AppBar>
       </header>
 
-      <nav
-        id="public-desktop-navigation"
-        aria-label="Primary navigation"
-        className="hidden w-[260px] shrink-0 lg:block"
-      >
-        <aside
-          className={cx(
-            styles.publicDesktopSidebar,
-            'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
-          )}
-          style={{ width: 260, top: 60 }}
-        >
-          <div className="h-full overflow-y-auto px-4 py-5">
-            <div className="mb-5">
-              <DeferredPublicUserProfile placement="desktop" />
-            </div>
-            <PublicNavLinks />
-          </div>
-        </aside>
-      </nav>
+      <PublicSidebar />
 
       <main className={styles.publicMain}>{children}</main>
     </div>

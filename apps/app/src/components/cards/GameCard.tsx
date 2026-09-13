@@ -30,6 +30,7 @@ const GameDescriptionDisclosure = ({ description }: GameDescriptionDisclosurePro
 
 type CardGameContentProps = {
   actions?: React.ReactNode
+  actionsInteractive?: boolean
   description?: string
   externalLink?: { title: string; src: string }
   isComingSoon?: boolean
@@ -44,6 +45,7 @@ type CardGameContentProps = {
 
 const CardGameContent = ({
   actions,
+  actionsInteractive = false,
   description,
   externalLink,
   isComingSoon,
@@ -92,19 +94,27 @@ const CardGameContent = ({
           <GameDescriptionDisclosure description={description} />
         ) : (
           <p
-            className={cx('text-sm text-muted-foreground', overlay && 'text-white/75')}
-            style={{
-              whiteSpace: 'pre-wrap',
-              maxHeight: 42,
-              overflowY: 'hidden',
-            }}
+            className={cx(
+              'text-sm text-muted-foreground',
+              overlay ? 'truncate text-white/75' : undefined
+            )}
+            style={
+              overlay
+                ? { whiteSpace: 'nowrap' }
+                : { whiteSpace: 'pre-wrap', maxHeight: 42, overflowY: 'hidden' }
+            }
           >
             {description}
           </p>
         )}
       </CardContent>
       {actions !== null && (
-        <div className="flex items-center gap-2 px-6 pb-6">
+        <div
+          className={cx(
+            'flex items-center gap-2 px-6 pb-6',
+            actionsInteractive && 'pointer-events-auto'
+          )}
+        >
           <div className="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
             {actions ?? (
               <>
@@ -139,10 +149,13 @@ const CardGameContent = ({
 
 interface GameCardProps {
   actions?: React.ReactNode
+  actionsInteractive?: boolean
+  cardLinkLabel?: string
   autoHeight?: boolean
   contents?: React.ReactNode
   description?: string
   externalLink?: { title: string; src: string }
+  externalHref?: string
   image?: string
   imageContent?: React.ReactNode
   imageFetchPriority?: 'auto' | 'high' | 'low'
@@ -161,10 +174,13 @@ interface GameCardProps {
 
 const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   actions,
+  actionsInteractive = false,
+  cardLinkLabel,
   autoHeight = false,
   contents,
   description,
   externalLink,
+  externalHref,
   image,
   imageContent,
   imageFetchPriority,
@@ -182,71 +198,88 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
 }) => {
   const resolvedImageFetchPriority =
     imageFetchPriority ?? (imageLoading === 'lazy' ? 'low' : undefined)
+  const cardLink = href || externalHref
+  const hasExternalCardLink = Boolean(externalHref)
 
   const card = (
     <Card
       className={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
-        href &&
+        cardLink &&
           'transition-[border-color,box-shadow] duration-200 group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
-        overlayContent ? 'relative aspect-video' : autoHeight ? 'h-auto' : 'h-full'
+        hasExternalCardLink && 'relative group',
+        overlayContent ? 'relative aspect-[16/10]' : autoHeight ? 'h-auto' : 'h-full'
       )}
       style={sx as React.CSSProperties | undefined}
     >
-      <div
-        className={cx('relative overflow-hidden', overlayContent && 'absolute inset-0')}
-        style={
-          overlayContent
-            ? undefined
-            : {
-                width: '100%',
-                paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
-              }
-        }
-      >
-        {imageContent ??
-          (image && (
-            <OptimizedImage
-              src={image}
-              alt={title || 'Game artwork'}
-              fill
-              sizes={GAME_CARD_IMAGE_SIZES}
-              loading={imageLoading}
-              fetchPriority={resolvedImageFetchPriority}
+      {externalHref && (
+        <a
+          href={externalHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={cardLinkLabel ?? `Open ${title ?? 'game'}`}
+          className="absolute inset-0 z-0 rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        >
+          <span className="sr-only">{cardLinkLabel ?? `Open ${title ?? 'game'}`}</span>
+        </a>
+      )}
+      <div className={cx(hasExternalCardLink && 'relative z-10 pointer-events-none')}>
+        <div
+          className={cx('overflow-hidden', overlayContent ? 'absolute inset-0' : 'relative')}
+          style={
+            overlayContent
+              ? undefined
+              : {
+                  width: '100%',
+                  paddingTop: '56.25%' /* 16:9 Aspect Ratio */,
+                }
+          }
+        >
+          {imageContent ??
+            (image && (
+              <OptimizedImage
+                src={image}
+                alt={title || 'Game artwork'}
+                fill
+                sizes={GAME_CARD_IMAGE_SIZES}
+                loading={imageLoading}
+                fetchPriority={resolvedImageFetchPriority}
+                className={cx(
+                  'object-cover transition-transform duration-500',
+                  cardLink && 'group-hover:scale-105 motion-reduce:transition-none'
+                )}
+              />
+            ))}
+          {cardLink && (
+            <div
               className={cx(
-                'object-cover transition-transform duration-500',
-                href && 'group-hover:scale-105 motion-reduce:transition-none'
+                'pointer-events-none absolute inset-0 flex justify-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none',
+                overlayContent ? 'items-start' : 'items-end'
               )}
-            />
-          ))}
-        {href && (
-          <div
-            className={cx(
-              'pointer-events-none absolute inset-0 flex justify-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none',
-              overlayContent ? 'items-start' : 'items-end'
-            )}
-          >
-            <span className="rounded-full bg-purple px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
-              Explore scene <span aria-hidden="true">↗</span>
-            </span>
-          </div>
+            >
+              <span className="rounded-full bg-purple px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+                {externalHref ? 'Open game' : 'Explore scene'} <span aria-hidden="true">↗</span>
+              </span>
+            </div>
+          )}
+        </div>
+        {contents || (
+          <CardGameContent
+            actions={href ? null : actions}
+            actionsInteractive={actionsInteractive || hasExternalCardLink}
+            description={description}
+            externalLink={href ? undefined : externalLink}
+            isComingSoon={isComingSoon}
+            linked={Boolean(href)}
+            overlay={overlayContent}
+            onPlayOnDesktopClick={onPlayOnDesktopClick}
+            onPlayOnWebClick={onPlayOnWebClick}
+            required={required}
+            showMore={showMore}
+            title={title}
+          />
         )}
       </div>
-      {contents || (
-        <CardGameContent
-          actions={href ? null : actions}
-          description={description}
-          externalLink={href ? undefined : externalLink}
-          isComingSoon={isComingSoon}
-          linked={Boolean(href)}
-          overlay={overlayContent}
-          onPlayOnDesktopClick={onPlayOnDesktopClick}
-          onPlayOnWebClick={onPlayOnWebClick}
-          required={required}
-          showMore={showMore}
-          title={title}
-        />
-      )}
     </Card>
   )
 

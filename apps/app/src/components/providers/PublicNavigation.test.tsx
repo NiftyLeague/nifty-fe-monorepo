@@ -1,5 +1,23 @@
+import type { PropsWithChildren } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it, mock } from 'bun:test'
+
+mock.module('@/runtime/Link', () => ({
+  default: ({
+    children,
+    href,
+    prefetch: _prefetch,
+    ...props
+  }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}))
+
+mock.module('@/runtime/navigation', () => ({
+  usePathname: () => '/',
+}))
 
 import PublicNavigation from './PublicNavigation'
 
@@ -48,13 +66,13 @@ describe('PublicNavigation', () => {
     const mobilePanel = document.getElementById('public-mobile-navigation')
     expect(mobilePanel?.className).toContain('top-[60px]')
 
-    expect(screen.getByRole('link', { name: 'Website' }).getAttribute('href')).toBe(
+    expect(screen.getByRole('link', { name: /^Website/ }).getAttribute('href')).toBe(
       'https://niftyleague.com/'
     )
-    expect(screen.getByRole('link', { name: 'Mobile Smashers' }).getAttribute('href')).toBe(
+    expect(screen.getByRole('link', { name: /^Mobile Smashers/ }).getAttribute('href')).toBe(
       'https://niftysmashers.com/'
     )
-    expect(screen.getByRole('link', { name: 'Docs' }).getAttribute('href')).toBe(
+    expect(screen.getByRole('link', { name: /^Docs/ }).getAttribute('href')).toBe(
       'https://niftyleague.com/docs'
     )
     const logos = screen.getAllByRole('link', { name: 'NiftyLogo' })

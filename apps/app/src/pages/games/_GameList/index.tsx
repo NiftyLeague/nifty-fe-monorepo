@@ -106,6 +106,8 @@ const FlagshipGameList = () => (
     <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Nifty Smashers (Beta)"
+        externalHref="https://niftysmashers.com/"
+        cardLinkLabel="Open Nifty Smashers"
         required="Party Platform Fighter"
         description="Our flagship game - free-to-play, online multiplayer, PARTY platform fighter. Play on iOS, Android, and Steam with full cross-play support!"
         imageContent={

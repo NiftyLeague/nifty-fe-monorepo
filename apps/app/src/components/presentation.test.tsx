@@ -221,12 +221,35 @@ describe('card presentation', () => {
     const sceneCard = screen.getByRole('link', { name: 'Explore Isla Azul' }).firstElementChild
     const overlay = screen.getByText('Explore the island').parentElement?.parentElement
 
-    expect(sceneCard?.getAttribute('class')).toContain('aspect-video')
+    expect(sceneCard?.getAttribute('class')).toContain('aspect-[16/10]')
     expect(sceneCard?.querySelector('img')?.parentElement?.getAttribute('class')).toContain(
       'absolute'
     )
     expect(overlay?.getAttribute('class')).toContain('min-h-[50%]')
     expect(overlay?.getAttribute('class')).toContain('bg-black/65')
+  })
+
+  it('keeps store badges clickable when a flagship card links externally', () => {
+    render(
+      <GameCard
+        title="Nifty Smashers (Beta)"
+        image="/smashers.webp"
+        externalHref="https://niftysmashers.com/"
+        cardLinkLabel="Open Nifty Smashers"
+        actions={<a href="https://niftysmashers.com/ios">App Store badge</a>}
+      />
+    )
+
+    const cardLink = screen.getByRole('link', { name: 'Open Nifty Smashers' })
+    const badgeLink = screen.getByRole('link', { name: 'App Store badge' })
+
+    expect(cardLink.getAttribute('href')).toBe('https://niftysmashers.com/')
+    expect(cardLink.getAttribute('target')).toBe('_blank')
+    expect(badgeLink.getAttribute('href')).toBe('https://niftysmashers.com/ios')
+    expect(cardLink.contains(badgeLink)).toBe(false)
+    expect(badgeLink.parentElement?.parentElement?.getAttribute('class')).toContain(
+      'pointer-events-auto'
+    )
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {
