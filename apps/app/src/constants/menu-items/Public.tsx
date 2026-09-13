@@ -8,6 +8,14 @@ const PublicItems: NavItemType = {
   children: [
     { id: '', title: 'Games', type: 'item', url: '/', icon: 'gamepad', breadcrumbs: false },
     {
+      id: 'world',
+      title: 'World',
+      type: 'item',
+      url: '/world',
+      icon: 'layout-grid',
+      breadcrumbs: false,
+    },
+    {
       id: 'degens',
       title: 'DEGENs',
       type: 'item',
