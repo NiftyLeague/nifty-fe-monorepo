@@ -206,6 +206,29 @@ describe('card presentation', () => {
     )
   })
 
+  it('renders scene artwork full-bleed with the content in a translucent lower overlay', () => {
+    render(
+      <GameCard
+        title="Isla Azul"
+        description="Explore the island"
+        image="/isla-azul.webp"
+        href="/world/niftyworld/isla-azul"
+        overlayContent
+        prefetch={false}
+      />
+    )
+
+    const sceneCard = screen.getByRole('link', { name: 'Explore Isla Azul' }).firstElementChild
+    const overlay = screen.getByText('Explore the island').parentElement?.parentElement
+
+    expect(sceneCard?.getAttribute('class')).toContain('aspect-video')
+    expect(sceneCard?.querySelector('img')?.parentElement?.getAttribute('class')).toContain(
+      'absolute'
+    )
+    expect(overlay?.getAttribute('class')).toContain('min-h-[50%]')
+    expect(overlay?.getAttribute('class')).toContain('bg-black/65')
+  })
+
   it('accepts server-rendered artwork without changing the card layout contract', () => {
     render(
       <GameCard

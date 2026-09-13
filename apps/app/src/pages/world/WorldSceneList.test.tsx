@@ -16,11 +16,26 @@ mock.module('@/runtime/Link', () => ({
 }))
 
 mock.module('@/components/cards/GameCard', () => ({
-  default: ({ title, href, prefetch }: { title: string; href?: string; prefetch?: boolean }) => (
+  default: ({
+    title,
+    href,
+    overlayContent,
+    prefetch,
+  }: {
+    title: string
+    href?: string
+    overlayContent?: boolean
+    prefetch?: boolean
+  }) => (
     <article>
       <h2>{title}</h2>
       {href && (
-        <a href={href} data-prefetch={String(prefetch)} aria-label={`Explore ${title}`}>
+        <a
+          href={href}
+          data-overlay-content={String(overlayContent)}
+          data-prefetch={String(prefetch)}
+          aria-label={`Explore ${title}`}
+        >
           Explore scene
         </a>
       )}
@@ -68,6 +83,11 @@ describe('Nifty World scene list', () => {
       '/world/niftyworld/arcade',
     ])
     expect(screen.queryByText('Enter World')).toBeNull()
+    expect(
+      screen
+        .getAllByRole('link', { name: /^Explore/ })
+        .map((link) => link.getAttribute('data-overlay-content'))
+    ).toEqual(Array(9).fill('true'))
   })
 
   it('does not prefetch scene routes until a player chooses one', () => {

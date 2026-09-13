@@ -12,7 +12,8 @@ const WorldSceneList = () => (
           description={scene.description}
           image={scene.image}
           href={`/world/niftyworld/${scene.id}`}
-          autoHeight={false}
+          autoHeight
+          overlayContent
           prefetch={false}
         />
       </div>
