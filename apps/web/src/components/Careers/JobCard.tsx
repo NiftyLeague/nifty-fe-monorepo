@@ -18,13 +18,16 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
   const { title, location, aboutTheRole, responsibilities, requirements, benefits, link } = details
   return (
     <Accordion type="single" collapsible className="bg-card border-1 rounded-md mb-5">
-      <AccordionItem value={`panel-${title}-header`}>
-        <AccordionTrigger className="px-4 md:px-6 py-8 items-center">
+      <AccordionItem value={`panel-${title}-header`} className="relative">
+        <AccordionTrigger className="px-4 md:px-6 py-8 pr-40 md:pr-48 items-center">
           <span className="heading-look-5">{title}</span>
           <p className="text-muted-foreground m-0">{location}</p>
           <div className="flex-1" />
+        </AccordionTrigger>
+
+        <div className="absolute right-4 top-5 z-10 md:right-6">
           <ThemeBtnGroup
-            className="max-w-40 mt-0 xl:mt-0"
+            className="!mx-0 !w-auto max-w-40 !mt-0"
             primary={{
               href: link,
               title: 'APPLY',
@@ -32,7 +35,7 @@ const JobCard = ({ details }: JobCardProps): React.ReactNode => {
               className: 'theme-btn-rounded max-w-fit',
             }}
           />
-        </AccordionTrigger>
+        </div>
 
         <AccordionContent className="px-4 md:px-6 text-left">
           <h6 className="text-purple">About the Role</h6>

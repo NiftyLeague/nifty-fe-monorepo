@@ -23,6 +23,8 @@ test('all marketing documents have crawlable HTML and production canonicals', as
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false })
   const page = await context.newPage()
+  const titles = new Set<string>()
+  const descriptions = new Set<string>()
   for (const route of routes) {
     const response = await page.goto(`${baseURL}${route}`)
     expect(response?.status(), route).toBe(200)
@@ -31,9 +33,16 @@ test('all marketing documents have crawlable HTML and production canonicals', as
       'href',
       `https://niftyleague.com${route}`
     )
-    expect(await page.title()).toContain('Nifty League')
+    const title = await page.title()
+    const description = await page.locator('meta[name="description"]').getAttribute('content')
+    expect(title).toContain('Nifty League')
+    expect(description, `${route} metadata description`).toBeTruthy()
+    titles.add(title)
+    descriptions.add(description!)
     expect((await page.locator('main').innerText()).trim().length, route).toBeGreaterThan(40)
   }
+  expect(titles.size, 'marketing route titles must be unique').toBe(routes.length)
+  expect(descriptions.size, 'marketing route descriptions must be unique').toBe(routes.length)
   await context.close()
 })
 

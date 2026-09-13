@@ -60,7 +60,7 @@ describe('web Vercel routing contract', () => {
 
   it('serves the deep-link shells for gltf, invite and party routes', () => {
     const bySource = new Map(config.rewrites?.map((r) => [r.source, r.destination]))
-    expect(bySource.get('/gltf/:tokenId')).toBe('/shells/gltf')
+    expect(bySource.get('/gltf/:tokenId(\\d{1,12})')).toBe('/shells/gltf')
     expect(bySource.get('/invite/:game/:refcode')).toBe('/shells/referral')
     expect(bySource.get('/party/:game/:refcode/:partyID')).toBe('/shells/referral')
   })

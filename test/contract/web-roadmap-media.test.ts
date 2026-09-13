@@ -3,6 +3,7 @@ import { readFileSync, statSync } from 'node:fs'
 
 const roadmapCard = 'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx'
 const roadmapConstants = 'apps/web/src/components/RoadmapTimeline/constants.tsx'
+const satoshiStyles = 'apps/web/src/app/(main)/roadmap/satoshi-right.module.css'
 
 const roadmapMedia = [
   {
@@ -56,5 +57,14 @@ describe('web roadmap animated media policy', () => {
     for (const { source: sourcePath } of roadmapMedia) {
       expect(constants).toContain(sourcePath)
     }
+  })
+
+  it('keeps the Satoshi travel animation on compositor-friendly transforms', () => {
+    const source = readFileSync(satoshiStyles, 'utf8')
+
+    expect(source).toContain('@keyframes satoshiTravel')
+    expect(source).toContain('translate3d(')
+    expect(source).not.toMatch(/@(?:-ms-|-moz-|-webkit-)?keyframes move(?:Right|Down)/)
+    expect(source).not.toMatch(/animation-name: move(?:Right|Down)/)
   })
 })

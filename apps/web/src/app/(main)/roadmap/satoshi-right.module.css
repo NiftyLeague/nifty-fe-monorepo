@@ -1,350 +1,88 @@
 .satoshiMove {
-  --mobile-position: 6000px;
-  --medium-position: 9000px;
-  --desktop-position: 12000px;
-}
-
-.satoshiMove {
+  --satoshi-x: calc(100vw - 120px);
+  --satoshi-y: 6000px;
+  --satoshi-y-at-flip: 2625px;
+  --satoshi-y-before-flip: 1875px;
   position: absolute;
   z-index: 3;
   width: 120px;
   top: 15%;
-  -webkit-animation-name: moveRightXs, moveDownSm, spin, hide;
-  -webkit-animation-duration: 4000ms, 8000ms, 300ms, 1ms;
-  -webkit-animation-delay: 0ms, 2000ms, 5000ms, 10100ms;
-  -webkit-animation-fill-mode: forwards;
-  animation-name: moveRightXs, moveDownSm, spin, hide;
-  animation-duration: 4000ms, 8000ms, 100ms, 1ms;
-  animation-delay: 0ms, 1500ms, 5000ms, 10000ms;
-  animation-fill-mode: forwards;
+  left: 0;
+  animation: satoshiTravel 10s linear forwards;
+  will-change: transform, opacity;
 }
 
 @media only screen and (min-width: 615px) {
   .satoshiMove {
-    -webkit-animation-name: moveRightXs, moveDownMd, spin, hide;
-    animation-name: moveRightXs, moveDownMd, spin, hide;
+    --satoshi-y: 9000px;
+    --satoshi-y-at-flip: 3937.5px;
+    --satoshi-y-before-flip: 2812.5px;
   }
 }
+
 @media only screen and (min-width: 850px) {
   .satoshiMove {
+    --satoshi-x: calc(100vw - 135px);
     width: 175px;
-    -webkit-animation-name: moveRightSm, moveDownMd, spin, hide;
-    animation-name: moveRightSm, moveDownMd, spin, hide;
   }
 }
+
 @media only screen and (min-width: 1000px) {
   .satoshiMove {
+    --satoshi-x: calc(100vw - 155px);
     width: 200px;
-    -webkit-animation-name: moveRightMd, moveDownMd, spin, hide;
-    animation-name: moveRightMd, moveDownMd, spin, hide;
   }
 }
+
 @media only screen and (min-width: 1170px) {
   .satoshiMove {
+    --satoshi-x: 50vw;
+    --satoshi-y: 12000px;
+    --satoshi-y-at-flip: 5250px;
+    --satoshi-y-before-flip: 3750px;
     width: 250px;
-    -webkit-animation-name: moveRightLg, moveDownLg, spin, hide;
-    animation-name: moveRightLg, moveDownLg, spin, hide;
   }
 }
 
-/* Reduced motion: skip the travel entirely. The run always ends hidden, so
-   reaching that end state immediately is the least-surprising static form. */
+/* The original animation changed top/left on every frame, which can force
+ * layout work and register as layout shift in Lighthouse. Keep the same
+ * travel phases on a single compositor-friendly transform instead. */
+@keyframes satoshiTravel {
+  0%,
+  15% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scaleX(1);
+  }
+  40% {
+    opacity: 1;
+    transform: translate3d(var(--satoshi-x), var(--satoshi-y-before-flip), 0) scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(var(--satoshi-x), var(--satoshi-y-at-flip), 0) scaleX(-1);
+  }
+  95% {
+    opacity: 1;
+    transform: translate3d(var(--satoshi-x), var(--satoshi-y), 0) scaleX(-1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--satoshi-x), var(--satoshi-y), 0) scaleX(-1);
+  }
+}
+
+/* Reduced motion keeps the final hidden state without running the travel. */
 @media only screen and (prefers-reduced-motion: reduce) {
   .satoshiMove {
-    animation-name: hide;
-    animation-duration: 1ms;
-    animation-delay: 0ms;
-    animation-fill-mode: forwards;
+    animation: satoshiHide 1ms linear forwards;
   }
 }
 
-/* -------------------------------- 
-
-Move Right
-
--------------------------------- */
-
-@-ms-keyframes moveRightXs {
+@keyframes satoshiHide {
   from {
-    left: 0;
+    opacity: 1;
   }
   to {
-    left: calc(100% - 120px);
-  }
-}
-@-moz-keyframes moveRightXs {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 120px);
-  }
-}
-@-webkit-keyframes moveRightXs {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 120px);
-  }
-}
-@keyframes moveRightXs {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 120px);
-  }
-}
-
-@-ms-keyframes moveRightSm {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 135px);
-  }
-}
-@-moz-keyframes moveRightSm {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 135px);
-  }
-}
-@-webkit-keyframes moveRightSm {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 135px);
-  }
-}
-@keyframes moveRightSm {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 135px);
-  }
-}
-
-@-ms-keyframes moveRightMd {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 155px);
-  }
-}
-@-moz-keyframes moveRightMd {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 155px);
-  }
-}
-@-webkit-keyframes moveRightMd {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 155px);
-  }
-}
-@keyframes moveRightMd {
-  from {
-    left: 0;
-  }
-  to {
-    left: calc(100% - 155px);
-  }
-}
-
-@-ms-keyframes moveRightLg {
-  from {
-    left: 0;
-  }
-  to {
-    left: 50%;
-  }
-}
-@-moz-keyframes moveRightLg {
-  from {
-    left: 0;
-  }
-  to {
-    left: 50%;
-  }
-}
-@-webkit-keyframes moveRightLg {
-  from {
-    left: 0;
-  }
-  to {
-    left: 50%;
-  }
-}
-@keyframes moveRightLg {
-  from {
-    left: 0;
-  }
-  to {
-    left: 50%;
-  }
-}
-
-/* -------------------------------- 
-
-Move Down
-
--------------------------------- */
-
-@-ms-keyframes moveDownSm {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--mobile-position);
-  }
-}
-@-moz-keyframes moveDownSm {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--mobile-position);
-  }
-}
-@-webkit-keyframes moveDownSm {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--mobile-position);
-  }
-}
-@keyframes moveDownSm {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--mobile-position);
-  }
-}
-
-@-ms-keyframes moveDownMd {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--medium-position);
-  }
-}
-@-moz-keyframes moveDownMd {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--medium-position);
-  }
-}
-@-webkit-keyframes moveDownMd {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--medium-position);
-  }
-}
-@keyframes moveDownMd {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--medium-position);
-  }
-}
-
-@-ms-keyframes moveDownLg {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--desktop-position);
-  }
-}
-@-moz-keyframes moveDownLg {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--desktop-position);
-  }
-}
-@-webkit-keyframes moveDownLg {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--desktop-position);
-  }
-}
-@keyframes moveDownLg {
-  from {
-    top: 15%;
-  }
-  to {
-    top: var(--desktop-position);
-  }
-}
-
-/* -------------------------------- 
-
-Others
-
--------------------------------- */
-
-@-ms-keyframes spin {
-  to {
-    -ms-transform: scaleX(-1);
-  }
-}
-@-moz-keyframes spin {
-  to {
-    -moz-transform: scaleX(-1);
-  }
-}
-@-webkit-keyframes spin {
-  to {
-    -webkit-transform: scaleX(-1);
-  }
-}
-@keyframes spin {
-  to {
-    transform: scaleX(-1);
-  }
-}
-
-@-ms-keyframes hide {
-  100% {
-    opacity: 0;
-  }
-}
-@-moz-keyframes hide {
-  100% {
-    opacity: 0;
-  }
-}
-@-webkit-keyframes hide {
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes hide {
-  100% {
     opacity: 0;
   }
 }

@@ -201,7 +201,29 @@ test('the mobile drawer stays fixed and scrolls independently', async ({ page },
         body: getComputedStyle(document.body).overflowY,
       }))
     )
-    .toEqual({ html: 'auto', body: 'auto' })
+    .toEqual({ html: 'visible', body: 'visible' })
+})
+
+test('mobile marketing pages keep one document scroll surface', async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== 'mobile',
+    'the extra scroll surface is a mobile-only regression'
+  )
+  await page.goto('/niftyworld')
+
+  const overflow = await page.evaluate(() =>
+    ['html', 'body', 'main', 'footer'].map((selector) => {
+      const element = document.querySelector(selector) as HTMLElement | null
+      return [selector, element ? getComputedStyle(element).overflowY : null]
+    })
+  )
+
+  expect(overflow).toEqual([
+    ['html', 'visible'],
+    ['body', 'visible'],
+    ['main', 'visible'],
+    ['footer', 'visible'],
+  ])
 })
 
 test('the homepage cast ribbon stops under prefers-reduced-motion', async ({ page }) => {

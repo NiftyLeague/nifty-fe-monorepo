@@ -154,6 +154,11 @@ try {
         formFactor,
         scores: medians,
         lcpMs: metrics((r) => auditValue(r, 'largest-contentful-paint')),
+        // Lighthouse's navigation-only run does not emit interaction timing;
+        // keep the field in the per-route schema so the missing measurement is
+        // explicit instead of silently omitted. The M0 CDP harness owns the
+        // synthetic interaction/INP measurement.
+        inpMs: metrics((r) => auditValue(r, 'interaction-to-next-paint')),
         tbtMs: metrics((r) => auditValue(r, 'total-blocking-time')),
         cls: metrics((r) => auditValue(r, 'cumulative-layout-shift')),
         fcpMs: metrics((r) => auditValue(r, 'first-contentful-paint')),

@@ -9,7 +9,22 @@ import { expect, test } from '@playwright/test'
  * get triaged into focused issues rather than waived.
  */
 
-const ROUTES = ['/', '/games', '/degens', '/roadmap', '/overview', '/community']
+const ROUTES = [
+  '/',
+  '/careers',
+  '/community',
+  '/compete-and-earn',
+  '/degens',
+  '/disclaimer',
+  '/games',
+  '/lore',
+  '/niftyworld',
+  '/overview',
+  '/privacy-policy',
+  '/roadmap',
+  '/team',
+  '/terms-of-service',
+]
 
 test('axe: no serious or critical violations on the marketing routes', async ({ page }) => {
   for (const route of ROUTES) {

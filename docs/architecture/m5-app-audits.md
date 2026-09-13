@@ -6,38 +6,49 @@ Issues: [#1882](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1882) (w
 [#1885](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1885) (app).
 
 Method: the shared harness (`bun run lighthouse:<app>`, devtools CDP throttling, medians of
-three, mobile + desktop) against **production**, plus the CWV/weight medians from
-`benchmarks/results/m5-production-2026-09-12.json` and the cache contracts from
-`test/contract/cache-surface.test.ts`. Evidence files: `benchmarks/results/lh-*.json`.
+five, mobile + desktop) against the app's production-equivalent delivery surface, plus the
+CWV/weight medians from `benchmarks/results/m5-production-2026-09-12.json` and the cache
+contracts from `test/contract/cache-surface.test.ts`. Evidence files:
+`benchmarks/results/lh-*.json`. Lighthouse navigation runs record LCP/TBT/CLS/FCP/SI;
+interaction timing is kept as an explicit `inpMs` field and is measured by the CDP vitals
+harness when an interaction profile is available.
 
 ## M5.5 — apps/web (#1882)
 
-Performance: home and content routes measured on mobile and desktop (evidence:
-`lh-web-production-2026-09-12.json`); build-injected LCP preloads and CSS inlining were
-already shipped. The legacy satoshi `left/top` milestone animation on `/roadmap` is the
-remaining CLS contributor — its transform rewrite requires the roadmap container height as
-a CSS value (design input) or a measurement island (bytes on the page), so it is recorded
-as the route's accepted exception with the scope written out; a
-`prefers-reduced-motion` guard ships in its place (the animation ends hidden, so reduced
-motion reaches that end state immediately). Third-party weight is the GTM container (GA4 +
-Clarity), owned by #1903's decision; YouTube facades ship without hidden iframe cost
-(no iframe before interaction).
+Performance: the 14 sitemap routes are measured on mobile and desktop with five-run medians
+in `benchmarks/results/lh-web-m5.5-current-2026-09-13.json`; the route manifest now matches
+the indexable sitemap surface. Build-injected LCP preloads and CSS inlining were already
+shipped. The `/roadmap` Satoshi milestone now uses compositor-friendly `translate3d`
+keyframes and reduced motion ends hidden; the targeted follow-up evidence is
+`lh-web-m5.5-roadmap-transform-2026-09-13.json` (mobile CLS improved from 0.1221 to 0.0684
+in that comparison). Desktop performance and LCP remain below the issue's 100/100 and
+2.5-second acceptance targets on several media-heavy routes, so M5.5 is still in progress.
+Third-party weight is the GTM container (GA4 + Clarity), owned by #1903's decision; YouTube
+facades ship without hidden iframe cost (no iframe before interaction).
 
-Accessibility: the axe sweep (`e2e/a11y.e2e.ts`) and the interaction E2E (keyboard tab
-order, disclosures, reduced motion) cover the route surface; findings route to focused
-issues.
+Accessibility: the axe sweep (`e2e/a11y.e2e.ts`) now covers all 14 indexable routes with zero
+serious or critical findings. It also fixed the `/careers` nested-interactive Apply control.
+The interaction E2E covers desktop keyboard traversal, disclosures, reduced motion, and the
+mobile drawer's fixed independent scroll surface. A complete human keyboard-only and assistive
+technology pass remains an acceptance gate.
 
 SEO: unique title/description/canonical per route is asserted by
 `e2e/marketing.e2e.ts` ("all marketing documents have crawlable HTML and production
-canonicals"); `/shells/*` and malformed `/gltf/*` are pinned as real 404s ("unknown routes
-and private shell documents are not soft-200 pages").
+canonicals"), including route-specific descriptions for the legal pages. OG/Twitter tags,
+the 14-entry sitemap, and robots output are emitted by the static build. The Worker pins
+`/shells/*` and malformed `/gltf/*` as 404s. Vercel intentionally keeps direct shell
+compatibility documents at 200 with `noindex,nofollow` and robots exclusion; its GLTF rewrite
+accepts only numeric 1–12 digit IDs, so the malformed-path soft-200 is removed after deploy.
 
-Caching: immutable `/_astro/*` + `/__images/*`, refresh policy on media, HTML on the
-revalidating default — all pinned by `cache-surface.test.ts` with curl evidence captured
-during #1912. **Worker cutover decision: formally parked** — the `nifty-league-web-astro`
-Worker is deliberately unbound (`wrangler.jsonc` comment), production serves from Vercel,
-and the two delivery paths configure headers differently; revisit only if the cutover is
-rescheduled. Cached-header regressions fail in CI via `cache-surface.test.ts`.
+Caching: immutable `/_astro/*` + `/__images/*`, refresh policy on media, and HTML on the
+revalidating default are pinned by `cache-surface.test.ts`. Production curl spot checks on
+2026-09-13 confirmed Vercel HTML revalidation, gzip HTML, immutable hashed JavaScript, and
+WebP media with hit/miss changes. The Worker contract additionally pins no-store referral
+shells, one-hour shared GLTF shell responses, and deep-link robots headers. **Worker cutover
+decision: formally parked** — the `nifty-league-web-astro` Worker is deliberately unbound
+(`wrangler.jsonc` comment), production serves from Vercel, and the two delivery paths
+configure headers differently; revisit only if the cutover is rescheduled. A production
+deployment is still required to re-probe the new Vercel malformed-GLTF behavior.
 
 ## M5.6 — apps/smashers (#1883)
 
