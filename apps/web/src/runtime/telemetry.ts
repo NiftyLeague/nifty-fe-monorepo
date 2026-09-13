@@ -17,6 +17,8 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
  *    is this app's shape (`metric_id`, `metric_rating`, raw values) unified
  *    across every surface in #1903.
  */
+const report = (metric: Parameters<typeof sendWebVitals>[0]) => sendWebVitals(metric)
+
 const settings = document.getElementById('web-telemetry')
 
 if (settings) {
@@ -28,7 +30,6 @@ if (settings) {
         loadGoogleTagManager('web-gtm')
         void import('web-vitals')
           .then(({ onCLS, onINP, onLCP }) => {
-            const report = (metric: Parameters<typeof sendWebVitals>[0]) => sendWebVitals(metric)
             onCLS(report)
             onINP(report)
             onLCP(report)

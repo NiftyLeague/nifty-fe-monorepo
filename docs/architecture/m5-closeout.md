@@ -9,14 +9,14 @@ thirteen recorded, attributed exceptions (`m5-performance-budgets.md`).
 
 ## Architecture decisions (each linked to its measurement)
 
-| Decision | Evidence |
-| --- | --- |
-| web, docs, smashers → Astro (static, static+Starlight, SSR); app → TanStack Start + Nitro on Vercel's Build Output API | migrations #1866/#1868, #1870, #1869, #1872; before/after in `m5-performance-budgets.md` (docs transfer −72%, app build −75%) |
-| Shared UI (`packages/ui`): primitives, GTM loader/events/gate, image-attribute core, deferred-activation schedule | M4.0–M4.2 inventory `m4-shared-code-inventory.md`; contract suite (`gtm-source`, `shared-asset-reuse`, `shared-a11y-primitives`) |
-| Media delivery: animation-as-video (H.264 + poster), image pre-generation (web) | #1907 (smashers transfer 4.14 MB → 862 KB, LCP −26%); web `prepare-images.mjs` |
-| Response headers: per-platform sources — vercel.json (Vercel) and the Workers `_headers` file — pinned in sync; security headers single-sourced in the app's vercel.json | #1912 + `vercel-build-policy.test.ts`, `cache-surface.test.ts` |
-| Analytics: one web-vitals payload (web/smashers shape) and production-only gates | #1903/#1919; `gtm-source.test.ts` |
-| Performance budgets: the M0 decision table, evaluated mechanically | `m5-performance-budgets.md`; `scripts/evaluate-budgets.mjs`; Budget Gate workflow |
+| Decision                                                                                                                                                                 | Evidence                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| web, docs, smashers → Astro (static, static+Starlight, SSR); app → TanStack Start + Nitro on Vercel's Build Output API                                                   | migrations #1866/#1868, #1870, #1869, #1872; before/after in `m5-performance-budgets.md` (docs transfer −72%, app build −75%)    |
+| Shared UI (`packages/ui`): primitives, GTM loader/events/gate, image-attribute core, deferred-activation schedule                                                        | M4.0–M4.2 inventory `m4-shared-code-inventory.md`; contract suite (`gtm-source`, `shared-asset-reuse`, `shared-a11y-primitives`) |
+| Media delivery: animation-as-video (H.264 + poster), image pre-generation (web)                                                                                          | #1907 (smashers transfer 4.14 MB → 862 KB, LCP −26%); web `prepare-images.mjs`                                                   |
+| Response headers: per-platform sources — vercel.json (Vercel) and the Workers `_headers` file — pinned in sync; security headers single-sourced in the app's vercel.json | #1912 + `vercel-build-policy.test.ts`, `cache-surface.test.ts`                                                                   |
+| Analytics: one web-vitals payload (web/smashers shape) and production-only gates                                                                                         | #1903/#1919; `gtm-source.test.ts`                                                                                                |
+| Performance budgets: the M0 decision table, evaluated mechanically                                                                                                       | `m5-performance-budgets.md`; `scripts/evaluate-budgets.mjs`; Budget Gate workflow                                                |
 
 ## Runbook
 
@@ -57,16 +57,16 @@ pruned with `git fetch --prune`; known non-package leftovers (`packages/eslint-c
 
 ## Residual risk register
 
-| Risk | Owner / bound | Next review |
-| --- | --- | --- |
-| smashers-home JS +21% and heap +46% vs the Next era (island runtime + hydration) | M5.6 #1883 per-island audit | when #1883 closes |
-| app-degens request count 63 → 129 (chunk granularity, bytes down) | #1885 per-route chunk groups | when #1885 closes |
-| web-home transfer/JS/requests/memory growth is third-party (GTM: GA4, Clarity) | analytics owner, #1903 decision recorded | when tag consolidation ships |
-| roadmap satoshi `left/top` animation contributes ~0.1 CLS | transform rewrite needs the container height as a CSS value (design input) or a measurement island; reduced-motion guard shipped | next roadmap design pass |
-| web true-cold build ~236 s (WebP pre-generation) | deliberate pipeline trade; M5.9's CI gate watches build times | if builds exceed budget |
-| Visual baselines (#1913) | generated on CI via `visual-baselines.yml`; committed per route change | first route-change PR |
-| Authenticated browser coverage (#1915) | needs a PlayFab test identity (secrets) | when the identity exists |
-| Effect backend evaluation (#1880) | separate milestone, outside this repository's frontend program | own milestone |
+| Risk                                                                             | Owner / bound                                                                                                                    | Next review                  |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| smashers-home JS +21% and heap +46% vs the Next era (island runtime + hydration) | M5.6 #1883 per-island audit                                                                                                      | when #1883 closes            |
+| app-degens request count 63 → 129 (chunk granularity, bytes down)                | #1885 per-route chunk groups                                                                                                     | when #1885 closes            |
+| web-home transfer/JS/requests/memory growth is third-party (GTM: GA4, Clarity)   | analytics owner, #1903 decision recorded                                                                                         | when tag consolidation ships |
+| roadmap satoshi `left/top` animation contributes ~0.1 CLS                        | transform rewrite needs the container height as a CSS value (design input) or a measurement island; reduced-motion guard shipped | next roadmap design pass     |
+| web true-cold build ~236 s (WebP pre-generation)                                 | deliberate pipeline trade; M5.9's CI gate watches build times                                                                    | if builds exceed budget      |
+| Visual baselines (#1913)                                                         | generated on CI via `visual-baselines.yml`; committed per route change                                                           | first route-change PR        |
+| Authenticated browser coverage (#1915)                                           | needs a PlayFab test identity (secrets)                                                                                          | when the identity exists     |
+| Effect backend evaluation (#1880)                                                | separate milestone, outside this repository's frontend program                                                                   | own milestone                |
 
 ## Completion status
 

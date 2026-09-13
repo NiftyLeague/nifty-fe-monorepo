@@ -47,7 +47,6 @@
   }
 }
 
-
 /* Reduced motion: skip the travel entirely. The run always ends hidden, so
    reaching that end state immediately is the least-surprising static form. */
 @media only screen and (prefers-reduced-motion: reduce) {

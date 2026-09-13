@@ -22,6 +22,8 @@ import { sentryOptions } from '@/constants/sentry'
  * to hook into, and the router-transition capture that existed only for the
  * Next App Router is intentionally gone.
  */
+const report = (metric: Parameters<typeof sendWebVitals>[0]) => sendWebVitals(metric)
+
 const SENTRY_ENABLED = document.documentElement.dataset.sentryEnabled === 'true'
 const ANALYTICS_ENABLED = document.documentElement.dataset.analytics !== 'false'
 

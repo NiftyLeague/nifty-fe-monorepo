@@ -1,4 +1,3 @@
-import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 /**
@@ -22,8 +21,8 @@ test('axe: no serious or critical violations on the marketing routes', async ({ 
 
     const { AxeBuilder } = await import('@axe-core/playwright')
     // Third-party embeds (the YouTube player's own iframe internals) are excluded:
-  // they are not our markup and not fixable in this repository.
-  const results = await new AxeBuilder({ page }).exclude('iframe').analyze()
+    // they are not our markup and not fixable in this repository.
+    const results = await new AxeBuilder({ page }).exclude('iframe').analyze()
     const violations = results.violations.filter((violation) =>
       ['serious', 'critical'].includes(violation.impact ?? '')
     )
