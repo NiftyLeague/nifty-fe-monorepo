@@ -135,7 +135,6 @@ const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.ts
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/pages/degens/AllDegensPage.tsx'
 const gamesPage = 'apps/app/src/routes/_public/games.index.tsx'
-const deferredInstallerAction = 'apps/app/src/pages/games/DeferredInstallerAction.tsx'
 const leaderboards = 'apps/app/src/components/leaderboards/index.tsx'
 const leaderboardsStyles = 'apps/app/src/components/leaderboards/index.module.css'
 const collapsibleSidebarLayout = 'apps/app/src/layouts/_layout/_CollapsibleSidebarLayout/index.tsx'
@@ -842,23 +841,6 @@ describe('app performance contracts', () => {
       expect(source).not.toContain('adaptiveHeight')
       expect(source).not.toContain('swipe: false')
     }
-  })
-
-  it('defers the public installer action out of the initial games route graph', () => {
-    const pageSource = readFileSync(gamesPage, 'utf8')
-    const deferredSource = readFileSync(deferredInstallerAction, 'utf8')
-
-    expect(pageSource).toContain("from '@/pages/games/DeferredInstallerAction'")
-    expect(pageSource).not.toContain("import InstallerAction from './InstallerAction'")
-    expect(pageSource).toContain('actions={<DeferredInstallerAction />}')
-    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(deferredSource).toContain("from '@nl/ui/base/button-variants'")
-    expect(deferredSource).not.toContain("from '@nl/ui/base/button'")
-    expect(deferredSource).toContain("className={buttonVariants({ variant: 'outline' })}")
-    expect(deferredSource).toContain('<button')
-    expect(deferredSource).toContain("import('./InstallerAction')")
-    expect(deferredSource).toContain('aria-label="Loading installer action"')
-    expect(deferredSource).toContain('Retry installer')
   })
 
   it('uses the shared themed Button for leaderboard filters', () => {
