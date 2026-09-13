@@ -57,7 +57,7 @@ export default function MobileNavMenu({ actionButton, navItems }: MobileNavMenuP
       id="nifty-mobile-navigation"
       label="Toggle navigation"
       className="md:hidden"
-      panelClassName="fixed inset-x-0 top-20 bottom-0 z-40 overflow-y-auto bg-popover px-8 pb-4 text-popover-foreground shadow-lg"
+      panelClassName="fixed inset-x-0 top-20 bottom-0 z-40 isolate overflow-y-auto overscroll-contain touch-pan-y bg-popover px-8 pb-4 text-popover-foreground shadow-lg"
     >
       <>
         <nav aria-label="Primary navigation">

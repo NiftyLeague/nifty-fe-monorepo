@@ -2006,12 +2006,10 @@ describe('shared below-fold loading contract', () => {
     const homeSectionConfigSource = readFileSync(join(process.cwd(), webHomeSectionConfig), 'utf8')
     const sharedDeferredSource = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
     const homeSectionNames = [
-      'HomeDegensSection',
-      'HomeCompeteSection',
-      'HomeTokenSection',
-      'HomeNiftyWorldSection',
-      'HomeDashboardSection',
-      'HomeCommunitySection',
+      'HomeV3Characters',
+      'HomeV3Games',
+      'HomeV3Studio',
+      'HomeV3Community',
       'HomeSponsorsSection',
     ]
     const homeSectionSources = homeSectionNames
@@ -2046,15 +2044,7 @@ describe('shared below-fold loading contract', () => {
     expect(deferredHomeSectionsBoundarySource).toContain('useDeferredComponent')
     expect(homeSectionConfigSource).toContain("export const HOME_SECTION_ROOT_MARGIN = '240px 0px'")
     expect(deferredHomeSectionsSource).toContain('loadingMode="minimal"')
-    for (const section of [
-      'HomeDegensSection',
-      'HomeCompeteSection',
-      'HomeNiftyWorldSection',
-      'HomeDashboardSection',
-      'HomeTokenSection',
-      'HomeCommunitySection',
-      'HomeSponsorsSection',
-    ]) {
+    for (const section of homeSectionNames) {
       expect(deferredHomeSectionsSource).toContain(`import('@/components/HomeSections/${section}')`)
     }
     expect(sharedDeferredSource).toContain('className="deferred-section"')
@@ -2069,10 +2059,10 @@ describe('shared below-fold loading contract', () => {
         )
       ).not.toContain("'use client'")
     }
-    expect(homeSectionSources).toContain("from '@/components/DeferredHomeMedia'")
-    expect(homeSectionSources).toContain("from '@/components/CompeteArtwork'")
+    expect(homeSectionSources).toContain("from '@nl/ui/custom/optimized-image'")
+    expect(homeSectionSources).toContain("from '@nl/ui/custom/theme-button-group'")
+    expect(homeSectionSources).toContain('home-v3')
     expect(homeSectionSources).toContain("from '@/components/Sponsors'")
-    expect(homeSectionSources).not.toContain("from '@/constants/sponsors'")
     expect(pageSource).not.toContain('home-below-fold')
     expect(homeStyles).not.toContain('.home-below-fold')
     expect(homeStyles).toContain('.home-pg .deferred-section')
@@ -2280,9 +2270,10 @@ describe('web marketing image sizing contract', () => {
   it('uses rendered-width image hints for the home page artwork', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
     const homeSectionsSource = [
-      'HomeCompeteSection',
-      'HomeCommunitySection',
-      'HomeNiftyWorldSection',
+      'HomeV3Characters',
+      'HomeV3Games',
+      'HomeV3Studio',
+      'HomeV3Community',
     ]
       .map((section) =>
         readFileSync(
@@ -2291,19 +2282,11 @@ describe('web marketing image sizing contract', () => {
         )
       )
       .join('\n')
-    const bouncingNftlSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/components/BouncingNFTL/index.tsx'),
-      'utf8'
-    )
-
     expect(homeSource).toContain('src="/img/hero/companion-base.webp"')
     expect(homeSource).toContain('sizes="12vw"')
     expect(homeSource).toContain('src="/img/hero/halo.webp"')
     expect(homeSource).toContain('sizes="9vw"')
     expect(homeSectionsSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
-    expect(homeSectionsSource).toContain('sizes="246px"')
-    expect(bouncingNftlSource).toContain("sizes: '226px'")
-    expect(bouncingNftlSource).toContain("sizes: '246px'")
   })
 
   it('uses rendered-width hints for secondary marketing artwork', () => {

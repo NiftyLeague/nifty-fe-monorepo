@@ -3,6 +3,8 @@ import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 import NiftyWorldProperties from '@/components/NiftyWorldProperties'
+import HomeNiftyWorldSection from '@/components/HomeSections/HomeNiftyWorldSection'
+import { NIFTY_WORLD_APP_URL } from '@/constants/links'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
@@ -22,10 +24,14 @@ const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
 
         <ThemeBtnGroup
           className="absolute bottom-0 sm:bottom-4"
-          primary={{ title: 'COMING SOON', disabled: true }}
+          primary={{
+            href: NIFTY_WORLD_APP_URL,
+            title: 'EXPLORE',
+            external: true,
+          }}
           secondary={{
-            href: 'https://twitter.com/search?q=%23NiftyLeaks&src=typed_query',
-            title: 'VIEW MORE',
+            href: '/docs/overview/games/niftyworld',
+            title: 'VIEW DOCS',
             external: true,
           }}
         />
@@ -35,16 +41,15 @@ const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
         <section className="section flex flex-col-reverse md:flex-row items-center justify-center">
           <div className="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
             <div className="mb-2 mb-md-3">
-              <h1>NIFTYWORLD</h1>
+              <h1>NIFTY WORLD</h1>
             </div>
             <div className="mb-3 mb-md-0">
               <p>
-                NiftyWorld is a virtual space for gamers to connect, collaborate, and compete with
+                Nifty World is a virtual space for gamers to connect, collaborate, and compete with
                 each other. The initial districts are designed by the Nifty League team, but
-                ultimately the vision is for NiftyWorld to be a dynamic and interoperable platform
+                ultimately the vision is for Nifty World to be a dynamic and interoperable platform
                 for developers to create their own games, ensuring a wide variety of immersive
-                experiences for players. Do note: all DEGEN holders have been promised free land
-                parcels in NiftyWorld!
+                experiences for players.
               </p>
             </div>
           </div>
@@ -70,6 +75,8 @@ const NiftyWorld = (slots: Record<string, React.ReactNode> = {}) => {
 
         <NiftyWorldProperties />
       </div>
+
+      <HomeNiftyWorldSection />
     </>
   )
 }

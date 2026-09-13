@@ -45,16 +45,16 @@ const Lore = () => {
             <br />
             <p>
               One day Satoshi met a panicked Frog from a parallel dimension (as you do). The Frog
-              explained that he hailed from NiftyWorld, a planet in an alternate universe that was
+              explained that he hailed from Nifty World, a planet in an alternate universe that was
               in deep trouble. With not much time left to save his world, the Frog sought out the
               greatest minds across the multiverse to aid him in saving his world, and that journey
               had brought him to Satoshi.
             </p>
             <br />
             <p>
-              Satoshi got into his Space Bubble and warp-jumped to NiftyWorld. Once there he learned
-              that 6 tribes that inhabited NiftyWorld (Frogs, Cats, Doges, Humans, Aliens and Apes)
-              had all declared war amongst each other due to simple misunderstandings.
+              Satoshi got into his Space Bubble and warp-jumped to Nifty World. Once there he
+              learned that 6 tribes that inhabited Nifty World (Frogs, Cats, Doges, Humans, Aliens
+              and Apes) had all declared war amongst each other due to simple misunderstandings.
             </p>
             <br />
             <p>
@@ -66,7 +66,7 @@ const Lore = () => {
             <br />
             <p>
               Satoshi however was impressed with the various tribes&apos; competitiveness, and
-              decided to form The Nifty League - a project whereby tribes from all over NiftyWorld
+              decided to form The Nifty League - a project whereby tribes from all over Nifty World
               would be able to channel their grievances into fun, friendly and safe competitive
               games. He formalized anyone&apos;s entrance into the Nifty League by minting them with
               unique attributes in his novel Mint-O-Matic machine, and named those enrollees
@@ -79,32 +79,32 @@ const Lore = () => {
               This culminated in Satoshi building The Citadel; an oasis of peace, prosperity, and
               the occasional bonk on the head with a baseball bat. Any Degen with a special Citadel
               Key would be granted access to this idyllic area, and would be the Degens Satoshi
-              considered assets to the Nifty League community, and NiftyWorld as a whole.
+              considered assets to the Nifty League community, and Nifty World as a whole.
             </p>
             <br />
             <p>
               The tribes made a pact that Satoshi&apos;s Nifty League was considered neutral and
               peaceful territory, and with the help of the Degens, Satoshi brought about peace to
-              NiftyWorld.
+              Nifty World.
             </p>
             <br />
             <p>
               Inspired by the world growing before him, Satoshi reached out to tribes from other
               universes such as CyberKongz and Forgotten Runes Wizards to share in the fun of what
-              he and his faithful Degens were creating in NiftyWorld.
+              he and his faithful Degens were creating in Nifty World.
             </p>
             <br />
             <p>
               Satoshi also discovered an ancient 7th tribe - the Hydras. A primordial group long
-              forgotten to NiftyWorld, they existed long before Satoshi or any of the other tribes
+              forgotten to Nifty World, they existed long before Satoshi or any of the other tribes
               had ever lived. He figured out a way to bring them back from extinction, as they
               joined the ranks of Nifty League after some bargaining to get the coolest outfits.
             </p>
             <br />
             <p>
-              But Satoshi&apos;s astronomic rise as the savior of NiftyWorld perhaps went a step too
-              far, as Satoshi&apos;s tinkering with this parallel world has seen an ancient evil
-              once feared in NiftyWorld awaken.
+              But Satoshi&apos;s astronomic rise as the savior of Nifty World perhaps went a step
+              too far, as Satoshi&apos;s tinkering with this parallel world has seen an ancient evil
+              once feared in Nifty World awaken.
             </p>
             <br />
             <p>
@@ -117,7 +117,7 @@ const Lore = () => {
             <p>
               Feeling responsible for bringing the now peaceful world into danger once more, Satoshi
               has vowed to put an end to RugMan once and for all, and with his faithful army of
-              Degens under his control, the battle for NiftyWorld has just begun.
+              Degens under his control, the battle for Nifty World has just begun.
             </p>
           </div>
         </div>

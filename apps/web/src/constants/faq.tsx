@@ -14,10 +14,10 @@ export const FAQS = [
     ),
   },
   {
-    question: 'What is NiftyWorld?',
+    question: 'What is Nifty World?',
     answer: (
       <>
-        NiftyWorld is a digital world centered around nostalgia. It not only acts as a social hub
+        Nifty World is a digital world centered around nostalgia. It not only acts as a social hub
         for connecting with friends online, but is THE ultimate Nifty League game hub with fun
         missions and launch points into our other game titles. Land parcels will be available to
         build custom areas for holders, and players can show off their digital assets from Nifty
@@ -41,7 +41,7 @@ export const FAQS = [
         Utility includes, but is not limited to:
         <ol>
           <li>Governance: on-chain DAO governance available on Tally.xyz</li>
-          <li>NFT drops: Raffles, NiftyWorld Land, special weapons/wearables, others TBA</li>
+          <li>NFT drops: Raffles, Nifty World Land, special weapons/wearables, others TBA</li>
           <li>
             Ecosystem currency: Redemption of in-game currencies, compete-2-earn wagering
             (deprecated)

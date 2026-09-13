@@ -27,7 +27,7 @@ describe('DeferredNiftyWorldProperties', () => {
     render(<DeferredNiftyWorldProperties />)
 
     const loadingState = screen.getByRole('status', {
-      name: 'Loading NiftyWorld property types',
+      name: 'Loading Nifty World property types',
     })
 
     expect(loadingState.dataset.minHeight).toBe('min-h-[240rem] md:min-h-[120rem]')

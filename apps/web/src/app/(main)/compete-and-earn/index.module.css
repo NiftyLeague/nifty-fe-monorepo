@@ -17,10 +17,6 @@
   max-width: 840px;
 }
 
-.heroDesc {
-  max-width: 460px;
-}
-
 @media (max-width: 992px) {
   .headerCell {
     height: 48px;

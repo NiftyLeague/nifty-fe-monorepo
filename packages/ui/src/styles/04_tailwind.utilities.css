@@ -77,6 +77,22 @@
     background-color: color-mix(in oklab, var(--color-background) 90%, transparent);
   }
 
+  /* The mobile drawer is mounted inside the fixed header. A backdrop filter on
+   * that ancestor would become the fixed drawer's containing block as soon as
+   * the page scrolls, collapsing the drawer to the header height. Keep the
+   * page still and the header opaque while the drawer owns the scroll surface.
+   */
+  html:has(details[open] #nifty-mobile-navigation),
+  body:has(details[open] #nifty-mobile-navigation) {
+    overflow: hidden;
+  }
+
+  .navbar-scroll-frame:has(details[open] #nifty-mobile-navigation) {
+    background-color: var(--color-background) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
   @keyframes navbar-scroll-frame-background {
     from {
       background-color: transparent;

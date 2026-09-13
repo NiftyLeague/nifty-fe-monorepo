@@ -47,7 +47,7 @@ export default function GameCard({ game, index }: GameCardProps) {
               primary={{
                 href: action.link,
                 title: action.title,
-                external: action.link.includes('http'),
+                external: action.external ?? action.link.includes('http'),
                 className: 'theme-btn-rounded max-w-fit',
               }}
               secondary={

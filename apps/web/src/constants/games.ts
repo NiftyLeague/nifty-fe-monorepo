@@ -1,3 +1,5 @@
+import { NIFTY_WORLD_APP_URL } from '@/constants/links'
+
 export interface NiftyGame {
   name: string
   description: string
@@ -9,6 +11,7 @@ export interface NiftyGame {
     link?: string
     secondaryLink?: string
     secondaryTitle?: string
+    external?: boolean
     isComingSoon?: boolean
   }
 }
@@ -26,18 +29,23 @@ export const NIFTY_GAMES: NiftyGame[] = [
     },
   },
   {
-    name: 'NIFTYWORLD',
+    name: 'NIFTY WORLD',
     description:
-      'A virtual social hub like none other for gamers. The vision is for NiftyWorld to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
+      'A virtual social hub like none other for gamers. The vision is for Nifty World to be a dynamic and interoperable platform for developers to create their own games, ensuring a wide variety of immersive experiences for players.',
     video: '/video/mansion_showcase.mp4',
     poster: '/img/games/video-posters/niftyworld.webp',
     tag: 'METAVERSE',
-    action: { secondaryTitle: 'LEARN MORE', secondaryLink: '/niftyworld', isComingSoon: true },
+    action: {
+      title: 'EXPLORE WORLD',
+      link: NIFTY_WORLD_APP_URL,
+      external: true,
+      isComingSoon: false,
+    },
   },
   {
     name: 'NIFTY ROYALE',
     description:
-      "One of the first games we'd like to introduce to NiftyWorld is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
+      "One of the first games we'd like to introduce to Nifty World is a fun battle royale, codename 'GEM HUNTER'. Development kicked off in August 2023 with help from an external game studio as part of our test run transitioning to a DAO and polishing our public services/SDK.",
     video: '/video/arcade-token.mp4',
     poster: '/img/games/video-posters/nifty-royale.webp',
     tag: 'MOBILE / PC GAME',

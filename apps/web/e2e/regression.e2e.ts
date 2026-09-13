@@ -70,6 +70,62 @@ test('group disclosures expose their pages to the keyboard', async ({ page }, te
   await expect(page).toHaveURL(/\/games$/)
 })
 
+test('desktop navbar closes sibling and outside disclosures and gains its scroll surface', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'the desktop menu is hidden below md')
+  await page.goto('/')
+
+  const header = page.locator('#nifty-navbar-scroll-frame')
+  const details = page.locator(`${DESKTOP_MENU} details`)
+  await expect(header).toHaveAttribute('data-scrolled', 'false')
+
+  await expect
+    .poll(() =>
+      details
+        .nth(0)
+        .locator('a')
+        .evaluateAll((links) => links.map((link) => link.getAttribute('href')))
+    )
+    .toEqual(['/games', '/niftyworld', '/degens', '/compete-and-earn'])
+  await expect
+    .poll(() => details.nth(2).locator('a').first().getAttribute('href'))
+    .toBe('/community')
+  await expect
+    .poll(() => details.nth(2).locator('a').nth(1).getAttribute('href'))
+    .toBe('https://github.com/NiftyLeague')
+  await expect(details.nth(2).locator('a').nth(1).locator('span').first()).toHaveText('GitHub')
+
+  await page.evaluate(() => window.scrollTo(0, 200))
+  await expect.poll(() => header.getAttribute('data-scrolled')).toBe('true')
+  await expect
+    .poll(() => header.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .not.toBe('rgba(0, 0, 0, 0)')
+
+  await details.nth(0).locator('summary').click()
+  await expect(details.nth(0)).toHaveAttribute('open', '')
+  await details.nth(1).locator('summary').click()
+  await expect(details.nth(0)).not.toHaveAttribute('open', '')
+  await expect(details.nth(1)).toHaveAttribute('open', '')
+
+  await page.mouse.click(700, 700)
+  await expect(details.nth(1)).not.toHaveAttribute('open', '')
+
+  await details.nth(2).locator('summary').click()
+  await page.keyboard.press('Escape')
+  await expect(details.nth(2)).not.toHaveAttribute('open', '')
+})
+
+test('desktop marketing buttons keep their large responsive size', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'the desktop menu is hidden below md')
+  await page.goto('/')
+
+  const button = page.locator('#gaming-section a').first()
+  await expect(button).toBeVisible()
+  await expect(button).toHaveCSS('height', '70px')
+  await expect(button).toHaveCSS('width', '240px')
+})
+
 test('the mobile disclosure opens, navigates, and closes', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'the disclosure is the compact-viewport nav')
   await page.goto('/')
@@ -86,14 +142,75 @@ test('the mobile disclosure opens, navigates, and closes', async ({ page }, test
   await expect(page.locator(`${MOBILE_NAV} a[href="/roadmap"]`).first()).toBeHidden()
 })
 
-test('the community marquee stops under prefers-reduced-motion', async ({ page }) => {
+test('the mobile drawer stays fixed and scrolls independently', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile', 'the drawer is the compact-viewport nav')
+  await page.goto('/niftyworld')
+
+  await expect(page.locator('#nifty-navbar-scroll-frame')).toHaveCount(1)
+
+  const toggle = page.locator(MOBILE_TOGGLE)
+  await toggle.click()
+  const panel = page.locator(MOBILE_NAV)
+  const header = page.locator('#nifty-navbar-scroll-frame')
+  await expect(panel).toBeVisible()
+  await expect(panel).toHaveCSS('position', 'fixed')
+  await expect(panel).toHaveCSS('overflow-y', 'auto')
+  await expect
+    .poll(() => header.evaluate((element) => getComputedStyle(element).backgroundColor))
+    .not.toBe('rgba(0, 0, 0, 0)')
+  await expect
+    .poll(() => header.evaluate((element) => getComputedStyle(element).backdropFilter))
+    .toBe('none')
+
+  const rootOverflow = await page.evaluate(() => ({
+    html: getComputedStyle(document.documentElement).overflowY,
+    body: getComputedStyle(document.body).overflowY,
+  }))
+  expect(rootOverflow).toEqual({ html: 'hidden', body: 'hidden' })
+
+  const panelMetrics = await panel.evaluate((element) => ({
+    clientHeight: element.clientHeight,
+    scrollHeight: element.scrollHeight,
+    top: element.getBoundingClientRect().top,
+  }))
+  expect(panelMetrics.scrollHeight).toBeGreaterThan(panelMetrics.clientHeight)
+
+  await page.mouse.move(215, 40)
+  await page.mouse.wheel(0, 500)
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+  await expect
+    .poll(() => panel.evaluate((element) => element.clientHeight))
+    .toBe(panelMetrics.clientHeight)
+
+  await page.mouse.move(215, 500)
+  await page.mouse.wheel(0, 500)
+  await expect.poll(() => panel.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0)
+
+  await panel.evaluate((element) => {
+    element.scrollTop = element.scrollHeight
+  })
+  await expect.poll(() => panel.evaluate((element) => element.scrollTop)).toBeGreaterThan(0)
+
+  await toggle.click()
+  await expect(panel).toBeHidden()
+  await expect
+    .poll(() =>
+      page.evaluate(() => ({
+        html: getComputedStyle(document.documentElement).overflowY,
+        body: getComputedStyle(document.body).overflowY,
+      }))
+    )
+    .toEqual({ html: 'auto', body: 'auto' })
+})
+
+test('the homepage cast ribbon stops under prefers-reduced-motion', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
 
-  // The carousel mounts behind a deferred boundary once its section approaches
-  // the viewport. Scrolling straight to the bottom can jump past it, so walk the
-  // page in viewport steps until the island loads.
-  const track = page.locator('[class*="marquee"] [class*="track"]').first()
+  // The cast ribbon mounts behind a deferred boundary once its section approaches
+  // the viewport. Walk the page in viewport steps until the island loads.
+  const track = page.locator('[data-home-section="characters"] .home-v3-cast-track').first()
   for (let step = 0; step < 20 && (await track.count()) === 0; step += 1) {
     await page.evaluate(() => window.scrollBy(0, 700))
     await page.waitForTimeout(200)

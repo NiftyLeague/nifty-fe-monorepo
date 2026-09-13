@@ -179,14 +179,14 @@
 }
 
 .home-mobile-intro {
-  background: var(--color-background);
+  background: transparent;
   min-height: 100vh;
 }
 .home-mobile-intro .overlay-dark {
   width: 100%;
   height: 100vh;
-  background: rgba(25, 27, 31, 1);
-  opacity: 0.8999999761581421;
+  background: rgba(25, 27, 31, 0.52);
+  opacity: 1;
   position: absolute;
   top: 0px;
   overflow: hidden;
@@ -204,6 +204,17 @@
   width: 246px;
   left: calc(50% - 123px);
   top: calc(50% - 123px);
+}
+
+.home-nftl-token-section > *,
+.home-nftl-ecosystem-section > * {
+  min-width: 0;
+}
+
+.home-nftl-token-art {
+  min-height: 28rem;
+  display: flex;
+  align-items: center;
 }
 
 /* ==============================|| MEDIA QUERIES ||============================== */
@@ -364,6 +375,10 @@
   }
   .home-nftl-token-bottom-image {
     right: 25px;
+  }
+
+  .home-nftl-token-art {
+    min-height: 20rem;
   }
 }
 

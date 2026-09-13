@@ -29,13 +29,11 @@ describe('home page', () => {
       DeferredHomeSectionsBoundary: () => (
         <>
           {[
-            'community section',
-            'compete and earn section',
-            'dashboard section',
-            'community DEGEN section',
-            'NiftyWorld section',
+            'Meet the DEGENs section',
+            'Our Games section',
+            'The Studio section',
+            'Find your people section',
             'sponsors section',
-            'NFTL token section',
           ].map((label) => (
             <div key={label} role="status" aria-label={`Loading ${label}`} />
           ))}
@@ -87,7 +85,7 @@ describe('home page', () => {
 
     expect(screen.queryByText('OWN YOUR AVATAR')).toBeNull()
     expect(screen.queryByRole('heading', { name: 'NFTL TOKEN' })).toBeNull()
-    expect(screen.getAllByRole('status')).toHaveLength(7)
+    expect(screen.getAllByRole('status')).toHaveLength(5)
   })
 
   it('keeps the selected hero background fetch high priority', () => {
@@ -190,11 +188,9 @@ describe('home page', () => {
     render(<Home />)
 
     for (const alt of [
-      'ape degen overlay',
-      'Scrolling NFTL Token',
-      'Land in NiftyWorld',
-      'App Dashboard',
-      'The Best Community on Earth',
+      'Original pixel-art Doge DEGEN',
+      'Nifty Smashers game artwork featuring the DEGEN cast',
+      'Nifty League’s illustrated laptop, desk, and DEGEN coffee mug',
       'Community DEGENs',
     ]) {
       expect(screen.queryByAltText(alt)).toBeNull()

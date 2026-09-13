@@ -3,16 +3,25 @@ import Marketing from '@/layouts/Marketing.astro'
 import LegacyPage from '@/app/(main)/compete-and-earn/page'
 import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 import styles from '@/app/(main)/compete-and-earn/index.module.css'
+import HomeCompeteSection from '@/components/HomeSections/HomeCompeteSection'
+import HomeTokenSection from '@/components/HomeSections/HomeTokenSection'
 import { metadata as routeMetadata } from '@/app/(main)/compete-and-earn/layout'
 ---
 <Marketing metadata={routeMetadata} rootClass="compete-pg" canonical="/compete-and-earn">
   <LegacyPage>
-  <Fragment slot="webIsland0">
-<DeferredYouTubeEmbed client:visible={{ rootMargin: "200px" }}
-              src="https://www.youtube.com/embed/wv_fI1PPBi0"
-              title="Nifty League Compete & Earn"
-              className={styles.video}
-            />
-  </Fragment>
+    <Fragment slot="webIsland0">
+      <DeferredYouTubeEmbed
+        client:visible={{ rootMargin: '200px' }}
+        src="https://www.youtube.com/embed/wv_fI1PPBi0"
+        title="Nifty League Compete & Earn"
+        className={styles.video}
+      />
+    </Fragment>
+    <Fragment slot="webIsland1">
+      <HomeCompeteSection client:visible={{ rootMargin: '200px' }} />
+    </Fragment>
+    <Fragment slot="webIsland2">
+      <HomeTokenSection client:visible={{ rootMargin: '200px' }} />
+    </Fragment>
   </LegacyPage>
 </Marketing>
