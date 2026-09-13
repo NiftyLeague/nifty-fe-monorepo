@@ -34,6 +34,7 @@ export default function HomeV3Games() {
               width={1280}
               height={720}
               loading="lazy"
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="w-full h-auto"
             />
           </a>
@@ -105,6 +106,7 @@ export default function HomeV3Games() {
               width={1280}
               height={720}
               loading="lazy"
+              sizes="(min-width: 768px) 50vw, 100vw"
               className="home-v3-screen-poster"
             />
           </a>

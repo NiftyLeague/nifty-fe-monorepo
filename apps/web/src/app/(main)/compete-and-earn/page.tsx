@@ -21,7 +21,7 @@ const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
             width={700}
             height={548}
             loading="lazy"
-            sizes="(min-width: 768px) 35vw, 100vw"
+            sizes="(min-width: 768px) 50vw, 100vw"
             className="mb-4 w-full max-w-[28rem] h-auto"
           />
           <div className="mb-3">
