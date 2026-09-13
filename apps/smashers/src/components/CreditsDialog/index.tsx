@@ -147,9 +147,19 @@ const CreditsContent = () => {
   )
 }
 
-const CreditsDialog = ({ open }: { open?: boolean }) => (
+const CreditsDialog = ({
+  open,
+  onOpenChange,
+}: {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}) => (
   <Dialog
-    defaultOpen={open}
+    // Controlled, not `defaultOpen`: the group drives `open`, and an
+    // uncontrolled dialog ignores the prop after mount, leaving the group's
+    // state desynced after the first close (M5.6 audit #1883).
+    open={open}
+    onOpenChange={onOpenChange}
     title={<div className="text-center">Credits</div>}
     description="Nifty Smashers game credits and acknowledgments"
     hideDescription

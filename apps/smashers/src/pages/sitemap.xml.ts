@@ -4,19 +4,19 @@ const SITE_URL = 'https://niftysmashers.com'
 
 const HIGH_PRIORITY_PATHS = ['/']
 const MID_PRIORITY_PATHS = ['/android', '/ios', '/epic', '/steam', '/loot']
-const LOW_PRIORITY_PATHS = ['/login', '/profile']
-const ALL_PATHS = [...HIGH_PRIORITY_PATHS, ...MID_PRIORITY_PATHS, ...LOW_PRIORITY_PATHS]
+export const ALL_PATHS = [...HIGH_PRIORITY_PATHS, ...MID_PRIORITY_PATHS]
 
 const pathPriority = (path: string): string => {
   if (HIGH_PRIORITY_PATHS.includes(path)) return '1.0'
-  if (MID_PRIORITY_PATHS.includes(path)) return '0.7'
-  return '0.4'
+  return '0.7'
 }
 
 /**
- * Static sitemap, replacing the next-sitemap postbuild step. The path list is
- * preserved exactly, including the store redirects that are not Astro pages but
- * are still worth submitting.
+ * Static sitemap, replacing the next-sitemap postbuild step. The path list
+ * includes the store redirects that are not Astro pages but are still worth
+ * submitting. `/login` and `/profile` are deliberately absent: both render
+ * `noindex` (Auth.astro), and submitting noindex URLs contradicts itself in
+ * Search Console ("Submitted URL marked noindex") — the M5.6 audit (#1883).
  */
 export const GET: APIRoute = () => {
   const lastmod = new Date().toISOString()

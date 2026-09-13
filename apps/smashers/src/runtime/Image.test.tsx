@@ -26,6 +26,24 @@ describe('optimizer width ladder', () => {
     expect(widths.length).toBeGreaterThan(1)
   })
 
+  it('caps the hero wordmark by its CSS box, not its intrinsic width', () => {
+    // The wordmark renders at `width: 400px; max-width: 70vw` (Header
+    // index.module.css); its sizes must describe that box or the browser
+    // downloads a rung twice the size it renders. Keep this literal in sync
+    // with HERO_ARTWORK in components/Header/index.tsx.
+    const sizes = '(max-width: 571px) 70vw, 400px'
+    const widths = selectWidths(824, sizes)
+    expect(widths).toEqual([640])
+    expect(
+      getImagePreloadProps({
+        src: '/img/logos/smashers/app_wordmark_logo.webp',
+        width: 824,
+        sizes,
+        quality: 85,
+      }).imageSizes
+    ).toBe(sizes)
+  })
+
   it('caps a full-bleed image by the viewport, not by its native width', () => {
     // The console-game backdrop declares 4842px and is rendered at 100vw.
     const widths = selectWidths(4842, '100vw')
@@ -92,11 +110,12 @@ describe('image props', () => {
 describe('preload hints', () => {
   it('describes the same candidate the element will request', () => {
     // Both sides call selectWidths, so the hint and the <img> cannot diverge;
-    // when they did, the hero wordmark was downloaded twice.
+    // when they did, the hero wordmark was downloaded twice. The shared props
+    // mirror HERO_ARTWORK in components/Header/index.tsx.
     const shared = {
       src: '/img/logos/smashers/app_wordmark_logo.webp',
       width: 824,
-      sizes: '(max-width: 768px) 100vw, 824px',
+      sizes: '(max-width: 571px) 70vw, 400px',
       quality: 85,
     } as const
 

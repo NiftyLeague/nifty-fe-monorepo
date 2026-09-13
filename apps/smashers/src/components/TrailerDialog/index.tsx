@@ -56,9 +56,19 @@ const TrailerContent = () => {
   )
 }
 
-const TrailerDialog = ({ open }: { open?: boolean }) => (
+const TrailerDialog = ({
+  open,
+  onOpenChange,
+}: {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}) => (
   <Dialog
-    defaultOpen={open}
+    // Controlled, not `defaultOpen`: the group drives `open`, and an
+    // uncontrolled dialog ignores the prop after mount, so the close request
+    // could never reach it (M5.6 audit #1883).
+    open={open}
+    onOpenChange={onOpenChange}
     title="Nifty Smashers - Trailer"
     description="3D free-to-play platform fighter"
     hideDescription
