@@ -30,8 +30,8 @@ describe('public navigation links', () => {
       'Games',
       'World',
       'DEGENs',
-      'Leaderboards',
       'Mint-O-Matic',
+      'Leaderboards',
     ])
 
     const worldLink = screen.getByRole('link', { name: 'World' })

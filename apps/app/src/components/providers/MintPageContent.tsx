@@ -12,10 +12,7 @@ export default function MintPageContent() {
   const [progress, setProgress] = useState(0)
 
   return (
-    <div
-      className="relative min-h-[calc(100dvh-96px)] lg:min-h-[calc(100dvh-120px)]"
-      style={{ textAlign: 'center', overflowX: 'hidden' }}
-    >
+    <div className="relative min-h-full" style={{ textAlign: 'center', overflowX: 'hidden' }}>
       <ErrorBoundary>
         <Preloader ready={isLoaded} progress={progress} label="Loading Mint-o-Matic" />
         <DeferredCharacterCreator enabled setLoaded={setLoaded} setProgress={setProgress} />
