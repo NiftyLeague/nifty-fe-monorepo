@@ -7,7 +7,7 @@ import CompeteArtwork from '@/components/CompeteArtwork'
 
 export default function HomeCompeteSection() {
   return (
-    <section className="container section relative flex items-center">
+    <section className="home-nftl-ecosystem-section container section relative flex items-center">
       <div className="w-full md:w-1/2 flex flex-col relative">
         <div className="purple-bg-orb orb-top-left" />
         <div className="block md:hidden relative w-full">
@@ -29,26 +29,26 @@ export default function HomeCompeteSection() {
 
         <div className="relative flex flex-col items-center md:items-start">
           <h2 className="mb-3 max-w-[400px] section-heading transition-vertical-fade">
-            SMASHERS
+            NFTL
             <br />
-            <span className="whitespace-nowrap font-default font-normal">COMPETE &amp; EARN</span>
+            <span className="font-default font-normal">GOVERN TOGETHER</span>
           </h2>
           <p className="my-0 py-1 md:py-3 section-description transition-vertical-fade">
-            4 - 16 PLAYERS COMPETE IN A CUT-THROAT BATTLE FOR THE SURVIVAL OF THE FITTEST!
+            Compete, earn, and help govern the future of the Nifty League ecosystem.
           </p>
           <ThemeButtonGroup
             className="md:justify-start"
             primary={{
-              href: 'https://niftysmashers.com',
-              title: "LET'S BRAWL!",
-              responsiveTitle: { mobile: 'BRAWL!', desktop: "LET'S BRAWL!" },
+              href: 'https://quickswap.exchange/#/analytics/v3/token/0xb0d7e9ff5fb8e739c4990f7920d8047acfae4884',
+              title: 'TRADE NFTL',
               external: true,
             }}
             secondary={{
-              href: '/compete-and-earn',
+              href: '/docs/overview/nifty-dao/nftl/overview',
+              external: true,
               title: (
                 <>
-                  LEARN MORE<span className="sr-only"> about competing and earning NFTL</span>
+                  NFTL DOCS<span className="sr-only"> about the NFTL token</span>
                 </>
               ),
             }}

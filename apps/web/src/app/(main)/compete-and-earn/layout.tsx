@@ -1,11 +1,11 @@
 import type { RouteMetadata } from '@/runtime/metadata'
 
 export const metadata: RouteMetadata = {
-  title: 'Compete & Earn',
-  description: 'Adrenaline fueled, fast-paced brawl mode where the winner takes ALL',
+  title: 'NFTL',
+  description: 'Compete, earn, and help govern the future of the Nifty League ecosystem.',
   openGraph: {
-    title: 'Nifty League | Compete & Earn',
-    description: 'Adrenaline fueled, fast-paced brawl mode where the winner takes ALL',
+    title: 'Nifty League | NFTL',
+    description: 'Compete, earn, and help govern the future of the Nifty League ecosystem.',
     images: 'https://niftyleague.com/img/compete-and-earn/splash.webp',
   },
 }

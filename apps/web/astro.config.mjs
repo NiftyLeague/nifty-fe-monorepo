@@ -36,6 +36,9 @@ export default defineConfig({
   vite: {
     plugins: [imageAdapter, tailwind()],
     css: { postcss: { plugins: [] } },
+    preview: {
+      allowedHosts: ['amf-mb-pro'],
+    },
     ...bundleSsrGraph(),
     resolve: {
       alias: [

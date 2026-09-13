@@ -4,6 +4,7 @@ import { DeferredYouTubeEmbed } from '@nl/ui/custom/deferred-youtube-embed'
 
 import { DeferredDegenSpecialsTable } from '@/components/DeferredDegenSections'
 import DegenGallery from '@/components/DegenGallery'
+import HomeDegensSection from '@/components/HomeSections/HomeDegensSection'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
 const Degens = (slots: Record<string, React.ReactNode> = {}) => (
@@ -21,6 +22,8 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
       )}
     </section>
 
+    {slots.webIsland3 ?? <HomeDegensSection />}
+
     <div className="container">
       <section className="section">
         <div className="flex items-center justify-center flex-wrap mb-4 md:mb-5">
@@ -29,7 +32,7 @@ const Degens = (slots: Record<string, React.ReactNode> = {}) => (
               <h1 className="text-center">DEGENs</h1>
             </div>
             <div className="mb-4">
-              <h2 className="text-center heading-look-6">COMMUNITY DESIGNED NFTs</h2>
+              <h2 className="text-center heading-look-6">FIRST CLASS CITIZENS</h2>
             </div>
             <div className="relative">
               <p className="text-center">

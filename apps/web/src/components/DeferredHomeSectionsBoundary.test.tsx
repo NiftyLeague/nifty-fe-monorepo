@@ -14,18 +14,16 @@ mock.module('@nl/ui/hooks/useDeferredComponent', () => ({
 import { DeferredHomeSectionsBoundary } from './DeferredHomeSectionsBoundary'
 
 describe('DeferredHomeSectionsBoundary', () => {
-  it('keeps the seven accessible layout placeholders before the loader enters the viewport', () => {
+  it('keeps the five accessible layout placeholders before the loader enters the viewport', () => {
     render(<DeferredHomeSectionsBoundary />)
 
     const boundaries = screen.getAllByRole('status')
-    expect(boundaries).toHaveLength(7)
+    expect(boundaries).toHaveLength(5)
     expect(boundaries.map((boundary) => boundary.getAttribute('aria-label'))).toEqual([
-      'Loading community DEGEN section',
-      'Loading compete and earn section',
-      'Loading NiftyWorld section',
-      'Loading dashboard section',
-      'Loading NFTL token section',
-      'Loading community section',
+      'Loading Meet the DEGENs section',
+      'Loading Our Games section',
+      'Loading The Studio section',
+      'Loading Find your people section',
       'Loading sponsors section',
     ])
     expect(

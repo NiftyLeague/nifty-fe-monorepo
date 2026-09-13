@@ -5,14 +5,14 @@ import { DeferredHomeMintOMatic } from '@/components/DeferredHomeMedia'
 
 export default function HomeTokenSection() {
   return (
-    <section className="section container relative flex flex-row flex-wrap-reverse items-center">
+    <section className="home-nftl-token-section section container relative flex flex-row flex-wrap-reverse items-center">
       <div className="relative w-full md:w-1/2 flex flex-col text-center md:text-left">
         <div className="purple-bg-orb orb-top-left" />
         <div className="hidden md:block relative">
           <BouncingNFTL visibleTokens={['token1', 'token3']} />
         </div>
 
-        <h2 className="mb-3 section-heading transition-vertical-fade">NFTL TOKEN</h2>
+        <h1 className="mb-3 section-heading transition-vertical-fade">NFTL TOKEN</h1>
         <p className="py-1 lg:py-3 transition-vertical-fade">
           NFTL IS OUR GOVERNANCE &amp; UTILITY TOKEN. GOVERN THE FUTURE OF NIFTY LEAGUE &amp; ACCESS
           EXCLUSIVE GAME ASSETS.
@@ -35,7 +35,7 @@ export default function HomeTokenSection() {
           }}
         />
       </div>
-      <div className="relative w-full md:w-1/2">
+      <div className="home-nftl-token-art relative w-full md:w-1/2">
         <DeferredHomeMintOMatic />
       </div>
     </section>

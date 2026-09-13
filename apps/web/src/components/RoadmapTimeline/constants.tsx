@@ -140,7 +140,7 @@ export const ROADMAP_CARDS = [
         </p>
         <p>
           We&apos;ll include game stats for daily, weekly, monthly, and of course all-time leaders
-          for all of our games in NiftyWorld. Some early honorary DEGENS:
+          for all of our games in Nifty World. Some early honorary DEGENS:
         </p>
         <ul className={styles.content_skills}>
           <li>fvsvy 🌊</li>
@@ -554,7 +554,7 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          The first game set in NiftyWorld is an action-packed battle royale! Initial development
+          The first game set in Nifty World is an action-packed battle royale! Initial development
           kicked off in August 2023 as part of a case study into our decentalized vision. Nifty
           League is managing an external game studio responsible for development.
         </p>
@@ -724,7 +724,7 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          An upcoming battle royale game set in NiftyWorld, a virtual world our team strategically
+          An upcoming battle royale game set in Nifty World, a virtual world our team strategically
           designed for limitless creativity. Building on the success of Nifty Smashers, Nifty Royale
           delivers an immersive and competitive experience.
         </p>
@@ -747,19 +747,19 @@ export const ROADMAP_CARDS = [
       width: 757,
       height: 675,
     },
-    title: 'NiftyWorld',
+    title: 'Nifty World',
     body: (
       <>
         <p>
-          Welcome to NiftyWorld; a world filled with DEGENs and NFT communities alike with a shared
-          vision to have fun and build a thriving gaming ecosystem. What makes NiftyWorld stand
+          Welcome to Nifty World; a world filled with DEGENs and NFT communities alike with a shared
+          vision to have fun and build a thriving gaming ecosystem. What makes Nifty World stand
           apart from other metaverses is our games being the centerpiece. Walk into our arcade room
           filled with fun mini-games or venture to destinations on the map to jump into our classic
           titles like Nifty Smashers and Nifty Kart.
         </p>
         <p>
           While Nifty League focuses on building a decentralized game platform with titles such as
-          Nifty Smashers and other Nintendo-inspired games, NiftyWorld stands at the heart of our
+          Nifty Smashers and other Nintendo-inspired games, Nifty World stands at the heart of our
           ecosystem tying everything together. It&apos;s not only the central lobby system or launch
           point for many of these games, but the main hub for all social interactions (and quite
           frankly our biggest game in and of itself).
@@ -768,7 +768,7 @@ export const ROADMAP_CARDS = [
           If you&apos;re a creative type, don&apos;t miss this opportunity - we will have an asset
           store for you to design assets such as buildings or trees and list them for sale based on
           your defined limits and pricing. Do you want a cool DEGEN theme park or Cyber Kongz
-          meetup? Build out NiftyWorld to whatever your heart desires!
+          meetup? Build out Nifty World to whatever your heart desires!
         </p>
       </>
     ),
@@ -785,7 +785,7 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          Land parcels give you ownership in NiftyWorld. Each DEGEN NFT will receive 1 free plot of
+          Land parcels give you ownership in Nifty World. Each DEGEN NFT will receive 1 free plot of
           land if and when the mint goes live. As a land holder you can build freely on your parcels
           as long as they meet platform guidelines. For larger developments that span across a
           region we will introduce an HOA model for build proposals.
@@ -803,7 +803,7 @@ export const ROADMAP_CARDS = [
     body: (
       <>
         <p>
-          Following NiftyWorld launch we want to introduce cool pets for your DEGENS! A lot of
+          Following Nifty World launch we want to introduce cool pets for your DEGENS! A lot of
           community members have asked us to dust off and bring back Satoshi&apos;s{' '}
           <strong>
             <a href="https://app.niftyleague.com/mint-o-matic" target="_blank" rel="noreferrer">

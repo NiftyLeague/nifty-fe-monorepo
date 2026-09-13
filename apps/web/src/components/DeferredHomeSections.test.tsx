@@ -27,15 +27,13 @@ describe('DeferredHomeSections', () => {
     render(<DeferredHomeSections />)
 
     const boundaries = screen.getAllByRole('status')
-    expect(boundaries).toHaveLength(7)
+    expect(boundaries).toHaveLength(5)
     expect(boundaries.every((boundary) => boundary.dataset.rootMargin === '240px 0px')).toBe(true)
     expect(boundaries.map((boundary) => boundary.dataset.minHeight)).toEqual([
-      'min-h-[32rem]',
-      'min-h-[36rem]',
-      'min-h-[32rem]',
-      'min-h-[40rem] md:min-h-[56rem]',
-      'min-h-[32rem]',
-      'min-h-[36rem]',
+      'min-h-[48rem] md:min-h-[60rem]',
+      'min-h-[70rem] md:min-h-[95rem]',
+      'min-h-[44rem] md:min-h-[56rem]',
+      'min-h-[36rem] md:min-h-[48rem]',
       'min-h-[32rem]',
     ])
   })

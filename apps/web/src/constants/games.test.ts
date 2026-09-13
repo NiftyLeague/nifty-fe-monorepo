@@ -2,6 +2,7 @@ import { existsSync, statSync } from 'node:fs'
 
 import { describe, expect, it } from 'bun:test'
 
+import { NIFTY_WORLD_APP_URL } from './links'
 import { NIFTY_GAMES } from './games'
 
 const ASSETS_ROOT = new URL('../../../../assets/', import.meta.url)
@@ -20,5 +21,16 @@ describe('website game media', () => {
       expect(existsSync(posterPath)).toBe(true)
       expect(statSync(posterPath).size).toBeLessThan(300_000)
     }
+  })
+
+  it('sends the Nifty World game card to the integrated app', () => {
+    const niftyWorld = NIFTY_GAMES.find((game) => game.name === 'NIFTY WORLD')
+
+    expect(niftyWorld?.action).toEqual({
+      title: 'EXPLORE WORLD',
+      link: NIFTY_WORLD_APP_URL,
+      external: true,
+      isComingSoon: false,
+    })
   })
 })
