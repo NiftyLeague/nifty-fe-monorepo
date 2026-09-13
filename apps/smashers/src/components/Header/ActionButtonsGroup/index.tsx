@@ -11,7 +11,12 @@ import styles from './index.module.css'
 
 type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
 type ModalType = Exclude<ActiveModal, 'unity' | null>
-type ModalComponent = ComponentType<{ open?: boolean }>
+// The dialogs are controlled by this group: `open` plus `onOpenChange` is what
+// makes Escape / overlay / close-button closes actually reach them.
+type ModalComponent = ComponentType<{
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}>
 
 interface ModalAction {
   alt: string
@@ -45,14 +50,25 @@ function DeferredModalAction({
   action,
   open,
   onRequest,
+  setOpen,
 }: {
   action: ModalAction
   open: boolean
   onRequest: () => void
+  setOpen: (open: boolean) => void
 }) {
   const { Component: Modal, hasError, retry } = useDeferredComponent(action.load, open)
 
-  if (Modal) return <Modal open={open} />
+  if (Modal)
+    return (
+      <Modal
+        open={open}
+        // The dialogs are controlled; close requests (Escape, overlay click,
+        // close button) must clear the group's requested modal or the dialog
+        // can never close (M5.6 audit #1883).
+        onOpenChange={setOpen}
+      />
+    )
 
   const isLoading = open && !hasError
   const label = hasError ? `Retry ${action.label}` : action.label
@@ -94,6 +110,7 @@ const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => {
             action={action}
             open={requestedModal === type}
             onRequest={() => setRequestedModal(type)}
+            setOpen={(next) => setRequestedModal(next ? type : null)}
           />
         )
       })}

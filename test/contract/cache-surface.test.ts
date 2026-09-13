@@ -59,6 +59,29 @@ describe('cache surfaces', () => {
     }
   })
 
+  it('keeps smashers media on the refresh policy instead of the platform default', () => {
+    // The public/ media (hero posters, videos, favicons, icons) rode Vercel's
+    // `max-age=0, must-revalidate` default until the M5.6 audit (#1883) gave
+    // smashers the same refresh policy as web.
+    const headers = readVercel('smashers')
+    for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
+      expect(headers[source]?.['cache-control'], `smashers ${source}`).toBe(REFRESH)
+      expect(headers[source]?.['cache-control'], `smashers ${source}`).not.toBe(IMMUTABLE)
+    }
+  })
+
+  it('keeps smashers session-bound API payloads explicitly uncacheable', () => {
+    // Vercel stamps `public, max-age=0, must-revalidate` on function responses
+    // with no explicit policy — `public` invites shared-cache storage of
+    // per-user data. The shared `json()` helper is the single response path for
+    // every playfab/auth endpoint; `edge-geo` answers per caller geo.
+    const session = readFileSync(join('apps/smashers/src/utils/session.ts'), 'utf8')
+    const jsonHelper = session.slice(session.indexOf('export const json'))
+    expect(jsonHelper).toContain("'Cache-Control': 'no-store'")
+    const edgeGeo = readFileSync(join('apps/smashers/src/pages/api/edge-geo.ts'), 'utf8')
+    expect(edgeGeo).toContain("'cache-control': 'no-store'")
+  })
+
   it('keeps the Workers headers file in sync with web', () => {
     // The static-headers module is the Cloudflare surface source; the sync check
     // with vercel.json lives in vercel-build-policy.test.ts. Here: the file the

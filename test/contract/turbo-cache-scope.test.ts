@@ -174,7 +174,6 @@ describe('Turbo cache environment scope', () => {
         'GITHUB_ACTIONS',
         'GOOGLE_CLIENT_ID',
         'GOOGLE_CLIENT_SECRET',
-        'NEXTAUTH_SECRET',
         'PLAYFAB_API_KEY',
         'PUBLIC_*',
         'SESSION_SECRET',

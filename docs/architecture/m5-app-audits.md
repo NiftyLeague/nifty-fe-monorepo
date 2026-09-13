@@ -41,32 +41,143 @@ rescheduled. Cached-header regressions fail in CI via `cache-surface.test.ts`.
 
 ## M5.6 — apps/smashers (#1883)
 
-Performance: home and `/loot` measured on mobile and desktop (evidence:
-`lh-smashers-production-2026-09-12.json`): home 91/76 (LCP 2756/2769 ms), /loot 91/98
-(LCP 1095/884 ms), a11y/SEO 100 everywhere; best-practices 77 is the third-party-cookie
-finding from the GTM container. The image-optimizer path (`/_vercel/image` posters/logos
-with capped srcSet) is exercised by the production load and pinned by
-`smashers-assets.test.ts` and the shared image attribute core. Island payload drill-down and SSR TTFB p95: TTFB medians are in the M5 run
-(183 ms home); hot-path work (session seal, telemetry) runs behind the deferred activation
-schedule.
+Completed 2026-09-13 against production (`niftysmashers.com`), with the fresh
+median-of-five capture in `benchmarks/results/lh-smashers-m5.6-audit-2026-09-13.json`
+(4 routes × mobile + desktop) and the live curl/trace captures recorded below. The
+fixes that came out of the audit are in the PR closing #1883; numbers marked
+"pre-fix" describe the deployed state they were measured against.
 
-Accessibility: the OAuth round-trip stays covered by `oauth-flow.test.ts`; the shared
-a11y primitives and the axe sweep cover the rendered surface; #1869's fixes (main
-landmark, heading levels, AA rarity colours) are pinned by the contract tests.
+### Performance
 
-SEO: metadata surface (`src/runtime/metadata.ts`) with unique title/description/canonical;
-`sitemap.xml` + `robots.txt` are generated (`smashers-assets` contract); authenticated
-surfaces gate through the session.
+| route    | perf m / d (median of 5) | LCP m / d (ms) | TBT m / d (ms) |
+| -------- | ------------------------ | -------------- | -------------- |
+| /        | 95 / 76                  | 2712 / 2710    | 98 / 0         |
+| /loot    | 96 / 98                  | 954 / 857      | 212 / 0        |
+| /login   | 78 / 67 (pre-fix)        | 4197 / 4133    | 120 / 0        |
+| /profile | 72 / 64 (pre-fix)        | 4793 / 4705    | 168 / 0        |
 
-Caching: `/_astro/*` immutable is now **declared** in vercel.json (#1920) instead of
-relying on the Astro preset; SSR HTML stays on the revalidating default;
-`edge-geo` cacheability is pinned by the cache contract. **`NEXTAUTH_SECRET` retirement:
-blocked, sequence documented** — verified against the Vercel project on 2026-09-12:
-`NEXTAUTH_SECRET` exists and `SESSION_SECRET` does **not**, so the code fallback
-(`session.ts`) is load-bearing for every production session. Retirement sequence:
-(1) add `SESSION_SECRET` to the Vercel project with the same value (zero session
-invalidation — the code prefers it), (2) deploy, (3) remove `NEXTAUTH_SECRET` from the
-project and the fallback from `session.ts` plus its test. Requires a production-env owner.
+- **Auth surfaces (fixed).** `/login` and `/profile` were `client:only` islands:
+  nothing contentful painted until hydration finished — the skeleton fallback is a
+  colored box, which does not count as a contentful paint — so FCP/LCP sat at
+  hydration time (~3.5–4.8 s on every sample, both form factors). The surfaces are
+  SSR-safe (deterministic logged-out first render; the session arrives client-side
+  through SWR), so they now ship `client:load` and their markup is in the document.
+  Local SSR smoke of the built function confirms the form renders server-side; the
+  post-deploy re-measure is `bun run lighthouse:smashers --base-url
+https://niftysmashers.com --label m5.6-postfix --runs 5`.
+- **`/loot` last point.** Desktop is 98 with FCP = LCP = SI ≈ 0.9 s (the page is
+  prerendered with zero islands). Mobile loses its points to TBT (203–264 ms) on a
+  page with no hydration: the main-thread cost is the third-party telemetry — the
+  deferred activation schedule uses `delay: 0`, which fires at the first idle
+  callback (~0.5 s), so GTM → gtag/Clarity + Sentry + web-vitals execute inside
+  the Lighthouse trace window at 4× CPU. This is the shared telemetry schedule
+  (`packages/ui` deferred-activation consumers), so it is recorded as a cross-app
+  candidate rather than changed under web/docs in this audit.
+- **Home, desktop 76 — accepted exception.** The LCP (hero wordmark) passes every
+  discovery check (in-document preload with `fetchpriority=high`, matched
+  `imagesrcset`/`srcset`, eager), TTFB is 179 ms, TBT is 0–4 ms and FCP 0.8 s; the
+  2.6 s "resource load duration" is Lighthouse's devtools emulation serializing a
+  many-request page (fonts + two eager low-priority backdrops + islands). The real
+  levers left are request count (the eager console-game and hero-background
+  backdrops, ~200 KB combined at 1920w) and the width-ladder granularity — both
+  bounded, neither worth the UX trade inside this audit.
+- **Hero `sizes` (fixed).** The wordmark renders at `width: 400px; max-width:
+70vw` but declared `sizes="… 824px"`, so desktop downloaded the 750w rung for a
+  400px box (~40 KB flagged oversized). `sizes` now describes the CSS box
+  (`(max-width: 571px) 70vw, 400px`); because the ladder caps at 640w for that box
+  and the 640w/750w encodes are nearly identical at q85, the byte win is ~1.5 KB —
+  the fix is for correctness (hint describes the rendered candidate) more than
+  for bytes.
+- **Island payload drill-down.** Home: 5 islands, ~7 KB of island code total, all
+  below-the-fold sections `client:visible` with dynamic `import()` of the section
+  components; shared chunks (react/react-dom ~58 KB raw, Sentry ~49 KB via the
+  deferred telemetry) load outside the HTML graph. `/loot`: zero islands, a 291 KB
+  prerendered document (~35 KB on the wire). `/login`: one island chunk, 132 KB
+  raw / 42 KB brotli (the PlayFabAuthForm graph). The remaining server-render-more
+  candidates were exactly the auth surfaces — now done.
+- **Image optimizer path.** `/_vercel/image` serves genuinely resized rungs
+  (640w is 640×444, 55 KB) and passes the original through byte-identical for
+  off-ladder/over-width requests; widths outside the ladder 400. Content
+  negotiation returns **webp, not AVIF, for webp sources** (Vercel optimizer
+  behavior — the sources are already webp, so there is nothing to win); the
+  audit's "sized AVIF variants" therefore resolves as sized webp variants
+  everywhere. The hero preload's `imagesrcset`/`imagesizes` match the `<img>`
+  exactly (pinned by `Image.test.tsx`).
+- **SSR latency.** TTFB over 20 warm samples each: `/` p50 250 ms / p95 302 ms;
+  `/loot` 233/299 (edge `x-vercel-cache: HIT` — prerendered); `/login` 247/313;
+  `/profile` 240/293 (302); `/sitemap.xml` 214/283 (`s-maxage=3600` consumed by
+  the CDN, stripped client-side); `/api/edge-geo` 223/261. No per-request session
+  or telemetry work runs in middleware (it only wraps Sentry error capture).
+
+### Accessibility
+
+- New browser suite `apps/smashers/e2e/a11y.e2e.ts` (production base URL): axe
+  floor of zero serious/critical per public route, the unauthenticated
+  `/profile → /login` redirect, a keyboard-only pass over the home dialogs and the
+  sign-in form. All green against the branch build; the authenticated `/profile`
+  surface (tabs, panels) remains bounded by the #1915 test-identity dependency.
+- Findings fixed: the loot tables scrolled in fixed-height containers that no
+  keyboard user could scroll (now named focusable regions); the auth form's
+  view-switch controls were bare anchors — keyboard-unreachable, and the accent
+  color missed AA on the backdrop (now real buttons on the muted foreground,
+  matching the passing label color).
+- **Trailer dialog exception.** When the trailer opens, focus moves into the
+  YouTube iframe and the player consumes Escape — closing uses the focusable
+  close control instead. Third-party embed behavior, same class as the web axe
+  iframe exclusion.
+- #1869's fixes (main landmark, heading order, AA rarity colours, viewport
+  `maximum-scale`) verified holding on the live routes and pinned by the
+  contract tests.
+
+### SEO
+
+- Sitemap/robots are generated endpoints. The audit removed `/login` and
+  `/profile` from the sitemap — both render `noindex` via `Auth.astro`, and
+  submitting them produced the Search Console "Submitted URL marked noindex"
+  contradiction. The sitemap↔metadata agreement (plus route backing and unique
+  titles/canonicals) is pinned by the new `test/contract/smashers-seo.test.ts`.
+- Head surface: canonical, description, keywords, full OG set and Twitter cards
+  render per route; `/`, `/loot` carry indexable titles, `/login`, `/profile`,
+  `/404` are noindex; robots disallows `/api/` and `/invite/`. Lighthouse's SEO 61
+  on the auth routes is the `is-crawlable` penalty for that intentional noindex —
+  correct behavior, not a finding.
+- No stray static robots/sitemap exists in `apps/smashers/public/` to shadow the
+  generated endpoints.
+
+### Caching
+
+- Live curl evidence per class (captured 2026-09-13): `/_astro/*` →
+  `public, max-age=31536000, immutable` (declared in vercel.json, contract-pinned);
+  HTML SSR routes → `public, max-age=0, must-revalidate` with every request a
+  function invocation (MISS), correct for authenticated SSR; `/loot` and
+  `/sitemap.xml`/`robots.txt` → edge HITs (`s-maxage=3600` on the endpoints);
+  store deep links and auth redirects → platform default on 302/307.
+- **Fixed:** `public/` media (`/img/*`, `/icons/*`, `/video/*`, `/favicon/*`) rode
+  the platform default; they now carry web's refresh policy
+  (`max-age=86400, stale-while-revalidate=604800`) — these names are unhashed, so
+  immutable was never an option. Session-bound API payloads (the shared `json()`
+  helper, `edge-geo`) now send explicit `no-store` — Vercel's injected default is
+  `public`, which invites shared-cache storage of per-user/per-geo responses.
+  Both pinned in `cache-surface.test.ts`.
+- **`NEXTAUTH_SECRET` retirement: done.** The audit doc previously recorded this
+  as blocked on a production-env owner. Executed as the documented sequence:
+  `SESSION_SECRET` added to the Vercel project (production/preview/development,
+  each environment's existing secret value — zero session invalidation, the code
+  already preferred the new name), then `NEXTAUTH_SECRET` removed from all three
+  environments, then the fallback deleted from `session.ts`/`oauth.ts` with the
+  turbo env inputs, `.env.example`, and contract tests updated. The running
+  deployment is unaffected until the next deploy, which reads only
+  `SESSION_SECRET`.
+
+### Accepted exceptions
+
+| Exception                                                                                  | Where                                          | Bound                                                                                                           |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Best-practices 77 — third-party cookies from the GTM container (GA4, Clarity, DoubleClick) | every smashers route                           | Identical on web's routes; the analytics stack is the #1903 decision                                            |
+| Desktop home perf 76 — Lighthouse devtools serialization of a many-request page            | `/` desktop                                    | LCP discovery/priority checks all pass; levers (eager backdrops, ladder granularity) bounded with UX trade-offs |
+| Trailer Escape swallowed by the YouTube iframe                                             | `/` trailer dialog                             | Close control is keyboard-reachable; third-party embed internals                                                |
+| Telemetry `delay: 0` fires at first idle (~0.5 s), inside the load window                  | shared primitive (smashers + web + docs + app) | Cross-app change; recorded as the `/loot` mobile TBT source                                                     |
+| Authenticated `/profile` axe/tabs sweep                                                    | `/profile`                                     | Blocked on the #1915 PlayFab test identity                                                                      |
 
 ## M5.7 — apps/docs (#1884)
 

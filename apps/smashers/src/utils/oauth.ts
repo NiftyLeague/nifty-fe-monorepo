@@ -10,10 +10,11 @@ import {
 } from '@nl/playfab/auth/oauth'
 import { OAUTH_FLOW_COOKIE, OAUTH_FLOW_TTL_SECONDS, sealFlowState } from '@nl/playfab/auth/flow'
 
-export const OAUTH_SECRET_ENV = ['SESSION_SECRET', 'NEXTAUTH_SECRET'] as const
-/** The single secret used for both the iron-session cookie and the flow seal. */
+/** The single secret used for both the iron-session cookie and the flow seal.
+ *  The legacy NEXTAUTH_SECRET fallback is gone: the Vercel project carries
+ *  SESSION_SECRET in every environment (M5.6 audit #1883). */
 export const getAuthSecret = (): string => {
-  const secret = OAUTH_SECRET_ENV.map((name) => process.env[name]).find(Boolean)
+  const secret = process.env.SESSION_SECRET
   if (!secret || secret.length < 32) {
     throw new Error('Missing or invalid SESSION_SECRET (needs 32+ chars)')
   }

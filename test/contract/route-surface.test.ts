@@ -851,7 +851,9 @@ describe('Smashers public shell contract', () => {
     expect(layoutSource).not.toContain("from '@/contexts/FeatureFlagsProvider'")
     expect(layoutSource).toContain('<slot />')
     for (const page of [smashersLoginPage, smashersProfilePage]) {
-      expect(readFileSync(join(process.cwd(), page), 'utf8')).toContain('client:only')
+      // Server-rendered islands (M5.6 #1883): the auth surfaces paint their
+      // real content from the document, not after hydration.
+      expect(readFileSync(join(process.cwd(), page), 'utf8')).toContain('client:load')
     }
     expect(providersSource).toContain("from './AuthProvider'")
     expect(providersSource).toContain("from './FeatureFlagsProvider'")
@@ -875,19 +877,17 @@ describe('Smashers public shell contract', () => {
     expect(existsSync(join(process.cwd(), staleSmashersUnityDialog))).toBe(false)
   })
 
-  it('keeps an accessible loading fallback on every auth island', () => {
-    for (const [file, label] of [
-      [smashersLoginPage, 'sign-in form'],
-      [smashersProfilePage, 'profile'],
-    ] as const) {
+  it('server-renders the auth islands so no loading fallback is needed', () => {
+    // Until the M5.6 audit (#1883) the auth surfaces were client:only islands
+    // with skeleton fallbacks, which painted nothing contentful until
+    // hydration (~4s on the mobile profile). They now ship their real markup
+    // in the document; a skeleton fallback here would regress that.
+    for (const file of [smashersLoginPage, smashersProfilePage]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
-      expect(source).toContain('slot="fallback"')
-      expect(source).toContain("from '@nl/ui/base/skeleton'")
-      expect(source).toContain('<Skeleton')
-      expect(source).toContain('role="status"')
-      expect(source).toContain('aria-live="polite"')
-      expect(source).toContain('aria-busy="true"')
-      expect(source).toContain(label)
+      expect(source).toContain('client:load')
+      expect(source).not.toContain('slot="fallback"')
+      expect(source).not.toContain("from '@nl/ui/base/skeleton'")
+      expect(source).not.toContain('client:only')
     }
   })
 
@@ -899,27 +899,24 @@ describe('Smashers public shell contract', () => {
   })
 })
 describe('Smashers login loading contract', () => {
-  it('keeps the interactive login graph behind an accessible island boundary', () => {
+  it('server-renders the interactive login graph behind an island boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
 
     expect(pageSource).not.toContain("from '@nl/ui/custom/loading'")
     expect(pageSource).toContain("from '@/components/login/LoginClient'")
-    expect(pageSource).toContain('client:only="react"')
+    expect(pageSource).toContain('client:load')
     expect(pageSource).toContain('getSession')
     expect(pageSource).toContain("Astro.redirect('/profile'")
-    // The island fallback carries the accessible loading state.
-    expect(pageSource).toContain('slot="fallback"')
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-live="polite"')
-    expect(pageSource).toContain('aria-busy="true"')
+    // Server-rendered since the M5.6 audit (#1883): no fallback skeleton, the
+    // form is in the document.
+    expect(pageSource).not.toContain('slot="fallback"')
+    expect(pageSource).not.toContain("from '@nl/ui/base/skeleton'")
   })
 
-  it('defers the Smashers PlayFab auth form behind the client-only island', () => {
+  it('ships the Smashers PlayFab auth form through the island', () => {
     const source = readFileSync(join(process.cwd(), smashersLoginClient), 'utf8')
 
-    // The form still loads lazily, but through the island rather than
-    // next/dynamic; the page-level fallback provides the loading UI.
+    // The form hydrates through the island rather than next/dynamic.
     expect(source).toContain("import PlayFabAuthForm from '@nl/playfab/components/PlayFabAuthForm'")
     expect(source).not.toContain("from 'next/dynamic'")
   })
@@ -936,19 +933,16 @@ describe('shared auth icon loading contract', () => {
   })
 })
 describe('Smashers profile loading contract', () => {
-  it('keeps the interactive profile graph behind an accessible island boundary', () => {
+  it('server-renders the interactive profile graph behind an island boundary', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersProfilePage), 'utf8')
     const clientSource = readFileSync(join(process.cwd(), smashersProfileClient), 'utf8')
 
     expect(pageSource).toContain("from '@/components/profile/ProfileClient'")
-    expect(pageSource).toContain('client:only="react"')
+    expect(pageSource).toContain('client:load')
     expect(pageSource).toContain('getSession')
     expect(pageSource).toContain("Astro.redirect('/login'")
-    expect(pageSource).toContain('slot="fallback"')
-    expect(pageSource).toContain("from '@nl/ui/base/skeleton'")
-    expect(pageSource).toContain('role="status"')
-    expect(pageSource).toContain('aria-live="polite"')
-    expect(pageSource).toContain('aria-busy="true"')
+    expect(pageSource).not.toContain('slot="fallback"')
+    expect(pageSource).not.toContain("from '@nl/ui/base/skeleton'")
     // The tab panels stay interactive islands with no Next dynamic boundary.
     expect(clientSource).toContain("from '@nl/playfab/components/AccountDetails'")
     expect(clientSource).not.toContain("from 'next/dynamic'")
@@ -2665,10 +2659,12 @@ describe('public route dependency contract', () => {
     expect(existsSync(join(process.cwd(), staleSmashersLootBoundary))).toBe(false)
   })
 
-  it('keeps the shared auth form on the shared skeleton primitive', () => {
+  it('keeps the shared auth form off the deferred-loading primitives', () => {
+    // The login page server-renders its island (M5.6 #1883), so it needs
+    // neither a skeleton fallback nor a route-loading boundary.
     const page = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
 
-    expect(page).toContain("from '@nl/ui/base/skeleton'")
+    expect(page).not.toContain("from '@nl/ui/base/skeleton'")
     expect(page).not.toContain("from '@nl/ui/custom/loading'")
   })
 

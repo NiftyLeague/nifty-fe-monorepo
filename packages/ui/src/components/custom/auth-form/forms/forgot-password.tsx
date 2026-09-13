@@ -75,12 +75,15 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
         </Button>
         <div className="text-center text-sm">
           {'Go back to '}
-          <a
+          {/* A view switch, not navigation: a type="button" is keyboard
+              focusable and carries no bare-anchor findings (M5.6 #1883). */}
+          <button
+            type="button"
             onClick={() => setAuthView(VIEWS.LOGIN)}
             className="underline underline-offset-4 cursor-pointer"
           >
             Login
-          </a>
+          </button>
         </div>
       </form>
     </Form>

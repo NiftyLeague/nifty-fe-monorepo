@@ -62,11 +62,21 @@ const PlayContent = () => (
   </>
 )
 
-const PlayDialog = ({ open }: { open?: boolean }) => {
+const PlayDialog = ({
+  open,
+  onOpenChange,
+}: {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}) => {
   const { message } = useVersion()
   return (
     <Dialog
-      defaultOpen={open}
+      // Controlled, not `defaultOpen`: the group drives `open`, and an
+      // uncontrolled dialog ignores the prop after mount, leaving the group's
+      // state desynced after the first close (M5.6 audit #1883).
+      open={open}
+      onOpenChange={onOpenChange}
       title="Let's Brawl!"
       description={message}
       triggerElement={

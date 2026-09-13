@@ -1,7 +1,6 @@
 ---
 import Auth from '@/layouts/Auth.astro'
 import LoginClient from '@/components/login/LoginClient'
-import { Skeleton } from '@nl/ui/base/skeleton'
 import { getSession } from '@/utils/session'
 
 const session = await getSession(Astro)
@@ -14,16 +13,10 @@ if (session.user?.isLoggedIn) return Astro.redirect('/profile', 302)
 const sessionData = { user: session.user ?? null }
 ---
 <Auth canonical="/login" metadata={{ title: 'Login', noindex: true }}>
-  <LoginClient client:only="react" sessionData={sessionData}>
-    <div
-      slot="fallback"
-      class="flex min-h-screen w-full items-center justify-center px-4"
-      role="status"
-      aria-live="polite"
-      aria-busy="true"
-    >
-      <Skeleton className="h-[30rem] w-full max-w-[600px]" aria-hidden="true" />
-      <span class="sr-only">Loading sign-in form</span>
-    </div>
-  </LoginClient>
+  {/* Server-rendered (M5.6 audit #1883): the form painted nothing contentful
+      until the island hydrated (~4 s on the Lighthouse mobile profile), and the
+      skeleton fallback never counted as a contentful paint. The island is
+      SSR-safe — first render is the deterministic logged-out state, and the
+      browser-only reads sit in effects and event handlers. */}
+  <LoginClient client:load sessionData={sessionData} />
 </Auth>

@@ -17,8 +17,7 @@ afterEach(() => {
 
 describe('session configuration', () => {
   it('uses secure, HTTP-only cookies with explicit timeouts', () => {
-    stubEnv('NEXTAUTH_SECRET', SECRET)
-    stubEnv('SESSION_SECRET', undefined)
+    stubEnv('SESSION_SECRET', SECRET)
 
     expect(SESSION_TIMEOUT.remember).toBeGreaterThan(SESSION_TIMEOUT.default)
 
@@ -28,19 +27,13 @@ describe('session configuration', () => {
     expect(options.cookieOptions?.maxAge).toBe(SESSION_TIMEOUT.remember)
   })
 
-  it('prefers the renamed secret and still accepts the legacy name', () => {
+  it('seals sessions with SESSION_SECRET', () => {
     stubEnv('SESSION_SECRET', SECRET)
-    stubEnv('NEXTAUTH_SECRET', undefined)
-    expect(getSessionOptions().password).toBe(SECRET)
-
-    stubEnv('SESSION_SECRET', undefined)
-    stubEnv('NEXTAUTH_SECRET', SECRET)
     expect(getSessionOptions().password).toBe(SECRET)
   })
 
   it('refuses to build session options without a long enough secret', () => {
     stubEnv('SESSION_SECRET', 'too-short')
-    stubEnv('NEXTAUTH_SECRET', undefined)
     expect(() => getSessionOptions()).toThrow(/SESSION_SECRET/)
 
     stubEnv('SESSION_SECRET', undefined)
@@ -67,6 +60,8 @@ describe('json response helper', () => {
     const response = json({ ok: true })
     expect(response.status).toBe(200)
     expect(response.headers.get('content-type')).toContain('application/json')
+    // Session-bound payloads are explicitly uncacheable (M5.6 audit #1883).
+    expect(response.headers.get('cache-control')).toBe('no-store')
     await expect(response.json()).resolves.toEqual({ ok: true })
   })
 

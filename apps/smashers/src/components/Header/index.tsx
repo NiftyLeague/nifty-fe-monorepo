@@ -14,7 +14,10 @@ export const HERO_ARTWORK = [
   {
     src: '/img/logos/smashers/app_wordmark_logo.webp',
     width: 824,
-    sizes: '(max-width: 768px) 100vw, 824px',
+    // The CSS box is `width: 400px; max-width: 70vw` (index.module.css) — the
+    // sizes must describe that box, not the intrinsic width, or the browser
+    // downloads a rung twice the size it renders (M5.6 audit #1883).
+    sizes: '(max-width: 571px) 70vw, 400px',
     quality: 85,
   },
 ] as const

@@ -45,7 +45,7 @@ const REDUNDANT_EXPORTS = {
   'apps/smashers/src/runtime/metadata.ts': ['MetadataValues', 'SITE_URL'],
   'apps/smashers/src/runtime/redirects.mjs': ['STORE_PATHS'],
   'apps/smashers/src/runtime/store-links.ts': ['StoreLinks'],
-  'apps/smashers/src/utils/oauth.ts': ['OAUTH_SECRET_ENV', 'StartedFlow'],
+  'apps/smashers/src/utils/oauth.ts': ['StartedFlow'],
   'apps/smashers/src/utils/session.ts': ['Session', 'SessionData'],
   'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx': ['DegenViewsProps'],
   'apps/web/src/components/Carousel/DegenCardItem.tsx': ['Degen'],
