@@ -118,8 +118,12 @@ turbo type-check
 To run all tests, run the following command:
 
 ```
-turbo test
+bun run test
 ```
+
+The root test command isolates each test file so module mocks and browser
+globals cannot leak between workspaces. Use `bun run test:workspaces` when you
+specifically need Turbo's workspace-level scheduling.
 
 ### CI Tests
 

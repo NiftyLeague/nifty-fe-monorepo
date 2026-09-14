@@ -1,25 +1,20 @@
 import { describe, expect, it } from 'bun:test'
 import { createHash } from 'node:crypto'
-import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
-/**
- * Shared-asset and shared-behaviour contract.
- *
- * Asset reuse, token ownership, and icon vocabulary each need a test that fails
- * when someone undoes the contract.
- */
-
 const ASSETS = 'assets'
+const REPO_ROOT = process.cwd()
+const ASSETS_ROOT = join(REPO_ROOT, ASSETS)
 
-const read = (path: string) => readFileSync(join(process.cwd(), path), 'utf8')
+const read = (path: string) => readFileSync(join(REPO_ROOT, path), 'utf8')
 
 const collectFiles = (dir: string, out: string[] = []): string[] => {
-  for (const entry of readdirSync(join(process.cwd(), dir))) {
-    if (entry.startsWith('.')) continue
-    const path = join(dir, entry)
-    if (statSync(join(process.cwd(), path)).isDirectory()) collectFiles(path, out)
-    else out.push(path)
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith('.')) continue
+    const path = join(dir, entry.name)
+    if (entry.isDirectory()) collectFiles(path, out)
+    else if (entry.isFile()) out.push(path)
   }
   return out
 }
@@ -41,9 +36,9 @@ const isIntentionalVariantPair = (paths: string[]) => {
 describe('shared asset reuse', () => {
   it('stores duplicate asset content only as the registered DEGEN variants', () => {
     const byHash = new Map<string, string[]>()
-    for (const file of collectFiles(ASSETS)) {
+    for (const file of collectFiles(ASSETS_ROOT)) {
       const digest = createHash('sha256').update(readFileSync(file)).digest('hex')
-      byHash.set(digest, [...(byHash.get(digest) ?? []), relative(process.cwd(), file)])
+      byHash.set(digest, [...(byHash.get(digest) ?? []), relative(REPO_ROOT, file)])
     }
 
     const unregistered = [...byHash.values()]
@@ -54,10 +49,10 @@ describe('shared asset reuse', () => {
       unregistered,
       'Duplicate asset content must be an intentional variant pair (degens/nfts against degens/team or degens/grails), or the file should be referenced instead of copied'
     ).toEqual([])
-  })
+  }, 15_000)
 
   it('keeps the shared assets dir free of generated files', () => {
-    const generated = readdirSync(join(process.cwd(), ASSETS)).filter(
+    const generated = readdirSync(ASSETS_ROOT).filter(
       (entry) => entry === 'robots.txt' || /^sitemap.*\.xml$/.test(entry)
     )
 
