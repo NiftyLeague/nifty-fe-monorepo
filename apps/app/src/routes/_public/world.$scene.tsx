@@ -4,7 +4,7 @@ import { getNiftyWorldScene } from '@/constants/niftyworld-scenes'
 import NiftyWorldScene from '@/pages/world/NiftyWorldScene'
 import { buildHead } from '@/runtime/metadata'
 
-export const Route = createFileRoute('/_public/world/niftyworld/$scene')({
+export const Route = createFileRoute('/_public/world/$scene')({
   beforeLoad: ({ params }) => {
     if (!getNiftyWorldScene(params.scene)) {
       throw redirect({ href: '/world', replace: true })
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_public/world/niftyworld/$scene')({
   },
   head: ({ params }) =>
     buildHead({
-      path: `/world/niftyworld/${params.scene}`,
+      path: `/world/${params.scene}`,
       title: getNiftyWorldScene(params.scene)?.title ?? 'Nifty World',
     }),
   component: NiftyWorldSceneRoute,

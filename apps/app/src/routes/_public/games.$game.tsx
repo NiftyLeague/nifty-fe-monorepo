@@ -4,7 +4,7 @@ import { getNiftyWorldGame } from '@/constants/niftyworld-games'
 import NiftyWorldGame from '@/pages/games/NiftyWorldGame'
 import { buildHead } from '@/runtime/metadata'
 
-export const Route = createFileRoute('/_public/games/niftyworld/$game')({
+export const Route = createFileRoute('/_public/games/$game')({
   beforeLoad: ({ params }) => {
     if (!getNiftyWorldGame(params.game)) {
       throw redirect({ href: '/games', replace: true })
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_public/games/niftyworld/$game')({
   },
   head: ({ params }) =>
     buildHead({
-      path: `/games/niftyworld/${params.game}`,
+      path: `/games/${params.game}`,
       title: getNiftyWorldGame(params.game)?.title ?? 'Nifty World Mini Game',
     }),
   component: NiftyWorldGameRoute,

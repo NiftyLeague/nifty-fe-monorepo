@@ -76,7 +76,7 @@ describe('shared docs media policy', () => {
 
     // Rendered through the Astro image pipeline so the browser gets a sized,
     // compressed variant instead of the full poster (which is over 1 MB). The
-    // variant options live in the shared roadmap-poster module (#1884) so the
+    // variant options live in the shared roadmap-poster module so the
     // page's <Image> and the head preload resolve identical URLs.
     expect(source).toContain('<Image')
     expect(source).toContain('alt="Nifty League product roadmap"')

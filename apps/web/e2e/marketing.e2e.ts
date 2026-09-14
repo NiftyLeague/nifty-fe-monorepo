@@ -119,13 +119,13 @@ test('Games groups the lineup with direct game destinations', async ({ page }, t
     '/app/world',
     '/app',
     '/app/games/smashers',
-    '/app/games/niftyworld/degen-dodge',
-    '/app/games/niftyworld/wen-2d',
-    '/app/games/niftyworld/wen-3d',
+    '/app/games/degen-dodge',
+    '/app/games/wen-2d',
+    '/app/games/wen-3d',
     '/app/games/mt-gawx',
-    '/app/games/niftyworld/degen-dive',
-    '/app/games/niftyworld/brick-breaker',
-    '/app/games/niftyworld/tennis',
+    '/app/games/degen-dive',
+    '/app/games/brick-breaker',
+    '/app/games/tennis',
   ]
 
   await expect(titleLinks).toHaveCount(expectedTitleLinks.length)

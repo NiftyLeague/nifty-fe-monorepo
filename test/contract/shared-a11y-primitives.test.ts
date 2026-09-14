@@ -3,12 +3,12 @@ import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * Shared-primitive accessibility invariants (M4.1).
+ * Shared-primitive accessibility invariants.
  *
  * The behavioural contracts live beside the components
  * (`base-accessibility.test.tsx`, `custom-accessibility.test.tsx`). This file
  * pins the mechanical properties those tests cannot see: animation classes that
- * need a reduced-motion counterpart, and the markup patterns the audit fixed.
+ * need a reduced-motion counterpart, and the markup patterns the primitives require.
  */
 
 const UI_COMPONENTS = 'packages/ui/src/components'

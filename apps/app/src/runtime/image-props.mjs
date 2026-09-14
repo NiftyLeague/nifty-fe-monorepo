@@ -28,8 +28,7 @@ export function selectWidths(widths, sizes, width) {
  * The app's image props: the shared attribute contract plus this app's
  * build-time manifest. The manifest holds one pre-generated WebP variant per
  * width (see `apps/app/scripts/prepare-images.mjs`), so the optimizer here is
- * a lookup rather than a service — the same arrangement web uses; the app
- * served originals natively before the M5.8 audit (#1885).
+ * a lookup rather than a service — the same arrangement web uses.
  *
  * Unlike web there is no `overrideSrc` escape hatch and no `1x` fallback for
  * manifest-less sources: API-driven images (degen/item artwork) keep their

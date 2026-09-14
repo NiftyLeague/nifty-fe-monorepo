@@ -11,8 +11,7 @@ import {
 import { OAUTH_FLOW_COOKIE, OAUTH_FLOW_TTL_SECONDS, sealFlowState } from '@nl/playfab/auth/flow'
 
 /** The single secret used for both the iron-session cookie and the flow seal.
- *  The legacy NEXTAUTH_SECRET fallback is gone: the Vercel project carries
- *  SESSION_SECRET in every environment (M5.6 audit #1883). */
+ *  SESSION_SECRET in every environment. */
 export const getAuthSecret = (): string => {
   const secret = process.env.SESSION_SECRET
   if (!secret || secret.length < 32) {

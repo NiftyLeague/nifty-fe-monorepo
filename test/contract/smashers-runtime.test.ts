@@ -127,8 +127,6 @@ describe('smashers island hydration', () => {
       expect(client).toContain('<AuthProviders>')
 
       const pageSource = read(join(pagesDir, page))
-      // Server-rendered islands (M5.6 #1883) — context still comes from the
-      // providers each client component renders itself.
       expect(pageSource).toContain('client:load')
     }
   })

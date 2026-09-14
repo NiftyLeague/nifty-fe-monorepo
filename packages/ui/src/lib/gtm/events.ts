@@ -99,7 +99,7 @@ export const sendGameReferral = (params: GameReferralParams) => {
 
 // Send Core Web Vitals to Google Tag Manager
 export const sendWebVitals = (metric: WebVitalsMetric) => {
-  // One payload shape for every surface (#1903): the web/smashers shape —
+  // One payload shape for every surface: the web/smashers shape —
   // `metric_id`/`metric_rating` with raw values — so the GTM dashboards that
   // already read `metric_id` keep working. `non_interaction` keeps the events
   // out of bounce-rate calculations. This intentionally bypasses `sendEvent`:

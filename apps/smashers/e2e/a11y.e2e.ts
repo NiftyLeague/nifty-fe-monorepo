@@ -1,18 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-/**
- * Accessibility sweep for apps/smashers (#1883): page-level axe passes plus the
- * keyboard-only pass over the home dialogs and the sign-in form.
- *
- * Floor: zero serious or critical violations per route. Lower-impact findings
- * get triaged into focused issues rather than waived.
- *
- * Bound: the authenticated `/profile` surface (tabs, account panels) needs a
- * PlayFab session — the test identity from #1915 is still unresolved — so its
- * sweep waits on that dependency; unauthenticated `/profile` must redirect to
- * `/login`, which is pinned below.
- */
+/** Accessibility checks for the apps/smashers public surface. */
 
 const PUBLIC_ROUTES = ['/', '/loot', '/login']
 
@@ -24,12 +13,10 @@ async function axeViolations(page: import('@playwright/test').Page) {
 }
 
 test('axe: no serious or critical violations on the public routes', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps the sweep cheap')
+  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps this check cheap')
 
   for (const route of PUBLIC_ROUTES) {
     await page.goto(route)
-    // The below-the-fold home islands hydrate on viewport approach; scroll so
-    // every island is mounted before the sweep.
     await page.evaluate(() => window.scrollBy(0, document.body.scrollHeight))
     await page.waitForTimeout(500)
 
@@ -42,14 +29,14 @@ test('axe: no serious or critical violations on the public routes', async ({ pag
 })
 
 test('unauthenticated /profile redirects to /login', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps the sweep cheap')
+  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps this check cheap')
 
   await page.goto('/profile')
   await expect(page).toHaveURL(/\/login$/)
 })
 
 test('keyboard-only: the home dialogs open, trap, and dismiss', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps the sweep cheap')
+  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps this check cheap')
 
   await page.goto('/')
   for (const name of ['Play', 'Trailer', 'Credits']) {
@@ -89,7 +76,7 @@ test('keyboard-only: the home dialogs open, trap, and dismiss', async ({ page },
 })
 
 test('keyboard-only: the sign-in form is reachable and operable', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps the sweep cheap')
+  test.skip(testInfo.project.name !== 'desktop', 'one viewport keeps this check cheap')
 
   await page.goto('/login')
   const email = page.locator(

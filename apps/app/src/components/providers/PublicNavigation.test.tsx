@@ -22,6 +22,21 @@ mock.module('@/runtime/navigation', () => ({
 import PublicNavigation from './PublicNavigation'
 
 describe('PublicNavigation', () => {
+  it('does not render implementation notes as page content', () => {
+    render(
+      <PublicNavigation>
+        <p>Public content</p>
+      </PublicNavigation>
+    )
+
+    expect(document.querySelector('[data-public-navigation]')?.textContent).not.toContain(
+      'Keyboard-scrollable'
+    )
+    expect(document.querySelector('[data-public-navigation]')?.textContent).not.toContain(
+      'scrollable-region-focusable'
+    )
+  })
+
   it('keeps the desktop sidebar open with an accessible native disclosure control', () => {
     render(
       <PublicNavigation>

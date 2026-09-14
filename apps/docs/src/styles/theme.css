@@ -41,11 +41,6 @@
   --sl-color-gray-7: #18181b;
   --sl-color-black: #09090b;
 
-  /* The M5.7 audit raised these one step above the historical Infima blues:
-     #5e72eb measured 4.28:1 on the nav background and 4.41:1 on the breadcrumb
-     pill (both need 4.5), and accent-high measured 3.11:1 on accent-low for the
-     current sidebar item. The lighter pair keeps the hue while clearing WCAG AA
-     on every surface they sit on. */
   --sl-color-accent-low: #3a51dd;
   --sl-color-accent: #7587ef;
   --sl-color-accent-high: #e4e7fc;

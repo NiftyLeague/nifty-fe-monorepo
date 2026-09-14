@@ -20,7 +20,7 @@ const shellCss = `
 astro-island{display:contents}
 `
 const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development'
-// The shared analytics gate (#1903): production deploys only, PUBLIC_TELEMETRY opts out.
+// The shared analytics gate enables production deploys and honors PUBLIC_TELEMETRY opt-out.
 const telemetryEnabled = productionTelemetryEnabled(
   environment === 'production',
   import.meta.env.PUBLIC_TELEMETRY

@@ -14,13 +14,13 @@ describe('website game catalog', () => {
       'NIFTY WORLD': NIFTY_WORLD_APP_URL,
       'NIFTY ROYALE': NIFTY_APP_URL,
       '2D SMASHERS': `${NIFTY_APP_URL}/games/smashers`,
-      'DEGEN DODGE': `${NIFTY_APP_URL}/games/niftyworld/degen-dodge`,
-      'WEN 2D': `${NIFTY_APP_URL}/games/niftyworld/wen-2d`,
-      'WEN 3D': `${NIFTY_APP_URL}/games/niftyworld/wen-3d`,
+      'DEGEN DODGE': `${NIFTY_APP_URL}/games/degen-dodge`,
+      'WEN 2D': `${NIFTY_APP_URL}/games/wen-2d`,
+      'WEN 3D': `${NIFTY_APP_URL}/games/wen-3d`,
       'MT. GAWX': `${NIFTY_APP_URL}/games/mt-gawx`,
-      'DEGEN DIVE': `${NIFTY_APP_URL}/games/niftyworld/degen-dive`,
-      'BRICK BREAKER': `${NIFTY_APP_URL}/games/niftyworld/brick-breaker`,
-      'NIFTY TENNIS': `${NIFTY_APP_URL}/games/niftyworld/tennis`,
+      'DEGEN DIVE': `${NIFTY_APP_URL}/games/degen-dive`,
+      'BRICK BREAKER': `${NIFTY_APP_URL}/games/brick-breaker`,
+      'NIFTY TENNIS': `${NIFTY_APP_URL}/games/tennis`,
     } as const
 
     expect(NIFTY_GAMES[0]?.link).toBe('https://niftysmashers.com')

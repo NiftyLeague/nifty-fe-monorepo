@@ -8,7 +8,7 @@
  * Verdicts: PASS (within budget), REGRESSION (violates a decision rule), or
  * EXCEPTION (violates the numeric budget with a recorded, attributed exception —
  * exceptions live in `docs/architecture/m5-performance-budgets.md`, never in code).
- * Exit code is 0 unless --strict, so M5.2 can publish while #1886 wires the gate.
+ * Exit code is 0 unless --strict, so non-blocking budget reports can be published.
  */
 import { readFile } from 'node:fs/promises'
 
@@ -146,29 +146,29 @@ export const exceptions = [
     route: 'web-home',
     metric: 'transfer',
     reason:
-      'third-party analytics/monitoring injected by the GTM container (GA4, Clarity) — owned by the analytics decision in #1903, not application code',
+      'third-party analytics/monitoring injected by the GTM container (GA4, Clarity) — owned by the analytics policy, not application code',
   },
   {
     route: 'web-home',
     metric: 'JS',
-    reason: 'same GTM container payloads as transfer; first-party JS is ~132 KB (#1837 breakdown)',
+    reason: 'same GTM container payloads as transfer; first-party JS is ~132 KB',
   },
   {
     route: 'web-home',
     metric: 'requests',
-    reason: 'GTM container tag requests; consolidation is the #1903 decision',
+    reason: 'GTM container tag requests; consolidation is an analytics policy decision',
   },
   {
     route: 'app-degens',
     metric: 'requests',
     reason:
-      'TanStack chunk granularity (63 → 127 requests while bytes fell) — bounded by the M5.8 audit #1885',
+      'TanStack chunk granularity (63 → 127 requests while bytes fell) — bounded by the route chunk budget review',
   },
   {
     route: 'smashers-home',
     metric: 'JS',
     reason:
-      'Astro island runtime and hydration chunks vs the Next bundle — per-chunk audit bounded by M5.6 #1883',
+      'Astro island runtime and hydration chunks vs the Next bundle — bounded by the island hydration budget review',
   },
   {
     route: 'smashers-home',
@@ -180,19 +180,19 @@ export const exceptions = [
     route: 'smashers-home',
     metric: 'requests',
     reason:
-      '#1907 video delivery: posters and logos now load through the Vercel image optimizer and settle-window tag beacons join the count — transfer fell 79% and LCP 600 → 444 ms in the same run, so nothing added is critical-path',
+      'Video delivery: posters and logos now load through the Vercel image optimizer and settle-window tag beacons join the count — transfer fell 79% and LCP 600 → 444 ms in the same run, so nothing added is critical-path',
   },
   {
     route: 'smashers-home',
     metric: 'memory',
     reason:
-      'island hydration retains ~3.5 MB more live JS heap than the Next-era server-rendered page (JSHeapUsedSize sd 0.1 — consistent, not noise); per-island heap audit bounded by M5.6 #1883',
+      'island hydration retains ~3.5 MB more live JS heap than the Next-era server-rendered page (JSHeapUsedSize sd 0.1 — consistent, not noise); per-island heap measured during the hydration budget review',
   },
   {
     route: 'web-home',
     metric: 'memory',
     reason:
-      'the same GTM/GA4/Clarity payloads as the transfer/JS exceptions retain heap; owner #1903',
+      'the same GTM/GA4/Clarity payloads as the transfer/JS exceptions retain heap; owned by analytics policy',
   },
 ]
 

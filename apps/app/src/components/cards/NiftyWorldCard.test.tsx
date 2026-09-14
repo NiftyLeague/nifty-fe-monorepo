@@ -48,7 +48,7 @@ describe('NiftyWorldCard', () => {
         title="Degen Dodge"
         description="Dodge danger"
         image="https://niftyworld.gg/assets/maps/degen-dodge.webp"
-        href="/games/niftyworld/degen-dodge"
+        href="/games/degen-dodge"
       />
     )
 
@@ -56,7 +56,7 @@ describe('NiftyWorldCard', () => {
     expect(card.getAttribute('data-auto-height')).toBe('true')
     expect(card.getAttribute('data-overlay-content')).toBe('true')
     expect(card.getAttribute('data-prefetch')).toBe('false')
-    expect(card.getAttribute('data-href')).toBe('/games/niftyworld/degen-dodge')
+    expect(card.getAttribute('data-href')).toBe('/games/degen-dodge')
     expect(card.getAttribute('data-hover-action-label')).toBe('Explore map')
   })
 })

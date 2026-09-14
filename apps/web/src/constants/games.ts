@@ -47,7 +47,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
       'Dodge danger, swing your bat, and survive a fast-paced Nifty World arcade challenge.',
     image: 'https://niftyworld.gg/assets/maps/degen-dodge.webp',
     tag: 'MINI-GAME',
-    link: `${NIFTY_APP_URL}/games/niftyworld/degen-dodge`,
+    link: `${NIFTY_APP_URL}/games/degen-dodge`,
   },
   {
     name: 'WEN 2D',
@@ -55,7 +55,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
       'A timing-based baseball mini-game where every hit builds your score and tests your reflexes.',
     image: '/img/games/video-posters/wen-game.webp',
     tag: 'MINI-GAME',
-    link: `${NIFTY_APP_URL}/games/niftyworld/wen-2d`,
+    link: `${NIFTY_APP_URL}/games/wen-2d`,
   },
   {
     name: 'WEN 3D',
@@ -63,7 +63,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
       'A 3D baseball adventure built for quick matches, sharp timing, and competitive browser play.',
     image: 'https://niftyworld.gg/assets/maps/wen-3d.webp',
     tag: 'MINI-GAME',
-    link: `${NIFTY_APP_URL}/games/niftyworld/wen-3d`,
+    link: `${NIFTY_APP_URL}/games/wen-3d`,
   },
   {
     name: 'MT. GAWX',
@@ -78,7 +78,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     description: 'Dive, dodge hazards, and chase the high score in a fast arcade challenge.',
     image: 'https://niftyworld.gg/assets/maps/degen-dive.webp',
     tag: 'MINI-GAME',
-    link: `${NIFTY_APP_URL}/games/niftyworld/degen-dive`,
+    link: `${NIFTY_APP_URL}/games/degen-dive`,
   },
   {
     name: 'BRICK BREAKER',
@@ -86,7 +86,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
       'Break through colorful bricks, clear every level, and climb the leaderboard for a high score.',
     image: 'https://niftyworld.gg/assets/maps/brick-breaker.webp',
     tag: 'MINI-GAME',
-    link: `${NIFTY_APP_URL}/games/niftyworld/brick-breaker`,
+    link: `${NIFTY_APP_URL}/games/brick-breaker`,
   },
   {
     name: 'NIFTY TENNIS',
@@ -94,6 +94,6 @@ export const NIFTY_GAMES: NiftyGame[] = [
       'Serve, rally, and return the ball in a fast-paced match built for quick, competitive play.',
     image: 'https://niftyworld.gg/assets/maps/tennis.webp',
     tag: 'MINI-GAME',
-    link: `${NIFTY_APP_URL}/games/niftyworld/tennis`,
+    link: `${NIFTY_APP_URL}/games/tennis`,
   },
 ]

@@ -65,7 +65,7 @@ function DeferredModalAction({
         open={open}
         // The dialogs are controlled; close requests (Escape, overlay click,
         // close button) must clear the group's requested modal or the dialog
-        // can never close (M5.6 audit #1883).
+        // can never close.
         onOpenChange={setOpen}
       />
     )

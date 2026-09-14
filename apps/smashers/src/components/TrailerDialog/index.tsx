@@ -66,7 +66,7 @@ const TrailerDialog = ({
   <Dialog
     // Controlled, not `defaultOpen`: the group drives `open`, and an
     // uncontrolled dialog ignores the prop after mount, so the close request
-    // could never reach it (M5.6 audit #1883).
+    // could never reach it.
     open={open}
     onOpenChange={onOpenChange}
     title="Nifty Smashers - Trailer"

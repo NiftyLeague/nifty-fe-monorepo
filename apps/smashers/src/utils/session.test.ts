@@ -60,7 +60,6 @@ describe('json response helper', () => {
     const response = json({ ok: true })
     expect(response.status).toBe(200)
     expect(response.headers.get('content-type')).toContain('application/json')
-    // Session-bound payloads are explicitly uncacheable (M5.6 audit #1883).
     expect(response.headers.get('cache-control')).toBe('no-store')
     await expect(response.json()).resolves.toEqual({ ok: true })
   })

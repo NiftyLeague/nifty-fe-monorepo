@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Unified Lighthouse benchmark for all four apps (#1886).
+ * Unified Lighthouse benchmark for all four apps.
  *
  * Seed: `apps/app/scripts/benchmark.mjs` — devtools throttling (Lantern's
  * `simulate` models the network analytically and under-reports this repo by
@@ -74,7 +74,7 @@ const median = (values) => {
   return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2)
 }
 
-/** Audits that failed, excluding the ones CDN/topology noise always fails. */
+/** Checks that failed, excluding the ones CDN/topology noise always fails. */
 const failures = (result) => {
   const noisy = new Set(['uses-long-cache-ttl', 'network-server-latency', 'network-rtt'])
   return Object.values(result.audits)
@@ -140,7 +140,7 @@ try {
         'best-practices': medianScore('best-practices'),
         seo: medianScore('seo'),
       }
-      // A null metric means Lighthouse marked the audit not-applicable for every
+      // A null metric means Lighthouse marked the check not-applicable for every
       // sample (error pages, blocked routes) — recorded as unmeasured, never zero.
       const metrics = (pick) => {
         const values = samples.map(pick).filter((value) => value !== null && value !== undefined)
