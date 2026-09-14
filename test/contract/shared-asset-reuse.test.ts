@@ -111,11 +111,6 @@ describe('shared icon vocabulary', () => {
   it('keeps the shared nav glyphs inline rather than importing an icon library', () => {
     const source = read('packages/ui/src/components/custom/nav-icon/index.tsx')
 
-    // Replacing these with static `lucide-react` imports was measured and
-    // rejected: the shared registry is imported by every navbar, and the static
-    // imports added three module-preload entries (chevron-down, chevron-right,
-    // layout-grid) to every page that renders one. The glyphs are byte-identical
-    // to lucide's, so inlining them here costs nothing but keeps the graph flat.
     expect(source).not.toContain("from 'lucide-react'")
     expect(source).toContain('const iconPaths = {')
   })

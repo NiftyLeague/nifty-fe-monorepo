@@ -1,29 +1,4 @@
 #!/usr/bin/env node
-/**
- * Unified Lighthouse benchmark for all four apps.
- *
- * Seed: `apps/app/scripts/benchmark.mjs` — devtools throttling (Lantern's
- * `simulate` models the network analytically and under-reports this repo by
- * ~15 points), medians of N runs, mobile and desktop form factors. That script
- * was the method the migration PRs validated after Lighthouse's default
- * misreported routes; every app now measures the same way.
- *
- * Usage:
- *   bun scripts/lighthouse-benchmark.mjs --app <name> --base-url <url> [--label <label>]
- *                                        [--runs <n>] [--forms mobile,desktop] [--routes a,b]
- *
- * Serving is per app and must match how production delivers the page
- * (compression, image negotiation, caching) or the numbers are not comparable:
- *   web      → `cd apps/web && bun run build && bunx wrangler dev --local --port 4337`
- *   app      → `cd apps/app && bun run build && bunx vite preview --port 4173`
- *   smashers → production SSR; local `astro dev/preview` lacks the Vercel image
- *              optimizer, so measure production and note the caveat
- *   docs     → `cd apps/docs && bun run build && bunx astro preview --port 4321`
- *
- * Results land in `benchmarks/results/` with the git revision, date, profile and
- * per-sample variance — same schema discipline as the m0/m1/m5 artifacts, which
- * are treated as immutable evidence.
- */
 import { execSync } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -74,7 +49,6 @@ const median = (values) => {
   return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2)
 }
 
-/** Checks that failed, excluding the ones CDN/topology noise always fails. */
 const failures = (result) => {
   const noisy = new Set(['uses-long-cache-ttl', 'network-server-latency', 'network-rtt'])
   return Object.values(result.audits)
@@ -140,8 +114,6 @@ try {
         'best-practices': medianScore('best-practices'),
         seo: medianScore('seo'),
       }
-      // A null metric means Lighthouse marked the check not-applicable for every
-      // sample (error pages, blocked routes) — recorded as unmeasured, never zero.
       const metrics = (pick) => {
         const values = samples.map(pick).filter((value) => value !== null && value !== undefined)
         return values.length
@@ -154,10 +126,6 @@ try {
         formFactor,
         scores: medians,
         lcpMs: metrics((r) => auditValue(r, 'largest-contentful-paint')),
-        // Lighthouse's navigation-only run does not emit interaction timing;
-        // keep the field in the per-route schema so the missing measurement is
-        // explicit instead of silently omitted. The M0 CDP harness owns the
-        // synthetic interaction/INP measurement.
         inpMs: metrics((r) => auditValue(r, 'interaction-to-next-paint')),
         tbtMs: metrics((r) => auditValue(r, 'total-blocking-time')),
         cls: metrics((r) => auditValue(r, 'cumulative-layout-shift')),

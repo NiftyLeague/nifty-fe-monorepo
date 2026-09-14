@@ -1,16 +1,4 @@
 ---
-/**
- * Algolia DocSearch, loaded on demand.
- *
- * DocSearch is the largest script on the site and is only useful once the visitor
- * asks for it, so the module is imported on the first interaction (click or
- * Cmd/Ctrl+K) instead of on page load. Content pages therefore ship no search
- * bundle at all.
- *
- * The trigger is the site's own button rather than DocSearch's, so the modal is
- * opened by calling `open()` on the instance: one click opens search, instead of
- * needing a second click on the button DocSearch would otherwise render.
- */
 import { Icon } from '@astrojs/starlight/components';
 
 const label = Astro.locals.t('search.label');
@@ -18,11 +6,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 ---
 
 <site-search>
-	{/* The accessible name spells out the visible label and shortcut so it always
-	    contains the text on screen (WCAG 2.5.3): Lighthouse's label-content-name
-	    check rejects the parenthesised form because it does not contain the
-	    rendered "Search Ctrl K" run, so the name mirrors that exact sequence and
-	    the whitespace between the keycaps keeps it a single normalised string. */}
 	<button
 		data-open-modal
 		disabled
@@ -32,18 +15,10 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 	>
 		<Icon name="magnifier" />
 		<span class="sl-hidden md:sl-block" aria-hidden="true">{label}</span>
-		{/* The single space between the keycaps must stay on one line: the Astro
-		    compiler trims whitespace-only lines, and the rendered "Ctrl K" run is
-		    what the accessible name (label + keycaps) has to contain verbatim for
-		    the label-content-name check. */}
 		<kbd class="sl-hidden md:sl-flex" style="display: none;" aria-hidden="true">
 			<kbd>{ctrlKey}</kbd> <kbd>K</kbd>
 		</kbd>	</button>
 
-	{/* DocSearch mounts its own trigger button into this container; the site's
-	    button above is the visible control, so the container stays in the layout
-	    (a display:none mount point leaves the floating panel without a box to
-	    anchor to) while the mounted trigger is kept visually out of the way. */}
 	<div id="starlight__search"></div>
 </site-search>
 
@@ -57,7 +32,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 		if (platformKey && isApple) {
 			platformKey.textContent = '⌘';
 			openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
-			// Keep the accessible name in step with the visible shortcut.
 			openBtn.setAttribute('aria-label', `${openBtn.dataset.label} ⌘ K`);
 		}
 		shortcut.style.display = '';
@@ -71,9 +45,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 	let docSearchPromise: Promise<DocSearchInstance | undefined> | undefined;
 	let docSearchInstance: DocSearchInstance | undefined;
 
-	/* DocSearch v5 does not inject its own stylesheet, and Astro's stylesheet
-	   inlining drops CSS that only a lazy chunk references, so fetch the file
-	   the first time search is used. */
 	let docSearchCssPromise: Promise<unknown> | undefined;
 	function loadDocSearchCss(): Promise<unknown> {
 		docSearchCssPromise ??= new Promise((resolve) => {
@@ -87,7 +58,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 		return docSearchCssPromise;
 	}
 
-	/** Imports DocSearch once and mounts it into the container. */
 	function loadDocSearch(container: HTMLElement): Promise<DocSearchInstance | undefined> {
 		docSearchPromise ??= Promise.all([import('@docsearch/js/docsearch'), loadDocSearchCss()])
 			.then(([{ default: docsearch }]) =>
@@ -99,19 +69,14 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 				})
 			)
 			.catch(() => {
-				/* search is an enhancement: a failed load must not break the page */
 				return undefined;
 			});
 		return docSearchPromise;
 	}
 
-	/* The shortcut listener outlives the element across client-side navigations,
-	   so it is registered once and always resolves the current page's instance. */
 	let openLatest: (() => void | Promise<void>) | undefined;
 	let shortcutBound = false;
 
-	/* A client-side navigation swaps the mounted container out of the DOM; drop
-	   the instance so the next open re-creates it against the live one. */
 	document.addEventListener('astro:before-swap', () => {
 		docSearchInstance?.destroy();
 		docSearchInstance = undefined;
@@ -136,9 +101,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 			openBtn.disabled = false;
 			openLatest = openModal;
 
-			// The chunk is ~50 KB gzipped and immutable-cached once fetched, so
-			// warming it on hover or keyboard focus makes the first open feel
-			// instant without putting any search code on the critical path.
 			const warm = () => {
 				void loadDocSearch(container);
 				openBtn.removeEventListener('pointerenter', warm);
@@ -147,8 +109,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 			openBtn.addEventListener('pointerenter', warm);
 			openBtn.addEventListener('focus', warm);
 
-			// The previous site rewrote the shortcut hint to the platform's modifier
-			// key; as an island upgrade this runs for the swapped-in copy too.
 			const shortcut = openBtn.querySelector('kbd');
 			if (shortcut instanceof HTMLElement && shortcut.style.display === 'none') {
 				const platformKey = shortcut.querySelector('kbd');
@@ -156,7 +116,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 				if (platformKey && isApple) {
 					platformKey.textContent = '⌘';
 					openBtn.setAttribute('aria-keyshortcuts', 'Meta+K');
-					// Keep the accessible name in step with the visible shortcut.
 					openBtn.setAttribute('aria-label', `${openBtn.dataset.label} ⌘ K`);
 				}
 				shortcut.style.display = '';
@@ -164,7 +123,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 
 			if (!shortcutBound) {
 				shortcutBound = true;
-				// Ctrl/Cmd+K opens search, matching the previous navbar shortcut.
 				window.addEventListener('keydown', (event) => {
 					if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
 						event.preventDefault();
@@ -187,11 +145,6 @@ const ctrlKey = Astro.locals.t('search.ctrlKey');
 </style>
 
 <style>
-	/* DocSearch injects its own stylesheet unlayered at runtime, so this rule
-	   must also live outside any cascade layer to win. The mounted trigger
-	   stays measurable — the modal panel anchors to it — but must never appear
-	   next to the site's own search button; it is rendered by DocSearch at
-	   runtime, so it needs :global() to be reached by these scoped styles. */
 	#starlight__search :global(.DocSearch-Button) {
 		position: absolute;
 		width: 1px;

@@ -3,16 +3,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
-/**
- * Delays third-party media (YouTube iframes) until the first-party page has
- * finished loading and the browser is idle. The trailer still autoplays once
- * mounted; on constrained connections this keeps the visitor's bandwidth on the
- * page's own LCP image instead of the embed's player payload.
- *
- * The idle step is the shared activation primitive rather than a second
- * implementation of it. The load wait stays here because the primitive schedules
- * from the moment it is called, and this gate must not fire before `load`.
- */
 export default function IdleGate({
   children,
   fallback,

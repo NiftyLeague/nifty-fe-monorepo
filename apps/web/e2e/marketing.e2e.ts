@@ -369,7 +369,6 @@ test('Compete & Earn hydrates its video loader but keeps YouTube out of the init
   expect(videoIsland).toContain('client="load"')
   // The deferred facade renders the status skeleton server-side and only
   // mounts the third-party iframe once the section nears the viewport; the
-  // player's multi-megabyte embed script otherwise races the page's own LCP.
   expect(videoIsland).not.toContain('<iframe')
   expect(videoIsland).toContain('aria-label="Loading Nifty League Compete')
 })

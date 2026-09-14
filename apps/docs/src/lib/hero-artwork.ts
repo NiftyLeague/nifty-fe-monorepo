@@ -1,14 +1,7 @@
 /**
  * Single source of truth for the landing-page hero artwork's image pipeline.
  *
- * Hero.astro renders the light/dark pair and index.astro preloads the dark
- * variant's exact srcset in the page head (dark is the site's default theme, so
- * that variant is the LCP element); both sides share these options so the
- * hashed variant URLs resolve to the same files.
- *
- * The originals are served full-bleed under a 20%-opacity mask, so quality can
- * sit below the content-image floor; AVIF at 62 keeps the largest variant
- * (1920w, previously the 460 KB webp) around a third of that.
+ * The page and head preload use the same generated image options.
  */
 import heroLight from '../../../../assets/img/games/smashers/2D-levels/mars.webp'
 import heroDark from '../../../../assets/img/games/smashers/3D-levels/sushi_cropped.webp'
