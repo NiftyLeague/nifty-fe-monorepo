@@ -1,6 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
 
-import { getImagePreloadProps, getOptimizedImageProps, selectWidths } from './Image'
+import { getOptimizedImageProps } from './Image'
+import { selectWidths } from './image-url'
+import imageService from './vercel-image-service'
 
 // The optimizer only runs on Vercel; the URL-shape assertions below describe
 // that deployment, so the flag is set for this file.
@@ -12,6 +14,12 @@ afterAll(() => {
   if (previousVercel === undefined) delete process.env.VERCEL
   else process.env.VERCEL = previousVercel
 })
+
+// The astro:assets service config the adapter validates against; mirrors the
+// widths published to the deployment in astro.config.mjs.
+const serviceConfig = {
+  service: { config: { sizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840] } },
+}
 
 describe('optimizer width ladder', () => {
   it('never exceeds the intrinsic width of the asset', () => {
@@ -28,14 +36,6 @@ describe('optimizer width ladder', () => {
     const sizes = '(max-width: 571px) 70vw, 400px'
     const widths = selectWidths(824, sizes)
     expect(widths).toEqual([640])
-    expect(
-      getImagePreloadProps({
-        src: '/img/logos/smashers/app_wordmark_logo.webp',
-        width: 824,
-        sizes,
-        quality: 85,
-      }).imageSizes
-    ).toBe(sizes)
   })
 
   it('caps a full-bleed image by the viewport, not by its native width', () => {
@@ -101,11 +101,12 @@ describe('image props', () => {
   })
 })
 
-describe('preload hints', () => {
-  it('describes the same candidate the element will request', () => {
-    // Both sides call selectWidths, so the hint and the <img> cannot diverge;
-    // when they did, the hero wordmark was downloaded twice. The shared props
-    // mirror HERO_ARTWORK in components/Header/index.tsx.
+describe('astro:assets image service', () => {
+  it('resolves the same candidate as the React adapter', () => {
+    // The Base.astro preload hint goes through the service while the header
+    // <img> goes through the adapter; when the two disagreed, the hero
+    // wordmark was downloaded twice. Both sides must derive the rungs from
+    // selectWidths and build the URL through image-url.
     const shared = {
       src: '/img/logos/smashers/app_wordmark_logo.webp',
       width: 824,
@@ -113,17 +114,36 @@ describe('preload hints', () => {
       quality: 85,
     } as const
 
-    const hint = getImagePreloadProps(shared)
+    const widths = selectWidths(shared.width, shared.sizes)
+    const validated = imageService.validateOptions!(
+      { src: shared.src, width: widths.at(-1) as number, widths, quality: shared.quality },
+      serviceConfig
+    )
+    const hint = {
+      href: imageService.getURL!(validated),
+      imageSrcSet: imageService.getSrcSet!(validated, serviceConfig)
+        .map((entry) => `${imageService.getURL!(entry.transform)} ${entry.descriptor}`)
+        .join(', '),
+    }
     const element = getOptimizedImageProps({ ...shared, alt: '' })
 
     expect(hint.href).toBe(element.src)
     expect(hint.imageSrcSet).toBe(element.srcSet)
-    expect(hint.imageSizes).toBe(element.sizes)
   })
 
-  it('omits a srcset for sources the optimizer does not handle', () => {
-    const hint = getImagePreloadProps({ src: 'https://cdn.example/a.webp' })
-    expect(hint.href).toBe('https://cdn.example/a.webp')
-    expect(hint.imageSrcSet).toBeUndefined()
+  it('keeps sources the optimizer does not handle on their original URL', () => {
+    for (const src of ['/icons/user.svg', 'https://cdn.example/a.webp', '/_astro/bundled.webp']) {
+      const validated = imageService.validateOptions!({ src, width: 640 }, serviceConfig)
+      expect(imageService.getURL!(validated)).toBe(src)
+      expect(imageService.getSrcSet!(validated, serviceConfig)).toEqual([])
+    }
+  })
+
+  it('defaults the optimizer quality to the app ladder, not the adapter default', () => {
+    const validated = imageService.validateOptions!(
+      { src: '/img/a.webp', width: 1080 },
+      serviceConfig
+    )
+    expect(validated.quality).toBe(75)
   })
 })
