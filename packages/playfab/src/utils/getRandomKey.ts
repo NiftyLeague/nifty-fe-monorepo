@@ -2,7 +2,9 @@ const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'.s
 
 export function getRandomKey(size = 100) {
   const data = new Uint8Array(4 * size)
-  window.crypto.getRandomValues(data)
+  // Resolved off globalThis because this also runs server-side (signup builds
+  // its Username here), where `window` does not exist.
+  globalThis.crypto.getRandomValues(data)
   const result = []
   for (let i = 0; i < size; i++) {
     result.push(chars[data[i * 4]! % chars.length])
