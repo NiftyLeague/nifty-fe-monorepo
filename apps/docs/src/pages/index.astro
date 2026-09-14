@@ -22,10 +22,6 @@ import '../styles/home.css';
 // splash template renders no sidebar column, but the tree feeds the hamburger
 // drawer that the page frame shows below 997px.
 
-// The hero artwork is the LCP element and dark is the default theme, so the
-// dark variant is preloaded with its exact srcset — one getImage call per
-// width, mirroring how the <Image> in Hero.astro resolves its variants so the
-// hashed URLs match what the srcset emits.
 const heroPreload = await Promise.all(
 	HERO_PRELOAD_WIDTHS.map(async (width) => ({
 		width,

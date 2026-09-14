@@ -1,20 +1,4 @@
 #!/usr/bin/env node
-/**
- * audit-endpoints — live contract check for the Nifty League Contracts API.
- *
- * Hits every public route on a deployed API and exits non-zero if any route
- * deviates from its contract. This is the gate an AI agent runs after a
- * dependency bump or deploy to prove "no API functionality lost".
- *
- * Usage:
- *   node scripts/audit-endpoints.mjs [BASE_URL]
- *   BASE_URL=https://api.niftyleague.com node scripts/audit-endpoints.mjs
- *
- * Env:
- *   BASE_URL   Target deployment (default: https://api.niftyleague.com)
- *   AUDIT_NETWORK  Network segment for token routes (default: sepolia)
- */
-
 const BASE_URL = process.argv[2] || process.env.BASE_URL || 'https://api.niftyleague.com'
 const NETWORK = process.env.AUDIT_NETWORK || 'sepolia'
 

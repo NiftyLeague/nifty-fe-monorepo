@@ -1,15 +1,4 @@
 #!/usr/bin/env node
-/**
- * Evaluates a benchmark result file against a baseline under the budget table in
- * `docs/architecture/m0-baseline-and-decision-gates.md`.
- *
- * Usage: bun scripts/evaluate-budgets.mjs --baseline <results.json> --current <results.json>
- *
- * Verdicts: PASS (within budget), REGRESSION (violates a decision rule), or
- * EXCEPTION (violates the numeric budget with a recorded, attributed exception —
- * exceptions live in `docs/architecture/m5-performance-budgets.md`, never in code).
- * Exit code is 0 unless --strict, so non-blocking budget reports can be published.
- */
 import { readFile } from 'node:fs/promises'
 
 const median = (summary) => summary?.median
@@ -46,7 +35,6 @@ function checkRoute(baselineRoute, currentRoute, priority, exceptions) {
       )
   }
 
-  // LCP
   budgetCheck('LCP', p0 ? 2500 : 3000, p0 ? 4000 : null, median(cur.lcpMs), max(cur.lcpMs))
   const lcpDelta = median(cur.lcpMs) - median(base.lcpMs)
   if (lcpDelta > 0 && lcpDelta > 250 && pct(median(base.lcpMs), median(cur.lcpMs)) > 10)
@@ -54,8 +42,6 @@ function checkRoute(baselineRoute, currentRoute, priority, exceptions) {
       `LCP median regression ${Math.round(lcpDelta)} ms exceeds the >10% and >250 ms rule`
     )
 
-  // INP (synthetic; a null on either side means the action produced no entries —
-  // nothing to compare, never a zero)
   if (cur.inpMs !== null && median(cur.inpMs) > (p0 ? 200 : 300))
     findings.push(`INP: median ${Math.round(cur.inpMs)} > ${p0 ? 200 : 300} ms budget`)
   if (cur.inpMs !== null && base.inpMs !== null) {
@@ -73,7 +59,6 @@ function checkRoute(baselineRoute, currentRoute, priority, exceptions) {
     }
   }
 
-  // CLS
   if (median(cur.cls) > (p0 ? 0.1 : 0.15))
     findings.push(`CLS: median ${median(cur.cls)} over the ${p0 ? 0.1 : 0.15} ceiling`)
   if (median(cur.cls) - median(base.cls) > 0.02)
@@ -223,11 +208,6 @@ export const buildExceptions = [
   },
 ]
 
-/**
- * Pure evaluation of `current` against `baseline` under the budget table.
- * Returns the per-route/build findings and the regression/exception counts, so
- * the CLI report and the seeded-regression test exercise the same logic.
- */
 export function evaluateBudgets({
   baseline,
   current,

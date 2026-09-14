@@ -157,8 +157,6 @@ export function getImagePreloadProps(
 
 export default function OptimizedImage(props: OptimizedImageProps) {
   const result = getOptimizedImageProps(props)
-  // next/image turned `priority` into a preload hint; Astro's SSR does not emit
-  // react-dom's preload, so pages declare their LCP artwork through the layout.
   if (props.priority || props.preload) {
     preloadImage(result.src, {
       as: 'image',

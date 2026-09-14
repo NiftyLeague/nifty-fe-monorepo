@@ -1,20 +1,3 @@
-/**
- * Lighthouse benchmark for a running build.
- *
- * Usage: node scripts/benchmark.mjs <baseUrl> <label> [routesFile]
- *
- * Env:
- *   BENCH_RUNS      runs per route, median reported (default 3)
- *   BENCH_FORMS     comma-separated mobile,desktop (default both)
- *   BENCH_THROTTLE  devtools | simulate (default devtools)
- *
- * On throttling: Lighthouse's default `simulate` (Lantern) models the network
- * analytically and reports much worse numbers than the same build actually
- * achieves on a real connection — on this repo it under-reports a route by ~15
- * points. `devtools` applies Chrome's own CDP throttling and measures what a
- * user would experience, so it is the default here. Keep it consistent across
- * compared runs or the numbers are not comparable.
- */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -55,7 +38,6 @@ const median = (values) => {
   return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2)
 }
 
-/** Checks that failed, so a route can be traced back to its cause. */
 const failures = (result) => {
   const noisy = new Set(['uses-long-cache-ttl', 'network-server-latency', 'network-rtt'])
   return Object.values(result.audits)
@@ -63,10 +45,6 @@ const failures = (result) => {
     .map((a) => `${a.id}${a.displayValue ? ` (${a.displayValue})` : ''}`)
 }
 
-/**
- * Mobile is Lighthouse's default Moto G Power emulation. Desktop matches the
- * viewport Lighthouse uses for its own desktop preset.
- */
 const mobileConfig = {
   extends: 'lighthouse:default',
   settings: {
