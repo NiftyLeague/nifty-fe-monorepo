@@ -21,12 +21,6 @@ const preloadImages = [...HERO_ARTWORK]
 <Base canonical="/" preloadImages={preloadImages}>
   <main>
     <section id="header">
-      {/*
-        The two interactive subtrees are islands; the rest of the header (nav,
-        wordmark) stays static HTML. Importing them inside Header instead would
-        ship them unhydrated, which left the hero animation and the
-        Play/Trailer/Credits buttons inert.
-      */}
       <Header>
         <Fragment slot="heroBackground">
           <DeferredHeroBackground client:load />
@@ -37,7 +31,13 @@ const preloadImages = [...HERO_ARTWORK]
       </Header>
     </section>
     <section id="console-game">
-      <DeferredConsoleGame client:visible={{ rootMargin: '200px' }} deferVideo src="/video/smashers.mp4">
+      <DeferredConsoleGame
+        client:visible={{ rootMargin: '200px' }}
+        loadInteractiveOnViewport
+        activationDelay={1500}
+        deferVideo
+        src="/video/smashers.mp4"
+      >
         <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
       </DeferredConsoleGame>
     </section>

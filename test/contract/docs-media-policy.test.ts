@@ -90,4 +90,12 @@ describe('shared docs media policy', () => {
     expect(pipeline).toContain('[400, 640, 761]')
     expect(statSync(roadmapPoster).size).toBeLessThan(1_100_000)
   })
+
+  it('uses the full medium-width content area before sidebars appear', () => {
+    const theme = readFileSync('apps/docs/src/styles/theme.css', 'utf8')
+
+    expect(theme).toMatch(
+      /@media\s*\(max-width:\s*996\.5px\)[\s\S]*?\.content-panel\s*\{[\s\S]*?padding-inline:\s*5%[\s\S]*?\.content-panel\s*>\s*\.sl-container\s*\{[\s\S]*?max-width:\s*100%/
+    )
+  })
 })

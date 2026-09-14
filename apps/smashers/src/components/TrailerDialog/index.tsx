@@ -51,7 +51,7 @@ const TrailerContent = () => {
       src="https://www.youtube.com/embed/4lnDrx4aDq8?enablejsapi=1&html5=1&autoplay=1&playsinline=1&rel=0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowFullScreen
-      loading="lazy"
+      loading="eager"
     />
   )
 }
@@ -64,9 +64,6 @@ const TrailerDialog = ({
   onOpenChange?: (open: boolean) => void
 }) => (
   <Dialog
-    // Controlled, not `defaultOpen`: the group drives `open`, and an
-    // uncontrolled dialog ignores the prop after mount, so the close request
-    // could never reach it.
     open={open}
     onOpenChange={onOpenChange}
     title="Nifty Smashers - Trailer"

@@ -87,11 +87,13 @@
   --sl-content-pad-x: 1.0625rem;
 }
 
-/* Below the sidebar breakpoint the previous container was a plain 90% width, so
-   the gutters were viewport-relative rather than a fixed size. */
-@media (max-width: 50rem) {
+@media (max-width: 996.5px) {
   .content-panel {
     padding-inline: 5%;
+  }
+
+  .content-panel > .sl-container {
+    max-width: 100%;
   }
 }
 
@@ -128,9 +130,6 @@
   --sl-color-bg: #fafafa;
   --sl-color-bg-sidebar: #fafafa;
   --sl-color-text: #09090b;
-  /* The oklch() literal this replaced carried a 0.584-degree hue (pink
-     #e60076) that measured 4.0:1 on the page background; the accent below is
-     the palette purple at 6.9:1. */
   --sl-color-text-accent: var(--sl-color-accent);
 }
 
@@ -360,12 +359,8 @@ h1#_top {
   margin-top: 0.5rem;
 }
 
-/* Markdown links carry a persistent underline: colour alone does not
-   distinguish them from the surrounding text (WCAG 1.4.1 — axe's
-   link-in-text-block measured 2.5:1 between the light-theme accent and the
-   body text, under its 3:1 floor). Navigation chrome keeps hover-only
-   underlines; the previous site underlined body links on hover only, which is
-   the finding this replaces. */
+/* Markdown links carry a persistent underline so they remain distinguishable
+   from surrounding text. Navigation chrome keeps hover-only underlines. */
 .sl-markdown-content a:not(:where(.not-content *)) {
   color: var(--sl-color-text-accent);
   text-decoration: underline;
