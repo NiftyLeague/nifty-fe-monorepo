@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, type PropsWithChildren } from 'react'
+import { createContext, useMemo, type PropsWithChildren } from 'react'
 import { useGamerProfile } from '@/hooks/useGamerProfile'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Profile } from '@/types/account'
@@ -25,20 +25,18 @@ const GamerProfileContext = createContext<GamerProfileContextType>(defaultValue)
 export const GamerProfileProvider = ({ children }: PropsWithChildren) => {
   const { loadingDegens, loadingComics, loadingItems } = useNFTsBalances()
   const { loadingProfile, fetchUserProfile } = useGamerProfile()
-
-  return (
-    <GamerProfileContext.Provider
-      value={{
-        isLoadingProfile: loadingProfile,
-        isLoadingDegens: loadingDegens,
-        isLoadingComics: loadingComics,
-        isLoadingItems: loadingItems,
-        fetchUserProfile,
-      }}
-    >
-      {children}
-    </GamerProfileContext.Provider>
+  const value = useMemo(
+    () => ({
+      isLoadingProfile: loadingProfile,
+      isLoadingDegens: loadingDegens,
+      isLoadingComics: loadingComics,
+      isLoadingItems: loadingItems,
+      fetchUserProfile,
+    }),
+    [fetchUserProfile, loadingComics, loadingDegens, loadingItems, loadingProfile]
   )
+
+  return <GamerProfileContext.Provider value={value}>{children}</GamerProfileContext.Provider>
 }
 
 export default GamerProfileContext
