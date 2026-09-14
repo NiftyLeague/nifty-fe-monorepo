@@ -52,11 +52,18 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 					class StarlightSidebarPane extends HTMLElement {
 						private onScroll: () => void;
 						private onBreakpoint: () => void;
+						private onMenuBreakpoint: () => void;
+						private frame = 0;
+						private menuBreakpoint: MediaQueryList;
+						private desktopBreakpoint: MediaQueryList;
 						constructor() {
 							super();
+							this.menuBreakpoint = matchMedia('(min-width: 50em)');
+							this.desktopBreakpoint = matchMedia('(min-width: 997px)');
 							this.onBreakpoint = () => this.syncPanels();
-							matchMedia('(min-width: 50em)').addEventListener('change', () => this.hidePopover());
-							matchMedia('(min-width: 997px)').addEventListener('change', this.onBreakpoint);
+							this.onMenuBreakpoint = () => this.hidePopover();
+							this.menuBreakpoint.addEventListener('change', this.onMenuBreakpoint);
+							this.desktopBreakpoint.addEventListener('change', this.onBreakpoint);
 							this.addEventListener('toggle', ({ newState }) => {
 								const open = newState === 'open';
 								this.trapFocus(open);
@@ -75,16 +82,24 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 							});
 							// The desktop sidebar column must stop at the footer instead of
 							// running underneath it.
-							this.onScroll = () => this.clampToFooter();
+							this.onScroll = () => {
+								if (this.frame) return;
+								this.frame = requestAnimationFrame(() => {
+									this.frame = 0;
+									this.clampToFooter();
+								});
+							};
 							window.addEventListener('scroll', this.onScroll, { passive: true });
 							window.addEventListener('resize', this.onScroll);
 							this.clampToFooter();
 							this.syncPanels();
 						}
 						disconnectedCallback() {
+							if (this.frame) cancelAnimationFrame(this.frame);
 							window.removeEventListener('scroll', this.onScroll);
 							window.removeEventListener('resize', this.onScroll);
-							matchMedia('(min-width: 997px)').removeEventListener('change', this.onBreakpoint);
+							this.menuBreakpoint.removeEventListener('change', this.onMenuBreakpoint);
+							this.desktopBreakpoint.removeEventListener('change', this.onBreakpoint);
 						}
 						syncPanels() {
 							// The fixed desktop column always shows the section panel (the
@@ -93,7 +108,7 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 							// view is `main` — the /search column rendered visible but
 							// unreachable. Below the breakpoint the drawer semantics
 							// apply again.
-							if (matchMedia('(min-width: 997px)').matches) {
+							if (this.desktopBreakpoint.matches) {
 								for (const panel of this.querySelectorAll<HTMLElement>('.drawer-panel')) {
 									panel.inert = false;
 								}
@@ -102,7 +117,7 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 							}
 						}
 						clampToFooter() {
-							if (!matchMedia('(min-width: 997px)').matches) {
+							if (!this.desktopBreakpoint.matches) {
 								this.style.insetBlockEnd = '';
 								return;
 							}

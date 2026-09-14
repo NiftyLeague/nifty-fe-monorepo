@@ -82,9 +82,9 @@ export default defineConfig({
   ],
   vite: {
     build: {
-      // Sourcemaps for the large lazily-loaded chunks (Mermaid). Maps are only
-      // fetched by devtools, so they cost nothing at runtime.
-      sourcemap: true,
+      // Keep production output focused on browser-delivered assets. Local
+      // debugging can opt in without adding maps to every deploy artifact.
+      sourcemap: process.env.ASTRO_SOURCEMAP === 'true',
     },
     resolve: { alias: [sourceAlias(import.meta.url)] },
     ...bundleSsrGraph(),
