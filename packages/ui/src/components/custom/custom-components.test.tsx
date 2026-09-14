@@ -190,6 +190,11 @@ describe('authentication forms', () => {
     await waitFor(() => expect(handlers.handleProviderLogin).toHaveBeenCalledWith('google'))
   }, 15_000)
 
+  it('submits natively as POST so a pre-hydration Enter cannot leak typed fields into the URL', () => {
+    const { container } = render(<LoginForm {...handlers} view={VIEWS.LOGIN} />)
+    expect(container.querySelector('form')?.getAttribute('method')).toBe('post')
+  })
+
   it('switches AuthForm views and renders status feedback', () => {
     const { rerender } = render(
       <AuthForm
