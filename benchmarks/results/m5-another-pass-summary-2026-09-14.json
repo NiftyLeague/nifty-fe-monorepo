@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-09-14",
+  "benchmark": "scripts/m0-benchmark.mjs",
+  "profile": {
+    "buildSamples": 3,
+    "routeSamples": 1,
+    "routeScope": "api-root only; synthetic lab sample with low statistical confidence",
+    "baseline": "origin/main at 19abe948e",
+    "current": "refactor/m5-performance-audit at f4d63cb77"
+  },
+  "buildMedianMs": {
+    "api": { "clean": { "before": 2426, "after": 1945 }, "incremental": { "before": 1751, "after": 1354 } },
+    "app": { "clean": { "before": 9968, "after": 7362 }, "incremental": { "before": 11509, "after": 7575 } },
+    "docs": { "clean": { "before": 11160, "after": 6116 }, "incremental": { "before": 11529, "after": 7060 } },
+    "smashers": { "clean": { "before": 14430, "after": 10404 }, "incremental": { "before": 17934, "after": 10595 } },
+    "web": { "clean": { "before": 8960, "after": 6996 }, "incremental": { "before": 10681, "after": 8752 } }
+  },
+  "coldImagePreparation": {
+    "app": { "serialBeforeMs": 223050, "parallelAfterMs": [70450, 51853], "parallelMedianMs": 61152 },
+    "web": {
+      "m0CleanBuildOutlierMs": 229560,
+      "parallelAfterMs": [63350, 63510],
+      "parallelMedianMs": 63430,
+      "note": "The m0 value includes the full clean web build, so this is directional rather than a direct script-to-script comparison."
+    }
+  },
+  "docsProductionOutput": {
+    "sourcemapFilesBefore": 102,
+    "sourcemapFilesAfter": 0,
+    "sourcemapDiskUsageBefore": "18M",
+    "sourcemapDiskUsageAfter": "0"
+  },
+  "budgetEvaluation": { "regressions": 0, "recordedExceptions": 0 }
+}
