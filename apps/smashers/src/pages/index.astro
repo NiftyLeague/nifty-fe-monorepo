@@ -1,8 +1,8 @@
 ---
+import { getImage } from 'astro:assets'
 import Base from '@/layouts/Base.astro'
 import Header, { HERO_ARTWORK } from '@/components/Header'
 import ActionButtonsGroup from '@/components/Header/ActionButtonsGroup'
-import { getOptimizedImageProps } from '@/runtime/Image'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
@@ -17,16 +17,17 @@ export const prerender = true
 
 const preloadImages = [...HERO_ARTWORK]
 
-// Same image candidates the React island produced: the optimizer srcSet
-// ladder over the shared `sizes` box, eager on the poster that sits behind
-// the idle-loaded hero animation.
-const heroBackgroundImage = getOptimizedImageProps({
+// Same image candidates the React adapter produced: the optimizer srcSet
+// ladder for a 100vw box, eager on the poster that sits behind the idle-loaded
+// hero animation. The image service resolves these to Vercel's optimizer on
+// Vercel and to the plain asset path everywhere else. The element is rendered
+// explicitly because the poster is decorative: no width/height/sizes
+// attributes beyond the ones the contract pins.
+const heroBackgroundImage = await getImage({
   src: '/img/games/smashers/background-poster.webp',
-  alt: '',
-  sizes: '100vw',
-  loading: 'eager',
-  fetchPriority: 'low',
-  decoding: 'async',
+  width: 1920,
+  widths: [640, 750, 828, 1080, 1200, 1920],
+  quality: 75,
 })
 ---
 
@@ -39,7 +40,11 @@ const heroBackgroundImage = getOptimizedImageProps({
             <img
               class={heroStyles.heroBackgroundImage}
               src={heroBackgroundImage.src}
-              srcset={heroBackgroundImage.srcSet}
+              srcset={
+                heroBackgroundImage.srcSet.values.length
+                  ? heroBackgroundImage.srcSet.attribute
+                  : undefined
+              }
               alt=""
               loading="eager"
               fetchpriority="low"
