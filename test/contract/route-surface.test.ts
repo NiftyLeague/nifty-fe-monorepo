@@ -82,8 +82,10 @@ const appRouteContracts: Record<string, string[]> = {
     'src/routes/_public/degens.index.tsx',
     'src/routes/_public/degens.$id.tsx',
     'src/routes/_public/games.index.tsx',
+    'src/routes/_public/games.niftyworld.$game.tsx',
     'src/routes/_public/leaderboards.index.tsx',
     'src/routes/_public/mint-o-matic.index.tsx',
+    'src/routes/_public/world.niftyworld.$scene.tsx',
     'src/routes/dashboard.index.tsx',
     'src/routes/dashboard.items.tsx',
     'src/routes/dashboard.items.burner.tsx',
@@ -1941,6 +1943,14 @@ describe('shared console game loading contract', () => {
     expect(deferredSource).toContain('renderGradientOverlay={false}')
     expect(deferredSource).not.toContain("from '../console-game/backdrop'")
     expect(deferredSource).not.toContain("from '@nl/ui/custom/optimized-image'")
+  })
+
+  it('keeps the Smashers console game on the fast activation path', () => {
+    const source = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
+
+    expect(source).toMatch(
+      /<DeferredConsoleGame\b[^>]*loadInteractiveOnViewport[^>]*activationDelay=\{1500\}/
+    )
   })
 })
 

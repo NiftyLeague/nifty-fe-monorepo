@@ -42,6 +42,8 @@ import { Route as PublicMintOMaticIndexRouteImport } from './routes/_public/mint
 import { Route as PublicWorldIndexRouteImport } from './routes/_public/world.index'
 import { Route as PublicWorldSceneRouteImport } from './routes/_public/world.$scene'
 import { Route as DashboardItemsBurnerRouteImport } from './routes/dashboard.items.burner'
+import { Route as PublicGamesNiftyworldGameRouteImport } from './routes/_public/games.niftyworld.$game'
+import { Route as PublicWorldNiftyworldSceneRouteImport } from './routes/_public/world.niftyworld.$scene'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -207,6 +209,18 @@ const DashboardItemsBurnerRoute = DashboardItemsBurnerRouteImport.update({
   path: '/burner',
   getParentRoute: () => DashboardItemsRoute,
 } as any)
+const PublicGamesNiftyworldGameRoute =
+  PublicGamesNiftyworldGameRouteImport.update({
+    id: '/niftyworld/$game',
+    path: '/niftyworld/$game',
+    getParentRoute: () => PublicGamesRoute,
+  } as any)
+const PublicWorldNiftyworldSceneRoute =
+  PublicWorldNiftyworldSceneRouteImport.update({
+    id: '/niftyworld/$scene',
+    path: '/niftyworld/$scene',
+    getParentRoute: () => PublicWorldRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PublicIndexRoute
@@ -241,6 +255,8 @@ export interface FileRoutesByFullPath {
   '/leaderboards/': typeof PublicLeaderboardsIndexRoute
   '/mint-o-matic/': typeof PublicMintOMaticIndexRoute
   '/world/': typeof PublicWorldIndexRoute
+  '/games/niftyworld/$game': typeof PublicGamesNiftyworldGameRoute
+  '/world/niftyworld/$scene': typeof PublicWorldNiftyworldSceneRoute
 }
 export interface FileRoutesByTo {
   '/robots.txt': typeof RobotsDottxtRoute
@@ -268,6 +284,8 @@ export interface FileRoutesByTo {
   '/leaderboards': typeof PublicLeaderboardsIndexRoute
   '/mint-o-matic': typeof PublicMintOMaticIndexRoute
   '/world': typeof PublicWorldIndexRoute
+  '/games/niftyworld/$game': typeof PublicGamesNiftyworldGameRoute
+  '/world/niftyworld/$scene': typeof PublicWorldNiftyworldSceneRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -304,6 +322,8 @@ export interface FileRoutesById {
   '/_public/leaderboards/': typeof PublicLeaderboardsIndexRoute
   '/_public/mint-o-matic/': typeof PublicMintOMaticIndexRoute
   '/_public/world/': typeof PublicWorldIndexRoute
+  '/_public/games/niftyworld/$game': typeof PublicGamesNiftyworldGameRoute
+  '/_public/world/niftyworld/$scene': typeof PublicWorldNiftyworldSceneRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -340,6 +360,8 @@ export interface FileRouteTypes {
     | '/leaderboards/'
     | '/mint-o-matic/'
     | '/world/'
+    | '/games/niftyworld/$game'
+    | '/world/niftyworld/$scene'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/robots.txt'
@@ -367,6 +389,8 @@ export interface FileRouteTypes {
     | '/leaderboards'
     | '/mint-o-matic'
     | '/world'
+    | '/games/niftyworld/$game'
+    | '/world/niftyworld/$scene'
   id:
     | '__root__'
     | '/_public'
@@ -402,6 +426,8 @@ export interface FileRouteTypes {
     | '/_public/leaderboards/'
     | '/_public/mint-o-matic/'
     | '/_public/world/'
+    | '/_public/games/niftyworld/$game'
+    | '/_public/world/niftyworld/$scene'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -647,6 +673,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardItemsBurnerRouteImport
       parentRoute: typeof DashboardItemsRoute
     }
+    '/_public/games/niftyworld/$game': {
+      id: '/_public/games/niftyworld/$game'
+      path: '/niftyworld/$game'
+      fullPath: '/games/niftyworld/$game'
+      preLoaderRoute: typeof PublicGamesNiftyworldGameRouteImport
+      parentRoute: typeof PublicGamesRoute
+    }
+    '/_public/world/niftyworld/$scene': {
+      id: '/_public/world/niftyworld/$scene'
+      path: '/niftyworld/$scene'
+      fullPath: '/world/niftyworld/$scene'
+      preLoaderRoute: typeof PublicWorldNiftyworldSceneRouteImport
+      parentRoute: typeof PublicWorldRoute
+    }
   }
 }
 
@@ -671,6 +711,7 @@ interface PublicGamesRouteChildren {
   PublicGamesSmashersRoute: typeof PublicGamesSmashersRoute
   PublicGamesWenGameRoute: typeof PublicGamesWenGameRoute
   PublicGamesIndexRoute: typeof PublicGamesIndexRoute
+  PublicGamesNiftyworldGameRoute: typeof PublicGamesNiftyworldGameRoute
 }
 
 const PublicGamesRouteChildren: PublicGamesRouteChildren = {
@@ -680,6 +721,7 @@ const PublicGamesRouteChildren: PublicGamesRouteChildren = {
   PublicGamesSmashersRoute: PublicGamesSmashersRoute,
   PublicGamesWenGameRoute: PublicGamesWenGameRoute,
   PublicGamesIndexRoute: PublicGamesIndexRoute,
+  PublicGamesNiftyworldGameRoute: PublicGamesNiftyworldGameRoute,
 }
 
 const PublicGamesRouteWithChildren = PublicGamesRoute._addFileChildren(
@@ -711,11 +753,13 @@ const PublicMintOMaticRouteWithChildren =
 interface PublicWorldRouteChildren {
   PublicWorldSceneRoute: typeof PublicWorldSceneRoute
   PublicWorldIndexRoute: typeof PublicWorldIndexRoute
+  PublicWorldNiftyworldSceneRoute: typeof PublicWorldNiftyworldSceneRoute
 }
 
 const PublicWorldRouteChildren: PublicWorldRouteChildren = {
   PublicWorldSceneRoute: PublicWorldSceneRoute,
   PublicWorldIndexRoute: PublicWorldIndexRoute,
+  PublicWorldNiftyworldSceneRoute: PublicWorldNiftyworldSceneRoute,
 }
 
 const PublicWorldRouteWithChildren = PublicWorldRoute._addFileChildren(
