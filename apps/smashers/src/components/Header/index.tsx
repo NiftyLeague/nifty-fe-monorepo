@@ -3,8 +3,6 @@ import Navbar from './Navbar'
 
 import styles from './index.module.css'
 
-export type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
-
 /**
  * Above-the-fold artwork the page preloads. These are the exact props the
  * header renders, so the preload hint resolves to the same optimizer variant

@@ -9,6 +9,10 @@
  * a broken relative og:image first in crawl order. og:title, og:description,
  * og:type and og:locale stay: they are per-page values Starlight derives from
  * the entry and this component does not override them.
+ *
+ * Starlight's default favicon link points at /favicon.svg, which the shared
+ * publicDir does not ship; left in place it 404s ahead of the icon set below,
+ * so icon links are filtered too and the favicon set matches apps/web's.
  */
 import { ClientRouter } from 'astro:transitions';
 import { getImage } from 'astro:assets';
@@ -63,6 +67,8 @@ const roadmapPreload = isRoadmapPage
 	head
 		.filter(({ tag, attrs }) => {
 			if (tag === 'link' && (attrs?.rel === 'search' || attrs?.rel === 'canonical')) return false;
+			if (tag === 'link' && (attrs?.rel === 'icon' || attrs?.rel === 'shortcut icon' || attrs?.rel === 'apple-touch-icon'))
+				return false;
 			if (tag === 'meta' && OVERRIDDEN.has(String(attrs?.property ?? attrs?.name))) return false;
 			return true;
 		})

@@ -91,14 +91,16 @@ function DeferredModalAction({
   )
 }
 
-const ActionButtonsGroup = ({ activeModal }: { activeModal: ActiveModal }) => {
-  const [requestedModal, setRequestedModal] = useState<ModalType | null>(
-    activeModal && activeModal !== 'unity' ? activeModal : null
-  )
+const ActionButtonsGroup = () => {
+  const [requestedModal, setRequestedModal] = useState<ModalType | null>(null)
 
   useEffect(() => {
-    if (activeModal && activeModal !== 'unity') setRequestedModal(activeModal)
-  }, [activeModal])
+    // The home page is prerendered, so the referral deep link can only be read
+    // here: an arriving ?referral link opens the Play dialog directly.
+    if (new URLSearchParams(window.location.search).has('referral')) {
+      setRequestedModal('play')
+    }
+  }, [])
 
   return (
     <div className={styles.heroBtnGroup}>

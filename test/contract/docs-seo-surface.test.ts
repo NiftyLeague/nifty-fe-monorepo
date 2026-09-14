@@ -24,6 +24,20 @@ describe('docs SEO surface', () => {
     expect(head).toContain('name="twitter:card"')
     expect(head).not.toMatch(/content=['"]img\//)
 
+    // Starlight's default favicon link points at /favicon.svg, which the shared
+    // publicDir does not ship — it 404s ahead of the real set. The override must
+    // drop generated icon links and re-emit apps/web's set under the /docs base.
+    expect(head).toContain(
+      "attrs?.rel === 'icon' || attrs?.rel === 'shortcut icon' || attrs?.rel === 'apple-touch-icon'"
+    )
+    expect(head).toContain('rel="icon" href="/docs/favicon/nl_purple/favicon.ico"')
+    expect(head).toContain(
+      'rel="apple-touch-icon" href="/docs/favicon/nl_purple/apple-touch-icon.png"'
+    )
+    expect(head).toContain(
+      'rel="shortcut icon" href="/docs/favicon/nl_purple/android-chrome-192x192.png"'
+    )
+
     // The astro config head must not re-add the tags the override owns.
     const config = read('astro.config.mjs')
     expect(config).not.toContain('og:image')

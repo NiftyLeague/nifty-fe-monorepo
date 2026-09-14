@@ -32,7 +32,7 @@ The order is intentionally additive until each replacement is covered. No route 
 ## Query policy
 
 - Query keys are semantic and centralized in `apps/app/src/query/app-query.ts`. Authenticated keys contain only a non-reversible session scope, never a token or authorization header.
-- Each query-enabled route boundary creates one `QueryClient` per mounted tree: the public DEGEN layout owns its lightweight client, while wallet routes create theirs inside the already deferred wallet runtime. Server prefetch creates a request-local client and dehydrates only the public DEGEN result. Unrelated public routes do not load TanStack Query.
+- One `QueryClient` owner per request: TanStack Start's SSR query integration (`setupRouterSsrQueryIntegration`) wraps the router with the provider, so loaders and components share the same request-local client and the public cache survives client-side navigation. Route layouts must not mount a second `QueryClientProvider`; a nested provider shadows the integration, drops the loader prefetch onto the floor, and resets the 5-minute public cache whenever the layout unmounts.
 - Query functions consume TanStack's `AbortSignal`. Four-hundred responses do not retry; other failures receive at most one retry. Mutations do not retry automatically.
 - Public catalogue data is fresh for 5 minutes, matching its HTTP cache contract. Authenticated API data is fresh for 30 seconds. Existing on-chain wagmi reads keep their own 10-second policy.
 - Favorite updates cancel the matching read, update local compatibility state optimistically, roll back on failure, and replace the exact cached profile-favorites value on success.

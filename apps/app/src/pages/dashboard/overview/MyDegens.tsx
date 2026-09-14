@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useRouter } from '@/runtime/navigation'
 import dynamic from '@/runtime/dynamic'
 import { Button } from '@nl/ui/base/button'
@@ -9,6 +9,7 @@ import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import SectionSlider from '@/components/sections/SectionSlider'
 import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
+import type { DegenCardProps } from '@/components/cards/DegenCard'
 import EmptyState from '@/components/EmptyState'
 import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
@@ -17,7 +18,7 @@ import { usePublicDegensByIds } from '@/hooks/queries/usePublicDegens'
 import useFavoriteDegens from '@/hooks/useFavoriteDegens'
 import type { DashboardDegen } from '@/types/degens'
 
-const DegenCard = dynamic(
+const DegenCard = dynamic<DegenCardProps<DashboardDegen>>(
   () =>
     import('@/components/cards/DegenCard/DashboardDegenCard').then(
       (module) => module.DashboardDegenCardInView
@@ -64,24 +65,31 @@ const MyDegens = (): React.ReactNode => {
     ],
   }
 
-  const handleClickEditName = (degen: DashboardDegen): void => {
+  const handleClickEditName = useCallback((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsRenameDegenModalOpen(true)
-  }
+  }, [])
 
-  const handleViewTraits = (degen: DashboardDegen): void => {
+  const handleViewTraits = useCallback((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(false)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
-  }
+  }, [])
 
-  const handleClaimDegen = (degen: DashboardDegen): void => {
+  const handleClaimDegen = useCallback((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(true)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
-  }
+  }, [])
+
+  const handleFavoriteToggle = useCallback(
+    (degen: DashboardDegen): void => {
+      void toggleFavorite(degen.id)
+    },
+    [toggleFavorite]
+  )
 
   return (
     <>
@@ -112,10 +120,10 @@ const MyDegens = (): React.ReactNode => {
                 deferAnimatedMedia
                 favs={favDegens}
                 isDashboardDegen
-                onClickClaim={() => handleClaimDegen(degen)}
-                onClickDetail={() => handleViewTraits(degen)}
-                onClickEditName={() => handleClickEditName(degen)}
-                onClickFavorite={() => void toggleFavorite(degen.id)}
+                onClickClaim={handleClaimDegen}
+                onClickDetail={handleViewTraits}
+                onClickEditName={handleClickEditName}
+                onClickFavorite={handleFavoriteToggle}
                 size="small"
               />
             </div>

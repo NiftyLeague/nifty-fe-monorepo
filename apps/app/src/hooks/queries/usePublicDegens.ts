@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import { PUBLIC_DEGENS_API_URL, getPublicDegensByIdsUrl } from '@/constants/api'
 import { fetchApiQuery, PUBLIC_STALE_TIME_MS, queryKeys } from '@/query/app-query'
@@ -17,6 +17,9 @@ export const usePublicDegensPage = (query: string) => {
         init: { headers: { Accept: PUBLIC_DEGENS_WIRE_MEDIA_TYPE } },
       }),
     staleTime: PUBLIC_STALE_TIME_MS,
+    // Keep the previous page rendered while a new filter/page/search key
+    // loads, so typing or paging never blanks the grid into skeletons.
+    placeholderData: keepPreviousData,
   })
 }
 

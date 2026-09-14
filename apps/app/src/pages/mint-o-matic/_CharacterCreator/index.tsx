@@ -115,7 +115,6 @@ const CharacterCreator = memo(
     const [width, setWidth] = useState(DEFAULT_WIDTH)
     const [height, setHeight] = useState(DEFAULT_HEIGHT)
     const [refreshKey, setRefreshKey] = useState(0)
-    const [, setIsMinting] = useState(false)
 
     const [unityError, setUnityError] = useState<Error | null>(null)
     // Conditionally throw errors to be caught by the ErrorBoundary
@@ -161,10 +160,6 @@ const CharacterCreator = memo(
       []
     )
 
-    const toggleIsMinting = useCallback((e: CustomEvent<boolean>) => {
-      setIsMinting(e.detail)
-    }, [])
-
     const onScroll = useCallback(() => {
       setCanvasInteraction('character-canvas', false)
     }, [])
@@ -205,7 +200,6 @@ const CharacterCreator = memo(
       window.addEventListener('resize', reportWindowSize as EventListener)
       window.addEventListener('GetConfiguration', getConfiguration as EventListener)
       window.addEventListener('GetRemovedTraits', getRemovedTraits as EventListener)
-      window.addEventListener('OnMintEffectToggle', toggleIsMinting as EventListener)
       window.addEventListener('SubmitTraits', onMintCharacter as EventListener)
       document.addEventListener('wheel', onScroll, false)
       document.addEventListener('mousemove', onMouse, false)
@@ -217,7 +211,6 @@ const CharacterCreator = memo(
         window.removeEventListener('resize', reportWindowSize as EventListener)
         window.removeEventListener('GetConfiguration', getConfiguration as EventListener)
         window.removeEventListener('GetRemovedTraits', getRemovedTraits as EventListener)
-        window.removeEventListener('OnMintEffectToggle', toggleIsMinting as EventListener)
         window.removeEventListener('SubmitTraits', onMintCharacter as EventListener)
         document.removeEventListener('wheel', onScroll, false)
         document.removeEventListener('mousemove', onMouse, false)
@@ -235,7 +228,6 @@ const CharacterCreator = memo(
       onMouse,
       onScroll,
       reportWindowSize,
-      toggleIsMinting,
     ])
 
     return (

@@ -72,10 +72,12 @@ describe('M1 state and data ownership', () => {
 
   it('keeps one request-cache owner and no module-level query client', () => {
     expect(existsSync('apps/app/src/hooks/useFetch.ts')).toBe(false)
+    // TanStack Start's SSR query integration owns the single provider; route
+    // layouts must not shadow it with a second client (which loses the loader
+    // prefetch and resets the cache on every navigation between layouts).
+    expect(existsSync('apps/app/src/query/AppQueryProvider.tsx')).toBe(false)
     const runtime = read('apps/app/src/contexts/Web3ModalRuntime.tsx')
-    const provider = read('apps/app/src/query/AppQueryProvider.tsx')
     expect(runtime).not.toContain('new QueryClient')
-    expect(provider).toContain('useState(createAppQueryClient)')
 
     for (const path of migratedRemoteOwners) {
       const source = read(path)
@@ -112,8 +114,9 @@ describe('M1 state and data ownership', () => {
     const degensLayout = read('apps/app/src/routes/_public/degens.tsx')
     const degensRoute = read('apps/app/src/routes/_public/degens.index.tsx')
     expect(rootLayout).toContain('<NuqsAdapter>')
-    expect(rootLayout).not.toContain('<AppQueryProvider>')
-    expect(degensLayout).toContain('<AppQueryProvider>')
+    for (const layout of [rootLayout, degensLayout]) {
+      expect(layout).not.toContain('QueryClientProvider')
+    }
     // The route prefetches through the router's SSR Query integration, so the
     // request-local client comes from the router instead of an inline client.
     expect(degensRoute).toContain('context.queryClient')

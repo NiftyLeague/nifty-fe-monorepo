@@ -1,6 +1,5 @@
 'use client'
 
-import { saveAs } from 'save-as'
 import { DEGEN_ASSETS_DOWNLOAD_URL } from '@/constants/url'
 
 const base64ToBlob = (base64: string): Blob => {
@@ -23,5 +22,11 @@ export const downloadDegenAsZip = async (
     throw new Error(`Failed to download degen ${tokenId}: ${res.status} ${res.statusText}`)
   const text = await res.text()
   const blob = base64ToBlob(text)
-  saveAs(blob, `degen_${tokenId}.zip`)
+  // Native object-URL download; replaces the `save-as` shim dependency.
+  const url = URL.createObjectURL(blob)
+  const anchor = document.createElement('a')
+  anchor.href = url
+  anchor.download = `degen_${tokenId}.zip`
+  anchor.click()
+  URL.revokeObjectURL(url)
 }

@@ -325,7 +325,6 @@ const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
 const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
 const webDeferredCareersSections = 'apps/web/src/components/DeferredCareersSections.tsx'
 const webCareersJobs = 'apps/web/src/components/CareersJobs.tsx'
-const smashersDeferredHomeSections = 'apps/smashers/src/components/DeferredHomeSections.tsx'
 const appShell = 'apps/app/src/layouts/_layout/AppShell.tsx'
 const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
@@ -784,7 +783,7 @@ describe('shared route loading contract', () => {
 })
 
 describe('Smashers public shell contract', () => {
-  it('keeps the homepage server-rendered except for the modal island', () => {
+  it('keeps the homepage prerendered except for interactive islands', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const headerSource = readFileSync(
       join(process.cwd(), 'apps/smashers/src/components/Header/index.tsx'),
@@ -794,10 +793,11 @@ describe('Smashers public shell contract', () => {
 
     expect(pageSource).not.toContain('HomeInteractive')
     expect(pageSource).toContain("from '@/components/Header'")
-    expect(pageSource).toContain('type ActiveModal')
+    expect(pageSource).toContain('prerender = true')
+    expect(pageSource).not.toMatch(/Astro\.url\.searchParams/)
     expect(pageSource).toContain('<Header>')
     expect(pageSource).toContain('<main>')
-    // The shell stays static HTML; the interactive header subtrees are islands
+    // The shell stays static HTML; the interactive subtrees are islands
     // injected through Header's slots (asserted by smashers-runtime.test.ts).
     expect(pageSource).toContain('client:visible')
     expect(pageSource).toContain('client:load')
@@ -2082,15 +2082,12 @@ describe('shared below-fold loading contract', () => {
 
   it('defers below-fold marketing sections in Smashers', () => {
     const pageSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
-    const deferredSource = readFileSync(join(process.cwd(), smashersDeferredHomeSections), 'utf8')
 
-    expect(pageSource).toContain('DeferredGameSection')
-    expect(pageSource).toContain('DeferredDegensSection')
-    expect(pageSource).not.toContain("import('@/components/GameSection')")
-    expect(pageSource).not.toContain("import('@/components/DegensSection')")
-    expect(deferredSource).toContain("import('@/components/GameSection')")
-    expect(deferredSource).toContain("import('@/components/DegensSection')")
-    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    // The sections hydrate directly on viewport; no extra React deferral
+    // wrapper sits between the directive and the real section component.
+    expect(pageSource).toMatch(/<GameSection\b[^>]*client:visible/)
+    expect(pageSource).toMatch(/<DegensSection\b[^>]*client:visible/)
+    expect(pageSource).not.toContain('DeferredSection')
   })
 })
 

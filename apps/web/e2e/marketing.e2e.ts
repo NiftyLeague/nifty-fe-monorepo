@@ -366,7 +366,9 @@ test('Compete & Earn hydrates its video loader but keeps YouTube out of the init
   const islandEnd = html.indexOf('</astro-island>', videoSourceIndex)
   const videoIsland = html.slice(islandStart, islandEnd)
 
-  expect(videoIsland).toContain('client="load"')
+  // Hydration itself is viewport-gated (client:visible) on top of the
+  // facade's own observer, so nothing but the skeleton ships and mounts early.
+  expect(videoIsland).toContain('client="visible"')
   // The deferred facade renders the status skeleton server-side and only
   // mounts the third-party iframe once the section nears the viewport; the
   expect(videoIsland).not.toContain('<iframe')

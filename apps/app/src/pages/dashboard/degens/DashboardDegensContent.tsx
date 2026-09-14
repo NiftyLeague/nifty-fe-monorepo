@@ -22,6 +22,7 @@ import { DEGEN_COLLECTION_URL } from '@/constants/url'
 import useFavoriteDegens from '@/hooks/useFavoriteDegens'
 import useAuth from '@/hooks/useAuth'
 import { usePublicDegensByIds } from '@/hooks/queries/usePublicDegens'
+import { useDebouncedSearchTerm } from '@/hooks/useDebouncedSearchTerm'
 import { getPageItems } from '@/utils/pagination'
 import type { DashboardDegen } from '@/types/degens'
 import EmptyState from '@/components/EmptyState'
@@ -30,6 +31,7 @@ import DeferredDegenDialog from '@/components/providers/DeferredDegenDialog'
 import DeferredRenameDegenDialog from '@/components/providers/DeferredRenameDegenDialog'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import DegensTopNav from '@/components/extended/DegensTopNav'
+import type { DegenCardProps } from '@/components/cards/DegenCard'
 import { isAuditFixtureEnabled } from '@/audit/fixture'
 import { degenSearchParsers, normalizeDegenSearchState, toDegenFilter } from '@/url/search-state'
 
@@ -39,7 +41,7 @@ const CollapsibleSidebarLayout = dynamic(
     ssr: false,
   }
 )
-const DegenCard = dynamic(
+const DegenCard = dynamic<DegenCardProps<DashboardDegen>>(
   () =>
     import('@/components/cards/DegenCard/DashboardDegenCard').then(
       (module) => module.DashboardDegenCardInView
@@ -125,11 +127,22 @@ const DashboardDegensPageContent = (): React.ReactNode => {
     }
   }, [currentPage, loading, searchState.page, setSearchState])
 
-  const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
-    e
-  ) => {
-    void setSearchState({ searchTerm: e.target.value || null, page: 1 }, { history: 'replace' })
-  }
+  const commitSearchTerm = useCallback(
+    (searchTerm: string | null) =>
+      void setSearchState({ searchTerm, page: 1 }, { history: 'replace' }),
+    [setSearchState]
+  )
+  const [searchTermDraft, handleChangeSearchTerm] = useDebouncedSearchTerm(
+    searchState.searchTerm,
+    commitSearchTerm
+  )
+
+  const handleFavoriteToggle = useCallback(
+    (degen: DashboardDegen): void => {
+      void toggleFavorite(degen.id)
+    },
+    [toggleFavorite]
+  )
 
   const handleChangeLayoutMode = (_: React.MouseEvent<HTMLElement>, newMode: string) => {
     void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
@@ -188,10 +201,10 @@ const DashboardDegensPageContent = (): React.ReactNode => {
           deferAnimatedMedia
           favs={favDegens}
           isDashboardDegen
-          onClickClaim={() => handleClaimDegen(degen)}
-          onClickDetail={() => handleViewTraits(degen)}
-          onClickEditName={() => handleClickEditName(degen)}
-          onClickFavorite={() => void toggleFavorite(degen.id)}
+          onClickClaim={handleClaimDegen}
+          onClickDetail={handleViewTraits}
+          onClickEditName={handleClickEditName}
+          onClickFavorite={handleFavoriteToggle}
           size={isGridView ? 'normal' : 'small'}
         />
       </div>
@@ -200,7 +213,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       favDegens,
       handleClaimDegen,
       handleClickEditName,
-      toggleFavorite,
+      handleFavoriteToggle,
       handleViewTraits,
       isDrawerOpen,
       isGridView,
@@ -321,7 +334,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
-            searchTerm={searchState.searchTerm}
+            searchTerm={searchTermDraft}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
             sortValue={filters.sort ?? 'idUp'}

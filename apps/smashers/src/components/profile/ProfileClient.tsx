@@ -22,8 +22,9 @@ interface SessionData {
 
 /**
  * The interactive profile island. The Next version deferred each tab panel with
- * `dynamic(..., { ssr: false })`; here the whole page is a `client:only` island,
- * so the account panel loads directly and the tab panels stay behind Suspense.
+ * `dynamic(..., { ssr: false })`; here the whole page is a hydrated
+ * `client:load` island, so the account panel loads directly and the tab panels
+ * stay behind Suspense.
  *
  * It renders the providers itself rather than being wrapped by them in the
  * layout. Astro gives every `client:*` element its own React root, so a
