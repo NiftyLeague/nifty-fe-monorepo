@@ -385,14 +385,18 @@ describe('app performance contracts', () => {
     expect(backdropSource).toContain('alt="Game Console Backdrop"')
   })
 
-  it('defers the decorative hero character layer behind the LCP background', () => {
+  it('keeps the desktop hero character mural eager and desktop-scoped', () => {
     const source = readFileSync(webHome, 'utf8')
-    const heroStart = source.indexOf('src="/img/hero/characters.webp"')
-    const heroEnd = source.indexOf('/>', heroStart)
+    const heroStart = source.indexOf("src: '/img/hero/characters.webp'")
+    const heroEnd = source.indexOf('</picture>', heroStart)
 
+    // Measured under devtools throttling the mural paints as the LCP whenever
+    // it is discovered lazily, so it ships eager + high priority; the art
+    // direction must still keep the desktop raster off the mobile path.
     expect(heroStart).toBeGreaterThanOrEqual(0)
     expect(heroEnd).toBeGreaterThan(heroStart)
-    expect(source.slice(heroStart, heroEnd)).not.toContain('loading="eager"')
+    expect(source.slice(heroStart, heroEnd)).toContain("loading: 'eager'")
+    expect(source.slice(heroStart, heroEnd)).toContain('media="(min-width: 769px)"')
   })
 
   it('keeps the GLTF viewer off the conflict-merging utility', () => {

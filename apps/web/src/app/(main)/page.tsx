@@ -62,20 +62,37 @@ const ResponsiveIntroBackground = () => {
   )
 }
 
+const DESKTOP_FALLBACK_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+
 const DesktopIntro = () => {
+  // The character mural sits beside the backdrop in the first desktop
+  // viewport, so it carries the same priority hint. It stays art-directed:
+  // the responsive candidates live on the <source> and the non-matching
+  // breakpoint renders a 1px fallback instead of downloading the mural.
+  const heroCharacters = getOptimizedImageProps({
+    src: '/img/hero/characters.webp',
+    width: 1920,
+    height: 1042,
+    sizes: '100vw',
+    quality: 60,
+    loading: 'eager',
+  })
   return (
     <section className="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">
       <div className="relative h-full w-full">
         <div className="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
-          <DesktopOnlyImage
-            src="/img/hero/characters.webp"
-            alt="Nifty Hero Characters"
-            width={1920}
-            height={1042}
-            sizes="100vw"
-            quality={60}
-            className="w-full h-auto"
-          />
+          <picture className="block">
+            <source media="(min-width: 769px)" sizes="100vw" srcSet={heroCharacters.srcSet} />
+            <img
+              alt="Nifty Hero Characters"
+              className="w-full h-auto"
+              fetchPriority="high"
+              height={1042}
+              loading="eager"
+              src={DESKTOP_FALLBACK_IMAGE}
+              width={1920}
+            />
+          </picture>
         </div>
         <div className="home-hero-companion">
           <div className="relative flex-grow">

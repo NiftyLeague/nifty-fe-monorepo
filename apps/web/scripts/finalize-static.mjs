@@ -12,28 +12,48 @@ for (const name of await readdir(join(app, '.web-images'))) {
     await cp(join(app, '.web-images', name), join(output, '__images', name))
 }
 
-// Inject a preload for each document's LCP candidate: the first eager,
-// high-priority image in the markup. Discovery otherwise waits for CSS and
-// HTML scanning, which costs the LCP animation frame on throttled mobile.
+// Inject a preload for every eager, high-priority image in a document: each
+// one is an above-the-fold LCP candidate whose discovery otherwise waits for
+// CSS and HTML scanning, which costs the LCP animation frame on throttled
+// mobile. Art-directed `<picture>` heroes carry their candidates on a
+// `<source>`, so the hint is read from the enclosing source instead, with its
+// media pinned on the link so the non-matching breakpoint does not download it.
 async function injectHeroPreload(file) {
   const html = await readFile(file, 'utf8')
-  // LCP candidate: the first high-priority image in the document.
-  const candidates = html.match(/<img\b[^>]*>/g) ?? []
-  const img = candidates.find((tag) => /\bfetchpriority="high"/i.test(tag))
-  if (!img) return false
-  const attr = (name) => {
-    const match = new RegExp(`\\b${name}="([^"]*)"`).exec(img)
-    return match?.[1]
+  const attr = (tag, name) => new RegExp(`\\b${name}="([^"]*)"`, 'i').exec(tag)?.[1]
+  const preloads = []
+  for (const match of html.matchAll(/<img\b[^>]*>/g)) {
+    if (!/\bfetchpriority="high"/i.test(match[0])) continue
+    let srcSet = attr(match[0], 'srcSet')
+    let sizes = attr(match[0], 'sizes')
+    let media
+    let src = attr(match[0], 'src')
+    if (!srcSet) {
+      // The <source> immediately governing this <img> holds the responsive
+      // candidates; the img's own src is the non-matching-breakpoint fallback.
+      // React emits camelCase srcSet; HTML attributes match case-insensitively.
+      const source = [
+        ...html.slice(0, match.index).matchAll(/<source\b[^>]*srcset="[^"]*"[^>]*>/gi),
+      ].at(-1)
+      if (!source) continue
+      srcSet = attr(source[0], 'srcset')
+      sizes = attr(source[0], 'sizes')
+      media = attr(source[0], 'media')
+      src = srcSet.split(',').at(-1)?.trim().split(/\s+/)[0]
+    }
+    if (!src || /^(https?:|data:)/.test(src)) continue
+    const mediaAttr = media ? ` media="${media}"` : ''
+    preloads.push(
+      srcSet
+        ? `<link rel="preload" as="image"${mediaAttr} href="${src}" imagesrcset="${srcSet}" imagesizes="${sizes ?? '100vw'}" fetchpriority="high" />`
+        : `<link rel="preload" as="image"${mediaAttr} href="${src}" fetchpriority="high" />`
+    )
   }
-  const src = attr('src')
-  if (!src || /^https?:/.test(src)) return false
-  const preload = attr('srcSet')
-    ? `<link rel="preload" as="image" href="${src}" imagesrcset="${attr('srcSet')}" imagesizes="${attr('sizes') ?? '100vw'}" fetchpriority="high" />`
-    : `<link rel="preload" as="image" href="${src}" fetchpriority="high" />`
+  if (preloads.length === 0) return false
   // Preloads must precede the inlined stylesheets for early discovery.
   const anchor = html.indexOf('<style')
   if (anchor === -1) return false
-  await writeFile(file, html.slice(0, anchor) + preload + html.slice(anchor))
+  await writeFile(file, html.slice(0, anchor) + preloads.join('') + html.slice(anchor))
   return true
 }
 

@@ -20,7 +20,7 @@ const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
             alt="Compete and Earn logo"
             width={700}
             height={548}
-            loading="lazy"
+            priority
             sizes="(min-width: 768px) 50vw, 100vw"
             className="mb-4 w-full max-w-[28rem] h-auto"
           />
@@ -36,7 +36,7 @@ const CompeteAndEarn = (slots: Record<string, React.ReactNode> = {}) => {
           <div className="relative text-right mb-4 md:mb-0 ps-0 lg:ps-5">
             {slots.webIsland0 ?? (
               <DeferredYouTubeEmbed
-                src="https://www.youtube.com/embed/wv_fI1PPBi0"
+                src="https://www.youtube-nocookie.com/embed/wv_fI1PPBi0"
                 title="Nifty League Compete & Earn"
                 className={styles.video}
               />

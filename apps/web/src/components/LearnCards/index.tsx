@@ -5,6 +5,7 @@ import { LEARN_CARDS } from './constants'
 
 interface LearnCardProps {
   btnText: string
+  eager?: boolean
   external?: boolean
   image: string
   link: string
@@ -15,6 +16,7 @@ interface LearnCardProps {
 
 const LearnCard = ({
   btnText,
+  eager = false,
   external,
   image,
   link,
@@ -32,6 +34,7 @@ const LearnCard = ({
             src={image}
             width={552}
             height={310}
+            {...(eager ? { loading: 'eager' as const } : {})}
             sizes="(min-width: 640px) 50vw, 100vw"
             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
           />
@@ -72,6 +75,7 @@ const LearnCards = () => {
         <div key={title} className="w-full sm:w-1/2 p-2">
           <LearnCard
             btnText={btnText}
+            eager={index < 4}
             external={external}
             image={image}
             link={link}
