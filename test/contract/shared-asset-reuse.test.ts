@@ -4,11 +4,10 @@ import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 /**
- * M4.2 shared-asset and shared-behaviour contract.
+ * Shared-asset and shared-behaviour contract.
  *
- * Three audits support this issue: asset reuse (hash-checked), token ownership,
- * and icon vocabulary. Each produced a verdict, and each verdict needs a test
- * that fails when someone undoes it.
+ * Asset reuse, token ownership, and icon vocabulary each need a test that fails
+ * when someone undoes the contract.
  */
 
 const ASSETS = 'assets'

@@ -2,27 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
-/**
- * Runtime regression guard for the smashers Astro islands.
- *
- * Every bug below shipped to production despite a green test suite, because the
- * suite asserted on source text while the defects were runtime properties of
- * how Astro hydrates. Static assertions cannot prove a component hydrates, so
- * these tests pin the *structural* rules whose violation caused the outage —
- * paired with an out-of-band browser check for the behaviour itself.
- *
- * Rules and the incident each one comes from:
- *  1. A `'use client'` component must be reachable from a `client:*` directive,
- *     or it ships inert (hero animation never started, buttons did nothing).
- *  2. Providers and their consumers must share one React root; Astro makes each
- *     `client:*` element its own root, so nesting them across islands silently
- *     falls back to default context (profile rendered empty).
- *  3. An unset public env var is inlined as EMPTY STRING, so consumers must
- *     treat '' as unset (a bare JSON.parse('') crashed the whole island).
- *  4. Layer order is explicit: content must not outrank the fixed nav.
- *  5. Decorative images must not carry alt text (README: browsers paint it).
- */
-
 const SMASHERS = 'apps/smashers'
 const pagesDir = join(SMASHERS, 'src/pages')
 const layoutsDir = join(SMASHERS, 'src/layouts')
@@ -39,16 +18,10 @@ const readAll = (dir: string, ext: string, found: string[] = []): string[] => {
 const astroFiles = [...readAll(pagesDir, '.astro'), ...readAll(layoutsDir, '.astro')]
 const read = (path: string) => readFileSync(path, 'utf8')
 
-/** Rule body for a selector, with comments removed so prose cannot match. */
 const cssRule = (css: string, selector: string) =>
   new RegExp(`${selector}\\s*\\{([^}]*)\\}`).exec(css.replace(/\/\*[\s\S]*?\*\//g, ''))?.[1] ?? ''
 
 describe('smashers island hydration', () => {
-  /**
-   * A `client:*` element is its own React root, so an island nested inside
-   * another island cannot receive its context. Both the profile panel and the
-   * login form broke this way and rendered with default context values.
-   */
   it('never nests a client directive inside another client directive', () => {
     for (const file of astroFiles) {
       const source = read(file)
@@ -76,11 +49,6 @@ describe('smashers island hydration', () => {
     }
   })
 
-  /**
-   * The header shipped without a directive, so its `'use client'` children
-   * rendered as inert HTML: the actor script was never injected (hero animation
-   * dead) and the dialog buttons had no onClick.
-   */
   it('hydrates the interactive header subtrees on the home page', () => {
     const source = read(join(pagesDir, 'index.astro'))
 
@@ -88,7 +56,6 @@ describe('smashers island hydration', () => {
       const usage = new RegExp(`<${component}\\b[^>]*\\bclient:[\\w-]+`)
       expect(source, `${component} must carry a client directive`).toMatch(usage)
     }
-    // The referral deep link opens the Play dialog; it needs the island too.
     expect(source).toMatch(/<ActionButtonsGroup\b[^>]*activeModal=/)
   })
 
@@ -127,20 +94,12 @@ describe('smashers island hydration', () => {
       expect(client).toContain('<AuthProviders>')
 
       const pageSource = read(join(pagesDir, page))
-      // Server-rendered islands (M5.6 #1883) — context still comes from the
-      // providers each client component renders itself.
       expect(pageSource).toContain('client:load')
     }
   })
 })
 
 describe('unset public env vars', () => {
-  /**
-   * A define performs a textual substitution, so an unset variable becomes an
-   * empty string, not `undefined`. A consumer that only checked `undefined`
-   * called JSON.parse('') during render and crashed the island, blanking both
-   * auth pages.
-   */
   it('treats an empty inlined env value as unset', () => {
     const source = read(join(SMASHERS, 'src/contexts/FeatureFlagsProvider.tsx'))
 
@@ -165,10 +124,6 @@ describe('unset public env vars', () => {
 })
 
 describe('smashers layer order', () => {
-  /**
-   * The hero button group declared z-index 99 inside the same stacking context
-   * as the nav (z-index 9), so it painted over the navigation.
-   */
   it('keeps the hero button group out of the nav layer', () => {
     const css = read(join(SMASHERS, 'src/components/Header/ActionButtonsGroup/index.module.css'))
 
@@ -180,7 +135,6 @@ describe('smashers layer order', () => {
     const zIndex = /z-index:\s*(-?\d+)/.exec(cssRule(css, '\\.heroContainer'))?.[1]
 
     expect(zIndex, 'the layer holding the fixed nav must set a z-index').toBeDefined()
-    // Above page content (which uses 0-2) and below the dialog overlay (1200).
     expect(Number(zIndex)).toBeGreaterThanOrEqual(10)
     expect(Number(zIndex)).toBeLessThan(1200)
   })
@@ -213,7 +167,6 @@ describe('console-game decorative artwork', () => {
   it('keeps an accessible name on the play/pause control', () => {
     const source = read(consoleGame)
 
-    // The image lost its alt, so the button's own label carries the meaning.
     expect(source).toMatch(/aria-label=\{isPlaying \? 'Pause video' : 'Play video'\}/)
   })
 

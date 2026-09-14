@@ -91,8 +91,8 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 							// main view is display: none there), so the drawer's view-state
 							// inert flags must not strand it inert on pages whose initial
 							// view is `main` — the /search column rendered visible but
-							// unreachable links (#1884). Below the breakpoint the drawer
-							// semantics apply again.
+							// unreachable. Below the breakpoint the drawer semantics
+							// apply again.
 							if (matchMedia('(min-width: 997px)').matches) {
 								for (const panel of this.querySelectorAll<HTMLElement>('.drawer-panel')) {
 									panel.inert = false;

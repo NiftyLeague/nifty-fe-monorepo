@@ -9,7 +9,7 @@ const WorldSceneList = () => (
         title={scene.title}
         description={scene.description}
         image={scene.image}
-        href={`/world/niftyworld/${scene.id}`}
+        href={`/world/${scene.id}`}
         hoverActionLabel="Explore map"
       />
     ))}

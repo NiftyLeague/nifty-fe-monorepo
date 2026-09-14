@@ -40,10 +40,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui
  * Accessibility contract for the shared base primitives.
  *
  * These are the shadcn/Radix wrappers every app renders. The rendering contract
- * lives in base-components.test.tsx; this file pins the properties the M4.1
+ * lives in base-components.test.tsx; this file pins the properties the
  * acceptance criteria name — roles, accessible names, keyboard operation, state
  * exposure, and focus behaviour — so a wrapper change that strips an ARIA
- * attribute or a key handler fails here rather than in an audit.
+ * attribute or a key handler fails here rather than in a browser-only check.
  */
 
 describe('base primitives: names and semantics', () => {

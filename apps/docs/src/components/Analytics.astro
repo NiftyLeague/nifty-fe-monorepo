@@ -11,7 +11,7 @@
 import { GOOGLE_TAG_MANAGER_ID } from '@nl/ui/gtm/constants';
 import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate';
 
-// The shared analytics gate (#1903): GTM is production-only, with an explicit
+// The shared analytics gate keeps GTM production-only, with an explicit
 // opt-out. Before this gate the container loaded on every build, so preview
 // deployments and local builds were writing into the production dashboards.
 const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development';

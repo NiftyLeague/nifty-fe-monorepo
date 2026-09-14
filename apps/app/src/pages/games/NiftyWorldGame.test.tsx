@@ -134,11 +134,25 @@ describe('NiftyWorldGame', () => {
       screen.getByTitle(`${game.title} mini game`).getAttribute('src') ?? ''
     )
 
-    act(() => jest.advanceTimersByTime(10_000))
+    act(() => jest.advanceTimersByTime(30_000))
 
     const retryUrl = new URL(screen.getByTitle(`${game.title} mini game`).getAttribute('src') ?? '')
     expect(retryUrl.searchParams.get('attempt')).toBe('1')
     expect(retryUrl.searchParams.get('visit')).toBe(initialUrl.searchParams.get('visit'))
+    expect(screen.getByRole('status', { name: `Loading ${game.title}` })).toBeTruthy()
+  })
+
+  it('does not retry a still-loading external game during the initial grace period', async () => {
+    jest.useFakeTimers()
+    const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
+    const game = NIFTY_WORLD_GAMES[0]
+
+    render(<NiftyWorldGame game={game} />)
+    const iframe = screen.getByTitle(`${game.title} mini game`)
+
+    act(() => jest.advanceTimersByTime(10_000))
+
+    expect(new URL(iframe.getAttribute('src') ?? '').searchParams.get('attempt')).toBeNull()
     expect(screen.getByRole('status', { name: `Loading ${game.title}` })).toBeTruthy()
   })
 

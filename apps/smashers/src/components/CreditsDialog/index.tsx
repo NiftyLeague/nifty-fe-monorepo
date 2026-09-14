@@ -157,7 +157,7 @@ const CreditsDialog = ({
   <Dialog
     // Controlled, not `defaultOpen`: the group drives `open`, and an
     // uncontrolled dialog ignores the prop after mount, leaving the group's
-    // state desynced after the first close (M5.6 audit #1883).
+    // state desynced after the first close.
     open={open}
     onOpenChange={onOpenChange}
     title={<div className="text-center">Credits</div>}

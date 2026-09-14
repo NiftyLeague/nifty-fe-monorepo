@@ -32,6 +32,7 @@ import { Route as VerificationIndexRouteImport } from './routes/verification.ind
 import { Route as PublicDegensIndexRouteImport } from './routes/_public/degens.index'
 import { Route as PublicDegensIdRouteImport } from './routes/_public/degens.$id'
 import { Route as PublicGamesIndexRouteImport } from './routes/_public/games.index'
+import { Route as PublicGamesGameRouteImport } from './routes/_public/games.$game'
 import { Route as PublicGamesCryptoWinterRouteImport } from './routes/_public/games.crypto-winter'
 import { Route as PublicGamesMtGawxRouteImport } from './routes/_public/games.mt-gawx'
 import { Route as PublicGamesSmashersRouteImport } from './routes/_public/games.smashers'
@@ -39,6 +40,7 @@ import { Route as PublicGamesWenGameRouteImport } from './routes/_public/games.w
 import { Route as PublicLeaderboardsIndexRouteImport } from './routes/_public/leaderboards.index'
 import { Route as PublicMintOMaticIndexRouteImport } from './routes/_public/mint-o-matic.index'
 import { Route as PublicWorldIndexRouteImport } from './routes/_public/world.index'
+import { Route as PublicWorldSceneRouteImport } from './routes/_public/world.$scene'
 import { Route as DashboardItemsBurnerRouteImport } from './routes/dashboard.items.burner'
 import { Route as PublicGamesNiftyworldGameRouteImport } from './routes/_public/games.niftyworld.$game'
 import { Route as PublicWorldNiftyworldSceneRouteImport } from './routes/_public/world.niftyworld.$scene'
@@ -157,6 +159,11 @@ const PublicGamesIndexRoute = PublicGamesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicGamesRoute,
 } as any)
+const PublicGamesGameRoute = PublicGamesGameRouteImport.update({
+  id: '/$game',
+  path: '/$game',
+  getParentRoute: () => PublicGamesRoute,
+} as any)
 const PublicGamesCryptoWinterRoute = PublicGamesCryptoWinterRouteImport.update({
   id: '/crypto-winter',
   path: '/crypto-winter',
@@ -190,6 +197,11 @@ const PublicMintOMaticIndexRoute = PublicMintOMaticIndexRouteImport.update({
 const PublicWorldIndexRoute = PublicWorldIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicWorldRoute,
+} as any)
+const PublicWorldSceneRoute = PublicWorldSceneRouteImport.update({
+  id: '/$scene',
+  path: '/$scene',
   getParentRoute: () => PublicWorldRoute,
 } as any)
 const DashboardItemsBurnerRoute = DashboardItemsBurnerRouteImport.update({
@@ -231,10 +243,12 @@ export interface FileRoutesByFullPath {
   '/dashboard/': typeof DashboardIndexRoute
   '/verification/': typeof VerificationIndexRoute
   '/degens/$id': typeof PublicDegensIdRoute
+  '/games/$game': typeof PublicGamesGameRoute
   '/games/crypto-winter': typeof PublicGamesCryptoWinterRoute
   '/games/mt-gawx': typeof PublicGamesMtGawxRoute
   '/games/smashers': typeof PublicGamesSmashersRoute
   '/games/wen-game': typeof PublicGamesWenGameRoute
+  '/world/$scene': typeof PublicWorldSceneRoute
   '/dashboard/items/burner': typeof DashboardItemsBurnerRoute
   '/degens/': typeof PublicDegensIndexRoute
   '/games/': typeof PublicGamesIndexRoute
@@ -258,10 +272,12 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardIndexRoute
   '/verification': typeof VerificationIndexRoute
   '/degens/$id': typeof PublicDegensIdRoute
+  '/games/$game': typeof PublicGamesGameRoute
   '/games/crypto-winter': typeof PublicGamesCryptoWinterRoute
   '/games/mt-gawx': typeof PublicGamesMtGawxRoute
   '/games/smashers': typeof PublicGamesSmashersRoute
   '/games/wen-game': typeof PublicGamesWenGameRoute
+  '/world/$scene': typeof PublicWorldSceneRoute
   '/dashboard/items/burner': typeof DashboardItemsBurnerRoute
   '/degens': typeof PublicDegensIndexRoute
   '/games': typeof PublicGamesIndexRoute
@@ -294,10 +310,12 @@ export interface FileRoutesById {
   '/dashboard/': typeof DashboardIndexRoute
   '/verification/': typeof VerificationIndexRoute
   '/_public/degens/$id': typeof PublicDegensIdRoute
+  '/_public/games/$game': typeof PublicGamesGameRoute
   '/_public/games/crypto-winter': typeof PublicGamesCryptoWinterRoute
   '/_public/games/mt-gawx': typeof PublicGamesMtGawxRoute
   '/_public/games/smashers': typeof PublicGamesSmashersRoute
   '/_public/games/wen-game': typeof PublicGamesWenGameRoute
+  '/_public/world/$scene': typeof PublicWorldSceneRoute
   '/dashboard/items/burner': typeof DashboardItemsBurnerRoute
   '/_public/degens/': typeof PublicDegensIndexRoute
   '/_public/games/': typeof PublicGamesIndexRoute
@@ -330,10 +348,12 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/verification/'
     | '/degens/$id'
+    | '/games/$game'
     | '/games/crypto-winter'
     | '/games/mt-gawx'
     | '/games/smashers'
     | '/games/wen-game'
+    | '/world/$scene'
     | '/dashboard/items/burner'
     | '/degens/'
     | '/games/'
@@ -357,10 +377,12 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/verification'
     | '/degens/$id'
+    | '/games/$game'
     | '/games/crypto-winter'
     | '/games/mt-gawx'
     | '/games/smashers'
     | '/games/wen-game'
+    | '/world/$scene'
     | '/dashboard/items/burner'
     | '/degens'
     | '/games'
@@ -392,10 +414,12 @@ export interface FileRouteTypes {
     | '/dashboard/'
     | '/verification/'
     | '/_public/degens/$id'
+    | '/_public/games/$game'
     | '/_public/games/crypto-winter'
     | '/_public/games/mt-gawx'
     | '/_public/games/smashers'
     | '/_public/games/wen-game'
+    | '/_public/world/$scene'
     | '/dashboard/items/burner'
     | '/_public/degens/'
     | '/_public/games/'
@@ -579,6 +603,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicGamesIndexRouteImport
       parentRoute: typeof PublicGamesRoute
     }
+    '/_public/games/$game': {
+      id: '/_public/games/$game'
+      path: '/$game'
+      fullPath: '/games/$game'
+      preLoaderRoute: typeof PublicGamesGameRouteImport
+      parentRoute: typeof PublicGamesRoute
+    }
     '/_public/games/crypto-winter': {
       id: '/_public/games/crypto-winter'
       path: '/crypto-winter'
@@ -628,6 +659,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicWorldIndexRouteImport
       parentRoute: typeof PublicWorldRoute
     }
+    '/_public/world/$scene': {
+      id: '/_public/world/$scene'
+      path: '/$scene'
+      fullPath: '/world/$scene'
+      preLoaderRoute: typeof PublicWorldSceneRouteImport
+      parentRoute: typeof PublicWorldRoute
+    }
     '/dashboard/items/burner': {
       id: '/dashboard/items/burner'
       path: '/burner'
@@ -667,6 +705,7 @@ const PublicDegensRouteWithChildren = PublicDegensRoute._addFileChildren(
 )
 
 interface PublicGamesRouteChildren {
+  PublicGamesGameRoute: typeof PublicGamesGameRoute
   PublicGamesCryptoWinterRoute: typeof PublicGamesCryptoWinterRoute
   PublicGamesMtGawxRoute: typeof PublicGamesMtGawxRoute
   PublicGamesSmashersRoute: typeof PublicGamesSmashersRoute
@@ -676,6 +715,7 @@ interface PublicGamesRouteChildren {
 }
 
 const PublicGamesRouteChildren: PublicGamesRouteChildren = {
+  PublicGamesGameRoute: PublicGamesGameRoute,
   PublicGamesCryptoWinterRoute: PublicGamesCryptoWinterRoute,
   PublicGamesMtGawxRoute: PublicGamesMtGawxRoute,
   PublicGamesSmashersRoute: PublicGamesSmashersRoute,
@@ -711,11 +751,13 @@ const PublicMintOMaticRouteWithChildren =
   PublicMintOMaticRoute._addFileChildren(PublicMintOMaticRouteChildren)
 
 interface PublicWorldRouteChildren {
+  PublicWorldSceneRoute: typeof PublicWorldSceneRoute
   PublicWorldIndexRoute: typeof PublicWorldIndexRoute
   PublicWorldNiftyworldSceneRoute: typeof PublicWorldNiftyworldSceneRoute
 }
 
 const PublicWorldRouteChildren: PublicWorldRouteChildren = {
+  PublicWorldSceneRoute: PublicWorldSceneRoute,
   PublicWorldIndexRoute: PublicWorldIndexRoute,
   PublicWorldNiftyworldSceneRoute: PublicWorldNiftyworldSceneRoute,
 }

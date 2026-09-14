@@ -10,7 +10,7 @@
  * Rendering waits until a block approaches the viewport: importing and laying
  * out the diagram is a long main-thread task, and the supply page's pie chart
  * sits below the fold, so gating on scroll keeps that work out of the load's
- * blocking window (the M5.7 audit measured 210 ms TBT from it). Diagrams already
+ * blocking window. Diagrams already
  * in view still render during load.
  */
 document.addEventListener('astro:page-load', () => {
@@ -28,8 +28,7 @@ document.addEventListener('astro:page-load', () => {
       void renderMermaid(pending)
     },
     // A tight margin keeps the import+render work out of the load window on
-    // pages whose diagrams sit below the fold (the audit measured 210 ms TBT
-    // and 7 s TTI when it fired during load) while still finishing a render
+    // pages whose diagrams sit below the fold while still finishing a render
     // before a normal scroll reaches the block.
     { rootMargin: '0px 0px 100px 0px' }
   )

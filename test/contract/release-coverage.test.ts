@@ -4,7 +4,7 @@ import { readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * Release coverage (#1841): every workspace package that carries a version is
+ * Release coverage: every workspace package that carries a version is
  * tracked by Release Please, and Release Please tracks nothing that does not
  * exist. The gap this guard closes is real — `packages/astro-config` shipped in
  * the M4 migration without a config entry, so its changes produced no release

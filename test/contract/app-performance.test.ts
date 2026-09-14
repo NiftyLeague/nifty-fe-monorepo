@@ -575,7 +575,7 @@ describe('app performance contracts', () => {
   it('runs local app development through Vite on port 3001', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
-    // Dev prepends the image-variant preparation (#1885) so `/__images/*`
+    // Dev prepends the image-variant preparation so `/__images/*`
     // resolves before Vite starts; the server itself stays Vite.
     expect(manifest.scripts.dev).toContain('vite dev')
     expect(manifest.scripts.dev).not.toContain('next dev')

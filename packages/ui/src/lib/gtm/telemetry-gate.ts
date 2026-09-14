@@ -1,5 +1,5 @@
 /**
- * The analytics gate policy (#1903): telemetry collects on production deploys
+ * The analytics gate policy: telemetry collects on production deploys
  * only, with an explicit opt-out flag. Preview deployments and local builds
  * collect nothing, on every surface.
  *

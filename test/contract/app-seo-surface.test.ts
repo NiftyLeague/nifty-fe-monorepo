@@ -5,9 +5,7 @@ import { join } from 'node:path'
 import { buildHead, buildMeta } from '../../apps/app/src/runtime/metadata'
 
 /**
- * App SEO surface (M5.8, #1885). Before the audit every route shared one
- * hardcoded `og:url` (the bare origin) and none emitted a canonical link, so
- * parameterized surfaces had no indexable address. The contract now is:
+ * App SEO surface. The contract is:
  *
  * - every route file passes a canonical `path` into `buildHead`;
  * - `buildHead` turns that path into `<link rel="canonical">` plus a

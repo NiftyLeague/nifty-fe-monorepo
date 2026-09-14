@@ -61,7 +61,7 @@ describe('Google Tag Manager events', () => {
     expect(getDataLayer()).toContainEqual(
       expect.objectContaining({ event: EVENTS.GAME_REFERRAL, game_name: 'Smashers' })
     )
-    // The unified payload (#1903): the web/smashers shape — metric_id and
+    // The unified payload uses the web/smashers shape — metric_id and
     // metric_rating with raw values — plus non_interaction, and none of the
     // sendEvent extras the old shape carried.
     expect(getDataLayer()?.at(-1)).toEqual({

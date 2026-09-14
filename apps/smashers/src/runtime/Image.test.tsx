@@ -13,12 +13,6 @@ afterAll(() => {
   else process.env.VERCEL = previousVercel
 })
 
-/**
- * The optimizer width ladder is load-bearing for Core Web Vitals: two separate
- * mis-selections (an 1080w request for an 824px asset, and a 3840w request for a
- * full-bleed backdrop on a 390px viewport) both surfaced as LCP regressions
- * rather than as visible bugs. These tests pin the selection rules.
- */
 describe('optimizer width ladder', () => {
   it('never exceeds the intrinsic width of the asset', () => {
     const widths = selectWidths(824, '(max-width: 768px) 100vw, 824px')

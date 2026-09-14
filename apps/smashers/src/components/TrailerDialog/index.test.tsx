@@ -9,4 +9,8 @@ describe('TrailerDialog', () => {
     expect(source).not.toContain('frameBorder=')
     expect(source).toMatch(/className="[^"]*\bborder-0\b[^"]*"/)
   })
+
+  it('loads the user-requested trailer as soon as the dialog opens', () => {
+    expect(source).toMatch(/allowFullScreen\s+loading="eager"/)
+  })
 })

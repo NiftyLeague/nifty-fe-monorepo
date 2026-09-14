@@ -31,7 +31,7 @@ const shellCss = `
 astro-island{display:contents}
 `
 const environment = import.meta.env.PUBLIC_DEPLOY_ENV ?? import.meta.env.VERCEL_ENV ?? 'development'
-// The shared analytics gate (#1903): GTM is production-only and per-page opt-out;
+// The shared analytics gate keeps GTM production-only and supports per-page opt-out;
 // Sentry keeps the same production gate it already had.
 const telemetryEnabled = productionTelemetryEnabled(
   environment === 'production',

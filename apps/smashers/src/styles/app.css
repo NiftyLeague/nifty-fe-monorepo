@@ -13,21 +13,7 @@
 
 /* ==============================|| FALLBACKS ||============================== */
 
-/*
- * Metric-matched local fallbacks. The previous Next build generated these
- * size-adjust and ascent/descent overrides from the real font tables so the
- * fallback occupies the same space and the swap causes no layout shift; without
- * them the swap measured ~0.08 CLS on the loot tables, which is why this app
- * keeps them.
- *
- * They are app-local on purpose. The numbers match the fallback's *line box* to
- * the real face, not its advance widths, and measured against the real faces
- * they are faithful for IBM Plex Sans (+0.6%) and Lilita One (+0.6%) but not for
- * Nexa Rust (+2.2%, enough to rewrap a heading into an extra line) or Press
- * Start 2P (+140%). An app whose pages have not been measured against them
- * should not inherit them, so `@nl/ui/styles/fonts.css` declares the real faces
- * and their variables only.
- */
+/* App-local fallbacks preserve line boxes while the real faces load. */
 @font-face {
   font-family: 'NL IBM Plex Sans fallback';
   src: local('Arial');

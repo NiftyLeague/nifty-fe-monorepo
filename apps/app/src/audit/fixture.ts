@@ -206,6 +206,6 @@ export function getAuditFixtureData(url: string): unknown {
   if (url === PROFILE_FAV_DEGENS_API) return { favorites: '' }
   if (url === GET_GAMER_PROFILE_API || url === MY_PROFILE_API_URL) return AUDIT_FIXTURE_PROFILE
 
-  // Fixture mode is an explicit visual-audit sandbox: never fall through to a real request.
+  // Fixture mode is an explicit sandbox: never fall through to a real request.
   return null
 }

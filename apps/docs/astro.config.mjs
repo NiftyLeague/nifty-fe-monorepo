@@ -82,9 +82,8 @@ export default defineConfig({
   ],
   vite: {
     build: {
-      // Sourcemaps for the large lazily-loaded chunks (Mermaid), which otherwise
-      // fail the "valid source maps" audit. Maps are only fetched by devtools, so
-      // they cost nothing at runtime.
+      // Sourcemaps for the large lazily-loaded chunks (Mermaid). Maps are only
+      // fetched by devtools, so they cost nothing at runtime.
       sourcemap: true,
     },
     resolve: { alias: [sourceAlias(import.meta.url)] },

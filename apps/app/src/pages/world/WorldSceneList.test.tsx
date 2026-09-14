@@ -49,15 +49,15 @@ describe('Nifty World scene list', () => {
     expect(
       screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
-      '/world/niftyworld/isla-azul',
-      '/world/niftyworld/dungeon',
-      '/world/niftyworld/party-cove',
-      '/world/niftyworld/little-tokyo',
-      '/world/niftyworld/mansion',
-      '/world/niftyworld/exchange',
-      '/world/niftyworld/marina',
-      '/world/niftyworld/rugmans-peak',
-      '/world/niftyworld/arcade',
+      '/world/isla-azul',
+      '/world/dungeon',
+      '/world/party-cove',
+      '/world/little-tokyo',
+      '/world/mansion',
+      '/world/exchange',
+      '/world/marina',
+      '/world/rugmans-peak',
+      '/world/arcade',
     ])
     expect(screen.queryByText('Enter World')).toBeNull()
     expect(screen.getAllByText('Explore map')).toHaveLength(9)

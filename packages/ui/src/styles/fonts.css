@@ -1,21 +1,4 @@
-/**
- * Canonical font faces for every surface that renders the shared theme.
- *
- * The four families were declared separately in each app and had drifted apart:
- * one app had renamed the special-face custom property, so the theme's
- * `--special-font` chain resolved to nothing. A family is now declared once, and
- * each app maps the `--font-*` properties the Tailwind theme consumes by
- * importing this file.
- *
- * These are the real faces only. The metric-matched Arial fallbacks the previous
- * Next build generated alongside them are deliberately *not* here: measured
- * against the real faces, their advance widths are faithful for two families and
- * not for the others (Arial at `size-adjust: 219%` for Press Start 2P is 2.4x
- * too wide, and +2.2% for Nexa Rust rewrapped a heading into an extra line,
- * which measured as 0.0336 CLS on the app's games page). A fallback policy
- * changes wrapping, so it is adopted per app against that app's own pages —
- * smashers carries its validated set in `src/styles/app.css`.
- */
+/* Shared font faces and variables used by every app theme. */
 
 /* ------------------------------------------------------------- families -- */
 

@@ -55,7 +55,7 @@ const median = (values) => {
   return sorted.length % 2 ? sorted[middle] : Math.round((sorted[middle - 1] + sorted[middle]) / 2)
 }
 
-/** Audits that failed, so a route can be traced back to its cause. */
+/** Checks that failed, so a route can be traced back to its cause. */
 const failures = (result) => {
   const noisy = new Set(['uses-long-cache-ttl', 'network-server-latency', 'network-rtt'])
   return Object.values(result.audits)
@@ -168,7 +168,7 @@ const outFile = resolve(outDir, `${label}.json`)
 writeFileSync(outFile, JSON.stringify(payload, null, 2))
 console.log(`\nwrote ${outFile}`)
 
-// Summarize the failing audits and how many routes each affects.
+// Summarize the failing checks and how many routes each affects.
 const grouped = new Map()
 for (const list of Object.values(diagnostics)) {
   for (const entry of new Set(list.map((f) => f.split(' (')[0]))) {

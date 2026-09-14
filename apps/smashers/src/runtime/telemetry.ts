@@ -17,7 +17,7 @@ import { sentryOptions } from '@/constants/sentry'
  *    layout sets from the build environment.
  *  - Web Vitals are reported through the shared `sendWebVitals`, whose payload
  *    is this app's shape (`metric_id`, `metric_rating`, raw values) unified
- *    across every surface in #1903.
+ *    across every surface.
  *
  * This replaces the Next instrumentation-client / layout DeferredSentry pair.
  * `@sentry/browser` replaces `@sentry/nextjs` because there is no Next runtime

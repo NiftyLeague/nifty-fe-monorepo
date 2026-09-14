@@ -4,7 +4,7 @@ import { findUnusedExports } from '../../scripts/find-unused-exports.mjs'
 
 /**
  * The `export` keyword on these is redundant: every name is reached only from inside
- * its own file. They are live code, not dead code, so the M4.4 export pass deliberately
+ * its own file. They are live code, not dead code, so the export check deliberately
  * left the keyword in place rather than churning 90 declarations across 44 files —
  * unused exports are tree-shaken out of every build, so nothing ships because of them.
  *
@@ -22,7 +22,7 @@ const REDUNDANT_EXPORTS = {
   // The app's OptimizedImage implementation is wired through the vite alias
   // (`@nl/ui/custom/optimized-image` -> src/runtime/Image.tsx), which the
   // type-aware detector does not resolve; its exports are the public surface
-  // every app consumer reaches (M5.8, #1885).
+  // every app consumer reaches.
   'apps/app/src/runtime/Image.tsx': [
     'OptimizedImage',
     'OptimizedImageProps',
@@ -121,7 +121,7 @@ const REDUNDANT_EXPORTS = {
   'packages/ui/src/lib/image-attributes.ts': ['ImageAttributeInput'],
 }
 
-describe('type-aware export audit', () => {
+describe('type-aware export check', () => {
   const { unused } = findUnusedExports()
   const unreachable = unused.filter((entry) => entry.scope === 'unreachable')
   const redundant = unused.filter((entry) => entry.scope === 'export-only')

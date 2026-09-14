@@ -11,7 +11,7 @@ const formatPercentage = (value: string | number): string => {
 
 /**
  * The tables scroll inside a fixed-height container, so the container needs
- * keyboard access to scroll (axe `scrollable-region-focusable`, M5.6 #1883):
+ * keyboard access to scroll:
  * focusable, and named as a region so the focus target means something.
  */
 const ScrollableTable = ({ label, children }: { label: string; children: React.ReactNode }) => (

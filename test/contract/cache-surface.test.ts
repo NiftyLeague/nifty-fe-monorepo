@@ -3,11 +3,10 @@ import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * Cache-surface contract (#1886): the Cache-Control each app declares per route
+ * Cache-surface contract: the Cache-Control each app declares per route
  * class. The checks read the declared configuration (vercel.json headers and
  * web's Workers `_headers` file), which is what production serves — the live
- * values were verified with curl evidence during the M5.5–M5.8 audits, and
- * `scripts/cache-probe.mjs` re-captures that evidence on demand.
+ * values can be re-captured with `scripts/cache-probe.mjs` when needed.
  *
  * Route classes: hashed immutable assets (`/_astro/*`, `/assets/*`, `/__images/*`),
  * refreshed media (`/img`, `/icons`, `/video`, `/favicon`), and HTML (platform
@@ -37,15 +36,15 @@ describe('cache surfaces', () => {
       ['web', '/_astro/*'],
       ['web', '/__images/*'],
       ['app', '/assets/*'],
-      // The app's build-time image variants (#1885) are content-addressed like
-      // the hashed chunks, so they take the same immutable policy.
+      // The app's build-time image variants are content-addressed like the
+      // hashed chunks, so they take the same immutable policy.
       ['app', '/__images/*'],
       ['smashers', '/_astro/*'],
       // Docs builds under the /docs base, so the URL surface its HTML references
       // is /docs/_astro/*; the bare /_astro/* twin serves the same files through
-      // the vercel.json rewrite and must keep the identical policy (#1884). The
-      // bare-only declaration was the M5.7 audit's cache finding: every hashed
-      // asset revalidated per visit because the prefixed path matched nothing.
+      // the vercel.json rewrite and must keep the identical policy. The
+      // bare-only declaration would make every hashed asset revalidate per visit
+      // because the prefixed path would match nothing.
       ['docs', '/docs/_astro/*'],
       ['docs', '/_astro/*'],
     ] as const
@@ -86,9 +85,8 @@ describe('cache surfaces', () => {
   })
 
   it('keeps smashers media on the refresh policy instead of the platform default', () => {
-    // The public/ media (hero posters, videos, favicons, icons) rode Vercel's
-    // `max-age=0, must-revalidate` default until the M5.6 audit (#1883) gave
-    // smashers the same refresh policy as web.
+    // The public/ media (hero posters, videos, favicons, icons) uses the same
+    // refresh policy as web.
     const headers = readVercel('smashers')
     for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
       expect(headers[source]?.['cache-control'], `smashers ${source}`).toBe(REFRESH)
@@ -97,9 +95,8 @@ describe('cache surfaces', () => {
   })
 
   it('keeps app media on the refresh policy instead of the platform default', () => {
-    // The app shares the repo-root assets dir as its public surface; until the
-    // M5.8 audit (#1885) its media rode Vercel's `max-age=0, must-revalidate`
-    // default, exactly the finding the smashers audit fixed on its surface.
+    // The app shares the repo-root assets dir as its public surface and uses an
+    // explicit refresh policy for its media.
     const headers = readVercel('app')
     for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
       expect(headers[source]?.['cache-control'], `app ${source}`).toBe(REFRESH)

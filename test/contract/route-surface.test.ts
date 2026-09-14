@@ -82,8 +82,10 @@ const appRouteContracts: Record<string, string[]> = {
     'src/routes/_public/degens.index.tsx',
     'src/routes/_public/degens.$id.tsx',
     'src/routes/_public/games.index.tsx',
+    'src/routes/_public/games.niftyworld.$game.tsx',
     'src/routes/_public/leaderboards.index.tsx',
     'src/routes/_public/mint-o-matic.index.tsx',
+    'src/routes/_public/world.niftyworld.$scene.tsx',
     'src/routes/dashboard.index.tsx',
     'src/routes/dashboard.items.tsx',
     'src/routes/dashboard.items.burner.tsx',
@@ -553,7 +555,7 @@ describe('GLTF viewer loading contract', () => {
     // emitted into the build output: the Workers assets surface consumes it, and
     // the E2E suite asserts the emitted header against a wrangler dev server.
     // vercel.json carries the same entries for the Vercel surface, pinned by the
-    // header-sources sync test in vercel-build-policy.test.ts (#1904).
+    // header-sources sync test in vercel-build-policy.test.ts.
     expect(HEADERS_FILE).toContain('/_astro/*')
     expect(HEADERS_FILE).toContain('Access-Control-Allow-Origin: *')
   })
@@ -841,8 +843,6 @@ describe('Smashers public shell contract', () => {
     expect(layoutSource).not.toContain("from '@/contexts/FeatureFlagsProvider'")
     expect(layoutSource).toContain('<slot />')
     for (const page of [smashersLoginPage, smashersProfilePage]) {
-      // Server-rendered islands (M5.6 #1883): the auth surfaces paint their
-      // real content from the document, not after hydration.
       expect(readFileSync(join(process.cwd(), page), 'utf8')).toContain('client:load')
     }
     expect(providersSource).toContain("from './AuthProvider'")
@@ -868,10 +868,6 @@ describe('Smashers public shell contract', () => {
   })
 
   it('server-renders the auth islands so no loading fallback is needed', () => {
-    // Until the M5.6 audit (#1883) the auth surfaces were client:only islands
-    // with skeleton fallbacks, which painted nothing contentful until
-    // hydration (~4s on the mobile profile). They now ship their real markup
-    // in the document; a skeleton fallback here would regress that.
     for (const file of [smashersLoginPage, smashersProfilePage]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
       expect(source).toContain('client:load')
@@ -897,8 +893,6 @@ describe('Smashers login loading contract', () => {
     expect(pageSource).toContain('client:load')
     expect(pageSource).toContain('getSession')
     expect(pageSource).toContain("Astro.redirect('/profile'")
-    // Server-rendered since the M5.6 audit (#1883): no fallback skeleton, the
-    // form is in the document.
     expect(pageSource).not.toContain('slot="fallback"')
     expect(pageSource).not.toContain("from '@nl/ui/base/skeleton'")
   })
@@ -1950,6 +1944,14 @@ describe('shared console game loading contract', () => {
     expect(deferredSource).not.toContain("from '../console-game/backdrop'")
     expect(deferredSource).not.toContain("from '@nl/ui/custom/optimized-image'")
   })
+
+  it('keeps the Smashers console game on the fast activation path', () => {
+    const source = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
+
+    expect(source).toMatch(
+      /<DeferredConsoleGame\b[^>]*loadInteractiveOnViewport[^>]*activationDelay=\{1500\}/
+    )
+  })
 })
 
 describe('shared below-fold loading contract', () => {
@@ -2646,8 +2648,6 @@ describe('public route dependency contract', () => {
   })
 
   it('keeps the shared auth form off the deferred-loading primitives', () => {
-    // The login page server-renders its island (M5.6 #1883), so it needs
-    // neither a skeleton fallback nor a route-loading boundary.
     const page = readFileSync(join(process.cwd(), smashersLoginPage), 'utf8')
 
     expect(page).not.toContain("from '@nl/ui/base/skeleton'")

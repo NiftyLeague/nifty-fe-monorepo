@@ -37,12 +37,12 @@ describe('mini game list navigation', () => {
     expect(
       screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))
     ).toEqual([
-      '/games/niftyworld/degen-dodge',
-      '/games/niftyworld/brick-breaker',
-      '/games/niftyworld/wen-2d',
-      '/games/niftyworld/wen-3d',
-      '/games/niftyworld/degen-dive',
-      '/games/niftyworld/tennis',
+      '/games/degen-dodge',
+      '/games/brick-breaker',
+      '/games/wen-2d',
+      '/games/wen-3d',
+      '/games/degen-dive',
+      '/games/tennis',
     ])
     expect(screen.queryByText('Play in App')).toBeNull()
     expect(screen.queryByText(/required/i)).toBeNull()

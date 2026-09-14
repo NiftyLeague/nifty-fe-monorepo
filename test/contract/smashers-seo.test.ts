@@ -5,13 +5,11 @@ import { join } from 'node:path'
 import { ALL_PATHS } from '../../apps/smashers/src/pages/sitemap.xml'
 
 /**
- * SEO surface contract for apps/smashers (#1883).
+ * SEO surface contract for apps/smashers.
  *
  * The sitemap and the metadata surface must agree: every submitted URL must be
  * indexable. `/login` and `/profile` render through Auth.astro's `noindex`
- * default, and submitting them produced the "Submitted URL marked noindex"
- * contradiction in Search Console — they were removed from the sitemap in the
- * M5.6 audit. This test pins the agreement in both directions.
+ * default, so they are excluded from the sitemap.
  */
 
 const SMASHERS = 'apps/smashers'

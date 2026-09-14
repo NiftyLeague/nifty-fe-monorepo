@@ -147,8 +147,7 @@ export function LoginForm({
                 {view === VIEWS.LOGIN && (
                   // A button, not an anchor: it switches the form view in
                   // place, so it needs `type="button"` to stay out of the
-                  // submit path, keyboard focusability, and no bare-anchor
-                  // crawl/contrast findings (M5.6 audit #1883). The muted
+                  // submit path and keyboard focusability. The muted
                   // foreground matches the adjacent label, which holds AA on
                   // the auth backdrop where the accent blue did not.
                   <button
@@ -192,9 +191,7 @@ export function LoginForm({
         {enableAccountCreation && (
           <div className="text-center text-sm">
             {view === VIEWS.LOGIN ? "Don't have an account? " : 'Already have an account? '}
-            {/* A view switch, not navigation: a type="button" is keyboard
-                focusable and carries no bare-anchor crawl/contrast findings
-                (M5.6 audit #1883). */}
+            {/* A view switch, not navigation: a type="button" is keyboard focusable. */}
             <button
               type="button"
               onClick={() =>

@@ -137,8 +137,8 @@ describe('response header sources', () => {
   it('keeps the app response headers in vercel.json and nowhere else', () => {
     // On this Build Output API deploy Vercel applies vercel.json `headers`: live
     // `/assets/*` responses carry the vercel.json-only Access-Control-Allow-Origin,
-    // which the Nitro output never emitted (#1904). Its duplicate of the four
-    // security headers was the second source that could drift, so it is gone.
+    // which the Nitro output never emitted. Its duplicate of the four security
+    // headers was the second source that could drift, so it is gone.
     const viteConfig = read('apps/app/vite.config.ts')
     for (const key of Object.keys(securityHeaders)) expect(viteConfig).not.toContain(key)
 
@@ -150,7 +150,7 @@ describe('response header sources', () => {
     // web serves production from Vercel, whose source is vercel.json, and runs the
     // Cloudflare Workers assets surface through wrangler, whose source is the
     // `_headers` file written into dist. Neither platform reads the other's
-    // format, so the sync itself is the contract (#1904).
+    // format, so the sync itself is the contract.
     const fileHeaders = parseHeadersFile(HEADERS_FILE)
     const vercel = vercelHeaders('apps/web/vercel.json')
     for (const [source, headers] of Object.entries(vercel)) {
