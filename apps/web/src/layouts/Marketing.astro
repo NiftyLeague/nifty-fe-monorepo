@@ -6,7 +6,8 @@ interface Props { metadata?: object; rootClass?: string; canonical?: string }
 const { metadata = {}, rootClass = '', canonical = Astro.url.pathname } = Astro.props
 ---
 <Base metadata={metadata} canonical={canonical}>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <Navbar client:load />
-  <main class={rootClass}><slot /></main>
+  <main id="main-content" class={rootClass} tabindex="-1"><slot /></main>
   <Footer />
 </Base>

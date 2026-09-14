@@ -38,9 +38,17 @@ test('the cold-load tab order traverses logo, nav, and page without a trap', asy
     if (focused.includes('/tally')) break
   }
 
-  // The walk must start at the logo, then reach the three group disclosures and
-  // the action button in DOM order — the whole header is keyboard-operable.
-  expect(focused.slice(0, 5)).toEqual(['/', 'summary', 'summary', 'summary', '/app'])
+  // The walk must start at the skip link (WCAG 2.4.1 bypass for the repeated
+  // header), then the logo, the three group disclosures, and the action button
+  // in DOM order — the whole header is keyboard-operable.
+  expect(focused.slice(0, 6)).toEqual([
+    '#main-content',
+    '/',
+    'summary',
+    'summary',
+    'summary',
+    '/app',
+  ])
 
   // No keyboard trap: focus keeps moving into the page and through the footer,
   // where routes without a header entry (roadmap, lore) are reachable.
