@@ -3,9 +3,7 @@ import { describe, expect, it } from 'bun:test'
 
 const BASE_URL = process.env.BASE_URL || 'https://api.niftyleague.com'
 
-const describeLive = process.env.RUN_LIVE_TESTS ? describe : describe.skip
-
-describeLive('Live API contract smoke', () => {
+describe('Live API contract smoke', () => {
   const agent = request(BASE_URL)
 
   const expectJsonOk = async (path: string) => {

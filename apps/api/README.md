@@ -23,6 +23,13 @@ bun --filter api test
 bun --filter api build
 ```
 
+The deployed API smoke checks are intentionally separate from the hermetic
+suite. Run them explicitly against a reachable deployment:
+
+```bash
+bun --filter api test:live
+```
+
 The API's local environment file is `apps/api/.env.local` and is ignored by
 Git. Copy the variables from `.env.example` or pull them from the linked Vercel
 project. Every value is server-side configuration; never expose these names
@@ -78,5 +85,5 @@ AUDIT_NETWORK=sepolia \
 node apps/api/scripts/audit-endpoints.mjs
 ```
 
-The live audit requires network access and a deployed API; unit and integration
-tests are hermetic.
+The live audit and smoke checks require network access and a deployed API; unit
+and integration tests are hermetic and remain part of the default test suite.
