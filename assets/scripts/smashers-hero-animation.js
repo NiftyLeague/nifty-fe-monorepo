@@ -31,15 +31,19 @@
     if (!picture || !picture.parentElement) return
     if (document.querySelector('[data-smashers-hero-video]')) return
 
+    // The video mounts underneath the picture (same stacking level, earlier
+    // in DOM order), which makes the swap seamless: before it plays it is
+    // transparent or painting its poster — the same asset the picture shows —
+    // so the picture is the visible layer either way. Once real frames play,
+    // the picture must be retired or it stays painted over the animation
+    // forever; a video that never plays simply leaves the hero intact.
     picture.parentElement.insertBefore(probe, picture)
-    probe.style.opacity = '0'
-    probe.style.transition = 'opacity 400ms ease-out'
-    probe.addEventListener('playing', () => (probe.style.opacity = '1'), { once: true })
+    probe.addEventListener('playing', () => (picture.style.visibility = 'hidden'), { once: true })
   }
 
   // Muted autoplay can be refused while the tab is hidden or unfocused — the
-  // rejection must not leave the probe parked invisibly at opacity 0: retry
-  // when the tab becomes visible again or on the visitor's next interaction.
+  // rejection must not stall the video before its first frame: retry when the
+  // tab becomes visible again or on the visitor's next interaction.
   const attemptPlayback = () => {
     const play = probe.play?.()
     if (play && typeof play.catch === 'function') {

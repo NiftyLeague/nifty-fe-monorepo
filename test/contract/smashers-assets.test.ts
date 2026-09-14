@@ -48,13 +48,19 @@ describe('Smashers asset delivery contracts', () => {
     expect(deferredAnimation).toContain("effectiveType === 'slow-2g' || effectiveType === '2g'")
     expect(deferredAnimation).not.toContain('navigator.connection?.downlink')
     expect(deferredAnimation).toContain("canPlayType('video/mp4')")
-    // The poster stays in the document: the video is an overlay that is only
-    // revealed once a frame is decodable, so a failed or blocked video leaves the
+    // The video mounts underneath the poster picture and the picture stays the
+    // visible layer until real frames play: the video's poster is the same
+    // asset, so the swap is seamless, and a failed or blocked video leaves the
     // hero intact.
     expect(deferredAnimation).toContain('picture.parentElement.insertBefore(probe, picture)')
     expect(deferredAnimation).toContain("addEventListener('error'")
+    // Once the video plays, the poster picture must be retired — it is painted
+    // above the video (same stacking level, later in DOM order), so leaving it
+    // visible would cover the animation forever.
+    expect(deferredAnimation).toContain("addEventListener('playing'")
+    expect(deferredAnimation).toContain("picture.style.visibility = 'hidden'")
     // A refused muted autoplay (hidden or unfocused tab) must retry on
-    // visibility or interaction instead of leaving the probe at opacity 0.
+    // visibility or interaction instead of stalling before the first frame.
     expect(deferredAnimation).toContain('attemptPlayback')
     expect(deferredAnimation).toContain("'visibilitychange'")
     expect(gameSection).toContain('/video/party-modes.mp4')
