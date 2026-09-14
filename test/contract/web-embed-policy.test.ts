@@ -2,8 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 
 const marketingVideoConsumers = [
-  'apps/web/src/app/(main)/compete-and-earn/page.tsx',
-  'apps/web/src/app/(main)/degens/page.tsx',
   'apps/web/src/pages/compete-and-earn.astro',
   'apps/web/src/pages/degens.astro',
 ]

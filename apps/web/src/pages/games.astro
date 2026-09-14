@@ -1,25 +1,97 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/games/page'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
-import { metadata as routeMetadata } from '@/app/(main)/games/layout'
+import { MobileOnlyImage } from '@nl/ui/custom/responsive-only-image'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import GameCard from '@/components/GameCard'
+import { NIFTY_GAMES } from '@/constants/games'
+import { NIFTY_APP_URL } from '@/constants/links'
+
+const metadata = {
+  title: 'Games',
+  description:
+    'JOIN THOUSANDS OF PLAYERS ALL OVER THE WORLD COMPETING FOR THE TOP SPOT IN THE NIFTY LEAGUE',
+  openGraph: {
+    title: 'Nifty League | Games',
+    description:
+      'JOIN THOUSANDS OF PLAYERS ALL OVER THE WORLD COMPETING FOR THE TOP SPOT IN THE NIFTY LEAGUE',
+    images: 'https://niftyleague.com/img/console-game/classic-gaming-reinvented.webp',
+  },
+}
+
+const [flagship, ...games] = NIFTY_GAMES
 ---
-<Marketing metadata={routeMetadata} rootClass="games-pg" canonical="/games">
-  <LegacyPage>
-    <Fragment slot="webIsland0">
-      <ViewportVideo
-        client:visible={{ rootMargin: '200px' }}
-        id="lobby"
-        width="100%"
-        height="100%"
-        muted
-        loop
-        playsInline
-        data-keepplaying
-        className="hidden md:block"
-        poster="/img/games/smashers/lobby.webp"
-        src="/video/lobby.mp4"
+<Marketing metadata={metadata} rootClass="games-pg" canonical="/games">
+  <section class="container relative pt-20">
+    <div class="purple-bg-orb orb-top-right"></div>
+    <div class="section flex flex-col-reverse md:flex-row items-center justify-center">
+      <div class="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
+        <p class="mb-3 font-special text-[0.625rem] leading-[1.9] tracking-[0.02em] uppercase text-highlight-purple">
+          PICK YOUR NEXT ADVENTURE
+        </p>
+        <h1 class="m-0">GAMES</h1>
+        <p class="mt-4 mb-0">
+          Jump into Nifty League&apos;s growing lineup of browser games, mini-games, and social
+          worlds. Everything is waiting for you in the app.
+        </p>
+        <ThemeBtnGroup
+          className="justify-center md:justify-start"
+          primary={{ href: NIFTY_APP_URL, title: 'PLAY NOW', external: true }}
+        />
+      </div>
+
+      <div class="w-full md:w-1/2 lg:w-5/12">
+        <div class="animate-zoom-out">
+          <ViewportVideo
+            client:visible={{ rootMargin: '200px' }}
+            id="lobby"
+            width="100%"
+            height="100%"
+            muted
+            loop
+            playsInline
+            data-keepplaying
+            className="hidden md:block"
+            poster="/img/games/smashers/lobby.webp"
+            src="/video/lobby.mp4"
+          />
+          <div class="block md:hidden">
+            <MobileOnlyImage
+              alt="Arcade"
+              width={339}
+              height={661}
+              loading="eager"
+              src="/img/games/smashers/arcade.webp"
+              sizes="(min-width: 768px) 50vw, 100vw"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container relative">
+    <div class="purple-bg-orb orb-top-right"></div>
+    <section aria-labelledby="games-lineup-heading" class="section">
+      <div class="mb-4 text-center">
+        <p class="mb-3 font-special text-[0.625rem] leading-[1.9] tracking-[0.02em] uppercase text-highlight-purple">
+          THE LINEUP
+        </p>
+        <h2 id="games-lineup-heading" class="m-0">
+          PLAY TOGETHER.
+        </h2>
+      </div>
+
+      {flagship ? <GameCard game={flagship} index={0} highlight /> : null}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-8">
+        {games.map((game, index) => <GameCard game={game} index={index + 1} compact />)}
+      </div>
+
+      <ThemeBtnGroup
+        className="mt-6 xl:mt-8"
+        primary={{ href: NIFTY_APP_URL, title: 'PLAY NOW', external: true }}
       />
-    </Fragment>
-  </LegacyPage>
+    </section>
+  </div>
 </Marketing>
