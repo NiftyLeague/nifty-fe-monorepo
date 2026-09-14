@@ -2,7 +2,6 @@
 
 import type { PropsWithChildren, ReactNode } from 'react'
 
-import { LocalStorageProvider } from '@/contexts/LocalStorageContext'
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 
 type WalletStorageProvidersProps = PropsWithChildren<{
@@ -19,14 +18,12 @@ export default function WalletStorageProviders({
   errorFallback,
 }: WalletStorageProvidersProps) {
   return (
-    <LocalStorageProvider>
-      <Web3ModalProvider
-        cookies={cookies}
-        errorFallback={errorFallback}
-        loadingFallback={loadingFallback}
-      >
-        {children}
-      </Web3ModalProvider>
-    </LocalStorageProvider>
+    <Web3ModalProvider
+      cookies={cookies}
+      errorFallback={errorFallback}
+      loadingFallback={loadingFallback}
+    >
+      {children}
+    </Web3ModalProvider>
   )
 }
