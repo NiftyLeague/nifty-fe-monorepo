@@ -25,12 +25,13 @@ export default function GameWalletProviders({
   loadWalletFeatures = true,
   children,
 }: GameWalletProvidersProps) {
-  const cookies = getRequestCookieHeader()
   const auditFixtureEnabled = AUDIT_FIXTURE
 
-  const walletFeatures = auditFixtureEnabled ? (
-    <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
-  ) : loadWalletFeatures ? (
+  if (auditFixtureEnabled)
+    return <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
+
+  const cookies = getRequestCookieHeader()
+  const walletFeatures = loadWalletFeatures ? (
     <WalletFeatureProviders>{children}</WalletFeatureProviders>
   ) : (
     children

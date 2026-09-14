@@ -13,18 +13,9 @@ const DASHBOARD_ROUTES = [
   '/dashboard/rentals',
 ]
 
-/** Known console error emitted by the fixture's vendored wallet SDK. */
-const KNOWN_FIXTURE_ERROR = "reading 'substring'"
-
 async function axeViolations(page: import('@playwright/test').Page) {
-  // Recorded exceptions are limited to external embed internals and known
-  // presentation-only differences:
-  // - `iframe`: third-party embed internals (the YouTube player), not our markup.
-  // - `color-contrast`: the game-nav link and sidebar description muted styles.
-  const results = await new AxeBuilder({ page })
-    .exclude('iframe')
-    .disableRules(['color-contrast'])
-    .analyze()
+  // Third-party embed internals (the YouTube player) are outside our markup.
+  const results = await new AxeBuilder({ page }).exclude('iframe').analyze()
   return results.violations.filter((violation) =>
     ['serious', 'critical'].includes(violation.impact ?? '')
   )
@@ -43,8 +34,7 @@ test('public routes render their shell without unexpected console errors', async
     errors.length = 0
     await page.goto(route)
     await expect(page.locator('body')).toBeVisible()
-    const unexpected = errors.filter((text) => !text.includes(KNOWN_FIXTURE_ERROR))
-    expect(unexpected, `${route} console errors`).toEqual([])
+    expect(errors, `${route} console errors`).toEqual([])
   }
 })
 
