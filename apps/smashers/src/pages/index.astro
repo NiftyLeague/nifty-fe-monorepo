@@ -1,29 +1,87 @@
 ---
 import Base from '@/layouts/Base.astro'
-import Header, { HERO_ARTWORK, type ActiveModal } from '@/components/Header'
+import Header, { HERO_ARTWORK } from '@/components/Header'
 import ActionButtonsGroup from '@/components/Header/ActionButtonsGroup'
-import DeferredHeroBackground from '@/components/Header/DeferredHeroBackground'
+import { getOptimizedImageProps } from '@/runtime/Image'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
 import { SocialsFooter } from '@nl/ui/custom/socials-footer'
-import { DeferredDegensSection, DeferredGameSection } from '@/components/DeferredHomeSections'
+import GameSection from '@/components/GameSection'
+import DegensSection from '@/components/DegensSection'
+import heroStyles from '@/components/Header/index.module.css'
 
-// The referral deep link opens the Play dialog on arrival; the value only
-// selects which modal starts open, so it is validated against the known set.
-const referral = Astro.url.searchParams.get('referral')
-const activeModal: ActiveModal = referral ? 'play' : null
+// The landing page is fully static: the ?referral deep link is read by the
+// ActionButtonsGroup island on the client, so the HTML prerenders and serves
+// from the CDN edge without a server round trip.
+export const prerender = true
 
 const preloadImages = [...HERO_ARTWORK]
+
+// Same image candidates the React island produced: the optimizer srcSet
+// ladder over the shared `sizes` box, eager on the poster that sits behind
+// the idle-loaded hero animation.
+const heroBackgroundImage = getOptimizedImageProps({
+  src: '/img/games/smashers/background-poster.webp',
+  alt: '',
+  sizes: '100vw',
+  loading: 'eager',
+  fetchPriority: 'low',
+  decoding: 'async',
+})
 ---
+
 <Base canonical="/" preloadImages={preloadImages}>
   <main>
     <section id="header">
       <Header>
         <Fragment slot="heroBackground">
-          <DeferredHeroBackground client:load />
+          <picture class={heroStyles.heroBackground}>
+            <img
+              class={heroStyles.heroBackgroundImage}
+              src={heroBackgroundImage.src}
+              srcset={heroBackgroundImage.srcSet}
+              alt=""
+              loading="eager"
+              fetchpriority="low"
+              decoding="async"
+              data-smashers-hero-background
+            />
+          </picture>
+          <script>
+            // Decorative hero animation: inject the script after interaction or
+            // an idle delay, exactly like the shared deferred-activation policy.
+            // Background tabs starve requestIdleCallback, so becoming visible
+            // counts as a trigger too.
+            const ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'touchstart']
+            const SCRIPT_ID = 'smashers-hero-animation'
+            const injectHeroAnimation = () => {
+              document.removeEventListener('visibilitychange', onBecomeVisible)
+              for (const event of ACTIVATION_EVENTS) window.removeEventListener(event, injectHeroAnimation)
+              if (document.getElementById(SCRIPT_ID)) return
+              const script = document.createElement('script')
+              script.id = SCRIPT_ID
+              script.src = '/scripts/smashers-hero-animation.js'
+              script.async = true
+              document.head.appendChild(script)
+            }
+            const onBecomeVisible = () => {
+              if (document.visibilityState === 'visible') injectHeroAnimation()
+            }
+            for (const event of ACTIVATION_EVENTS) {
+              window.addEventListener(event, injectHeroAnimation, { once: true, passive: true })
+            }
+            document.addEventListener('visibilitychange', onBecomeVisible)
+            window.setTimeout(() => {
+              if (window.requestIdleCallback) {
+                window.requestIdleCallback(injectHeroAnimation, { timeout: 1000 })
+              } else {
+                injectHeroAnimation()
+              }
+            }, 5000)
+          </script>
         </Fragment>
         <Fragment slot="actionButtons">
-          <ActionButtonsGroup client:load activeModal={activeModal} />
+          <ActionButtonsGroup client:load />
         </Fragment>
       </Header>
     </section>
@@ -40,12 +98,12 @@ const preloadImages = [...HERO_ARTWORK]
     </section>
     <section id="game-section" class="container section relative">
       <div class="purple-bg-orb orb-top-left"></div>
-      <DeferredGameSection client:visible={{ rootMargin: '200px' }} />
+      <GameSection client:visible={{ rootMargin: '200px' }} />
     </section>
     <section id="degens-section" class="container section relative">
       <div class="purple-bg-orb orb-top-right"></div>
       <div class="purple-bg-orb orb-bottom-left"></div>
-      <DeferredDegensSection client:visible={{ rootMargin: '200px' }} />
+      <DegensSection client:visible={{ rootMargin: '200px' }} />
     </section>
     <SocialsFooter />
   </main>

@@ -9,7 +9,7 @@ describe('ActionButtonsGroup', () => {
   })
 
   it('renders accessible themed actions without preloading modal content', () => {
-    render(<ActionButtonsGroup activeModal={null} />)
+    render(<ActionButtonsGroup />)
 
     for (const label of ['Play', 'Trailer', 'Credits']) {
       const button = screen.getByRole('button', { name: label })

@@ -1,6 +1,5 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 
-import AppQueryProvider from '@/query/AppQueryProvider'
 import { buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/degens')({
@@ -9,9 +8,5 @@ export const Route = createFileRoute('/_public/degens')({
 })
 
 function DegensLayout() {
-  return (
-    <AppQueryProvider>
-      <Outlet />
-    </AppQueryProvider>
-  )
+  return <Outlet />
 }

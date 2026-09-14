@@ -1,6 +1,5 @@
 import { Outlet, createFileRoute } from '@tanstack/react-router'
 
-import AppQueryProvider from '@/query/AppQueryProvider'
 import PublicContentContainer from '@/components/wrapper/PublicContentContainer'
 import { buildHead } from '@/runtime/metadata'
 
@@ -11,10 +10,8 @@ export const Route = createFileRoute('/_public/world')({
 
 function WorldLayout() {
   return (
-    <AppQueryProvider>
-      <PublicContentContainer>
-        <Outlet />
-      </PublicContentContainer>
-    </AppQueryProvider>
+    <PublicContentContainer>
+      <Outlet />
+    </PublicContentContainer>
   )
 }

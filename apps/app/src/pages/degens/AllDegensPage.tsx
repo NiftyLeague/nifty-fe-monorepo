@@ -15,6 +15,7 @@ import { DEGENS_PER_PAGE, getGridSizeClass } from '@/components/extended/DegensF
 import DegensTopNav from '@/components/extended/DegensTopNav'
 import SectionTitle from '@/components/sections/SectionTitle'
 import { getPageItems } from '@/utils/pagination'
+import { useDebouncedSearchTerm } from '@/hooks/useDebouncedSearchTerm'
 import { usePublicDegensPage } from '@/hooks/queries/usePublicDegens'
 import type { PublicDegen } from '@/types/degens'
 import { fromPublicDegenPageWire } from '@/utils/public-degens'
@@ -77,11 +78,15 @@ const AllDegensPage = (): React.ReactNode => {
     [setSearchState]
   )
 
-  const handleChangeSearchTerm: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (
-    e
-  ) => {
-    void setSearchState({ searchTerm: e.target.value || null, page: 1 }, { history: 'replace' })
-  }
+  const commitSearchTerm = useCallback(
+    (searchTerm: string | null) =>
+      void setSearchState({ searchTerm, page: 1 }, { history: 'replace' }),
+    [setSearchState]
+  )
+  const [searchTermDraft, handleChangeSearchTerm] = useDebouncedSearchTerm(
+    searchState.searchTerm,
+    commitSearchTerm
+  )
 
   const handleChangeLayoutMode = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
     void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
@@ -118,7 +123,7 @@ const AllDegensPage = (): React.ReactNode => {
           degen={degen}
           deferAnimatedMedia
           size={isGridView ? 'normal' : 'small'}
-          onClickDetail={() => handleViewTraits(degen)}
+          onClickDetail={handleViewTraits}
         />
       </div>
     ),
@@ -207,7 +212,7 @@ const AllDegensPage = (): React.ReactNode => {
       <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div className="pl-4 pr-6">
           <DegensTopNav
-            searchTerm={searchState.searchTerm}
+            searchTerm={searchTermDraft}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
             sortValue={sortValue}

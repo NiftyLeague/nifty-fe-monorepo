@@ -83,7 +83,6 @@
         "react-hook-form": "^7.84.0",
         "react-number-format": "^5.4.5",
         "react-unity-webgl": "~10.2.0",
-        "save-as": "^0.1.8",
         "set-interval-async": "^3.0.3",
         "sonner": "^2.0.7",
         "viem": "^2.55.19",
@@ -147,6 +146,7 @@
         "lucide-react": "^1.31.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
+        "web-vitals": "^6.2.1",
       },
       "devDependencies": {
         "@astrojs/check": "^0.9.10",
@@ -158,7 +158,6 @@
         "@types/node": "^26.4.0",
         "@types/react": "19.3.0",
         "@types/react-dom": "19.3.0",
-        "web-vitals": "^6.2.1",
       },
     },
     "apps/web": {
@@ -170,12 +169,10 @@
         "@nl/ui": "workspace:*",
         "@sentry/browser": "^10.69.0",
         "astro": "7.3.2",
-        "cookie": "^2.0.1",
         "lucide-react": "^1.31.0",
         "react": "19.3.0",
         "react-dom": "19.3.0",
         "sharp": "^0.35.4",
-        "three": "^0.186.0",
         "web-vitals": "^6.2.1",
       },
       "devDependencies": {
@@ -1930,8 +1927,6 @@
 
     "ccount": ["ccount@2.0.1", "", {}, "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="],
 
-    "chai": ["chai@6.2.2", "", {}, "sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg=="],
-
     "chalk": ["chalk@6.0.0", "", {}, "sha512-2uNTXIuTTxk7ciZgAU1BQcgnchcG0xXnrs6jzkQfj9SsRa9M2s5zE8WT96hS6KmG4MzWHSrvH43DF1m4XRkrFg=="],
 
     "character-entities": ["character-entities@2.0.2", "", {}, "sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ=="],
@@ -3309,8 +3304,6 @@
     "safer-buffer": ["safer-buffer@2.1.2", "", {}, "sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg=="],
 
     "satteri": ["satteri@0.10.5", "", { "dependencies": { "@types/estree-jsx": "^1.0.5", "@types/hast": "^3.0.5", "@types/mdast": "^4.0.4", "@types/unist": "^3.0.3" }, "optionalDependencies": { "@bruits/satteri-darwin-arm64": "0.10.5", "@bruits/satteri-darwin-x64": "0.10.5", "@bruits/satteri-linux-arm64-gnu": "0.10.5", "@bruits/satteri-linux-arm64-musl": "0.10.5", "@bruits/satteri-linux-x64-gnu": "0.10.5", "@bruits/satteri-linux-x64-musl": "0.10.5", "@bruits/satteri-wasm32-wasi": "0.10.5", "@bruits/satteri-win32-arm64-msvc": "0.10.5", "@bruits/satteri-win32-x64-msvc": "0.10.5" } }, "sha512-Ao1LKpAEa9Wdg0otgbVKViZHEq9ebdXe4DMrp3s9vQAU0HNIuHnFEuMuOcm0ZIXyV0Yzxj91NvhLpvXZJO/5ZQ=="],
-
-    "save-as": ["save-as@0.1.8", "", { "dependencies": { "chai": "*" } }, "sha512-yLmK2ETTnmPXuTCM2am8F1M2CU6+uURAJywVVe0nqTlugGL7NHUmshrdCePDm1w66ZBpDmrEGEW2jDUQiTCg1w=="],
 
     "sax": ["sax@1.6.1", "", {}, "sha512-42tBVwLWnaQvW5zc4HbZrTuWccECCZfBi92FDuwtqxasH+JbPB3/FOKb1m222K42R4WxuxzzMsTswfzgtSu64Q=="],
 

@@ -71,7 +71,7 @@ Register the callback URL with each provider: `https://niftysmashers.com/api/aut
 
 ## Environment variables
 
-The app reads both `PUBLIC_*` and the legacy `NEXT_PUBLIC_*` names, preferring `PUBLIC_*`. Both sets are set on the Vercel project with identical values while `origin/main` still deploys this app as Next.js — Next reads `NEXT_PUBLIC_*` at build time, so removing them before cutover would break a `main` deploy. Delete the `NEXT_PUBLIC_*` entries once this branch serves production.
+The app reads only `PUBLIC_*` names (the legacy `NEXT_PUBLIC_*` entries have no reader anymore and can be deleted from the Vercel project and any local env file). Note that Bun's automatic `.env` loading does not reliably reach the build's config evaluation, so pass build-time values explicitly when building locally.
 
 Client-side values are inlined at build time; server-side values (session secret, OAuth secrets, store links) are read per request and need no rebuild to change. See `.env.example` for the full list.
 
