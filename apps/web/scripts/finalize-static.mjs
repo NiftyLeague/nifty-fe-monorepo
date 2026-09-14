@@ -6,6 +6,7 @@ import { HEADERS_FILE } from './static-headers.mjs'
 
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const output = join(app, 'dist')
+const attr = (tag, name) => new RegExp(`\\b${name}="([^"]*)"`, 'i').exec(tag)?.[1]
 await mkdir(join(output, '__images'), { recursive: true })
 for (const name of await readdir(join(app, '.web-images'))) {
   if (name.endsWith('.webp'))
@@ -14,7 +15,6 @@ for (const name of await readdir(join(app, '.web-images'))) {
 
 async function injectHeroPreload(file) {
   const html = await readFile(file, 'utf8')
-  const attr = (tag, name) => new RegExp(`\\b${name}="([^"]*)"`, 'i').exec(tag)?.[1]
   const preloads = []
   for (const match of html.matchAll(/<img\b[^>]*>/g)) {
     if (!/\bfetchpriority="high"/i.test(match[0])) continue
