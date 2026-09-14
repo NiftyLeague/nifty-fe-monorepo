@@ -2,14 +2,6 @@ import { describe, expect, it } from 'bun:test'
 
 import { parseFlags } from './FeatureFlagsProvider'
 
-/**
- * Regression cover for a crash that blanked the login and profile pages.
- *
- * The flags variable is inlined at build time, and when it is unset the define
- * yields an EMPTY STRING rather than `undefined`. The previous guard only
- * checked for `undefined`, so `JSON.parse('')` threw during render and took the
- * whole island down — every page that mounts these providers rendered nothing.
- */
 const DEFAULTS = {
   enableAccountCreation: false,
   enableAvatars: false,

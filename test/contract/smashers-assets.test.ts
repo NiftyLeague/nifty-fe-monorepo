@@ -13,9 +13,6 @@ const heroPoster = 'assets/img/games/smashers/background-poster.webp'
 
 describe('Smashers asset delivery contracts', () => {
   it('keeps both home-page animations on the video pipeline within budget', () => {
-    // Animated WebP carried 3.4 MB (hero) and 8.3 MB (party modes) for the same
-    // frames; the video encodes are 464 KB and 1.2 MB. These budgets are the
-    // regression guard that the previous 3.6 MB and 9.25 MB limits were not.
     expect(statSync(heroVideo).size).toBeLessThan(700_000)
     expect(statSync(partyModesVideo).size).toBeLessThan(1_500_000)
   })
