@@ -14,8 +14,7 @@ export const SESSION_TIMEOUT = {
  * by the OAuth flow helpers without a build-time environment assertion.
  *
  * No NEXTAUTH_SECRET fallback: the Vercel project carries SESSION_SECRET in
- * every environment since the M5.6 audit retirement (#1883) — the fallback was
- * only load-bearing while the Next-era name was still on the project.
+ * every environment.
  */
 const getSessionSecret = (): string => {
   const secret = process.env.SESSION_SECRET
@@ -76,7 +75,7 @@ export async function getSession(context: APIContext): Promise<Session> {
  * JSON response helper, replacing `NextResponse.json`. Every payload here is
  * session- or auth-bound, so responses are explicitly uncacheable: without an
  * explicit header Vercel injects `public, max-age=0, must-revalidate`, whose
- * `public` invites shared-cache storage of per-user data (M5.6 audit #1883).
+ * `public` invites shared-cache storage of per-user data.
  */
 export const json = (data: unknown, init?: ResponseInit): Response =>
   new Response(JSON.stringify(data), {

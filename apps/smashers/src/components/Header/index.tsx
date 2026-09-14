@@ -16,7 +16,7 @@ export const HERO_ARTWORK = [
     width: 824,
     // The CSS box is `width: 400px; max-width: 70vw` (index.module.css) — the
     // sizes must describe that box, not the intrinsic width, or the browser
-    // downloads a rung twice the size it renders (M5.6 audit #1883).
+    // downloads a rung twice the size it renders.
     sizes: '(max-width: 571px) 70vw, 400px',
     quality: 85,
   },

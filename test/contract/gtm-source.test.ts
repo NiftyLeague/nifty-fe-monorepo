@@ -90,7 +90,7 @@ describe('GTM container loading', () => {
   })
 })
 
-describe('web-vitals payload and analytics gates (#1903)', () => {
+describe('web-vitals payload and analytics gates', () => {
   // One payload shape everywhere: the web/smashers shape — metric_id,
   // metric_rating, raw values, non_interaction — owned by the shared reporter.
   // The inline `layer.push` payloads this decision retired must not return.

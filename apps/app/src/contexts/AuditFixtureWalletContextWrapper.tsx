@@ -20,7 +20,7 @@ const auditComics = COMICS.map((comic, index) => ({ ...comic, balance: index ===
 const auditItems = ITEMS.map((item, index) => ({ ...item, balance: index === 0 ? 1 : 0 }))
 
 /**
- * Shared audit fixture for routes that need wallet, network, Immutable, and
+ * Shared fixture for routes that need wallet, network, Immutable, and
  * NFT ownership contexts without the dashboard token-balance context.
  */
 export default function AuditFixtureWalletContextWrapper({

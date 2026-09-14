@@ -71,9 +71,8 @@
   contain-intrinsic-size: auto 800px;
 }
 
-/* Below-fold home sections keep their measured footprint while the section
- * code is fetched. The minimal shared boundary stays transparent so it does
- * not introduce a competing card, border, or skeleton theme during scroll. */
+/* Below-fold home sections keep their footprint while code is fetched. The
+ * minimal shared boundary stays transparent during scroll. */
 .home-pg .deferred-section-minimal {
   content-visibility: auto;
   contain-intrinsic-size: auto 800px;

@@ -11,7 +11,7 @@ import { IS_PRODUCTION, TELEMETRY } from '@/runtime/env'
  */
 export default function DeferredAnalytics(): React.ReactNode {
   const [GoogleTagManager, setGoogleTagManager] = useState<React.ComponentType | null>(null)
-  // The shared analytics gate (#1903): production deploys only, VITE_TELEMETRY opts out.
+  // The shared analytics gate enables production deploys and honors VITE_TELEMETRY opt-out.
   const enabled = productionTelemetryEnabled(IS_PRODUCTION, TELEMETRY)
 
   useEffect(() => {

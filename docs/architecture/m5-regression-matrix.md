@@ -50,8 +50,8 @@ is exercised per-app in the M5.5 audit.
 
 ## apps/app — TanStack Start (Vercel, Build Output API)
 
-Public routes: `/`, `/world` (+ `/world/niftyworld/:scene`), `/degens`, `/degens/:id`,
-`/games` (+ crypto-winter, mt-gawx, smashers, wen-game, `/games/niftyworld/:game`),
+Public routes: `/`, `/world` (+ `/world/:scene`), `/degens`, `/degens/:id`,
+`/games` (+ crypto-winter, mt-gawx, smashers, wen-game, `/games/:game`),
 `/leaderboards`, `/mint-o-matic`, `/verification`. Authenticated: `/dashboard`
 (overview, degens, gamer-profile, items, items/burner, rentals) behind the private shell.
 

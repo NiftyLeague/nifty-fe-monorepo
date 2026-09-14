@@ -29,9 +29,7 @@ export interface RouteMetadata {
   /**
    * The route's canonical path from the app root (e.g. `/games/smashers`).
    * When set, the route emits `<link rel="canonical">` and a matching
-   * `og:url` instead of the bare origin — the M5.8 audit (#1885) found every
-   * route shared one `og:url` and no canonical at all, leaving parameterized
-   * surfaces (`/degens/$id`, `/world/niftyworld/$scene`) unaddressable.
+   * `og:url` instead of the bare origin.
    */
   path?: string
 }

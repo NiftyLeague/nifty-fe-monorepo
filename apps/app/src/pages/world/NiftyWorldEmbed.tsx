@@ -23,7 +23,7 @@ interface NiftyWorldEmbedProps {
 
 type FrameState = 'loading' | 'ready' | 'error'
 
-const FRAME_LOAD_TIMEOUT_MS = 10_000
+const FRAME_LOAD_TIMEOUT_MS = 30_000
 const NIFTY_WORLD_THEME_MESSAGE = 'niftyworld:theme'
 const NIFTY_WORLD_THEME_READY_MESSAGE = 'niftyworld:theme-ready'
 const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect

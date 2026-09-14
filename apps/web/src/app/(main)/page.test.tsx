@@ -129,9 +129,7 @@ describe('home page', () => {
   it('keeps the desktop hero mural eager and priority-hinted beside the LCP background', () => {
     render(<Home />)
 
-    // Measured under devtools throttling, the mural paints as the LCP whenever
-    // it is discovered lazily; eager + fetchpriority=high only removes the
-    // discovery delay. The mobile breakpoint still never downloads it.
+    // The mobile breakpoint still never downloads the desktop mural.
     const heroArtwork = screen.getByAltText('Nifty Hero Characters')
     expect(heroArtwork.getAttribute('loading')).toBe('eager')
     expect(heroArtwork.getAttribute('fetchpriority')).toBe('high')

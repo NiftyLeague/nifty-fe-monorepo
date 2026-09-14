@@ -1,15 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-/**
- * Browser E2E for apps/app (#1915).
- *
- * The suite builds the app with the visual-audit fixture enabled
- * (`VITE_AUDIT_FIXTURE=true` — the AuthGuard skips its redirect, so the
- * authenticated dashboard states render without a PlayFab session) and serves
- * the Nitro node-server build, which is the same SSR server production runs.
- * Public routes are additionally exercised against production in the audit
- * evidence; see `docs/architecture/m5-regression-matrix.md`.
- */
+/** Browser E2E for apps/app using the Nitro node-server build. */
 export default defineConfig({
   testDir: './e2e',
   testMatch: '**/*.e2e.ts',

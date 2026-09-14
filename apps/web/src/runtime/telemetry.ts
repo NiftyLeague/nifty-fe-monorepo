@@ -15,7 +15,7 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
  *    module only ships on a production build (see layouts/Base.astro).
  *  - Web Vitals are reported through the shared `sendWebVitals`, whose payload
  *    is this app's shape (`metric_id`, `metric_rating`, raw values) unified
- *    across every surface in #1903.
+ *    across every surface.
  */
 const report = (metric: Parameters<typeof sendWebVitals>[0]) => sendWebVitals(metric)
 

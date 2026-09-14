@@ -15,8 +15,7 @@ const pathPriority = (path: string): string => {
  * Static sitemap, replacing the next-sitemap postbuild step. The path list
  * includes the store redirects that are not Astro pages but are still worth
  * submitting. `/login` and `/profile` are deliberately absent: both render
- * `noindex` (Auth.astro), and submitting noindex URLs contradicts itself in
- * Search Console ("Submitted URL marked noindex") — the M5.6 audit (#1883).
+ * `noindex` (Auth.astro), so they are deliberately absent.
  */
 export const GET: APIRoute = () => {
   const lastmod = new Date().toISOString()

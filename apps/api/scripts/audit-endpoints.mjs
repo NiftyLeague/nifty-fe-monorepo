@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * audit-endpoints — live contract audit for the Nifty League Contracts API.
+ * audit-endpoints — live contract check for the Nifty League Contracts API.
  *
  * Hits every public route on a deployed API and exits non-zero if any route
  * deviates from its contract. This is the gate an AI agent runs after a

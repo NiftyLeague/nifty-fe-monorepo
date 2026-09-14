@@ -3,13 +3,12 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 /**
- * Stale-code guards (M4.4).
+ * Stale-code guards.
  *
  * A file nothing imports is dead weight that the build cannot report: bundlers
  * silently drop it, so it survives cleanups until someone greps for it. The
- * sweep that produced this file found five orphaned CSS modules whose components
- * had been deleted two releases earlier (#790 removed the components but left the
- * stylesheets).
+ * Orphaned stylesheets can survive after their components are deleted, so the
+ * contract scans for files that have no imports.
  */
 
 const SCAN_ROOTS = ['apps', 'packages']

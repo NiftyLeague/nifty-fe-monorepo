@@ -9,8 +9,7 @@ import { imageAttributes, imageSource, stripUndefinedAttributes } from '@nl/ui/l
  * The shared props contract is preserved, including the optimisation the Next
  * build performed: `/_next/image?url=...&w=...` is replaced by Vercel's own
  * image optimiser, `/_vercel/image?url=...&w=...`, with the same responsive
- * `srcSet` ladder. Serving the untouched originals instead cost ~40 KB on the
- * hero wordmark and showed up as a 600 ms LCP regression.
+ * `srcSet` ladder.
  *
  * The optimiser only exists on Vercel, so the URL is gated on `VERCEL` and
  * everything else (dev, local builds, tests) gets the plain asset path.
@@ -35,10 +34,7 @@ const optimizedUrl = (src: string, width: number, quality: number): string =>
  * Pick the optimizer width ladder for an element.
  *
  * The ladder is capped by the element's layout box, taken from the largest
- * `px` branch of `sizes` (or a desktop viewport when only `vw` is given). Two
- * failure modes motivated this: resolving `sizes` before the intrinsic width
- * requested 1080w for an 824px asset, and trusting the declared native width let
- * a 4842px full-bleed backdrop request 3840w on a phone.
+ * `px` branch of `sizes` (or a desktop viewport when only `vw` is given).
  *
  * All rungs up to the cap are emitted, not just the smallest fit, so the browser
  * still chooses per viewport and device pixel ratio. The preload hint and the
@@ -132,9 +128,8 @@ export function getOptimizedImageProps({
  * Build the `imagesrcset`/`imagesizes` pair for a preload hint.
  *
  * The browser resolves a preload against `imagesrcset` exactly as it resolves
- * the `<img>` against `srcset`. Without it the hint names one width while the
- * element picks another, and the artwork is downloaded twice — which is what
- * made the hero wordmark the LCP element at 1.7s.
+ * the `<img>` against `srcset`. This keeps the hint and the element on the same
+ * responsive candidate.
  */
 export function getImagePreloadProps(
   props: Pick<OptimizedImageProps, 'src' | 'sizes' | 'width' | 'quality'>

@@ -15,10 +15,9 @@ import { Text, Title } from './typography'
  * Accessibility contract for the hand-written shared primitives.
  *
  * Radix supplies the ARIA for the base primitives; these components own their
- * own markup, so the properties the M4.1 acceptance criteria name — labels,
+ * own markup, so the properties the accessibility criteria name — labels,
  * semantics, reduced motion, responsive behaviour — are the library's
- * responsibility. Each assertion below failed at least once during the audit, or
- * pins a fix made alongside it.
+ * responsibility.
  */
 
 /** Read a sibling source file; the test owns these contracts, not the caller. */

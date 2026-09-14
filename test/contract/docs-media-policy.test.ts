@@ -76,7 +76,7 @@ describe('shared docs media policy', () => {
 
     // Rendered through the Astro image pipeline so the browser gets a sized,
     // compressed variant instead of the full poster (which is over 1 MB). The
-    // variant options live in the shared roadmap-poster module (#1884) so the
+    // variant options live in the shared roadmap-poster module so the
     // page's <Image> and the head preload resolve identical URLs.
     expect(source).toContain('<Image')
     expect(source).toContain('alt="Nifty League product roadmap"')
@@ -89,5 +89,13 @@ describe('shared docs media policy', () => {
     const pipeline = readFileSync('apps/docs/src/lib/roadmap-poster.ts', 'utf8')
     expect(pipeline).toContain('[400, 640, 761]')
     expect(statSync(roadmapPoster).size).toBeLessThan(1_100_000)
+  })
+
+  it('uses the full medium-width content area before sidebars appear', () => {
+    const theme = readFileSync('apps/docs/src/styles/theme.css', 'utf8')
+
+    expect(theme).toMatch(
+      /@media\s*\(max-width:\s*996\.5px\)[\s\S]*?\.content-panel\s*\{[\s\S]*?padding-inline:\s*5%[\s\S]*?\.content-panel\s*>\s*\.sl-container\s*\{[\s\S]*?max-width:\s*100%/
+    )
   })
 })

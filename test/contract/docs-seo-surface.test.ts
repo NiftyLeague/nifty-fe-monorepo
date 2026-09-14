@@ -3,14 +3,11 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
- * Docs SEO surface contract (#1884): the head-tag hygiene and crawlability
+ * Docs SEO surface contract: head-tag hygiene and crawlability
  * guarantees for apps/docs. Source-level by design — every guarantee here is
  * enforced where the tags are produced, so a regression fails without needing a
  * built dist.
  *
- * Background: before the M5.7 audit every page emitted TWO canonical, og:url and
- * twitter:card tags (Starlight's generated head plus the override's), and the
- * first og:image in crawl order was a broken relative URL from the config head.
  */
 
 const docsRoot = join(process.cwd(), 'apps/docs')
@@ -76,7 +73,7 @@ describe('docs SEO surface', () => {
 
   it('keeps the Algolia crawler config pointed at the live sitemap URL', () => {
     // The crawler config's sitemap_urls must reference the URL robots.txt
-    // declares; the old config predated the sitemap being reachable (#1884).
+    // declares.
     const algolia = JSON.parse(read('algolia-config.json')) as { sitemap_urls: string[] }
     expect(algolia.sitemap_urls).toEqual(['https://docs.niftyleague.com/sitemap-index.xml'])
   })

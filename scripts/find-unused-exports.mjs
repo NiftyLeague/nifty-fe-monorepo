@@ -2,8 +2,8 @@
 /**
  * Reports exported symbols that nothing outside their own file references.
  *
- * The M4.4 sweep (#1838) covered whole files and stylesheets, where a name scan is
- * enough. It could not see inside a file that *is* imported, so an export used by
+ * A whole-file name scan is enough for unimported files and stylesheets. It cannot
+ * see inside a file that *is* imported, so an export used by
  * nobody survives exactly the way an unimported file does. This pass resolves names
  * through the type checker instead of matching text: barrels, namespace imports and
  * aliased re-exports count as real references, and a name that only appears in a
@@ -51,7 +51,7 @@ const ENTRY_FILE =
 /**
  * Framework routing. Astro discovers these by file path and calls the exported `GET`/`POST`
  * itself, and the app's `routeTree.gen.ts` is generated. Neither has an importer, and both
- * are load-bearing — which is the same trap that kept a deleted boundary alive in #1906.
+ * are load-bearing, just like framework-discovered route files.
  */
 const CONVENTION_FILE =
   /(?:^|\/)pages\/.*\.[cm]?[jt]s$|(?:^|\/)middleware\.[cm]?[jt]s$|(?:^|\/)content\.config\.[cm]?[jt]s$|\.gen\.[cm]?[jt]s$/
@@ -174,8 +174,7 @@ function kindOf(statement) {
 /**
  * Import statements from an `.astro` frontmatter block, which TypeScript cannot
  * parse. `wholeFile` reads an `.mdx` page instead, whose imports sit after the
- * frontmatter (the M5.7 audit's roadmap-poster constants are reached only by
- * roadmap.mdx, and without this scan they report as unreachable).
+ * frontmatter.
  */
 function importSpecifiersIn(text, { wholeFile = false } = {}) {
   const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text)
