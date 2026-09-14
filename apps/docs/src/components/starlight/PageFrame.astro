@@ -95,7 +95,10 @@ const initialView = sectionForId(entry.id) ? 'section' : 'main';
 							this.syncPanels();
 						}
 						disconnectedCallback() {
-							if (this.frame) cancelAnimationFrame(this.frame);
+							if (this.frame) {
+								cancelAnimationFrame(this.frame);
+								this.frame = 0;
+							}
 							window.removeEventListener('scroll', this.onScroll);
 							window.removeEventListener('resize', this.onScroll);
 							this.menuBreakpoint.removeEventListener('change', this.onMenuBreakpoint);
