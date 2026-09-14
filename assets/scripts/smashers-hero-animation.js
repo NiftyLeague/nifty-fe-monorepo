@@ -34,12 +34,38 @@
     picture.parentElement.insertBefore(probe, picture)
     probe.style.opacity = '0'
     probe.style.transition = 'opacity 400ms ease-out'
-    const play = probe.play?.()
-    if (play && typeof play.catch === 'function') play.catch(() => {})
-    else requestAnimationFrame(() => (probe.style.opacity = '1'))
     probe.addEventListener('playing', () => (probe.style.opacity = '1'), { once: true })
   }
 
-  probe.addEventListener('loadeddata', reveal, { once: true })
+  // Muted autoplay can be refused while the tab is hidden or unfocused — the
+  // rejection must not leave the probe parked invisibly at opacity 0: retry
+  // when the tab becomes visible again or on the visitor's next interaction.
+  const attemptPlayback = () => {
+    const play = probe.play?.()
+    if (play && typeof play.catch === 'function') {
+      play.catch(() => {
+        if (document.visibilityState !== 'visible') {
+          document.addEventListener(
+            'visibilitychange',
+            () => {
+              if (document.visibilityState === 'visible') attemptPlayback()
+            },
+            { once: true }
+          )
+        }
+        window.addEventListener('pointerdown', attemptPlayback, { once: true, passive: true })
+        window.addEventListener('keydown', attemptPlayback, { once: true, passive: true })
+      })
+    }
+  }
+
+  probe.addEventListener(
+    'loadeddata',
+    () => {
+      reveal()
+      attemptPlayback()
+    },
+    { once: true }
+  )
   probe.addEventListener('error', () => probe.remove(), { once: true })
 })()

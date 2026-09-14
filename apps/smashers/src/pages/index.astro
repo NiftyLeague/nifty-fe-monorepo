@@ -50,9 +50,12 @@ const heroBackgroundImage = getOptimizedImageProps({
           <script>
             // Decorative hero animation: inject the script after interaction or
             // an idle delay, exactly like the shared deferred-activation policy.
+            // Background tabs starve requestIdleCallback, so becoming visible
+            // counts as a trigger too.
             const ACTIVATION_EVENTS = ['pointerdown', 'keydown', 'touchstart']
             const SCRIPT_ID = 'smashers-hero-animation'
             const injectHeroAnimation = () => {
+              document.removeEventListener('visibilitychange', onBecomeVisible)
               for (const event of ACTIVATION_EVENTS) window.removeEventListener(event, injectHeroAnimation)
               if (document.getElementById(SCRIPT_ID)) return
               const script = document.createElement('script')
@@ -61,9 +64,13 @@ const heroBackgroundImage = getOptimizedImageProps({
               script.async = true
               document.head.appendChild(script)
             }
+            const onBecomeVisible = () => {
+              if (document.visibilityState === 'visible') injectHeroAnimation()
+            }
             for (const event of ACTIVATION_EVENTS) {
               window.addEventListener(event, injectHeroAnimation, { once: true, passive: true })
             }
+            document.addEventListener('visibilitychange', onBecomeVisible)
             window.setTimeout(() => {
               if (window.requestIdleCallback) {
                 window.requestIdleCallback(injectHeroAnimation, { timeout: 1000 })

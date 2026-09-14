@@ -53,6 +53,10 @@ describe('Smashers asset delivery contracts', () => {
     // hero intact.
     expect(deferredAnimation).toContain('picture.parentElement.insertBefore(probe, picture)')
     expect(deferredAnimation).toContain("addEventListener('error'")
+    // A refused muted autoplay (hidden or unfocused tab) must retry on
+    // visibility or interaction instead of leaving the probe at opacity 0.
+    expect(deferredAnimation).toContain('attemptPlayback')
+    expect(deferredAnimation).toContain("'visibilitychange'")
     expect(gameSection).toContain('/video/party-modes.mp4')
     expect(gameSection).toContain('party_modes-poster.webp')
     expect(gameSection).toContain('deferLoad')
