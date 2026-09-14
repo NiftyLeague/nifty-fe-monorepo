@@ -122,11 +122,6 @@
 
 /* ==============================|| CAROUSEL DOT HIT AREAS ||============================== */
 
-/*
- * The shared carousel renders 8px dot buttons (too small a touch target).
- * Keep the 8px dot visual but center it inside a 24px transparent button,
- * so the touch target passes WCAG 2.5.8 without overlapping its neighbours.
- */
 [role='group'][aria-label='Choose slide'] button[aria-label^='Go to slide'] {
   width: 24px;
   height: 24px;
@@ -157,15 +152,12 @@
   opacity: 1;
 }
 
-/* Prev/next arrows may already be large; only guarantee the minimum. */
 [role='group'][aria-label='Choose slide'] button[aria-label='Go to previous slide'],
 [role='group'][aria-label='Choose slide'] button[aria-label='Go to next slide'] {
   min-width: 24px;
   min-height: 24px;
 }
 
-/* Keyboard-only bypass for the repeated header navigation (WCAG 2.4.1):
-   hidden until it receives focus, then pinned under the navbar. */
 .skip-link {
   position: fixed;
   top: -48px;

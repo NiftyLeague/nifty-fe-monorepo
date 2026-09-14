@@ -15,12 +15,7 @@ import { fileURLToPath } from 'node:url'
  */
 export const ASSETS_PUBLIC_DIR = '../../assets'
 
-/**
- * Inline the stylesheet into the document. A single linked CSS file is
- * render-blocking, and on the throttled mobile profile that alone pushed first
- * paint past 3s for the Astro apps; the Next builds inlined their critical CSS,
- * so this keeps parity.
- */
+/** Inline the stylesheet into the document. */
 export const INLINE_STYLESHEETS = 'always'
 
 /** Resolves a path inside the app that owns `configUrl` (`import.meta.url`). */

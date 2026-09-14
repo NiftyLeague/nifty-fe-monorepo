@@ -54,6 +54,7 @@ const ResponsiveIntroBackground = () => {
       <img
         {...desktopBackground}
         alt=""
+        data-preload-media="(min-width: 769px)"
         loading="eager"
         fetchPriority="high"
         className="object-cover animate-zoom-out"

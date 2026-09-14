@@ -1,11 +1,3 @@
-/**
- * Reports the eager (initial-load) script payload for a route.
- *
- * Run against a local preview. Uses Lighthouse's bundled Chrome over CDP so it
- * needs no extra browser dependency.
- *
- * Usage: node scripts/measure-eager.mjs <baseUrl> <route> [route...]
- */
 import lighthouse from 'lighthouse'
 import * as chromeLauncher from 'chrome-launcher'
 
@@ -33,8 +25,6 @@ try {
     const requests = lhr.audits['network-requests']?.details?.items ?? []
     const scripts = requests.filter((r) => r.resourceType === 'Script')
 
-    // transferSize is 0 for locally served uncompressed assets, so report the
-    // resource size Lighthouse measured from the response body instead.
     const bodyBytes = scripts.reduce((total, r) => total + (r.resourceSize ?? 0), 0)
     const perf = Math.round((lhr.categories.performance?.score ?? 0) * 100)
 

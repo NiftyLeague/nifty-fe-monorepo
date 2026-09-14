@@ -1,12 +1,3 @@
-/**
- * Live contract smoke test.
- *
- * This layer catches regressions that the hermetic unit suite cannot, such as
- * deployment-topology issues in the Vercel serverless handler. It is skipped
- * by default so `bun test` stays fast and offline. Enable it with
- * `bun run test:live` and point it at any deployment with `BASE_URL`.
- */
-
 import request from 'supertest'
 import { describe, expect, it } from 'bun:test'
 

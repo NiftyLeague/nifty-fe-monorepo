@@ -13,9 +13,6 @@ import { DeferredDegensSection, DeferredGameSection } from '@/components/Deferre
 const referral = Astro.url.searchParams.get('referral')
 const activeModal: ActiveModal = referral ? 'play' : null
 
-// Preload only the LCP candidate. Astro's SSR does not emit the react-dom
-// preload hint that next/image's `priority` produced, and preloading the
-// decorative backdrop alongside it splits bandwidth away from the wordmark.
 const preloadImages = [...HERO_ARTWORK]
 ---
 <Base canonical="/" preloadImages={preloadImages}>

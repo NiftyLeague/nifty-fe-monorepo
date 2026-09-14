@@ -4,11 +4,6 @@ import { readFileSync } from 'node:fs'
 import { buildExceptions, evaluateBudgets, exceptions } from '../../scripts/evaluate-budgets.mjs'
 import config from '../../benchmarks/m0-routes.json'
 
-/**
- * The CI budget gate (`budget-gate.yml`) runs the strict evaluator; this test
- * exercises the same pure function with a seeded regression, which is how the
- * gate's failure path is demonstrated without waiting for a real perf regress.
- */
 const route = (id, app, overrides = {}) => ({
   route: {
     id,
@@ -128,8 +123,6 @@ describe('budget evaluator', () => {
       exceptions: [{ route: 'demo', metric: 'transfer', reason: 'recorded third-party payload' }],
       buildExceptions: [],
     })
-    // Growth is excepted; the LCP ceiling is not exceptable. The median also
-    // trips the >10% and >250 ms regression rule, so two seeded regressions.
     expect(result.regressions).toBeGreaterThanOrEqual(1)
     expect(result.lines.join('\n')).toContain('LCP: median 2600 > 2500 ms budget')
     expect(result.lines.join('\n')).toContain('LCP: worst sample 4100 > 4000 ms ceiling')

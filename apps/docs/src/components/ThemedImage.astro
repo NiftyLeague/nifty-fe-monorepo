@@ -9,8 +9,7 @@
  * for the page banners: the originals are 320-370 KB while the rendered width is
  * under 800 px.
  *
- * When `priority` is set (the first in-viewport image) the active variant loads
- * eagerly with a high fetch priority so it is not a late LCP, and the inactive
+ * When `priority` is set, the active variant loads eagerly and the inactive
  * variant is deferred until a theme switch actually needs it.
  */
 import { Image } from 'astro:assets';

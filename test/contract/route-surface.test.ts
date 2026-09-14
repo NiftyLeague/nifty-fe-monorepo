@@ -2218,6 +2218,7 @@ describe('web marketing image sizing contract', () => {
     expect(homeSource).toContain("media: '(min-width: 769px)'")
     expect(homeSource).toContain("media: '(max-width: 768px)'")
     expect(homeSource).toContain("fetchPriority: 'high'")
+    expect(homeSource).toContain('data-preload-media="(min-width: 769px)"')
     expect(homeSource).not.toContain('speech-bubble.webp\n            alt="Learn More"')
     expect(homeSource).not.toContain('loading="eager"\n            fetchPriority="high"')
   })

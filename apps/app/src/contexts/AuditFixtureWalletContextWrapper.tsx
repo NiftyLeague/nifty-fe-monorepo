@@ -19,10 +19,6 @@ import type { Contracts } from '@/types/web3'
 const auditComics = COMICS.map((comic, index) => ({ ...comic, balance: index === 0 ? 1 : 0 }))
 const auditItems = ITEMS.map((item, index) => ({ ...item, balance: index === 0 ? 1 : 0 }))
 
-/**
- * Shared fixture for routes that need wallet, network, Immutable, and
- * NFT ownership contexts without the dashboard token-balance context.
- */
 export default function AuditFixtureWalletContextWrapper({
   children,
 }: PropsWithChildren): React.ReactNode {

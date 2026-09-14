@@ -88,7 +88,6 @@ test('axe: no serious or critical violations on the dashboard routes', async ({
   }
 })
 
-/** Keyboard-only traversal contract for public and fixture-dashboard surfaces. */
 const INTERACTIVE_STOP =
   /^(a|button|input|select|textarea|summary|label|audio|video)$|\[role=(button|link|combobox|listbox|option|menuitem|slider|tab|checkbox|radio|switch|searchbox|textbox)\]|[a-z]+\[tabindex=0\]/
 

@@ -37,13 +37,6 @@ const OVERRIDDEN = new Set(['og:url', 'og:image', 'twitter:card', 'twitter:image
  */
 const isSearchPage = Astro.url.pathname.replace(/\/$/, '').endsWith('/search');
 
-/*
- * The roadmap poster is the route's LCP image; preload its exact srcset so the
- * request starts with the head instead of after the article markup is parsed.
- * The variants are resolved one getImage call per width — the same shape the
- * <Image> component uses internally, so the hashed URLs come out identical
- * (a single `widths` array produces a differently-hashed 400w variant).
- */
 const isRoadmapPage = entry.id === 'overview/roadmap';
 const roadmapPreload = isRoadmapPage
   ? await Promise.all(

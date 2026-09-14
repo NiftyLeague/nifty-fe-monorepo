@@ -7,11 +7,6 @@ import IdleGate from '@/components/IdleGate'
 
 type ViewportVideoProps = ComponentPropsWithoutRef<typeof ViewportVideo>
 
-/**
- * Web-only video gate: the poster stays visible while the page's own critical
- * path finishes, then the viewport-controlled playback mounts. Keeps the
- * first-viewport video payload from competing with the LCP image.
- */
 export default function GatedViewportVideo({
   label = 'video',
   ...props

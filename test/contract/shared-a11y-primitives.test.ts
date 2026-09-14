@@ -66,8 +66,6 @@ describe('shared primitives: reduced motion', () => {
   })
 
   it('keeps the shared utility layer aware of reduced motion', () => {
-    // The Tailwind layers already ship a reduced-motion rule; a regression there
-    // would silently remove the escape hatch for every `motion-reduce:` class.
     const utilities = read(`${UI_STYLES}/04_tailwind.utilities.css`)
     const animate = read(`${UI_STYLES}/05_tailwind.animate.css`)
 

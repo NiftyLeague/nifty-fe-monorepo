@@ -10,11 +10,7 @@ interface Props {
   metadata?: RouteMetadata
   canonical?: string
   analytics?: boolean
-  /**
-   * Above-the-fold artwork to preload, as the same props its `<img>` renders.
-   * next/image turned `priority` into a preload hint; react-dom's `preload()`
-   * does not emit during Astro's SSR, so pages declare their LCP artwork here.
-   */
+  /** Above-the-fold artwork to preload. */
   preloadImages?: { src: string; width?: number; sizes?: string; quality?: number }[]
 }
 const {

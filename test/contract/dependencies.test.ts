@@ -2,21 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
-/**
- * Dependency contract guard.
- *
- * Guards two regression classes:
- *  1. A dependency removed from package.json while still imported in source
- *     (e.g. the react-toastify / react-device-detect migrations) — an import that
- *     resolves to nothing fails loudly.
- *  2. A dependency that is declared but never referenced anywhere (dead weight
- *     like react-intl or @x402/*) — these are flagged so they can be removed
- *     deliberately instead of lingering.
- *
- * The allowlist exists for deps that are legitimately not imported in source:
- * peer dependencies, config-file-only deps, native/runtime deps, and build tooling.
- */
-
 const APP_ROOT = process.cwd()
 const WORKSPACE_PACKAGES = [
   '@nl/astro-config',

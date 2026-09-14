@@ -44,9 +44,7 @@
   }
 }
 
-/* The original animation changed top/left on every frame, which can force
- * layout work and register as layout shift in Lighthouse. Keep the same
- * travel phases on a single compositor-friendly transform instead. */
+/* Keep the same travel phases on a single compositor-friendly transform. */
 @keyframes satoshiTravel {
   0%,
   15% {

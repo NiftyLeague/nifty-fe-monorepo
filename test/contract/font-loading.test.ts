@@ -64,9 +64,6 @@ describe('shared font loading contract', () => {
   })
 
   it('keeps the metric-matched fallbacks out of the shared file', () => {
-    // Their advance widths are faithful for two of the four families and not for
-    // the others, so they change wrapping. Adopting them is a per-app decision
-    // measured against that app's own pages; smashers is the app that has.
     const shared = declarations(SHARED_FONT_STYLESHEET)
 
     expect(shared).not.toContain('fallback')
@@ -105,7 +102,6 @@ describe('shared font loading contract', () => {
     expect(smashers).toContain('size-adjust: 156.14%')
     expect(smashers).toContain("'NL Lilita One fallback'")
 
-    // The app and web have no measured reason to carry the layer.
     for (const path of ['apps/app/src/styles/app.css', 'apps/web/src/styles/app.css']) {
       expect(declarations(path), `${path} must not declare fallback faces`).not.toContain(
         'size-adjust'
