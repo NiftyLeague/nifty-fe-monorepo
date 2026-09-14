@@ -29,8 +29,6 @@ describe('web Vercel routing contract', () => {
     expect(config.outputDirectory).toBe('dist')
     expect(config.trailingSlash).toBe(false)
     expect(config.cleanUrls).toBe(true)
-    // Rewrite destinations use the clean form: with cleanUrls enabled,
-    // .html destinations do not resolve (production regression on release).
   })
 
   it('keeps permanent short links on 308 redirects', () => {

@@ -107,9 +107,6 @@ describe('home page', () => {
   it('loads the console artwork on viewport but keeps the video behind the activation window', () => {
     render(<Home />)
 
-    // The interactive chunk (backdrop, controllers, bonk sticker) must mount as
-    // soon as the section nears the viewport, while the multi-megabyte video
-    // source still waits for the activation window.
     expect(consoleGameProps).toEqual({
       deferVideo: true,
       loadInteractiveOnViewport: true,
@@ -129,7 +126,6 @@ describe('home page', () => {
   it('keeps the desktop hero mural eager and priority-hinted beside the LCP background', () => {
     render(<Home />)
 
-    // The mobile breakpoint still never downloads the desktop mural.
     const heroArtwork = screen.getByAltText('Nifty Hero Characters')
     expect(heroArtwork.getAttribute('loading')).toBe('eager')
     expect(heroArtwork.getAttribute('fetchpriority')).toBe('high')
@@ -144,27 +140,6 @@ describe('home page', () => {
 
     expect(heroSources).toHaveLength(2)
     expect(heroSources.every(({ quality }) => quality === 60)).toBe(true)
-  })
-
-  it('uses the compact quality profile for the desktop hero raster artwork', () => {
-    render(<Home />)
-
-    const heroSources = optimizedImageCalls.filter(({ src }) =>
-      ['/img/hero/bg.webp', '/img/hero/characters.webp'].includes(src as string)
-    )
-
-    expect(heroSources).toHaveLength(2)
-    expect(heroSources.every(({ quality }) => quality === 60)).toBe(true)
-  })
-
-  it('keeps desktop-only hero artwork out of the mobile image request path', () => {
-    render(<Home />)
-
-    const heroArtwork = screen.getByAltText('Nifty Hero Characters')
-    const desktopSource = heroArtwork.closest('picture')?.querySelector('source')
-
-    expect(desktopSource?.getAttribute('media')).toBe('(min-width: 769px)')
-    expect(heroArtwork.getAttribute('src')).toContain('data:image/gif;base64,')
   })
 
   it('keeps desktop-only hero artwork out of the mobile image request path', () => {
@@ -222,23 +197,5 @@ describe('home page', () => {
 
     expect(document.getElementById('gaming-section')?.className).not.toContain('home-below-fold')
     expect(document.querySelectorAll('.home-below-fold')).toHaveLength(0)
-  })
-
-  it('keeps the selected hero background fetch high priority', () => {
-    render(<Home />)
-
-    const heroImage = document.querySelector('.home-intro-background img')
-    expect(heroImage?.getAttribute('fetchpriority')).toBe('high')
-    expect(heroImage?.getAttribute('loading')).toBe('eager')
-  })
-
-  it('uses an art-directed mobile source for the shared intro background', () => {
-    render(<Home />)
-
-    const mobileSource = document.querySelector('source[media="(max-width: 768px)"]')
-    expect(mobileSource?.getAttribute('srcset')).toContain('/img/backgrounds/banner-dark.webp')
-    expect(document.querySelector('.home-intro-background img')?.getAttribute('src')).toContain(
-      '/img/hero/bg.webp'
-    )
   })
 })

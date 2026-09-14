@@ -2,14 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
-/**
- * Docs SEO surface contract: head-tag hygiene and crawlability
- * guarantees for apps/docs. Source-level by design — every guarantee here is
- * enforced where the tags are produced, so a regression fails without needing a
- * built dist.
- *
- */
-
 const docsRoot = join(process.cwd(), 'apps/docs')
 const read = (...parts: string[]) => readFileSync(join(docsRoot, ...parts), 'utf8')
 
@@ -39,10 +31,7 @@ describe('docs SEO surface', () => {
     expect(config).not.toContain('opensearchdescription')
   })
 
-  it('preloads the roadmap LCP image through the shared pipeline constants', () => {
-    // The preload (Head.astro) and the <Image> (roadmap.mdx) must resolve the
-    // same hashed variants, so both sides must consume the same constants —
-    // separate literals would drift and preload files the srcset never picks.
+  it('preloads the roadmap image through the shared pipeline constants', () => {
     const shared = read('src/lib/roadmap-poster.ts')
     for (const constant of [
       'ROADMAP_POSTER_WIDTHS',
@@ -61,7 +50,6 @@ describe('docs SEO surface', () => {
 
     const mdx = read('src/content/docs/overview/roadmap.mdx')
     expect(mdx).toContain("from '../../../lib/roadmap-poster'")
-    // No inline variant literals: widths must come from the shared module.
     expect(mdx).not.toMatch(/widths=\{\[\d/)
   })
 

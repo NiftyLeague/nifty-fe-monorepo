@@ -390,9 +390,6 @@ describe('app performance contracts', () => {
     const heroStart = source.indexOf("src: '/img/hero/characters.webp'")
     const heroEnd = source.indexOf('</picture>', heroStart)
 
-    // Measured under devtools throttling the mural paints as the LCP whenever
-    // it is discovered lazily, so it ships eager + high priority; the art
-    // direction must still keep the desktop raster off the mobile path.
     expect(heroStart).toBeGreaterThanOrEqual(0)
     expect(heroEnd).toBeGreaterThan(heroStart)
     expect(source.slice(heroStart, heroEnd)).toContain("loading: 'eager'")
