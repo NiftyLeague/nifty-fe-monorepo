@@ -10,8 +10,11 @@ import { metadata as routeMetadata } from '@/app/(main)/compete-and-earn/layout'
 <Marketing metadata={routeMetadata} rootClass="compete-pg" canonical="/compete-and-earn">
   <LegacyPage>
     <Fragment slot="webIsland0">
+      {/* The embed self-gates on its own IntersectionObserver, so hydrating on
+      load only shipped React earlier for no benefit (degens.astro already used
+      client:visible for the same component). */}
       <DeferredYouTubeEmbed
-        client:load
+        client:visible
         src="https://www.youtube-nocookie.com/embed/wv_fI1PPBi0"
         title="Nifty League Compete & Earn"
         className={styles.video}

@@ -52,11 +52,11 @@ describe('smashers island hydration', () => {
   it('hydrates the interactive header subtrees on the home page', () => {
     const source = read(join(pagesDir, 'index.astro'))
 
-    for (const component of ['DeferredHeroBackground', 'ActionButtonsGroup']) {
-      const usage = new RegExp(`<${component}\\b[^>]*\\bclient:[\\w-]+`)
-      expect(source, `${component} must carry a client directive`).toMatch(usage)
-    }
-    expect(source).toMatch(/<ActionButtonsGroup\b[^>]*activeModal=/)
+    // The hero backdrop is static markup above the fold; only the action
+    // buttons (Play/Trailer/Credits) need hydration.
+    const usage = /<ActionButtonsGroup\b[^>]*\bclient:[\w-]+/
+    expect(source, 'ActionButtonsGroup must carry a client directive').toMatch(usage)
+    expect(source).not.toMatch(/<picture[^>]*\bclient:[\w-]+/)
   })
 
   it('keeps the header shell free of the provider islands', () => {

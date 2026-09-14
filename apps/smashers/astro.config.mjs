@@ -22,8 +22,9 @@ const publicEnv = (name, ...fallbacks) => {
 export default defineConfig({
   site: 'https://niftysmashers.com',
   output: 'server',
-  // Vercel's image optimiser replaces next/image's. The runtime shim emits
-  // `/_vercel/image?url=...&w=...` URLs, which this makes resolvable.
+  // Vercel's image optimiser serves the runtime shim's responsive variants:
+  // the shim emits `/_vercel/image?url=...&w=...` URLs, which this makes
+  // resolvable.
   adapter: vercel({ imageService: true }),
   integrations: [react()],
   build: { inlineStylesheets: INLINE_STYLESHEETS },

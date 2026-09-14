@@ -2,7 +2,6 @@ import { describe, expect, it } from 'bun:test'
 import { readFileSync, statSync } from 'node:fs'
 
 const headerSource = 'apps/smashers/src/components/Header/index.tsx'
-const deferredBackgroundSource = 'apps/smashers/src/components/Header/DeferredHeroBackground.tsx'
 const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 const rocketVideo = 'assets/video/rocket.mp4'
@@ -23,7 +22,6 @@ describe('Smashers asset delivery contracts', () => {
 
   it('keeps animated sources paired with static fallbacks in the consuming components', () => {
     const header = readFileSync(headerSource, 'utf8')
-    const deferredBackground = readFileSync(deferredBackgroundSource, 'utf8')
     const deferredAnimation = readFileSync(deferredAnimationSource, 'utf8')
     const gameSection = readFileSync(gameSectionSource, 'utf8')
 
@@ -31,14 +29,14 @@ describe('Smashers asset delivery contracts', () => {
     // client directive; asserting on the header alone would miss the wiring.
     const homePage = readFileSync('apps/smashers/src/pages/index.astro', 'utf8')
     expect(header).toContain('heroBackground')
-    expect(homePage).toContain('DeferredHeroBackground')
-    expect(homePage).toMatch(/<DeferredHeroBackground\b[^>]*client:/)
-    expect(deferredBackground).toContain("from '@nl/ui/custom/deferred-external-script'")
-    expect(deferredBackground).toContain('<DeferredExternalScript')
-    expect(deferredBackground).toContain('smashers-hero-animation.js')
-    expect(deferredBackground).not.toContain("'use client'")
-    expect(deferredBackground).toContain('background-poster.webp')
-    expect(deferredBackground).toContain('data-smashers-hero-background')
+    // The hero backdrop is static Astro markup: the poster is in the initial
+    // HTML and the animation script is injected after interaction or idle
+    // time — no React hydration above the fold.
+    expect(homePage).toContain('background-poster.webp')
+    expect(homePage).toContain('data-smashers-hero-background')
+    expect(homePage).toContain('/scripts/smashers-hero-animation.js')
+    expect(homePage).toContain('requestIdleCallback')
+    expect(homePage).not.toMatch(/<picture[^>]*client:/)
     expect(deferredAnimation).toContain('/video/smashers-hero.mp4')
     expect(deferredAnimation).toContain('data-smashers-hero-background')
     expect(deferredAnimation).toContain('prefers-reduced-motion: reduce')

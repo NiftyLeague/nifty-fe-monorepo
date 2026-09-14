@@ -4,15 +4,20 @@ const stubGlobal = (name, value) => {
 import { beforeEach, describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
 
-const { saveAsMock } = { saveAsMock: mock() }
-
 let downloadDegenAsZip: typeof import('./file').downloadDegenAsZip
 
+const createObjectURLMock = mock<(blob: Blob) => string>(() => 'blob:degen-zip')
+const revokeObjectURLMock = mock<(url: string) => void>(() => {})
+
 beforeEach(async () => {
-  mock.module('save-as', () => ({ saveAs: saveAsMock }))
   mock.module('@/constants/url', () => ({
     DEGEN_ASSETS_DOWNLOAD_URL: 'https://assets.example/degen',
   }))
+  stubGlobal('URL', {
+    ...URL,
+    createObjectURL: createObjectURLMock,
+    revokeObjectURL: revokeObjectURLMock,
+  })
 
   const fileModule = await import('./file')
   downloadDegenAsZip = fileModule.downloadDegenAsZip
@@ -23,23 +28,41 @@ beforeEach(() => {
 })
 
 describe('downloadDegenAsZip', () => {
-  it('downloads base64 data and saves it as a ZIP blob', async () => {
+  it('downloads base64 data and saves it as a ZIP object-URL download', async () => {
     const fetchMock = mock().mockResolvedValue({
       ok: true,
       text: mock().mockResolvedValue('UEs='),
     })
     stubGlobal('fetch', fetchMock)
 
+    const clicks: string[] = []
+    const anchors: { href: string; download: string }[] = []
+    const originalCreateElement = document.createElement.bind(document)
+    stubGlobal('document', {
+      ...document,
+      createElement: (tag: string) => {
+        if (tag !== 'a') return originalCreateElement(tag)
+        const anchor = originalCreateElement('a')
+        anchors.push(anchor)
+        Object.defineProperty(anchor, 'click', { value: () => clicks.push(tag) })
+        return anchor
+      },
+    })
+
     await downloadDegenAsZip('auth-token', 42)
 
     expect(fetchMock).toHaveBeenCalledWith('https://assets.example/degen?id=42', {
       headers: { authorizationToken: 'auth-token' },
     })
-    const [blob, filename] = saveAsMock.mock.calls[0] as [Blob, string]
+    expect(anchors).toHaveLength(1)
+    expect(anchors[0]?.download).toBe('degen_42.zip')
+    expect(anchors[0]?.href).toBe('blob:degen-zip')
+    expect(clicks).toEqual(['a'])
+    expect(revokeObjectURLMock).toHaveBeenCalledWith('blob:degen-zip')
+    const blob = createObjectURLMock.mock.calls[0]?.[0] as Blob
     expect(blob).toBeInstanceOf(Blob)
     expect(blob.type).toBe('application/zip')
     expect(blob.size).toBe(2)
-    expect(filename).toBe('degen_42.zip')
   })
 
   it('rejects when invoked without a browser window', async () => {
