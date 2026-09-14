@@ -2,7 +2,8 @@
 import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate'
 import '../styles/app.css'
 import { DEFAULT_METADATA, metadataValues, type RouteMetadata } from '../runtime/metadata'
-import { getImagePreloadProps } from '../runtime/Image'
+import { getImage } from 'astro:assets'
+import { canOptimize, isOptimizableSource, selectWidths } from '../runtime/image-url'
 import defaultFontUrl from '../../../../packages/ui/src/lib/fonts/assets/ibm-plex-sans-400.woff2?url'
 import headerFontUrl from '../../../../packages/ui/src/lib/fonts/NexaRustSans_Black/NexaRustSans-Black.woff2?url'
 
@@ -20,6 +21,27 @@ const {
   preloadImages = [],
 } = Astro.props
 const values = metadataValues(metadata, canonical)
+// The preload hint must resolve to the same optimizer variant the <img>
+// requests, or the artwork is downloaded twice. Both sides derive their rungs
+// from selectWidths, and both build their URLs through runtime/image-url (the
+// image service delegates to it), so the candidates cannot drift apart.
+const preloadHints = await Promise.all(
+  preloadImages.map(async (image) => {
+    const optimized = canOptimize() && isOptimizableSource(image.src)
+    const widths = selectWidths(image.width, image.sizes)
+    const result = await getImage({
+      src: image.src,
+      width: widths.at(-1) as number,
+      widths,
+      quality: image.quality ?? 75,
+    })
+    return {
+      href: result.src,
+      imageSrcSet: optimized ? result.srcSet.attribute : undefined,
+      imageSizes: optimized ? image.sizes : undefined,
+    }
+  })
+)
 // The faces, their metric-matched fallbacks, and the `--font-*` properties they
 // map onto come from `@nl/ui/styles/fonts.css`, imported by styles/app.css.
 // Only the island wrapper rule is page-shell specific.
@@ -73,19 +95,16 @@ const telemetryEnabled = productionTelemetryEnabled(
     <link rel="apple-touch-icon" href="/favicon/smashers/apple-touch-icon.png" />
     <link rel="preload" href={defaultFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href={headerFontUrl} as="font" type="font/woff2" crossorigin="anonymous" />
-    {preloadImages.map((image) => {
-      const hint = getImagePreloadProps(image)
-      return (
-        <link
-          rel="preload"
-          href={hint.href}
-          as="image"
-          fetchpriority="high"
-          imagesrcset={hint.imageSrcSet}
-          imagesizes={hint.imageSizes}
-        />
-      )
-    })}
+    {preloadHints.map((hint) => (
+      <link
+        rel="preload"
+        href={hint.href}
+        as="image"
+        fetchpriority="high"
+        imagesrcset={hint.imageSrcSet}
+        imagesizes={hint.imageSizes}
+      />
+    ))}
     <style is:inline set:html={shellCss} />
   </head>
   <body>

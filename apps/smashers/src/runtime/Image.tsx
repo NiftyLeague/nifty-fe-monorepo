@@ -1,73 +1,22 @@
 import { preload as preloadImage } from 'react-dom'
 import type { ComponentProps } from 'react'
 import { imageAttributes, imageSource, stripUndefinedAttributes } from '@nl/ui/lib/image-attributes'
+import { canOptimize, isOptimizableSource, optimizedUrl, selectWidths } from './image-url'
 
 /**
- * App-local replacement for `@nl/ui/custom/optimized-image`, which is built on
- * next/image internals.
+ * The React adapter over the app's image optimizer.
  *
+ * astro:assets serves the .astro templates through
+ * `runtime/vercel-image-service.ts`; React trees cannot call that pipeline
+ * (`getImage` is async and the module is absent from client bundles), so this
+ * adapter builds the same URLs from the shared policy in `runtime/image-url.ts`.
  * The shared props contract is preserved, including the optimisation the Next
- * build performed: `/_next/image?url=...&w=...` is replaced by Vercel's own
- * image optimiser, `/_vercel/image?url=...&w=...`, with the same responsive
- * `srcSet` ladder.
- *
- * The optimiser only exists on Vercel, so the URL is gated on `VERCEL` and
- * everything else (dev, local builds, tests) gets the plain asset path.
+ * build performed: `/_next/image?url=...&w=...` became Vercel's own optimiser,
+ * `/_vercel/image?url=...&w=...`, with the same responsive `srcSet` ladder.
  *
  * The Vite alias in astro.config.mjs redirects the shared specifier here; the
  * consuming components keep importing `@nl/ui/custom/optimized-image`.
  */
-const OPTIMIZED_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
-
-/**
- * Read at call time rather than once at import, so the behaviour is
- * controllable from tests and from a build that sets the flag late. Vite still
- * statically replaces `import.meta.env.VERCEL` in the bundle.
- */
-const canOptimize = (): boolean => Boolean(import.meta.env.VERCEL)
-
-/** Vercel image-optimizer URL; passes the source through off Vercel. */
-const optimizedUrl = (src: string, width: number, quality: number): string =>
-  `/_vercel/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`
-
-/**
- * Pick the optimizer width ladder for an element.
- *
- * The ladder is capped by the element's layout box, taken from the largest
- * `px` branch of `sizes` (or a desktop viewport when only `vw` is given).
- *
- * All rungs up to the cap are emitted, not just the smallest fit, so the browser
- * still chooses per viewport and device pixel ratio. The preload hint and the
- * `<img>` share this function, so they resolve to the same candidate and the
- * artwork is never fetched twice.
- */
-export const selectWidths = (
-  nativeWidth: number | undefined,
-  sizes: string | undefined
-): number[] => {
-  const pixels = typeof sizes === 'string' ? [...sizes.matchAll(/(\d+(?:\.\d+)?)px/g)] : []
-  const viewport = typeof sizes === 'string' ? /(\d+(?:\.\d+)?)vw/.exec(sizes) : null
-  const fixed = typeof sizes === 'string' ? /^\s*(\d+(?:\.\d+)?)px\s*$/.exec(sizes) : null
-
-  // A pinned size ("824px") is the box; otherwise the desktop branch of a media
-  // query list, else the reference desktop viewport for a fluid image.
-  const layoutBox = fixed
-    ? Number(fixed[1])
-    : pixels.length
-      ? Math.max(...pixels.map((match) => Number(match[1])))
-      : viewport
-        ? Number(viewport[1]) * 19.2
-        : nativeWidth
-
-  // Never serve wider than the file the author shipped.
-  const cap = Math.max(
-    Math.min(layoutBox ?? Number.POSITIVE_INFINITY, nativeWidth ?? Number.POSITIVE_INFINITY),
-    OPTIMIZED_WIDTHS[0] as number
-  )
-  const ladder = OPTIMIZED_WIDTHS.filter((width) => width <= cap)
-  return ladder.length ? ladder : [OPTIMIZED_WIDTHS[0] as number]
-}
-
 export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> {
   src: string | { src: string; width?: number; height?: number }
   priority?: boolean
@@ -110,7 +59,7 @@ export function getOptimizedImageProps({
     fill,
   })
 
-  const optimizable = canOptimize() && !unoptimized && source.startsWith('/img/')
+  const optimizable = canOptimize() && !unoptimized && isOptimizableSource(source)
   if (optimizable) {
     const nativeWidth =
       typeof suppliedSource === 'object' ? suppliedSource?.width : Number(props.width) || undefined
@@ -122,37 +71,6 @@ export function getOptimizedImageProps({
   }
 
   return stripUndefinedAttributes(props)
-}
-
-/**
- * Build the `imagesrcset`/`imagesizes` pair for a preload hint.
- *
- * The browser resolves a preload against `imagesrcset` exactly as it resolves
- * the `<img>` against `srcset`. This keeps the hint and the element on the same
- * responsive candidate.
- */
-export function getImagePreloadProps(
-  props: Pick<OptimizedImageProps, 'src' | 'sizes' | 'width' | 'quality'>
-): {
-  href: string
-  imageSrcSet?: string
-  imageSizes?: string
-} {
-  const { src, sizes, width, quality = 75 } = props
-  if (typeof src !== 'string') return { href: src.src }
-
-  const optimizable = canOptimize() && src.startsWith('/img/')
-  if (!optimizable) return { href: src }
-
-  // `width` comes from the intrinsic <img> attribute and may be a CSS length.
-  const intrinsicWidth = Number(width)
-  const widths = selectWidths(Number.isFinite(intrinsicWidth) ? intrinsicWidth : undefined, sizes)
-  const url = (w: number) => optimizedUrl(src, w, quality)
-  return {
-    href: url(widths.at(-1) as number),
-    imageSrcSet: widths.map((w) => `${url(w)} ${w}w`).join(', '),
-    imageSizes: sizes,
-  }
 }
 
 export default function OptimizedImage(props: OptimizedImageProps) {
