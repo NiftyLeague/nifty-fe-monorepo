@@ -37,8 +37,8 @@ export function ForgotPasswordForm({ setAuthView, handleResetPassword }: ForgotP
 
   return (
     <Form {...form}>
-      // `method="post"` keeps a pre-hydration native submit (Enter before React attaches)
-      // from falling back to GET, which would put typed fields into the URL.
+      // `method="post"` keeps a pre-hydration native submit (Enter before React attaches) // from
+      falling back to GET, which would put typed fields into the URL.
       <form method="post" onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
