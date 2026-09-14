@@ -357,25 +357,33 @@ test('Compete & Earn keeps the token section first and the governance section la
   await expect(page.getByRole('heading', { name: /SMASHERS/ })).toHaveCount(0)
 })
 
-test('Compete & Earn hydrates its video loader on page load', async ({ request }) => {
+test('Compete & Earn hydrates its video loader but keeps YouTube out of the initial document', async ({
+  request,
+}) => {
   const html = await (await request.get('/compete-and-earn')).text()
-  const videoSourceIndex = html.indexOf('https://www.youtube.com/embed/wv_fI1PPBi0')
+  const videoSourceIndex = html.indexOf('youtube-nocookie.com/embed/wv_fI1PPBi0')
   const islandStart = html.lastIndexOf('<astro-island', videoSourceIndex)
   const islandEnd = html.indexOf('</astro-island>', videoSourceIndex)
   const videoIsland = html.slice(islandStart, islandEnd)
 
   expect(videoIsland).toContain('client="load"')
-  expect(videoIsland).toContain('loadImmediately')
-  expect(videoIsland).toContain('<iframe')
-  expect(videoIsland).toContain('loading="lazy"')
+  // The deferred facade renders the status skeleton server-side and only
+  // mounts the third-party iframe once the section nears the viewport; the
+  // player's multi-megabyte embed script otherwise races the page's own LCP.
+  expect(videoIsland).not.toContain('<iframe')
+  expect(videoIsland).toContain('aria-label="Loading Nifty League Compete')
 })
 
-test('mobile Compete & Earn keeps its video visible while YouTube loads', async ({
+test('mobile Compete & Earn loads the video once it nears the viewport', async ({
   page,
 }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile', 'the video shell regression is mobile-specific')
   await page.goto('/compete-and-earn')
 
+  // The video sits inside the first viewport on the compact layout, so the
+  // facade swaps from the status skeleton to the player without scrolling.
+  // The swap must happen through hydration only: the initial document ships
+  // the skeleton, never the third-party iframe.
   const video = page.locator('iframe[src*="wv_fI1PPBi0"]')
   await expect(video).toBeVisible()
   await expect(
