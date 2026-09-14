@@ -3,6 +3,7 @@
 import {
   createContext,
   useCallback,
+  useMemo,
   type PropsWithChildren,
   type Dispatch,
   type SetStateAction,
@@ -88,28 +89,42 @@ export const LocalStorageProvider = ({ children }: PropsWithChildren) => {
     setNonce(createNonce())
   }, [clearAuthToken, clearUserId, setNonce, setUUIDToken])
 
-  return (
-    <LocalStorageContext.Provider
-      value={{
-        authToken,
-        setAuthToken,
-        uuidToken,
-        setUUIDToken,
-        nonce,
-        setNonce,
-        userId,
-        setUserId,
-        favDegens,
-        setFavDegens,
-        agreementAccepted,
-        setAgreementAccepted,
-        setAllAuth,
-        clearAllAuth,
-      }}
-    >
-      {children}
-    </LocalStorageContext.Provider>
+  const value = useMemo(
+    () => ({
+      authToken,
+      setAuthToken,
+      uuidToken,
+      setUUIDToken,
+      nonce,
+      setNonce,
+      userId,
+      setUserId,
+      favDegens,
+      setFavDegens,
+      agreementAccepted,
+      setAgreementAccepted,
+      setAllAuth,
+      clearAllAuth,
+    }),
+    [
+      agreementAccepted,
+      authToken,
+      clearAllAuth,
+      favDegens,
+      nonce,
+      setAgreementAccepted,
+      setAuthToken,
+      setFavDegens,
+      setNonce,
+      setUUIDToken,
+      setAllAuth,
+      setUserId,
+      userId,
+      uuidToken,
+    ]
   )
+
+  return <LocalStorageContext.Provider value={value}>{children}</LocalStorageContext.Provider>
 }
 
 export default LocalStorageContext

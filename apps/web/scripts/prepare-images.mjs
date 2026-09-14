@@ -1,9 +1,13 @@
 import { readdir, readFile, mkdir, writeFile, stat } from 'node:fs/promises'
-import { dirname, join, resolve, extname, sep } from 'node:path'
+import { dirname, join, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createHash } from 'node:crypto'
 import sharp from 'sharp'
 import { candidateWidths, IMAGE_QUALITIES } from '../src/runtime/image-props.mjs'
+import {
+  isProductionImageSource,
+  runWithConcurrency,
+} from '../../../packages/astro-config/image-pipeline.mjs'
 
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const assets = resolve(app, '../../assets')
@@ -34,7 +38,7 @@ if (!metadataOnly) {
   const references = new Set()
   for (const root of [join(app, 'src'), resolve(app, '../../packages/ui/src')]) {
     for (const path of await files(root)) {
-      if (!['.ts', '.tsx', '.astro', '.css', '.json'].includes(extname(path))) continue
+      if (!isProductionImageSource(path, ['.ts', '.tsx', '.astro', '.css', '.json'])) continue
       const source = await readFile(path, 'utf8')
       for (const match of source.matchAll(
         /['"`(](\/img\/[^'"`()$?#]+\.(?:png|jpe?g|webp))['"`)]/gi
@@ -60,22 +64,23 @@ if (!metadataOnly) {
       .update(input)
       .digest('hex')
       .slice(0, 20)
-    const widths = candidateWidths(metadata.width)
-    for (const width of widths)
-      for (const quality of IMAGE_QUALITIES) {
-        const target = join(output, `${hash}-${width}-q${quality}.webp`)
-        try {
-          await stat(target)
-          continue
-        } catch {
-          /* New content-addressed variant. */
-        }
-        await sharp(input)
-          .rotate()
-          .resize({ width, withoutEnlargement: true })
-          .webp({ quality })
-          .toFile(target)
+    const variants = candidateWidths(metadata.width).flatMap((width) =>
+      IMAGE_QUALITIES.map((quality) => ({ quality, width }))
+    )
+    await runWithConcurrency(variants, async ({ quality, width }) => {
+      const target = join(output, `${hash}-${width}-q${quality}.webp`)
+      try {
+        await stat(target)
+        return
+      } catch {
+        /* New content-addressed variant. */
       }
+      await sharp(input)
+        .rotate()
+        .resize({ width, withoutEnlargement: true })
+        .webp({ quality })
+        .toFile(target)
+    })
     manifest[source] = { hash, width: metadata.width, height: metadata.height }
   }
   await writeFile(join(output, 'manifest.json'), JSON.stringify(manifest) + '\n')

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, type PropsWithChildren } from 'react'
+import { useCallback, useEffect, useMemo, useRef, type PropsWithChildren } from 'react'
 import { useAccount } from 'wagmi'
 
 import type { AuthTokenContextType } from '@/types/auth'
@@ -46,7 +46,10 @@ export default function AuthTokenProviderRuntime({ children }: PropsWithChildren
     }
   }, [isConnected, isLoggedIn, signMsg])
 
-  const value: AuthTokenContextType = { authToken, handleConnectWallet, isConnected, isLoggedIn }
+  const value = useMemo<AuthTokenContextType>(
+    () => ({ authToken, handleConnectWallet, isConnected, isLoggedIn }),
+    [authToken, handleConnectWallet, isConnected, isLoggedIn]
+  )
 
   return <AuthTokenContext.Provider value={value}>{children}</AuthTokenContext.Provider>
 }

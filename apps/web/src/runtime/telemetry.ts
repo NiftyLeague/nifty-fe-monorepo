@@ -6,8 +6,8 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
  * Deferred client telemetry for the marketing site.
  *
  * Google Tag Manager, Web Vitals, and Sentry load on first user interaction or
- * at the first idle period (ceiling 3s), never on the critical path. The
- * activation primitive and the container loader are shared with the other
+ * after the shared five-second delay reaches idle time, never on the critical
+ * path. The activation primitive and the container loader are shared with the
  * surfaces; the gating and the reported payload stay here because they are
  * per-app policy:
  *
@@ -23,8 +23,6 @@ const settings = document.getElementById('web-telemetry')
 
 if (settings) {
   scheduleDeferredActivation({
-    delay: 0,
-    idleTimeout: 3000,
     onActivate: () => {
       if (settings.dataset.analytics === 'true') {
         loadGoogleTagManager('web-gtm')
