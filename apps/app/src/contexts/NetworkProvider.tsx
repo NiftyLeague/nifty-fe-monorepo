@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import { useMemo, type PropsWithChildren } from 'react'
 import { useAccount } from 'wagmi'
 
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -18,12 +18,10 @@ export const NetworkProvider = ({ children }: PropsWithChildren): React.ReactNod
   const tx = useNotify(signer)
   const readContracts = useContractLoader(publicProvider, { chainId })
   const writeContracts = useContractLoader(signer, { chainId })
-
-  return (
-    <NetworkContext.Provider
-      value={{ address, isConnected, publicProvider, readContracts, signer, tx, writeContracts }}
-    >
-      {children}
-    </NetworkContext.Provider>
+  const value = useMemo(
+    () => ({ address, isConnected, publicProvider, readContracts, signer, tx, writeContracts }),
+    [address, isConnected, publicProvider, readContracts, signer, tx, writeContracts]
   )
+
+  return <NetworkContext.Provider value={value}>{children}</NetworkContext.Provider>
 }

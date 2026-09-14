@@ -78,23 +78,31 @@ export const TokensBalanceProvider = ({ children }: PropsWithChildren): React.Re
     () => ({ AT: arcadeBalance, NFTL: nftlBalances }),
     [arcadeBalance, nftlBalances]
   )
-
-  return (
-    <TokensBalanceContext.Provider
-      value={{
-        loadingArcadeBal: arcadeLoading,
-        loadingNFTLAccrued: loadingDegens || loadingClaim,
-        loadingNFTLBal,
-        refetchArcadeBal,
-        refreshClaimableNFTL,
-        refreshNFTLBalance,
-        tokensBalances,
-        totalAccruedNFTL,
-      }}
-    >
-      {children}
-    </TokensBalanceContext.Provider>
+  const value = useMemo(
+    () => ({
+      loadingArcadeBal: arcadeLoading,
+      loadingNFTLAccrued: loadingDegens || loadingClaim,
+      loadingNFTLBal,
+      refetchArcadeBal,
+      refreshClaimableNFTL,
+      refreshNFTLBalance,
+      tokensBalances,
+      totalAccruedNFTL,
+    }),
+    [
+      arcadeLoading,
+      loadingClaim,
+      loadingDegens,
+      loadingNFTLBal,
+      refetchArcadeBal,
+      refreshClaimableNFTL,
+      refreshNFTLBalance,
+      tokensBalances,
+      totalAccruedNFTL,
+    ]
   )
+
+  return <TokensBalanceContext.Provider value={value}>{children}</TokensBalanceContext.Provider>
 }
 
 export default TokensBalanceContext

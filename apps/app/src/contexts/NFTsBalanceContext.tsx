@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useEffect, useRef } from 'react'
+import { createContext, useEffect, useMemo, useRef } from 'react'
 import type { PropsWithChildren } from 'react'
 import type { Character } from '@/types/graph'
 import type { Comic, Item } from '@/types/marketplace'
@@ -78,26 +78,38 @@ export const NFTsBalanceProvider = ({ children }: PropsWithChildren): React.Reac
     refreshItemsBalances()
   }, [isLoggedIn])
 
-  return (
-    <NFTsBalanceContext.Provider
-      value={{
-        comicsBalances,
-        degenCount,
-        degensBalances,
-        degenTokenIndices,
-        isDegenOwner,
-        itemsBalances,
-        loadingComics,
-        loadingDegens,
-        loadingItems,
-        refreshComicsBalances,
-        refreshDegenBalances,
-        refreshItemsBalances,
-      }}
-    >
-      {children}
-    </NFTsBalanceContext.Provider>
+  const value = useMemo(
+    () => ({
+      comicsBalances,
+      degenCount,
+      degensBalances,
+      degenTokenIndices,
+      isDegenOwner,
+      itemsBalances,
+      loadingComics,
+      loadingDegens,
+      loadingItems,
+      refreshComicsBalances,
+      refreshDegenBalances,
+      refreshItemsBalances,
+    }),
+    [
+      comicsBalances,
+      degenCount,
+      degensBalances,
+      degenTokenIndices,
+      isDegenOwner,
+      itemsBalances,
+      loadingComics,
+      loadingDegens,
+      loadingItems,
+      refreshComicsBalances,
+      refreshDegenBalances,
+      refreshItemsBalances,
+    ]
   )
+
+  return <NFTsBalanceContext.Provider value={value}>{children}</NFTsBalanceContext.Provider>
 }
 
 export default NFTsBalanceContext

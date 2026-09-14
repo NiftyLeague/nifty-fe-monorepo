@@ -3,10 +3,9 @@ import { afterEach, describe, expect, it } from 'bun:test'
 import { scheduleDeferredActivation } from './deferred-activation'
 
 /**
- * The activation primitive is shared by the app's deferred boundaries and by the
- * web/smashers telemetry modules. The latter want "first idle period, ceiling
- * 3s" rather than the default "wait 5s, then idle", which is what the
- * `idleTimeout` option is for.
+ * The activation primitive is shared by the app's deferred boundaries and by
+ * the web/smashers telemetry modules. All surfaces use the default "wait 5s,
+ * then idle" policy unless a feature has a deliberately shorter lifecycle.
  */
 const realRequestIdleCallback = window.requestIdleCallback
 const cleanups: (() => void)[] = []

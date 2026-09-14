@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, type PropsWithChildren, useState } from 'react'
+import { createContext, type PropsWithChildren, useMemo, useState } from 'react'
 
 import { FEATURE_FLAGS } from '@/runtime/env'
 
@@ -51,6 +51,7 @@ export function FeatureFlagProvider({ children }: PropsWithChildren) {
     displayMyItems: false,
     enableEquip: false,
   })
+  const value = useMemo(() => ({ flags }), [flags])
 
-  return <FeatureFlagContext.Provider value={{ flags }}>{children}</FeatureFlagContext.Provider>
+  return <FeatureFlagContext.Provider value={value}>{children}</FeatureFlagContext.Provider>
 }

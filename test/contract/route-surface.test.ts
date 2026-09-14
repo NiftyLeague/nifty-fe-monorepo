@@ -321,7 +321,6 @@ const webDeferredHomeSectionsBoundary = 'apps/web/src/components/DeferredHomeSec
 const webHomeSectionConfig = 'apps/web/src/components/home-section-config.ts'
 const webDeferredTeamSections = 'apps/web/src/components/DeferredTeamSections.tsx'
 const webTeamCarousel = 'apps/web/src/components/TeamCarousel.tsx'
-const webDeferredOverviewSections = 'apps/web/src/components/DeferredOverviewSections.tsx'
 const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
 const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
 const webDeferredCareersSections = 'apps/web/src/components/DeferredCareersSections.tsx'
@@ -2054,13 +2053,11 @@ describe('shared below-fold loading contract', () => {
 
   it('defers the below-fold Overview FAQ interaction bundle', () => {
     const pageSource = readFileSync(join(process.cwd(), webOverviewPage), 'utf8')
-    const deferredSource = readFileSync(join(process.cwd(), webDeferredOverviewSections), 'utf8')
     const faqSource = readFileSync(join(process.cwd(), webOverviewFAQ), 'utf8')
 
-    expect(pageSource).toContain('DeferredOverviewFAQ')
+    expect(pageSource).toContain("from '@/components/OverviewFAQ'")
+    expect(pageSource).toContain('<OverviewFAQ />')
     expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
-    expect(deferredSource).toContain("import('@/components/OverviewFAQ')")
-    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(faqSource).toContain("from '@nl/ui/base/accordion'")
     expect(faqSource).not.toContain("from '@nl/ui/custom/accordion'")
     expect(faqSource).toContain('<AccordionItem')

@@ -1,6 +1,6 @@
 'use client'
 
-import { type PropsWithChildren, createContext } from 'react'
+import { type PropsWithChildren, createContext, useMemo } from 'react'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 
 import type { BrowserProvider } from 'ethers'
@@ -41,12 +41,12 @@ export const IMXProvider = ({ children }: PropsWithChildren): React.ReactNode =>
 
   // Load Immutable zkEVM contracts with Read access
   const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId })
-
-  return (
-    <IMXContext.Provider value={{ address, imxChainId, imxContracts, imxSigner, passportProvider }}>
-      {children}
-    </IMXContext.Provider>
+  const value = useMemo(
+    () => ({ address, imxChainId, imxContracts, imxSigner, passportProvider }),
+    [address, imxChainId, imxContracts, imxSigner, passportProvider]
   )
+
+  return <IMXContext.Provider value={value}>{children}</IMXContext.Provider>
 }
 
 export default IMXContext

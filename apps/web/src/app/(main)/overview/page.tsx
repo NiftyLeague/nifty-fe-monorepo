@@ -1,7 +1,7 @@
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
-import { DeferredOverviewFAQ } from '@/components/DeferredOverviewSections'
 import LearnCards from '@/components/LearnCards'
 import OverviewCommunity from '@/components/OverviewCommunity'
+import OverviewFAQ from '@/components/OverviewFAQ'
 
 const Overview = (slots: Record<string, React.ReactNode> = {}) => (
   <>
@@ -25,7 +25,7 @@ const Overview = (slots: Record<string, React.ReactNode> = {}) => (
           <div className="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }} />
         </div>
 
-        {slots.webIsland0 ?? <DeferredOverviewFAQ />}
+        {slots.webIsland0 ?? <OverviewFAQ />}
 
         <ThemeBtnGroup
           className="mt-6 xl:mt-8"

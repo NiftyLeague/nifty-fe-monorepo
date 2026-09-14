@@ -8,9 +8,10 @@ import { sentryOptions } from '@/constants/sentry'
 
 /**
  * Deferred client telemetry: Google Tag Manager, Web Vitals and Sentry load on
- * first user interaction or at the first idle period (ceiling 3s), never on the
- * critical path. The activation primitive and the container loader are shared
- * with the other surfaces; the gating and the reported payload stay here because
+ * first user interaction or after the shared five-second delay reaches idle
+ * time, never on the critical path. The activation primitive and the container
+ * loader are shared with the other surfaces; the gating and the reported payload
+ * stay here because
  * they are per-app policy:
  *
  *  - The two enable flags are read from the document element, which the base
@@ -29,8 +30,6 @@ const SENTRY_ENABLED = document.documentElement.dataset.sentryEnabled === 'true'
 const ANALYTICS_ENABLED = document.documentElement.dataset.analytics !== 'false'
 
 scheduleDeferredActivation({
-  delay: 0,
-  idleTimeout: 3000,
   onActivate: () => {
     if (ANALYTICS_ENABLED) {
       loadGoogleTagManager('smashers-gtm')

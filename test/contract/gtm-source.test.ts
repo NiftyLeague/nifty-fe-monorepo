@@ -81,6 +81,21 @@ describe('GTM container loading', () => {
     expect(source).toContain('requestIdleCallback')
   })
 
+  it('keeps web and smashers telemetry behind the shared delayed activation', () => {
+    for (const surface of [
+      'apps/web/src/runtime/telemetry.ts',
+      'apps/smashers/src/runtime/telemetry.ts',
+    ]) {
+      const source = read(surface)
+      expect(source, `${surface} must not activate on the first idle tick`).not.toContain(
+        'delay: 0'
+      )
+      expect(source, `${surface} must use the shared idle policy`).not.toContain(
+        'idleTimeout: 3000'
+      )
+    }
+  })
+
   it('routes the shared React boundary through the same loader', () => {
     const source = read(REACT_BOUNDARY)
 

@@ -2,6 +2,7 @@
 
 import { GET_GAMER_PROFILE_API } from '@/constants/api'
 import { useQuery } from '@tanstack/react-query'
+import { useCallback } from 'react'
 import useAuth from '@/hooks/useAuth'
 import {
   AUTHENTICATED_STALE_TIME_MS,
@@ -31,11 +32,11 @@ const useGamerProfile = (): {
     staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     const result = await refetch({ throwOnError: true })
     if (!result.data) throw new Error('Profile unavailable')
     return result.data
-  }
+  }, [refetch])
 
   return { error: error ?? undefined, profile: data, loadingProfile: isLoading, fetchUserProfile }
 }
