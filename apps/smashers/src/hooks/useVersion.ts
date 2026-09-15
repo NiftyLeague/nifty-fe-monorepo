@@ -13,9 +13,10 @@ enum OS {
 }
 
 const useVersion = () => {
-  const { isWindows, isMacOs, isAndroid, isIos, isLinux } = useUserAgent()
+  const { isWindows, isAndroid, isIos, isLinux } = useUserAgent()
 
-  if (isAndroid()) return { message: 'Download Nifty Smashers Beta on Google Play!', os: OS.Android }
+  if (isAndroid())
+    return { message: 'Download Nifty Smashers Beta on Google Play!', os: OS.Android }
   if (isIos()) return { message: 'Download Nifty Smashers Beta on the App Store!', os: OS.IOS }
   if (isWindows()) return { message: COMMON_MSG, os: OS.Windows }
   if (isLinux()) return { message: COMMON_MSG, os: OS.LINUX }
