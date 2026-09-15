@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import DeferredMintPage from '@/components/providers/DeferredMintPage'
+import NiftyWorldMintOMatic from '@/pages/mint-o-matic/NiftyWorldMintOMatic'
 import { acceptSearch } from '@/url/search-schema'
 
 export const Route = createFileRoute('/_public/mint-o-matic/')({
@@ -9,5 +9,5 @@ export const Route = createFileRoute('/_public/mint-o-matic/')({
 })
 
 function MintPage() {
-  return <DeferredMintPage />
+  return <NiftyWorldMintOMatic />
 }

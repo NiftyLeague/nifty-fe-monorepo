@@ -3,12 +3,8 @@ import type { UnityConfig } from 'react-unity-webgl'
 import {
   UNITY_BURNER_BASE_URL,
   UNITY_BURNER_BASE_VERSION,
-  UNITY_CREATOR_BASE_URL,
-  UNITY_CREATOR_BASE_VERSION,
   UNITY_CRYPTO_WINTER_BASE_URL,
   UNITY_CRYPTO_WINTER_BASE_VERSION,
-  UNITY_MOBILE_CREATOR_BASE_URL,
-  UNITY_MOBILE_CREATOR_BASE_VERSION,
   UNITY_SMASHERS_BASE_URL,
   UNITY_SMASHERS_BASE_VERSION,
   UNITY_USE_COMPRESSED,
@@ -75,20 +71,3 @@ export const mtGawxBuild = buildConfig({
   productName: 'Mt.Gawx',
   version: UNITY_BURNER_BASE_VERSION,
 })
-
-/**
- * The character creator ships separate desktop and mobile builds. The mobile
- * build is only used when the browser is a phone or tablet.
- */
-export const characterCreatorBuild = (isMobileOnly: boolean) =>
-  isMobileOnly
-    ? buildConfig({
-        baseUrl: UNITY_MOBILE_CREATOR_BASE_URL,
-        productName: 'NiftyCreator',
-        version: UNITY_MOBILE_CREATOR_BASE_VERSION,
-      })
-    : buildConfig({
-        baseUrl: UNITY_CREATOR_BASE_URL,
-        productName: 'NiftyCreator',
-        version: UNITY_CREATOR_BASE_VERSION,
-      })
