@@ -62,21 +62,16 @@ const PlayContent = () => (
   </>
 )
 
-const PlayDialog = ({
-  open,
-  onOpenChange,
-}: {
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
-}) => {
+const PlayDialog = (props: { open?: boolean; onOpenChange?: (open: boolean) => void }) => {
   const { message } = useVersion()
   return (
     <Dialog
       // Controlled, not `defaultOpen`: the group drives `open`, and an
       // uncontrolled dialog ignores the prop after mount, leaving the group's
-      // state desynced after the first close.
-      open={open}
-      onOpenChange={onOpenChange}
+      // state desynced after the first close. Keep `open` read through props:
+      // destructuring freezes the deferred mount-time value and blocks closes.
+      open={props.open}
+      onOpenChange={props.onOpenChange}
       title="Let's Brawl!"
       description={message}
       triggerElement={
