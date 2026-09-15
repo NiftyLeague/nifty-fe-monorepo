@@ -1,4 +1,5 @@
 import { createEffect, createResource } from 'solid-js'
+import { isServer } from 'solid-js/web'
 
 import type { User } from '../types'
 import fetchJson from '../utils/fetchJson'
@@ -13,9 +14,12 @@ export const navigate = (href: string): void => {
 }
 
 export function useUserSession({ redirectTo = '', redirectIfFound = false } = {}) {
-  const [user, { mutate }] = createResource<User>(
+  // The fetcher must not run during SSR: the relative `/api` URL is not
+  // resolvable server-side, and the throw would tear down the island render.
+  const [user, { mutate }] = createResource<User | undefined, boolean>(
+    () => !isServer,
     () => fetchJson<User>('/api/playfab/user/playfab-session'),
-    { initialValue: undefined as unknown as User }
+    { initialValue: undefined }
   )
 
   createEffect(() => {
