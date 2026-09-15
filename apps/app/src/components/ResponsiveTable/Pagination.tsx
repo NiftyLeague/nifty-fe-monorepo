@@ -8,30 +8,31 @@ interface PaginationProps {
   count: number
   className?: string
   // Legacy MUI TablePagination compat: callers may specify the wrapper element.
-  component?: React.ElementType
-  onChangePage: (event: React.MouseEvent | null, page: number) => void
+  component?: JSX.ElementType
+  onChangePage: (event: JSX.MouseEvent | null, page: number) => void
   page: number
   rowsPerPage: number
-  style?: React.CSSProperties
+  style?: JSX.CSSProperties
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination = (props: PaginationProps) => {
+  const {
   count,
   className,
   onChangePage,
   page,
   rowsPerPage,
   style,
-}) => {
+} = props
   const totalPages = Math.max(1, Math.ceil(count / rowsPerPage))
 
-  const handleChangePage = (event: React.MouseEvent | null, newPage: number) => {
+  const handleChangePage = (event: JSX.MouseEvent | null, newPage: number) => {
     onChangePage(event, newPage)
   }
 
   return (
     <footer
-      className={cn('flex items-center justify-end gap-2 px-4 py-2', className)}
+      class={cn('flex items-center justify-end gap-2 px-4 py-2', className)}
       style={style}
     >
       <PaginationControls
@@ -40,7 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onClickNext={() => handleChangePage(null, page + 1)}
         onClickPrev={() => handleChangePage(null, Math.max(0, page - 1))}
         pageLabel={
-          <span className="text-sm text-muted-foreground">
+          <span class="text-sm text-muted-foreground">
             Page {page + 1} of {totalPages}
           </span>
         }

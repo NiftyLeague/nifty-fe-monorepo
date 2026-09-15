@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useMemo, useState } from 'react'
+import { createMemo, createSignal } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { useQueryStates } from 'nuqs'
 import { cn } from '@nl/ui/utils'
@@ -19,13 +19,13 @@ interface DegensFilterProps {
   defaultFilterValues: DegenFilter
 }
 
-const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNode => {
+const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): JSX.Element => {
   const [queryState, setQueryState] = useQueryStates(degenSearchParsers, {
     history: 'push',
     shallow: true,
   })
   const queryStateKey = JSON.stringify(queryState)
-  const state = useMemo(() => normalizeDegenSearchState(queryState), [queryStateKey])
+  const state = createMemo(() => normalizeDegenSearchState(queryState), [queryStateKey])
   const isParamsEmpty =
     state.page === 1 &&
     state.sort === 'idUp' &&
@@ -40,14 +40,14 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
     !state.walletAddress &&
     !state.tokenId
 
-  const [showMore, setShowMore] = useState(false)
+  const [showMore, setShowMore] = createSignal(false)
   const tribesValue = state.tribes.length ? state.tribes : defaultFilterValues.tribes
   const backgroundsValue = state.backgrounds.length
     ? state.backgrounds
     : defaultFilterValues.backgrounds
   const cosmeticsValue = state.cosmetics.length ? state.cosmetics : defaultFilterValues.cosmetics
 
-  const handleCheckboxChange = useCallback(
+  const handleCheckboxChange = (
     (checked: boolean, source: FilterSource, current: string[], value: string) => {
       const next = checked ? [...current, value] : current.filter((item) => item !== value)
       const update = next.length ? next : null
@@ -64,47 +64,46 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
   }
 
   return (
-    <div className="flex flex-col gap-3 overflow-x-hidden max-sm:py-4">
-      <div className="flex flex-row items-center justify-between">
+    <div class="flex flex-col gap-3 overflow-x-hidden max-sm:py-4">
+      <div class="flex flex-row items-center justify-between">
         <Title level={3}>Filter Degens</Title>
-        <div className="flex flex-row gap-4">
+        <div class="flex flex-row gap-4">
           <Button
             type="button"
             variant="outline"
             disabled={isParamsEmpty}
             onClick={handleReset}
-            className="h-7 text-error"
+            class="h-7 text-error"
             style={{ borderColor: 'var(--color-error)' }}
           >
             Reset
           </Button>
         </div>
       </div>
-      <div className="flex flex-col gap-3 rounded-md bg-muted py-3">
+      <div class="flex flex-col gap-3 rounded-md bg-muted py-3">
         <FilterAccordion
           summary={<Title level={4}>Tribe</Title>}
           expanded={true}
           length={tribes.length}
         >
-          <div className="flex flex-row flex-wrap">
+          <div class="flex flex-row flex-wrap">
             {tribes.map((tribe) => (
-              <label
-                key={tribe.name}
-                className={cn('flex min-w-0 items-center', styles.filterOption)}
+              <label                
+                class={cn('flex min-w-0 items-center', styles.filterOption)}
                 style={{ flex: '0 0 50%' }}
               >
                 <Checkbox
                   name={tribe.name}
                   value={tribe.name}
                   checked={tribesValue.includes(tribe.name)}
-                  className={styles.inputCheck}
+                  class={styles.inputCheck}
                   onCheckedChange={(checked) =>
                     handleCheckboxChange(checked === true, 'tribes', tribesValue, tribe.name)
                   }
                 />
-                <div className="flex flex-row items-center">
+                <div class="flex flex-row items-center">
                   <NativeImage src={tribe.icon} alt="" width={18} height={18} />
-                  <span className="ml-2 text-base">{tribe.name}</span>
+                  <span class="ml-2 text-base">{tribe.name}</span>
                 </div>
               </label>
             ))}
@@ -115,18 +114,17 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
           length={backgrounds.length}
           expanded={true}
         >
-          <div className="flex flex-row flex-wrap">
+          <div class="flex flex-row flex-wrap">
             {backgrounds.map((background) => (
-              <label
-                key={background}
-                className={`${styles.inputCheckFormControl} ${styles.filterOption} flex items-center`}
+              <label                
+                class={`${styles.inputCheckFormControl} ${styles.filterOption} flex items-center`}
                 style={{ flex: '0 0 50%' }}
               >
                 <Checkbox
                   name={background}
                   value={background}
                   checked={backgroundsValue.includes(background)}
-                  className={styles.inputCheck}
+                  class={styles.inputCheck}
                   onCheckedChange={(checked) =>
                     handleCheckboxChange(
                       checked === true,
@@ -136,7 +134,7 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
                     )
                   }
                 />
-                <span className="text-base">{background}</span>
+                <span class="text-base">{background}</span>
               </label>
             ))}
           </div>
@@ -145,7 +143,7 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
           <Button
             type="button"
             variant="link"
-            className="mx-3.5 h-auto justify-start p-0 py-2 text-base font-normal"
+            class="mx-3.5 h-auto justify-start p-0 py-2 text-base font-normal"
             onClick={() => setShowMore(true)}
           >
             More
@@ -165,7 +163,7 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): React.ReactNo
                   )
                   .map((item) => item[0])
                 return (
-                  <div key={categoryKey} className="flex flex-row flex-wrap">
+                  <div class="flex flex-row flex-wrap">
                     <FilterAccordion
                       summary={<Title level={4}>{categoryKey}</Title>}
                       length={traitGroup.length}

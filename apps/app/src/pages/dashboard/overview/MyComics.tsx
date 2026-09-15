@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { createMemo, createSignal } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 import ComicCard from '@/components/cards/ComicCard'
@@ -12,11 +12,11 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder'
 import { COMICS_PURCHASE_URL } from '@/constants/url'
 
-const MyComics = (): React.ReactNode => {
-  const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
+const MyComics = (): JSX.Element => {
+  const [selectedComic, setSelectedComic] = createSignal<Comic | null>(null)
   const router = useRouter()
   const { comicsBalances, loadingComics } = useNFTsBalances()
-  const filteredComics = useMemo(
+  const filteredComics = createMemo(
     () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
     [comicsBalances]
   )
@@ -55,17 +55,17 @@ const MyComics = (): React.ReactNode => {
         }
       >
         {loadingComics ? (
-          <div className="px-1">
+          <div class="px-1">
             <ComicPlaceholder />
           </div>
         ) : filteredComics.length ? (
           filteredComics.map((comic) => (
-            <div key={comic.wearableName} className="px-1">
+            <div class="px-1">
               <ComicCard data={comic} onViewComic={() => handleViewComic(comic)} />
             </div>
           ))
         ) : (
-          <div className="flex items-center justify-center">
+          <div class="flex items-center justify-center">
             <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Comics found. Please check your address or go purchase some if you have not done so already!"

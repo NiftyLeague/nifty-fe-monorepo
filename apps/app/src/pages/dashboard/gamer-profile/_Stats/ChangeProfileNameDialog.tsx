@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import { Button } from '@nl/ui/base/button'
@@ -16,7 +16,7 @@ const loadChangeProfileNameForm = () => import('./ChangeProfileNameForm')
 
 function DeferredChangeProfileNameForm({
   handleUpdateNewName,
-}: ChangeProfileNameDialogProps): React.ReactNode {
+}: ChangeProfileNameDialogProps): JSX.Element {
   const [open] = useContext(DialogContext)
 
   return (
@@ -32,12 +32,12 @@ function DeferredChangeProfileNameForm({
 
 const ChangeProfileNameDialog = ({
   handleUpdateNewName,
-}: ChangeProfileNameDialogProps): React.ReactNode => {
+}: ChangeProfileNameDialogProps): JSX.Element => {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant="ghost" size="icon" aria-label="edit" className="cursor-pointer">
-          <Pencil aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+        <Button variant="ghost" size="icon" aria-label="edit" class="cursor-pointer">
+          <Pencil aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
         </Button>
       </DialogTrigger>
       <DialogContent dialogTitle="Update your username" sx={{ width: '300px' }}>

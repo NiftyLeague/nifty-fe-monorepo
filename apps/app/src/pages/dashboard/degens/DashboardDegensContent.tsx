@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { createEffect, createMemo, createSignal } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { useAccount } from 'wagmi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
@@ -51,151 +51,125 @@ const DegenCard = dynamic<DegenCardProps<DashboardDegen>>(
   }
 )
 
-const DashboardDegensPageContent = (): React.ReactNode => {
+const DashboardDegensPageContent = (): JSX.Element => {
   const { isLoggedIn } = useAuth()
   const { isConnected } = useAccount()
   const hasConnectedAccount = isConnected || (isAuditFixtureEnabled && isLoggedIn)
   // Start closed so mobile does not push the first card below the fold before the
   // responsive drawer effect runs. The layout opens it after mount on desktop.
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
-  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+  const [isDrawerOpen, setIsDrawerOpen] = createSignal(false)
+  const [selectedDegen, setSelectedDegen] = createSignal<DashboardDegen>()
+  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = createSignal<boolean>(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = createSignal<boolean>(false)
+  const [isClaimDialog, setIsClaimDialog] = createSignal<boolean>(false)
+  const [isRentDialog, setIsRentDialog] = createSignal<boolean>(false)
   const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
     history: 'push',
     shallow: true,
   })
-  const searchStateKey = JSON.stringify(rawSearchState)
-  const searchState = useMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
-  const layoutMode = searchState.layout
+  const searchState = createMemo(() => normalizeDegenSearchState(rawSearchState))
+  const layoutMode = searchState().layout
   const { favDegens, toggleFavorite } = useFavoriteDegens()
 
   const { degensBalances, loadingDegens } = useNFTsBalances()
 
-  const degenIds = useMemo(
-    () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
-    [degensBalances]
-  )
+  const degenIds = createMemo(() => [
+    ...new Set(degensBalances().map((degen) => String(degen.id))),
+  ])
   const { isLoading: loadingAllRentals, data } = usePublicDegensByIds(degenIds)
 
-  const loading = loadingAllRentals || loadingDegens
+  const loading = loadingAllRentals || loadingDegens()
 
-  const populatedDegens = useMemo(() => {
-    if (!degensBalances.length || !data) return []
+  const populatedDegens = createMemo(() => {
+    if (!degensBalances().length || !data()) return []
 
-    const degensById = new Map(data.map((degen) => [degen.id, degen]))
-    return degensBalances
+    const degensById = new Map(data()!.map((degen) => [degen.id, degen]))
+    return degensBalances()
       .map((degen) => degensById.get(String(degen.id)))
       .filter((degen): degen is DashboardDegen => Boolean(degen))
       .map(applySeventhTribesFix)
-  }, [degensBalances, data])
-  const defaultValues = useMemo(
-    () => getDefaultFilterValueFromData(populatedDegens),
-    [populatedDegens]
-  )
-  const filters = useMemo(
-    () => toDegenFilter(searchState, defaultValues),
-    [defaultValues, searchState]
-  )
-  const filteredData = useMemo(
-    () => transformDataByFilter(populatedDegens, filters),
-    [filters, populatedDegens]
-  )
+  })
+  const defaultValues = createMemo(() => getDefaultFilterValueFromData(populatedDegens()))
+  const filters = createMemo(() => toDegenFilter(searchState(), defaultValues()))
+  const filteredData = createMemo(() => transformDataByFilter(populatedDegens(), filters()))
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const itemsPerPage =
-    !isSmallScreen && layoutMode !== 'gridView' && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
-  const maxPage = Math.ceil(filteredData.length / itemsPerPage)
-  const currentPage = Math.max(1, maxPage ? Math.min(searchState.page, maxPage) : 1)
-  const dataForCurrentPage = useMemo(() => {
-    const begin = (currentPage - 1) * itemsPerPage
-    return filteredData.slice(begin, begin + itemsPerPage)
-  }, [currentPage, filteredData, itemsPerPage])
-  const pageItems = useMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
-  const jump = useCallback(
-    (page: number) =>
-      void setSearchState({ page: Math.max(1, maxPage ? Math.min(page, maxPage) : 1) }),
-    [maxPage, setSearchState]
-  )
+  const itemsPerPage = () =>
+    !isSmallScreen() && layoutMode() !== 'gridView' && !isDrawerOpen() ? 18 : DEGENS_PER_PAGE
+  const maxPage = () => Math.ceil(filteredData().length / itemsPerPage())
+  const currentPage = () => Math.max(1, maxPage() ? Math.min(searchState().page, maxPage()) : 1)
+  const dataForCurrentPage = createMemo(() => {
+    const begin = (currentPage() - 1) * itemsPerPage()
+    return filteredData().slice(begin, begin + itemsPerPage())
+  })
+  const pageItems = createMemo(() => getPageItems(currentPage(), maxPage()))
+  const jump = (page: number) => {
+    void setSearchState({ page: Math.max(1, maxPage() ? Math.min(page, maxPage()) : 1) })
+  }
 
-  useEffect(() => {
-    if (!loading && searchState.page !== currentPage) {
-      void setSearchState({ page: currentPage }, { history: 'replace' })
+  createEffect(() => {
+    if (!loading() && searchState().page !== currentPage()) {
+      void setSearchState({ page: currentPage() }, { history: 'replace' })
     }
-  }, [currentPage, loading, searchState.page, setSearchState])
+  })
 
-  const commitSearchTerm = useCallback(
-    (searchTerm: string | null) =>
-      void setSearchState({ searchTerm, page: 1 }, { history: 'replace' }),
-    [setSearchState]
-  )
+  const commitSearchTerm = (searchTerm: string | null) => {
+    void setSearchState({ searchTerm, page: 1 }, { history: 'replace' })
+  }
+
   const [searchTermDraft, handleChangeSearchTerm] = useDebouncedSearchTerm(
-    searchState.searchTerm,
+    searchState().searchTerm,
     commitSearchTerm
   )
 
-  const handleFavoriteToggle = useCallback(
-    (degen: DashboardDegen): void => {
-      void toggleFavorite(degen.id)
-    },
-    [toggleFavorite]
-  )
+  const handleFavoriteToggle = (degen: DashboardDegen): void => {
+    void toggleFavorite(degen.id)
+  }
 
-  const handleChangeLayoutMode = (_: React.MouseEvent<HTMLElement>, newMode: string) => {
+
+  const handleChangeLayoutMode = (_: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => {
     void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
   }
 
-  const handleSort = useCallback(
-    (sort: string) => {
-      void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 })
-    },
-    [setSearchState]
-  )
+  const handleSort = (sort: string) => {
+    void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 })
+  }
 
-  const handleClickEditName = useCallback((degen: DashboardDegen): void => {
+
+  const handleClickEditName = (degen: DashboardDegen) => {
     setSelectedDegen(degen)
     setIsRenameDegenModalOpen(true)
-  }, [])
+  }
 
-  const handleViewTraits = useCallback((degen: DashboardDegen): void => {
+
+  const handleViewTraits = (degen: DashboardDegen) => {
     setSelectedDegen(degen)
     setIsClaimDialog(false)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
-  }, [])
+  }
 
-  const handleClaimDegen = useCallback((degen: DashboardDegen): void => {
+
+  const handleClaimDegen = (degen: DashboardDegen) => {
     setSelectedDegen(degen)
     setIsClaimDialog(true)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
-  }, [])
+}
 
-  const isGridView = layoutMode === 'gridView'
+  const isGridView = () => layoutMode() === 'gridView'
 
-  const renderSkeletonItem = useCallback(
-    (_: undefined, index: number) => (
-      <div
-        key={`dashboard-degen-skeleton-${index}`}
-        className={getGridSizeClass(isGridView, isDrawerOpen)}
-      >
-        <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
+  const renderSkeletonItem = (_: undefined, index: number) => (
+      <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
+        <SkeletonDegenPlaceholder size={isGridView() ? 'normal' : 'small'} />
       </div>
-    ),
-    [isDrawerOpen, isGridView]
-  )
+    )
 
-  const renderDrawer = useCallback(
-    () => <DeferredDegensFilter defaultFilterValues={defaultValues} />,
-    [defaultValues]
-  )
+  const renderDrawer = () => <DeferredDegensFilter defaultFilterValues={defaultValues()} />
 
-  const renderDegen = useCallback(
-    (degen: DashboardDegen) => (
-      <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
+  const renderDegen = (degen: DashboardDegen) => (
+      <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
         <DegenCard
           degen={degen}
           deferAnimatedMedia
@@ -205,38 +179,27 @@ const DashboardDegensPageContent = (): React.ReactNode => {
           onClickDetail={handleViewTraits}
           onClickEditName={handleClickEditName}
           onClickFavorite={handleFavoriteToggle}
-          size={isGridView ? 'normal' : 'small'}
+          size={isGridView() ? 'normal' : 'small'}
         />
       </div>
-    ),
-    [
-      favDegens,
-      handleClaimDegen,
-      handleClickEditName,
-      handleFavoriteToggle,
-      handleViewTraits,
-      isDrawerOpen,
-      isGridView,
-    ]
-  )
+    )
 
-  const renderMain = useCallback(
-    () => (
-      <div className="flex h-full flex-col gap-3">
+  const renderMain = () => (
+      <div class="flex h-full flex-col gap-3">
         {/* Main Grid title */}
         <SectionTitle firstSection>
-          <div className="mb-4 flex items-center gap-2">
+          <div class="mb-4 flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
-              className="cursor-pointer"
+              class="cursor-pointer"
               aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
               {isDrawerOpen ? (
-                <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={1.5} />
+                <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={28} stroke-width={1.5} />
               ) : (
-                <ChevronRight aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={1.5} />
+                <ChevronRight aria-hidden="true" absoluteStrokeWidth size={28} stroke-width={1.5} />
               )}
             </Button>
             {filteredData.length} Degens
@@ -244,7 +207,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
         </SectionTitle>
         {/* Main grid content */}
         <div
-          className={`grid grid-cols-12 gap-4 -mt-9 ${
+          class={`grid grid-cols-12 gap-4 -mt-9 ${
             !degensBalances?.length ? 'h-full justify-center items-center' : ''
           }`}
         >
@@ -257,7 +220,7 @@ const DashboardDegensPageContent = (): React.ReactNode => {
               href={DEGEN_COLLECTION_URL}
               target="_blank"
               rel="noreferrer"
-              className="col-span-12 flex justify-center"
+              class="col-span-12 flex justify-center"
             >
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
@@ -268,30 +231,29 @@ const DashboardDegensPageContent = (): React.ReactNode => {
         </div>
         {dataForCurrentPage.length > 0 && (
           <div
-            className="mx-auto flex flex-wrap items-center justify-center gap-1"
-            style={{ paddingBottom: '16px' }}
+            class="mx-auto flex flex-wrap items-center justify-center gap-1"
+            style={{ 'padding-bottom': '16px' }}
           >
             <Button
               variant="ghost"
               size={isMobile ? 'sm' : 'icon'}
-              className="cursor-pointer"
+              class="cursor-pointer"
               disabled={currentPage === 1}
               onClick={() => jump(currentPage - 1)}
               aria-label="Previous page"
             >
-              <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+              <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
             </Button>
             {pageItems.map((p) =>
               p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-                <span key={p} className="px-1 text-muted-foreground">
+                <span class="px-1 text-muted-foreground">
                   …
                 </span>
               ) : (
-                <Button
-                  key={p}
+                <Button                  
                   variant={p === currentPage ? 'default' : 'ghost'}
                   size={isMobile ? 'sm' : 'icon'}
-                  className="cursor-pointer"
+                  class="cursor-pointer"
                   onClick={() => jump(p)}
                 >
                   {p}
@@ -301,38 +263,23 @@ const DashboardDegensPageContent = (): React.ReactNode => {
             <Button
               variant="ghost"
               size={isMobile ? 'sm' : 'icon'}
-              className="cursor-pointer"
+              class="cursor-pointer"
               disabled={currentPage === maxPage}
               onClick={() => jump(currentPage + 1)}
               aria-label="Next page"
             >
-              <ChevronRight aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+              <ChevronRight aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
             </Button>
           </div>
         )}
       </div>
     ),
-    [
-      currentPage,
-      dataForCurrentPage,
-      degensBalances.length,
-      filteredData.length,
-      hasConnectedAccount,
-      isDrawerOpen,
-      isMobile,
-      jump,
-      loading,
-      maxPage,
-      pageItems,
-      renderDegen,
-      renderSkeletonItem,
-    ]
-  )
+
 
   return (
     <>
-      <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
-        <div className="pl-4 pr-6">
+      <div class="flex h-full flex-col justify-start align-top gap-4 pl-2">
+        <div class="pl-4 pr-6">
           <DegensTopNav
             searchTerm={searchTermDraft}
             handleChangeSearchTerm={handleChangeSearchTerm}

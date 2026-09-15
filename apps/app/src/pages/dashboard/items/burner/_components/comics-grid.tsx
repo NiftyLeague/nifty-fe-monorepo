@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Flame } from 'lucide-react'
 import { Input } from '@nl/ui/base/input'
@@ -28,16 +28,16 @@ export default function ComicsGrid({
 }: {
   burnCount: number[]
   selectedComics: Comic[]
-  setBurnCount: React.Dispatch<React.SetStateAction<number[]>>
-  setSelectedComics: React.Dispatch<React.SetStateAction<Comic[]>>
+  setBurnCount: (v: JSX.number[]) => void
+  setSelectedComics: (v: JSX.Comic[]) => void
   refreshKey: number
 }) {
   const { comicsBalances, loadingComics } = useNFTsBalances()
-  const keyCount = useMemo(
+  const keyCount = createMemo(
     () => (burnCount.some((v) => v === 0) ? 0 : Math.min(...burnCount)),
     [burnCount]
   )
-  const itemCount = useMemo(
+  const itemCount = createMemo(
     () => burnCount.reduce((total, count) => total + count, 0) - keyCount * 6,
     [burnCount, keyCount]
   )
@@ -67,16 +67,16 @@ export default function ComicsGrid({
   }
 
   return loadingComics ? (
-    <DeferredSkeleton className="absolute left-0 right-0 top-[130px] mx-auto h-[265px] w-[315px] rounded-none" />
+    <DeferredSkeleton class="absolute left-0 right-0 top-[130px] mx-auto h-[265px] w-[315px] rounded-none" />
   ) : (
     <div>
-      <div className="absolute left-0 right-0 top-[130px] mx-auto w-[315px]">
-        <div className="grid grid-cols-3 gap-x-2.5">
+      <div class="absolute left-0 right-0 top-[130px] mx-auto w-[315px]">
+        <div class="grid grid-cols-3 gap-x-2.5">
           {comicsBalances.map((comic) => (
-            <div key={comic.image}>
+            <div>
               <NativeImage
                 src={COMPRESSED_COMIC_IMAGES[comic.id - 1] as string}
-                // srcSet={`${comic.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                // srcset={`${comic.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 alt={comic.title}
                 onClick={() => handleSelectComic(comic)}
                 width={98}
@@ -86,19 +86,19 @@ export default function ComicsGrid({
                   width: '100%',
                   height: 'auto',
                   ...(selectedComics.includes(comic) && {
-                    boxShadow: '0 0 8px rgba(81, 203, 238, 1)',
+                    'box-shadow': '0 0 8px rgba(81, 203, 238, 1)',
                     border: '3px solid rgba(81, 203, 238, 1)',
                   }),
                 }}
               />
-              <div className={styles.titleWrap}>
-                <div className={styles.title}>
+              <div class={styles.titleWrap}>
+                <div class={styles.title}>
                   {selectedComics.includes(comic) ? (
-                    <div className="relative">
+                    <div class="relative">
                       <Input
                         aria-label={`Burn count for ${comic.title}`}
                         value={burnCount[comic.id - 1]}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        onChange={(event: Event & { currentTarget: HTMLInputElement }) => {
                           handleManualSetBurnCount(comic, event.target.value)
                         }}
                         type="number"
@@ -107,20 +107,20 @@ export default function ComicsGrid({
                         min={0}
                         max={comicsBalances.find((c) => c.id === comic.id)?.balance || 0}
                         style={{
-                          textAlign: 'center',
-                          paddingBottom: 2.5,
-                          paddingLeft: '1.75rem',
-                          paddingRight: 2.5,
-                          paddingTop: 2.5,
+                          'text-align': 'center',
+                          'padding-bottom': 2.5,
+                          'padding-left': '1.75rem',
+                          'padding-right': 2.5,
+                          'padding-top': 2.5,
                         }}
-                        className="h-8 w-[98px]"
+                        class="h-8 w-[98px]"
                       />
                       <Flame
                         aria-hidden="true"
                         absoluteStrokeWidth
-                        className="pointer-events-none absolute inset-y-0 left-2 my-auto text-muted-foreground"
+                        class="pointer-events-none absolute inset-y-0 left-2 my-auto text-muted-foreground"
                         size={14}
-                        strokeWidth={1.5}
+                        stroke-width={1.5}
                       />
                     </div>
                   ) : (
@@ -134,9 +134,9 @@ export default function ComicsGrid({
             </div>
           ))}
         </div>
-        <div className={styles.sums}>
-          <span className={styles.keySum}>{keyCount} Keys</span>
-          <span className={styles.itemSum}>{itemCount} Items</span>
+        <div class={styles.sums}>
+          <span class={styles.keySum}>{keyCount} Keys</span>
+          <span class={styles.itemSum}>{itemCount} Items</span>
         </div>
       </div>
     </div>

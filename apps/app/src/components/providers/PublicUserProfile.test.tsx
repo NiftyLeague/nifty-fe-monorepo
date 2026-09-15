@@ -18,7 +18,7 @@ mock.module('@/contexts/WalletModal', () => ({
 }))
 
 mock.module('@/contexts/WalletAuthProvidersBoundary', () => ({
-  default: ({ children, enabled }: React.PropsWithChildren<{ enabled?: boolean }>) =>
+  default: ({ children, enabled }: JSX.{ enabled?: boolean } & { children?: JSX.Element }) =>
     enabled ? <div data-testid="wallet-auth-boundary">{children}</div> : null,
 }))
 

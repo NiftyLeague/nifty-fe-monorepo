@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { createMemo, createSignal } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useQueryStates } from 'nuqs'
@@ -34,18 +34,18 @@ const CollapsibleSidebarLayout = dynamic(
   () => import('@/layouts/_layout/_CollapsibleSidebarLayout')
 )
 
-const AllDegensPage = (): React.ReactNode => {
+const AllDegensPage = (): JSX.Element => {
   // Start closed so mobile does not push the first card below the fold before the
   // responsive drawer effect runs. The layout opens it after mount on desktop.
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const [selectedDegen, setSelectedDegen] = useState<PublicDegen>()
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = createSignal(false)
+  const [selectedDegen, setSelectedDegen] = createSignal<PublicDegen>()
+  const [isDegenModalOpen, setIsDegenModalOpen] = createSignal(false)
   const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
     history: 'push',
     shallow: true,
   })
   const searchStateKey = JSON.stringify(rawSearchState)
-  const searchState = useMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
+  const searchState = createMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
   const layoutMode = searchState.layout
 
   const isMobile = useMediaQuery('(max-width:640px)')
@@ -55,14 +55,14 @@ const AllDegensPage = (): React.ReactNode => {
   const requestedPage = searchState.page
   const sortValue = searchState.sort
 
-  const requestQuery = useMemo(() => {
+  const requestQuery = createMemo(() => {
     return buildPublicDegensRequestQuery(searchState, pageSize)
   }, [pageSize, requestedPage, searchState])
 
   const { data, error, refetch } = usePublicDegensPage(requestQuery)
 
-  const pageData = useMemo(() => (data ? fromPublicDegenPageWire(data) : undefined), [data])
-  const defaultValues = useMemo(
+  const pageData = createMemo(() => (data ? fromPublicDegenPageWire(data) : undefined), [data])
+  const defaultValues = createMemo(
     () => ({
       ...DEFAULT_STATIC_FILTER,
       prices: pageData?.priceRange ?? DEFAULT_STATIC_FILTER.prices,
@@ -71,14 +71,14 @@ const AllDegensPage = (): React.ReactNode => {
   )
   const currentPage = pageData?.page ?? requestedPage
   const maxPage = Math.ceil((pageData?.total ?? 0) / pageSize)
-  const pageItems = useMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
+  const pageItems = createMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
 
-  const jump = useCallback(
+  const jump = (
     (page: number) => void setSearchState({ page: Math.max(1, page) }),
     [setSearchState]
   )
 
-  const commitSearchTerm = useCallback(
+  const commitSearchTerm = (
     (searchTerm: string | null) =>
       void setSearchState({ searchTerm, page: 1 }, { history: 'replace' }),
     [setSearchState]
@@ -88,37 +88,37 @@ const AllDegensPage = (): React.ReactNode => {
     commitSearchTerm
   )
 
-  const handleChangeLayoutMode = (_event: React.MouseEvent<HTMLElement>, newMode: string) => {
+  const handleChangeLayoutMode = (_event: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => {
     void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
   }
 
-  const handleSort = useCallback(
+  const handleSort = (
     (sort: string) => void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 }),
     [setSearchState]
   )
 
-  const handleViewTraits = useCallback((degen: PublicDegen): void => {
+  const handleViewTraits = ((degen: PublicDegen): void => {
     setSelectedDegen(degen)
     setIsDegenModalOpen(true)
   }, [])
 
-  const renderSkeletonItem = useCallback(
+  const renderSkeletonItem = (
     (_: undefined, index: number) => (
-      <div key={`degen-skeleton-${index}`} className={getGridSizeClass(isGridView, isDrawerOpen)}>
+      <div key={`degen-skeleton-${index}`} class={getGridSizeClass(isGridView, isDrawerOpen)}>
         <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
       </div>
     ),
     [isDrawerOpen, isGridView]
   )
 
-  const renderDrawer = useCallback(
+  const renderDrawer = (
     () => <DeferredDegensFilter defaultFilterValues={defaultValues} />,
     [defaultValues]
   )
 
-  const renderDegen = useCallback(
+  const renderDegen = (
     (degen: PublicDegen) => (
-      <div key={degen.id} className={getGridSizeClass(isGridView, isDrawerOpen)}>
+      <div class={getGridSizeClass(isGridView, isDrawerOpen)}>
         <DeferredDegenCard
           degen={degen}
           deferAnimatedMedia
@@ -130,30 +130,30 @@ const AllDegensPage = (): React.ReactNode => {
     [handleViewTraits, isDrawerOpen, isGridView]
   )
 
-  const renderMain = useCallback(
+  const renderMain = (
     () => (
-      <div className="flex h-full flex-col gap-3">
+      <div class="flex h-full flex-col gap-3">
         <SectionTitle firstSection>
-          <div className="mb-4 flex items-center gap-2">
+          <div class="mb-4 flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
-              className="cursor-pointer"
+              class="cursor-pointer"
               aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
               onClick={() => setIsDrawerOpen(!isDrawerOpen)}
             >
               {isDrawerOpen ? (
-                <ChevronLeft absoluteStrokeWidth aria-hidden="true" size={28} strokeWidth={1.5} />
+                <ChevronLeft absoluteStrokeWidth aria-hidden="true" size={28} stroke-width={1.5} />
               ) : (
-                <ChevronRight absoluteStrokeWidth aria-hidden="true" size={28} strokeWidth={1.5} />
+                <ChevronRight absoluteStrokeWidth aria-hidden="true" size={28} stroke-width={1.5} />
               )}
             </Button>
             {pageData?.total ?? 0} Degens
           </div>
         </SectionTitle>
-        <div className="grid grid-cols-12 gap-4 -mt-9">
+        <div class="grid grid-cols-12 gap-4 -mt-9">
           {error ? (
-            <div className="col-span-12">
+            <div class="col-span-12">
               <QueryErrorState error={error} onRetry={() => void refetch()} />
             </div>
           ) : !pageData ? (
@@ -163,7 +163,7 @@ const AllDegensPage = (): React.ReactNode => {
           )}
         </div>
         <PaginationControls
-          className="mx-auto flex-wrap justify-center gap-1 pb-4"
+          class="mx-auto flex-wrap justify-center gap-1 pb-4"
           buttonClassName={isMobile ? 'size-8' : undefined}
           hasNext={currentPage < maxPage}
           hasPrev={currentPage > 1}
@@ -172,14 +172,13 @@ const AllDegensPage = (): React.ReactNode => {
           onClickPrev={() => jump(currentPage - 1)}
           pageLabel={pageItems.map((p) =>
             p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-              <PaginationEllipsis key={p} />
+              <PaginationEllipsis />
             ) : (
-              <Button
-                key={p}
+              <Button                
                 type="button"
                 variant={p === currentPage ? 'default' : 'ghost'}
                 size={isMobile ? 'sm' : 'icon'}
-                className="cursor-pointer"
+                class="cursor-pointer"
                 onClick={() => jump(p)}
                 aria-current={p === currentPage ? 'page' : undefined}
                 aria-label={`Go to page ${p}`}
@@ -209,8 +208,8 @@ const AllDegensPage = (): React.ReactNode => {
 
   return (
     <>
-      <div className="flex h-full flex-col justify-start align-top gap-4 pl-2">
-        <div className="pl-4 pr-6">
+      <div class="flex h-full flex-col justify-start align-top gap-4 pl-2">
+        <div class="pl-4 pr-6">
           <DegensTopNav
             searchTerm={searchTermDraft}
             handleChangeSearchTerm={handleChangeSearchTerm}

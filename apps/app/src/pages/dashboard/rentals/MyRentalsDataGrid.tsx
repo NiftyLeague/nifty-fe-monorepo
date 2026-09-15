@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { createEffect, createMemo, createSignal } from 'solid-js'
 import { useQueryStates } from 'nuqs'
 import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'
 import { Button } from '@nl/ui/base/button'
@@ -38,7 +38,7 @@ interface TableColumn {
   width?: number
   minWidth?: number
   sortable?: boolean
-  renderCell?: (params: RenderCellParams) => React.ReactNode
+  renderCell?: (params: RenderCellParams) => JSX.Element
 }
 
 type ColumnVisibilityModel = Record<string, boolean>
@@ -62,15 +62,15 @@ const MyRentalsDataGrid = ({
   category,
   onTerminateRental,
   updateRentalName,
-}: Props): React.ReactNode => {
-  const [selectedRowForEditing, setSelectedRowForEditing] = useState<RentalDataGrid>(
+}: Props): JSX.Element => {
+  const [selectedRowForEditing, setSelectedRowForEditing] = createSignal<RentalDataGrid>(
     {} as RentalDataGrid
   )
-  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false)
-  const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = useState(false)
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const [selectedDegen, setSelectedDegen] = useState<Degen | undefined>(undefined)
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+  const [isNicknameModalOpen, setIsNicknameModalOpen] = createSignal(false)
+  const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = createSignal(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = createSignal<boolean>(false)
+  const [selectedDegen, setSelectedDegen] = createSignal<Degen | undefined>(undefined)
+  const [isRentDialog, setIsRentDialog] = createSignal<boolean>(false)
   const [tableState, setTableState] = useQueryStates(rentalSearchParsers, {
     history: 'push',
     shallow: true,
@@ -87,12 +87,12 @@ const MyRentalsDataGrid = ({
   )
 
   const { profile } = usePlayerProfile()
-  const rentals = useMemo(
+  const rentals = createMemo(
     () => transformRentals(rows, profile?.id || ''),
     [rows, profile?.id, category]
   )
 
-  const filteredRows = useMemo(() => {
+  const filteredRows = createMemo(() => {
     switch (category) {
       case 'direct-rental':
         return rentals.filter((rental) => rental.category === 'direct-rental')
@@ -112,7 +112,7 @@ const MyRentalsDataGrid = ({
     }
   }, [rentals, category])
 
-  const sortedRows = useMemo(() => {
+  const sortedRows = createMemo(() => {
     if (!sort) {
       return filteredRows
     }
@@ -181,9 +181,9 @@ const MyRentalsDataGrid = ({
     void setTableState({ page: Math.min(pageCount, page + 2) })
   }
 
-  const commonColumnProp = { minWidth: 100 }
+  const commonColumnProp = { 'min-width': 100 }
 
-  const columns: TableColumn[] = useMemo(() => {
+  const columns: TableColumn[] = createMemo(() => {
     const results: TableColumn[] = [
       {
         field: 'action',
@@ -211,8 +211,8 @@ const MyRentalsDataGrid = ({
         headerName: 'Player',
         width: 120,
         renderCell: (params: RenderCellParams) => (
-          <div className="flex flex-row items-center gap-2">
-            <span className="text-base">{params.value as React.ReactNode}</span>
+          <div class="flex flex-row items-center gap-2">
+            <span class="text-base">{params.value as JSX.Element}</span>
           </div>
         ),
       },
@@ -222,17 +222,17 @@ const MyRentalsDataGrid = ({
         width: 150,
         renderCell: (params: RenderCellParams) => {
           return (
-            <div className="flex flex-row items-center gap-2">
-              <span className="text-base">{params.value as React.ReactNode}</span>
+            <div class="flex flex-row items-center gap-2">
+              <span class="text-base">{params.value as JSX.Element}</span>
               {(params.row as { isEditable?: boolean }).isEditable && (
                 <Button
                   variant="ghost"
                   size="icon"
                   aria-label="Edit player nickname"
                   onClick={() => handleOpenNickname(params)}
-                  className="hidden cursor-pointer group-hover:block"
+                  class="hidden cursor-pointer group-hover:block"
                 >
-                  <Pencil aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+                  <Pencil aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
                 </Button>
               )}
             </div>
@@ -246,10 +246,10 @@ const MyRentalsDataGrid = ({
         renderCell: (params: RenderCellParams) => (
           <button
             type="button"
-            className="cursor-pointer text-foreground underline decoration-foreground"
+            class="cursor-pointer text-foreground underline decoration-foreground"
             onClick={() => handleClickDegenId(params)}
           >
-            #{params.value as React.ReactNode}
+            #{params.value as JSX.Element}
           </button>
         ),
       },
@@ -260,7 +260,7 @@ const MyRentalsDataGrid = ({
         headerName: 'Earning Cap',
         width: 150,
         renderCell: (params: RenderCellParams) => (
-          <span className="text-base">
+          <span class="text-base">
             {formatNumberToDisplay(params.row.totalEarnings)} /{' '}
             {formatNumberToDisplay(params.value as number)}
           </span>
@@ -272,7 +272,7 @@ const MyRentalsDataGrid = ({
         ...commonColumnProp,
         width: 150,
         renderCell: (params: RenderCellParams) => (
-          <span className="text-warning">
+          <span class="text-warning">
             <Countdown date={new Date((params.value as number) * 1000)} />
           </span>
         ),
@@ -346,7 +346,7 @@ const MyRentalsDataGrid = ({
           const value = params.value as number
           const colorClass =
             value === 0 ? 'text-foreground' : value > 0 ? 'text-success' : 'text-error'
-          return <span className={colorClass}>{formatNumberToDisplay(value)}%</span>
+          return <span class={colorClass}>{formatNumberToDisplay(value)}%</span>
         },
       },
     ]
@@ -358,7 +358,7 @@ const MyRentalsDataGrid = ({
     return results
   }, [category])
 
-  const visibleColumns = useMemo(
+  const visibleColumns = createMemo(
     () =>
       columnVisibilityModel
         ? columns.filter((col) => columnVisibilityModel[col.field] !== false)
@@ -366,14 +366,14 @@ const MyRentalsDataGrid = ({
     [columns, columnVisibilityModel]
   )
 
-  const paginatedRows = useMemo(
+  const paginatedRows = createMemo(
     () => sortedRows.slice(page * pageSize, (page + 1) * pageSize),
     [sortedRows, page, pageSize]
   )
 
   const pageCount = Math.max(1, Math.ceil(sortedRows.length / pageSize))
 
-  useEffect(() => {
+  createEffect(() => {
     const normalizedPage = Math.min(page + 1, pageCount)
     if (tableState.page !== normalizedPage) {
       void setTableState({ page: normalizedPage }, { history: 'replace' })
@@ -382,7 +382,7 @@ const MyRentalsDataGrid = ({
 
   if (loading) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div class="flex h-full items-center justify-center">
         <CircularProgress size="lg" />
       </div>
     )
@@ -390,14 +390,13 @@ const MyRentalsDataGrid = ({
 
   return (
     <>
-      <div className="flex h-full flex-col">
-        <div className="flex-1 overflow-auto rounded-lg border bg-background">
-          <Table aria-label="rentals data table" className="border-collapse">
-            <TableHeader className="sticky top-0 z-10 bg-background">
-              <TableRow className="border-0 hover:bg-transparent">
+      <div class="flex h-full flex-col">
+        <div class="flex-1 overflow-auto rounded-lg border bg-background">
+          <Table aria-label="rentals data table" class="border-collapse">
+            <TableHeader class="sticky top-0 z-10 bg-background">
+              <TableRow class="border-0 hover:bg-transparent">
                 {visibleColumns.map((column) => (
-                  <TableHead
-                    key={column.field}
+                  <TableHead                    
                     aria-sort={
                       sort?.field === column.field
                         ? sort.direction === 'asc'
@@ -405,13 +404,13 @@ const MyRentalsDataGrid = ({
                           : 'descending'
                         : 'none'
                     }
-                    style={{ minWidth: column.width }}
-                    className="px-4 py-3 text-left font-medium text-muted-foreground"
+                    style={{ 'min-width': column.width }}
+                    class="px-4 py-3 text-left font-medium text-muted-foreground"
                   >
                     <button
                       type="button"
                       onClick={() => handleSortClick(column.field)}
-                      className="flex items-center gap-1 text-left font-medium text-muted-foreground"
+                      class="flex items-center gap-1 text-left font-medium text-muted-foreground"
                     >
                       {column.headerName || column.field}
                       {sort?.field === column.field &&
@@ -420,14 +419,14 @@ const MyRentalsDataGrid = ({
                             aria-hidden="true"
                             absoluteStrokeWidth
                             size={18}
-                            strokeWidth={1.5}
+                            stroke-width={1.5}
                           />
                         ) : (
                           <ChevronDown
                             aria-hidden="true"
                             absoluteStrokeWidth
                             size={18}
-                            strokeWidth={1.5}
+                            stroke-width={1.5}
                           />
                         ))}
                     </button>
@@ -438,18 +437,17 @@ const MyRentalsDataGrid = ({
             <TableBody>
               {sortedRows.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={visibleColumns.length} className="px-4 py-3">
-                    <span className="text-muted-foreground">No rentals found</span>
+                  <TableCell colSpan={visibleColumns.length} class="px-4 py-3">
+                    <span class="text-muted-foreground">No rentals found</span>
                   </TableCell>
                 </TableRow>
               ) : (
                 paginatedRows.map((row) => (
-                  <TableRow key={row.id || ''} className="group hover:bg-accent/50">
+                  <TableRow class="group hover:bg-accent/50">
                     {visibleColumns.map((column) => (
-                      <TableCell
-                        key={column.field}
-                        style={{ minWidth: column.width }}
-                        className="px-4 py-3 align-top"
+                      <TableCell                        
+                        style={{ 'min-width': column.width }}
+                        class="px-4 py-3 align-top"
                       >
                         {column.renderCell
                           ? column.renderCell({
@@ -467,21 +465,21 @@ const MyRentalsDataGrid = ({
             </TableBody>
           </Table>
         </div>
-        <div className="flex items-center justify-between border-t px-4 py-3">
-          <div className="flex items-center gap-2">
+        <div class="flex items-center justify-between border-t px-4 py-3">
+          <div class="flex items-center gap-2">
             <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
-              <SelectTrigger aria-label="Rows per page" className="w-[70px]">
+              <SelectTrigger aria-label="Rows per page" class="w-[70px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {PAGE_SIZE_OPTIONS.map((opt) => (
-                  <SelectItem key={opt} value={String(opt)}>
+                  <SelectItem value={String(opt)}>
                     {opt}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            <span className="text-sm text-muted-foreground">Rows per page</span>
+            <span class="text-sm text-muted-foreground">Rows per page</span>
           </div>
           <PaginationControls
             hasNext={page < pageCount - 1 && sortedRows.length > 0}
@@ -489,7 +487,7 @@ const MyRentalsDataGrid = ({
             onClickNext={handleNextPage}
             onClickPrev={handlePrevPage}
             pageLabel={
-              <span className="text-sm">
+              <span class="text-sm">
                 Page {page + 1} of {pageCount}
               </span>
             }
@@ -505,7 +503,7 @@ const MyRentalsDataGrid = ({
       >
         <DialogContent
           showCloseButton={false}
-          className="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
+          class="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
         >
           <DeferredChangeNicknameDialog
             open={isNicknameModalOpen}
@@ -522,15 +520,15 @@ const MyRentalsDataGrid = ({
       >
         <DialogContent showCloseButton={false}>
           <DialogHeader>
-            <DialogTitle className="text-center text-xl">
+            <DialogTitle class="text-center text-xl">
               Are you sure you want to terminate this rental?
             </DialogTitle>
           </DialogHeader>
-          <div className="flex flex-col items-center gap-2">
-            <Button onClick={handleConfirmTerminateRental} variant="default" className="w-full">
+          <div class="flex flex-col items-center gap-2">
+            <Button onClick={handleConfirmTerminateRental} variant="default" class="w-full">
               Terminate Rental
             </Button>
-            <Button onClick={() => setIsTerminateRentalModalOpen(false)} className="w-full">
+            <Button onClick={() => setIsTerminateRentalModalOpen(false)} class="w-full">
               Cancel
             </Button>
           </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { useAccount, useReadContract } from 'wagmi'
 import { formatUnits } from 'viem'
 import {
@@ -57,7 +57,7 @@ function useEthereumNFTLBalance(): NFTLBalanceState {
     query: { staleTime: 10_000, enabled: isConnected && isLoggedIn && !!address },
   })
 
-  const balance = useMemo(() => {
+  const balance = createMemo(() => {
     if (balanceData !== undefined) {
       return Number(formatUnits(balanceData as bigint, 18))
     }
@@ -88,7 +88,7 @@ function useImmutableNFTLBalance(): NFTLBalanceState {
     query: { staleTime: 10_000, enabled: isConnected && isLoggedIn && !!address },
   })
 
-  const balance = useMemo(() => {
+  const balance = createMemo(() => {
     if (balanceData !== undefined) {
       return Number(formatUnits(balanceData as bigint, 18))
     }
@@ -119,7 +119,7 @@ export default function useNFTLBalance(): NFTLBalancesState {
     error: imxError,
   } = useImmutableNFTLBalance()
 
-  const balances = useMemo(() => ({ eth: ethBal, imx: imxBal }), [ethBal, imxBal])
+  const balances = createMemo(() => ({ eth: ethBal, imx: imxBal }), [ethBal, imxBal])
 
   return {
     balances,

@@ -77,7 +77,7 @@ export const INVENTORIES: EquipItemSlot[] = [
       <NativeImage
         src="/img/items/equips/cape.webp"
         alt="Cape"
-        className={styles.inventory}
+        class={styles.inventory}
         width={30}
         height={30}
       />
@@ -97,7 +97,7 @@ export const INVENTORIES: EquipItemSlot[] = [
       <NativeImage
         src="/img/items/equips/halo.webp"
         alt="Halo"
-        className={styles.inventory}
+        class={styles.inventory}
         width={30}
         height={30}
       />
@@ -117,7 +117,7 @@ export const INVENTORIES: EquipItemSlot[] = [
       <NativeImage
         src="/img/items/equips/companion.webp"
         alt="Companion"
-        className={styles.inventory}
+        class={styles.inventory}
         width={30}
         height={30}
       />
@@ -137,7 +137,7 @@ export const INVENTORIES: EquipItemSlot[] = [
       <NativeImage
         src="/img/items/equips/diamond-bat.webp"
         alt="Diamond Bat"
-        className={styles.inventory}
+        class={styles.inventory}
         width={30}
         height={30}
       />
@@ -157,7 +157,7 @@ export const INVENTORIES: EquipItemSlot[] = [
       <NativeImage
         src="/img/items/equips/purple-bat.webp"
         alt="Purple Bat"
-        className={styles.inventory}
+        class={styles.inventory}
         width={30}
         height={30}
       />
@@ -177,7 +177,7 @@ export const INVENTORIES: EquipItemSlot[] = [
       <NativeImage
         src="/img/items/equips/bread-bat.webp"
         alt="Bread Bat"
-        className={styles.inventory}
+        class={styles.inventory}
         width={30}
         height={30}
       />

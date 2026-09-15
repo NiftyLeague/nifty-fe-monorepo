@@ -13,16 +13,16 @@ const Item = ({
   value,
   isDisable = false,
   isLoading = true,
-}: ItemProps): React.ReactNode => (
-  <div className="flex flex-row justify-between">
-    <span className={cn('text-base', isDisable ? 'text-muted-foreground' : 'text-foreground')}>
+}: ItemProps): JSX.Element => (
+  <div class="flex flex-row justify-between">
+    <span class={cn('text-base', isDisable ? 'text-muted-foreground' : 'text-foreground')}>
       {label}:
     </span>
     {isLoading ? (
-      <DeferredSkeleton className="h-[18.67px] w-[15%] rounded" />
+      <DeferredSkeleton class="h-[18.67px] w-[15%] rounded" />
     ) : (
       <span
-        className={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}
+        class={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}
       >
         {value}
       </span>

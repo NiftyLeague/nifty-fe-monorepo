@@ -12,7 +12,7 @@ interface DegensTopNavControlsProps {
   handleSort: (sortOptions: string) => void
   sortValue: string
   layoutMode: string
-  handleChangeLayoutMode: (_event: React.MouseEvent<HTMLElement>, newMode: string) => void
+  handleChangeLayoutMode: (_event: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => void
 }
 
 export default function DegensTopNavControls({
@@ -22,12 +22,12 @@ export default function DegensTopNavControls({
   sortValue,
 }: DegensTopNavControlsProps) {
   return (
-    <div className={styles.controls} data-slot="degen-search-controls">
+    <div class={styles.controls} data-slot="degen-search-controls">
       <Select value={sortValue} onValueChange={handleSort}>
         <SelectTrigger
           aria-label="Sort degens"
           size="sm"
-          className="min-w-[150px] border-purple px-3 py-1 text-foreground"
+          class="min-w-[150px] border-purple px-3 py-1 text-foreground"
         >
           <SelectValue />
         </SelectTrigger>
@@ -42,23 +42,23 @@ export default function DegensTopNavControls({
       <ToggleGroup
         type="single"
         size="sm"
-        className={styles.layoutModeButtonsGroup}
+        class={styles.layoutModeButtonsGroup}
         value={layoutMode}
         aria-label="Layout mode"
         onValueChange={(value) =>
           value &&
-          handleChangeLayoutMode(undefined as unknown as React.MouseEvent<HTMLElement>, value)
+          handleChangeLayoutMode(undefined as unknown as MouseEvent & { currentTarget: HTMLElement }, value)
         }
       >
         <ToggleGroupItem
-          className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
+          class={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
           value="gridView"
           aria-label="GridView"
         >
           <LayoutGrid absoluteStrokeWidth aria-hidden="true" size={24} strokeWidth={1.5} />
         </ToggleGroupItem>
         <ToggleGroupItem
-          className={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
+          class={`${styles.layoutModeButton} data-[state=on]:bg-[rgba(88,32,214,0.2)]`}
           value="gridOn"
           aria-label="GridOn"
         >

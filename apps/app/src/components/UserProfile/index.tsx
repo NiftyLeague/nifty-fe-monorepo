@@ -1,7 +1,7 @@
 'use client'
 
 import Link from '@/runtime/Link'
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { UserRound } from 'lucide-react'
 import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'
 import { normalize } from 'viem/ens'
@@ -27,7 +27,7 @@ const UserProfile = () => {
   const username = isLoggedIn && profile ? profile.name_cased : undefined
   const avatar = isLoggedIn && profile ? profile.avatar : undefined
 
-  const displayName = useMemo(() => {
+  const displayName = createMemo(() => {
     if (!address) return 'Login to view dashboards'
     const addressSubstring = `${address.slice(0, 5)}..${address.slice(-4)}`.toLowerCase()
     if (username?.length && username !== addressSubstring) return username
@@ -37,28 +37,28 @@ const UserProfile = () => {
 
   return (
     <div
-      className="flex flex-col items-center rounded-lg p-4"
+      class="flex flex-col items-center rounded-lg p-4"
       style={{ background: 'var(--color-muted)', border: 'var(--border-default)' }}
     >
-      <Avatar className="size-20">
+      <Avatar class="size-20">
         <AvatarImage alt="avatar" src={ensAvatar.data || avatar?.url} />
         <AvatarFallback>
           <UserRound
             aria-hidden="true"
-            className="size-10 text-muted-foreground"
-            strokeWidth={1.5}
+            class="size-10 text-muted-foreground"
+            stroke-width={1.5}
           />
         </AvatarFallback>
       </Avatar>
-      <div className="my-2 flex flex-col items-center">
-        <span style={{ whiteSpace: 'nowrap' }}>{displayName}</span>
+      <div class="my-2 flex flex-col items-center">
+        <span style={{ 'white-space': 'nowrap' }}>{displayName}</span>
       </div>
       <ConnectWrapper fullWidth>
         <Link
           href="/dashboard"
           prefetch={false}
           data-slot="button"
-          className={buttonVariants({ className: 'w-full' })}
+          class={buttonVariants({ className: 'w-full' })}
         >
           Open dashboard
         </Link>

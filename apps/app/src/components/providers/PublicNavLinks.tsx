@@ -29,7 +29,7 @@ export default function PublicNavLinks() {
 
   return (
     <>
-      <ul className="m-0 list-none p-0">
+      <ul class="m-0 list-none p-0">
         {publicLinks.map((item) => {
           if (item.type !== 'item' || !item.url) return null
           const isSelected = pathname === item.url
@@ -40,15 +40,15 @@ export default function PublicNavLinks() {
                 href={item.url}
                 prefetch={false}
                 aria-current={isSelected ? 'page' : undefined}
-                className={cx(
+                class={cx(
                   'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left text-sidebar-foreground transition-colors hover:border-purple hover:bg-muted',
                   isSelected && 'border-purple bg-muted'
                 )}
               >
-                <span className="my-auto min-w-9">
+                <span class="my-auto min-w-9">
                   <PublicNavIcon name={item.icon} />
                 </span>
-                <span className={cx('flex-1 text-base', isSelected && 'font-bold')}>
+                <span class={cx('flex-1 text-base', isSelected && 'font-bold')}>
                   {item.title}
                 </span>
               </Link>
@@ -56,7 +56,7 @@ export default function PublicNavLinks() {
           )
         })}
       </ul>
-      <Separator className="mt-1 mb-5 opacity-60" />
+      <Separator class="mt-1 mb-5 opacity-60" />
     </>
   )
 }

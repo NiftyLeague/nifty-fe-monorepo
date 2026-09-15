@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { useAccount } from 'wagmi'
 
 import { Title } from '@nl/ui/custom/typography'
@@ -22,24 +22,24 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext'
 
 const renderEmptyProfile = () => (
-  <div className="flex h-full items-center justify-center">
+  <div class="flex h-full items-center justify-center">
     <EmptyState message="You don't own any Gamer Profile yet." />
   </div>
 )
 
-const GamerProfileContent = (): React.ReactNode => {
+const GamerProfileContent = (): JSX.Element => {
   const { profile, error, loadingProfile } = useGamerProfile()
   const { address } = useAccount()
   const { avatarsAndFee } = useProfileAvatarFee()
   const profileAvatars = avatarsAndFee?.avatars
   const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
-  const degenIds = useMemo(
+  const degenIds = createMemo(
     () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
     [degensBalances]
   )
   const { data } = usePublicDegensByIds(degenIds)
 
-  const filteredDegens = useMemo(() => {
+  const filteredDegens = createMemo(() => {
     if (!degensBalances.length || !data) return []
 
     const degensById = new Map(data.map((degen) => [degen.id, degen]))
@@ -48,19 +48,19 @@ const GamerProfileContent = (): React.ReactNode => {
       .filter((degen): degen is DashboardDegen => Boolean(degen))
   }, [degensBalances, data])
 
-  const filteredComics = useMemo(
+  const filteredComics = createMemo(
     () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
     [comicsBalances]
   )
 
-  const filteredItems = useMemo(
+  const filteredItems = createMemo(
     () =>
       itemsBalances.filter(
         (item) => !item.title.includes('Key') && item.balance && item.balance > 0
       ),
     [itemsBalances]
   )
-  const filteredKeys = useMemo(
+  const filteredKeys = createMemo(
     () =>
       itemsBalances.filter(
         (item) => item.title.includes('Key') && item.balance && item.balance > 0
@@ -68,7 +68,7 @@ const GamerProfileContent = (): React.ReactNode => {
     [itemsBalances]
   )
 
-  const profileDegens = useMemo(() => {
+  const profileDegens = createMemo(() => {
     if (!profileAvatars) return filteredDegens
 
     return filteredDegens.map((degen, index) => ({
@@ -79,22 +79,22 @@ const GamerProfileContent = (): React.ReactNode => {
 
   const renderTopProfile = () => {
     return (
-      <div className="flex flex-wrap gap-6 rounded-md bg-muted p-8">
-        <div className="w-full shrink-0 lg:w-[calc(29.1667%_-_12px)]">
+      <div class="flex flex-wrap gap-6 rounded-md bg-muted p-8">
+        <div class="w-full shrink-0 lg:w-[calc(29.1667%_-_12px)]">
           <ImageProfile
             avatar={profile?.avatar}
             avatarFee={avatarsAndFee?.price}
             degens={profileDegens}
           />
         </div>
-        <div className="w-full min-w-0 lg:flex-1">
+        <div class="w-full min-w-0 lg:flex-1">
           {address && <TopInfo profile={profile} walletAddress={address} />}
-          <Separator className="mb-4" />
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col">
+          <Separator class="mb-4" />
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col">
               <Title level={3}>Nifty League Player Stats</Title>
             </div>
-            <div className="flex flex-row gap-10">
+            <div class="flex flex-row gap-10">
               <LeftInfo data={profile?.stats?.total} />
               <RightInfo
                 comicCount={filteredComics?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
@@ -148,7 +148,7 @@ const GamerProfileContent = (): React.ReactNode => {
     )
   }
   return (
-    <div className="mb-6 flex flex-col gap-8">
+    <div class="mb-6 flex flex-col gap-8">
       {error && !profile && !loadingProfile && renderEmptyProfile()}
       {(profile || loadingProfile) && renderGamerProfile()}
     </div>

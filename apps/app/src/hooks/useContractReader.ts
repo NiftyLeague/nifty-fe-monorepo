@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useMemo } from 'react'
+import { createSignal, createMemo } from 'solid-js'
 import type { Contracts } from '@/types/web3'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
 import { areValuesEqual } from '@/utils/value-equality'
@@ -33,13 +33,13 @@ export default function useContractReader(
   refreshKey?: string | number,
   skip: boolean = false
 ): unknown {
-  const [value, setValue] = useState()
+  const [value, setValue] = createSignal()
   // Memoize args by serialization so a new-but-equivalent args array does not
   // restart the polling interval. The string is a simple dependency expression.
   const argsKey = JSON.stringify(args)
-  const argsMemoized = useMemo(() => args, [argsKey])
+  const argsMemoized = createMemo(() => args, [argsKey])
 
-  const readContract = useCallback(async () => {
+  const readContract = (async () => {
     if (!skip && contracts && contracts[contractName]) {
       try {
         let newValue

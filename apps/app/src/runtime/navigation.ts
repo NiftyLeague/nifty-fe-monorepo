@@ -3,8 +3,8 @@ import {
   useNavigate,
   useRouter as useTanStackRouter,
   useSearch,
-} from '@tanstack/react-router'
-import { useMemo } from 'react'
+} from '@tanstack/solid-router'
+import { createMemo } from 'solid-js'
 
 /**
  * The navigation hooks this app uses, backed by the TanStack Router. Keeping
@@ -23,7 +23,7 @@ export function usePathname(): string {
 export function useSearchParams(): URLSearchParams {
   const search = useSearch({ strict: false }) as Record<string, unknown>
 
-  return useMemo(() => {
+  return createMemo(() => {
     const params = new URLSearchParams()
     for (const [key, value] of Object.entries(search)) {
       if (value === undefined || value === null) continue
@@ -54,7 +54,7 @@ export function useRouter(): Router {
   const navigate = useNavigate()
   const router = useTanStackRouter()
 
-  return useMemo(() => {
+  return createMemo(() => {
     const navigateTo = (href: string, replace: boolean) => {
       if (!isInternalHref(href)) {
         if (typeof window !== 'undefined') {

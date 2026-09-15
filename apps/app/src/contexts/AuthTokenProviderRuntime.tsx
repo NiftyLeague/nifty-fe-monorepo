@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, type PropsWithChildren } from 'react'
+import { createEffect, createMemo } from 'solid-js'
 import { useAccount } from 'wagmi'
 
 import type { AuthTokenContextType } from '@/types/auth'
@@ -11,22 +11,22 @@ import { useAuthToken } from '@/hooks/useAuthStorage'
 import useSignAuthMsg from '@/hooks/useSignAuthMsg'
 import { DEBUG } from '@/constants/index'
 
-export default function AuthTokenProviderRuntime({ children }: PropsWithChildren) {
+export default function AuthTokenProviderRuntime({ children }: { children?: JSX.Element }) {
   const { isConnected } = useAccount()
   const { isLoggedIn } = useAuthStatus()
   const { checkAddress } = useCheckAuth()
   const { signMessage } = useSignAuthMsg()
   const authToken = useAuthToken()
-  const msgSent = useRef(false)
-  const connectedRef = useRef(isConnected)
+  let msgSent: any = false
+  let connectedRef: any = isConnected
 
-  const signMsg = useCallback(async () => {
+  const signMsg = (async () => {
     const initialized = await checkAddress()
     if (!initialized) await signMessage()
     msgSent.current = true
   }, [checkAddress, signMessage])
 
-  const handleConnectWallet = useCallback(async () => {
+  const handleConnectWallet = (async () => {
     if (!isConnected) {
       const { openWalletModal } = await import('@/contexts/WalletModal')
       await openWalletModal()
@@ -35,7 +35,7 @@ export default function AuthTokenProviderRuntime({ children }: PropsWithChildren
     await signMsg()
   }, [isConnected, signMsg])
 
-  useEffect(() => {
+  createEffect(() => {
     const connected = connectedRef.current
     connectedRef.current = isConnected
 

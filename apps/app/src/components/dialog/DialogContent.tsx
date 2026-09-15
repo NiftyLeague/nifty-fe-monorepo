@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 
 import {
   Dialog as DialogBase,
@@ -36,9 +36,9 @@ const DialogContent = ({
   children,
   dividers,
   ...props
-}: DialogProps): React.ReactNode => (
+}: DialogProps): JSX.Element => (
   <DialogContentBase {...props}>
-    <DialogHeader className={dividers ? 'border-b pb-4' : ''}>
+    <DialogHeader class={dividers ? 'border-b pb-4' : ''}>
       <DialogTitle>
         {dialogTitle}
         <CloseIconButton />

@@ -9,6 +9,6 @@ const DashboardDegensClient = dynamic(() => import('./DashboardDegensClient'), {
   loading: () => <RouteLoading label="Loading dashboard DEGENs" />,
 })
 
-export default function DashboardDegensRouteBoundary(): React.ReactNode {
+export default function DashboardDegensRouteBoundary(): JSX.Element {
   return <DashboardDegensClient />
 }

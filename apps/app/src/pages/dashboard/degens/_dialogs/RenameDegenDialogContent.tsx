@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { createSignal } from 'solid-js'
 import { parseEther } from 'ethers'
 import { AlertCircle } from 'lucide-react'
 import NativeImage from '@nl/ui/custom/native-image'
@@ -35,14 +35,14 @@ interface Props {
   onSuccess?: () => void
 }
 
-const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode => {
+const RenameDegenDialogContent = ({ degen, onSuccess }: Props): JSX.Element => {
   const { tx, writeContracts } = useNetworkContext()
   const { tokensBalances } = useTokensBalances()
-  const [input, setInput] = useState('')
-  const [error, setError] = useState('')
+  const [input, setInput] = createSignal('')
+  const [error, setError] = createSignal('')
   const { allowance, refetch: refetchAllowance } = useNFTLAllowance(DEGEN_CONTRACT_ADDRESS)
-  const [isLoadingRename, setLoadingRename] = useState(false)
-  const [renameSuccess, setRenameSuccess] = useState(false)
+  const [isLoadingRename, setLoadingRename] = createSignal(false)
+  const [renameSuccess, setRenameSuccess] = createSignal(false)
   const insufficientAllowance = allowance < 1000
   const insufficientBalance = tokensBalances.NFTL.eth < 1000
 
@@ -52,12 +52,12 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
     setError(errorMsg)
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: Event & { currentTarget: HTMLInputElement }) => {
     const { value } = event.target
     validateName(value)
   }
 
-  const handleRename = useCallback(async () => {
+  const handleRename = (async () => {
     setLoadingRename(true)
     if (insufficientBalance) {
       setError('Failed to charge the rental rename fee')
@@ -104,13 +104,13 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
   return (
     <DialogContent
       showCloseButton={false}
-      className="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]"
+      class="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]"
     >
-      <div className="flex flex-col gap-4">
-        <Title level={4} className="text-center">
+      <div class="flex flex-col gap-4">
+        <Title level={4} class="text-center">
           Rename DEGEN
         </Title>
-        <div className="flex flex-col items-center gap-1">
+        <div class="flex flex-col items-center gap-1">
           <NativeImage
             src={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
             alt="degen"
@@ -121,46 +121,46 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
               aspectRatio: '1/1',
               width: '240px',
               margin: '0 auto',
-              objectFit: 'cover',
+              'object-fit': 'cover',
               display: 'block',
             }}
           />
-          <p className="text-center text-xs text-muted-foreground">Owned by {degen?.owner}</p>
+          <p class="text-center text-xs text-muted-foreground">Owned by {degen?.owner}</p>
         </div>
-        <div className="grid gap-2">
-          <Label htmlFor="new-degen-name" className={error ? 'text-destructive' : undefined}>
+        <div class="grid gap-2">
+          <Label for="new-degen-name" class={error ? 'text-destructive' : undefined}>
             Enter new degen name
           </Label>
-          <div className="relative">
+          <div class="relative">
             <Input
               id="new-degen-name"
               name="new-degen-name"
               value={input}
               aria-invalid={!!error}
-              className={error ? 'pr-10' : undefined}
+              class={error ? 'pr-10' : undefined}
               disabled={isLoadingRename}
               onChange={handleChange}
             />
             {error && (
-              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+              <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
                 <AlertCircle aria-hidden="true" size={18} />
               </span>
             )}
           </div>
         </div>
-        {error && <span className="text-xs text-error">{error}</span>}
+        {error && <span class="text-xs text-error">{error}</span>}
         <RenameStepper
           insufficientAllowance={insufficientAllowance}
           renameSuccess={renameSuccess}
           insufficientBalance={insufficientBalance}
         />
-        <div className="flex justify-between">
+        <div class="flex justify-between">
           <Title level={4}>Renaming Fee</Title>
           <span>1,000 NFTL</span>
         </div>
         <Button
           variant="default"
-          className="w-full"
+          class="w-full"
           disabled={!input || Boolean(error) || insufficientBalance || isLoadingRename}
           onClick={handleRename}
         >

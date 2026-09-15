@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { createSignal } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 
@@ -11,16 +11,16 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import BuyArcadeTokensDialog from '@/components/dialog/BuyArcadeTokensDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 
-const ArcadeBalance = (): React.ReactNode => {
+const ArcadeBalance = (): JSX.Element => {
   const router = useRouter()
   const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances()
-  const [openBuyAT, setOpenBuyAT] = useState(false)
+  const [openBuyAT, setOpenBuyAT] = createSignal(false)
 
   const handleBuyArcadeTokens = () => {
     setOpenBuyAT(true)
   }
 
-  const handlePlayArcade = useCallback(() => {
+  const handlePlayArcade = (() => {
     gtm.sendEvent(GTM_EVENTS.PLAY_ARCADE_GAMES_BUTTON_TAPPED)
     router.push('/games')
   }, [router])
@@ -31,7 +31,7 @@ const ArcadeBalance = (): React.ReactNode => {
         title="Arcade Token Balance"
         primary={`${tokensBalances.AT} Tokens`}
         customStyle={{
-          backgroundColor: 'var(--color-card)',
+          'background-color': 'var(--color-card)',
           border: 'var(--border-default)',
           position: 'relative',
         }}
@@ -39,11 +39,11 @@ const ArcadeBalance = (): React.ReactNode => {
         isLoading={loadingArcadeBal}
         actions={
           <>
-            <div className="flex w-full flex-row items-center gap-2">
-              <Button className="w-full" variant="outline" onClick={handleBuyArcadeTokens}>
+            <div class="flex w-full flex-row items-center gap-2">
+              <Button class="w-full" variant="outline" onClick={handleBuyArcadeTokens}>
                 Buy Tokens
               </Button>
-              <Button className="w-full" variant="default" onClick={handlePlayArcade}>
+              <Button class="w-full" variant="default" onClick={handlePlayArcade}>
                 Play Games
               </Button>
             </div>

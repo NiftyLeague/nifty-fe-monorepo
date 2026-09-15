@@ -49,7 +49,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   return (
     <div>
       {/* DESKTOP BIG TABLE */}
-      <div className="hidden lg:block">
+      <div class="hidden lg:block">
         <DataTable
           columns={columns}
           data={data}
@@ -59,7 +59,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
       </div>
 
       {/* MOBILE EXPANDABLE LIST OF CARDS */}
-      <div className="lg:hidden">
+      <div class="lg:hidden">
         <DataList
           checkboxSelection={checkboxSelection}
           columns={columns}

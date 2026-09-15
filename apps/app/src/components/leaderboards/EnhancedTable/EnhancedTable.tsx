@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, type SetStateAction } from 'react'
+import { createEffect, createMemo } from 'solid-js'
 
 import { Preloader } from '@nl/ui/custom/preloader'
 import { ResponsiveTable } from '@/components/ResponsiveTable'
@@ -27,7 +27,7 @@ export default function EnhancedTable({
   selectedGame,
   selectedTable,
   selectedTimeFilter,
-}: TableProps): React.ReactNode | null {
+}: TableProps): JSX.Element | null {
   const paginationModel = { pageSize: 50, page: Math.max(0, page - 1) }
   const { data, error, isPending, refetch } = useLeaderboardScores(
     selectedGame,
@@ -36,21 +36,21 @@ export default function EnhancedTable({
     paginationModel.pageSize,
     paginationModel.page * paginationModel.pageSize
   )
-  const rows = useMemo(() => data?.data.map(flatObject) ?? [], [data?.data])
+  const rows = createMemo(() => data?.data.map(flatObject) ?? [], [data?.data])
   const maxPage = Math.max(1, Math.ceil((data?.count ?? 0) / paginationModel.pageSize))
 
-  useEffect(() => {
+  createEffect(() => {
     if (!isPending && page > maxPage) onPageChange(maxPage)
   }, [isPending, maxPage, onPageChange, page])
 
   const handlePaginationModelChange = (
-    update: SetStateAction<{ pageSize: number; page: number }>
+    update: { pageSize: number; page: number }
   ) => {
     const next = typeof update === 'function' ? update(paginationModel) : update
     onPageChange(next.page + 1)
   }
 
-  const columns = useMemo(() => {
+  const columns = createMemo(() => {
     const baseColumns: Array<{
       field: string
       headerName: string
@@ -72,17 +72,17 @@ export default function EnhancedTable({
   }, [selectedTable.rows])
 
   return (
-    <div className="relative mb-20 min-h-96 sm:mb-0">
+    <div class="relative mb-20 min-h-96 sm:mb-0">
       {isPending ? (
         <Preloader ready={false} progress={0} label="Loading leaderboard" />
       ) : error ? (
         <QueryErrorState
           error={error}
           onRetry={() => void refetch()}
-          className="flex min-h-72 items-center justify-center gap-3 text-error"
+          class="flex min-h-72 items-center justify-center gap-3 text-error"
         />
       ) : (
-        <div className="relative">
+        <div class="relative">
           <LeaderboardRankBoundary
             selectedGame={selectedGame}
             selectedTable={selectedTable.key}

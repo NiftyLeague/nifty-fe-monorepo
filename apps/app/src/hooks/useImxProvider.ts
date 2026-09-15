@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import { useAccount } from 'wagmi'
@@ -40,10 +40,10 @@ export function useConnectedToIMXCheck(): boolean {
 
 /** Memoized action to convert an IMX Passport instance to an ethers.js Provider. */
 export function useImxProvider(): BrowserProvider | undefined {
-  const [provider, setProvider] = useState<BrowserProvider>()
+  const [provider, setProvider] = createSignal<BrowserProvider>()
   const { isConnected } = useAccount()
 
-  useEffect(() => {
+  createEffect(() => {
     if (!isConnected) {
       setProvider(undefined)
       return
@@ -75,9 +75,9 @@ export function useImxSigner(): Signer {
 /** ========== Launches Passport sign-in popup to authenticate user =========== */
 /** Memoized action to convert an IMX Passport instance to an ethers.js Signer. */
 export function usePassportSigner(): JsonRpcSigner | null {
-  const [signer, setSigner] = useState<JsonRpcSigner | null>(null)
+  const [signer, setSigner] = createSignal<JsonRpcSigner | null>(null)
 
-  useEffect(() => {
+  createEffect(() => {
     let mounted = true
     getPassportSigner()
       .then((nextSigner) => {

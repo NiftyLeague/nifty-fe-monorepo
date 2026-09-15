@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { createSignal } from 'solid-js'
 import { AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -23,13 +23,13 @@ interface IFormInput {
   name: string
 }
 
-const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNode => {
+const ChangeNicknameDialog = ({ rental, updateNickname }: Props): JSX.Element => {
   const { authToken } = useAuth()
   const [nicknames, setNicknames] = useLocalStorage<{ [address: string]: string }>(
     'player-nicknames',
     {}
   )
-  const [isLoadingRename, setLoadingRename] = useState(false)
+  const [isLoadingRename, setLoadingRename] = createSignal(false)
   const { rentalId, degenId, renter, playerAddress } = rental
 
   const {
@@ -59,39 +59,39 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form onSubmit={handleSubmit(onSubmit)} class="w-full">
       <DialogHeader>
-        <DialogTitle className="text-center">Assign a Nickname</DialogTitle>
+        <DialogTitle class="text-center">Assign a Nickname</DialogTitle>
       </DialogHeader>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
           {degenId && <DegenImage tokenId={degenId} />}
-          <p className="text-center text-xs text-muted-foreground">Recruit</p>
-          <p className="text-center text-xs text-muted-foreground">{renter}</p>
+          <p class="text-center text-xs text-muted-foreground">Recruit</p>
+          <p class="text-center text-xs text-muted-foreground">{renter}</p>
         </div>
         <Controller
           name="name"
           control={control}
           rules={{ required: 'Nickname is required' }}
           render={({ field }) => (
-            <div className="grid gap-2">
+            <div class="grid gap-2">
               <Label
-                htmlFor="recruit-wallet-nickname"
-                className={errors.name ? 'text-destructive' : undefined}
+                for="recruit-wallet-nickname"
+                class={errors.name ? 'text-destructive' : undefined}
               >
                 Enter nickname for recruit wallet
               </Label>
-              <div className="relative">
+              <div class="relative">
                 <Input
                   {...field}
                   id="recruit-wallet-nickname"
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? 'recruit-wallet-nickname-error' : undefined}
-                  className={errors.name ? 'pr-10' : undefined}
+                  class={errors.name ? 'pr-10' : undefined}
                   disabled={isLoadingRename}
                 />
                 {errors.name && (
-                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                  <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
                     <AlertCircle aria-hidden="true" size={18} />
                   </span>
                 )}
@@ -100,13 +100,13 @@ const ChangeNicknameDialog = ({ rental, updateNickname }: Props): React.ReactNod
           )}
         />
         {errors.name && (
-          <p id="recruit-wallet-nickname-error" className="text-sm text-destructive">
+          <p id="recruit-wallet-nickname-error" class="text-sm text-destructive">
             {errors.name.message}
           </p>
         )}
       </div>
       <DialogFooter>
-        <Button type="submit" variant="default" className="w-full" disabled={isLoadingRename}>
+        <Button type="submit" variant="default" class="w-full" disabled={isLoadingRename}>
           {isLoadingRename && <CircularProgress size="sm" />}
           Add Nickname
         </Button>

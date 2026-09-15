@@ -1,4 +1,4 @@
-import { memo, type PropsWithChildren } from 'react'
+import {  } from 'solid-js'
 
 import AppBar from '@nl/ui/custom/app-bar'
 import { cx } from '@nl/ui/class-names'
@@ -12,22 +12,22 @@ import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicDesktopNavigationToggle from './PublicDesktopNavigationToggle'
 import PublicNavLinks from './PublicNavLinks'
 
-const PublicSidebar = memo(function PublicSidebar() {
+const PublicSidebar = (function PublicSidebar() {
   return (
     <nav
       id="public-desktop-navigation"
       aria-label="Primary navigation"
-      className="hidden w-[260px] shrink-0 lg:block"
+      class="hidden w-[260px] shrink-0 lg:block"
     >
       <aside
-        className={cx(
+        class={cx(
           styles.publicDesktopSidebar,
           'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
         )}
         style={{ width: 260, top: 60 }}
       >
-        <div className="h-full overflow-y-auto px-4 py-5">
-          <div className="mb-5">
+        <div class="h-full overflow-y-auto px-4 py-5">
+          <div class="mb-5">
             <DeferredPublicUserProfile placement="desktop" />
           </div>
           <PublicNavLinks />
@@ -37,36 +37,36 @@ const PublicSidebar = memo(function PublicSidebar() {
   )
 })
 
-export default function PublicNavigation({ children }: PropsWithChildren) {
+export default function PublicNavigation({ children }: { children?: JSX.Element }) {
   return (
-    <div className={cx('flex', styles.publicNavigationShell)} data-public-navigation>
-      <header className="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
+    <div class={cx('flex', styles.publicNavigationShell)} data-public-navigation>
+      <header class="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
         <AppBar>
-          <div className="flex w-full flex-row items-center justify-between">
-            <div className={cx('flex items-center', styles.publicHeaderControls)}>
-              <div className="hidden flex-grow lg:block">
+          <div class="flex w-full flex-row items-center justify-between">
+            <div class={cx('flex items-center', styles.publicHeaderControls)}>
+              <div class="hidden flex-grow lg:block">
                 <PublicLogo />
               </div>
               <PublicDesktopNavigationToggle />
               <MobileNavigationDisclosure
                 id="public-mobile-navigation"
                 label="Toggle navigation"
-                className="lg:hidden"
+                class="lg:hidden"
                 summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
                 panelClassName="fixed top-[56px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
               >
-                <div className="border-b border-sidebar-border px-4 py-3">
-                  <div className="flex items-center gap-3 text-sidebar-foreground">
+                <div class="border-b border-sidebar-border px-4 py-3">
+                  <div class="flex items-center gap-3 text-sidebar-foreground">
                     <PublicLogo />
                     <span>Nifty League</span>
                   </div>
                 </div>
-                <div className="border-b border-sidebar-border p-4">
+                <div class="border-b border-sidebar-border p-4">
                   <DeferredPublicUserProfile placement="mobile" />
                 </div>
                 <nav
                   aria-label="Primary navigation"
-                  className="px-4"
+                  class="px-4"
                   onClick={(event) => {
                     const target = event.target
                     if (target instanceof Element && target.closest('a')) {
@@ -78,14 +78,13 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
                 </nav>
               </MobileNavigationDisclosure>
             </div>
-            <div className="hidden items-center justify-between gap-4 lg:flex">
+            <div class="hidden items-center justify-between gap-4 lg:flex">
               {APP_EXTERNAL_LINKS.map((page) => (
-                <a
-                  key={page.name}
+                <a                  
                   href={page.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="cursor-pointer text-foreground underline-offset-4 hover:underline"
+                  class="cursor-pointer text-foreground underline-offset-4 hover:underline"
                 >
                   {page.name} <ExternalIcon />
                 </a>
@@ -95,7 +94,7 @@ export default function PublicNavigation({ children }: PropsWithChildren) {
         </AppBar>
       </header>
       <PublicSidebar />
-      <main className={styles.publicMain} tabIndex={0}>
+      <main class={styles.publicMain} tabIndex={0}>
         {children}
       </main>
     </div>

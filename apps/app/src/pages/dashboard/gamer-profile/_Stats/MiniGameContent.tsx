@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import type { ProfileMiniGame } from '@/types/account'
@@ -9,8 +9,8 @@ interface MiniGameContentProps {
   data: ProfileMiniGame | undefined
 }
 
-const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
-  const leftDataMapper: { label: string; value: string | number | undefined }[] = useMemo(() => {
+const MiniGameContent = ({ data }: MiniGameContentProps): JSX.Element => {
+  const leftDataMapper: { label: string; value: string | number | undefined }[] = createMemo(() => {
     return [
       { label: 'XP Rank', value: data?.rank || 0 },
       { label: 'XP', value: Math.round(data?.xp || 0) },
@@ -22,9 +22,9 @@ const MiniGameContent = ({ data }: MiniGameContentProps): React.ReactNode => {
 
   const { isLoadingProfile } = useGamerProfileContext()
   return (
-    <div className="flex flex-1 flex-col gap-2">
+    <div class="flex flex-1 flex-col gap-2">
       {leftDataMapper.map((child) => (
-        <Item key={child.label} {...child} isLoading={isLoadingProfile} />
+        <Item {...child} isLoading={isLoadingProfile} />
       ))}
     </div>
   )

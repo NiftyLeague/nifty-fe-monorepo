@@ -13,24 +13,23 @@ interface WearableSubItemCardProps {
 const CARD_WIDTH = 82
 const CARD_HEIGHT = 82
 
-const WearableSubItemCard: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<WearableSubItemCardProps>>
-> = ({ data, itemIndex, onViewItem, sx, isSelected = false }) => {
+const WearableSubItemCard = (props: WearableSubItemCardProps & { children?: JSX.Element }) => {
+  const { data, itemIndex, onViewItem, sx, isSelected = false } = props
   const { image, imageWebp, thumbnail, title } = data
 
-  const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleViewItem = (e: MouseEvent & { currentTarget: HTMLDivElement }) => {
     e.stopPropagation()
     if (onViewItem) onViewItem()
   }
 
   return (
     <div
-      className="flex cursor-pointer flex-col items-center gap-5"
-      style={sx as React.CSSProperties | undefined}
+      class="flex cursor-pointer flex-col items-center gap-5"
+      style={sx as JSX.CSSProperties | undefined}
       onClick={handleViewItem}
     >
       <div
-        className="relative overflow-hidden rounded-[10px]"
+        class="relative overflow-hidden rounded-[10px]"
         style={{
           width: CARD_WIDTH,
           height: CARD_HEIGHT,
@@ -46,9 +45,9 @@ const WearableSubItemCard: React.FC<
         />
       </div>
       <span
-        className="text-center"
+        class="text-center"
         style={{
-          maxWidth: CARD_WIDTH,
+          'max-width': CARD_WIDTH,
           color: isSelected ? 'var(--color-blue)' : 'var(--color-foreground)',
         }}
       >{`${title} #${itemIndex + 1}`}</span>

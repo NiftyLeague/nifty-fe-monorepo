@@ -11,7 +11,7 @@ import { getRequestCookieHeader } from '@/runtime/request-cookies'
 const WalletFeatureProviders = dynamic(() => import('@/contexts/WalletFeatureProviders'), {
   ssr: false,
   loading: () => (
-    <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+    <div class="sr-only" role="status" aria-live="polite" aria-busy="true">
       Loading wallet balances
     </div>
   ),

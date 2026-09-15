@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
+import { createEffect } from 'solid-js'
 import { useAccount } from 'wagmi'
 
 import { ADDRESS_VERIFICATION } from '@/constants/auth-urls'
@@ -12,10 +12,10 @@ const useCheckAuth = () => {
   const { address } = useAccount()
   const { isLoggedIn, setIsLoggedIn } = useAuthStatus()
   const authToken = useAuthToken()
-  const cache = useRef({ address, authToken, verified: false })
-  const firstRenderRef = useRef(true)
+  let cache: any = { address, authToken, verified: false }
+  let firstRenderRef: any = true
 
-  const checkAddress = useCallback(async () => {
+  const checkAddress = (async () => {
     if (authToken && address) {
       if (
         cache.current.verified &&
@@ -44,7 +44,7 @@ const useCheckAuth = () => {
     return false
   }, [address, authToken])
 
-  const verify = useCallback(async () => {
+  const verify = (async () => {
     const addressVerified = await checkAddress()
     if (addressVerified) {
       setIsLoggedIn(true)
@@ -54,7 +54,7 @@ const useCheckAuth = () => {
     }
   }, [checkAddress, clearAllAuth, setIsLoggedIn])
 
-  useEffect(() => {
+  createEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false
       return

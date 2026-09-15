@@ -1,7 +1,7 @@
 'use client'
 
 import { PROFILE_RENAME_API } from '@/constants/auth-urls'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/solid-query'
 import useAuth from '@/hooks/useAuth'
 import {
   AUTHENTICATED_STALE_TIME_MS,

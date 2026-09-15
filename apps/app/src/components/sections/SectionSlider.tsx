@@ -1,7 +1,7 @@
 'use client'
 
 import { PaginationControls } from '@/components/pagination/PaginationControls'
-import { PropsWithChildren, ReactNode, useMemo, useRef } from 'react'
+import { createMemo, type JSX } from 'solid-js'
 import type { SxProps } from '@/types'
 import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
 import type {
@@ -13,12 +13,12 @@ import SectionTitle from './SectionTitle'
 const sectionSpacing = 2 // 16px
 
 interface Props {
-  title: string | React.ReactNode
+  title: string | JSX.Element
   firstSection?: boolean
-  actions?: ReactNode
+  actions?: JSX.Element
   sliderSettingsOverride?: ResponsiveCarouselSettings
   isSlider?: boolean
-  children?: React.ReactNode
+  children?: JSX.Element
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
 }
@@ -32,8 +32,8 @@ const SectionSlider = ({
   isSlider = true,
   variant = 'h2',
   styles,
-}: PropsWithChildren<Props>): React.ReactNode => {
-  const refSlider = useRef<ResponsiveCarouselRef>(null)
+}: Props & { children?: JSX.Element }): JSX.Element => {
+  let refSlider: ResponsiveCarouselRef | undefined
   const settings = useMemo<ResponsiveCarouselSettings>(
     () => ({
       slidesToShow: 4,
@@ -62,15 +62,15 @@ const SectionSlider = ({
 
   return (
     <div
-      className="flex flex-col"
-      style={{ gap: sectionSpacing * 8, ...(styles?.root as React.CSSProperties) }}
+      class="flex flex-col"
+      style={{ gap: sectionSpacing * 8, ...(styles?.root as JSX.CSSProperties) }}
     >
-      <div style={styles?.headerRow as React.CSSProperties}>
+      <div style={styles?.headerRow as JSX.CSSProperties}>
         <SectionTitle
           firstSection={firstSection}
           variant={variant}
           actions={
-            <div className="flex flex-row gap-4">
+            <div class="flex flex-row gap-4">
               {actions}
               {isSlider && (
                 <PaginationControls
@@ -88,7 +88,7 @@ const SectionSlider = ({
           {title}
         </SectionTitle>
       </div>
-      <div style={styles?.mainRow as React.CSSProperties}>
+      <div style={styles?.mainRow as JSX.CSSProperties}>
         {isSlider ? (
           <ResponsiveCarousel
             {...settings}

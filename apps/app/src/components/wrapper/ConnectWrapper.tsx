@@ -5,7 +5,7 @@ interface ConnectWrapperProps {
   variant?: 'contained' | 'outlined'
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
   fullWidth?: boolean
-  children: React.ReactElement
+  children: JSX.Element
   buttonText?: string
 }
 
@@ -26,7 +26,7 @@ const ConnectWrapper = (props: ConnectWrapperProps) => {
     <button
       type="button"
       data-slot="button"
-      className={buttonVariants({
+      class={buttonVariants({
         variant: variant === 'outlined' ? 'outline' : 'default',
         className: fullWidth ? 'w-full' : undefined,
       })}

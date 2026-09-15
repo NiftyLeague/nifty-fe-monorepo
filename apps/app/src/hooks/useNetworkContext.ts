@@ -1,11 +1,11 @@
 'use client'
 
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 
 // Network Provider
 import NetworkContext from '@/contexts/NetworkContext'
 
-const useNetworkContext = (): React.ContextType<typeof NetworkContext> => {
+const useNetworkContext = (): JSX.ContextType<typeof NetworkContext> => {
   const context = useContext(NetworkContext)
 
   if (!context) throw new Error('context must be use inside provider')

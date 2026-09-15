@@ -1,6 +1,6 @@
 'use client'
 
-import { CSSProperties, useState } from 'react'
+import { CSSProperties, createSignal } from 'solid-js'
 
 interface ImageStyle {
   thumbnail: CSSProperties
@@ -13,7 +13,7 @@ interface ImageOnLoadType {
 }
 
 function useImageOnLoad(): ImageOnLoadType {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = createSignal<boolean>(false)
 
   // Triggered when full image will be loaded.
   const handleImageOnLoad = () => {

@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { createMemo } from 'solid-js'
+import { useQuery } from '@tanstack/solid-query'
 import { useQueryStates } from 'nuqs'
 import { toast } from 'sonner'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
@@ -30,7 +30,7 @@ import {
 } from '@/query/app-query'
 import { rentalSearchParsers } from '@/url/search-state'
 
-const DashboardRentalPage = (): React.ReactNode => {
+const DashboardRentalPage = (): JSX.Element => {
   const { authToken } = useAuth()
   const scope = getAuthQueryScope(authToken)
   const [searchState, setSearchState] = useQueryStates(rentalSearchParsers, {
@@ -85,7 +85,7 @@ const DashboardRentalPage = (): React.ReactNode => {
     staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
-  const rentals = useMemo(() => {
+  const rentals = createMemo(() => {
     if (!data) return []
     return filterBySearch(data, searchTerm, (rental: Rentals) => [
       rental?.accounts?.player?.address,
@@ -125,14 +125,14 @@ const DashboardRentalPage = (): React.ReactNode => {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div class="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <span className="text-2xl font-bold">My Rentals</span>
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <span class="text-2xl font-bold">My Rentals</span>
         {/* Header form */}
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="min-w-[200px]">
-            <Label htmlFor="category" className="mb-1 block text-xs text-muted-foreground">
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="min-w-[200px]">
+            <Label for="category" class="mb-1 block text-xs text-muted-foreground">
               Category
             </Label>
             <Select value={category} onValueChange={handleChangeCategory}>
@@ -154,7 +154,7 @@ const DashboardRentalPage = (): React.ReactNode => {
           <SearchRental handleSearch={handleSearch} value={searchTerm} />
         </div>
       </div>
-      <div className="h-[calc(100vh-208px)]">
+      <div class="h-[calc(100vh-208px)]">
         <MyRentalsDataGrid
           loading={isLoading || isFetching}
           rows={rentals}

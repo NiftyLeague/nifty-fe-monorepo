@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import {  } from 'solid-js'
 import { useWalletClient } from 'wagmi'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { NFTL_CONTRACT } from '@/constants/contracts'
@@ -23,7 +23,7 @@ export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
   const { data: walletClient } = useWalletClient()
   const { writeContracts } = useNetworkContext()
 
-  const handleImportNFTLToWallet = useCallback(async () => {
+  const handleImportNFTLToWallet = (async () => {
     if (!walletClient || !writeContracts[NFTL_CONTRACT]) return
     try {
       const success = await walletClient.watchAsset({

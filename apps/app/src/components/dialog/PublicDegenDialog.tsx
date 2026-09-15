@@ -24,11 +24,11 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="w-[calc(100%-2rem)] !max-w-[900px] overflow-x-hidden">
-        <div className="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="flex min-w-0 flex-col items-center gap-4">
+      <DialogContent class="w-[calc(100%-2rem)] !max-w-[900px] overflow-x-hidden">
+        <div class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
+          <div class="flex min-w-0 flex-col items-center gap-4">
             {degen?.id && <DegenModalMedia tokenId={degen.id} />}
-            <DialogHeader className="items-center">
+            <DialogHeader class="items-center">
               <DialogTitle>{degen?.name || 'No Name DEGEN'}</DialogTitle>
               <DialogDescription>Degen #{degen?.id}</DialogDescription>
               {degen?.id && (
@@ -36,38 +36,38 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
                   href={DEGEN_PURCHASE_URL(degen.id)}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm text-muted-foreground underline underline-offset-4"
+                  class="text-sm text-muted-foreground underline underline-offset-4"
                 >
                   View on OpenSea
                 </a>
               )}
               {degen?.owner && (
-                <p className="text-sm text-muted-foreground">
+                <p class="text-sm text-muted-foreground">
                   Owned by {`${degen.owner.slice(0, 5)}...${degen.owner.slice(-4)}`}
                 </p>
               )}
             </DialogHeader>
           </div>
-          <div className="flex min-w-0 flex-col gap-6">
+          <div class="flex min-w-0 flex-col gap-6">
             <div>
-              <h2 className="text-xl font-semibold">Degen Traits</h2>
+              <h2 class="text-xl font-semibold">Degen Traits</h2>
               {traits.length ? (
-                <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {traits.map((trait) => (
                     <li
                       key={trait.key}
-                      className="flex min-w-0 flex-col rounded-md border px-3 py-2 text-center text-sm"
+                      class="flex min-w-0 flex-col rounded-md border px-3 py-2 text-center text-sm"
                     >
-                      {trait.name && <span className="font-semibold">{trait.name}</span>}
-                      <span className="break-words">{trait.value}</span>
+                      {trait.name && <span class="font-semibold">{trait.name}</span>}
+                      <span class="break-words">{trait.value}</span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p className="mt-6 text-sm text-muted-foreground">Trait data unavailable.</p>
+                <p class="mt-6 text-sm text-muted-foreground">Trait data unavailable.</p>
               )}
             </div>
-            <Button className="w-full" onClick={onClose} autoFocus aria-label="Close degen details">
+            <Button class="w-full" onClick={onClose} autoFocus aria-label="Close degen details">
               Close
             </Button>
           </div>

@@ -1,5 +1,5 @@
-import { ClientOnly } from '@tanstack/react-router'
-import { Suspense, lazy, type ComponentType, type ReactNode } from 'react'
+import { ClientOnly } from '@tanstack/solid-router'
+import { Suspense, lazy, type Component, type JSX } from 'solid-js'
 
 type DynamicLoader<Props extends object> = () => Promise<
   ComponentType<Props> | { default: ComponentType<Props> }
@@ -22,7 +22,7 @@ interface DynamicOptions {
    * client-only boundaries this app relies on for wallet and WebGL surfaces.
    */
   ssr?: boolean
-  loading?: () => ReactNode
+  loading?: () => JSX.Element
 }
 
 /**

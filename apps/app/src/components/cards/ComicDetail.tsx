@@ -5,13 +5,13 @@ interface ComicDetailProps {
   data: Comic | null
 }
 
-const ComicDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicDetailProps>>> = ({
+const ComicDetail = (props: ComicDetailProps) => ({
   data,
 }) => {
   if (!data)
     return (
       <div
-        className="min-w-[345px] rounded-[5px] border border-[#363636]"
+        class="min-w-[345px] rounded-[5px] border border-[#363636]"
         style={{ height: 375 }}
       />
     )
@@ -20,7 +20,7 @@ const ComicDetail: React.FC<React.PropsWithChildren<React.PropsWithChildren<Comi
 
   return (
     <div
-      className="relative mx-auto min-w-[345px] overflow-hidden rounded-[5px]"
+      class="relative mx-auto min-w-[345px] overflow-hidden rounded-[5px]"
       style={{ height: 350 }}
     >
       <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />

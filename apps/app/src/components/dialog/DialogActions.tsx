@@ -1,4 +1,4 @@
-import { useContext, cloneElement } from 'react'
+import { useContext } from 'solid-js'
 import { X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
@@ -14,7 +14,7 @@ const DialogActionComp = ({ children, isOpen }: DialogAction) => {
   if (!children || typeof children !== 'object' || !('props' in children)) {
     throw new Error('DialogActionComp expects a valid ReactElement as children')
   }
-  const childElement = children as React.ReactElement<any, any>
+  const childElement = children as JSX.Element<any, any>
   return cloneElement(childElement, {
     onClick: callAll(() => setIsOpen(isOpen || false), childElement.props.onClick),
   })
@@ -33,9 +33,9 @@ const CloseIconButton = () => {
         variant="ghost"
         size="icon"
         aria-label="close"
-        className={styles.closeIconButton}
+        class={styles.closeIconButton}
       >
-        <X aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={1.5} />
+        <X aria-hidden="true" absoluteStrokeWidth size={24} stroke-width={1.5} />
       </Button>
     </DialogDismissButton>
   )

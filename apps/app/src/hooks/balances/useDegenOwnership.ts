@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { createEffect, createMemo } from 'solid-js'
 
 import { useOwnerSearch } from '@/hooks/useGraphQL'
 import useAuth from '@/hooks/useAuth'
@@ -16,24 +16,24 @@ interface DegenOwnershipState {
 }
 
 export default function useDegenOwnership(): DegenOwnershipState {
-  const firstRenderRef = useRef(true)
+  let firstRenderRef: any = true
   const { isLoggedIn } = useAuth()
   const { isFetching, data: owner, refetch: refreshDegenBalances } = useOwnerSearch()
   const { characterCount: degenCount = 0 } = owner || {}
   const isDegenOwner = degenCount > 0
 
-  const degensBalances = useMemo(() => {
+  const degensBalances = createMemo(() => {
     return owner?.characters
       ? owner.characters.map((degen) => ({ ...degen, id: degen.tokenId.toString() }))
       : []
   }, [owner])
 
-  const degenTokenIndices = useMemo(
+  const degenTokenIndices = createMemo(
     () => degensBalances.map((degen) => parseInt(degen.id, 10)),
     [degensBalances]
   )
 
-  useEffect(() => {
+  createEffect(() => {
     if (firstRenderRef.current) {
       firstRenderRef.current = false
       return

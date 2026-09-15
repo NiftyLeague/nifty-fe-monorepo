@@ -1,6 +1,6 @@
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { TRAIT_VALUE_MAP } from '@/constants/cosmeticsFilters'
-import { FC, memo } from 'react'
+import { FC } from 'solid-js'
 
 interface FilterAllTraitCheckboxesProps {
   cosmeticsValue: string[]
@@ -19,25 +19,24 @@ const FilterAllTraitCheckboxes: FC<FilterAllTraitCheckboxesProps> = ({
   inputCheckBoxStyle,
   inputCheckFormControlStyle,
 }: FilterAllTraitCheckboxesProps) => (
-  <div className="flex flex-row flex-wrap" style={{ rowGap: 4 }}>
+  <div class="flex flex-row flex-wrap" style={{ rowGap: 4 }}>
     {traitGroup.map((traitKey) => {
       const traitValue = TRAIT_VALUE_MAP[categoryKey as keyof typeof TRAIT_VALUE_MAP][
         traitKey as keyof (typeof TRAIT_VALUE_MAP)[keyof typeof TRAIT_VALUE_MAP]
       ] as string
       return (
-        <label
-          key={traitKey}
-          className={`${inputCheckFormControlStyle} flex items-center`}
+        <label          
+          class={`${inputCheckFormControlStyle} flex items-center`}
           style={{ flex: '0 0 100%' }}
         >
           <Checkbox
             name={traitValue}
             value={traitKey}
             checked={cosmeticsValue.includes(traitKey)}
-            className={inputCheckBoxStyle}
+            class={inputCheckBoxStyle}
             onCheckedChange={(checked) => onCheckboxChange(checked === true, traitKey)}
           />
-          <span className="text-base">{traitValue}</span>
+          <span class="text-base">{traitValue}</span>
         </label>
       )
     })}
@@ -46,7 +45,7 @@ const FilterAllTraitCheckboxes: FC<FilterAllTraitCheckboxesProps> = ({
 
 // Making sure that the component is only re-rendered if the cosmesticsValue prop changes
 // since this is component renders 900+ checkboxes, it matters here
-export default memo(
+export default (
   FilterAllTraitCheckboxes,
   (prevProps, nextProps) => prevProps.cosmeticsValue === nextProps.cosmeticsValue
 )

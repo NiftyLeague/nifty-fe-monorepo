@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import {  } from 'solid-js'
 
 // project imports
 import NavGroup from './_NavGroup'
@@ -15,10 +15,10 @@ const MenuList = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
   const navItems = lastItems.map((item) => {
     switch (item.type) {
       case 'group':
-        return <NavGroup key={item.id} item={item} />
+        return <NavGroup item={item} />
       default:
         return (
-          <h6 key={item.id} className="text-center text-error">
+          <h6 class="text-center text-error">
             Menu Items Error
           </h6>
         )
@@ -28,4 +28,4 @@ const MenuList = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
   return <>{navItems}</>
 }
 
-export default memo(MenuList)
+export default (MenuList)

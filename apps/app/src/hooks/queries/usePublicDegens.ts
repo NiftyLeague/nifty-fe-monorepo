@@ -1,6 +1,6 @@
 'use client'
 
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/solid-query'
 
 import { PUBLIC_DEGENS_API_URL, getPublicDegensByIdsUrl } from '@/constants/api'
 import { fetchApiQuery, PUBLIC_STALE_TIME_MS, queryKeys } from '@/query/app-query'

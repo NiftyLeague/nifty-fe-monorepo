@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useRef, type PropsWithChildren } from 'react'
+import { createContext, useContext } from 'solid-js'
 import { useStore } from 'zustand'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
@@ -15,8 +15,8 @@ import {
 
 const NavigationContext = createContext<NavigationStore | null>(null)
 
-export function NavigationProvider({ children }: PropsWithChildren) {
-  const storeRef = useRef<NavigationStore | null>(null)
+export function NavigationProvider({ children }: { children?: JSX.Element }) {
+  let storeRef: NavigationStore | null | undefined
   if (!storeRef.current) storeRef.current = createNavigationStore()
 
   return (

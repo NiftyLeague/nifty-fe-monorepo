@@ -9,6 +9,6 @@ const GamerProfileClient = dynamic(() => import('./GamerProfileClient'), {
   loading: () => <RouteLoading label="Loading gamer profile" />,
 })
 
-export default function GamerProfileRouteBoundary(): React.ReactNode {
+export default function GamerProfileRouteBoundary(): JSX.Element {
   return <GamerProfileClient />
 }

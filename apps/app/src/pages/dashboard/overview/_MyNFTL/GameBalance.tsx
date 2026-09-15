@@ -1,7 +1,7 @@
 'use client'
 
 import NativeImage from '@nl/ui/custom/native-image'
-import { memo } from 'react'
+import {  } from 'solid-js'
 import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/number-format'
@@ -9,7 +9,7 @@ import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAm
 import WithdrawButtonDialog from '@/components/dialog/WithdrawButtonDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 
-const GameBalance: React.FC = memo(() => {
+const GameBalance = (() => {
   const { nftlUnclaimed, loading } = useUserUnclaimedAmount()
 
   return (
@@ -18,7 +18,7 @@ const GameBalance: React.FC = memo(() => {
       primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
       isLoading={loading}
       customStyle={{
-        backgroundColor: 'var(--color-card)',
+        'background-color': 'var(--color-card)',
         border: 'var(--border-default)',
         position: 'relative',
       }}
@@ -29,7 +29,7 @@ const GameBalance: React.FC = memo(() => {
             variant="ghost"
             size="icon"
             disabled
-            className="absolute -top-4 -right-4 cursor-pointer"
+            class="absolute -top-4 -right-4 cursor-pointer"
           >
             <NativeImage
               src="/img/logos/passport/32px.svg"

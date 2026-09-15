@@ -32,18 +32,18 @@ const NavItem = ({ item, level }: NavItemProps) => {
 
   const inner = (
     <>
-      <span className="my-auto" style={{ minWidth: !item?.icon ? 18 : 36 }}>
+      <span class="my-auto" style={{ 'min-width': !item?.icon ? 18 : 36 }}>
         <AppNavIcon name={item?.icon ?? 'dot'} size="lg" />
       </span>
-      <span className="flex-1">
+      <span class="flex-1">
         <span
-          className={cx('text-base', isSelected ? 'font-bold' : 'font-normal')}
+          class={cx('text-base', isSelected ? 'font-bold' : 'font-normal')}
           style={{ color: 'inherit' }}
         >
           {item.title}
         </span>
         {item.caption && (
-          <span className="block text-xs font-medium uppercase text-muted-foreground">
+          <span class="block text-xs font-medium uppercase text-muted-foreground">
             {item.caption}
           </span>
         )}
@@ -56,9 +56,9 @@ const NavItem = ({ item, level }: NavItemProps) => {
     isSelected && 'border-purple bg-muted'
   )
   const style = {
-    paddingLeft: `${level * 24}px`,
-    paddingTop: level > 1 ? 8 : 10,
-    paddingBottom: level > 1 ? 8 : 10,
+    'padding-left': `${level * 24}px`,
+    'padding-top': level > 1 ? 8 : 10,
+    'padding-bottom': level > 1 ? 8 : 10,
   }
 
   if (item?.external) {
@@ -67,7 +67,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         href={item.url}
         target={itemTarget}
         rel="noopener noreferrer"
-        className={linkClass}
+        class={linkClass}
         style={style}
         onClick={itemHandler}
       >
@@ -81,7 +81,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
       href={item.url!}
       prefetch={false}
       target={itemTarget}
-      className={linkClass}
+      class={linkClass}
       style={style}
       onClick={itemHandler}
     >

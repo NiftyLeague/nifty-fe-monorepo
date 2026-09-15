@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext } from 'react'
+import { createContext } from 'solid-js'
 
 import type { Provider } from '@/hooks/useEthersProvider'
 import type { Signer } from '@/hooks/useEthersSigner'

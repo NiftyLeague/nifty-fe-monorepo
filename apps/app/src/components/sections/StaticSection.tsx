@@ -23,7 +23,7 @@ const StaticSection = ({
   styles,
 }: PropsWithChildren<StaticSectionProps>) => (
   <div
-    className="flex flex-col"
+    class="flex flex-col"
     style={{ gap: sectionSpacing * 8, ...(styles?.root as React.CSSProperties) }}
   >
     <div style={styles?.headerRow as React.CSSProperties}>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { createEffect } from 'solid-js'
 
 import type { SentryInitOptions } from '@/runtime/sentry'
 
@@ -13,7 +13,7 @@ interface DeferredSentryProps {
  * client module.
  */
 export default function DeferredSentry({ enabled, options }: DeferredSentryProps) {
-  useEffect(() => {
+  createEffect(() => {
     if (!enabled) return
 
     let cancelled = false

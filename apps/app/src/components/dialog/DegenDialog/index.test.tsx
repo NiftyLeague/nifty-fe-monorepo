@@ -26,8 +26,8 @@ mock.module('@/runtime/dynamic', () => ({
 }))
 
 mock.module('@nl/ui/base/dialog', () => ({
-  Dialog: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  DialogContent: ({ children }: { children: React.ReactNode }) => (
+  Dialog: ({ children }: { children: JSX.Element }) => <div>{children}</div>,
+  DialogContent: ({ children }: { children: JSX.Element }) => (
     <div role="dialog">{children}</div>
   ),
 }))

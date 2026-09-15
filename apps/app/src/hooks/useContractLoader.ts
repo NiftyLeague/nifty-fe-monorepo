@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { Contract, JsonRpcSigner, type InterfaceAbi } from 'ethers'
 import type { Contracts, Provider } from '@/types/web3'
 import CONTRACTS from '@/constants/contracts/deployments'
@@ -77,5 +77,5 @@ export default function useContractLoader(
   providerOrSigner: ProviderOrSigner,
   { chainId }: Config
 ): Contracts {
-  return useMemo(() => loadContracts(providerOrSigner, chainId), [providerOrSigner, chainId])
+  return createMemo(() => loadContracts(providerOrSigner, chainId), [providerOrSigner, chainId])
 }

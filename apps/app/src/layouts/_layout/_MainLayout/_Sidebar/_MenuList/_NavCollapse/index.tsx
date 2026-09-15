@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
 
@@ -17,8 +17,8 @@ interface NavCollapseProps {
 }
 
 const NavCollapse = ({ menu, level }: NavCollapseProps) => {
-  const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState<string | null | undefined>(null)
+  const [open, setOpen] = createSignal(false)
+  const [selected, setSelected] = createSignal<string | null | undefined>(null)
 
   const handleClick = () => {
     setOpen(!open)
@@ -27,7 +27,7 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
 
   const pathname = usePathname()
 
-  useEffect(() => {
+  createEffect(() => {
     const children = menu?.children || []
     children.forEach((item: NavGroupProps['item']) => {
       if (pathname && pathname.includes('product-details')) {
@@ -45,12 +45,12 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
   const menus = (menu?.children || []).map((item) => {
     switch (item.type) {
       case 'collapse':
-        return <NavCollapse key={item.id} menu={item} level={level + 1} />
+        return <NavCollapse menu={item} level={level + 1} />
       case 'item':
-        return <NavItem key={item.id} item={item} level={level + 1} />
+        return <NavItem item={item} level={level + 1} />
       default:
         return (
-          <h6 key={item.id} className="text-center text-error">
+          <h6 class="text-center text-error">
             Menu Items Error
           </h6>
         )
@@ -61,22 +61,22 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
     <>
       <button
         type="button"
-        className={cx(
+        class={cx(
           'mb-0.5 flex w-full items-center rounded-md px-2 text-left',
           level > 1 ? 'py-2' : 'py-2.5',
           selected === menu.id ? 'bg-muted font-bold' : 'font-normal',
           level > 1 ? 'bg-transparent' : 'bg-inherit'
         )}
-        style={{ paddingLeft: `${level * 24}px`, alignItems: 'center' }}
+        style={{ 'padding-left': `${level * 24}px`, 'align-items': 'center' }}
         onClick={handleClick}
       >
-        <span className="my-auto" style={{ minWidth: !menu.icon ? 18 : 36 }}>
-          <AppNavIcon name={menu?.icon ?? 'dot'} size="lg" className="ml-1" />
+        <span class="my-auto" style={{ 'min-width': !menu.icon ? 18 : 36 }}>
+          <AppNavIcon name={menu?.icon ?? 'dot'} size="lg" class="ml-1" />
         </span>
-        <span className="flex flex-1 flex-col">
+        <span class="flex flex-1 flex-col">
           <span style={{ color: 'inherit' }}>{menu.title}</span>
           {menu.caption && (
-            <span className="block text-xs font-medium uppercase text-muted-foreground">
+            <span class="block text-xs font-medium uppercase text-muted-foreground">
               {menu.caption}
             </span>
           )}
@@ -84,14 +84,14 @@ const NavCollapse = ({ menu, level }: NavCollapseProps) => {
         <AppNavIcon
           name="chevron-down"
           size="md"
-          className={cx('transition-transform', open && 'rotate-180 transform')}
+          class={cx('transition-transform', open && 'rotate-180 transform')}
         />
       </button>
       {open && (
-        <div className="relative">
+        <div class="relative">
           <span
             aria-hidden
-            className="absolute top-0 left-[27px] h-full w-px opacity-100"
+            class="absolute top-0 left-[27px] h-full w-px opacity-100"
             style={{ background: 'var(--color-separator)' }}
           />
           <div>{menus}</div>

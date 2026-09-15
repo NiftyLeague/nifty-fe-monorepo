@@ -1,7 +1,7 @@
 'use client'
 
 import NativeImage from '@nl/ui/custom/native-image'
-import { forwardRef, useContext, useState } from 'react'
+import { useContext, createSignal } from 'solid-js'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { NumericFormat } from 'react-number-format'
 import { parseEther } from 'ethers'
@@ -32,25 +32,25 @@ type IFormInput = { amountSelected: number; amountInput: string; isCheckedTerm: 
 
 const AMOUNT_SELECTS: number[] = [25, 50, 75, 100]
 
-const AmountInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>((props, ref) => (
+const AmountInput = forwardRef<HTMLInputElement, JSX.ComponentProps<'input'>>((props, ref) => (
   <input
     ref={ref}
     {...props}
-    className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+    class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
   />
 ))
 AmountInput.displayName = 'AmountInput'
 
-const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactNode => {
+const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): JSX.Element => {
   const agreementAccepted = useAgreementAccepted()
   const { address, writeContracts } = useNetworkContext()
   const { imxChainId } = useIMXContext()
   const [, setIsOpen] = useContext(DialogContext)
 
-  const [bridgeAmount, setBridgeAmount] = useState<number>(0)
-  const [openTOS, setOpenTOS] = useState<boolean>(false)
-  const [allowPending, setAllowPending] = useState<boolean>(false)
-  const [bridgePending, setBridgePending] = useState<boolean>(false)
+  const [bridgeAmount, setBridgeAmount] = createSignal<number>(0)
+  const [openTOS, setOpenTOS] = createSignal<boolean>(false)
+  const [allowPending, setAllowPending] = createSignal<boolean>(false)
+  const [bridgePending, setBridgePending] = createSignal<boolean>(false)
   const {
     allowance,
     loading: loadingAllowance,
@@ -133,7 +133,7 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
     resetForm()
   }
 
-  const openTOSDialog: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+  const openTOSDialog: JSX.EventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault()
     setOpenTOS(true)
   }
@@ -151,12 +151,12 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col items-center gap-4">
-        <Title level={4} className="opacity-70">
+      <div class="flex flex-col items-center gap-4">
+        <Title level={4} class="opacity-70">
           Powered by:{'  '}
           <NativeImage src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />
         </Title>
-        <Alert variant="default" className="border-blue/40 bg-blue/10 text-blue">
+        <Alert variant="default" class="border-blue/40 bg-blue/10 text-blue">
           <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}
           <br />
           If you need your funds immediately use the{' '}
@@ -164,15 +164,15 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
             href={IMX_SQUID_BRIDGE_URL}
             target="_blank"
             rel="noreferrer"
-            style={{ fontWeight: 800 }}
+            style={{ 'font-weight': 800 }}
           >
             Squid Bridge
           </a>{' '}
           instead.
         </Alert>
-        <Title level={2} className="opacity-70">
+        <Title level={2} class="opacity-70">
           {formatNumberToDisplay(balance)} NFTL
-          <span className="block text-base">Balance on Ethereum available to bridge</span>
+          <span class="block text-base">Balance on Ethereum available to bridge</span>
         </Title>
         <Title level={4}>How much would you like to bridge?</Title>
         <Controller
@@ -183,7 +183,7 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
               type="single"
               size="lg"
               value={String(field.value)}
-              className="bg-[var(--color-blue)]"
+              class="bg-[var(--color-blue)]"
               onValueChange={(value) => {
                 if (value == null) return
                 const num = Number(value)
@@ -195,7 +195,7 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
               }}
             >
               {AMOUNT_SELECTS.map((amount) => (
-                <ToggleGroupItem key={amount} value={String(amount)} className="sm:px-4 sm:py-1">
+                <ToggleGroupItem value={String(amount)} class="sm:px-4 sm:py-1">
                   {amount !== 100 ? `${amount}%` : 'ALL'}
                 </ToggleGroupItem>
               ))}
@@ -205,8 +205,8 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
 
         <Title level={4}>OR - Enter Amount Manually</Title>
 
-        <div className="w-full">
-          <div className="mx-auto w-4/5">
+        <div class="w-full">
+          <div class="mx-auto w-4/5">
             <Controller
               name="amountInput"
               control={control}
@@ -222,8 +222,8 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
                     isAllowed={({ value }) => Number(value) <= Number(balance)}
                     thousandSeparator
                     customInput={
-                      AmountInput as React.ComponentType<
-                        React.InputHTMLAttributes<HTMLInputElement>
+                      AmountInput as Component<
+                        JSX.InputHTMLAttributes<HTMLInputElement>
                       >
                     }
                     onValueChange={(e) => {
@@ -252,8 +252,8 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
           name="isCheckedTerm"
           control={control}
           render={({ field }) => (
-            <div className="flex w-full flex-col items-center">
-              <label className="flex items-center justify-center">
+            <div class="flex w-full flex-col items-center">
+              <label class="flex items-center justify-center">
                 <Checkbox
                   checked={field.value}
                   onCheckedChange={(checked) => {
@@ -261,11 +261,11 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
                     setAgreementAccepted(checked === true ? 'ACCEPTED' : 'FALSE')
                   }}
                 />
-                <span className="w-full text-left text-base opacity-70">
+                <span class="w-full text-left text-base opacity-70">
                   I have read the
                   <button
                     type="button"
-                    className="mx-1 cursor-pointer font-bold text-foreground underline"
+                    class="mx-1 cursor-pointer font-bold text-foreground underline"
                     onClick={openTOSDialog}
                   >
                     terms &amp; conditions
@@ -278,28 +278,28 @@ const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactN
         />
         <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
         {errors.amountInput && <Alert variant="destructive">{errors.amountInput.message}</Alert>}
-        <Title level={4} className="w-full text-center">
+        <Title level={4} class="w-full text-center">
           Step 1:
         </Title>
         <Button
           size="lg"
           type="submit"
           variant="default"
-          className="w-full"
+          class="w-full"
           disabled={!getValues('isCheckedTerm') || bridgeAmount === 0 || allowance >= bridgeAmount}
           style={{ textTransform: 'none' }}
         >
           Increase allowance to allow the bridge to transfer your NFTL
           {(loadingAllowance || allowPending) && <CircularProgress size="sm" />}
         </Button>
-        <Title level={4} className="w-full text-center">
+        <Title level={4} class="w-full text-center">
           Step 2:
         </Title>
         <Button
           size="lg"
           type="submit"
           variant="default"
-          className="w-full"
+          class="w-full"
           disabled={!getValues('isCheckedTerm') || bridgeAmount === 0 || allowance < bridgeAmount}
           style={{ textTransform: 'none' }}
         >

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
@@ -17,7 +17,7 @@ import { normalizeCharacterTraits } from '@/utils/character-traits'
 import styles from './index.module.css'
 
 const DialogContentLoading = () => (
-  <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+  <div class="sr-only" role="status" aria-live="polite" aria-busy="true">
     Loading degen dialog content
   </div>
 )
@@ -42,15 +42,15 @@ const ViewTraitsContentDialog = dynamic(() => import('./ViewTraitsContentDialog'
 export interface DegenDialogProps {
   degen?: DashboardDegen
   isRent?: boolean
-  setIsRent?: React.Dispatch<React.SetStateAction<boolean>>
+  setIsRent?: (v: boolean) => void
   isClaim?: boolean
-  setIsClaim?: React.Dispatch<React.SetStateAction<boolean>>
+  setIsClaim?: (v: boolean) => void
   isEquip?: boolean
-  setIsEquip?: React.Dispatch<React.SetStateAction<boolean>>
+  setIsEquip?: (v: boolean) => void
   onRent?: (degen: DashboardDegen) => void
   open?: boolean
   onClose?: (
-    event: React.MouseEvent<HTMLButtonElement>,
+    event: MouseEvent & { currentTarget: HTMLButtonElement },
     reason: 'backdropClick' | 'escapeKeyDown'
   ) => void
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -58,7 +58,7 @@ export interface DegenDialogProps {
   scroll?: 'body' | 'paper'
   fullScreen?: boolean
   className?: string
-  children?: React.ReactNode
+  children?: JSX.Element
 }
 
 const DegenDialog = ({
@@ -76,7 +76,7 @@ const DegenDialog = ({
   const tokenId = degen?.id || 0
   const fullScreen = useMediaQuery('(max-width:768px)')
   const { readContracts } = useNetworkContext()
-  const [character, setCharacter] = useState<CharacterType>({
+  const [character, setCharacter] = createSignal<CharacterType>({
     name: null,
     owner: null,
     traitList: [],
@@ -86,7 +86,7 @@ const DegenDialog = ({
     setCharacter({ name: null, owner: null, traitList: [] })
   }
 
-  useEffect(() => {
+  createEffect(() => {
     let cancelled = false
 
     const fetchData = async () => {
@@ -141,8 +141,8 @@ const DegenDialog = ({
       }, {})
     : (degen?.traits_string ?? '')
 
-  const handleClose = (event?: React.MouseEvent<HTMLButtonElement>) => {
-    onClose?.(event as React.MouseEvent<HTMLButtonElement>, 'backdropClick')
+  const handleClose = (event?: MouseEvent & { currentTarget: HTMLButtonElement }) => {
+    onClose?.(event as MouseEvent & { currentTarget: HTMLButtonElement }, 'backdropClick')
     setIsClaim?.(false)
     setIsRent?.(false)
     resetDialog()
@@ -157,7 +157,7 @@ const DegenDialog = ({
     >
       <DialogContent
         showCloseButton={false}
-        className={cn(
+        class={cn(
           styles.customDialog,
           isRent && styles.customDialogRent,
           isEquip && styles.customDialogEquip,

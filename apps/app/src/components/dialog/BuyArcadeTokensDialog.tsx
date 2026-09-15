@@ -1,7 +1,7 @@
 'use client'
 
-import { FC, useCallback, useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { FC, createEffect, createSignal } from 'solid-js'
+import { useQuery } from '@tanstack/solid-query'
 import { toast } from 'sonner'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Minus, Plus, X } from 'lucide-react'
@@ -44,15 +44,15 @@ type ArcadeTokenDetails = {
 }
 
 const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess, onClose }) => {
-  const [agreement, setAgreement] = useState<boolean>(false)
-  const [tokenCount, setTokenCount] = useState<number>(1)
+  const [agreement, setAgreement] = createSignal<boolean>(false)
+  const [tokenCount, setTokenCount] = createSignal<number>(1)
   const { authToken } = useAuth()
   const scope = getAuthQueryScope(authToken)
 
   const { account, refetchAccount, loadingAccount } = useGameAccount()
   const accountBalance = account?.balance ?? 0
 
-  useEffect(() => {
+  createEffect(() => {
     if (open) {
       gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, {
         items: [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens' }],
@@ -82,7 +82,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     }
   }
 
-  const purchaseArcadeToken = useCallback(async () => {
+  const purchaseArcadeToken = (async () => {
     if (!details) return
     const items = [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
@@ -117,26 +117,26 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
     <Dialog open={open} onOpenChange={(openState) => !openState && onClose()}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-[444px] md:max-w-[444px] lg:max-w-[444px]"
+        class="max-w-[444px] md:max-w-[444px] lg:max-w-[444px]"
       >
-        <div className="container">
+        <div class="container">
           <>
-            <div className="relative text-center">
-              <DialogTitle className="text-center">Buy Arcade Token</DialogTitle>
+            <div class="relative text-center">
+              <DialogTitle class="text-center">Buy Arcade Token</DialogTitle>
               <Button
                 type="button"
                 variant="ghost"
                 size="icon"
                 aria-label="close"
-                className="absolute top-1/4 right-0 h-7 w-7 cursor-pointer p-0"
+                class="absolute top-1/4 right-0 h-7 w-7 cursor-pointer p-0"
                 onClick={onClose}
               >
-                <X aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={1.5} />
+                <X aria-hidden="true" absoluteStrokeWidth size={28} stroke-width={1.5} />
               </Button>
             </div>
-            <Separator className="opacity-60" />
+            <Separator class="opacity-60" />
             {(isDetailsPending || error) && (
-              <div className="flex h-[300px] w-[390px] flex-row items-center justify-center">
+              <div class="flex h-[300px] w-[390px] flex-row items-center justify-center">
                 <>
                   {isDetailsPending && <CircularProgress />}
                   {error && <Title level={4}>Something went wrong!</Title>}
@@ -145,21 +145,21 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
             )}
             {!error && !isDetailsPending && details && (
               <>
-                <span className="mx-auto mt-4 block max-w-[450px] text-center text-base">
+                <span class="mx-auto mt-4 block max-w-[450px] text-center text-base">
                   To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold
                   in packs containing {details.items['arcade-token'] ?? 0} tokens (i.e 1 pack ={' '}
                   {details.items['arcade-token'] ?? 0} tokens)
                 </span>
-                <span className="my-4 block text-center text-base font-bold text-warning">
+                <span class="my-4 block text-center text-base font-bold text-warning">
                   {details.price} NFTL Each
                 </span>
-                <div className="mb-6 flex flex-row items-center justify-center gap-2">
+                <div class="mb-6 flex flex-row items-center justify-center gap-2">
                   <Button
                     type="button"
                     variant="ghost"
                     size="icon"
                     aria-label="subtract"
-                    className="h-[50px] w-[50px] cursor-pointer p-0"
+                    class="h-[50px] w-[50px] cursor-pointer p-0"
                     onClick={() => updateTokenCount(tokenCount - 1)}
                   >
                     <Minus
@@ -167,19 +167,19 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                       absoluteStrokeWidth
                       size={50}
                       color="var(--color-muted-foreground)"
-                      strokeWidth={2.5}
+                      stroke-width={2.5}
                     />
                   </Button>
-                  <div className="relative">
+                  <div class="relative">
                     <Input
                       aria-label="Arcade token packs"
-                      className="w-[100px] pr-12 text-center"
+                      class="w-[100px] pr-12 text-center"
                       value={tokenCount}
                       onChange={(e) => updateTokenCount(e.target.value)}
                       inputMode="numeric"
                       pattern="[0-9]*"
                     />
-                    <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted-foreground">
+                    <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted-foreground">
                       PACK
                     </span>
                   </div>
@@ -188,7 +188,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                     variant="ghost"
                     size="icon"
                     aria-label="add"
-                    className="h-[50px] w-[50px] cursor-pointer p-0"
+                    class="h-[50px] w-[50px] cursor-pointer p-0"
                     onClick={() => updateTokenCount(tokenCount + 1)}
                   >
                     <Plus
@@ -196,15 +196,15 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                       absoluteStrokeWidth
                       size={50}
                       color="var(--color-muted-foreground)"
-                      strokeWidth={2.5}
+                      stroke-width={2.5}
                     />
                   </Button>
                 </div>
-                <div className="grid" style={{ gridTemplateColumns: '1fr auto' }}>
+                <div class="grid" style={{ gridTemplateColumns: '1fr auto' }}>
                   <span
-                    className="text-base"
+                    class="text-base"
                     style={{
-                      fontWeight: 500,
+                      'font-weight': 500,
                       color:
                         accountBalance && accountBalance > tokenCount * details.price
                           ? 'var(--color-success)'
@@ -213,7 +213,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                   >
                     Bal: {accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL
                   </span>
-                  <span className="flex text-base" style={{ fontWeight: 500 }}>
+                  <span class="flex text-base" style={{ 'font-weight': 500 }}>
                     Total:{' '}
                     <NativeImage
                       src="/icons/currencies/arcade-token.svg"
@@ -225,7 +225,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                     {tokenCount * (details.items['arcade-token'] ?? 0)} Arcade Tokens
                   </span>
                   {accountBalance > 0 && accountBalance < tokenCount * details.price && (
-                    <span className="my-1 text-xs text-warning">
+                    <span class="my-1 text-xs text-warning">
                       Balance is too low.{' '}
                       <a href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                         Buy NFTL
@@ -233,7 +233,7 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                     </span>
                   )}
                   {!accountBalance && (
-                    <span className="my-1 text-xs text-error">
+                    <span class="my-1 text-xs text-error">
                       You have zero balance.{' '}
                       <a href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
                         Buy NFTL
@@ -241,18 +241,18 @@ const BuyArcadeTokensDialog: FC<BuyArcadeTokensDialogProps> = ({ open, onSuccess
                     </span>
                   )}
                 </div>
-                <label className="my-2 flex items-center gap-2">
+                <label class="my-2 flex items-center gap-2">
                   <Checkbox
                     checked={agreement}
                     onCheckedChange={(checked) => setAgreement(checked === true)}
                   />
-                  <span className="text-xs">
+                  <span class="text-xs">
                     I understand all the information above about the arcade token purchase
                   </span>
                 </label>
                 <Button
                   variant="default"
-                  className="mb-2 w-full"
+                  class="mb-2 w-full"
                   onClick={purchaseArcadeToken}
                   disabled={
                     !agreement || !accountBalance || accountBalance < tokenCount * details.price

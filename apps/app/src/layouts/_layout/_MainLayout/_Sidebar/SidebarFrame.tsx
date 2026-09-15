@@ -32,8 +32,8 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
 
   const logo = useMemo(
     () => (
-      <div className="block lg:hidden">
-        <div className="mx-auto flex p-2">
+      <div class="block lg:hidden">
+        <div class="mx-auto flex p-2">
           <LogoSection />
         </div>
       </div>
@@ -47,9 +47,9 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
         style={{ height: `calc(100dvh - ${appHeaderHeight}px)` }}
         viewportClassName="px-4"
       >
-        <div className="flex h-full flex-col justify-between">
+        <div class="flex h-full flex-col justify-between">
           <div>{children}</div>
-          {footer && <div className="flex flex-col items-center">{footer}</div>}
+          {footer && <div class="flex flex-col items-center">{footer}</div>}
         </div>
       </ScrollArea>
     ),
@@ -60,7 +60,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
     <nav
       aria-label="Primary navigation"
       data-state={drawerOpen ? 'open' : 'closed'}
-      className={cx('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}
+      class={cx('shrink-0', isCompactScreen ? 'w-0' : 'w-[260px]')}
     >
       {isCompactScreen && drawerOpen && (
         <Suspense fallback={null}>
@@ -77,7 +77,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
       {isDesktopNavigation && (
         <aside
           id="app-primary-navigation"
-          className={cx(
+          class={cx(
             'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
             drawerOpen
               ? 'pointer-events-auto translate-x-0'

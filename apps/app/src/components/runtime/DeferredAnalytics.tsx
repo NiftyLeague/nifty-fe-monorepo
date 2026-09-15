@@ -1,4 +1,4 @@
-import { startTransition, useEffect, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 
 import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
@@ -9,12 +9,12 @@ import { IS_PRODUCTION, TELEMETRY } from '@/runtime/env'
  * deferred GTM boundary while keeping the Web Vitals reporter app-local (the
  * shared reporter is built on a framework web-vitals hook).
  */
-export default function DeferredAnalytics(): React.ReactNode {
-  const [GoogleTagManager, setGoogleTagManager] = useState<React.ComponentType | null>(null)
+export default function DeferredAnalytics(): JSX.Element {
+  const [GoogleTagManager, setGoogleTagManager] = createSignal<Component | null>(null)
   // The shared analytics gate enables production deploys and honors VITE_TELEMETRY opt-out.
   const enabled = productionTelemetryEnabled(IS_PRODUCTION, TELEMETRY)
 
-  useEffect(() => {
+  createEffect(() => {
     if (!enabled) return
     let cancelled = false
 

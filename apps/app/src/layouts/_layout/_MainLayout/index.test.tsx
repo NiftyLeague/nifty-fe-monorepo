@@ -7,11 +7,11 @@ const appShellMock = mock(
     header,
     networkWarning,
     sidebar,
-  }: React.PropsWithChildren<{
-    header: React.ReactNode
-    sidebar: React.ReactNode
-    networkWarning?: React.ReactNode
-  }>) => (
+  }: JSX.{
+    header: JSX.Element
+    sidebar: JSX.Element
+    networkWarning?: JSX.Element
+  } & { children?: JSX.Element }) => (
     <div data-network-warning={networkWarning ? 'present' : 'absent'}>
       {header}
       {sidebar}

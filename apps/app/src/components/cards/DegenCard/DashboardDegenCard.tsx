@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, type ReactNode } from 'react'
+import { type JSX } from 'solid-js'
 
 import dynamic from '@/runtime/dynamic'
 import DeferredDegenCard from '@/components/providers/DeferredDegenCard'
@@ -37,14 +37,14 @@ function DashboardDegenCardInViewInner<T extends PublicDegen>(props: DegenCardPr
 // Memoized so unchanged grids skip re-rendering when the page around them
 // updates; the casts restore the generic card the same way `DeferredComponent`
 // does.
-export const DashboardDegenCard = memo(DashboardDegenCardInner) as <T extends PublicDegen>(
+export const DashboardDegenCard = (DashboardDegenCardInner) as <T extends PublicDegen>(
   props: DegenCardProps<T>
-) => ReactNode
+) => JSX.Element
 
-export const DashboardDegenCardInView = memo(DashboardDegenCardInViewInner) as <
+export const DashboardDegenCardInView = (DashboardDegenCardInViewInner) as <
   T extends PublicDegen,
 >(
   props: DegenCardProps<T>
-) => ReactNode
+) => JSX.Element
 
 export default DashboardDegenCard

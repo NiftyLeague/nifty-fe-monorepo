@@ -13,8 +13,8 @@ import {
   Sparkles,
   Tally1,
   User,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+} from 'lucide-solid'
+import type { LucideIcon } from 'lucide-solid'
 import type { SVGProps } from 'react'
 
 const DEFAULT_SIZES = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 } as const
@@ -82,9 +82,9 @@ function AppNavIcon({
       color={iconColor}
       fill={iconFill}
       size={iconSize}
-      strokeWidth={strokeWidth}
+      stroke-width={strokeWidth}
       aria-hidden={props['aria-label'] ? undefined : 'true'}
-      {...props}
+      {...({ ...props, className: undefined, class: (props as Record<string, unknown>).className } as never)}
     />
   )
 }

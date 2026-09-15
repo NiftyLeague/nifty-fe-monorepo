@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { createMemo } from 'solid-js'
+import { useQuery } from '@tanstack/solid-query'
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
 import useAuth from '@/hooks/useAuth'
 import {
@@ -50,7 +50,7 @@ export default function useArcadeBalance(): ArcadeBalanceState {
     staleTime: AUTHENTICATED_STALE_TIME_MS,
   })
 
-  const balance = useMemo(() => data?.balance ?? 0, [data])
+  const balance = createMemo(() => data?.balance ?? 0, [data])
 
   return { balance, error, loading: isLoading, refetch }
 }

@@ -9,6 +9,6 @@ const DashboardOverviewClient = dynamic(() => import('./DashboardOverviewClient'
   loading: () => <RouteLoading label="Loading dashboard overview" />,
 })
 
-export default function DashboardOverviewRouteBoundary(): React.ReactNode {
+export default function DashboardOverviewRouteBoundary(): JSX.Element {
   return <DashboardOverviewClient />
 }

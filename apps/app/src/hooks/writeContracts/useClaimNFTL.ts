@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { createSignal, createEffect } from 'solid-js'
 import type { TransactionResponse } from 'ethers'
 import type { MetamaskError } from '@/types/notify'
 import { handleError } from '@/utils/bnc-notify'
@@ -20,18 +20,18 @@ export default function useClaimNFTL(): {
   const { degenTokenIndices } = useNFTsBalances()
   const { loadingNFTLAccrued, refreshClaimableNFTL, totalAccruedNFTL } = useTokensBalances()
 
-  const [mockAccrued, setMockAccrued] = useState(totalAccruedNFTL)
-  const [loading, setLoading] = useState(loadingNFTLAccrued)
+  const [mockAccrued, setMockAccrued] = createSignal(totalAccruedNFTL)
+  const [loading, setLoading] = createSignal(loadingNFTLAccrued)
 
-  useEffect(() => {
+  createEffect(() => {
     if (totalAccruedNFTL) setMockAccrued(totalAccruedNFTL)
   }, [totalAccruedNFTL])
 
-  useEffect(() => {
+  createEffect(() => {
     setLoading(loadingNFTLAccrued)
   }, [loadingNFTLAccrued])
 
-  const verifyDegensWithClaimableNFTL = useCallback(async () => {
+  const verifyDegensWithClaimableNFTL = (async () => {
     const nftl = writeContracts[NFTL_CONTRACT]
     const degensWithClaimableNFTL = await Promise.all(
       degenTokenIndices.map(async (degen) => {
@@ -42,7 +42,7 @@ export default function useClaimNFTL(): {
     return degensWithClaimableNFTL.filter(Boolean)
   }, [degenTokenIndices, writeContracts])
 
-  const handleClaimNFTL = useCallback(async () => {
+  const handleClaimNFTL = (async () => {
     const degensWithClaimableNFTL = await verifyDegensWithClaimableNFTL()
     if (DEBUG) console.log('claim', degensWithClaimableNFTL, totalAccruedNFTL)
     const nftl = writeContracts[NFTL_CONTRACT]
@@ -61,7 +61,7 @@ export default function useClaimNFTL(): {
     writeContracts,
   ])
 
-  const claimCallback = useCallback(async () => {
+  const claimCallback = (async () => {
     setLoading(true)
     try {
       const res = await handleClaimNFTL()

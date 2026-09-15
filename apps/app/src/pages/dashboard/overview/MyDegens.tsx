@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { createMemo, createSignal } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import dynamic from '@/runtime/dynamic'
 import { Button } from '@nl/ui/base/button'
@@ -28,24 +28,24 @@ const DegenCard = dynamic<DegenCardProps<DashboardDegen>>(
   }
 )
 
-const MyDegens = (): React.ReactNode => {
-  const [selectedDegen, setSelectedDegen] = useState<DashboardDegen>()
-  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = useState<boolean>(false)
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const [isClaimDialog, setIsClaimDialog] = useState<boolean>(false)
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+const MyDegens = (): JSX.Element => {
+  const [selectedDegen, setSelectedDegen] = createSignal<DashboardDegen>()
+  const [isRenameDegenModalOpen, setIsRenameDegenModalOpen] = createSignal<boolean>(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = createSignal<boolean>(false)
+  const [isClaimDialog, setIsClaimDialog] = createSignal<boolean>(false)
+  const [isRentDialog, setIsRentDialog] = createSignal<boolean>(false)
   const router = useRouter()
   const { favDegens, toggleFavorite } = useFavoriteDegens()
 
   const { loadingDegens, degensBalances } = useNFTsBalances()
 
-  const degenIds = useMemo(
+  const degenIds = createMemo(
     () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
     [degensBalances]
   )
   const { data: degensData } = usePublicDegensByIds(degenIds)
 
-  const filteredDegens = useMemo(() => {
+  const filteredDegens = createMemo(() => {
     if (!degensBalances.length || !degensData) return []
 
     const degensById = new Map(degensData.map((degen) => [degen.id, degen]))
@@ -65,26 +65,26 @@ const MyDegens = (): React.ReactNode => {
     ],
   }
 
-  const handleClickEditName = useCallback((degen: DashboardDegen): void => {
+  const handleClickEditName = ((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsRenameDegenModalOpen(true)
   }, [])
 
-  const handleViewTraits = useCallback((degen: DashboardDegen): void => {
+  const handleViewTraits = ((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(false)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
   }, [])
 
-  const handleClaimDegen = useCallback((degen: DashboardDegen): void => {
+  const handleClaimDegen = ((degen: DashboardDegen): void => {
     setSelectedDegen(degen)
     setIsClaimDialog(true)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
   }, [])
 
-  const handleFavoriteToggle = useCallback(
+  const handleFavoriteToggle = (
     (degen: DashboardDegen): void => {
       void toggleFavorite(degen.id)
     },
@@ -104,17 +104,17 @@ const MyDegens = (): React.ReactNode => {
             View All DEGENs
           </Button>
         }
-        styles={{ mainRow: { minHeight: 300, maxHeight: 330, overflow: 'hidden' } }}
+        styles={{ mainRow: { 'min-height': 300, 'max-height': 330, overflow: 'hidden' } }}
       >
         {loadingDegens ? (
           [...Array(8)].map((_, index) => (
-            <div className="w-full sm:w-[91.6667%]" key={`my-degen-skeleton-${index}`}>
+            <div class="w-full sm:w-[91.6667%]" key={`my-degen-skeleton-${index}`}>
               <SkeletonDegenPlaceholder />
             </div>
           ))
         ) : filteredDegens.length && degensBalances.length ? (
           filteredDegens.map((degen) => (
-            <div className="px-1" key={degen.id}>
+            <div class="px-1">
               <DegenCard
                 degen={degen}
                 deferAnimatedMedia
@@ -129,7 +129,7 @@ const MyDegens = (): React.ReactNode => {
             </div>
           ))
         ) : (
-          <div className="flex items-center justify-center">
+          <div class="flex items-center justify-center">
             <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"

@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/solid-query'
 import { GAMER_ACCOUNT_API } from '@/constants/url'
 import type { Account } from '@/types/account'
 import { AUDIT_FIXTURE_ACCOUNT, isAuditFixtureEnabled } from '@/audit/fixture'

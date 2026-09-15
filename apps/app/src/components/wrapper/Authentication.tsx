@@ -1,13 +1,13 @@
-import { createElement } from 'react'
+import {  } from 'solid-js'
 import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
-const ProfileVerification = (): React.ReactNode => {
+const ProfileVerification = (): JSX.Element => {
   const { isConnected, handleConnectWallet } = useAuth()
 
   return (
-    <div className="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-10 text-center lg:min-h-[calc(100dvh-60px)]">
-      <p className="mb-2">
+    <div class="flex min-h-[calc(100dvh-56px)] flex-col items-center justify-center p-10 text-center lg:min-h-[calc(100dvh-60px)]">
+      <p class="mb-2">
         {isConnected ? 'Please sign message to log in' : 'Please connect your wallet'}
       </p>
       <Button variant="default" onClick={handleConnectWallet}>
@@ -18,12 +18,12 @@ const ProfileVerification = (): React.ReactNode => {
 }
 
 export default function withVerification<P>(
-  Component: React.ComponentType<P>
-): React.ComponentType<React.PropsWithChildren<P>> {
-  const WrappedComponent = (props: React.PropsWithChildren<P>) => {
+  Component: Component<P>
+): Component<JSX.P & { children?: JSX.Element }> {
+  const WrappedComponent = (props: JSX.P & { children?: JSX.Element }) => {
     const { isLoggedIn } = useAuth()
     return isLoggedIn ? (
-      createElement(Component as React.ComponentType<React.PropsWithChildren<P>>, props)
+      createElement(Component as Component<JSX.P & { children?: JSX.Element }>, props)
     ) : (
       <ProfileVerification />
     )

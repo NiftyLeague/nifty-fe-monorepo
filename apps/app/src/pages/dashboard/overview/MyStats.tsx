@@ -8,15 +8,15 @@ import GamerProfileContext from '@/contexts/GamerProfileContext'
 import LeftInfo from '../gamer-profile/_Stats/LeftInfo'
 import type { Profile } from '@/types/account'
 
-const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
+const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
   return (
-    <div className="grid h-full grid-cols-12 gap-4">
-      <div className="col-span-12">
+    <div class="grid h-full grid-cols-12 gap-4">
+      <div class="col-span-12">
         <SectionTitle
           firstSection
           variant="h3"
           actions={
-            <div className="flex flex-row gap-4">
+            <div class="flex flex-row gap-4">
               <Button asChild variant="outline">
                 <Link href="/dashboard/gamer-profile" prefetch={false}>
                   View All Stats
@@ -28,8 +28,8 @@ const MyStats = ({ profile }: { profile?: Profile }): React.ReactNode => {
           My Stats
         </SectionTitle>
       </div>
-      <div className="col-span-12 h-full">
-        <div className="flex flex-row gap-10">
+      <div class="col-span-12 h-full">
+        <div class="flex flex-row gap-10">
           <LeftInfo data={profile?.stats?.total} />
         </div>
       </div>

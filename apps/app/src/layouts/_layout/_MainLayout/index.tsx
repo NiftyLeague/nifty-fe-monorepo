@@ -1,7 +1,7 @@
 'use client'
 
 // third party
-import { type PropsWithChildren } from 'react'
+import {  } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
 // project imports
@@ -16,7 +16,7 @@ const NetworkWarning = dynamic(() => import('./_Header/NetworkWarning'), { ssr: 
 const MainLayout = ({
   children,
   walletReady = true,
-}: PropsWithChildren<{ walletReady?: boolean }>) => {
+}: { walletReady?: boolean } & { children?: JSX.Element }) => {
   return (
     <AppShell
       header={<Header />}

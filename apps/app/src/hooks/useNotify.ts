@@ -1,5 +1,5 @@
 'use client'
-import { useCallback } from 'react'
+import {  } from 'solid-js'
 import type { API, InitOptions } from 'bnc-notify'
 import type { JsonRpcSigner } from 'ethers'
 
@@ -40,7 +40,7 @@ const initializeNotify = async (darkMode: boolean): Promise<API | null> => {
 }
 
 export default function useNotify(signer?: JsonRpcSigner, darkMode = true): Tx {
-  return useCallback(
+  return (
     async (tx, callback) => {
       if (typeof signer !== 'undefined') {
         try {

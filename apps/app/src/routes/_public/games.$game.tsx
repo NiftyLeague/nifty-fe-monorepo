@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/solid-router'
 
 import { getNiftyWorldGame } from '@/constants/niftyworld-games'
 import NiftyWorldGame from '@/pages/games/NiftyWorldGame'

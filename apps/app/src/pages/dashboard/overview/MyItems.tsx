@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 
@@ -9,10 +9,10 @@ import EmptyState from '@/components/EmptyState'
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder'
 import { ITEM_PURCHASE_URL } from '@/constants/url'
 
-const MyItems = (): React.ReactNode => {
+const MyItems = (): JSX.Element => {
   const router = useRouter()
   const { itemsBalances, loadingItems } = useNFTsBalances()
-  const filteredItems = useMemo(
+  const filteredItems = createMemo(
     () => itemsBalances.filter((item) => item.balance && item.balance > 0),
     [itemsBalances]
   )
@@ -43,17 +43,17 @@ const MyItems = (): React.ReactNode => {
         }
       >
         {loadingItems ? (
-          <div className="px-1">
+          <div class="px-1">
             <ComicPlaceholder />
           </div>
         ) : filteredItems.length ? (
           filteredItems.map((item) => (
-            <div key={item.wearableName} className="px-1">
+            <div class="px-1">
               <WearableItemCard data={item} />
             </div>
           ))
         ) : (
-          <div className="flex items-center justify-center">
+          <div class="flex items-center justify-center">
             <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="No Items found. Please check your address or go purchase some if you have not done so already!"

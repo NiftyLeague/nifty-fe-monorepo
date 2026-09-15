@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
+import {  } from 'solid-js'
 import { useAccount, useSignMessage } from 'wagmi'
 
 import * as gtm from '@nl/ui/gtm/events'
@@ -71,7 +71,7 @@ const useSignAuthMsg = (params: Params = {}) => {
     },
   })
 
-  const signMessage = useCallback(async () => {
+  const signMessage = (async () => {
     return await signMessageAsync({
       message: `Please sign this message to verify that ${signAddress} belongs to you. ${nonce}`,
     })

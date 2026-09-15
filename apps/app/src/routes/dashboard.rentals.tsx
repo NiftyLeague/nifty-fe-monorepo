@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import DashboardRentalsRouteBoundary from '@/pages/dashboard/rentals/DashboardRentalsRouteBoundary'
 import { acceptSearch } from '@/url/search-schema'

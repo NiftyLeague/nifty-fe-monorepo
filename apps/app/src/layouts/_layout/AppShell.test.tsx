@@ -10,10 +10,10 @@ beforeEach(() => {
 
   mock.module('@/runtime/navigation', () => ({ usePathname: () => '/dashboard' }))
   mock.module('@nl/ui/base/scroll-area', () => ({
-    ScrollArea: ({ children }: React.PropsWithChildren) => <div data-scroll-area>{children}</div>,
+    ScrollArea: ({ children }: { children?: JSX.Element } &) => <div data-scroll-area>{children}</div>,
   }))
   mock.module('@nl/ui/custom/app-bar', () => ({
-    default: ({ children }: React.PropsWithChildren) => <div data-app-bar>{children}</div>,
+    default: ({ children }: { children?: JSX.Element } &) => <div data-app-bar>{children}</div>,
   }))
   mock.module('@nl/ui/class-names', () => ({
     cx: (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' '),
@@ -26,7 +26,7 @@ beforeEach(() => {
   }))
   mock.module('@/constants/menu-items', () => ({ default: [] }))
   mock.module('@/contexts/NavigationContext', () => ({
-    NavigationProvider: ({ children }: React.PropsWithChildren) => children,
+    NavigationProvider: ({ children }: { children?: JSX.Element } &) => children,
     useDrawerOpen: () => drawerOpen,
     useIsDesktopNavigation: () => false,
     useSetDrawerOpen: () => mock(),

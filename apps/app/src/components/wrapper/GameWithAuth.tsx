@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 import { Unity, useUnityContext } from 'react-unity-webgl'
@@ -34,7 +34,7 @@ const Game = ({ unityConfig }: GameProps) => {
   const { address } = useAccount()
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`
   const authCallback = useRef<null | ((authMsg: string) => void)>(null)
-  const [unityError, setUnityError] = useState<Error | null>(null)
+  const [unityError, setUnityError] = createSignal<Error | null>(null)
 
   const {
     unityProvider,
@@ -49,20 +49,20 @@ const Game = ({ unityConfig }: GameProps) => {
   // Conditionally throw errors to be caught by the ErrorBoundary
   if (unityError) throw unityError
 
-  useEffect(() => {
+  createEffect(() => {
     if (address?.length && authCallback.current) {
       authCallback.current(authMsg)
     }
   }, [address, authMsg])
 
-  useEffect(() => {
+  createEffect(() => {
     const contentId = getGameViewedAnalyticsContentId(pathname)
     if (contentId) {
       gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'game', content_id: contentId })
     }
   }, [pathname])
 
-  const startAuthentication = useCallback(
+  const startAuthentication = (
     (e: CustomEventWithCallback<string>) => {
       if (DEBUG) console.log('Authenticating:', authMsg)
       e.detail.callback(authMsg)
@@ -71,14 +71,14 @@ const Game = ({ unityConfig }: GameProps) => {
     [authMsg]
   )
 
-  const getConfiguration = useCallback((e: CustomEventWithCallback<string>) => {
+  const getConfiguration = ((e: CustomEventWithCallback<string>) => {
     const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
     const version = SUBGRAPH_VERSION
     if (DEBUG) console.log(`${networkName},${version ?? ''}`)
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
   }, [])
 
-  const enableGameInteraction = useCallback(function enableGameInteraction() {
+  const enableGameInteraction = (function enableGameInteraction() {
     if (setCanvasInteraction('game-canvas', true)) {
       // The canvas remains interactive after activation. Remove the global
       // listener so game pages do not keep doing a DOM lookup on every move.
@@ -86,21 +86,21 @@ const Game = ({ unityConfig }: GameProps) => {
     }
   }, [])
 
-  const handleLoaded = useCallback(() => {
+  const handleLoaded = (() => {
     if (DEBUG) console.log('Unity loaded')
   }, [])
 
-  const handleError = useCallback((error: unknown) => {
+  const handleError = ((error: unknown) => {
     const message = typeof error === 'string' ? error : 'Unity loading error'
     setUnityError(new Error(message))
   }, [])
 
-  const handleProgress = useCallback((progress: unknown) => {
+  const handleProgress = ((progress: unknown) => {
     // v10: loadingProgression is already 0-1, progress param is also 0-1
     if (DEBUG && typeof progress === 'number') console.log(`Unity progress: ${progress * 100}%`)
   }, [])
 
-  useEffect(() => {
+  createEffect(() => {
     // Bridge sendMessage to window.unityInstance for external callers (Unity C# -> JS)
     window.unityInstance = {
       SendMessage: (...args) => sendMessage(...args),
@@ -143,13 +143,12 @@ const Game = ({ unityConfig }: GameProps) => {
   }
 
   return (
-    <div className="relative">
+    <div class="relative">
       <Preloader ready={isLoaded} progress={loadingProgression * 100} label="Loading game" />
-      <div className="flex flex-row items-start">
-        <div className="flex flex-col items-start">
-          <Unity
-            key={authToken}
-            className="game-canvas"
+      <div class="flex flex-row items-start">
+        <div class="flex flex-col items-start">
+          <Unity            
+            class="game-canvas"
             unityProvider={unityProvider}
             style={{
               width: 'calc(77vh * 1.33)',
@@ -161,7 +160,7 @@ const Game = ({ unityConfig }: GameProps) => {
             variant="default"
             size="lg"
             onClick={handleOnClickFullscreen}
-            className="mt-[6px]"
+            class="mt-[6px]"
           >
             Fullscreen
           </Button>
@@ -174,7 +173,7 @@ const Game = ({ unityConfig }: GameProps) => {
 const GameWithAuth = withVerification((props: GameProps) => {
   const { isOpera, browserName } = useUserAgent()
   return isOpera() ? (
-    <h2 className="mt-8 text-center">{browserName} Browser Not Supported</h2>
+    <h2 class="mt-8 text-center">{browserName} Browser Not Supported</h2>
   ) : (
     <ErrorBoundary>
       <Game {...props} />

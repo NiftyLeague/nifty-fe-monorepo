@@ -3,7 +3,7 @@ import useComicDimension from '@/hooks/useComicDimension'
 
 const ComicPlaceholder = () => {
   const { width, height } = useComicDimension()
-  return <DeferredSkeleton className="rounded-[var(--radius-default)]" style={{ width, height }} />
+  return <DeferredSkeleton class="rounded-[var(--radius-default)]" style={{ width, height }} />
 }
 
 export default ComicPlaceholder

@@ -28,11 +28,11 @@ export default function MobileSidebarSheet({
         closeClassName="top-2 right-2 z-20 h-8 w-8 opacity-100 hover:opacity-100"
         overlayClassName="bg-black/50"
         overlayStyle={{ top: appHeaderHeight }}
-        className="w-[260px] max-w-[260px] gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
+        class="w-[260px] max-w-[260px] gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
         style={{ top: appHeaderHeight, bottom: 0, height: 'auto' }}
       >
-        <SheetTitle className="sr-only">Primary navigation</SheetTitle>
-        <SheetDescription className="sr-only">Navigate through the private app</SheetDescription>
+        <SheetTitle class="sr-only">Primary navigation</SheetTitle>
+        <SheetDescription class="sr-only">Navigate through the private app</SheetDescription>
         {logo}
         {drawer}
       </SheetContent>

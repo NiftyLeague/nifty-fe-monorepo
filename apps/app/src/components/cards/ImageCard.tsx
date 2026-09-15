@@ -10,7 +10,7 @@ interface ImageCardProps {
   ratio: number
 }
 
-const styleImage: { imageWrapper: React.CSSProperties; imageCommon: React.CSSProperties } = {
+const styleImage: { imageWrapper: JSX.CSSProperties; imageCommon: JSX.CSSProperties } = {
   imageWrapper: { height: 0, width: '100%' },
   imageCommon: { position: 'absolute', width: '100%' },
 }
@@ -19,7 +19,7 @@ const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps
   const { handleImageOnLoad, css } = useImageOnLoad()
   return (
     <div
-      className="relative"
+      class="relative"
       style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}
     >
       {thumbnail && (

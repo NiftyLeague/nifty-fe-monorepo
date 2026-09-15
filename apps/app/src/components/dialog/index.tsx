@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, createContext, SetStateAction, Dispatch } from 'react'
+import { createSignal, createContext, SetStateAction, Dispatch } from 'solid-js'
 import type { DialogProps } from '@/types/dialog'
 import { DialogTrigger } from './DialogActions'
 import { DialogContent } from './DialogContent'
 
-const defaultValue: [isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>>] = [
+const defaultValue: [isOpen: boolean, setIsOpen: (v: boolean | ((prev: boolean) => boolean)) => void] = [
   false,
   () => {},
 ]
@@ -13,8 +13,8 @@ const defaultValue: [isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean
 export const DialogContext = createContext(defaultValue)
 
 const Dialog = (props: DialogProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const handleSetIsOpen: Dispatch<SetStateAction<boolean>> = (value: SetStateAction<boolean>) => {
+  const [isOpen, setIsOpen] = createSignal(false)
+  const handleSetIsOpen = (value: boolean | ((prev: boolean) => boolean)): void => {
     if (!value) props.onClose?.()
     setIsOpen(value)
   }

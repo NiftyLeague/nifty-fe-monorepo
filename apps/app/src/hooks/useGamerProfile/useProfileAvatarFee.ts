@@ -1,7 +1,7 @@
 'use client'
 
 import type { ProfileAvatar } from '@/types/account'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/solid-query'
 import { GET_PROFILE_AVATARS_AND_COST_API } from '@/constants/auth-urls'
 import useAuth from '@/hooks/useAuth'
 import {

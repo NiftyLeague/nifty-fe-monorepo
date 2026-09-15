@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type PropsWithChildren,
-} from 'react'
+import { createContext, useContext, createEffect, createMemo, createSignal } from 'solid-js'
 
 import { safeJSONParse } from '@/utils/json'
 
@@ -35,14 +28,14 @@ const readInitialStatus = (): boolean => {
   }
 }
 
-export function AuthStatusProvider({ children }: PropsWithChildren) {
-  const [isLoggedIn, setIsLoggedIn] = useState(readInitialStatus)
+export function AuthStatusProvider({ children }: { children?: JSX.Element }) {
+  const [isLoggedIn, setIsLoggedIn] = createSignal(readInitialStatus)
 
-  useEffect(() => {
+  createEffect(() => {
     window.localStorage.setItem(AUTH_STATUS_KEY, JSON.stringify(isLoggedIn))
   }, [isLoggedIn])
 
-  const value = useMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn])
+  const value = createMemo(() => ({ isLoggedIn, setIsLoggedIn }), [isLoggedIn])
 
   return <AuthStatusContext.Provider value={value}>{children}</AuthStatusContext.Provider>
 }

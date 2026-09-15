@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 
 /**
  * Decouples typing from the URL-owned search term.
@@ -15,17 +15,17 @@ export function useDebouncedSearchTerm(
   committed: string,
   commit: (searchTerm: string | null) => void,
   delayMs = 300
-): [string, React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>] {
-  const [draft, setDraft] = useState(committed)
+): [string, JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>] {
+  const [draft, setDraft] = createSignal(committed)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const commitRef = useRef(commit)
+  let commitRef: any = commit
   commitRef.current = commit
 
-  useEffect(() => {
+  createEffect(() => {
     setDraft(committed)
   }, [committed])
 
-  useEffect(
+  createEffect(
     () => () => {
       if (timer.current) clearTimeout(timer.current)
     },
@@ -33,7 +33,7 @@ export function useDebouncedSearchTerm(
   )
 
   const handleChange = useCallback<
-    React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
+    JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>
   >(
     (event) => {
       const value = event.target.value

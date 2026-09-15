@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useMemo } from 'react'
+import { createEffect, createMemo } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { useQueryStates } from 'nuqs'
 
@@ -22,7 +22,7 @@ const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
   loading: () => <RouteLoading label="Loading leaderboards" />,
 })
 
-export default function LeaderBoards(): React.ReactNode {
+export default function LeaderBoards(): JSX.Element {
   const [searchState, setSearchState] = useQueryStates(leaderboardSearchParsers, {
     history: 'push',
     shallow: true,
@@ -32,7 +32,7 @@ export default function LeaderBoards(): React.ReactNode {
   const currentGame =
     LEADERBOARD_GAME_LIST.find((game) => game.key === selectedGame) ??
     (LEADERBOARD_GAME_LIST[0] as LeaderboardGame)
-  const selectedTable = useMemo(
+  const selectedTable = createMemo(
     () =>
       currentGame.tables.find((table) => table.key === searchState.table) ??
       (currentGame.tables[0] as TableType),
@@ -42,7 +42,7 @@ export default function LeaderBoards(): React.ReactNode {
   const selectedTimeFilter =
     selectedGame === 'nftl_burner' && searchState.time === 'weekly' ? 'all_time' : searchState.time
 
-  useEffect(() => {
+  createEffect(() => {
     gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, {
       content_type: 'leaderboard',
       content_id: selectedGame,
@@ -76,16 +76,16 @@ export default function LeaderBoards(): React.ReactNode {
   const timeFilters = LEADERBOARD_TIME_FILTERS.filter((item) => item.key === 'all_time')
 
   return (
-    <div className="mx-auto">
-      <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center">
-        <div className="min-w-[164px]">
+    <div class="mx-auto">
+      <div class="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center">
+        <div class="min-w-[164px]">
           <Select value={selectedGame} onValueChange={handleChangeGame}>
-            <SelectTrigger className="py-1.5" aria-label="Game">
+            <SelectTrigger class="py-1.5" aria-label="Game">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {LEADERBOARD_GAME_LIST.map((item) => (
-                <SelectItem value={item.key} key={item.key}>
+                <SelectItem value={item.key}>
                   {item.display}
                 </SelectItem>
               ))}
@@ -93,14 +93,14 @@ export default function LeaderBoards(): React.ReactNode {
           </Select>
         </div>
         {selectedGame === 'nifty_smashers' && (
-          <div className="min-w-[120px]">
+          <div class="min-w-[120px]">
             <Select value={selectedType} onValueChange={handleChangeType}>
-              <SelectTrigger className="py-1.5" aria-label="Score type">
+              <SelectTrigger class="py-1.5" aria-label="Score type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {NiftySmashersTables.map((item) => (
-                  <SelectItem value={item.key} key={item.key}>
+                  <SelectItem value={item.key}>
                     {item.display}
                   </SelectItem>
                 ))}
@@ -108,17 +108,16 @@ export default function LeaderBoards(): React.ReactNode {
             </Select>
           </div>
         )}
-        <div className="flex">
+        <div class="flex">
           {timeFilters.map((item) => (
             <Button
-              type="button"
-              key={item.key}
+              type="button"              
               variant="ghost"
               size="sm"
-              className="h-auto rounded-none px-3 py-0.5"
+              class="h-auto rounded-none px-3 py-0.5"
               onClick={() => handleChangeTimeFilter(item.key)}
             >
-              <span className="font-bold uppercase text-base text-inherit">{item.display}</span>
+              <span class="font-bold uppercase text-base text-inherit">{item.display}</span>
             </Button>
           ))}
         </div>

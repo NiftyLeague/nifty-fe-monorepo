@@ -1,4 +1,4 @@
-import { useEffect, ReactNode, SetStateAction, useCallback } from 'react'
+import { createEffect, type JSX } from 'solid-js'
 import { X } from 'lucide-react'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
@@ -9,10 +9,10 @@ const appHeaderHeight = 60
 
 interface Props {
   drawerWidth?: number
-  renderDrawer: () => ReactNode
-  renderMain: () => ReactNode
+  renderDrawer: () => JSX.Element
+  renderMain: () => JSX.Element
   isDrawerOpen: boolean
-  setIsDrawerOpen: React.Dispatch<SetStateAction<boolean>>
+  setIsDrawerOpen: (v: boolean | ((prev: boolean) => boolean)) => void
 }
 
 const CollapsibleSidebarLayout = ({
@@ -21,47 +21,47 @@ const CollapsibleSidebarLayout = ({
   renderMain,
   isDrawerOpen,
   setIsDrawerOpen,
-}: Props): React.ReactNode => {
+}: Props): JSX.Element => {
   const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
   const matchDownLG = !isDesktopNavigation
 
   // toggle sidebar
-  const handleDrawerOpen = useCallback(() => {
+  const handleDrawerOpen = (() => {
     setIsDrawerOpen((prevState) => !prevState)
   }, [setIsDrawerOpen])
 
   // close drawer by default on mobile, open on desktop
-  useEffect(() => {
+  createEffect(() => {
     setIsDrawerOpen(!matchDownLG)
   }, [matchDownLG, setIsDrawerOpen])
 
   const isMobileDrawer = matchDownLG && isDrawerOpen
 
   return (
-    <div className="relative flex flex-row items-start">
+    <div class="relative flex flex-row items-start">
       {/* Mobile overlay */}
       {isMobileDrawer && (
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-[1090] bg-black/50"
+          class="fixed inset-0 z-[1090] bg-black/50"
           onClick={handleDrawerOpen}
         />
       )}
 
       {/* Filter drawer */}
       <div
-        className="shrink-0 rounded-md border-none"
+        class="shrink-0 rounded-md border-none"
         style={{
           width: `min(${drawerWidth}px, calc(100vw - 32px))`,
-          backgroundColor: 'var(--color-sidebar)',
+          'background-color': 'var(--color-sidebar)',
           position: 'fixed',
           top: matchDownLG ? appHeaderHeight : 'auto',
           left: matchDownLG ? '16px' : 'auto',
           height: matchDownLG ? `calc(100vh - ${appHeaderHeight}px)` : 'auto',
-          marginLeft: matchDownLG ? 0 : '16px',
-          zIndex: isDrawerOpen ? 1100 : -1,
+          'margin-left': matchDownLG ? 0 : '16px',
+          'z-index': isDrawerOpen ? 1100 : -1,
           visibility: isDrawerOpen ? 'visible' : 'hidden',
-          borderRadius: 'var(--radius-default)',
+          'border-radius': 'var(--radius-default)',
           boxSizing: 'border-box',
         }}
       >
@@ -72,10 +72,10 @@ const CollapsibleSidebarLayout = ({
             aria-label="Close filters"
             variant="ghost"
             size="icon"
-            className="absolute right-3 top-3 z-[1101] size-8 cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
+            class="absolute right-3 top-3 z-[1101] size-8 cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
             onClick={handleDrawerOpen}
           >
-            <X aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+            <X aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
           </IconButton>
         )}
         <ScrollArea
@@ -92,19 +92,19 @@ const CollapsibleSidebarLayout = ({
 
       {/* Main grid */}
       <div
-        className="flex-grow min-w-0"
+        class="flex-grow min-w-0"
         style={{
-          paddingLeft: isDrawerOpen && !matchDownLG ? 24 : 0,
-          marginLeft: isDrawerOpen && !matchDownLG ? `${drawerWidth}px` : 0,
+          'padding-left': isDrawerOpen && !matchDownLG ? 24 : 0,
+          'margin-left': isDrawerOpen && !matchDownLG ? `${drawerWidth}px` : 0,
           transition: `margin 200ms cubic-bezier(${isDrawerOpen ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'}) 0ms`,
         }}
       >
         <ScrollArea
           style={{
             height: `calc(100vh - ${appHeaderHeight + 100}px)`,
-            borderRadius: '10px',
-            backgroundColor: 'var(--color-sidebar)',
-            marginRight: '24px',
+            'border-radius': '10px',
+            'background-color': 'var(--color-sidebar)',
+            'margin-right': '24px',
           }}
           viewportClassName={matchDownLG ? 'px-4 py-2.5' : 'px-6 py-4'}
         >

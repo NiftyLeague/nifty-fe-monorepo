@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useMemo, type PropsWithChildren } from 'react'
+import { createContext, createMemo } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
@@ -19,12 +19,12 @@ const openWalletModal = async () => {
   await open()
 }
 
-export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
+export const AuthTokenProvider = ({ children }: { children?: JSX.Element }) => {
   const { isLoggedIn } = useAuthStatus()
   const authToken = useAuthToken()
-  const { Component: Runtime } = useDeferredComponent<PropsWithChildren>(loadAuthTokenRuntime)
+  const { Component: Runtime } = useDeferredComponent<{ children?: JSX.Element }>(loadAuthTokenRuntime)
 
-  const fallbackValue = useMemo(
+  const fallbackValue = createMemo(
     () => ({
       authToken,
       handleConnectWallet: openWalletModal,

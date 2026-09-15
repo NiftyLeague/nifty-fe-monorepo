@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import {  } from 'solid-js'
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'bun:test'
 
@@ -19,9 +19,9 @@ describe('dynamic loader shapes', () => {
   })
 
   it('mounts a memoized named export', async () => {
-    // memo() returns an exotic element object rather than a function, which is
+    // () returns an exotic element object rather than a function, which is
     // what previously broke lazy() with React error #306.
-    const MemoCard = memo(function MemoCard() {
+    const MemoCard = (function MemoCard() {
       return <div>memo-card</div>
     })
     const Loaded = dynamic(() => Promise.resolve({ Named: MemoCard }).then((m) => m.Named))

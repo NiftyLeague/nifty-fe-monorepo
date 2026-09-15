@@ -20,21 +20,21 @@ const Header = () => {
   const isCompactScreen = !isDesktopNavigation
 
   return (
-    <div className="flex w-full flex-row items-center justify-between">
+    <div class="flex w-full flex-row items-center justify-between">
       {/* logo & toggler button */}
       <div
-        className="flex items-center"
+        class="flex items-center"
         style={{
           width: isCompactScreen ? 'auto' : drawerOpen ? 228 : 80,
         }}
       >
-        <div className="hidden flex-grow lg:block">
+        <div class="hidden flex-grow lg:block">
           <LogoSection />
         </div>
         <button
           type="button"
           data-slot="button"
-          className={buttonVariants({
+          class={buttonVariants({
             variant: 'ghost',
             size: 'icon',
             className:
@@ -48,14 +48,14 @@ const Header = () => {
           <Menu aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
         </button>
       </div>
-      <div className="hidden items-center justify-between gap-4 lg:flex">
+      <div class="hidden items-center justify-between gap-4 lg:flex">
         {APP_EXTERNAL_LINKS.map((page) => (
           <a
             key={page.name}
             href={page.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="cursor-pointer text-foreground underline-offset-4 hover:underline"
+            class="cursor-pointer text-foreground underline-offset-4 hover:underline"
           >
             {page.name} <ExternalIcon />
           </a>

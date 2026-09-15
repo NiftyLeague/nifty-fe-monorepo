@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/solid-query'
 import { useAccount } from 'wagmi'
 import { mainnet, sepolia } from 'viem/chains'
 import { getAddress, isAddress } from 'ethers'

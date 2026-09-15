@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { createMemo, createSignal } from 'solid-js'
 import { Separator } from '@nl/ui/base/separator'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
@@ -19,10 +19,10 @@ import WearableSubItemCard from '@/components/cards/WearableSubItemCard'
 import ItemDetail from '@/components/cards/ItemDetail'
 import ViewItemDialog from '@/components/dialog/ViewItemDialog'
 
-const DashboardComicsPageContent = (): React.ReactNode => {
-  const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null)
-  const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1)
+const DashboardComicsPageContent = (): JSX.Element => {
+  const [selectedComic, setSelectedComic] = createSignal<Comic | null>(null)
+  const [selectedItem, setSelectedItem] = createSignal<Item | null>(null)
+  const [selectedSubIndex, setSelectedSubIndex] = createSignal<number>(-1)
   const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances()
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
 
@@ -60,7 +60,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
     removeItemSelection()
   }
 
-  const renderComics = useMemo(() => {
+  const renderComics = createMemo(() => {
     if (comicsBalances.length === 0 && loadingComics) {
       return Array.from({ length: 6 }, (_, index) => (
         <div key={`comic-placeholder-${index}`}>
@@ -69,7 +69,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
       ))
     } else if (comicsBalances.length > 0) {
       return comicsBalances.map((comic) => (
-        <div key={comic.id}>
+        <div>
           <ComicCard
             data={comic}
             onViewComic={() => handleViewComic(comic)}
@@ -81,7 +81,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
     return null
   }, [comicsBalances, loadingComics, selectedComic])
 
-  const renderItems = useMemo(() => {
+  const renderItems = createMemo(() => {
     if (itemsBalances.length === 0 && loadingItems) {
       return Array.from({ length: 6 }, (_, index) => (
         <div key={`item-placeholder-${index}`}>
@@ -95,7 +95,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
             !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id
         )
         .map((item) => (
-          <div key={item.id}>
+          <div>
             <WearableItemCard
               data={item}
               onViewItem={() => handleViewItem(item)}
@@ -107,7 +107,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
     return null
   }, [itemsBalances, loadingItems, selectedItem])
 
-  const renderSubItems = useMemo(() => {
+  const renderSubItems = createMemo(() => {
     if (!selectedItem?.balance || selectedItem?.balance <= 1) return null
     return Array.from(Array(selectedItem?.balance).keys()).map((itemIndex) => (
       <div key={`WearableSubItem-${itemIndex}`}>
@@ -116,7 +116,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
           itemIndex={itemIndex}
           onViewItem={() => handleViewSubItem(itemIndex)}
           isSelected={itemIndex === selectedSubIndex}
-          sx={{ height: '100%', justifyContent: 'center' }}
+          sx={{ height: '100%', 'justify-content': 'center' }}
         />
       </div>
     ))
@@ -124,13 +124,13 @@ const DashboardComicsPageContent = (): React.ReactNode => {
 
   return (
     <>
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-row gap-10">
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-row gap-10">
           <SectionSlider firstSection title="My Comics" isSlider={false}>
             <div>
               <div
                 onClick={removeComicSelection}
-                className="flex flex-wrap gap-4 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 py-6 justify-between sm:justify-normal"
+                class="flex flex-wrap gap-4 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 py-6 justify-between sm:justify-normal"
               >
                 {renderComics}
                 {comicsBalances.length > 0 && (
@@ -147,28 +147,28 @@ const DashboardComicsPageContent = (): React.ReactNode => {
             </div>
           </SectionSlider>
           {!isSmallScreen && (
-            <div className="mt-15">
+            <div class="mt-15">
               <ComicDetail data={selectedComic} />
             </div>
           )}
         </div>
-        <div className="flex flex-row gap-10">
+        <div class="flex flex-row gap-10">
           <SectionSlider firstSection title="My Items" isSlider={false}>
             <div>
               <div
                 onClick={removeItemSelection}
-                className="flex flex-col gap-6 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
+                class="flex flex-col gap-6 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
               >
                 {selectedItem?.balance && selectedItem?.balance > 1 && (
-                  <div className="flex flex-col gap-8">
-                    <div className="flex flex-col gap-4 md:flex-row md:gap-20">
+                  <div class="flex flex-col gap-8">
+                    <div class="flex flex-col gap-4 md:flex-row md:gap-20">
                       <WearableItemCard data={selectedItem} />
-                      <div className="flex flex-wrap gap-5">{renderSubItems}</div>
+                      <div class="flex flex-wrap gap-5">{renderSubItems}</div>
                     </div>
-                    <Separator className="bg-[#363636] opacity-60" />
+                    <Separator class="bg-[#363636] opacity-60" />
                   </div>
                 )}
-                <div className="flex flex-wrap gap-4 justify-between sm:justify-normal">
+                <div class="flex flex-wrap gap-4 justify-between sm:justify-normal">
                   {renderItems}
                   {itemsBalances.length > 0 && (
                     <div>
@@ -185,7 +185,7 @@ const DashboardComicsPageContent = (): React.ReactNode => {
             </div>
           </SectionSlider>
           {!isSmallScreen && (
-            <div className="mt-15">
+            <div class="mt-15">
               <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
             </div>
           )}

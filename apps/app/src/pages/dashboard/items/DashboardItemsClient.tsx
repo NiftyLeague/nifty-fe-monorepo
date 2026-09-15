@@ -10,24 +10,24 @@ const DashboardItemsPageContent = dynamic(() => import('./DashboardItemsContent'
   ssr: false,
   loading: () => (
     <div
-      className="flex min-h-[32rem] flex-col gap-4 rounded-md border border-border bg-muted p-6"
+      class="flex min-h-[32rem] flex-col gap-4 rounded-md border border-border bg-muted p-6"
       role="status"
       aria-live="polite"
       aria-busy="true"
       aria-label="Loading dashboard comics and items"
     >
-      <DeferredSkeleton className="h-10 w-full rounded" />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <DeferredSkeleton class="h-10 w-full rounded" />
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 8 }, (_, index) => (
-          <DeferredSkeleton key={index} className="h-48 w-full rounded" />
+          <DeferredSkeleton key={index} class="h-48 w-full rounded" />
         ))}
       </div>
-      <span className="sr-only">Loading dashboard comics and items</span>
+      <span class="sr-only">Loading dashboard comics and items</span>
     </div>
   ),
 })
 
-export default function DashboardItemsClient(): React.ReactNode {
+export default function DashboardItemsClient(): JSX.Element {
   return (
     <DashboardDataBoundary includeTokens={false}>
       <DashboardItemsPageContent />

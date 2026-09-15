@@ -3,12 +3,11 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
 
 interface LogoutButtonProps {
-  sx?: React.CSSProperties
+  sx?: JSX.CSSProperties
 }
 
-const LogoutButton: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<LogoutButtonProps>>
-> = ({ sx }) => {
+const LogoutButton = (props: LogoutButtonProps) => {
+  const { sx } = props
   const { isConnected } = useAccount()
   const { isLoggedIn } = useAuth()
   const { disconnect } = useDisconnect()
@@ -18,7 +17,7 @@ const LogoutButton: React.FC<
         type="button"
         data-slot="button"
         style={sx}
-        className={buttonVariants({ variant: 'outline', className: 'cursor-pointer' })}
+        class={buttonVariants({ variant: 'outline', className: 'cursor-pointer' })}
         onClick={() => disconnect()}
       >
         {isLoggedIn ? 'Log Out' : 'Disconnect Wallet'}

@@ -1,6 +1,6 @@
 'use client'
 
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/solid-query'
 
 import { queryKeys } from '@/query/app-query'
 import { fetchScores } from '@/utils/leaderboard'

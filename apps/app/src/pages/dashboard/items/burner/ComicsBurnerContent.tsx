@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState, useMemo } from 'react'
+import { createEffect, createSignal, createMemo } from 'solid-js'
 import { type AddressLike } from 'ethers'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
@@ -24,22 +24,22 @@ const ComicsBurnerContent = () => {
   const router = useRouter()
   const { itemsBalances, refreshItemsBalances } = useNFTsBalances()
   const { address, tx, writeContracts } = useNetworkContext()
-  const [isApprovedForAll, setIsApprovedForAll] = useState(false)
-  const [helpDialogOpen, setHelpDialogOpen] = useState(false)
-  const [selectedComics, setSelectedComics] = useState<Comic[]>([])
-  const [burnCount, setBurnCount] = useState([0, 0, 0, 0, 0, 0])
-  const [burning, setBurning] = useState(false)
-  const [refreshKey, setRefreshKey] = useState(0)
+  const [isApprovedForAll, setIsApprovedForAll] = createSignal(false)
+  const [helpDialogOpen, setHelpDialogOpen] = createSignal(false)
+  const [selectedComics, setSelectedComics] = createSignal<Comic[]>([])
+  const [burnCount, setBurnCount] = createSignal([0, 0, 0, 0, 0, 0])
+  const [burning, setBurning] = createSignal(false)
+  const [refreshKey, setRefreshKey] = createSignal(0)
   const burnDisabled = burning || selectedComics.length < 1 || burnCount.every((c) => !c)
 
-  const itemCounts = useMemo(() => {
+  const itemCounts = createMemo(() => {
     if (itemsBalances.length) {
       return itemsBalances.map((it) => it.balance || 0)
     }
     return [0, 0, 0, 0, 0, 0, 0]
   }, [itemsBalances])
 
-  useEffect(() => {
+  createEffect(() => {
     const getAllowance = async () => {
       const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
       const burnContractAddress = await burnContract.getAddress()
@@ -59,7 +59,7 @@ const ComicsBurnerContent = () => {
     }
   }, [address, writeContracts])
 
-  const handleSetApproval = useCallback(async () => {
+  const handleSetApproval = (async () => {
     const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
     if (!isApprovedForAll) {
       const burnContractAddress = await burnContract.getAddress()
@@ -68,7 +68,7 @@ const ComicsBurnerContent = () => {
     }
   }, [isApprovedForAll, tx, writeContracts])
 
-  const handleBurn = useCallback(async () => {
+  const handleBurn = (async () => {
     if (!isApprovedForAll) await handleSetApproval()
     setBurning(true)
     if (DEBUG) console.log('burn comics', burnCount)
@@ -87,7 +87,7 @@ const ComicsBurnerContent = () => {
 
   return (
     <>
-      <Button variant="default" className="h-7" onClick={handleReturnPage}>
+      <Button variant="default" class="h-7" onClick={handleReturnPage}>
         ← Back to Comics &amp; Items
       </Button>
       <Machine burnDisabled={burnDisabled} selectedComics={selectedComics} />

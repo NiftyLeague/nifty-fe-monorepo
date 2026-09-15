@@ -17,14 +17,15 @@ interface WearableItemCardPaneProps {
   height: number
 }
 
-const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, height, data, sx }) => {
+const WearableItemCardPane = (props: WearableItemCardPaneProps) => {
+  const { width, height, data, sx } = props
   const { image, imageWebp, title, thumbnail } = data
   return (
     <div
-      className="relative overflow-hidden rounded-[10px]"
-      style={{ width, height, ...(sx as React.CSSProperties | undefined) }}
+      class="relative overflow-hidden rounded-[10px]"
+      style={{ width, height, ...(sx as JSX.CSSProperties | undefined) }}
     >
-      <div className="relative">
+      <div class="relative">
         <ImageCard
           image={image}
           imageWebp={imageWebp}
@@ -40,12 +41,11 @@ const WearableItemCardPane: React.FC<WearableItemCardPaneProps> = ({ width, heig
 const CARD_WIDTH = 106
 const CARD_HEIGHT = 106
 
-const WearableItemCard: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<WearableItemCardProps>>
-> = ({ data, onViewItem, isSelected = false }) => {
+const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Element }) => {
+  const { data, onViewItem, isSelected = false } = props
   const { balance, empty, isNew, title } = data
 
-  const handleViewItem = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleViewItem = (e: MouseEvent & { currentTarget: HTMLDivElement }) => {
     e.stopPropagation()
     if (!onViewItem) return
     onViewItem()
@@ -54,11 +54,11 @@ const WearableItemCard: React.FC<
   if (!balance)
     return (
       <div
-        className="flex items-center justify-center"
+        class="flex items-center justify-center"
         style={{ width: CARD_WIDTH + 24, height: CARD_HEIGHT + 24 }}
       >
         <div
-          className="flex items-center justify-center rounded-[10px] border border-[#363636]"
+          class="flex items-center justify-center rounded-[10px] border border-[#363636]"
           style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}
         >
           <NativeImage
@@ -73,15 +73,15 @@ const WearableItemCard: React.FC<
     )
 
   return (
-    <div className="relative">
+    <div class="relative">
       {isNew && (
-        <span className="absolute w-full text-center" style={{ color: '#E3B210', top: -16 }}>
+        <span class="absolute w-full text-center" style={{ color: '#E3B210', top: -16 }}>
           New!
         </span>
       )}
       <div
         onClick={handleViewItem}
-        className="relative flex cursor-pointer items-center justify-center rounded-[10px]"
+        class="relative flex cursor-pointer items-center justify-center rounded-[10px]"
         style={{ width: CARD_WIDTH + 24, height: CARD_HEIGHT + 24 }}
       >
         {balance === 1 ? (
@@ -109,7 +109,7 @@ const WearableItemCard: React.FC<
               />
             ))}
             <div
-              className="absolute bottom-0 left-0 flex items-center justify-center rounded-[10px]"
+              class="absolute bottom-0 left-0 flex items-center justify-center rounded-[10px]"
               style={{
                 width: 38,
                 height: 35,
@@ -117,7 +117,7 @@ const WearableItemCard: React.FC<
                 zIndex: 3,
               }}
             >
-              <span className="text-[20px] font-bold text-foreground">{balance}</span>
+              <span class="text-[20px] font-bold text-foreground">{balance}</span>
             </div>
           </>
         )}

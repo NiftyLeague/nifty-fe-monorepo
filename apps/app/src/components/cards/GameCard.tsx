@@ -14,13 +14,13 @@ interface GameDescriptionDisclosureProps {
 }
 
 const GameDescriptionDisclosure = ({ description }: GameDescriptionDisclosureProps) => (
-  <details className="group flex flex-col">
-    <summary className="order-2 cursor-pointer list-none text-left text-sm text-purple">
-      <span className="group-open:hidden">more..</span>
-      <span className="hidden group-open:inline">less</span>
+  <details class="group flex flex-col">
+    <summary class="order-2 cursor-pointer list-none text-left text-sm text-purple">
+      <span class="group-open:hidden">more..</span>
+      <span class="hidden group-open:inline">less</span>
     </summary>
     <p
-      className="order-1 max-h-[42px] overflow-y-clip text-sm text-muted-foreground group-open:max-h-none"
+      class="order-1 max-h-[42px] overflow-y-clip text-sm text-muted-foreground group-open:max-h-none"
       style={{ whiteSpace: 'pre-wrap' }}
     >
       {description}
@@ -29,15 +29,15 @@ const GameDescriptionDisclosure = ({ description }: GameDescriptionDisclosurePro
 )
 
 type CardGameContentProps = {
-  actions?: React.ReactNode
+  actions?: JSX.Element
   actionsInteractive?: boolean
   description?: string
   externalLink?: { title: string; src: string }
   isComingSoon?: boolean
   linked?: boolean
   overlay?: boolean
-  onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
-  onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
+  onPlayOnDesktopClick?: JSX.EventHandler<HTMLButtonElement>
+  onPlayOnWebClick?: JSX.EventHandler<HTMLButtonElement>
   required?: string
   showMore?: boolean
   title?: string
@@ -59,21 +59,21 @@ const CardGameContent = ({
 }: CardGameContentProps) => {
   return (
     <div
-      className={cx(
+      class={cx(
         'flex grow flex-col justify-between',
         overlay ? 'absolute inset-x-0 bottom-0 z-10 bg-black/65 backdrop-blur-[2px]' : 'bg-card'
       )}
     >
       <CardContent
-        className={cx(
+        class={cx(
           overlay ? 'px-4 pb-3 pt-4 md:px-5 md:pb-4 md:pt-5' : 'p-6',
           overlay ? undefined : linked ? 'pb-6' : 'pb-0'
         )}
       >
-        <div className="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2 md:flex-nowrap">
+        <div class="flex flex-row flex-wrap items-center justify-between gap-x-2 gap-y-2 md:flex-nowrap">
           <Title
             level={3}
-            className={cx(
+            class={cx(
               'min-w-0 flex-1 text-xl font-normal font-subheader tracking-subheader',
               overlay && 'text-white'
             )}
@@ -85,19 +85,19 @@ const CardGameContent = ({
               href={externalLink.src}
               target="_blank"
               rel="noreferrer"
-              className={buttonVariants({ size: 'sm', className: 'shrink-0 px-3' })}
+              class={buttonVariants({ size: 'sm', className: 'shrink-0 px-3' })}
             >
               {externalLink.title} <ExternalIcon />
             </a>
           ) : null}
         </div>
-        {isComingSoon && <p className="text-sm text-warning">Coming 2023</p>}
-        {required && <p className="text-sm text-warning">{required}</p>}
+        {isComingSoon && <p class="text-sm text-warning">Coming 2023</p>}
+        {required && <p class="text-sm text-warning">{required}</p>}
         {showMore ? (
           <GameDescriptionDisclosure description={description} />
         ) : (
           <p
-            className={cx(
+            class={cx(
               'text-sm text-muted-foreground',
               overlay ? 'truncate text-white/75' : undefined
             )}
@@ -113,17 +113,17 @@ const CardGameContent = ({
       </CardContent>
       {actions !== null && (
         <div
-          className={cx(
+          class={cx(
             'flex items-center gap-2 px-6 pb-6',
             actionsInteractive && 'pointer-events-auto'
           )}
         >
-          <div className="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
+          <div class="flex w-full flex-row flex-wrap gap-x-2 gap-y-4">
             {actions ?? (
               <>
                 <button
                   type="button"
-                  className={buttonVariants({
+                  class={buttonVariants({
                     variant: 'default',
                     className: 'min-w-20 w-full flex-1',
                   })}
@@ -133,7 +133,7 @@ const CardGameContent = ({
                 </button>
                 <button
                   type="button"
-                  className={buttonVariants({
+                  class={buttonVariants({
                     variant: 'outline',
                     className: 'min-w-20 w-full flex-1',
                   })}
@@ -151,24 +151,24 @@ const CardGameContent = ({
 }
 
 interface GameCardProps {
-  actions?: React.ReactNode
+  actions?: JSX.Element
   actionsInteractive?: boolean
   cardLinkLabel?: string
   autoHeight?: boolean
-  contents?: React.ReactNode
+  contents?: JSX.Element
   description?: string
   externalLink?: { title: string; src: string }
   externalHref?: string
   hoverActionLabel?: string
   image?: string
-  imageContent?: React.ReactNode
+  imageContent?: JSX.Element
   imageFetchPriority?: 'auto' | 'high' | 'low'
   imageLoading?: 'eager' | 'lazy'
   href?: string
   isComingSoon?: boolean
   overlayContent?: boolean
-  onPlayOnDesktopClick?: React.MouseEventHandler<HTMLButtonElement>
-  onPlayOnWebClick?: React.MouseEventHandler<HTMLButtonElement>
+  onPlayOnDesktopClick?: JSX.EventHandler<HTMLButtonElement>
+  onPlayOnWebClick?: JSX.EventHandler<HTMLButtonElement>
   prefetch?: boolean
   required?: string
   showMore?: boolean
@@ -176,7 +176,8 @@ interface GameCardProps {
   title?: string
 }
 
-const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
+const GameCard = (props: GameCardProps & { children?: JSX.Element }) => {
+  const {
   actions,
   actionsInteractive = false,
   cardLinkLabel,
@@ -200,7 +201,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
   showMore = false,
   sx,
   title,
-}) => {
+} = props
   const resolvedImageFetchPriority =
     imageFetchPriority ?? (imageLoading === 'lazy' ? 'low' : undefined)
   const cardLink = href || externalHref
@@ -208,14 +209,14 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
 
   const card = (
     <Card
-      className={cx(
+      class={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
         cardLink &&
           'transition-[border-color,box-shadow] duration-200 hover:border-purple/70 hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
         hasExternalCardLink && 'relative group',
         overlayContent ? 'relative aspect-[16/10]' : autoHeight ? 'h-auto' : 'h-full'
       )}
-      style={sx as React.CSSProperties | undefined}
+      style={sx as JSX.CSSProperties | undefined}
     >
       {externalHref && (
         <a
@@ -223,14 +224,14 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
           target="_blank"
           rel="noreferrer"
           aria-label={cardLinkLabel ?? `Open ${title ?? 'game'}`}
-          className="absolute inset-0 z-0 rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          class="absolute inset-0 z-0 rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          <span className="sr-only">{cardLinkLabel ?? `Open ${title ?? 'game'}`}</span>
+          <span class="sr-only">{cardLinkLabel ?? `Open ${title ?? 'game'}`}</span>
         </a>
       )}
-      <div className={cx(hasExternalCardLink && 'relative z-10 pointer-events-none')}>
+      <div class={cx(hasExternalCardLink && 'relative z-10 pointer-events-none')}>
         <div
-          className={cx('overflow-hidden', overlayContent ? 'absolute inset-0' : 'relative')}
+          class={cx('overflow-hidden', overlayContent ? 'absolute inset-0' : 'relative')}
           style={
             overlayContent
               ? undefined
@@ -249,7 +250,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
                 sizes={GAME_CARD_IMAGE_SIZES}
                 loading={imageLoading}
                 fetchPriority={resolvedImageFetchPriority}
-                className={cx(
+                class={cx(
                   'object-cover transition-transform duration-500',
                   cardLink && 'group-hover:scale-105 motion-reduce:transition-none'
                 )}
@@ -257,12 +258,12 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
             ))}
           {cardLink && (
             <div
-              className={cx(
+              class={cx(
                 'pointer-events-none absolute inset-0 flex justify-end bg-gradient-to-t from-black/70 via-black/0 to-transparent p-4 opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none',
                 overlayContent ? 'items-start' : 'items-end'
               )}
             >
-              <span className="rounded-full bg-purple px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
+              <span class="rounded-full bg-purple px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
                 {hoverActionLabel ?? (externalHref ? 'Open game' : 'Explore map')}{' '}
                 <span aria-hidden="true">↗</span>
               </span>
@@ -296,7 +297,7 @@ const GameCard: React.FC<React.PropsWithChildren<GameCardProps>> = ({
       href={href}
       prefetch={prefetch}
       aria-label={title ? `Explore ${title}` : undefined}
-      className="group block h-full rounded-md outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      class="group block h-full rounded-md outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       {card}
     </Link>

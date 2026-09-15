@@ -1,16 +1,16 @@
-import { memo } from 'react'
+import {  } from 'solid-js'
 import DeferredAnimatedImage from '@nl/ui/custom/deferred-animated-image'
 import NativeImage from '@nl/ui/custom/native-image'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
-const handleImageError = (e: React.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>) => {
+const handleImageError = (e: JSX.SyntheticEvent<HTMLImageElement | HTMLVideoElement, Event>) => {
   const target = e.target as HTMLImageElement | HTMLVideoElement
   const fallbackSrc = '/img/degens/unavailable-image.webp'
   if (target.getAttribute('src') !== fallbackSrc) target.src = fallbackSrc
 }
 
-const DegenImage = memo(
+const DegenImage = (
   ({
     tokenId,
     sx,
@@ -18,7 +18,7 @@ const DegenImage = memo(
     deferAnimation = false,
   }: {
     tokenId: string | number
-    sx?: React.CSSProperties
+    sx?: JSX.CSSProperties
     loading?: 'eager' | 'lazy'
     deferAnimation?: boolean
   }) => {
@@ -38,7 +38,7 @@ const DegenImage = memo(
       height: 640,
       loading,
       decoding: 'async' as const,
-      style: { objectFit: 'cover' as const, height: imageHeight, ...sx },
+      style: { 'object-fit': 'cover' as const, height: imageHeight, ...sx },
       onError: handleImageError,
     }
 

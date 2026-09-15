@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { createEffect, createMemo, createSignal } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { toast } from 'sonner'
 import { isAddress } from 'ethers'
@@ -34,7 +34,7 @@ import styles from './RentDegenContentDialog.module.css'
 
 interface RentDegenContentDialogProps {
   degen?: DashboardDegen
-  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onClose?: (event: MouseEvent & { currentTarget: HTMLButtonElement }) => void
 }
 
 const handleBuyNFTL = () => {
@@ -46,16 +46,16 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const { account, refetchAccount } = useGameAccount()
   const agreementAccepted = useAgreementAccepted()
   const agreement = agreementAccepted === 'ACCEPTED'
-  const [rentForUserSelection, setRentForUserSelection] = useState<string>('myself')
-  const [ethAddress, setEthAddress] = useState<string>('')
-  const [isUseRentalPass, setIsUseRentalPass] = useState<boolean>(false)
-  const [addressError, setAddressError] = useState<string>('')
-  const [checkBalance, setCheckBalance] = useState<boolean>(false)
-  const [rentSuccess, setRentSuccess] = useState<boolean>(false)
-  const [openTOS, setOpenTOS] = useState<boolean>(false)
+  const [rentForUserSelection, setRentForUserSelection] = createSignal<string>('myself')
+  const [ethAddress, setEthAddress] = createSignal<string>('')
+  const [isUseRentalPass, setIsUseRentalPass] = createSignal<boolean>(false)
+  const [addressError, setAddressError] = createSignal<string>('')
+  const [checkBalance, setCheckBalance] = createSignal<boolean>(false)
+  const [rentSuccess, setRentSuccess] = createSignal<boolean>(false)
+  const [openTOS, setOpenTOS] = createSignal<boolean>(false)
   const { isDegenOwner } = useNFTsBalances()
 
-  const disabledRentFor = useMemo(() => {
+  const disabledRentFor = createMemo(() => {
     if (!degen || degen?.background === 'common') return false
     return !isDegenOwner
   }, [degen, isDegenOwner])
@@ -63,7 +63,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const rentFor = disabledRentFor ? 'myself' : rentForUserSelection
 
   const accountBalance = account?.balance ?? 0
-  const sufficientBalance = useMemo(
+  const sufficientBalance = createMemo(
     () => accountBalance >= (degen?.price || 0),
     [accountBalance, degen?.price]
   )
@@ -77,14 +77,14 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     isUseRentalPass
   )
 
-  const handleChangeRentingFor = (_: React.ChangeEvent<HTMLInputElement>, value: string) => {
+  const handleChangeRentingFor = (_: Event & { currentTarget: HTMLInputElement }, value: string) => {
     if (value === 'recruit') {
       gtm.sendEvent(GTM_EVENTS.RENTAL_RECRUIT_CLICKED)
     }
     setRentForUserSelection(value)
   }
 
-  const handleChangeUseRentalPass = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeUseRentalPass = (event: Event & { currentTarget: HTMLInputElement }) => {
     if (event.target.checked) {
       gtm.sendEvent(GTM_EVENTS.RENTAL_PASS_CLICKED)
     }
@@ -102,7 +102,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     }
   }
 
-  const handleRent = useCallback(async () => {
+  const handleRent = (async () => {
     const items = [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
     try {
@@ -122,13 +122,13 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   const isShowRentalPassOption = () => rentalPassCount > 0 && !degen?.rental_count
 
-  useEffect(() => {
+  createEffect(() => {
     gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, {
       items: [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }],
     })
   }, [degen?.id])
 
-  const openTOSDialog: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+  const openTOSDialog: JSX.EventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault()
     setOpenTOS(true)
   }
@@ -166,19 +166,19 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     refetchAccount()
   }
 
-  const handleClickPlay = useCallback(() => {
+  const handleClickPlay = (() => {
     router.push('/games/smashers')
   }, [router])
 
   return (
     <div>
       <div
-        className={cn(styles.root, 'flex flex-col max-w-[430px] mx-1 sm:mx-auto gap-12 sm:gap-10')}
+        class={cn(styles.root, 'flex flex-col max-w-[430px] mx-1 sm:mx-auto gap-12 sm:gap-10')}
       >
         <Button
           variant="ghost"
           size="icon"
-          className="cursor-pointer absolute right-[12px] top-[6px] z-1 w-[20px] h-[20px] rounded-full border"
+          class="cursor-pointer absolute right-[12px] top-[6px] z-1 w-[20px] h-[20px] rounded-full border"
           style={{ border: 'var(--border-purple)' }}
           onClick={onClose}
           aria-label="close"
@@ -188,80 +188,80 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             absoluteStrokeWidth
             color="var(--color-purple)"
             size={18}
-            strokeWidth={1.5}
+            stroke-width={1.5}
           />
         </Button>
 
         <RentStepper rentSuccess={rentSuccess} checkBalance={checkBalance} />
         <div
-          className="flex flex-row items-center justify-center w-full p-2"
-          style={{ backgroundColor: '#262930' }}
+          class="flex flex-row items-center justify-center w-full p-2"
+          style={{ 'background-color': '#262930' }}
         >
           <Title level={5}>Rental Overview</Title>
         </div>
-        <div className="flex flex-row mt-1 gap-3 sm:gap-7">
-          <div className="flex flex-col">
-            <div className="flex justify-center">
+        <div class="flex flex-row mt-1 gap-3 sm:gap-7">
+          <div class="flex flex-col">
+            <div class="flex justify-center">
               {degen?.id && (
                 <DegenImage
                   sx={{
-                    objectFit: 'contain',
+                    'object-fit': 'contain',
                     width: 132,
                     height: 146,
-                    borderRadius: '10px',
+                    'border-radius': '10px',
                     border: 'var(--border-default)',
                   }}
                   tokenId={degen.id}
                 />
               )}
             </div>
-            <div className="flex flex-col items-center mt-1">
+            <div class="flex flex-col items-center mt-1">
               <span
-                className="text-xs"
-                style={{ lineHeight: 2, color: '#535659' }}
+                class="text-xs"
+                style={{ 'line-height': 2, color: '#535659' }}
               >{`Owned by ${degen?.owner?.substring(0, 5)}`}</span>
             </div>
           </div>
-          <div className="flex flex-col w-full">
+          <div class="flex flex-col w-full">
             {rentSuccess ? (
               <div
-                className="flex flex-col w-full items-center justify-between"
+                class="flex flex-col w-full items-center justify-between"
                 style={{ height: 146 }}
               >
-                <Title level={6} className={cn(styles.successInfo, 'mt-4')}>
+                <Title level={6} class={cn(styles.successInfo, 'mt-4')}>
                   Congratulations!
                 </Title>
-                <Title level={6} className={styles.successInfo}>
+                <Title level={6} class={styles.successInfo}>
                   Your rental is active.
                 </Title>
-                <Button variant="default" className="w-full" onClick={handleClickPlay}>
+                <Button variant="default" class="w-full" onClick={handleClickPlay}>
                   Play Nifty Smashers Now
                 </Button>
               </div>
             ) : (
-              <div className="flex flex-col w-full justify-between" style={{ height: 146 }}>
-                <div className="flex flex-col" style={{ display: checkBalance ? 'none' : 'flex' }}>
-                  <span className="text-xs" style={{ lineHeight: 2 }}>
+              <div class="flex flex-col w-full justify-between" style={{ height: 146 }}>
+                <div class="flex flex-col" style={{ display: checkBalance ? 'none' : 'flex' }}>
+                  <span class="text-xs" style={{ 'line-height': 2 }}>
                     Who are you renting for?
                   </span>
                   <RadioGroup
-                    className="flex flex-row gap-4 items-center"
+                    class="flex flex-row gap-4 items-center"
                     value={rentFor}
                     onValueChange={(value) =>
-                      handleChangeRentingFor({} as React.ChangeEvent<HTMLInputElement>, value)
+                      handleChangeRentingFor({} as Event & { currentTarget: HTMLInputElement }, value)
                     }
                   >
-                    <div className="flex items-center gap-1">
+                    <div class="flex items-center gap-1">
                       <RadioGroupItem value="myself" id="rent-myself" />
                       <span>Myself</span>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div class="flex items-center gap-1">
                       <RadioGroupItem
                         value="recruit"
                         id="rent-recruit"
                         disabled={disabledRentFor}
                       />
-                      <div className="flex items-center">
+                      <div class="flex items-center">
                         <span>Recruit</span>
                         {disabledRentFor && (
                           <Tooltip>
@@ -270,8 +270,8 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                                 aria-hidden="true"
                                 absoluteStrokeWidth
                                 size={18}
-                                strokeWidth={1.5}
-                                className="-mt-1"
+                                stroke-width={1.5}
+                                class="-mt-1"
                               />
                             </TooltipTrigger>
                             <TooltipContent>
@@ -283,14 +283,14 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     </div>
                   </RadioGroup>
                   {rentFor === 'recruit' && (
-                    <div className="flex flex-col items-center my-1">
-                      <div className="flex flex-col gap-1">
-                        <div className="relative">
+                    <div class="flex flex-col items-center my-1">
+                      <div class="flex flex-col gap-1">
+                        <div class="relative">
                           <Input
                             id="rent-recruit-address"
                             placeholder="Paste your recruit's eth address"
                             name="address"
-                            className={cn(styles.input, addressError && 'pr-10')}
+                            class={cn(styles.input, addressError && 'pr-10')}
                             value={ethAddress}
                             aria-invalid={addressError !== ''}
                             aria-describedby={
@@ -299,7 +299,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                             onChange={(event) => validateAddress(event.target.value)}
                           />
                           {addressError && (
-                            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                            <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
                               <AlertCircle aria-hidden="true" size={18} />
                             </span>
                           )}
@@ -307,7 +307,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                         {addressError && (
                           <span
                             id="rent-recruit-address-error"
-                            className={cn(styles.formHelper, 'text-xs text-error')}
+                            class={cn(styles.formHelper, 'text-xs text-error')}
                           >
                             {addressError}
                           </span>
@@ -316,35 +316,35 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col">
-                  <div className="flex justify-between">
-                    <span className="text-base">Rental Cost:</span>
+                <div class="flex flex-col">
+                  <div class="flex justify-between">
+                    <span class="text-base">Rental Cost:</span>
                     <span
-                      className="text-base"
+                      class="text-base"
                       style={{
                         textDecoration: isUseRentalPass ? 'line-through' : 'none',
                       }}
                     >{`${formatNumberToDisplay(degen?.price || 0)} NFTL`}</span>
                   </div>
                   {checkBalance && (
-                    <div className="flex flex-col">
-                      <div className="flex justify-between">
-                        <span className="text-base">Balance:</span>
+                    <div class="flex flex-col">
+                      <div class="flex justify-between">
+                        <span class="text-base">Balance:</span>
                         <span
-                          className="text-base"
+                          class="text-base"
                           style={{
                             color: sufficientBalance ? '#007B60' : '#B51424',
                           }}
                         >{`${accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL`}</span>
                       </div>
                       {!sufficientBalance && (
-                        <span className="mt-1 ml-auto text-xs text-warning">
+                        <span class="mt-1 ml-auto text-xs text-warning">
                           Balance low.{' '}
                           <a
                             href={COW_PROTOCOL_URL}
                             target="_blank"
                             rel="noreferrer"
-                            className="font-bold text-purple underline cursor-pointer"
+                            class="font-bold text-purple underline cursor-pointer"
                             style={{ color: 'var(--color-purple)' }}
                             onClick={handleBuyNFTL}
                           >
@@ -355,27 +355,27 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col">
+                <div class="flex flex-col">
                   {checkBalance && isShowRentalPassOption() && (
-                    <div className="flex justify-between items-center">
-                      <div className={styles.inputCheckFormControl}>
-                        <div className="flex items-center gap-1">
+                    <div class="flex justify-between items-center">
+                      <div class={styles.inputCheckFormControl}>
+                        <div class="flex items-center gap-1">
                           <Checkbox
                             checked={isUseRentalPass}
                             onCheckedChange={(checked) =>
                               handleChangeUseRentalPass({
                                 target: { checked: !!checked },
-                              } as React.ChangeEvent<HTMLInputElement>)
+                              } as Event & { currentTarget: HTMLInputElement })
                             }
-                            className={styles.inputCheck}
+                            class={styles.inputCheck}
                           />
-                          <span className="text-xs text-muted-foreground">Rental Pass</span>
+                          <span class="text-xs text-muted-foreground">Rental Pass</span>
                         </div>
                       </div>
                       {isUseRentalPass && (
-                        <div className="flex justify-between items-center w-[100px]">
-                          <span className="text-base">Balance:</span>
-                          <span className="text-base" style={{ color: 'var(--color-purple)' }}>
+                        <div class="flex justify-between items-center w-[100px]">
+                          <span class="text-base">Balance:</span>
+                          <span class="text-base" style={{ color: 'var(--color-purple)' }}>
                             {rentalPassCount}
                           </span>
                         </div>
@@ -384,30 +384,30 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                   )}
                   <ConnectWrapper fullWidth>
                     {!checkBalance ? (
-                      <Button variant="default" className="w-full" onClick={handleGoCheckBalance}>
+                      <Button variant="default" class="w-full" onClick={handleGoCheckBalance}>
                         Next
                       </Button>
                     ) : sufficientBalance || isUseRentalPass ? (
-                      <div className="flex flex-col gap-2">
+                      <div class="flex flex-col gap-2">
                         <Button
                           variant="default"
-                          className="w-full"
+                          class="w-full"
                           onClick={handleRent}
                           disabled={!agreement || loading}
                         >
                           {loading && <CircularProgress size="sm" />}
                           Rent
                         </Button>
-                        <div className="flex items-center gap-1 justify-center">
+                        <div class="flex items-center gap-1 justify-center">
                           <Checkbox
                             checked={agreement}
                             onChange={() => setAgreementAccepted(!agreement ? 'ACCEPTED' : 'FALSE')}
-                            className={styles.inputCheck}
+                            class={styles.inputCheck}
                           />
-                          <span className="text-xs text-muted-foreground">
+                          <span class="text-xs text-muted-foreground">
                             I have read the{' '}
                             <span
-                              className="mx-1 no-underline font-bold text-purple cursor-pointer hover:underline"
+                              class="mx-1 no-underline font-bold text-purple cursor-pointer hover:underline"
                               onClick={openTOSDialog}
                             >
                               terms &amp; conditions
@@ -418,7 +418,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                         <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
                       </div>
                     ) : (
-                      <Button variant="default" className="w-full" onClick={handleRefreshBalance}>
+                      <Button variant="default" class="w-full" onClick={handleRefreshBalance}>
                         Refresh Balance
                       </Button>
                     )}
@@ -428,32 +428,32 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
             )}
           </div>
         </div>
-        <div className="flex flex-col mb-6">
-          <Title level={5} className="mt-4 mb-[6px]">
+        <div class="flex flex-col mb-6">
+          <Title level={5} class="mt-4 mb-[6px]">
             Stats
           </Title>
-          <div className="grid grid-cols-12 gap-12">
-            <div className="col-span-12 lg:col-span-6">
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between">
-                  <span className="text-base">Multipliers</span>
-                  <span className={styles.greyText}>{degen?.multiplier}x</span>
+          <div class="grid grid-cols-12 gap-12">
+            <div class="col-span-12 lg:col-span-6">
+              <div class="flex flex-col gap-2">
+                <div class="flex justify-between">
+                  <span class="text-base">Multipliers</span>
+                  <span class={styles.greyText}>{degen?.multiplier}x</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-base">Queue</span>
-                  <span className={styles.greyText}>{degen?.rental_count}</span>
+                <div class="flex justify-between">
+                  <span class="text-base">Queue</span>
+                  <span class={styles.greyText}>{degen?.rental_count}</span>
                 </div>
               </div>
             </div>
-            <div className="col-span-12 lg:col-span-6">
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between">
-                  <span className="text-base">Rental period</span>
-                  <span className={styles.greyText}>1 week</span>
+            <div class="col-span-12 lg:col-span-6">
+              <div class="flex flex-col gap-2">
+                <div class="flex justify-between">
+                  <span class="text-base">Rental period</span>
+                  <span class={styles.greyText}>1 week</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-base">Renewal Cost</span>
-                  <span className={styles.greyText}>{degen?.price_daily}/Day</span>
+                <div class="flex justify-between">
+                  <span class="text-base">Renewal Cost</span>
+                  <span class={styles.greyText}>{degen?.price_daily}/Day</span>
                 </div>
               </div>
             </div>

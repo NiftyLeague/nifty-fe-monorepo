@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { useAccount, useReadContract } from 'wagmi'
 import type { AddressLike, BigNumberish } from 'ethers'
 import type { Comic } from '@/types/marketplace'
@@ -38,7 +38,7 @@ export default function useComicsBalances(): ComicsBalancesState {
   const { imxChainId } = useIMXContext()
 
   const marketplaceContract = getDeployedContract(imxChainId, MARKETPLACE_CONTRACT)
-  const ownerArr = useMemo(() => Array(COMICS_IDS.length).fill(address) as AddressLike[], [address])
+  const ownerArr = createMemo(() => Array(COMICS_IDS.length).fill(address) as AddressLike[], [address])
 
   const { data, error, isLoading, refetch } = useReadContract<
     UseReadContractParams<BalanceOfBatch>['abi'],
@@ -55,7 +55,7 @@ export default function useComicsBalances(): ComicsBalancesState {
     query: { staleTime: 10_000, enabled: isConnected && isLoggedIn },
   })
 
-  const balances = useMemo(
+  const balances = createMemo(
     () =>
       data
         ? data.map((c: bigint, i: number) => ({ ...(COMICS[i] as Comic), balance: Number(c) }))

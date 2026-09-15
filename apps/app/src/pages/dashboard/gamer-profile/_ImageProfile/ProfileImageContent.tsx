@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useMemo, useState } from 'react'
+import { useContext, createMemo, createSignal } from 'solid-js'
 import { toast } from 'sonner'
 
 import { Title } from '@nl/ui/custom/typography'
@@ -72,9 +72,8 @@ const ProfileImagePicker = ({
   const renderDegens = () => {
     if (degensInternal.length > 0) {
       return degensInternal.map((degen) => (
-        <div
-          key={degen?.id}
-          className="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-[1.3]"
+        <div          
+          class="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-[1.3]"
           onClick={() => handleSelectedDegen(degen)}
         >
           {renderDegenImage(degen)}
@@ -82,7 +81,7 @@ const ProfileImagePicker = ({
       ))
     }
     return (
-      <div className="flex flex-col items-center justify-center">
+      <div class="flex flex-col items-center justify-center">
         <EmptyState message="No DEGENs found." />
       </div>
     )
@@ -94,7 +93,7 @@ const ProfileImagePicker = ({
       sliderSettingsOverride={settings}
       firstSection
       title={
-        <div className="flex flex-1 flex-col gap-2">
+        <div class="flex flex-1 flex-col gap-2">
           <Title level={2}>Choose a new profile degen</Title>
           <Title level={5}>
             There is a {avatarFee} NFTL fee for changing your gamer profile avatar
@@ -114,10 +113,10 @@ export default function ProfileImageContent({
   degens,
   onChangeAvatar,
   avatarFee,
-}: ProfileImageContentProps): React.ReactNode {
-  const [searchValue, setSearchValue] = useState('')
+}: ProfileImageContentProps): JSX.Element {
+  const [searchValue, setSearchValue] = createSignal('')
 
-  const degensInternal = useMemo(() => {
+  const degensInternal = createMemo(() => {
     if (!degens) return []
     return filterBySearch(degens, searchValue, (degen) => [degen?.id, degen?.name])
   }, [degens, searchValue])

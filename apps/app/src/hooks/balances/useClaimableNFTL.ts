@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { formatEther } from 'ethers'
 import { useReadContract } from 'wagmi'
 import type { Abi } from 'viem'
@@ -43,7 +43,7 @@ export default function useClaimableNFTL(degenTokenIndices: number[]): NFTLClaim
     },
   })
 
-  const balance = useMemo(() => (isAuditFixtureEnabled ? 12 : (data ?? 0)), [data])
+  const balance = createMemo(() => (isAuditFixtureEnabled ? 12 : (data ?? 0)), [data])
 
   return { balance, error, loading: isLoading, refetch }
 }

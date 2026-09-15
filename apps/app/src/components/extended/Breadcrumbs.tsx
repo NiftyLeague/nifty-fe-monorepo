@@ -80,7 +80,7 @@ const Breadcrumbs = ({
 
   let mainContent
   let itemContent
-  let breadcrumbContent: React.ReactElement = <span />
+  let breadcrumbContent: JSX.Element = <span />
 
   // collapse item
   if (main && main.type === 'collapse') {
@@ -88,7 +88,7 @@ const Breadcrumbs = ({
       <Link
         key="main"
         href="#"
-        className="flex items-center text-sm font-medium text-foreground no-underline"
+        class="flex items-center text-sm font-medium text-foreground no-underline"
       >
         {icons && <AppNavIcon name={main.icon ?? 'list-tree'} style={iconStyle} />}
         {main.title}
@@ -101,7 +101,7 @@ const Breadcrumbs = ({
     itemContent = (
       <span
         key="item"
-        className="flex items-center text-sm font-medium text-muted-foreground"
+        class="flex items-center text-sm font-medium text-muted-foreground"
         style={{ textDecoration: 'none' }}
       >
         {icons && <AppNavIcon name={item.icon ?? 'list-tree'} style={iconStyle} />}
@@ -113,32 +113,32 @@ const Breadcrumbs = ({
     if (item.breadcrumbs !== false) {
       breadcrumbContent = (
         <div
-          className={cx(
+          class={cx(
             'mb-6',
             card === false ? 'border-none bg-transparent' : 'border bg-background'
           )}
           style={{ marginBottom: card === false ? 0 : gridSpacing * 8 }}
           {...others}
         >
-          <div className={cx(card === false ? 'py-2 pr-2 pl-0' : 'p-2')}>
+          <div class={cx(card === false ? 'py-2 pr-2 pl-0' : 'p-2')}>
             <div
-              className={cx(
+              class={cx(
                 rightAlign
                   ? 'flex flex-row items-center justify-between'
                   : 'flex flex-col items-start justify-start'
               )}
             >
               {title && !titleBottom && (
-                <h3 className="font-medium text-foreground" style={{ fontWeight: 500 }}>
+                <h3 class="font-medium text-foreground" style={{ fontWeight: 500 }}>
                   {item.title}
                 </h3>
               )}
-              <nav aria-label="breadcrumb" className="flex items-center">
+              <nav aria-label="breadcrumb" class="flex items-center">
                 {[
                   <Link
                     key="home"
                     href="/"
-                    className="flex items-center text-sm font-medium no-underline"
+                    class="flex items-center text-sm font-medium no-underline"
                     style={{ color: 'inherit' }}
                   >
                     {icons && <AppNavIcon name="house" color="blue" fill="dim" style={iconStyle} />}
@@ -160,14 +160,14 @@ const Breadcrumbs = ({
                       ? [crumb]
                       : [
                           crumb,
-                          <span key={`sep-${index}`} className="mx-1.25 flex w-4 items-center">
+                          <span key={`sep-${index}`} class="mx-1.25 flex w-4 items-center">
                             {separatorIcon}
                           </span>,
                         ]
                   )}
               </nav>
               {title && titleBottom && (
-                <h3 className="font-medium text-foreground" style={{ fontWeight: 500 }}>
+                <h3 class="font-medium text-foreground" style={{ fontWeight: 500 }}>
                   {item.title}
                 </h3>
               )}
@@ -175,7 +175,7 @@ const Breadcrumbs = ({
           </div>
           {card === false && divider !== false && (
             <Separator
-              className="mb-6 bg-[var(--color-purple)] opacity-60"
+              class="mb-6 bg-[var(--color-purple)] opacity-60"
               style={{ marginBottom: gridSpacing * 8 }}
             />
           )}

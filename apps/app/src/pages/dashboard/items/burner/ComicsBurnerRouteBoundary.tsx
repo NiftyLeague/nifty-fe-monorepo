@@ -9,6 +9,6 @@ const ComicsBurnerClient = dynamic(() => import('./ComicsBurnerClient'), {
   loading: () => <RouteLoading label="Loading comics burner" />,
 })
 
-export default function ComicsBurnerRouteBoundary(): React.ReactNode {
+export default function ComicsBurnerRouteBoundary(): JSX.Element {
   return <ComicsBurnerClient />
 }

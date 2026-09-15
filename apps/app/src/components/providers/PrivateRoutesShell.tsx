@@ -16,16 +16,16 @@ import PrivateRoutesAuthGate from './PrivateRoutesAuthGate'
 function PrivateRoutesContentLoading(): React.ReactNode {
   return (
     <div
-      className="flex min-h-[24rem] flex-col gap-6 rounded-lg bg-background p-6"
+      class="flex min-h-[24rem] flex-col gap-6 rounded-lg bg-background p-6"
       role="status"
       aria-live="polite"
       aria-busy="true"
     >
-      <div className="flex min-h-0 flex-1 gap-6">
-        <DeferredSkeleton className="hidden w-64 rounded-lg lg:block" />
-        <DeferredSkeleton className="min-h-[20rem] flex-1 rounded-lg" />
+      <div class="flex min-h-0 flex-1 gap-6">
+        <DeferredSkeleton class="hidden w-64 rounded-lg lg:block" />
+        <DeferredSkeleton class="min-h-[20rem] flex-1 rounded-lg" />
       </div>
-      <span className="sr-only">Loading private app content</span>
+      <span class="sr-only">Loading private app content</span>
     </div>
   )
 }

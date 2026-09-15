@@ -1,15 +1,15 @@
-import { memo } from 'react'
+import {  } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 import type { DashboardDegen } from '@/types/degens'
 
-const DegenInternalImage = memo(({ degen }: { degen: DashboardDegen }) => {
-  const style = { height: 320, objectFit: 'cover' as const, display: 'block' }
+const DegenInternalImage = (({ degen }: { degen: DashboardDegen }) => {
+  const style = { height: 320, 'object-fit': 'cover' as const, display: 'block' }
   const alt = degen?.name || 'Degen'
 
   if (degen?.background === 'legendary') {
     return (
-      <ViewportVideo src={degen?.url ?? ''} style={style} loop muted playsInline aria-label={alt} />
+      <ViewportVideo src={degen?.url ?? ''} style={style} loop muted playsinline aria-label={alt} />
     )
   }
 

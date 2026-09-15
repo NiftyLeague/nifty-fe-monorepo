@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import GameList from '@/pages/games/_GameList'
 import DeferredWeb3GameList from '@/pages/games/DeferredWeb3GameList'
@@ -15,9 +15,9 @@ export const Route = createFileRoute('/_public/')({
 function Home() {
   return (
     <PublicContentContainer>
-      <h1 className="sr-only">Nifty League App</h1>
+      <h1 class="sr-only">Nifty League App</h1>
       <StaticSection firstSection title="Flagship Games">
-        <div className="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
+        <div class="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
           <GameList />
         </div>
       </StaticSection>

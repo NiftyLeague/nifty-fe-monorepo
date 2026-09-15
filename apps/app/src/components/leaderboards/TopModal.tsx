@@ -26,7 +26,7 @@ const TableModal = ({
   flag,
   selectedTimeFilter,
   myRank,
-}: TableModalProps): React.ReactNode | null => {
+}: TableModalProps): JSX.Element | null => {
   const offset = myRank && myRank >= 3 ? myRank - 3 : 0
   const {
     data: result,
@@ -56,9 +56,9 @@ const TableModal = ({
   }
 
   return (
-    <div className={styles.tableRoot}>
+    <div class={styles.tableRoot}>
       {isPending && myRank && (
-        <div className={styles.loadingBox} role="status" aria-label="Loading leaderboard">
+        <div class={styles.loadingBox} role="status" aria-label="Loading leaderboard">
           <CircularProgress />
         </div>
       )}
@@ -66,26 +66,26 @@ const TableModal = ({
         <QueryErrorState
           error={error}
           onRetry={() => void refetch()}
-          className="flex items-center justify-center gap-3 py-4 text-error"
+          class="flex items-center justify-center gap-3 py-4 text-error"
         />
       )}
-      <Table className="modal-table">
-        <TableHeader className="header [&_tr]:border-0">
-          <TableRow className="row border-0 hover:bg-transparent">
-            <TableHead className="cell index" scope="col">
+      <Table class="modal-table">
+        <TableHeader class="header [&_tr]:border-0">
+          <TableRow class="row border-0 hover:bg-transparent">
+            <TableHead class="cell index" scope="col">
               <code>RANK</code>
             </TableHead>
-            <TableHead className="cell ellipsis" scope="col">
+            <TableHead class="cell ellipsis" scope="col">
               <code>USERNAME</code>
             </TableHead>
             {flag === 'win_rate' && (
-              <TableHead className="cell ellipsis" scope="col">
+              <TableHead class="cell ellipsis" scope="col">
                 <code>WIN RATE</code>
               </TableHead>
             )}
             {flag === 'earnings' && (
               <TableHead
-                className="cell ellipsis"
+                class="cell ellipsis"
                 scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
@@ -94,7 +94,7 @@ const TableModal = ({
             )}
             {selectedGame === 'nifty_smashers' && (
               <TableHead
-                className="cell ellipsis"
+                class="cell ellipsis"
                 scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
@@ -103,7 +103,7 @@ const TableModal = ({
             )}
             {flag === 'earnings' && (
               <TableHead
-                className="cell ellipsis"
+                class="cell ellipsis"
                 scope="col"
                 style={{ fontSize: 10, textAlign: 'center' }}
               >
@@ -111,77 +111,77 @@ const TableModal = ({
               </TableHead>
             )}
             {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-              <TableHead className="cell ellipsis" scope="col">
+              <TableHead class="cell ellipsis" scope="col">
                 <code>KILLS</code>
               </TableHead>
             )}
             {flag === 'score' && (
-              <TableHead className="cell ellipsis" scope="col">
+              <TableHead class="cell ellipsis" scope="col">
                 <code>HIGH SCORE</code>
               </TableHead>
             )}
             {flag === 'burnings' && (
-              <TableHead className="cell ellipsis" scope="col">
+              <TableHead class="cell ellipsis" scope="col">
                 <code>NFTL BURNED</code>
               </TableHead>
             )}
           </TableRow>
         </TableHeader>
-        <TableBody className="body">
+        <TableBody class="body">
           {data?.map((i) => (
             <TableRow
-              className="row first border-0 hover:bg-transparent"
+              class="row first border-0 hover:bg-transparent"
               key={`${i.rank}-${i.user_id}`}
             >
-              <TableCell className="cell index" style={{ color: '#9ba5bf' }}>
-                <span className={styles.rankBody} style={getTextStyleForRank(i.rank)}>
+              <TableCell class="cell index" style={{ color: '#9ba5bf' }}>
+                <span class={styles.rankBody} style={getTextStyleForRank(i.rank)}>
                   {i.rank}
                 </span>
-                {i.rank === 1 && <div className={styles.lineTopBox} />}
-                {i.rank === 10 && <div className={styles.lineBottomBox} />}
+                {i.rank === 1 && <div class={styles.lineTopBox} />}
+                {i.rank === 10 && <div class={styles.lineBottomBox} />}
               </TableCell>
               <TableCell
                 style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
-                className="cell ellipsis"
+                class="cell ellipsis"
               >
                 {i.user_id}
-                {i.rank === 1 && <div className={styles.lineTopBox} />}
-                {i.rank === 10 && <div className={styles.lineBottomBox} />}
+                {i.rank === 1 && <div class={styles.lineTopBox} />}
+                {i.rank === 10 && <div class={styles.lineBottomBox} />}
               </TableCell>
               {flag === 'win_rate' && (
-                <TableCell className="cell ellipsis">{i.stats.win_rate}</TableCell>
+                <TableCell class="cell ellipsis">{i.stats.win_rate}</TableCell>
               )}
               {flag === 'earnings' && (
-                <TableCell className="cell ellipsis end">
+                <TableCell class="cell ellipsis end">
                   {i.stats.earnings}
-                  {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
-                  {i.rank === 10 && flag === 'earnings' && <div className={styles.lineBottomBox} />}
+                  {i.rank === 1 && flag === 'earnings' && <div class={styles.lineTopBox} />}
+                  {i.rank === 10 && flag === 'earnings' && <div class={styles.lineBottomBox} />}
                 </TableCell>
               )}
               {selectedGame === 'nifty_smashers' && (
                 <TableCell
                   style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
-                  className="cell ellipsis end"
+                  class="cell ellipsis end"
                 >
                   {i.stats.matches}
-                  {i.rank === 1 && flag === 'earnings' && <div className={styles.lineTopBox} />}
-                  {i.rank === 10 && flag === 'earnings' && <div className={styles.lineBottomBox} />}
+                  {i.rank === 1 && flag === 'earnings' && <div class={styles.lineTopBox} />}
+                  {i.rank === 10 && flag === 'earnings' && <div class={styles.lineBottomBox} />}
                 </TableCell>
               )}
               {flag === 'earnings' && (
-                <TableCell className="cell ellipsis end">
+                <TableCell class="cell ellipsis end">
                   {i.stats['avg_NFTL/match']}
-                  {i.rank === 1 && <div className={styles.lineTopBox} />}
-                  {i.rank === 10 && <div className={styles.lineBottomBox} />}
+                  {i.rank === 1 && <div class={styles.lineTopBox} />}
+                  {i.rank === 10 && <div class={styles.lineBottomBox} />}
                 </TableCell>
               )}
               {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-                <TableCell className="cell ellipsis end">{i.stats.kills}</TableCell>
+                <TableCell class="cell ellipsis end">{i.stats.kills}</TableCell>
               )}
               {selectedGame !== 'nifty_smashers' && (
                 <TableCell
                   style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }}
-                  className="cell ellipsis end"
+                  class="cell ellipsis end"
                 >
                   {i.score}
                 </TableCell>
@@ -191,7 +191,7 @@ const TableModal = ({
         </TableBody>
       </Table>
       {data && (
-        <button type="button" className={styles.twitterTypography} onClick={handleShareOnTwitter}>
+        <button type="button" class={styles.twitterTypography} onClick={handleShareOnTwitter}>
           Share on twitter{' '}
           <NativeImage src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
         </button>
@@ -212,7 +212,7 @@ const TopModal = ({
   open,
   selectedTimeFilter,
   myRank,
-}: TopModalProps): React.ReactNode | null => {
+}: TopModalProps): JSX.Element | null => {
   return (
     <CustomModal
       child={

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, type PropsWithChildren } from 'react'
+import { createMemo } from 'solid-js'
 import { useAccount } from 'wagmi'
 
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -10,7 +10,7 @@ import useEthersSigner from '@/hooks/useEthersSigner'
 import useNotify from '@/hooks/useNotify'
 import NetworkContext from './NetworkContext'
 
-export const NetworkProvider = ({ children }: PropsWithChildren): React.ReactNode => {
+export const NetworkProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   const chainId = TARGET_NETWORK?.chainId || 1
   const { address, isConnected } = useAccount()
   const publicProvider = useEthersProvider({ chainId })
@@ -18,7 +18,7 @@ export const NetworkProvider = ({ children }: PropsWithChildren): React.ReactNod
   const tx = useNotify(signer)
   const readContracts = useContractLoader(publicProvider, { chainId })
   const writeContracts = useContractLoader(signer, { chainId })
-  const value = useMemo(
+  const value = createMemo(
     () => ({ address, isConnected, publicProvider, readContracts, signer, tx, writeContracts }),
     [address, isConnected, publicProvider, readContracts, signer, tx, writeContracts]
   )

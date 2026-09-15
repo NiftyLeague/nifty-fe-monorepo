@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useContext } from 'react'
+import { createSignal, useContext } from 'solid-js'
 import { AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
@@ -25,8 +25,8 @@ interface IFormInput {
   name: string
 }
 
-const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): React.ReactNode => {
-  const [isLoadingRename, setLoadingRename] = useState(false)
+const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): JSX.Element => {
+  const [isLoadingRename, setLoadingRename] = createSignal(false)
   const { fee, loadingFee } = useProfileRenameFee()
   const [, setIsOpen] = useContext(DialogContext)
   const { authToken } = useAuth()
@@ -77,7 +77,7 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
 
   const renderFee = () => {
     if (loadingFee) {
-      return <DeferredSkeleton className="h-[18.67px] w-full rounded" />
+      return <DeferredSkeleton class="h-[18.67px] w-full rounded" />
     }
     if (!loadingFee && fee) {
       return (
@@ -89,46 +89,46 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): R
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-4">
+      <div class="flex flex-col gap-4">
         {renderFee()}
         <Controller
           name="name"
           control={control}
           rules={{ required: 'Name is required' }}
           render={({ field }) => (
-            <div className="flex flex-col gap-1">
-              <div className="grid gap-2">
+            <div class="flex flex-col gap-1">
+              <div class="grid gap-2">
                 <Label
-                  htmlFor="gamer-profile-name"
-                  className={errors.name ? 'text-destructive' : undefined}
+                  for="gamer-profile-name"
+                  class={errors.name ? 'text-destructive' : undefined}
                 >
                   Enter the new name
                 </Label>
-                <div className="relative">
+                <div class="relative">
                   <Input
                     {...field}
                     id="gamer-profile-name"
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'gamer-profile-name-error' : undefined}
-                    className={errors.name ? 'pr-10' : undefined}
+                    class={errors.name ? 'pr-10' : undefined}
                     disabled={isLoadingRename}
                   />
                   {errors.name && (
-                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
                       <AlertCircle aria-hidden="true" size={18} />
                     </span>
                   )}
                 </div>
               </div>
               {errors.name && (
-                <span id="gamer-profile-name-error" className="text-xs text-error">
+                <span id="gamer-profile-name-error" class="text-xs text-error">
                   {errors.name.message}
                 </span>
               )}
             </div>
           )}
         />
-        <Button type="submit" className="w-full" disabled={isLoadingRename}>
+        <Button type="submit" class="w-full" disabled={isLoadingRename}>
           {isLoadingRename && <CircularProgress size="sm" />}
           Update
         </Button>

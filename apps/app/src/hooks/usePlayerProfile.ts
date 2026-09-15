@@ -1,7 +1,7 @@
 'use client'
 
 import { MY_PROFILE_API_URL } from '@/constants/url'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/solid-query'
 import type { Profile } from '@/types/account'
 import useAuth from './useAuth'
 import {

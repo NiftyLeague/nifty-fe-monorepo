@@ -9,6 +9,6 @@ const DashboardItemsClient = dynamic(() => import('./DashboardItemsClient'), {
   loading: () => <RouteLoading label="Loading dashboard comics and items" />,
 })
 
-export default function DashboardItemsRouteBoundary(): React.ReactNode {
+export default function DashboardItemsRouteBoundary(): JSX.Element {
   return <DashboardItemsClient />
 }

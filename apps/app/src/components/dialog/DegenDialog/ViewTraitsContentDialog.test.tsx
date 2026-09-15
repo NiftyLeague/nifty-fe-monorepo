@@ -4,7 +4,7 @@ import { describe, expect, it, mock } from 'bun:test'
 import type { DashboardDegen } from '@/types/degens'
 
 mock.module('@/components/cards/DegenCard/DegenImage', () => ({
-  default: ({ tokenId, sx }: { tokenId: string | number; sx?: React.CSSProperties }) => (
+  default: ({ tokenId, sx }: { tokenId: string | number; sx?: JSX.CSSProperties }) => (
     <div data-testid={`degen-image-${tokenId}`} style={sx} />
   ),
 }))

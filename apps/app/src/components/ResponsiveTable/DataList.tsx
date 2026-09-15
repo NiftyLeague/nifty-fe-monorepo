@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { createSignal } from 'solid-js'
 import { Checkbox } from '@nl/ui/base/checkbox'
 
 import { CellRenderer, LabelRenderer } from './Renderer'
@@ -18,7 +18,7 @@ interface DataListProps {
   data: Row[]
   excludePrimaryFromDetails?: boolean
   noContentText?: string
-  onChangePage: (event: React.MouseEvent | null, page: number) => void
+  onChangePage: (event: JSX.MouseEvent | null, page: number) => void
   onSelectionChange: (params: { rowIds: (string | number)[] }) => void
   page: number
   rowsClassArray?: string[]
@@ -40,7 +40,7 @@ const createListItemTitle = (tableColumns: CustomColDef[], row: Row, rows: Row[]
     <CellRenderer column={firstColumn} row={row} data={rows} />
   ) : (
     primaryColumns.map((column, index) => (
-      <span key={column.field} className={index === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
+      <span class={index === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
         <CellRenderer column={column} row={row} data={rows} />
       </span>
     ))
@@ -57,11 +57,11 @@ const createListItemDescription = (
     {tableColumns
       .filter((column) => !excludePrimary || column.field !== 'id')
       .map((column, index) => (
-        <div key={`${column.headerName}-${index}`} className="flex w-full flex-row gap-4">
-          <div className="flex-1">
+        <div key={`${column.headerName}-${index}`} class="flex w-full flex-row gap-4">
+          <div class="flex-1">
             <LabelRenderer column={column} data={rows} />
           </div>
-          <div className="flex-1">
+          <div class="flex-1">
             <CellRenderer column={column} row={row} data={rows} />
           </div>
         </div>
@@ -72,7 +72,7 @@ const createListItemDescription = (
 /**
  * List with expandable items - mobile table analogue
  */
-const DataList: React.FC<DataListProps> = (props) => {
+const DataList = (props: DataListProps) => {
   const {
     checkboxSelection,
     columns,
@@ -91,9 +91,9 @@ const DataList: React.FC<DataListProps> = (props) => {
     showPagination,
   } = props
 
-  const [selection, setSelection] = useState<(string | number)[]>([])
+  const [selection, setSelection] = createSignal<(string | number)[]>([])
 
-  const handleChangePage = (event: React.MouseEvent | null, nextPage: number) =>
+  const handleChangePage = (event: JSX.MouseEvent | null, nextPage: number) =>
     onChangePage(event, nextPage)
 
   const handleSelection = (row: Row) => {
@@ -147,7 +147,7 @@ const DataList: React.FC<DataListProps> = (props) => {
             }
             onCheckedChange={() => handleSelectAll()}
           />
-          <span className="text-sm">Select All</span>
+          <span class="text-sm">Select All</span>
         </div>
       )}
       {(serverPaginated
@@ -156,8 +156,7 @@ const DataList: React.FC<DataListProps> = (props) => {
       ).map((row, index) => (
         <ExpandableListItem
           checkboxSelection={checkboxSelection}
-          details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}
-          key={String(getRowId(row)) || index}
+          details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}          
           onSelect={handleSelection}
           panelClass={getRowClass(index)}
           row={row}

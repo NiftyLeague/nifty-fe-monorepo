@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { createEffect } from 'solid-js'
 import { formatEther } from 'ethers'
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants/index'
@@ -40,7 +40,7 @@ export default function useUserUnclaimedAmount(): ClaimResult {
   const { claimData, loading } = useUserClaimData()
   const canClaim = useUserHasAvailableClaim(claimData)
 
-  useEffect(() => {
+  createEffect(() => {
     if (DEBUG && !loading) console.log('claimStats:', { claimData, canClaim })
   }, [claimData, canClaim, loading])
 

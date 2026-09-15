@@ -5,7 +5,7 @@ import RouteLoading from '@nl/ui/custom/route-loading'
 
 const loadLeaderBoards = () => import('@/components/leaderboards')
 
-export default function DeferredLeaderboards(): React.ReactNode {
+export default function DeferredLeaderboards(): JSX.Element {
   return (
     <DeferredComponent
       label="Leaderboards"

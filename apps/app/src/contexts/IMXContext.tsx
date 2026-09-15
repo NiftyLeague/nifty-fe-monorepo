@@ -1,6 +1,6 @@
 'use client'
 
-import { type PropsWithChildren, createContext, useMemo } from 'react'
+import { createContext, createMemo } from 'solid-js'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 
 import type { BrowserProvider } from 'ethers'
@@ -29,7 +29,7 @@ const CONTEXT_INITIAL_STATE: Context = {
 
 const IMXContext = createContext(CONTEXT_INITIAL_STATE)
 
-export const IMXProvider = ({ children }: PropsWithChildren): React.ReactNode => {
+export const IMXProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
   // IMX Passport instance converted to an ethers.js Provider
   const passportProvider = useImxProvider()
   const passportNetwork = getNetwork()
@@ -41,7 +41,7 @@ export const IMXProvider = ({ children }: PropsWithChildren): React.ReactNode =>
 
   // Load Immutable zkEVM contracts with Read access
   const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId })
-  const value = useMemo(
+  const value = createMemo(
     () => ({ address, imxChainId, imxContracts, imxSigner, passportProvider }),
     [address, imxChainId, imxContracts, imxSigner, passportProvider]
   )

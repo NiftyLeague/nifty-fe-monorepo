@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { useAccount, useReadContract } from 'wagmi'
 import type { AddressLike, BigNumberish } from 'ethers'
 import type { Item } from '@/types/marketplace'
@@ -38,7 +38,7 @@ export default function useItemssBalances(): ItemsBalancesState {
   const { imxChainId } = useIMXContext()
 
   const marketplaceContract = getDeployedContract(imxChainId, MARKETPLACE_CONTRACT)
-  const ownerArr = useMemo(() => Array(ITEM_IDS.length).fill(address) as AddressLike[], [address])
+  const ownerArr = createMemo(() => Array(ITEM_IDS.length).fill(address) as AddressLike[], [address])
 
   const { data, error, isLoading, refetch } = useReadContract<
     UseReadContractParams<BalanceOfBatch>['abi'],
@@ -55,7 +55,7 @@ export default function useItemssBalances(): ItemsBalancesState {
     query: { staleTime: 10_000, enabled: isConnected && isLoggedIn },
   })
 
-  const balances = useMemo(
+  const balances = createMemo(
     () =>
       data
         ? data.map((c: bigint, i: number) => ({ ...(ITEMS[i] as Item), balance: Number(c) }))

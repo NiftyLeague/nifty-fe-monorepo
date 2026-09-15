@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { createEffect } from 'solid-js'
 
 import { toast } from 'sonner'
 import type { ExternalToast } from 'sonner'
@@ -33,7 +33,7 @@ const Snackbar = () => {
   const closeSnackbar = useCloseSnackbar()
   const { actionButton, alert, anchorOrigin, close, message, open, transition, variant } = snackbar
 
-  useEffect(() => {
+  createEffect(() => {
     if (!open) return
 
     const type =

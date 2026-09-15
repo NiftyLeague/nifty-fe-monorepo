@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import Item from './Item'
@@ -16,14 +16,14 @@ const RightInfo = ({
   itemCount,
   keyCount,
   rentalCount: _rentalCount,
-}: RightInfoProps): React.ReactNode => {
+}: RightInfoProps): JSX.Element => {
   const { isLoadingDegens, isLoadingComics, isLoadingItems } = useGamerProfileContext()
   const rightDataMapper: {
     label: string
     value: string | number | undefined
     isLoading?: boolean
     isDisable?: boolean
-  }[] = useMemo(() => {
+  }[] = createMemo(() => {
     return [
       { label: 'Degens Owned', value: degenCount, isLoading: isLoadingDegens },
       // {
@@ -58,9 +58,9 @@ const RightInfo = ({
   ])
 
   return (
-    <div className="flex flex-1 flex-col gap-2">
+    <div class="flex flex-1 flex-col gap-2">
       {rightDataMapper.map((child) => (
-        <Item key={child.label} {...child} />
+        <Item {...child} />
       ))}
     </div>
   )

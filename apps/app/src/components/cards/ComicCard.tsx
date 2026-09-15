@@ -17,18 +17,19 @@ interface ComicCardPaneProps {
   height: number
 }
 
-const ComicCardPane: React.FC<ComicCardPaneProps> = ({ width, height, data, sx }) => {
+const ComicCardPane = (props: ComicCardPaneProps) => {
+  const { width, height, data, sx } = props
   const { image, title, thumbnail } = data
   return (
-    <div style={sx as React.CSSProperties | undefined}>
-      <div className="relative overflow-hidden rounded-[5px]" style={{ width, height }}>
+    <div style={sx as JSX.CSSProperties | undefined}>
+      <div class="relative overflow-hidden rounded-[5px]" style={{ width, height }}>
         <ImageCard image={image} thumbnail={thumbnail} title={title} ratio={1} />
       </div>
     </div>
   )
 }
 
-const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicCardProps>>> = ({
+const ComicCard = (props: ComicCardProps) => ({
   data,
   onViewComic,
   isSelected = false,
@@ -36,7 +37,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
   const { balance } = data
   const { width: comicCardWidth, height: comicCardHeight } = useComicDimension()
 
-  const handleViewComic = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleViewComic = (e: MouseEvent & { currentTarget: HTMLDivElement }) => {
     e.stopPropagation()
     if (!onViewComic) return
     onViewComic()
@@ -45,7 +46,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
   if (!balance)
     return (
       <div
-        className="rounded-[5px] border border-[#363636]"
+        class="rounded-[5px] border border-[#363636]"
         style={{ width: comicCardWidth, height: comicCardHeight }}
       />
     )
@@ -53,7 +54,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
   return (
     <div
       onClick={handleViewComic}
-      className="relative cursor-pointer"
+      class="relative cursor-pointer"
       style={{
         borderRadius: 'var(--radius-default)',
         outline: isSelected ? '3px solid var(--color-purple)' : 'none',
@@ -63,7 +64,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
         <ComicCardPane data={data} width={comicCardWidth} height={comicCardHeight} />
       ) : (
         <div
-          className="relative"
+          class="relative"
           style={{ width: comicCardWidth + 24, height: comicCardHeight + 16 }}
         >
           {[0, 1, 2].map((item) => (
@@ -76,7 +77,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
             />
           ))}
           <div
-            className="absolute bottom-0 left-0 flex items-center justify-center"
+            class="absolute bottom-0 left-0 flex items-center justify-center"
             style={{
               width: 38,
               height: 35,
@@ -85,7 +86,7 @@ const ComicCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<ComicC
               zIndex: 3,
             }}
           >
-            <span className="text-[20px] font-bold text-foreground">{balance}</span>
+            <span class="text-[20px] font-bold text-foreground">{balance}</span>
           </div>
         </div>
       )}

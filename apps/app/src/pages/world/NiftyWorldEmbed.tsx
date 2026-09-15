@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 import { ArrowLeft, Maximize2, Minimize2 } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
@@ -42,22 +42,22 @@ export default function NiftyWorldEmbed({
 }: NiftyWorldEmbedProps) {
   const experienceShellRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<HTMLIFrameElement>(null)
-  const [isFullscreen, setIsFullscreen] = useState(false)
-  const [isHydrated, setIsHydrated] = useState(false)
-  const [embedVisitId, setEmbedVisitId] = useState<string | null>(null)
-  const [frameState, setFrameState] = useState<FrameState>('loading')
-  const [loadAttempt, setLoadAttempt] = useState(0)
+  const [isFullscreen, setIsFullscreen] = createSignal(false)
+  const [isHydrated, setIsHydrated] = createSignal(false)
+  const [embedVisitId, setEmbedVisitId] = createSignal<string | null>(null)
+  const [frameState, setFrameState] = createSignal<FrameState>('loading')
+  const [loadAttempt, setLoadAttempt] = createSignal(0)
 
-  useEffect(() => {
+  createEffect(() => {
     setIsHydrated(true)
     setEmbedVisitId(createEmbedVisitId())
   }, [])
 
-  useEffect(() => {
+  createEffect(() => {
     setFrameState('loading')
   }, [loadAttempt])
 
-  useEffect(() => {
+  createEffect(() => {
     if (!isHydrated || frameState !== 'loading') return
 
     const timeoutId = window.setTimeout(() => {
@@ -71,7 +71,7 @@ export default function NiftyWorldEmbed({
     return () => window.clearTimeout(timeoutId)
   }, [frameState, isHydrated, loadAttempt])
 
-  useEffect(() => {
+  createEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(document.fullscreenElement === experienceShellRef.current)
     }
@@ -100,7 +100,7 @@ export default function NiftyWorldEmbed({
     return () => window.removeEventListener('message', handleThemeReady)
   }, [])
 
-  useEffect(() => {
+  createEffect(() => {
     if (frameState !== 'ready') return
 
     const sendThemeNotice = () => {
@@ -149,19 +149,19 @@ export default function NiftyWorldEmbed({
   }
 
   return (
-    <div className="flex min-h-full flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex min-h-full flex-col gap-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-sm text-muted-foreground">{eyebrow}</p>
-          <h1 className="text-2xl font-normal font-subheader tracking-subheader">{title}</h1>
+          <p class="text-sm text-muted-foreground">{eyebrow}</p>
+          <h1 class="text-2xl font-normal font-subheader tracking-subheader">{title}</h1>
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div class="flex flex-wrap gap-2">
           {/* Anchor buttons inherit the primary link color, which lands just
                 under the 4.5:1 axe bar on the outline surface. */}
           <Link
             href={backHref}
             prefetch={false}
-            className={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
+            class={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
           >
             <ArrowLeft aria-hidden="true" />
             <span>{backLabel}</span>
@@ -170,7 +170,7 @@ export default function NiftyWorldEmbed({
             href={canonicalUrl}
             target="_blank"
             rel="noreferrer"
-            className={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
+            class={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
           >
             Open in new tab <ExternalIcon />
           </a>
@@ -179,7 +179,7 @@ export default function NiftyWorldEmbed({
 
       <div
         ref={experienceShellRef}
-        className={
+        class={
           isFullscreen
             ? 'relative h-screen w-screen min-h-0 flex-1 overflow-hidden rounded-none border-0 bg-black'
             : 'relative min-h-[520px] flex-1 overflow-hidden rounded-md border bg-black lg:h-[calc(100dvh-190px)]'
@@ -189,7 +189,7 @@ export default function NiftyWorldEmbed({
           type="button"
           variant="secondary"
           size="sm"
-          className="absolute right-3 top-3 z-10 bg-black/70 text-white hover:bg-black/85 hover:text-white"
+          class="absolute right-3 top-3 z-10 bg-black/70 text-white hover:bg-black/85 hover:text-white"
           onClick={handleToggleFullscreen}
           aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
         >
@@ -199,7 +199,7 @@ export default function NiftyWorldEmbed({
         <Preloader ready={frameState !== 'loading'} progress={0} label={`Loading ${title}`} />
         {frameState === 'error' && (
           <div
-            className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-black/95 p-6 text-center text-white"
+            class="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-black/95 p-6 text-center text-white"
             role="alert"
           >
             <p>Could not load {title}.</p>
@@ -221,10 +221,10 @@ export default function NiftyWorldEmbed({
             ref={frameRef}
             src={getEmbedUrl(loadAttempt, embedVisitId)}
             title={frameTitle}
-            className="h-full min-h-[520px] w-full border-0"
+            class="h-full min-h-[520px] w-full border-0"
             tabIndex={0}
             allow="autoplay; fullscreen; gamepad"
-            allowFullScreen
+            allowfullscreen
             loading="eager"
             referrerPolicy="strict-origin-when-cross-origin"
             onLoad={handleFrameLoad}

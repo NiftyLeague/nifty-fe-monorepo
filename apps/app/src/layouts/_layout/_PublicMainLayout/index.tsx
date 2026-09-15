@@ -1,7 +1,14 @@
-import type { PropsWithChildren } from 'react'
+
 
 import PublicNavigation from '@/components/providers/PublicNavigation'
 
-export default function PublicMainLayout({ children }: PropsWithChildren) {
+export default function PublicMainLayout({ children }: { children?: JSX.Element }) {
+  return <PublicNavigation>{children}</PublicNavigation>
+}
+
+
+import PublicNavigation from '@/components/providers/PublicNavigation'
+
+export default function PublicMainLayout({ children }: { children?: JSX.Element }) {
   return <PublicNavigation>{children}</PublicNavigation>
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useQuery, type UseQueryResult } from '@tanstack/react-query'
+import { useQuery, type UseQueryResult } from '@tanstack/solid-query'
 import { useAccount } from 'wagmi'
 
 import type { OwnerQueryData } from '@/types/graph'

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import type { Account, Chain, Client, Transport } from 'viem'
 import { type Config, useConnectorClient } from 'wagmi'
@@ -21,5 +21,5 @@ function clientToSigner(client: Client<Transport, Chain, Account>): Signer {
 /** Hook to convert a viem Wallet Client to an ethers.js Signer. */
 export default function useEthersSigner({ chainId }: { chainId?: number } = {}): Signer {
   const { data: client } = useConnectorClient<Config>({ chainId })
-  return useMemo(() => (client ? clientToSigner(client) : undefined), [client])
+  return createMemo(() => (client ? clientToSigner(client) : undefined), [client])
 }

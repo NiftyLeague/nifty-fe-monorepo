@@ -16,7 +16,7 @@ interface TermsOfServiceDialogProps {
   scroll?: 'body' | 'paper'
   fullScreen?: boolean
   className?: string
-  children?: React.ReactNode
+  children?: JSX.Element
 }
 
 const TermsOfServiceDialog = ({ open, onClose }: TermsOfServiceDialogProps) => {
@@ -31,17 +31,17 @@ const TermsOfServiceDialog = ({ open, onClose }: TermsOfServiceDialogProps) => {
     >
       <DialogContent
         showCloseButton={false}
-        className={cn(
+        class={cn(
           'p-0 max-w-[600px] md:max-w-[600px] lg:max-w-[600px]',
           fullScreen &&
             'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
         )}
       >
-        <DialogTitle className="sr-only">Terms and Conditions</DialogTitle>
-        <div className="flex h-full w-full flex-col overflow-hidden">
-          <h2 className="mb-5 text-center">Terms and Conditions</h2>
+        <DialogTitle class="sr-only">Terms and Conditions</DialogTitle>
+        <div class="flex h-full w-full flex-col overflow-hidden">
+          <h2 class="mb-5 text-center">Terms and Conditions</h2>
           <div
-            className="w-full overflow-x-hidden overflow-y-scroll"
+            class="w-full overflow-x-hidden overflow-y-scroll"
             style={{ height: fullScreen ? 'calc(100vh - 184px)' : '65vh' }}
           >
             <DeferredComponent
@@ -51,11 +51,11 @@ const TermsOfServiceDialog = ({ open, onClose }: TermsOfServiceDialogProps) => {
               props={{}}
             />
           </div>
-          <div className="mt-3 flex gap-2 px-4">
-            <Button variant="default" className="w-full" onClick={() => onClose({}, 'accepted')}>
+          <div class="mt-3 flex gap-2 px-4">
+            <Button variant="default" class="w-full" onClick={() => onClose({}, 'accepted')}>
               Accept
             </Button>
-            <Button variant="ghost" className="w-full" onClick={() => onClose({}, 'cancel')}>
+            <Button variant="ghost" class="w-full" onClick={() => onClose({}, 'cancel')}>
               Close
             </Button>
           </div>

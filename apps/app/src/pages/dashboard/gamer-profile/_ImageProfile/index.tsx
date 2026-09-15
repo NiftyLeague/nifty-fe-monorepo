@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
@@ -17,9 +17,9 @@ interface ImageProfileProps {
   avatarFee?: number
 }
 
-const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.ReactNode => {
+const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): JSX.Element => {
   const { isLoadingDegens, fetchUserProfile } = useGamerProfileContext()
-  const degenSelected = useMemo(() => avatar?.id ?? degens?.[0]?.id, [avatar, degens])
+  const degenSelected = createMemo(() => avatar?.id ?? degens?.[0]?.id, [avatar, degens])
 
   const handleChangeAvatar = () => {
     fetchUserProfile?.()
@@ -27,7 +27,7 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
 
   const renderImage = () => {
     if (isLoadingDegens) {
-      return <DeferredSkeleton className="h-[320px] w-full rounded" />
+      return <DeferredSkeleton class="h-[320px] w-full rounded" />
     } else {
       if (!degenSelected) {
         return (
@@ -36,18 +36,18 @@ const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): React.R
             alt="no avatar"
             width={730}
             height={800}
-            className="mx-auto max-w-[500px] object-cover"
+            class="mx-auto max-w-[500px] object-cover"
             style={{ width: '100%', height: 'auto' }}
           />
         )
       }
-      return <DegenImage tokenId={degenSelected} sx={{ maxWidth: '500px' }} />
+      return <DegenImage tokenId={degenSelected} sx={{ 'max-width': '500px' }} />
     }
   }
 
   return (
     <>
-      <div className="relative [&_img]:rounded-[var(--radius-default)]">
+      <div class="relative [&_img]:rounded-[var(--radius-default)]">
         {renderImage()}
         {degens && degens.length > 0 && (
           <DeferredProfileImageDialog

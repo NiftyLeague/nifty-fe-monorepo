@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { CheckCheck, ShieldCheck, UserRoundCheck } from 'lucide-react'
 import { cn } from '@nl/ui/utils'
@@ -42,7 +42,7 @@ function ColorlibStepIcon({
   icon: number
 }) {
   return (
-    <div className={cn(styles.root, active && styles.active, completed && styles.completed)}>
+    <div class={cn(styles.root, active && styles.active, completed && styles.completed)}>
       <StepIcon icon={icon} color={active ? 'var(--color-light)' : 'var(--color-purple)'} />
     </div>
   )
@@ -79,9 +79,9 @@ function RenameStepper({
   insufficientAllowance: boolean
   renameSuccess: boolean
   insufficientBalance: boolean
-}): React.ReactNode {
+}): JSX.Element {
   const steps = getSteps()
-  const activeStep = useMemo(() => {
+  const activeStep = createMemo(() => {
     if (renameSuccess) return 3
     if (insufficientBalance) return 0
     return insufficientAllowance ? 1 : 2
@@ -89,23 +89,23 @@ function RenameStepper({
 
   return (
     <div>
-      <div className="flex items-start justify-between">
+      <div class="flex items-start justify-between">
         {steps.map((label, index) => (
-          <div key={label} className="relative flex flex-1 flex-col items-center gap-2">
-            {index > 0 && <div className={cn(styles.line, styles.alternativeLabel)} />}
+          <div class="relative flex flex-1 flex-col items-center gap-2">
+            {index > 0 && <div class={cn(styles.line, styles.alternativeLabel)} />}
             <ColorlibStepIcon
               active={activeStep === index}
               completed={activeStep > index}
               icon={index + 1}
             />
-            <div className="text-center text-sm text-foreground">{label}</div>
+            <div class="text-center text-sm text-foreground">{label}</div>
           </div>
         ))}
       </div>
-      <em className="block text-center">
+      <em class="block text-center">
         {activeStep !== steps.length ? (
           <span
-            className={cn(
+            class={cn(
               styles.styledTypography,
               activeStep === 0 ? 'text-error' : activeStep === 1 ? 'text-warning' : 'text-success'
             )}

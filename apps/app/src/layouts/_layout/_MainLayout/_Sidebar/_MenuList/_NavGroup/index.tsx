@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 import { Separator } from '@nl/ui/base/separator'
 
 // project imports
@@ -14,8 +14,8 @@ export interface NavGroupProps {
     type?: string
     children?: NavGroupProps['item'][]
     icon?: AppNavIconName
-    title?: ReactNode | string
-    caption?: ReactNode | string
+    title?: JSX.Element | string
+    caption?: JSX.Element | string
     color?: 'primary' | 'secondary' | 'default' | undefined
     url?: string
   }
@@ -26,12 +26,12 @@ const NavGroup = ({ item }: NavGroupProps) => {
   const items = (item?.children || []).map((menu) => {
     switch (menu.type) {
       case 'collapse':
-        return <NavCollapse key={menu.id} menu={menu} level={1} />
+        return <NavCollapse menu={menu} level={1} />
       case 'item':
-        return <NavItem key={menu.id} item={menu} level={1} />
+        return <NavItem item={menu} level={1} />
       default:
         return (
-          <h6 key={menu.id} className="text-center text-error">
+          <h6 class="text-center text-error">
             Menu Items Error
           </h6>
         )
@@ -42,10 +42,10 @@ const NavGroup = ({ item }: NavGroupProps) => {
     <>
       <div>
         {item.title && (
-          <div className="mt-2.5 p-1.5 text-sm font-medium capitalize text-muted-foreground">
+          <div class="mt-2.5 p-1.5 text-sm font-medium capitalize text-muted-foreground">
             {item.title}
             {item.caption && (
-              <span className="block text-xs font-medium capitalize text-muted-foreground">
+              <span class="block text-xs font-medium capitalize text-muted-foreground">
                 {item.caption}
               </span>
             )}
@@ -54,7 +54,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
         {items}
       </div>
       {/* group divider */}
-      <Separator className="mt-1 mb-5 opacity-60" />
+      <Separator class="mt-1 mb-5 opacity-60" />
     </>
   )
 }

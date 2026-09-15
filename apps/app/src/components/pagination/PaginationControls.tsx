@@ -30,10 +30,10 @@ export function PaginationControls({
   nextLabel = 'Next page',
 }: PaginationControlsProps) {
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div class={cn('flex items-center gap-2', className)}>
       <IconButton
         aria-label={previousLabel}
-        className={cn('cursor-pointer', buttonClassName)}
+        class={cn('cursor-pointer', buttonClassName)}
         disabled={!hasPrev}
         onClick={onClickPrev}
       >
@@ -42,7 +42,7 @@ export function PaginationControls({
       {pageLabel}
       <IconButton
         aria-label={nextLabel}
-        className={cn('cursor-pointer', buttonClassName)}
+        class={cn('cursor-pointer', buttonClassName)}
         disabled={!hasNext}
         onClick={onClickNext}
       >

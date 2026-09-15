@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import {  } from 'solid-js'
 
 import { Card, CardContent, CardHeader } from '@nl/ui/base/card'
 import { Separator } from '@nl/ui/base/separator'
@@ -10,16 +10,16 @@ import { cn } from '@nl/ui/utils'
 interface MainCardProps {
   border?: boolean
   boxShadow?: boolean
-  children: React.ReactNode | string
+  children: JSX.Element | string
   content?: boolean
   contentClass?: string
   darkTitle?: boolean
-  sx?: React.CSSProperties
-  title?: React.ReactNode | string
-  secondary?: React.ReactNode
+  sx?: JSX.CSSProperties
+  title?: JSX.Element | string
+  secondary?: JSX.Element
   shadow?: string
   className?: string
-  style?: React.CSSProperties
+  style?: JSX.CSSProperties
 }
 
 const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
@@ -44,7 +44,7 @@ const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
       <Card
         ref={ref}
         style={sx}
-        className={cn(
+        class={cn(
           'h-full gap-0 py-0',
           border && 'border',
           boxShadow &&
@@ -52,21 +52,21 @@ const MainCard = forwardRef<HTMLDivElement, MainCardProps>(
               'shadow-[0_2px_14px_0_rgb(33_150_243/0.1)] dark:shadow-[0_2px_14px_0_rgb(32_40_45/0.08)]'),
           className
         )}
-        {...(others as React.ComponentProps<'div'>)}
+        {...(others as JSX.ComponentProps<'div'>)}
       >
         {/* card header and action */}
         {title && (
           <>
-            <CardHeader className="flex flex-row items-center justify-between gap-2 p-4">
+            <CardHeader class="flex flex-row items-center justify-between gap-2 p-4">
               <Title level={darkTitle ? 3 : 5}>{title}</Title>
               {secondary}
             </CardHeader>
-            <Separator className="opacity-60" />
+            <Separator class="opacity-60" />
           </>
         )}
 
         {/* card content */}
-        {content && <CardContent className={cn('p-4', contentClass || '')}>{children}</CardContent>}
+        {content && <CardContent class={cn('p-4', contentClass || '')}>{children}</CardContent>}
         {!content && children}
       </Card>
     )

@@ -12,7 +12,7 @@ describe('application DialogContent wrapper', () => {
         </DialogTrigger>
         <DialogContent
           aria-label="Audit dialog"
-          className="max-w-[900px]"
+          class="max-w-[900px]"
           dialogTitle="Dialog title"
           sx={{ minHeight: '300px' }}
         >

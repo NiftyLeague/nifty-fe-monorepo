@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal } from 'solid-js'
 
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
@@ -11,8 +11,8 @@ const LoadedNotifications = ({
   Snackbar,
   Toaster,
 }: {
-  Snackbar: React.ComponentType
-  Toaster: React.ComponentType<{
+  Snackbar: Component
+  Toaster: Component<{
     position: 'top-right'
     closeButton: boolean
     richColors: boolean
@@ -25,8 +25,8 @@ const LoadedNotifications = ({
 )
 
 const createLoadedNotifications = (
-  Snackbar: React.ComponentType,
-  Toaster: React.ComponentType<{
+  Snackbar: Component,
+  Toaster: Component<{
     position: 'top-right'
     closeButton: boolean
     richColors: boolean
@@ -41,10 +41,10 @@ const loadNotifications = () =>
     default: createLoadedNotifications(Snackbar, Toaster),
   }))
 
-export default function DeferredNotifications(): React.ReactNode {
-  const [Notifications, setNotifications] = useState<React.ComponentType | null>(null)
+export default function DeferredNotifications(): JSX.Element {
+  const [Notifications, setNotifications] = createSignal<Component | null>(null)
 
-  useEffect(() => {
+  createEffect(() => {
     let cancelled = false
 
     const activate = async () => {

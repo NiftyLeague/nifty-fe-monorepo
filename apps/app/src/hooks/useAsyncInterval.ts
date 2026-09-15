@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { createEffect } from 'solid-js'
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/dynamic'
 
 export default function useAsyncInterval(
@@ -9,13 +9,13 @@ export default function useAsyncInterval(
   leading = true,
   refreshKey = ''
 ): void {
-  const savedCallback = useRef(callback)
+  let savedCallback: any = callback
 
-  useEffect(() => {
+  createEffect(() => {
     savedCallback.current = callback
   }, [callback])
 
-  useEffect(() => {
+  createEffect(() => {
     const tick = async () => {
       await savedCallback.current?.()
     }
@@ -36,7 +36,7 @@ export default function useAsyncInterval(
     }
   }, [delay, leading])
 
-  useEffect(() => {
+  createEffect(() => {
     if (refreshKey) void savedCallback.current?.()
   }, [refreshKey])
 }

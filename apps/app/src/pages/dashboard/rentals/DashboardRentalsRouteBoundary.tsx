@@ -9,6 +9,6 @@ const DashboardRentalsClient = dynamic(() => import('./DashboardRentalsClient'),
   loading: () => <RouteLoading label="Loading rentals" />,
 })
 
-export default function DashboardRentalsRouteBoundary(): React.ReactNode {
+export default function DashboardRentalsRouteBoundary(): JSX.Element {
   return <DashboardRentalsClient />
 }

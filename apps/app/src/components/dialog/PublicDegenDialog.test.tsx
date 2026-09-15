@@ -7,7 +7,7 @@ let PublicDegenDialog: typeof import('./PublicDegenDialog').default
 
 beforeEach(async () => {
   mock.module('@/components/cards/DegenCard/DegenImage', () => ({
-    default: ({ tokenId, sx }: { tokenId: string | number; sx?: React.CSSProperties }) => (
+    default: ({ tokenId, sx }: { tokenId: string | number; sx?: JSX.CSSProperties }) => (
       <div data-testid="degen-image" style={sx}>
         {tokenId}
       </div>

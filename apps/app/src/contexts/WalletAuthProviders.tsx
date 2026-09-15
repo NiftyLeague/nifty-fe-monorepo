@@ -1,32 +1,26 @@
-'use client'
-
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 
 import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 
-type WalletAuthProvidersProps = PropsWithChildren<{
+interface WalletAuthProvidersProps {
   cookies?: string | null
-  loadingFallback?: ReactNode
-  errorFallback?: (retry: () => void) => ReactNode
-}>
-
-export default function WalletAuthProviders({
-  children,
-  cookies,
-  loadingFallback,
-  errorFallback,
-}: WalletAuthProvidersProps) {
-  return (
-    <WalletStorageProviders
-      cookies={cookies}
-      errorFallback={errorFallback}
-      loadingFallback={loadingFallback}
-    >
-      <AuthStatusProvider>
-        <AuthTokenProvider>{children}</AuthTokenProvider>
-      </AuthStatusProvider>
-    </WalletStorageProviders>
-  )
+  loadingFallback?: JSX.Element
+  errorFallback?: (retry: () => void) => JSX.Element
+  children?: JSX.Element
 }
+
+const WalletAuthProviders = (props: WalletAuthProvidersProps) => (
+  <WalletStorageProviders
+    cookies={props.cookies}
+    errorFallback={props.errorFallback}
+    loadingFallback={props.loadingFallback}
+  >
+    <AuthStatusProvider>
+      <AuthTokenProvider>{props.children}</AuthTokenProvider>
+    </AuthStatusProvider>
+  </WalletStorageProviders>
+)
+
+export default WalletAuthProviders

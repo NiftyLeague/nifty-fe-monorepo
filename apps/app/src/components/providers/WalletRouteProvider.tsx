@@ -4,7 +4,7 @@ import type { PropsWithChildren } from 'react'
 import dynamic from '@/runtime/dynamic'
 
 const WalletFeatureLoading = () => (
-  <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+  <div class="sr-only" role="status" aria-live="polite" aria-busy="true">
     Loading wallet features
   </div>
 )

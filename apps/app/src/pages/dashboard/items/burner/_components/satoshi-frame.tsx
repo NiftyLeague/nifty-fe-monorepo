@@ -8,7 +8,7 @@ const SatoshiFrame = ({ frames, interval = 0 }: SatoshiFrameProps) => {
     <NativeImage
       src={frame}
       alt={`Machine Frame: ${frame}`}
-      className="pixelated"
+      class="pixelated"
       width={316}
       height={303}
       style={{

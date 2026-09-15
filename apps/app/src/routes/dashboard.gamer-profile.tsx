@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import GamerProfileRouteBoundary from '@/pages/dashboard/gamer-profile/GamerProfileRouteBoundary'
 import { buildHead } from '@/runtime/metadata'

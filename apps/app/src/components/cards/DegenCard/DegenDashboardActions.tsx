@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { toast } from 'sonner'
 import { Heart } from 'lucide-react'
@@ -15,14 +15,14 @@ interface DegenDashboardActionsProps {
   tokenId: string
   fav: boolean
   size: 'small' | 'normal'
-  onClickFavorite?: React.MouseEventHandler<HTMLButtonElement>
+  onClickFavorite?: JSX.EventHandler<HTMLButtonElement>
 }
 
-const DegenClaimBal = memo(({ tokenId, fontSize }: { tokenId: string; fontSize: string }) => {
-  const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId])
+const DegenClaimBal = (({ tokenId, fontSize }: { tokenId: string; 'font-size': string }) => {
+  const degenTokenIndices = createMemo(() => [parseInt(tokenId, 10)], [tokenId])
   const { balance } = useClaimableNFTL(degenTokenIndices)
   const amountParsed = formatNumberToDisplay(balance, 0)
-  return <span className="text-center" style={{ fontSize }}>{`${amountParsed} NFTL`}</span>
+  return <span class="text-center" style={{ fontSize }}>{`${amountParsed} NFTL`}</span>
 })
 
 DegenClaimBal.displayName = 'DegenClaimBal'
@@ -47,22 +47,22 @@ const DegenDashboardActions = ({
 
   return (
     <div
-      className="flex flex-row items-center justify-between px-2 pt-2"
-      style={{ lineHeight: '1.5em' }}
+      class="flex flex-row items-center justify-between px-2 pt-2"
+      style={{ 'line-height': '1.5em' }}
     >
-      <div className="flex flex-row items-center">
+      <div class="flex flex-row items-center">
         <Button
           type="button"
           variant="ghost"
           size="icon"
-          className="mr-3 size-6 cursor-pointer p-0"
+          class="mr-3 size-6 cursor-pointer p-0"
           onClick={onClickFavorite}
           aria-label={fav ? 'Remove degen from favorites' : 'Add degen to favorites'}
         >
           <Heart
             absoluteStrokeWidth
             color="currentColor"
-            strokeWidth={fav ? 0 : 1.5}
+            stroke-width={fav ? 0 : 1.5}
             fill={fav ? 'var(--color-foreground)' : 'none'}
             size={size === 'small' ? 12 : 16}
             aria-hidden="true"
@@ -72,11 +72,11 @@ const DegenDashboardActions = ({
           type="button"
           variant="ghost"
           size="sm"
-          className="h-auto cursor-pointer gap-0 p-0"
+          class="h-auto cursor-pointer gap-0 p-0"
           onClick={onClickDownload}
           aria-label="Download degen"
         >
-          <span style={{ fontSize: tinyFontSize, paddingRight: '4px' }}>IP</span>
+          <span style={{ 'font-size': tinyFontSize, 'padding-right': '4px' }}>IP</span>
           <NativeImage
             src="/icons/download-solid.svg"
             alt=""

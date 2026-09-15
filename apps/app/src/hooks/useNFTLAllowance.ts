@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import { useAccount, useReadContract } from 'wagmi'
 import { formatEther } from 'ethers'
 import type { AddressLike } from 'ethers'
@@ -37,7 +37,7 @@ export default function useNFTLAllowance(contractAddress: `0x${string}`): NFTLAl
   })
 
   // Convert the allowance from wei bigint to ether number
-  const allowance = useMemo(() => (data ? parseFloat(formatEther(data)) : 0), [data])
+  const allowance = createMemo(() => (data ? parseFloat(formatEther(data)) : 0), [data])
 
   return { allowance, loading: isLoading, refetch }
 }

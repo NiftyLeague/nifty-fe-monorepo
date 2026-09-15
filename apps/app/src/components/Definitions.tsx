@@ -1,4 +1,4 @@
-const Definitions = (): React.ReactNode => (
+const Definitions = (): JSX.Element => (
   <>
     <h3>Interpretation and Definitions</h3>
     <h4>Interpretation</h4>

@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import GameRoute from '@/components/wrapper/GameRoute'
 import { smashersBuild } from '@/constants/unity-builds'

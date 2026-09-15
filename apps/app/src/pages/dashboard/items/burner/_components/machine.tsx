@@ -1,21 +1,21 @@
 'use client'
 
-import { memo, useState } from 'react'
+import { createSignal } from 'solid-js'
 import useInterval from '@/hooks/useInterval'
 import useIMXContext from '@/hooks/useIMXContext'
 import MachineFrame from './machine-frame'
 import type { Comic } from '@/types/marketplace'
 
-const ComicsBurnerMachine: React.FC<
-  React.PropsWithChildren<
-    React.PropsWithChildren<{
-      address?: `0x${string}`
-      burnDisabled: boolean
-      selectedComics: Comic[]
-    }>
-  >
-> = memo(({ address, burnDisabled, selectedComics }) => {
-  const [count, setCount] = useState<number>(0)
+interface ComicsBurnerMachineProps {
+  address?: `0x${string}`
+  burnDisabled: boolean
+  selectedComics: Comic[]
+  children?: JSX.Element
+}
+
+const ComicsBurnerMachine = (props: ComicsBurnerMachineProps) => {
+  const { address, burnDisabled, selectedComics } = props
+  const [count, setCount] = createSignal<number>(0)
 
   useInterval(() => {
     setCount(count + 1)
@@ -63,11 +63,10 @@ const ComicsBurnerMachine: React.FC<
       )}
 
       <MachineFrame frames={['/img/comics/burner/machine/button_q_1.webp']} />
+
     </>
   )
-})
-
-ComicsBurnerMachine.displayName = 'ComicsBurnerMachine'
+}
 
 const ComicsBurnerMachineWithContext = ({
   burnDisabled = false,

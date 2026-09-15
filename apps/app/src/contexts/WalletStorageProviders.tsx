@@ -1,29 +1,23 @@
-'use client'
-
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 
 import { Web3ModalProvider } from '@/contexts/Web3ModalContext'
 
-type WalletStorageProvidersProps = PropsWithChildren<{
+interface WalletStorageProvidersProps {
   cookies?: string | null
-  loadingFallback?: ReactNode
-  errorFallback?: (retry: () => void) => ReactNode
-}>
+  loadingFallback?: JSX.Element
+  errorFallback?: (retry: () => void) => JSX.Element
+  children?: JSX.Element
+}
 
 /** Shared storage and wallet-runtime shell for route-specific provider stacks. */
-export default function WalletStorageProviders({
-  children,
-  cookies,
-  loadingFallback,
-  errorFallback,
-}: WalletStorageProvidersProps) {
-  return (
-    <Web3ModalProvider
-      cookies={cookies}
-      errorFallback={errorFallback}
-      loadingFallback={loadingFallback}
-    >
-      {children}
-    </Web3ModalProvider>
-  )
-}
+const WalletStorageProviders = (props: WalletStorageProvidersProps) => (
+  <Web3ModalProvider
+    cookies={props.cookies}
+    errorFallback={props.errorFallback}
+    loadingFallback={props.loadingFallback}
+  >
+    {props.children}
+  </Web3ModalProvider>
+)
+
+export default WalletStorageProviders

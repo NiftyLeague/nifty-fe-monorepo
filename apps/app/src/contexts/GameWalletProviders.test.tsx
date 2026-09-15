@@ -6,16 +6,16 @@ mock.module('@/runtime/request-cookies', () => ({ getRequestCookieHeader: () => 
 mock.module('@/runtime/dynamic', () => ({
   default:
     () =>
-    ({ children }: React.PropsWithChildren) =>
+    ({ children }: { children?: JSX.Element } &) =>
       children,
 }))
 mock.module('@/contexts/AuditFixtureContextWrapper', () => ({
-  default: ({ children }: React.PropsWithChildren) => (
+  default: ({ children }: { children?: JSX.Element } &) => (
     <div data-testid="audit-fixture-provider">{children}</div>
   ),
 }))
 mock.module('@/contexts/WalletAuthProviders', () => ({
-  default: ({ children }: React.PropsWithChildren) => (
+  default: ({ children }: { children?: JSX.Element } &) => (
     <div data-testid="live-wallet-provider">{children}</div>
   ),
 }))

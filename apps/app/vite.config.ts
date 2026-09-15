@@ -1,6 +1,6 @@
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { tanstackStart } from '@tanstack/solid-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
-import viteReact from '@vitejs/plugin-react'
+import viteSolid from 'vite-plugin-solid'
 import { nitro } from 'nitro/vite'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -32,8 +32,8 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     tanstackStart({ srcDirectory: 'src' }),
-    // React's plugin must come after TanStack Start's.
-    viteReact(),
+    // The Solid plugin must come after TanStack Start's.
+    viteSolid({ ssr: true }),
     // Nitro produces the deployable server bundle (Vercel on this project).
     nitro({
       // Production deploys use the Vercel Build Output API; the E2E suite builds

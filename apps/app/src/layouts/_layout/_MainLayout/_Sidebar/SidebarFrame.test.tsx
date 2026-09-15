@@ -22,7 +22,7 @@ beforeEach(async () => {
       children,
       viewportClassName: _viewportClassName,
       ...props
-    }: React.PropsWithChildren<Record<string, unknown>>) => <div {...props}>{children}</div>,
+    }: JSX.Record<string, unknown> & { children?: JSX.Element }) => <div {...props}>{children}</div>,
   }))
   mock.module('../_LogoSection', () => ({ default: () => <span>Logo</span> }))
 

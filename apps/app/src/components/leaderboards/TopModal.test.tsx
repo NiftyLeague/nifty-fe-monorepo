@@ -1,6 +1,6 @@
 import { render, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
-import { QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/solid-query'
 
 import { createAppQueryClient } from '@/query/app-query'
 
@@ -15,7 +15,7 @@ beforeEach(() => {
   fetchScores.mockClear()
   mock.module('@/utils/leaderboard', () => ({ fetchScores }))
   mock.module('./CustomModal', () => ({
-    default: ({ child }: { child: React.ReactNode }) => <>{child}</>,
+    default: ({ child }: { child: JSX.Element }) => <>{child}</>,
   }))
 })
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useRef, type PropsWithChildren } from 'react'
+import { createContext, useContext } from 'solid-js'
 import { useStore } from 'zustand'
 
 import {
@@ -14,8 +14,8 @@ export type { SnackbarInput } from '@/state/notification-store'
 
 const NotificationContext = createContext<NotificationStore | null>(null)
 
-export function NotificationProvider({ children }: PropsWithChildren) {
-  const storeRef = useRef<NotificationStore | null>(null)
+export function NotificationProvider({ children }: { children?: JSX.Element }) {
+  let storeRef: NotificationStore | null | undefined
   if (!storeRef.current) storeRef.current = createNotificationStore()
 
   return (

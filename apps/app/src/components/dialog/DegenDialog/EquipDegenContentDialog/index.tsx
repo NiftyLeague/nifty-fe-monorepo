@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { createEffect, createMemo, createSignal } from 'solid-js'
 import { X } from 'lucide-react'
 
 import * as gtm from '@nl/ui/gtm/events'
@@ -43,20 +43,20 @@ const initEquipped: boolean[] = Array.from({ length: 6 }, () => false)
 const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
   const openSnackbar = useOpenSnackbar()
   const { comicsBalances, loadingComics } = useNFTsBalances()
-  const filteredComics = useMemo(
+  const filteredComics = createMemo(
     () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
     [comicsBalances]
   )
-  const [animationType, setAnimationType] = useState<string>('pose')
-  const [equipped, setEquipped] = useState<boolean[]>(initEquipped)
-  const [pendingEquipped, setPendingEquipped] = useState<boolean[]>(initEquipped)
+  const [animationType, setAnimationType] = createSignal<string>('pose')
+  const [equipped, setEquipped] = createSignal<boolean[]>(initEquipped)
+  const [pendingEquipped, setPendingEquipped] = createSignal<boolean[]>(initEquipped)
   const { animTypeActiveButton, animTypeButton, label, tag, title } = styles
 
-  useEffect(() => {
+  createEffect(() => {
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_CLICKED)
   }, [])
 
-  const handleEquip = useCallback(
+  const handleEquip = (
     (index: number) => {
       const item = INVENTORIES[index]
       if (item) {
@@ -78,7 +78,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     [pendingEquipped]
   )
 
-  const handleUnequip = useCallback(
+  const handleUnequip = (
     (index: number) => {
       const slot = SLOTS[index]
       if (slot) {
@@ -100,12 +100,12 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     [pendingEquipped]
   )
 
-  const stateChanged = useMemo(
+  const stateChanged = createMemo(
     () => !areValuesEqual(equipped, pendingEquipped),
     [equipped, pendingEquipped]
   )
 
-  const handleSave = useCallback(() => {
+  const handleSave = (() => {
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_STARTED)
     // Should call proper api here
     setEquipped(pendingEquipped)
@@ -119,7 +119,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_SUCCESS)
   }, [openSnackbar, pendingEquipped])
 
-  const getSlotImage = useCallback(
+  const getSlotImage = (
     (index: number) => {
       const slot = SLOTS[index]
       if (slot) {
@@ -139,7 +139,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     [pendingEquipped]
   )
 
-  const isEquippedSlot = useCallback(
+  const isEquippedSlot = (
     (index: number) => {
       if (index < 3) {
         return pendingEquipped[index]
@@ -151,7 +151,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     [pendingEquipped]
   )
 
-  const totalMultiplierApplied = useMemo(() => {
+  const totalMultiplierApplied = createMemo(() => {
     let totalMultipliers = 0
     pendingEquipped.forEach((status, index) => {
       if (status) totalMultipliers += multipliers[index] ?? 0
@@ -175,13 +175,13 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   if (filteredComics.length === 0) {
     if (loadingComics) {
       return (
-        <div className="flex flex-row items-center justify-center h-[200px] mx-auto">
+        <div class="flex flex-row items-center justify-center h-[200px] mx-auto">
           <CircularProgress size="xl" />
         </div>
       )
     }
     return (
-      <div className="flex flex-wrap items-center justify-center h-[200px]">
+      <div class="flex flex-wrap items-center justify-center h-[200px]">
         <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
           <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
         </a>
@@ -190,21 +190,21 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
   }
 
   return (
-    <div className="flex flex-col py-2 max-w-[330px] mx-auto gap-2">
+    <div class="flex flex-col py-2 max-w-[330px] mx-auto gap-2">
       <div
-        className="flex flex-row items-center justify-center p-2.5 mx-2.5"
-        style={{ backgroundColor: '#262930' }}
+        class="flex flex-row items-center justify-center p-2.5 mx-2.5"
+        style={{ 'background-color': '#262930' }}
       >
-        <Title level={5} className={title}>
+        <Title level={5} class={title}>
           {name || `DEGEN #${degen?.id}`}
         </Title>
       </div>
-      <div className="flex flex-row mt-[18px]">
-        <div className="flex flex-col items-center">
-          <span className={cn(label, 'text-base mb-4')}>SLOTS</span>
-          <div className="flex flex-col gap-6">
+      <div class="flex flex-row mt-[18px]">
+        <div class="flex flex-col items-center">
+          <span class={cn(label, 'text-base mb-4')}>SLOTS</span>
+          <div class="flex flex-col gap-6">
             {SLOTS.map((slot, index) => (
-              <div key={slot.name} className="relative" style={{ width: 40, height: 40 }}>
+              <div class="relative" style={{ width: 40, height: 40 }}>
                 {getSlotImage(index)}
                 {isEquippedSlot(index) && (
                   <Button
@@ -212,7 +212,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
                     variant="ghost"
                     size="icon"
                     aria-label={`Unequip ${slot.name}`}
-                    className={cn(
+                    class={cn(
                       tag,
                       'flex h-3 w-3 items-center justify-center border-0 p-0 cursor-pointer'
                     )}
@@ -222,8 +222,8 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
                       aria-hidden="true"
                       absoluteStrokeWidth
                       size={12}
-                      strokeWidth={1.5}
-                      className="cursor-pointer"
+                      stroke-width={1.5}
+                      class="cursor-pointer"
                     />
                   </Button>
                 )}
@@ -231,17 +231,17 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
             ))}
           </div>
         </div>
-        <div className="flex flex-col mt-[22px] ml-[30px] mr-[12px]">
+        <div class="flex flex-col mt-[22px] ml-[30px] mr-[12px]">
           {degen?.id && (
             <DegenImage
-              sx={{ objectFit: 'cover', width: 183, height: 244, borderRadius: '10px' }}
+              sx={{ 'object-fit': 'cover', width: 183, height: 244, 'border-radius': '10px' }}
               tokenId={degen.id}
             />
           )}
-          <div className="flex flex-row mt-[10px] gap-[12px]">
+          <div class="flex flex-row mt-[10px] gap-[12px]">
             <Button
               variant="default"
-              className={cn(
+              class={cn(
                 'w-full',
                 animationType === 'pose' ? animTypeActiveButton : animTypeButton
               )}
@@ -251,7 +251,7 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
             </Button>
             <Button
               variant="default"
-              className={cn(
+              class={cn(
                 'w-full',
                 animationType === 'rotate' ? animTypeActiveButton : animTypeButton
               )}
@@ -261,28 +261,27 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
             </Button>
           </div>
           <span
-            className={cn(label, 'text-base mx-auto font-bold')}
-            style={{ marginTop: 18, marginBottom: 18 }}
+            class={cn(label, 'text-base mx-auto font-bold')}
+            style={{ 'margin-top': 18, 'margin-bottom': 18 }}
           >
             {totalMultiplierApplied}
           </span>
           <Button
             variant="default"
             disabled={!stateChanged}
-            className="mx-auto w-[116px]"
+            class="mx-auto w-[116px]"
             onClick={handleSave}
           >
             SAVE
           </Button>
         </div>
-        <div className="flex flex-col items-center">
-          <span className={cn(label, 'text-base mb-4 text-center')}>INVENTORY</span>
-          <div className="flex flex-col gap-[10px]">
+        <div class="flex flex-col items-center">
+          <span class={cn(label, 'text-base mb-4 text-center')}>INVENTORY</span>
+          <div class="flex flex-col gap-[10px]">
             {INVENTORIES.map((inventory, index) => (
-              <div
-                key={inventory.name}
+              <div                
                 onClick={() => handleEquip(index)}
-                className="relative"
+                class="relative"
                 style={{
                   width: 30,
                   height: 30,
@@ -292,8 +291,8 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
                 {pendingEquipped[index] ? inventory.empty : inventory.filled}
                 {!pendingEquipped[index] && (multipliers[index] ?? 0) >= 2 && (
                   <div
-                    className={cn(tag, 'flex items-center justify-center')}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    class={cn(tag, 'flex items-center justify-center')}
+                    style={{ display: 'flex', 'align-items': 'center', 'justify-content': 'center' }}
                   >{`${multipliers[index]}x`}</div>
                 )}
               </div>

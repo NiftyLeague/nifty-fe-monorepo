@@ -1,7 +1,7 @@
 'use client'
 
-import { useCallback } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {  } from 'solid-js'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/solid-query'
 
 import { PROFILE_FAV_DEGENS_API } from '@/constants/url'
 import { profileFavoritesQueryOptions } from '@/hooks/useGamerProfile/useProfileFavDegens'
@@ -67,7 +67,7 @@ export default function useFavoriteDegens() {
     },
   })
 
-  const toggleFavorite = useCallback(
+  const toggleFavorite = (
     (degenId: string) => mutation.mutateAsync(toggleValue(favDegens.filter(Boolean), degenId)),
     [favDegens, mutation.mutateAsync]
   )

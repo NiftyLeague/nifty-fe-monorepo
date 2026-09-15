@@ -2,7 +2,7 @@
 
 import { RENT_URL } from '@/constants/url'
 import type { MyRental } from '@/types/rental'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/solid-query'
 import { queryKeys } from '@/query/app-query'
 import useAuth from './useAuth'
 
