@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let bncNotifyLoaded = false
@@ -34,7 +34,7 @@ describe('useNotify', () => {
   })
 
   it('does not load Blocknative until a transaction is submitted', () => {
-    renderHook(() => useNotify({} as never))
+    renderHook(() => useNotify(() => undefined))
 
     expect(bncNotifyLoaded).toBe(false)
   })
@@ -45,7 +45,7 @@ describe('useNotify', () => {
       wait: mock().mockResolvedValue(undefined),
     }
     sendTransactionMock.mockResolvedValue(transaction)
-    const { result } = renderHook(() => useNotify({} as never))
+    const { result } = renderHook(() => useNotify(() => ({} as never)))
 
     await act(async () => {
       await result.current(Promise.resolve({}) as never)

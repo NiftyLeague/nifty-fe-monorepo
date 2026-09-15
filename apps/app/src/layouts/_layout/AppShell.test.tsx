@@ -1,15 +1,15 @@
 import { render } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
-import type { JSX } from 'solid-js'
+import { createSignal, type JSX } from 'solid-js'
 
-let drawerOpen = false
+const [drawerOpen, setDrawerOpen] = createSignal(false)
 let breadcrumbRenderCount = 0
 
 beforeEach(() => {
-  drawerOpen = false
+  setDrawerOpen(false)
   breadcrumbRenderCount = 0
 
-  mock.module('@/runtime/navigation', () => ({ usePathname: () => '/dashboard' }))
+  mock.module('@/runtime/navigation', () => ({ usePathname: () => () => '/dashboard' }))
   mock.module('@nl/ui/base/scroll-area', () => ({
     ScrollArea: ({ children }: { children?: JSX.Element }) => <div data-scroll-area>{children}</div>,
   }))
@@ -29,7 +29,7 @@ beforeEach(() => {
   mock.module('@/contexts/NavigationContext', () => ({
     NavigationProvider: ({ children }: { children?: JSX.Element }) => children,
     useDrawerOpen: () => drawerOpen,
-    useIsDesktopNavigation: () => false,
+    useIsDesktopNavigation: () => () => false,
     useSetDrawerOpen: () => mock(),
   }))
 })
@@ -45,8 +45,7 @@ describe('app shell rendering', () => {
     const sidebar = <aside data-sidebar />
     const children = <p>Dashboard</p>
 
-    const view = render(
-      <AppShell header={header} sidebar={sidebar}>
+    const view = render(() => <AppShell header={header} sidebar={sidebar}>
         {children}
       </AppShell>
     )
@@ -54,12 +53,8 @@ describe('app shell rendering', () => {
     expect(breadcrumbRenderCount).toBe(1)
     expect(view.container.querySelector('[data-scroll-area]')).not.toBeNull()
 
-    drawerOpen = true
-    view.rerender(
-      <AppShell header={header} sidebar={sidebar}>
-        {children}
-      </AppShell>
-    )
+    // Solid updates the signal in place; the shell must not remount content.
+    setDrawerOpen(true)
 
     expect(breadcrumbRenderCount).toBe(1)
     expect(view.container.querySelector('[data-sidebar-open="true"]')).not.toBeNull()

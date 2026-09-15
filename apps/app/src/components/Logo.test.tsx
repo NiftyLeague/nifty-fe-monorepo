@@ -22,7 +22,7 @@ beforeEach(async () => {
 
 describe('Logo', () => {
   it('does not prefetch the home route from the persistent app shell', () => {
-    render(<Logo />)
+    render(() => <Logo />)
 
     const logoLink = screen.getByRole('link', { name: 'NiftyLogo' })
     expect(logoLink.getAttribute('href')).toBe('/')

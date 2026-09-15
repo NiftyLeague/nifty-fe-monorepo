@@ -134,8 +134,7 @@ describe('favorite DEGEN mutation', () => {
     }
 
     const client = createAppQueryClient()
-    render(
-      <AuthTokenContext.Provider
+    render(() => <AuthTokenContext.Provider
         value={{
           authToken: 'test-token',
           handleConnectWallet: () => Promise.resolve(),

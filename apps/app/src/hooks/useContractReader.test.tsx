@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
@@ -36,7 +36,7 @@ describe('useContractReader', () => {
       )
     )
 
-    await waitFor(() => expect(result.current).toBe(14))
+    await waitFor(() => expect(result.current()).toBe(14))
     expect(readBalance).toHaveBeenCalledWith('42')
     unmount()
   })
@@ -53,7 +53,7 @@ describe('useContractReader', () => {
       )
     )
 
-    await waitFor(() => expect(result.current).toEqual(['trait-a', 'trait-b']))
+    await waitFor(() => expect(result.current()).toEqual(['trait-a', 'trait-b']))
     expect(readRemovedTraits).toHaveBeenCalledWith()
     unmount()
   })
@@ -94,7 +94,7 @@ describe('useContractReader', () => {
 
     await waitFor(() => expect(consoleError).toHaveBeenCalled())
     expect(consoleError).toHaveBeenCalledWith('Read Contract Error:', DEGEN_CONTRACT, error)
-    expect(result.current).toBeUndefined()
+    expect(result.current()).toBeUndefined()
     unmount()
   })
 })

@@ -10,7 +10,7 @@ import { transformAsync } from '@babel/core'
 import solidPreset from 'babel-preset-solid'
 import tsPreset from '@babel/preset-typescript'
 
-const SOLID_PACKAGES = /(packages\/ui\/|apps\/web\/|apps\/smashers\/|apps\/docs\/)/
+const SOLID_PACKAGES = /(packages\/ui\/|apps\/web\/|apps\/smashers\/|apps\/docs\/|apps\/app\/)/
 
 plugin({
   name: 'solid-jsx',

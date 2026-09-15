@@ -21,7 +21,7 @@ describe('private navigation item', () => {
         </a>
       ),
     }))
-    mock.module('@/runtime/navigation', () => ({ usePathname: () => '/dashboard' }))
+    mock.module('@/runtime/navigation', () => ({ usePathname: () => () => '/dashboard' }))
     mock.module('@/components/AppNavIcon', () => ({ AppNavIcon: () => null }))
     mock.module('@/contexts/NavigationContext', () => ({
       useIsDesktopNavigation: () => true,
@@ -34,7 +34,7 @@ describe('private navigation item', () => {
   it('disables automatic prefetching for persistent sidebar links', () => {
     const item: NavItemType = { type: 'item', title: 'Dashboard', url: '/dashboard' }
 
-    render(<NavItem item={item} level={0} />)
+    render(() => <NavItem item={item} level={0} />)
 
     expect(screen.getByRole('link', { name: 'Dashboard' }).getAttribute('data-prefetch')).toBe(
       'false'

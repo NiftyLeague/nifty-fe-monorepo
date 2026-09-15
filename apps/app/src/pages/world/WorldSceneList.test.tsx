@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@/components/cards/NiftyWorldCard', () => ({
@@ -32,7 +32,7 @@ describe('Nifty World scene list', () => {
   })
 
   it('renders every allowed scene as an in-app map card', () => {
-    render(<WorldSceneList />)
+    render(() => <WorldSceneList />)
 
     expect(screen.getAllByRole('heading').map((heading) => heading.textContent)).toEqual([
       'Isla Azul',

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import dynamic from '@/runtime/dynamic'
@@ -6,14 +6,14 @@ import dynamic from '@/runtime/dynamic'
 describe('dynamic loader shapes', () => {
   it('mounts a default-export loader', async () => {
     const Loaded = dynamic(() => Promise.resolve({ default: () => <div>default-card</div> }))
-    render(<Loaded />)
+    render(() => <Loaded />)
     expect(await screen.findByText('default-card')).toBeTruthy()
   })
 
   it('mounts a named function export', async () => {
     const Named = () => <div>function-card</div>
     const Loaded = dynamic(() => Promise.resolve({ Named }).then((module) => module.Named))
-    render(<Loaded />)
+    render(() => <Loaded />)
     expect(await screen.findByText('function-card')).toBeTruthy()
   })
 
@@ -24,7 +24,7 @@ describe('dynamic loader shapes', () => {
       return <div>memo-card</div>
     })
     const Loaded = dynamic(() => Promise.resolve({ Named: MemoCard }).then((m) => m.Named))
-    render(<Loaded />)
+    render(() => <Loaded />)
     expect(await screen.findByText('memo-card')).toBeTruthy()
   })
 })

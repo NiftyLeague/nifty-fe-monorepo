@@ -1,5 +1,5 @@
 import { QueryClientProvider } from '@tanstack/solid-query'
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import { createAppQueryClient } from '@/query/app-query'
@@ -24,8 +24,7 @@ describe('leaderboard table query ownership', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    render(
-      <QueryClientProvider client={client}>
+    render(() => <QueryClientProvider client={client}>
         <EnhancedTable {...props} />
         <EnhancedTable {...props} />
       </QueryClientProvider>
@@ -45,8 +44,7 @@ describe('leaderboard table query ownership', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    const { container } = render(
-      <QueryClientProvider client={client}>
+    const { container } = render(() => <QueryClientProvider client={client}>
         <EnhancedTable {...props} />
       </QueryClientProvider>
     )

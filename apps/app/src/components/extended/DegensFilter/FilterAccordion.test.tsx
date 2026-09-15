@@ -1,12 +1,11 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import FilterAccordion from './FilterAccordion'
 
 describe('FilterAccordion', () => {
   it('keeps expanded filter options aligned with the accordion heading gutter', () => {
-    const { container } = render(
-      <FilterAccordion summary={<span>Tribe</span>}>
+    const { container } = render(() => <FilterAccordion summary={<span>Tribe</span>}>
         <span>Filter option</span>
       </FilterAccordion>
     )

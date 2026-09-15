@@ -1,7 +1,7 @@
 import type { Rentals } from '@/types/rentals'
 import { capitalize } from '@/utils/string'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import { RentalDataGrid } from '@/types/rentalDataGrid'
+import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import { formatTime } from '@/utils/dateTime'
 
 export const transformRentals = (rows: Rentals[], userId: string): RentalDataGrid[] =>

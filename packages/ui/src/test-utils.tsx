@@ -51,6 +51,28 @@ export function renderHook<Args extends unknown[], HookResult>(
   hook: (...args: Args) => HookResult,
   options?: { initialProps?: Args; wrapper?: Component<{ children: JSX.Element }> }
 ) {
+  // The upstream renderHook invokes `wrapper` as a plain function, so Solid
+  // context providers inside it never mount. Render the wrapper as a real
+  // component tree and probe the hook inside it.
+  if (options?.wrapper) {
+    const Wrapper = options.wrapper
+    let hookResult: HookResult | undefined
+    // A plain function child stays an expression, so it evaluates under the
+    // provider's owner when the wrapper renders it — a component thunk would
+    // bind to the wrapper's owner before context is installed.
+    const probe = () => {
+      hookResult = hook(...((options?.initialProps ?? []) as Args))
+      return null
+    }
+    const rendered = render(() => (
+      <Wrapper children={probe as unknown as JSX.Element} />
+    ))
+    return {
+      result: { current: hookResult as HookResult },
+      unmount: rendered.unmount,
+      cleanup: rendered.unmount,
+    }
+  }
   const rendered = renderSolidHook(hook, options)
   return {
     ...rendered,

@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import type { Degen } from '@/types/degens'
@@ -29,7 +29,7 @@ describe('PublicDegenDialog', () => {
       traits_string: 'blue, cap',
     } as Degen
 
-    render(<PublicDegenDialog open degen={degen} onClose={onClose} />)
+    render(() => <PublicDegenDialog open degen={degen} onClose={onClose} />)
 
     expect(screen.getByRole('dialog', { name: 'Audit Ape' })).not.toBeNull()
     expect(screen.getByText('blue')).not.toBeNull()
@@ -40,8 +40,7 @@ describe('PublicDegenDialog', () => {
   })
 
   it('maps numeric trait ids to readable trait names and values', () => {
-    render(
-      <PublicDegenDialog
+    render(() => <PublicDegenDialog
         open
         degen={{
           id: '1',

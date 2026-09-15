@@ -88,7 +88,6 @@
         "solid-js": "^1.9.15",
         "solid-sonner": "^0.3.2",
         "viem": "^2.55.19",
-        "wagmi": "^3.7.5",
         "web-vitals": "^6.2.1",
         "zustand": "^5.0.15",
       },

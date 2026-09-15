@@ -25,11 +25,11 @@ describe('NavigationContext', () => {
       { wrapper }
     )
 
-    expect(result.current.drawerOpen).toBe(false)
+    expect(result.current.drawerOpen()).toBe(false)
     act(() => result.current.toggleDrawer())
-    expect(result.current.drawerOpen).toBe(true)
+    expect(result.current.drawerOpen()).toBe(true)
     act(() => result.current.setDrawerOpen(false))
-    expect(result.current.drawerOpen).toBe(false)
+    expect(result.current.drawerOpen()).toBe(false)
   })
 
   it('fails clearly when consumed outside its provider', () => {

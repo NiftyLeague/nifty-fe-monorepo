@@ -1,22 +1,23 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let isDesktopViewport = false
 let loadedPlacement: 'desktop' | 'mobile' | null = null
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
-  useMediaQuery: () => isDesktopViewport,
+  useMediaQuery: () => () => isDesktopViewport,
 }))
 
 mock.module('@nl/ui/hooks/useDeferredComponent', () => ({
-  default: (_load: unknown, enabled: boolean) => ({
-    Component:
-      enabled && loadedPlacement
+  default: (_load: unknown, enabled: boolean | (() => boolean)) => ({
+    // Solid shape: the deferred component is exposed as an accessor.
+    Component: () =>
+      (typeof enabled === 'function' ? enabled() : enabled) && loadedPlacement
         ? ({ placement }: { placement: 'desktop' | 'mobile' }) => (
             <div data-testid="loaded-profile" data-public-user-profile data-placement={placement} />
           )
         : null,
-    hasError: false,
+    hasError: () => false,
     retry: () => undefined,
   }),
 }))
@@ -31,8 +32,7 @@ describe('DeferredPublicUserProfile', () => {
     loadedPlacement = 'mobile'
     const { default: DeferredPublicUserProfile } = await import('./DeferredPublicUserProfile')
 
-    render(
-      <>
+    render(() => <>
         <DeferredPublicUserProfile placement="mobile" />
         <DeferredPublicUserProfile placement="desktop" />
       </>
@@ -48,8 +48,7 @@ describe('DeferredPublicUserProfile', () => {
     loadedPlacement = 'desktop'
     const { default: DeferredPublicUserProfile } = await import('./DeferredPublicUserProfile')
 
-    render(
-      <>
+    render(() => <>
         <DeferredPublicUserProfile placement="mobile" />
         <DeferredPublicUserProfile placement="desktop" />
       </>

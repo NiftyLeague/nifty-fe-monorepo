@@ -11,7 +11,7 @@ mock.module('@/runtime/dynamic', () => ({
 }))
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
-  useMediaQuery: () => isDesktopViewport,
+  useMediaQuery: () => () => isDesktopViewport,
 }))
 
 mock.module('@/contexts/WalletModal', () => ({
@@ -31,8 +31,7 @@ describe('PublicUserProfile', () => {
   it('activates only the mobile profile slot on compact screens', async () => {
     const { default: PublicUserProfile } = await import('./PublicUserProfile')
 
-    render(
-      <>
+    render(() => <>
         <PublicUserProfile placement="mobile" />
         <PublicUserProfile placement="desktop" />
       </>
@@ -53,8 +52,7 @@ describe('PublicUserProfile', () => {
     isDesktopViewport = true
     const { default: PublicUserProfile } = await import('./PublicUserProfile')
 
-    render(
-      <>
+    render(() => <>
         <PublicUserProfile placement="mobile" />
         <PublicUserProfile placement="desktop" />
       </>

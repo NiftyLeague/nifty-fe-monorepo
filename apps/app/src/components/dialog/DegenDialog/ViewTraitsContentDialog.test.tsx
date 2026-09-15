@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import type { DashboardDegen } from '@/types/degens'
@@ -13,8 +13,7 @@ const { default: ViewTraitsContentDialog } = await import('./ViewTraitsContentDi
 
 describe('ViewTraitsContentDialog', () => {
   it('renders readable labels for contract bigint trait values', () => {
-    render(
-      <ViewTraitsContentDialog
+    render(() => <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits={{ tribe: 1n, mouth: 263n, rightItem: 991n, empty: 0n }}
       />
@@ -32,8 +31,7 @@ describe('ViewTraitsContentDialog', () => {
   })
 
   it('maps the complete contract tuple to readable labels', () => {
-    render(
-      <ViewTraitsContentDialog
+    render(() => <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits={{
           tribe: 1n,
@@ -74,8 +72,7 @@ describe('ViewTraitsContentDialog', () => {
   })
 
   it('maps the dashboard fallback string to readable labels', () => {
-    render(
-      <ViewTraitsContentDialog
+    render(() => <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits="1,17,73,104,110,0,263,0,0,0,0,0,685,0,717,0,0,821,824,865,894,991"
       />
@@ -100,8 +97,7 @@ describe('ViewTraitsContentDialog', () => {
       )
     )
 
-    render(
-      <ViewTraitsContentDialog
+    render(() => <ViewTraitsContentDialog
         degen={{ id: '1' } as DashboardDegen}
         displayName="Nifty Andy"
         traits={traits}
@@ -132,8 +128,7 @@ describe('ViewTraitsContentDialog', () => {
   })
 
   it('maps the raw contract tuple without exposing numeric ids', () => {
-    render(
-      <ViewTraitsContentDialog
+    render(() => <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits={[
           1n,

@@ -11,8 +11,8 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "start": "vite preview",
-    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
-    "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
+    "test": "bun test --isolate --conditions=browser --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --isolate --conditions=browser --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit"
   },
@@ -39,7 +39,6 @@
     "solid-js": "^1.9.15",
     "solid-sonner": "^0.3.2",
     "viem": "^2.55.19",
-    "wagmi": "^3.7.5",
     "web-vitals": "^6.2.1",
     "zustand": "^5.0.15"
   },

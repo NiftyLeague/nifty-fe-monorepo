@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { DegenRouteLoading } from './DegenRoute'
 
 describe('DegenRoute loading boundary', () => {
   it('keeps an accessible reserved shell while the browser route loads', () => {
-    render(<DegenRouteLoading />)
+    render(() => <DegenRouteLoading />)
 
     expect(screen.getByRole('status').getAttribute('aria-busy')).toBe('true')
     expect(screen.getByText('Loading degens')).toBeTruthy()

@@ -31,7 +31,7 @@ describe('NiftyWorldGame', () => {
   it('embeds the selected Nifty World game with an explicit embed contract', async () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const iframe = screen.getByTitle(`${game.title} mini game`)
     const iframeUrl = new URL(iframe.getAttribute('src') ?? '')
 
@@ -56,7 +56,7 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
 
     expect(screen.getByRole('status', { name: `Loading ${game.title}` })).toBeTruthy()
 
@@ -71,7 +71,7 @@ describe('NiftyWorldGame', () => {
     const originalClassName = document.documentElement.className
     document.documentElement.classList.add('dark')
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
 
     const iframe = screen.getByTitle(`${game.title} mini game`)
     const focusSpy = jest.spyOn(iframe, 'focus')
@@ -98,7 +98,7 @@ describe('NiftyWorldGame', () => {
     const originalClassName = document.documentElement.className
     document.documentElement.classList.add('dark')
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
 
     const iframe = screen.getByTitle(`${game.title} mini game`)
     const postMessage = jest.fn()
@@ -130,7 +130,7 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const initialUrl = new URL(
       screen.getByTitle(`${game.title} mini game`).getAttribute('src') ?? ''
     )
@@ -148,7 +148,7 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const iframe = screen.getByTitle(`${game.title} mini game`)
 
     act(() => jest.advanceTimersByTime(10_000))
@@ -161,11 +161,11 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    const firstRender = render(<NiftyWorldGame game={game} />)
+    const firstRender = render(() => <NiftyWorldGame game={game} />)
     const firstUrl = screen.getByTitle(`${game.title} mini game`).getAttribute('src')
     firstRender.unmount()
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const secondUrl = screen.getByTitle(`${game.title} mini game`).getAttribute('src')
 
     expect(firstUrl).not.toBe(secondUrl)

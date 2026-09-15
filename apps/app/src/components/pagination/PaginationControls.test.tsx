@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import { PaginationControls } from './PaginationControls'
@@ -7,8 +7,7 @@ describe('PaginationControls', () => {
   it('renders accessible navigation buttons and preserves their callbacks', () => {
     const onClickPrev = mock()
     const onClickNext = mock()
-    const { getByRole } = render(
-      <PaginationControls
+    const { getByRole } = render(() => <PaginationControls
         hasNext
         hasPrev={false}
         onClickNext={onClickNext}

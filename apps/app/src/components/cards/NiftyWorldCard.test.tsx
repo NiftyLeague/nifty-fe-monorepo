@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('./GameCard', () => ({
@@ -43,8 +43,7 @@ describe('NiftyWorldCard', () => {
   })
 
   it('provides one shared full-bleed card contract for worlds and mini games', () => {
-    render(
-      <NiftyWorldCard
+    render(() => <NiftyWorldCard
         title="Degen Dodge"
         description="Dodge danger"
         image="https://niftyworld.gg/assets/maps/degen-dodge.webp"

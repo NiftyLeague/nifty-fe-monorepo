@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 import { QueryClientProvider } from '@tanstack/solid-query'
 
@@ -36,8 +36,7 @@ describe('leaderboard rank dialog data', () => {
     }
 
     const client = createAppQueryClient()
-    const { rerender } = render(
-      <QueryClientProvider client={client}>
+    const { rerender } = render(() => <QueryClientProvider client={client}>
         <TopModal {...baseProps} />
       </QueryClientProvider>
     )
@@ -67,8 +66,7 @@ describe('leaderboard rank dialog data', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    render(
-      <QueryClientProvider client={client}>
+    render(() => <QueryClientProvider client={client}>
         <TopModal {...props} />
         <TopModal {...props} />
       </QueryClientProvider>

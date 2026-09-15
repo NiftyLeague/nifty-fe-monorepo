@@ -27,8 +27,7 @@ describe('GameWalletProviders', () => {
   it('does not mount live wallet auth providers for audit fixtures', async () => {
     const GameWalletProviders = (await import('./GameWalletProviders')).default
 
-    render(
-      <GameWalletProviders>
+    render(() => <GameWalletProviders>
         <span data-testid="game-content">Game content</span>
       </GameWalletProviders>
     )

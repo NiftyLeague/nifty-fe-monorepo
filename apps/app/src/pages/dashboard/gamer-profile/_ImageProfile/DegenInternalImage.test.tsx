@@ -31,8 +31,7 @@ const baseDegen = {
 
 describe('DegenInternalImage', () => {
   it('uses the shared viewport video for animated legendary avatars', () => {
-    render(
-      <DegenInternalImage
+    render(() => <DegenInternalImage
         degen={{ ...baseDegen, background: 'legendary', url: '/media/legendary.mp4' }}
       />
     )
@@ -45,7 +44,7 @@ describe('DegenInternalImage', () => {
   })
 
   it('keeps non-animated profile media lazy', () => {
-    render(<DegenInternalImage degen={{ ...baseDegen, url: '/media/avatar.webp' }} />)
+    render(() => <DegenInternalImage degen={{ ...baseDegen, url: '/media/avatar.webp' }} />)
 
     const image = screen.getByRole('img', { name: 'Nifty Andy' })
     expect(image.getAttribute('src')).toBe('/media/avatar.webp')

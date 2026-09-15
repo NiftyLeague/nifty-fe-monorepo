@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const dynamicLoaders: Array<() => Promise<unknown>> = []
@@ -23,8 +23,7 @@ describe('LeaderboardRankBoundary', () => {
     window.localStorage.setItem('nifty-auth-status', 'false')
     const { default: LeaderboardRankBoundary } = await import('./LeaderboardRankBoundary')
 
-    render(
-      <LeaderboardRankBoundary
+    render(() => <LeaderboardRankBoundary
         selectedGame="nifty_smashers"
         selectedTable="kills"
         selectedTimeFilter="all_time"
@@ -39,8 +38,7 @@ describe('LeaderboardRankBoundary', () => {
     window.localStorage.setItem('nifty-auth-status', 'true')
     const { default: LeaderboardRankBoundary } = await import('./LeaderboardRankBoundary')
 
-    render(
-      <LeaderboardRankBoundary
+    render(() => <LeaderboardRankBoundary
         selectedGame="nifty_smashers"
         selectedTable="kills"
         selectedTimeFilter="all_time"

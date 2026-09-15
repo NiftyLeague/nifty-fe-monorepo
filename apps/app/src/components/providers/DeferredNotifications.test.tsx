@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@/components/extended/Snackbar', () => ({
@@ -43,7 +43,7 @@ describe('DeferredNotifications', () => {
       value: mock(),
     })
 
-    const rendered = render(<DeferredNotifications />)
+    const rendered = render(() => <DeferredNotifications />)
 
     try {
       expect(timeoutCallbacks).toHaveLength(1)

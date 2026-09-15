@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const noopCallbackResolver = () => undefined
@@ -27,14 +27,14 @@ describe('useLocalStorage', () => {
     window.localStorage.setItem('preferences', JSON.stringify({ compact: true }))
     const { result } = renderHook(() => useLocalStorage('preferences', { compact: false }))
 
-    expect(result.current[0]).toEqual({ compact: true })
+    expect(result.current[0]()).toEqual({ compact: true })
     act(() => result.current[1]({ compact: false }))
     await waitFor(() =>
       expect(window.localStorage.getItem('preferences')).toBe('{"compact":false}')
     )
 
     act(() => result.current[2]())
-    expect(result.current[0]).toBeUndefined()
+    expect(result.current[0]()).toBeUndefined()
     expect(window.localStorage.getItem('preferences')).toBeNull()
   })
 
@@ -42,7 +42,7 @@ describe('useLocalStorage', () => {
     window.localStorage.setItem('broken', '{')
     const { result } = renderHook(() => useLocalStorage('broken', { fallback: true }))
 
-    expect(result.current[0]).toBe('{')
+    expect(result.current[0]()).toBe('{')
   })
 })
 
@@ -53,7 +53,10 @@ describe('useAsyncInterval', () => {
     const { unmount } = renderHook(() => useAsyncInterval(callback, 100, true, 'refresh'))
 
     await waitFor(() => expect(callback).toHaveBeenCalledTimes(2))
-    expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100)
+    // The interval is installed after the leading callback's promise settles.
+    await waitFor(() =>
+      expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100)
+    )
     unmount()
   })
 

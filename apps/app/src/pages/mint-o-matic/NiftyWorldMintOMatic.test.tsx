@@ -23,7 +23,7 @@ describe('NiftyWorldMintOMatic', () => {
   it('embeds the hosted Nifty World mint experience', async () => {
     const { default: NiftyWorldMintOMatic } = await import('./NiftyWorldMintOMatic')
 
-    render(<NiftyWorldMintOMatic />)
+    render(() => <NiftyWorldMintOMatic />)
 
     const iframe = screen.getByTitle('Mint-o-Matic character creator')
     const src = iframe.getAttribute('src') ?? ''

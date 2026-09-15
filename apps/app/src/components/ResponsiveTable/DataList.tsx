@@ -143,7 +143,7 @@ const DataList = (props: DataListProps) => {
           </div>
         </Show>
         <For each={visibleRows()}>
-          {(row) => (
+          {(row, index) => (
             <ExpandableListItem
               checkboxSelection={props.checkboxSelection}
               details={createListItemDescription(

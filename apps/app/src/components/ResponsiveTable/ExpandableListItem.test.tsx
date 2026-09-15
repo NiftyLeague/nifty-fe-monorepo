@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import ExpandableListItem from './ExpandableListItem'
@@ -7,8 +7,7 @@ describe('ExpandableListItem', () => {
   it('uses an accessible accordion trigger and preserves row selection', () => {
     const onSelect = mock()
 
-    render(
-      <ExpandableListItem
+    render(() => <ExpandableListItem
         checkboxSelection
         details={<span>Expanded row details</span>}
         onSelect={onSelect}

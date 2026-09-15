@@ -32,7 +32,7 @@ describe('flagship game list', () => {
   it('prioritizes the first game artwork while deferring later cards', async () => {
     const { default: GameList } = await import('./index')
 
-    render(<GameList />)
+    render(() => <GameList />)
 
     const firstCardImage = screen.getByAltText('Nifty Smashers (Beta)')
     const secondCardImage = screen.getByAltText('Party Royale (Early-Alpha)')
@@ -51,7 +51,7 @@ describe('flagship game list', () => {
   it('keeps game cards in the page heading hierarchy', async () => {
     const { default: GameList } = await import('./index')
 
-    render(<GameList />)
+    render(() => <GameList />)
 
     const heading = screen.getByRole('heading', { level: 3, name: 'Nifty Smashers (Beta)' })
 
@@ -66,7 +66,7 @@ describe('flagship game list', () => {
   it('links flagship cards to their primary destinations while preserving store actions', async () => {
     const { default: GameList } = await import('./index')
 
-    render(<GameList />)
+    render(() => <GameList />)
 
     expect(screen.getByRole('link', { name: 'Open Nifty Smashers' }).getAttribute('href')).toBe(
       'https://niftysmashers.com/'

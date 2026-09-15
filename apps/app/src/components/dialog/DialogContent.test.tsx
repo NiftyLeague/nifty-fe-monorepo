@@ -1,12 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { Dialog, DialogContent, DialogTrigger } from './index'
 
 describe('application DialogContent wrapper', () => {
   it('forwards shared layout and accessibility props to the dialog surface', () => {
-    render(
-      <Dialog>
+    render(() => <Dialog>
         <DialogTrigger>
           <button type="button">Open dialog</button>
         </DialogTrigger>

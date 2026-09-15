@@ -1,12 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import StaticSection from './StaticSection'
 
 describe('StaticSection', () => {
   it('renders the shared section title, actions, and server-compatible content slot', () => {
-    render(
-      <StaticSection firstSection title="Flagship Games" actions={<button>Install</button>}>
+    render(() => <StaticSection firstSection title="Flagship Games" actions={<button>Install</button>}>
         <p>Game cards</p>
       </StaticSection>
     )

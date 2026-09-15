@@ -11,6 +11,16 @@ import { DialogContext } from '.'
 import type { DialogProps } from '@/types/dialog'
 import { CloseIconButton } from './DialogActions'
 
+// `sx` is the MUI-era prop; Solid style objects need kebab-case keys, so
+// camelCase entries are translated before merging with `style`.
+const sxToStyle = (sx: DialogProps['sx']): JSX.CSSProperties =>
+  Object.fromEntries(
+    Object.entries(sx ?? {}).map(([key, value]) => [
+      key.replace(/[A-Z]/g, (char) => `-${char.toLowerCase()}`),
+      value,
+    ])
+  ) as JSX.CSSProperties
+
 const DialogContentBase = (props: DialogProps) => {
   const [local, others] = splitProps(props, [
     'children',
@@ -27,7 +37,7 @@ const DialogContentBase = (props: DialogProps) => {
         <DialogContentPrimitive
           {...others}
           showCloseButton={false}
-          style={{ ...others.style, ...local.sx }}
+          style={{ ...others.style, ...sxToStyle(local.sx) }}
         >
           {local.children}
         </DialogContentPrimitive>

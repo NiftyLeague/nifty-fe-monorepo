@@ -11,7 +11,7 @@ const address = '0x0000000000000000000000000000000000000001'
 mock.module('../useIMXContext', () => ({
   default: () => ({ address, imxChainId: 1 }),
 }))
-mock.module('wagmi', () => ({ useAccount: () => ({ address: undefined }) }))
+mock.module('@/runtime/wagmi', () => ({ useAccount: () => ({ address: undefined }) }))
 
 const useUserClaimData = (await import('./useUserClaimData')).default
 

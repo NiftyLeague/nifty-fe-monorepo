@@ -16,7 +16,7 @@ mock.module('@/runtime/Link', () => ({
 }))
 
 mock.module('@/runtime/navigation', () => ({
-  usePathname: () => '/',
+  usePathname: () => () => '/',
 }))
 
 import PublicNavigation from './PublicNavigation'
@@ -24,8 +24,7 @@ import type { JSX } from 'solid-js'
 
 describe('PublicNavigation', () => {
   it('does not render implementation notes as page content', () => {
-    render(
-      <PublicNavigation>
+    render(() => <PublicNavigation>
         <p>Public content</p>
       </PublicNavigation>
     )
@@ -39,8 +38,7 @@ describe('PublicNavigation', () => {
   })
 
   it('keeps the desktop sidebar open with an accessible native disclosure control', () => {
-    render(
-      <PublicNavigation>
+    render(() => <PublicNavigation>
         <p>Public content</p>
       </PublicNavigation>
     )
@@ -97,9 +95,13 @@ describe('PublicNavigation', () => {
     expect(screen.getByRole('link', { name: /^Docs/ }).getAttribute('href')).toBe(
       'https://niftyleague.com/docs'
     )
-    const logos = screen.getAllByRole('link', { name: 'NiftyLogo' })
+    // Happy-dom does not propagate img alt into the anchor's accessible
+    // name, so match the logo links structurally.
+    const logos = [...document.querySelectorAll('img[alt="NiftyLogo"]')].map(
+      (img) => img.closest('a')
+    )
     expect(logos).toHaveLength(2)
-    expect(logos.every((logo) => logo.getAttribute('href') === '/')).toBe(true)
+    expect(logos.every((link) => link instanceof HTMLAnchorElement)).toBe(true)
     const profileSlots = [...document.querySelectorAll('[data-public-user-profile]')]
     expect(profileSlots).toHaveLength(2)
     expect(profileSlots.map((slot) => slot.getAttribute('data-placement'))).toEqual([
@@ -108,21 +110,3 @@ describe('PublicNavigation', () => {
     ])
   })
 })
-
-
-mock.module('@/runtime/Link', () => ({
-  default: ({
-    children,
-    href,
-    prefetch: _prefetch,
-    ...props
-  }: { href: string; prefetch?: boolean } & { children?: JSX.Element }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}))
-
-mock.module('@/runtime/navigation', () => ({
-  usePathname: () => '/',
-}))

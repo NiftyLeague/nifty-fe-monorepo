@@ -35,7 +35,7 @@ describe('NotificationContext', () => {
       })
     )
 
-    expect(result.current.snackbar).toMatchObject({
+    expect(result.current.snackbar()).toMatchObject({
       open: true,
       message: 'Saved',
       variant: 'alert',
@@ -44,7 +44,7 @@ describe('NotificationContext', () => {
     })
 
     act(() => result.current.closeSnackbar())
-    expect(result.current.snackbar.open).toBe(false)
+    expect(result.current.snackbar().open).toBe(false)
   })
 
   it('fails clearly when consumed outside its provider', () => {

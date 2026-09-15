@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import type { Contracts } from '@/types/web3'
@@ -17,7 +17,7 @@ describe('useSingleCallResult', () => {
       useSingleCallResult(contracts, 'BalanceManagerDistributor', 'isClaimed', args, null, false)
     )
 
-    await waitFor(() => expect(result.current).toEqual({ claimed: false }))
+    await waitFor(() => expect(result.current()).toEqual({ claimed: false }))
     expect(isClaimed).toHaveBeenCalledTimes(1)
   })
 })

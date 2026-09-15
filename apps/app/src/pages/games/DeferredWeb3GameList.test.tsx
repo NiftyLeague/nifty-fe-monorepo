@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let deferredProps: { label?: string; load?: unknown } = {}
@@ -18,7 +18,7 @@ describe('deferred mini game list', () => {
   it('keeps the lower game catalog behind the shared deferred section', async () => {
     const { default: DeferredWeb3GameList } = await import('./DeferredWeb3GameList')
 
-    render(<DeferredWeb3GameList />)
+    render(() => <DeferredWeb3GameList />)
 
     expect(screen.getByTestId('deferred-game-list').getAttribute('data-label')).toBe(
       'Mini game cards'

@@ -25,8 +25,8 @@ describe('rental pass query', () => {
       { wrapper }
     )
 
-    await waitFor(() => expect(result.current.first[2]).toBe(3))
-    expect(result.current.second[2]).toBe(3)
+    await waitFor(() => expect(result.current.first[2]()).toBe(3))
+    expect(result.current.second[2]()).toBe(3)
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 })

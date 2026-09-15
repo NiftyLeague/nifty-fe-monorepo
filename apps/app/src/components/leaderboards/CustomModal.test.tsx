@@ -1,11 +1,11 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import CustomModal from './CustomModal'
 
 describe('leaderboard rank dialog', () => {
   it('keeps the closed dialog out of the document', () => {
-    render(<CustomModal open={false} onOpenChange={mock()} child={<span>Leaderboard rows</span>} />)
+    render(() => <CustomModal open={false} onOpenChange={mock()} child={<span>Leaderboard rows</span>} />)
 
     expect(screen.queryByRole('dialog')).toBeNull()
   })
@@ -13,8 +13,7 @@ describe('leaderboard rank dialog', () => {
   it('exposes an accessible title and description when controlled open', () => {
     const onOpenChange = mock()
 
-    render(
-      <CustomModal
+    render(() => <CustomModal
         open
         onOpenChange={onOpenChange}
         child={<span>Leaderboard rows</span>}

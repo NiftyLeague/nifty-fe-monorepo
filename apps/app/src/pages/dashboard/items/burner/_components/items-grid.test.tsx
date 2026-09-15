@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@/hooks/balances/useNFTsBalances', () => ({
@@ -39,7 +39,7 @@ describe('ItemsGrid', () => {
   })
 
   it('uses shared item metadata and defers full media behind thumbnails', () => {
-    render(<ItemsGrid itemCounts={[1, 2, 3, 4, 5, 6, 7]} />)
+    render(() => <ItemsGrid itemCounts={[1, 2, 3, 4, 5, 6, 7]} />)
 
     const images = screen.getAllByRole('img')
 

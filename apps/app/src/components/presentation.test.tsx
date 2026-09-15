@@ -68,8 +68,7 @@ describe('Breadcrumbs', () => {
   }
 
   it('resolves nested routes and renders the full title and icon variants', () => {
-    const { rerender } = render(
-      <Breadcrumbs
+    const { rerender } = render(() => <Breadcrumbs
         navigation={navigation as never}
         pathname="/profile"
         card={false}
@@ -115,8 +114,7 @@ describe('Breadcrumbs', () => {
         },
       ],
     }
-    const { container, rerender } = render(
-      <Breadcrumbs navigation={hiddenNavigation as never} pathname="/hidden" />
+    const { container, rerender } = render(() => <Breadcrumbs navigation={hiddenNavigation as never} pathname="/hidden" />
     )
     expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
 
@@ -127,8 +125,7 @@ describe('Breadcrumbs', () => {
 
 describe('card presentation', () => {
   it('restores the app card spacing contract over shadcn defaults', () => {
-    const { container } = render(
-      <MainCard title="Main" secondary="Action">
+    const { container } = render(() => <MainCard title="Main" secondary="Action">
         Main body
       </MainCard>
     )
@@ -145,8 +142,7 @@ describe('card presentation', () => {
   })
 
   it('renders all MainCard content modes in light and dark themes', () => {
-    const { rerender } = render(
-      <MainCard title="Main" secondary="Action" boxShadow shadow="custom-shadow">
+    const { rerender } = render(() => <MainCard title="Main" secondary="Action" boxShadow shadow="custom-shadow">
         Main body
       </MainCard>
     )
@@ -161,8 +157,7 @@ describe('card presentation', () => {
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {
-    render(
-      <GameCard
+    render(() => <GameCard
         title="Optimized artwork"
         imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
       />
@@ -174,15 +169,14 @@ describe('card presentation', () => {
   })
 
   it('keeps lazy game artwork at low network priority by default', () => {
-    render(<GameCard title="Deferred artwork" image="/deferred-artwork.webp" />)
+    render(() => <GameCard title="Deferred artwork" image="/deferred-artwork.webp" />)
 
     expect(screen.getByAltText('Deferred artwork').getAttribute('loading')).toBe('lazy')
     expect(screen.getByAltText('Deferred artwork').getAttribute('fetchpriority')).toBe('low')
   })
 
   it('supports a full-card scene link with a visible hover cue', () => {
-    render(
-      <GameCard
+    render(() => <GameCard
         title="Isla Azul"
         description="Explore the island"
         image="/isla-azul.webp"
@@ -207,8 +201,7 @@ describe('card presentation', () => {
   })
 
   it('renders scene artwork full-bleed with the content in a translucent lower overlay', () => {
-    render(
-      <GameCard
+    render(() => <GameCard
         title="Isla Azul"
         description="Explore the island"
         image="/isla-azul.webp"
@@ -233,8 +226,7 @@ describe('card presentation', () => {
   })
 
   it('keeps store badges clickable when a flagship card links externally', () => {
-    render(
-      <GameCard
+    render(() => <GameCard
         title="Nifty Smashers (Beta)"
         image="/smashers.webp"
         externalHref="https://niftysmashers.com/"
@@ -259,8 +251,7 @@ describe('card presentation', () => {
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {
-    render(
-      <GameCard
+    render(() => <GameCard
         title="Optimized artwork"
         imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
       />
@@ -274,8 +265,7 @@ describe('card presentation', () => {
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
     const desktop = mock()
     const web = mock()
-    const { rerender } = render(
-      <GameCard
+    const { rerender } = render(() => <GameCard
         title="Smashers"
         image="/smashers.png"
         description="A long description"

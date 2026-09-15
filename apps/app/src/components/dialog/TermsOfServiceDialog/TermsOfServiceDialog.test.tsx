@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/base/dialog', () => ({
@@ -10,7 +10,7 @@ mock.module('@nl/ui/base/dialog', () => ({
 }))
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
-  useMediaQuery: () => false,
+  useMediaQuery: () => () => false,
 }))
 
 mock.module('@nl/ui/custom/deferred-component', () => ({
@@ -22,7 +22,7 @@ describe('TermsOfServiceDialog', () => {
   it('does not enable the terms content while closed', async () => {
     const { default: TermsOfServiceDialog } = await import('./index')
 
-    render(<TermsOfServiceDialog open={false} onClose={mock()} />)
+    render(() => <TermsOfServiceDialog open={false} onClose={mock()} />)
 
     expect(screen.queryByRole('status')).toBeNull()
   })
@@ -30,7 +30,7 @@ describe('TermsOfServiceDialog', () => {
   it('enables the terms content when opened', async () => {
     const { default: TermsOfServiceDialog } = await import('./index')
 
-    render(<TermsOfServiceDialog open onClose={mock()} />)
+    render(() => <TermsOfServiceDialog open onClose={mock()} />)
 
     expect(screen.getByRole('status').textContent).toBe('Terms and conditions')
   })

@@ -16,7 +16,7 @@ mock.module('@/runtime/Link', () => ({
 }))
 
 mock.module('@/runtime/navigation', () => ({
-  usePathname: () => '/world',
+  usePathname: () => () => '/world',
 }))
 
 import PublicNavLinks from './PublicNavLinks'
@@ -24,7 +24,7 @@ import type { JSX } from 'solid-js'
 
 describe('public navigation links', () => {
   it('renders the static menu as server-compatible accessible links', () => {
-    render(<PublicNavLinks />)
+    render(() => <PublicNavLinks />)
 
     const navLinks = screen.getAllByRole('link')
     expect(navLinks.map((link) => link.textContent)).toEqual([
@@ -64,5 +64,5 @@ mock.module('@/runtime/Link', () => ({
 }))
 
 mock.module('@/runtime/navigation', () => ({
-  usePathname: () => '/world',
+  usePathname: () => () => '/world',
 }))

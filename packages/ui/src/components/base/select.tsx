@@ -1,5 +1,5 @@
 import * as SelectPrimitive from '@kobalte/core/select'
-import { splitProps, type ComponentProps, type JSX } from 'solid-js'
+import { mergeProps, splitProps, type ComponentProps, type JSX } from 'solid-js'
 import { CheckIcon, ChevronDownIcon } from 'lucide-solid'
 
 import { cn } from '@nl/ui/utils'
@@ -20,13 +20,18 @@ function Select<Option = string>(props: SelectProps<Option>) {
   const [local, others] = splitProps(props, ['onValueChange', 'multiple'])
   // Kobalte discriminates single/multiple selection on literal `multiple` and
   // requires `options`; both flow through the caller's props, so bind the
-  // root's prop type explicitly at this wrapper boundary.
-  const rootProps = {
-    'data-slot': 'select',
-    multiple: (local.multiple ?? false) as true,
-    onChange: local.onValueChange as never,
-    ...others,
-  } as ComponentProps<typeof SelectPrimitive.Root>
+  // root's prop type explicitly at this wrapper boundary. `mergeProps` keeps
+  // the `children` getter lazy — a plain object spread would evaluate it now
+  // and bind child components to this scope, before Kobalte's context
+  // providers install.
+  const rootProps = mergeProps(
+    {
+      'data-slot': 'select',
+      multiple: (local.multiple ?? false) as true,
+      onChange: local.onValueChange as never,
+    },
+    others
+  ) as ComponentProps<typeof SelectPrimitive.Root>
   return <SelectPrimitive.Root {...rootProps} />
 }
 
@@ -96,7 +101,7 @@ function SelectContent(
 
 // Rendered through the root's `itemComponent` prop; `item` is the option object.
 function SelectItem(props: ComponentProps<typeof SelectPrimitive.Item> & { className?: string }) {
-  const [local, others] = splitProps(props, ['class', 'className'])
+  const [local, others] = splitProps(props, ['class', 'className', 'children'])
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
@@ -107,7 +112,9 @@ function SelectItem(props: ComponentProps<typeof SelectPrimitive.Item> & { class
       )}
       {...others}
     >
-      <SelectPrimitive.ItemLabel>{props.item?.rawValue as JSX.Element}</SelectPrimitive.ItemLabel>
+      <SelectPrimitive.ItemLabel>
+        {local.children ?? (props.item?.rawValue as JSX.Element)}
+      </SelectPrimitive.ItemLabel>
       <span class="absolute right-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
           <CheckIcon class="size-4" />

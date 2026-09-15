@@ -1,12 +1,11 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { AppNavIcon } from './AppNavIcon'
 
 describe('AppNavIcon', () => {
   it('keeps mapped navigation icons decorative and preserves theme defaults', () => {
-    const { container, rerender } = render(
-      <AppNavIcon name="layout-grid" size="lg" color="blue" fill="dim" />
+    const { container, rerender } = render(() => <AppNavIcon name="layout-grid" size="lg" color="blue" fill="dim" />
     )
     const icon = container.querySelector('svg')
 
@@ -26,7 +25,7 @@ describe('AppNavIcon', () => {
   })
 
   it('supports the earth icon used by World navigation', () => {
-    const { container } = render(<AppNavIcon name="earth" />)
+    const { container } = render(() => <AppNavIcon name="earth" />)
 
     expect(container.querySelector('.lucide-earth')).not.toBeNull()
   })

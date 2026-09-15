@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { renderHook } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let clientData:
@@ -9,7 +9,7 @@ let clientData:
     }
   | undefined
 
-mock.module('wagmi', () => ({
+mock.module('@/runtime/wagmi', () => ({
   useConnectorClient: () => ({ data: clientData }),
 }))
 
@@ -33,7 +33,7 @@ describe('useEthersSigner', () => {
 
   it('returns undefined when no connector client is available', () => {
     const { result } = renderHook(() => useEthersSigner())
-    expect(result.current).toBeUndefined()
+    expect(result.current()).toBeUndefined()
     expect(mockBrowserProvider).not.toHaveBeenCalled()
     expect(mockJsonRpcSigner).not.toHaveBeenCalled()
   })
@@ -41,7 +41,7 @@ describe('useEthersSigner', () => {
   it('returns undefined when connector client has no data', () => {
     clientData = undefined
     const { result } = renderHook(() => useEthersSigner())
-    expect(result.current).toBeUndefined()
+    expect(result.current()).toBeUndefined()
   })
 
   it('creates a signer from the viem client', () => {
@@ -70,7 +70,7 @@ describe('useEthersSigner', () => {
       expect.any(Object),
       '0xABCDEF0123456789000000000000000000009999'
     )
-    expect(result.current).toBe(mockJsonRpcSigner.mock.results[0].value)
+    expect(result.current()).toBe(mockJsonRpcSigner.mock.results[0].value)
   })
 
   it('passes chainId to useConnectorClient', () => {
@@ -85,7 +85,7 @@ describe('useEthersSigner', () => {
 
     const { result } = renderHook(() => useEthersSigner({ chainId: 137 }))
 
-    expect(result.current).toBe(mockJsonRpcSigner.mock.results[0].value)
+    expect(result.current()).toBe(mockJsonRpcSigner.mock.results[0].value)
   })
 
   it('handles a chain without ENS registry', () => {
@@ -109,7 +109,7 @@ describe('useEthersSigner', () => {
       name: 'Ethereum',
       ensAddress: undefined,
     })
-    expect(result.current).toBe(mockJsonRpcSigner.mock.results[0].value)
+    expect(result.current()).toBe(mockJsonRpcSigner.mock.results[0].value)
   })
 
   it('memoizes the signer when the client does not change', () => {
@@ -123,11 +123,11 @@ describe('useEthersSigner', () => {
     mockBrowserProvider.mockReturnValue({ connect: mock() })
     mockJsonRpcSigner.mockReturnValue({ getAddress: mock() })
 
-    const { result, rerender } = renderHook(() => useEthersSigner())
+    const { result } = renderHook(() => useEthersSigner())
 
-    const firstSigner = result.current
-    rerender()
-    const secondSigner = result.current
+    const firstSigner = result.current()
+    // createMemo caches; reading again must not rebuild the signer.
+    const secondSigner = result.current()
 
     expect(firstSigner).toBe(secondSigner)
     expect(mockBrowserProvider).toHaveBeenCalledTimes(1)

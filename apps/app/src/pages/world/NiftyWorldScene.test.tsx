@@ -26,7 +26,7 @@ describe('NiftyWorldScene', () => {
     const { default: NiftyWorldScene } = await import('./NiftyWorldScene')
     const scene = NIFTY_WORLD_SCENES[0]
 
-    render(<NiftyWorldScene scene={scene} />)
+    render(() => <NiftyWorldScene scene={scene} />)
 
     const iframe = screen.getByTitle(`${scene.title} world map`)
     expect(new URL(iframe.getAttribute('src') ?? '').pathname).toBe('/scenes/isla-azul')
