@@ -14,15 +14,6 @@ const GameWalletProviders = dynamic(() => import('@/contexts/GameWalletProviders
   loading: WalletFeatureLoading,
 })
 
-interface WalletRouteProviderProps extends PropsWithChildren {
-  loadWalletFeatures?: boolean
-}
-
-export default function WalletRouteProvider({
-  loadWalletFeatures,
-  children,
-}: WalletRouteProviderProps) {
-  return (
-    <GameWalletProviders loadWalletFeatures={loadWalletFeatures}>{children}</GameWalletProviders>
-  )
+export default function WalletRouteProvider({ children }: PropsWithChildren) {
+  return <GameWalletProviders>{children}</GameWalletProviders>
 }

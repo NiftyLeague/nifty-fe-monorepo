@@ -1,14 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
-
-import GameRoute from '@/components/wrapper/GameRoute'
-import { wenGameBuild } from '@/constants/unity-builds'
-import { buildHead } from '@/runtime/metadata'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_public/games/wen-game')({
-  head: () => buildHead({ path: '/games/wen-game', title: 'WEN Game' }),
-  component: WenGame,
+  beforeLoad: () => {
+    throw redirect({ href: '/games/wen-2d', replace: true })
+  },
 })
-
-function WenGame() {
-  return <GameRoute unityConfig={wenGameBuild.config} arcadeTokenRequired />
-}

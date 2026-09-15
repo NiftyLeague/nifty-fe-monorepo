@@ -70,11 +70,6 @@ export const UNITY_SMASHERS_BASE_VERSION = optional(
   import.meta.env.VITE_UNITY_SMASHERS_BASE_VERSION,
   '0.53.1'
 )
-export const UNITY_WEN_BASE_URL = optional(
-  import.meta.env.VITE_UNITY_WEN_BASE_URL,
-  'https://d7ct17ettlkln.cloudfront.net/wg/prod/1.0.7-db2ffcb8be96'
-)
-export const UNITY_WEN_BASE_VERSION = optional(import.meta.env.VITE_UNITY_WEN_BASE_VERSION, '1.0.7')
 export const UNITY_BURNER_BASE_URL = optional(
   import.meta.env.VITE_UNITY_BURNER_BASE_URL,
   'https://d7ct17ettlkln.cloudfront.net/nb/prod/1.0.8-9563cf52addc'
@@ -82,12 +77,4 @@ export const UNITY_BURNER_BASE_URL = optional(
 export const UNITY_BURNER_BASE_VERSION = optional(
   import.meta.env.VITE_UNITY_BURNER_BASE_VERSION,
   '1.0.8'
-)
-export const UNITY_CRYPTO_WINTER_BASE_URL = optional(
-  import.meta.env.VITE_UNITY_CRYPTO_WINTER_BASE_URL,
-  'https://d7ct17ettlkln.cloudfront.net/cw/prod/1.0.19-e321c17b263b'
-)
-export const UNITY_CRYPTO_WINTER_BASE_VERSION = optional(
-  import.meta.env.VITE_UNITY_CRYPTO_WINTER_BASE_VERSION,
-  '1.0.19'
 )

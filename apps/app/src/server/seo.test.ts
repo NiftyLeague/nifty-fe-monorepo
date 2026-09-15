@@ -23,8 +23,8 @@ describe('application metadata routes', () => {
   it('lists unique canonical routes with valid priorities', () => {
     const urls = SITEMAP_ENTRIES.map(({ path }) => `${APP_ORIGIN}${path}`)
 
-    // 16 static surfaces plus the /world index, 9 scenes, and 6 mini games.
-    expect(SITEMAP_ENTRIES).toHaveLength(32)
+    // 14 static surfaces plus the /world index, 9 scenes, and 6 mini games.
+    expect(SITEMAP_ENTRIES).toHaveLength(30)
     expect(new Set(urls).size).toBe(SITEMAP_ENTRIES.length)
     expect(urls).toContain(`${APP_ORIGIN}/dashboard`)
     expect(urls).toContain(`${APP_ORIGIN}/mint-o-matic`)

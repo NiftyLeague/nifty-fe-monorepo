@@ -186,10 +186,8 @@ const mintPage = 'apps/app/src/routes/_public/mint-o-matic.index.tsx'
 const walletProviderFallbacks = 'apps/app/src/components/providers/WalletProviderFallbacks.tsx'
 const gameRoute = 'apps/app/src/components/wrapper/GameRoute.tsx'
 const unityGamePages = [
-  'apps/app/src/routes/_public/games.crypto-winter.tsx',
   'apps/app/src/routes/_public/games.mt-gawx.tsx',
   'apps/app/src/routes/_public/games.smashers.tsx',
-  'apps/app/src/routes/_public/games.wen-game.tsx',
 ]
 const networkContext = 'apps/app/src/contexts/NetworkContext.tsx'
 const networkProvider = 'apps/app/src/contexts/NetworkProvider.tsx'

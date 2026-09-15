@@ -3,17 +3,12 @@ import type { UnityConfig } from 'react-unity-webgl'
 import {
   UNITY_BURNER_BASE_URL,
   UNITY_BURNER_BASE_VERSION,
-  UNITY_CRYPTO_WINTER_BASE_URL,
-  UNITY_CRYPTO_WINTER_BASE_VERSION,
   UNITY_SMASHERS_BASE_URL,
   UNITY_SMASHERS_BASE_VERSION,
   UNITY_USE_COMPRESSED,
-  UNITY_WEN_BASE_URL,
-  UNITY_WEN_BASE_VERSION,
 } from '@/runtime/env'
 
 interface BuildOptions {
-  arcadeTokenRequired?: boolean
   /** Brotli-compress the data/framework/wasm payloads. */
   compressed?: boolean
   productName: string
@@ -22,13 +17,11 @@ interface BuildOptions {
 }
 
 const buildConfig = ({
-  arcadeTokenRequired,
   baseUrl,
   compressed = UNITY_USE_COMPRESSED,
   productName,
   version,
 }: BuildOptions): UnityConfigWithMeta => ({
-  arcadeTokenRequired,
   config: {
     loaderUrl: `${baseUrl}/Build/${version}.loader.js`,
     dataUrl: `${baseUrl}/Build/${version}.data${compressed ? '.br' : ''}`,
@@ -43,27 +36,12 @@ const buildConfig = ({
 
 export interface UnityConfigWithMeta {
   config: UnityConfig
-  arcadeTokenRequired?: boolean
 }
 
 export const smashersBuild = buildConfig({
   baseUrl: UNITY_SMASHERS_BASE_URL,
   productName: 'NiftySmashers',
   version: UNITY_SMASHERS_BASE_VERSION,
-})
-
-export const wenGameBuild = buildConfig({
-  arcadeTokenRequired: true,
-  baseUrl: UNITY_WEN_BASE_URL,
-  productName: 'WENGame',
-  version: UNITY_WEN_BASE_VERSION,
-})
-
-export const cryptoWinterBuild = buildConfig({
-  arcadeTokenRequired: true,
-  baseUrl: UNITY_CRYPTO_WINTER_BASE_URL,
-  productName: 'CryptoWinter',
-  version: UNITY_CRYPTO_WINTER_BASE_VERSION,
 })
 
 export const mtGawxBuild = buildConfig({
