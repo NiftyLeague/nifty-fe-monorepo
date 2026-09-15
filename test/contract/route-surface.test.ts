@@ -183,10 +183,7 @@ const authUrls = 'apps/app/src/constants/auth-urls.ts'
 const walletModal = 'apps/app/src/contexts/WalletModal.ts'
 const web3ModalContext = 'apps/app/src/contexts/Web3ModalContext.tsx'
 const authTokenContext = 'apps/app/src/contexts/AuthTokenContext.tsx'
-const mintNetworkBoundary = 'apps/app/src/components/providers/MintNetworkBoundary.tsx'
 const mintPage = 'apps/app/src/routes/_public/mint-o-matic.index.tsx'
-const mintPageContent = 'apps/app/src/components/providers/MintPageContent.tsx'
-const deferredMintPage = 'apps/app/src/components/providers/DeferredMintPage.tsx'
 const walletProviderFallbacks = 'apps/app/src/components/providers/WalletProviderFallbacks.tsx'
 const gameRoute = 'apps/app/src/components/wrapper/GameRoute.tsx'
 const unityGamePages = [
@@ -328,7 +325,6 @@ const appShell = 'apps/app/src/layouts/_layout/AppShell.tsx'
 const privateRoutesShell = 'apps/app/src/components/providers/PrivateRoutesShell.tsx'
 const deferredNotifications = 'apps/app/src/components/providers/DeferredNotifications.tsx'
 const deferredDegenCard = 'apps/app/src/components/providers/DeferredDegenCard.tsx'
-const deferredCharacterCreator = 'apps/app/src/components/providers/DeferredCharacterCreator.tsx'
 const leaderboardsPage = 'apps/app/src/routes/_public/leaderboards.index.tsx'
 const deferredLeaderboards = 'apps/app/src/components/providers/DeferredLeaderboards.tsx'
 const deferredComponent = 'packages/ui/src/components/custom/deferred-component/index.tsx'
@@ -620,6 +616,13 @@ describe('website build performance contract', () => {
 
     expect(baseSource).toContain("import '../styles/app.css'")
     expect(astroConfig).toContain("output: 'static'")
+
+    // The marketing markup lives in src/pages/*.astro, so the Tailwind scan
+    // must cover .astro files — without it every md:/lg: variant on those
+    // pages silently loses its CSS rule (the games grid collapsed to one
+    // column exactly this way).
+    const appCss = readFileSync(join(process.cwd(), 'apps/web/src/styles/app.css'), 'utf8')
+    expect(appCss).toContain('@source "../**/*.{ts,tsx,astro}"')
   })
 
   it('builds the marketing site through Astro instead of Next', () => {
@@ -658,10 +661,7 @@ describe('website build performance contract', () => {
   })
 
   it('defers the below-fold NiftyWorld showcase video', () => {
-    const source = readFileSync(
-      join(process.cwd(), 'apps/web/src/pages/niftyworld.astro'),
-      'utf8'
-    )
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/pages/niftyworld.astro'), 'utf8')
     const videoStart = source.indexOf('src="/video/arcade-token.mp4"')
     const videoBlockStart = source.lastIndexOf('<GatedViewportVideo', videoStart)
 
@@ -693,10 +693,7 @@ describe('website build performance contract', () => {
   })
 
   it('eagerly loads the mobile games hero artwork without elevating secondary media', () => {
-    const source = readFileSync(
-      join(process.cwd(), 'apps/web/src/pages/games.astro'),
-      'utf8'
-    )
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/pages/games.astro'), 'utf8')
     const mobileImageStart = source.indexOf('<MobileOnlyImage')
     const mobileImageEnd = source.indexOf('/>', mobileImageStart)
 
@@ -724,17 +721,10 @@ describe('shared notification loading contract', () => {
 
 describe('shared deferred loader contract', () => {
   it('uses the shared cancellable loader for app-only boundaries', () => {
-    for (const file of [deferredCharacterCreator, mintNetworkBoundary, deferredNotifications]) {
-      const source = readFileSync(join(process.cwd(), file), 'utf8')
+    const deferredSource = readFileSync(join(process.cwd(), deferredNotifications), 'utf8')
 
-      if (file === deferredNotifications) {
-        expect(source).toContain("from '@nl/ui/lib/deferred-activation'")
-        expect(source).toContain('scheduleDeferredActivation')
-      } else {
-        expect(source).toContain("from '@nl/ui/custom/deferred-component'")
-        expect(source).toContain('<DeferredComponent')
-      }
-    }
+    expect(deferredSource).toContain("from '@nl/ui/lib/deferred-activation'")
+    expect(deferredSource).toContain('scheduleDeferredActivation')
 
     const degenSource = readFileSync(join(process.cwd(), deferredDegenCard), 'utf8')
     expect(degenSource).toContain("from '@nl/ui/custom/deferred-component'")
@@ -1111,25 +1101,35 @@ describe('mint route provider loading contract', () => {
     expect(source).not.toContain('Wallet')
   })
 
-  it('loads the network provider only for the mint canvas with an accessible state', () => {
-    const pageSource = readFileSync(join(process.cwd(), mintPageContent), 'utf8')
-    const boundarySource = readFileSync(join(process.cwd(), mintNetworkBoundary), 'utf8')
+  it('serves the hosted Nifty World mint experience without the retired Unity creator', () => {
+    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
 
-    expect(pageSource).toContain('DeferredCharacterCreator')
-    expect(boundarySource).toContain("import('@/contexts/NetworkProvider')")
-    expect(boundarySource).toContain('AUDIT_FIXTURE')
-    expect(boundarySource).toContain('role="status"')
-    expect(rendersSharedLoadingSkeleton(boundarySource)).toBe(true)
+    expect(pageSource).toContain('NiftyWorldMintOMatic')
+    expect(pageSource).not.toContain('react-unity-webgl')
+    expect(pageSource).not.toContain("from '@/contexts/")
+    for (const retired of [
+      'apps/app/src/components/providers/MintPageContent.tsx',
+      'apps/app/src/components/providers/DeferredMintPage.tsx',
+      'apps/app/src/components/providers/DeferredCharacterCreator.tsx',
+      'apps/app/src/components/providers/MintNetworkBoundary.tsx',
+      'apps/app/src/pages/mint-o-matic/_CharacterCreator',
+    ]) {
+      expect(
+        existsSync(join(process.cwd(), retired)),
+        `Retired file still present: ${retired}`
+      ).toBe(false)
+    }
   })
 
-  it('keeps wallet and mint content out of the initial route client segment', () => {
-    const pageSource = readFileSync(join(process.cwd(), mintPage), 'utf8')
-    const deferredPageSource = readFileSync(join(process.cwd(), deferredMintPage), 'utf8')
+  it('keeps the mint experience on the shared Nifty World embed', () => {
+    const embedSource = readFileSync(
+      join(process.cwd(), 'apps/app/src/pages/mint-o-matic/NiftyWorldMintOMatic.tsx'),
+      'utf8'
+    )
 
-    expect(pageSource).toContain('DeferredMintPage')
-    expect(pageSource).not.toContain("from '@/contexts/")
-    expect(deferredPageSource).toContain("import('./MintPageContent')")
-    expect(deferredPageSource).toContain("from '@nl/ui/custom/route-loading'")
+    expect(embedSource).toContain("from '@/pages/world/NiftyWorldEmbed'")
+    expect(embedSource).toContain("'/other/mint-o-matic'")
+    expect(embedSource).toContain("'embed', '1'")
   })
 
   it('keeps the network context definition lightweight', () => {
@@ -2011,9 +2011,7 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("from '@/components/Carousel'")
     expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
-    expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(
-      false
-    )
+    expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
     expect(
       existsSync(join(process.cwd(), 'apps/web/src/components/DeferredHomeSections.tsx'))
     ).toBe(false)
@@ -2274,12 +2272,9 @@ describe('web marketing image sizing contract', () => {
       ],
       ['apps/web/src/components/Sponsors.tsx', 'sizes="80px"'],
       ['apps/web/src/components/LearnCards/index.tsx', 'sizes="(min-width: 640px) 50vw, 100vw"'],
-      [
-        'apps/web/src/pages/compete-and-earn.astro',
-        'sizes="(min-width: 768px) 50vw, 100vw"',
-      ],
+      ['apps/web/src/pages/compete-and-earn.astro', 'sizes="(min-width: 768px) 50vw, 100vw"'],
       ['apps/web/src/pages/careers.astro', 'sizes="(min-width: 768px) 50vw, 100vw"'],
-      ['apps/web/src/pages/games.astro', 'sizes="(min-width: 768px) 50vw, 100vw"'],
+      ['apps/web/src/pages/games.astro', 'sizes="(min-width: 768px) 50vw, 339px"'],
       ['apps/web/src/components/DegenGallery.tsx', 'sizes="(max-width: 768px) 33vw, 205px"'],
       [
         'apps/web/src/components/NiftyWorldProperties.tsx',
