@@ -33,7 +33,7 @@ describe('Degen metadata', () => {
     expect(metadata.image).toBe('https://images.example/42.png')
     expect(metadata.attributes).toHaveLength(3)
     expect(upload).toHaveBeenCalledWith(
-      'mainnet/metadata/42.json',
+      'metadata/42.json',
       expect.stringContaining('"Custom Name"'),
       expect.any(String)
     )

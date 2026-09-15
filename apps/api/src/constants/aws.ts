@@ -1,3 +1,3 @@
-export const S3_BASE_URL = 'https://nifty-league.s3.amazonaws.com'
-export const S3_DEGENS_BUCKET = 'degens'
-export const S3_MARKETPLACE_BUCKET = 'imx/marketplace'
+export const CDN_BASE_URL = 'https://cdn.niftyleague.com'
+export const DEGENS_ASSET_PREFIX = 'degens'
+export const MARKETPLACE_ASSET_PREFIX = 'imx/marketplace'

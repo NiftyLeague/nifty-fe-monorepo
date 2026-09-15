@@ -1,8 +1,8 @@
-import { DEGEN_BASE_API_URL } from '@/constants/api'
+import { CDN_BASE_URL } from '@/constants/api'
 import type { Degen, PublicDegen } from '@/types/degens'
 import { toPublicDegen } from '@/utils/public-degens'
 
-const SOURCE_URL = `${DEGEN_BASE_API_URL}/cache/rentals/rentables.json`
+const SOURCE_URL = `${CDN_BASE_URL}/cache/rentals/rentables.json`
 const CATALOG_CACHE_TTL_MS = 5 * 60 * 1000
 
 type CatalogSource = Record<string, Degen>
