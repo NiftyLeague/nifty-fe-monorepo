@@ -10,7 +10,7 @@ const apiManifest = JSON.parse(readFileSync('apps/api/package.json', 'utf8')) as
 
 describe('test runner policy', () => {
   it('keeps the root test entrypoint isolated per test file', () => {
-    expect(manifest.scripts?.test).toBe('bun test --isolate')
+    expect(manifest.scripts?.test).toBe('bun test --isolate --conditions=browser')
     expect(manifest.scripts?.['test:coverage']).toContain('bun test --isolate')
   })
 

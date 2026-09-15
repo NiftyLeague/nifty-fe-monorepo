@@ -238,15 +238,13 @@ describe('app performance contracts', () => {
     expect(readFileSync(sharedOxfmtConfig, 'utf8')).toContain('.github/actions/')
   })
 
-  it('keeps isolated React tests on one workspace runtime', () => {
+  it('keeps isolated tests on one workspace Solid runtime', () => {
     const source = readFileSync(testHarnessPreload, 'utf8')
 
     expect(source).toContain('async function importFirstAvailable')
-    expect(source).toContain("'../node_modules/react/index.js'")
-    expect(source).toContain("'../node_modules/.bun/node_modules/react/index.js'")
-    expect(source).toContain("'../node_modules/react-dom/index.js'")
-    expect(source).toContain("'../node_modules/.bun/node_modules/react-dom/index.js'")
-    expect(source).toContain('mock.module(workspaceReact')
+    expect(source).toContain('`../node_modules/solid-js/${entry}`')
+    expect(source).toContain('`../node_modules/.bun/node_modules/solid-js/${entry}`')
+    expect(source).toContain('mock.module(workspaceSolid')
 
     for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
       expect(source).toContain(`'${workspace}'`)
