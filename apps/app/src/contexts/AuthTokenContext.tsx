@@ -6,7 +6,7 @@ import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
 import type { AuthTokenContextType } from '@/types/auth'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { useAuthToken } from '@/hooks/useAuthStorage'
 
 // ==============================|| JWT CONTEXT & PROVIDER ||============================== //
 
@@ -21,7 +21,7 @@ const openWalletModal = async () => {
 
 export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
   const { isLoggedIn } = useAuthStatus()
-  const { authToken } = useLocalStorageContext()
+  const authToken = useAuthToken()
   const { Component: Runtime } = useDeferredComponent<PropsWithChildren>(loadAuthTokenRuntime)
 
   const fallbackValue = useMemo(

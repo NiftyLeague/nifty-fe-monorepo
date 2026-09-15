@@ -25,7 +25,8 @@ import DegenImage from '@/components/cards/DegenCard/DegenImage'
 import useGameAccount from '@/hooks/useGameAccount'
 import useRent from '@/hooks/useRent'
 import useRentalPassCount from '@/hooks/useRentalPassCount'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { useAgreementAccepted } from '@/hooks/useAuthStorage'
+import { setAgreementAccepted } from '@/state/auth-storage'
 
 import TermsOfServiceDialog from '../TermsOfServiceDialog'
 import RentStepper from './RentStepper'
@@ -43,7 +44,7 @@ const handleBuyNFTL = () => {
 const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps) => {
   const router = useRouter()
   const { account, refetchAccount } = useGameAccount()
-  const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext()
+  const agreementAccepted = useAgreementAccepted()
   const agreement = agreementAccepted === 'ACCEPTED'
   const [rentForUserSelection, setRentForUserSelection] = useState<string>('myself')
   const [ethAddress, setEthAddress] = useState<string>('')

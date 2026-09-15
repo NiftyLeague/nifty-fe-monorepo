@@ -7,7 +7,8 @@ import * as gtm from '@nl/ui/gtm/events'
 import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth'
 import { WALLET_VERIFICATION } from '@/constants/auth-urls'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { useNonce, useUUIDToken } from '@/hooks/useAuthStorage'
+import { setAuthToken, setNonce, setUUIDToken } from '@/state/auth-storage'
 
 type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce }
 
@@ -17,13 +18,8 @@ const useSignAuthMsg = (params: Params = {}) => {
   const addressToLower = address?.toLowerCase()
   const signAddress = `${addressToLower?.slice(0, 6)}...${addressToLower?.slice(-4)}`
 
-  const {
-    setAuthToken,
-    uuidToken,
-    setUUIDToken,
-    nonce: storageNonce,
-    setNonce,
-  } = useLocalStorageContext()
+  const uuidToken = useUUIDToken()
+  const storageNonce = useNonce()
 
   const token = params.token || uuidToken
   const nonce = params.nonce || storageNonce

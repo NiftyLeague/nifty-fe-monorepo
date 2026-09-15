@@ -5,6 +5,16 @@ type DynamicLoader<Props extends object> = () => Promise<
   ComponentType<Props> | { default: ComponentType<Props> }
 >
 
+/**
+ * Memo and forwardRef components are exotic objects, not functions, so
+ * named-export loaders (`import(...).then((module) => module.Card)`) can
+ * resolve to something React accepts as a component type without it being a
+ * function. Such values must wrap as the component, never as the module.
+ */
+const isComponentType = (value: unknown): value is ComponentType<never> =>
+  typeof value === 'function' ||
+  (typeof value === 'object' && value !== null && '$$typeof' in value)
+
 interface DynamicOptions {
   /**
    * Set to `false` to keep the component out of the server render entirely.
@@ -32,7 +42,8 @@ export default function dynamic<Props extends object>(
 
   const LazyComponent = lazy(async () => {
     const loaded = await loader()
-    return typeof loaded === 'function' ? { default: loaded } : loaded
+    if (isComponentType(loaded)) return { default: loaded as ComponentType<Props> }
+    return loaded as { default: ComponentType<Props> }
   })
 
   const DynamicComponent = (props: Props) => (

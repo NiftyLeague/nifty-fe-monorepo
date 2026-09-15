@@ -1,51 +1,34 @@
 'use client'
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
-import { safeJSONParse } from '@/utils/json'
-import { areValuesEqual } from '@/utils/value-equality'
+import { useCallback, type Dispatch, type SetStateAction } from 'react'
+import { useStore } from 'zustand'
+
+import { getLocalStorageStore } from '@/state/local-storage-store'
 
 // ==============================|| Local Storage Hook ||============================== //
 
+/**
+ * Reads and writes one named local-storage key through the shared per-key
+ * store, so every consumer of a key observes the same value and re-renders
+ * only when that key changes.
+ */
 export default function useLocalStorage<T>(
   key: string,
   initialValue: T
 ): [T | undefined, Dispatch<SetStateAction<T | undefined>>, () => void] {
-  // Initialize value in state in order to prevent SSR inconsistencies and errors.
-  // This will update the state with the value found in localStorage or initialValue.
-  const [storedValue, setStoredValue] = useState<T | undefined>(() => {
-    if (typeof window === 'undefined') {
-      return initialValue
-    }
-    try {
-      const item = window.localStorage.getItem(key)
-      return item ? (safeJSONParse(item) as T) : initialValue
-    } catch (error) {
-      console.error(error)
-      return initialValue
-    }
-  })
+  const store = getLocalStorageStore(key, initialValue)
+  const storedValue = useStore(store, (state) => state.value)
 
-  // Instead of replacing the setState function, react to changes.
-  // Whenever the state value changes, save it in the local storage.
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (storedValue === undefined) {
-        window.localStorage.removeItem(key)
-        return
-      }
-      const currentValueInStorage = safeJSONParse(window.localStorage.getItem(key)) as T
-      if (!areValuesEqual(currentValueInStorage, storedValue)) {
-        window.localStorage.setItem(key, JSON.stringify(storedValue))
-      }
-    }
-  }, [storedValue, key])
+  const setStoredValue = useCallback<Dispatch<SetStateAction<T | undefined>>>(
+    (next) => {
+      store.set(next)
+    },
+    [store]
+  )
 
   const clearStoredValue = useCallback(() => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      window.localStorage.removeItem(key)
-      setStoredValue(undefined)
-    }
-  }, [key])
+    store.clear()
+  }, [store])
 
   return [storedValue, setStoredValue, clearStoredValue]
 }

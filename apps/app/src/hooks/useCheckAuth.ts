@@ -5,12 +5,13 @@ import { useAccount } from 'wagmi'
 
 import { ADDRESS_VERIFICATION } from '@/constants/auth-urls'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { useAuthToken } from '@/hooks/useAuthStorage'
+import { clearAllAuth } from '@/state/auth-storage'
 
 const useCheckAuth = () => {
   const { address } = useAccount()
   const { isLoggedIn, setIsLoggedIn } = useAuthStatus()
-  const { authToken, clearAllAuth } = useLocalStorageContext()
+  const authToken = useAuthToken()
   const cache = useRef({ address, authToken, verified: false })
   const firstRenderRef = useRef(true)
 

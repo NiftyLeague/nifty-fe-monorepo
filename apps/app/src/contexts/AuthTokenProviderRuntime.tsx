@@ -7,7 +7,7 @@ import type { AuthTokenContextType } from '@/types/auth'
 import AuthTokenContext from '@/contexts/AuthTokenContext'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
 import useCheckAuth from '@/hooks/useCheckAuth'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { useAuthToken } from '@/hooks/useAuthStorage'
 import useSignAuthMsg from '@/hooks/useSignAuthMsg'
 import { DEBUG } from '@/constants/index'
 
@@ -16,7 +16,7 @@ export default function AuthTokenProviderRuntime({ children }: PropsWithChildren
   const { isLoggedIn } = useAuthStatus()
   const { checkAddress } = useCheckAuth()
   const { signMessage } = useSignAuthMsg()
-  const { authToken } = useLocalStorageContext()
+  const authToken = useAuthToken()
   const msgSent = useRef(false)
   const connectedRef = useRef(isConnected)
 
