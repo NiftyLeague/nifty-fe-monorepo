@@ -48,7 +48,7 @@ const WalletBalances = (): JSX.Element => {
                   rel="noreferrer"
                   style={{ width: '48%' }}
                 >
-                  <Button class="w-full" variant="outline">
+                  <Button class="w-full text-foreground" variant="outline">
                     Snapshot
                   </Button>
                 </a>

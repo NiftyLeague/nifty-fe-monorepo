@@ -108,44 +108,45 @@ Now ported to SolidJS: TanStack Start + Solid Router/Query, framework-agnostic
 package. Typecheck, lint, build, and the full unit suite (316 tests) are green.
 
 Measured locally against the Nitro preview server (`bun run start` on the
-`.vercel` Build Output; `lh-app-solid-post-followups-2026-09-15.json`). The
-follow-up pass also fixed a critical porting bug: the root document was
-missing `<HydrationScript />`, so `hydrate()` threw on every route and
-islands never hydrated — the reason the first post-migration run looked
-artificially bad on some routes and `errors-in-console` fired everywhere.
+`.vercel` Build Output; `lh-app-solid-final-2026-09-15.json` is canonical —
+earlier post-migration runs were taken on builds where hydration or wallet
+chunks were broken, which shortened LCP artificially on some routes). The
+follow-up pass fixed a critical porting bug: the root document was missing
+`<HydrationScript />`, so `hydrate()` threw on every route and islands never
+hydrated.
 
 | Route | Form | Perf before → after | LCP before | LCP after | Δ |
 | --- | --- | --- | --- | --- | --- |
-| / | mobile | 87 → 79 | 2931 | 3983 | +1052 |
-| /world | mobile | 74 → 73 | 5555 | 5151 | −403 |
-| /games | mobile | 87 → 78 | 2920 | 3997 | +1077 |
-| /games/smashers | mobile | 61 → n/a | 13128 | n/a | — |
-| /games/mt-gawx | mobile | 62 → n/a | 14325 | n/a | — |
-| /degens | mobile | 59 → 67 | 13969 | 7894 | **−6075** |
-| /leaderboards | mobile | 89 → 94 | 2645 | 2306 | −339 |
-| /mint-o-matic | mobile | 85 → 94 | 2652 | 2331 | −322 |
-| /verification | mobile | 59 → 68 | 15868 | 7828 | **−8041** |
-| / | desktop | 56 → 63 | 11980 | 4030 | **−7950** |
-| /world | desktop | 60 → 62 | 4906 | 4471 | −435 |
-| /games | desktop | 56 → 63 | 12042 | 4037 | **−8006** |
-| /games/smashers | desktop | 60 → 75 | 12937 | 2272 | **−10666** |
-| /games/mt-gawx | desktop | 60 → 75 | 14540 | 2275 | **−12265** |
-| /degens | desktop | 56 → 75 | 15133 | 2265 | **−12869** |
-| /leaderboards | desktop | 70 → 75 | 2610 | 2251 | −359 |
-| /mint-o-matic | desktop | 67 → 75 | 2613 | 2251 | −362 |
-| /verification | desktop | 55 → 60 | 15731 | 7614 | **−8117** |
+| / | mobile | 87 → 77 | 2931 | 5224 | +2293 |
+| /world | mobile | 74 → 81 | 5555 | 4386 | **−1169** |
+| /games | mobile | 87 → 77 | 2920 | 5265 | +2345 |
+| /games/smashers | mobile | 61 → 62 | 13128 | 13993 | +865 |
+| /games/mt-gawx | mobile | 62 → 62 | 14325 | 14058 | −267 |
+| /degens | mobile | 59 → 67 | 13969 | 13439 | −530 |
+| /leaderboards | mobile | 89 → 79 | 2645 | 1939 | **−706** |
+| /mint-o-matic | mobile | 85 → 84 | 2652 | 1968 | **−684** |
+| /verification | mobile | 59 → 56 | 15868 | 10671 | **−5197** |
+| / | desktop | 56 → 59 | 11980 | 11330 | −650 |
+| /world | desktop | 60 → 66 | 4906 | 3990 | **−916** |
+| /games | desktop | 56 → 59 | 12042 | 11323 | −719 |
+| /games/smashers | desktop | 60 → 65 | 12937 | 13727 | +790 |
+| /games/mt-gawx | desktop | 60 → 65 | 14540 | 13680 | −860 |
+| /degens | desktop | 56 → 59 | 15133 | 14430 | −703 |
+| /leaderboards | desktop | 70 → 82 | 2610 | 1841 | **−769** |
+| /mint-o-matic | desktop | 67 → 76 | 2613 | 1842 | **−771** |
+| /verification | desktop | 55 → 56 | 15731 | 10375 | **−5356** |
 
 Caveats: local preview lacks `VITE_WALLET_CONNECT_PROJECT_ID`, so the wallet
 provider boundary reports "could not be loaded" on every route (same in the
-baseline run). `/games/smashers` and `/games/mt-gawx` produce NO_LCP on the
-mobile profile — the Unity download+compile keeps the main thread busy past
-Lighthouse's FCP window at 4x CPU; desktop profiles measure them at ~2.3s.
+baseline run; the dashboard fixture path is now fixed so the E2E suite passes
+without wallet env).
 
-Residual mobile regression: `/` and `/games` LCP ~+1.05s vs baseline. The LCP
-image (46KB flagship poster) is eager+high+preloaded; the delta is bandwidth
+Residual regression: `/` and `/games` LCP ~+2.3s on mobile. The LCP image
+(46KB flagship poster) is eager+high+preloaded; the delta is bandwidth
 contention with the initial module chunk graph under 1.6Mbps/150ms-RTT
-throttling. A rolldown `codeSplitting` group now folds sub-32KB shared modules
-into bounded shared chunks (≈25 fewer initial requests), which recovered
-~1.3s from the pre-followup 5.2s; the rest is per-request overhead that would
-need deeper bundle consolidation or HTTP/2 server-push-style prioritization
-to close.
+throttling (~78 requests of mostly 1KB route chunks). A rolldown
+`codeSplitting` group that merged tiny shared modules recovered ~1.3s but
+was reverted: merging across the route-split graph created circular chunk
+imports that broke ESM eval order at runtime (viem `LruMap` "not a
+constructor"). Closing the gap needs per-route chunk coalescing upstream or
+fewer route-level modules, not a bundler hack.

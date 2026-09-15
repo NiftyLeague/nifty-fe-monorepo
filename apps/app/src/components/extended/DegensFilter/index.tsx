@@ -165,7 +165,7 @@ const DegensFilter = (props: DegensFilterProps): JSX.Element => {
             <Button
               type="button"
               variant="link"
-              class="mx-3.5 h-auto justify-start p-0 py-2 text-base font-normal"
+              class="mx-3.5 h-auto justify-start p-0 py-2 text-base font-normal text-purple-300"
               onClick={() => setShowMore(true)}
             >
               More

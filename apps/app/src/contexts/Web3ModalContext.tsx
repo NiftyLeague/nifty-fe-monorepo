@@ -3,6 +3,7 @@
 import { Show, type Component, type JSX } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import { AUDIT_FIXTURE } from '@/runtime/env'
 import type { Web3ModalRuntimeProps as LoadedWeb3ModalRuntimeProps } from './Web3ModalRuntime'
 import {
   WalletProviderError,
@@ -20,7 +21,9 @@ type Web3ModalRuntimeProps = Omit<LoadedWeb3ModalRuntimeProps, 'config'>
 const loadWeb3ModalRuntime = async () => {
   const [{ default: Runtime }, config] = await Promise.all([
     import('./Web3ModalRuntime'),
-    import('./Web3ModalConfig'),
+    // Web3ModalConfig throws at module scope without a WalletConnect project
+    // id; the audit fixture build uses a connector-free config instead.
+    AUDIT_FIXTURE ? import('./AuditFixtureWagmiConfig') : import('./Web3ModalConfig'),
   ])
 
   return {
