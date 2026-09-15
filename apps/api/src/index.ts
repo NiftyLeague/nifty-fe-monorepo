@@ -18,7 +18,6 @@ import {
 
 import { DEFAULTS, getEndpoints } from './constants/api'
 import { CONTRACT_METHODS } from './constants/contracts'
-import { LEGGIES } from './constants/metadata/degens'
 import { CDN_BASE_URL, DEGENS_ASSET_PREFIX, MARKETPLACE_ASSET_PREFIX } from './constants/aws'
 import { MARKETPLACE_COLLECTION_METADATA } from './constants/metadata/marketplace'
 import type { Attribute, TargetNetwork } from './types'
@@ -172,8 +171,8 @@ app.get('/:network/degen/image/:token_id', function (req: Request, res: Response
     res.sendStatus(404)
     return
   }
-  const type = LEGGIES.includes(Number(token_id)) ? 'gif' : 'png'
-  pipeRequest(`${CDN_BASE_URL}/${DEGENS_ASSET_PREFIX}/images/${token_id}.${type}`, res)
+  // All degen imagery is WebP on the CDN (animated webp for legendaries/Hydras).
+  pipeRequest(`${CDN_BASE_URL}/${DEGENS_ASSET_PREFIX}/images/bg/md/${token_id}.webp`, res)
 })
 
 app.get(

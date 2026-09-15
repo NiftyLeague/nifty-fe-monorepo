@@ -1,6 +1,7 @@
 import { memo } from 'react'
 import DeferredAnimatedImage from '@nl/ui/custom/deferred-animated-image'
 import NativeImage from '@nl/ui/custom/native-image'
+import { CDN_BASE_URL } from '@/constants/api'
 import { LEGGIES } from '@/constants/degens'
 const IMAGE_HEIGHT = 320
 
@@ -22,14 +23,17 @@ const DegenImage = memo(
     loading?: 'eager' | 'lazy'
     deferAnimation?: boolean
   }) => {
-    const imageURL = `/img/degens/nfts/${tokenId}`
+    // All degen imagery is WebP on the CDN: static for most tokens, animated
+    // for legendaries and Hydras. `sm` is the tiny pixel thumb, `md` the
+    // card-size render, `lg` the full-resolution poster.
+    const imageURL = `${CDN_BASE_URL}/degens/images/bg/md/${tokenId}.webp`
+    const posterURL = `${CDN_BASE_URL}/degens/images/bg/sm/${tokenId}.webp`
 
     const sxHeight =
       sx && typeof sx === 'object' && 'height' in sx ? (sx.height as string | number) : undefined
     const imageHeight = sxHeight ?? IMAGE_HEIGHT
-    const isAnimated = LEGGIES.includes(Number(tokenId))
-    const poster = `${imageURL}.webp`
-    const image = isAnimated ? `${imageURL}.gif` : poster
+    const isAnimated =
+      LEGGIES.includes(Number(tokenId)) || (Number(tokenId) >= 9901 && Number(tokenId) <= 9998)
 
     const imageProps = {
       className: 'pixelated',
@@ -46,9 +50,9 @@ const DegenImage = memo(
       return (
         <DeferredAnimatedImage
           {...imageProps}
-          src={poster}
-          animatedSrc={image}
-          animatedType="image/gif"
+          src={posterURL}
+          animatedSrc={imageURL}
+          animatedType="image/webp"
           deferAnimation
           activationDelay={1000}
           containerClassName="block"
@@ -56,7 +60,7 @@ const DegenImage = memo(
       )
     }
 
-    return <NativeImage {...imageProps} src={image} unoptimized={isAnimated} />
+    return <NativeImage {...imageProps} src={imageURL} unoptimized={isAnimated} />
   }
 )
 

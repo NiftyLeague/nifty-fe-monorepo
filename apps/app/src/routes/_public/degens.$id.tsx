@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
-import { LEGGIES } from '@/constants/degens'
-import { DEGEN_IMAGE_ORIGIN, degenShareMeta } from '@/runtime/metadata'
+import { CDN_BASE_URL } from '@/constants/api'
+import { degenShareMeta } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/degens/$id')({
   // Deep links to a single DEGEN land on the filtered catalog. The token id is
@@ -15,13 +15,8 @@ export const Route = createFileRoute('/_public/degens/$id')({
     throw redirect({ href: `/degens?tokenId=${encodeURIComponent(params.id)}`, replace: true })
   },
   head: ({ params }) => {
-    const fileType = LEGGIES.includes(Number(params.id)) ? 'gif' : 'webp'
-
     return {
-      meta: degenShareMeta(
-        params.id,
-        `${DEGEN_IMAGE_ORIGIN}/img/degens/nfts/${params.id}.${fileType}`
-      ),
+      meta: degenShareMeta(params.id, `${CDN_BASE_URL}/degens/images/bg/md/${params.id}.webp`),
     }
   },
 })

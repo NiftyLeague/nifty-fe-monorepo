@@ -1,9 +1,7 @@
-import { existsSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
-
 import { render } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
+import { CDN_BASE_URL } from '@/constants/api'
 import { LEGGIES } from '@/constants/degens'
 
 let DegenImage: typeof import('./DegenImage').default
@@ -20,11 +18,6 @@ beforeEach(async () => {
   DegenImage = (await import('./DegenImage')).default
 })
 
-const assetPath = (tokenId: number, extension: 'gif' | 'webp') =>
-  fileURLToPath(
-    new URL(`../../../../../../assets/img/degens/nfts/${tokenId}.${extension}`, import.meta.url)
-  )
-
 afterEach(() => {
   document.body.innerHTML = ''
   mock.restore()
@@ -35,23 +28,24 @@ describe('DegenImage', () => {
     const { container } = render(<DegenImage tokenId={150} deferAnimation />)
     const image = container.querySelector('[data-deferred-animated-image]')
 
-    expect(image?.getAttribute('data-poster-src')).toBe('/img/degens/nfts/150.webp')
-    expect(image?.getAttribute('data-animated-src')).toBe('/img/degens/nfts/150.gif')
-  })
-
-  it('preserves direct GIF rendering for dashboard and detail callers', () => {
-    const { container } = render(<DegenImage tokenId={150} />)
-
-    expect(container.querySelector('[data-native-image]')?.getAttribute('data-src')).toBe(
-      '/img/degens/nfts/150.gif'
+    expect(image?.getAttribute('data-poster-src')).toBe(
+      `${CDN_BASE_URL}/degens/images/bg/sm/150.webp`
+    )
+    expect(image?.getAttribute('data-animated-src')).toBe(
+      `${CDN_BASE_URL}/degens/images/bg/md/150.webp`
     )
   })
 
-  it('keeps a static poster alongside every animated Degen asset', () => {
-    expect(
-      LEGGIES.every(
-        (tokenId) => existsSync(assetPath(tokenId, 'gif')) && existsSync(assetPath(tokenId, 'webp'))
-      )
-    ).toBe(true)
+  it('serves every token from the CDN WebP set', () => {
+    const { container } = render(<DegenImage tokenId={150} />)
+
+    expect(container.querySelector('[data-native-image]')?.getAttribute('data-src')).toBe(
+      `${CDN_BASE_URL}/degens/images/bg/md/150.webp`
+    )
+  })
+
+  it('treats legendaries and Hydras as animated', () => {
+    expect(LEGGIES.includes(150)).toBe(true)
+    expect(LEGGIES.includes(9924)).toBe(true)
   })
 })

@@ -15,6 +15,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useNFTLAllowance from '@/hooks/useNFTLAllowance'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import { CDN_BASE_URL } from '@/constants/api'
 import { getErrorForName } from '@/utils/name'
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify'
 import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts'
@@ -112,11 +113,11 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
         </Title>
         <div className="flex flex-col items-center gap-1">
           <NativeImage
-            src={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
+            src={`${CDN_BASE_URL}/degens/images/bg/md/${degen?.id}.webp`}
             alt="degen"
             width={240}
             height={240}
-            unoptimized={degen?.background === 'Legendary'}
+            unoptimized
             style={{
               aspectRatio: '1/1',
               width: '240px',
