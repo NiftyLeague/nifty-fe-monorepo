@@ -122,6 +122,29 @@ describe('M1 state and data ownership', () => {
     expect(degensRoute).toContain('context.queryClient')
   })
 
+  it('keeps favorites owned by the query cache and auth fields in per-key local-storage stores', () => {
+    const favoritesHook = read('apps/app/src/hooks/useFavoriteDegens.ts')
+    expect(favoritesHook).toContain('queryKeys.profile.favorites')
+    expect(favoritesHook).toContain('setQueryData')
+    expect(favoritesHook).not.toContain('setFavDegens')
+    expect(favoritesHook).not.toContain("'FAV_DEGENS'")
+    // The favorites mega-context is retired: the derived query is the only owner.
+    expect(existsSync('apps/app/src/contexts/LocalStorageContext.tsx')).toBe(false)
+    expect(existsSync('apps/app/src/hooks/useLocalStorageContext.ts')).toBe(false)
+
+    // Storage keys and value formats are the M1 rollback boundary and stay unchanged.
+    const authStorage = read('apps/app/src/state/auth-storage.ts')
+    for (const key of [
+      'authentication-token',
+      'uuid-token',
+      'nonce',
+      'user_id',
+      'aggreement-accepted',
+    ]) {
+      expect(authStorage).toContain(`'${key}'`)
+    }
+  })
+
   it('records the reviewed non-migrations in every other app', () => {
     const record = read('docs/architecture/m1-state-and-data-layer.md')
 
