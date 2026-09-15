@@ -19,13 +19,28 @@ const publicEnv = (name, ...fallbacks) => {
   return JSON.stringify(value)
 }
 
+// Vercel's optimizer accepts exactly these widths — published both to the
+// deploy config (imagesConfig) and to the image service (image.service.config,
+// where the adapter's validation reads them from).
+const vercelImageConfig = {
+  sizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+  domains: [],
+  remotePatterns: [],
+}
+
 export default defineConfig({
   site: 'https://niftysmashers.com',
   output: 'server',
-  // Vercel's image optimiser serves the runtime shim's responsive variants:
-  // the shim emits `/_vercel/image?url=...&w=...` URLs, which this makes
-  // resolvable.
-  adapter: vercel({ imageService: true }),
+  // astro:assets resolves to the app's gated Vercel image service
+  // (src/runtime/vercel-image-service.ts): optimizer URLs on Vercel, plain
+  // asset paths everywhere else. The adapter no longer forces its own service
+  // (imageService: false) but still publishes the optimizer's accepted widths
+  // into the deploy config, so /_vercel/image resolves exactly as it did
+  // before.
+  adapter: vercel({ imageService: false, imagesConfig: vercelImageConfig }),
+  image: {
+    service: { entrypoint: './src/runtime/vercel-image-service.ts', config: vercelImageConfig },
+  },
   integrations: [react()],
   build: { inlineStylesheets: INLINE_STYLESHEETS },
   vite: {
@@ -34,9 +49,10 @@ export default defineConfig({
     ...bundleSsrGraph(),
     resolve: {
       alias: [
-        // The shared primitive reads next/image internals, so the app swaps in
-        // a plain <img> adapter. Do not also add a tsconfig path: Bun resolves
-        // the alias through the isolated store and the two disagree.
+        // The shared primitive ships next/image-era defaults, so the app swaps
+        // in its own React adapter (src/runtime/Image.tsx) over the astro:assets
+        // image service. Do not also add a tsconfig path: Bun resolves the
+        // alias through the isolated store and the two disagree.
         { find: '@nl/ui/custom/optimized-image', replacement: local('src/runtime/Image.tsx') },
         sourceAlias(import.meta.url),
       ],

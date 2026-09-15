@@ -229,7 +229,7 @@ const smashersAuthLayout = 'apps/smashers/src/layouts/Auth.astro'
 const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index.tsx'
 const privateShellLayout = 'apps/app/src/routes/dashboard.tsx'
 const sidebarProfile = 'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
-const localStorageHook = 'apps/app/src/hooks/useLocalStorage.ts'
+const localStorageStore = 'apps/app/src/state/local-storage-store.ts'
 const contractReaderHook = 'apps/app/src/hooks/useContractReader.ts'
 const valueEqualityUtility = 'apps/app/src/utils/value-equality.ts'
 const mainLayout = 'apps/app/src/layouts/_layout/_MainLayout/index.tsx'
@@ -1184,7 +1184,9 @@ describe('public storage provider contract', () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       if (file === walletStorageProviders) {
-        expect(source).toContain("from '@/contexts/LocalStorageContext'")
+        // The auth local-storage mega-context is gone; the shell only needs to
+        // keep the wallet runtime boundary.
+        expect(source).toContain("from '@/contexts/Web3ModalContext'")
       } else {
         expect(source).toContain("from '@/contexts/WalletStorageProviders'")
       }
@@ -1577,7 +1579,7 @@ describe('shared value equality contract', () => {
     const utilitySource = readFileSync(join(process.cwd(), valueEqualityUtility), 'utf8')
 
     expect(utilitySource).not.toContain('lodash')
-    for (const file of [localStorageHook, contractReaderHook]) {
+    for (const file of [localStorageStore, contractReaderHook]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
       expect(source).toContain("from '@/utils/value-equality'")
       expect(source).not.toContain("from 'lodash/isEqual'")

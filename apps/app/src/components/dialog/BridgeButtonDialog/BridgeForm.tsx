@@ -19,7 +19,8 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { IMX_SQUID_BRIDGE_URL } from '@/constants/url'
 import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts'
 import useIMXContext from '@/hooks/useIMXContext'
-import useLocalStorageContext from '@/hooks/useLocalStorageContext'
+import { useAgreementAccepted } from '@/hooks/useAuthStorage'
+import { setAgreementAccepted } from '@/state/auth-storage'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useNFTLAllowance from '@/hooks/useNFTLAllowance'
 
@@ -41,7 +42,7 @@ const AmountInput = forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
 AmountInput.displayName = 'AmountInput'
 
 const BridgeForm = ({ balance, onBridgeSuccess }: BridgeFormProps): React.ReactNode => {
-  const { agreementAccepted, setAgreementAccepted } = useLocalStorageContext()
+  const agreementAccepted = useAgreementAccepted()
   const { address, writeContracts } = useNetworkContext()
   const { imxChainId } = useIMXContext()
   const [, setIsOpen] = useContext(DialogContext)

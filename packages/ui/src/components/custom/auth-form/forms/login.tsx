@@ -68,9 +68,11 @@ export function LoginForm({
     else if (view === VIEWS.SIGN_UP) await handleSignup(values)
   }
 
+  // `method="post"` keeps a pre-hydration native submit (Enter before React attaches)
+  // from falling back to GET, which would put typed fields into the URL.
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+      <form method="post" onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
           name="email"
