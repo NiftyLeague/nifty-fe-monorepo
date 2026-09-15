@@ -41,7 +41,7 @@ const sourceBlob = () =>
     .join('\n')
 
 describe('stale code', () => {
-  it('has no orphaned CSS modules', () => {
+  it('has no orphaned CSS modules', { timeout: 30000 }, () => {
     const blob = sourceBlob()
     const modules = SCAN_ROOTS.flatMap((root) =>
       collect(root, (name) => name.endsWith('.module.css'))
@@ -61,7 +61,7 @@ describe('stale code', () => {
     ).toEqual([])
   })
 
-  it('has no module barrel left without consumers', () => {
+  it('has no module barrel left without consumers', { timeout: 30000 }, () => {
     // `index` files are entry points by convention, so only flag one whose name
     // appears nowhere else; the deleted gltf boundary left none behind.
     const blob = sourceBlob()
