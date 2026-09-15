@@ -1,11 +1,14 @@
 ---
+// Static below-fold home sections. Every section here is hookless
+// presentation, so they render as pure HTML: hydrating them only shipped
+// React for no interactive benefit.
 import HomeV3Characters from '@/components/HomeSections/HomeV3Characters'
 import HomeV3Games from '@/components/HomeSections/HomeV3Games'
 import HomeV3Studio from '@/components/HomeSections/HomeV3Studio'
 import HomeV3Community from '@/components/HomeSections/HomeV3Community'
 import HomeSponsorsSection from '@/components/HomeSections/HomeSponsorsSection'
 ---
-<HomeV3Characters client:visible={{ rootMargin: "200px" }} />
+<HomeV3Characters />
 <HomeV3Games />
 <HomeV3Studio />
 <HomeV3Community />

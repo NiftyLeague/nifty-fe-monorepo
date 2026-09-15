@@ -1,13 +1,54 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/careers/page'
-import { metadata as routeMetadata } from '@/app/(main)/careers/layout'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { DeferredCareersJobs } from '@/components/DeferredCareersSections'
+
+const metadata = {
+  title: 'Careers',
+  description: 'Join us and change gaming forever',
+  openGraph: {
+    title: 'Nifty League | Careers',
+    description: 'Join us and change gaming forever',
+    images: 'https://niftyleague.com/img/backgrounds/banner-dark.webp',
+  },
+}
 ---
-<Marketing metadata={routeMetadata} rootClass="career-pg" canonical="/careers">
-  <LegacyPage>
-  <Fragment slot="webIsland0">
-<DeferredCareersJobs client:visible={{ rootMargin: "200px" }} />
-  </Fragment>
-  </LegacyPage>
+<Marketing metadata={metadata} rootClass="career-pg" canonical="/careers">
+  <div class="container pt-20">
+    <section class="section flex items-center justify-center flex-wrap">
+      <div class="w-full mb-5 md:w-1/2 md:pr-5 md:mb-0">
+        <div class="relative flex-grow-1">
+          <OptimizedImage
+            src="/img/careers/careers_v02_2x.webp"
+            alt="Satoshi moon"
+            width={648}
+            height={406}
+            priority
+            sizes="(min-width: 768px) 50vw, 100vw"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        </div>
+      </div>
+      <div class="w-full md:w-1/2">
+        <div class="flex-1 text-center md:text-left">
+          <div class="mb-3">
+            <h3 class="whitespace-nowrap text-highlight-purple">JOIN NIFTY LEAGUE</h3>
+          </div>
+          <p>
+            Nifty League&apos;s mission is to create an open & efficient path for indie studios to
+            develop & publish groundbreaking games. We are backed by top VCs including RSE Ventures,
+            Lerer Hippeau, Spartan Group, and Gary Vaynerchuk, and are looking to bulk out our
+            engineering team with world-class Unity game developers. As a startup, we are lean, have
+            low egos, work hard and love what we do. You will have a large amount of ownership and
+            work directly with the co-founders and community. If this sounds exciting to you, keep
+            reading!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <DeferredCareersJobs client:visible={{ rootMargin: '200px' }} />
+    </section>
+  </div>
 </Marketing>

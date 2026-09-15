@@ -1,20 +1,228 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/page'
+import HomeSections from '@/layouts/HomeSections.astro'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
-const routeMetadata = {}
-import HomeSections from '@/layouts/HomeSections.astro'
+import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-image'
+import { DesktopOnlyImage } from '@nl/ui/custom/responsive-only-image'
+import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
+import { DEGEN_COLLECTION_URL } from '@/constants/degen-assets'
+
+import '@/styles/home.css'
+import '@/styles/home-v3.css'
+import '@/styles/marketing.css'
+
+// The responsive hero candidates: finalize-static turns the emitted
+// <source>/<img> pair into art-directed <link rel="preload"> hints.
+const commonProps = {
+  alt: '',
+  fetchPriority: 'high' as const,
+  sizes: '100vw',
+  quality: 60,
+}
+const desktopBackground = getOptimizedImageProps({
+  ...commonProps,
+  src: '/img/hero/bg.webp',
+  width: 1920,
+  height: 1042,
+})
+const mobileBackground = getOptimizedImageProps({
+  ...commonProps,
+  src: '/img/backgrounds/banner-dark.webp',
+  width: 2000,
+  height: 1000,
+})
+
+// The character mural sits beside the backdrop in the first desktop
+// viewport, so it carries the same priority hint. It stays art-directed:
+// the responsive candidates live on the <source> and the non-matching
+// breakpoint renders a 1px fallback instead of downloading the mural.
+const heroCharacters = getOptimizedImageProps({
+  src: '/img/hero/characters.webp',
+  width: 1920,
+  height: 1042,
+  sizes: '100vw',
+  quality: 60,
+  loading: 'eager',
+})
+const DESKTOP_FALLBACK_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='
+
+// React 19's img prop types disagree with astro's intrinsic elements about
+// `role`, so the spread needs the astro-side narrowed view.
+const desktopBackgroundAttrs = desktopBackground as astroHTML.JSX.ImgHTMLAttributes
+
+const metadata = {}
 ---
-<Marketing metadata={routeMetadata} rootClass="home-pg" canonical="/">
-  <LegacyPage>
-  <Fragment slot="webIsland0">
-<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} loadInteractiveOnViewport activationDelay={1500} deferVideo src="/video/smashers.mp4">
-          <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
-        </DeferredConsoleGame>
-  </Fragment>
-  <Fragment slot="webIsland1">
-<HomeSections />
-  </Fragment>
-  </LegacyPage>
+<Marketing metadata={metadata} rootClass="home-pg" canonical="/">
+  <div class="home-intro">
+    <picture class="home-intro-background">
+      <source media="(max-width: 768px)" srcset={mobileBackground.srcSet} />
+      <img
+        {...desktopBackgroundAttrs}
+        alt=""
+        data-preload-media="(min-width: 769px)"
+        loading="eager"
+        fetchpriority="high"
+        class="object-cover animate-zoom-out"
+      />
+    </picture>
+    <section class="mobile m-0 p-0 relative pt-5 home-mobile-intro">
+      <div class="overlay-dark min-h-screen"></div>
+      <div class="dark-gradient-overlay"></div>
+      <div class="w-full relative min-h-screen flex flex-col justify-center text-center items-center">
+        <h1 class="mt-0 sm:mt-4 md:mt-5">Nifty League</h1>
+        <h2 class="mt-2 [word-spacing:-10px] heading-look-5">By Gamers. For Gamers.</h2>
+        <p class="my-4 text-center whitespace-nowrap">Community-Governed Game Studio</p>
+        <ThemeButtonGroup
+          className="mt-2 xl:mt-2 mb-2"
+          primary={{ href: 'https://app.niftyleague.com', title: 'PLAY NOW', external: true }}
+        />
+        <div class="flex items-center mt-3 mb-5">
+          <a class="pr-4" href="https://discord.gg/niftyleague" target="_blank" rel="noreferrer">
+            <OptimizedImage
+              src="/icons/socials/discord.svg"
+              alt="Discord Logo"
+              width={26}
+              height={22}
+            />
+          </a>
+          <a class="pr-4" href="https://twitter.com/NiftyLeague" target="_blank" rel="noreferrer">
+            <OptimizedImage
+              src="/icons/socials/twitter.svg"
+              alt="Twitter Logo"
+              width={26}
+              height={22}
+            />
+          </a>
+          <a class="pr-4" href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
+            <OptimizedImage src="/icons/opensea.svg" alt="OpenSea Logo" width={24} height={22} />
+          </a>
+          <a href="https://www.twitch.tv/niftyleagueofficial" target="_blank" rel="noreferrer">
+            <OptimizedImage
+              src="/icons/socials/twitch.svg"
+              alt="Twitch Logo"
+              width={24}
+              height={22}
+            />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="desktop relative w-screen max-h-screen overflow-hidden home-desktop-intro">
+      <div class="relative h-full w-full">
+        <div class="absolute home-hero-characters-image flex-grow animate-zoom-out-large">
+          <picture class="block">
+            <source media="(min-width: 769px)" sizes="100vw" srcset={heroCharacters.srcSet} />
+            <img
+              alt="Nifty Hero Characters"
+              class="w-full h-auto"
+              fetchpriority="high"
+              height={1042}
+              loading="eager"
+              src={DESKTOP_FALLBACK_IMAGE}
+              width={1920}
+            />
+          </picture>
+        </div>
+        <div class="home-hero-companion">
+          <div class="relative flex-grow">
+            <div class="animate-hover transition-fade">
+              <DesktopOnlyImage
+                src="/img/hero/companion-base.webp"
+                alt="Home Hero Companion Base"
+                width={175}
+                height={175}
+                className="pixelated w-full h-auto"
+                sizes="12vw"
+              />
+              <div class="absolute home-hero-companion-swing animate-propeller"></div>
+            </div>
+          </div>
+        </div>
+        <div class="home-hero-halo">
+          <div class="flex-grow">
+            <div class="animate-hover transition-fade">
+              <DesktopOnlyImage
+                src="/img/hero/halo.webp"
+                alt="Home Hero Halo"
+                width={133}
+                height={50}
+                sizes="9vw"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="dark-gradient-overlay"></div>
+      </div>
+
+      <div class="home-satoshi-container">
+        <div class="relative flex-grow home-satoshi transition-quick-pop-left">
+          <DesktopOnlyImage
+            alt="Satoshi"
+            src="/img/hero/satoshi.webp"
+            width={180}
+            height={190}
+            sizes="226px"
+            className="object-cover w-full h-auto"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col mt-auto home-content">
+        <h1 class="home-content-title transition-vertical-fade">
+          WELCOME TO <br />
+          NIFTY LEAGUE
+        </h1>
+        <div class="my-2 lg:my-4">
+          <p class="home-content-description transition-vertical-fade">
+            <span class="whitespace-nowrap">OPEN-SOURCE GAME STUDIO.</span>
+            <br />
+            <span class="whitespace-nowrap">BY GAMERS, FOR GAMERS.</span>
+          </p>
+        </div>
+        <a
+          href="#gaming-section"
+          aria-label="Learn more about Nifty League"
+          class="inline-block relative flex-grow satoshi-learn-more transition-fade-slow"
+        >
+          <DesktopOnlyImage
+            src="/img/hero/speech-bubble.webp"
+            alt="Learn More"
+            width={348}
+            height={108}
+            sizes="407px"
+            quality={60}
+            className="w-full h-auto"
+          />
+          <p class="m-0 p-0 speech-bubble-text">Learn More!</p>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <section id="gaming-section" class="w-screen relative text-center">
+    <h2 class="absolute w-full z-10 -mt-4 sm:mt-8 md:mt-16 lg:mt-22 transition-vertical-fade">
+      CLASSIC GAMING REINVENTED
+    </h2>
+
+    <DeferredConsoleGame
+      client:visible={{ rootMargin: '200px' }}
+      loadInteractiveOnViewport
+      activationDelay={1500}
+      deferVideo
+      src="/video/smashers.mp4"
+    >
+      <ConsoleGameBackdrop loading="eager" fetchPriority="low" />
+    </DeferredConsoleGame>
+
+    <ThemeButtonGroup
+      className="absolute bottom-0 sm:bottom-4"
+      primary={{ href: 'https://niftysmashers.com', title: 'SMASHERS', external: true }}
+      secondary={{ href: '/games', title: 'MORE GAMES' }}
+    />
+  </section>
+
+  <HomeSections />
 </Marketing>

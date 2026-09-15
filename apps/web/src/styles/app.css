@@ -1,6 +1,9 @@
 @import '@nl/ui/styles.css';
 @import '@nl/ui/styles/fonts.css';
-@source "../**/*.{ts,tsx}";
+/* .astro MUST stay in the scan: the marketing pages hold their utility
+   classes directly in src/pages/*.astro since the LegacyPage tree was
+   removed — dropping it silently kills every md:/lg: variant there. */
+@source "../**/*.{ts,tsx,astro}";
 @source not "../**/*.test.{ts,tsx}";
 @source not "../**/*.spec.{ts,tsx}";
 @source not "../**/*.stories.{ts,tsx}";

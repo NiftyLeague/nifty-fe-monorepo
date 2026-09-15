@@ -1,31 +1,88 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/niftyworld/page'
 import { DeferredConsoleGame } from '@nl/ui/custom/deferred-console-game'
 import { ConsoleGameBackdrop } from '@nl/ui/custom/console-game-backdrop'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 import GatedViewportVideo from '@/components/GatedViewportVideo'
-import { metadata as routeMetadata } from '@/app/(main)/niftyworld/layout'
+import NiftyWorldProperties from '@/components/NiftyWorldProperties'
+import HomeNiftyWorldSection from '@/components/HomeSections/HomeNiftyWorldSection'
+import { NIFTY_WORLD_APP_URL } from '@/constants/links'
+
+const metadata = {
+  title: 'Nifty World',
+  description: 'A virtual space for gamers to connect, collaborate, and compete with each other',
+  openGraph: {
+    title: 'Nifty League | Nifty World',
+    description: 'A virtual space for gamers to connect, collaborate, and compete with each other',
+    images: 'https://niftyleague.com/img/niftyworld/beachfront_night.webp',
+  },
+}
 ---
-<Marketing metadata={routeMetadata} rootClass="niftyworld-pg" canonical="/niftyworld">
-  <LegacyPage>
-  <Fragment slot="webIsland0">
-<DeferredConsoleGame client:visible={{ rootMargin: "200px" }} loadInteractiveOnViewport activationDelay={1500} deferVideo src="/video/mansion_showcase.mp4">
-          <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
-        </DeferredConsoleGame>
-  </Fragment>
-  <Fragment slot="webIsland1">
-<GatedViewportVideo client:visible={{ rootMargin: "200px" }}
-                label="Nifty World preview"
-                width="100%"
-                height="100%"
-                muted
-                loop
-                playsInline
-                data-keepplaying
-                deferLoad
-                poster="/img/games/video-posters/nifty-royale.webp"
-                src="/video/arcade-token.mp4"
-              />
-  </Fragment>
-  </LegacyPage>
+<Marketing metadata={metadata} rootClass="niftyworld-pg" canonical="/niftyworld">
+  <section class="relative xl:-top-20 2xl:-top-35">
+    <DeferredConsoleGame
+      client:visible={{ rootMargin: '200px' }}
+      loadInteractiveOnViewport
+      activationDelay={1500}
+      deferVideo
+      src="/video/mansion_showcase.mp4"
+    >
+      <ConsoleGameBackdrop loading="eager" fetchPriority="high" />
+    </DeferredConsoleGame>
+
+    <ThemeBtnGroup
+      className="absolute bottom-0 sm:bottom-4"
+      primary={{
+        href: NIFTY_WORLD_APP_URL,
+        title: 'EXPLORE',
+        external: true,
+      }}
+      secondary={{
+        href: '/docs/overview/games/niftyworld',
+        title: 'VIEW DOCS',
+        external: true,
+      }}
+    />
+  </section>
+
+  <div class="container relative">
+    <section class="section flex flex-col-reverse md:flex-row items-center justify-center">
+      <div class="flex flex-col w-full md:w-1/2 lg:w-7/12 pr-0 md:pr-3 text-center md:text-left">
+        <div class="mb-2 mb-md-3">
+          <h1>NIFTY WORLD</h1>
+        </div>
+        <div class="mb-3 mb-md-0">
+          <p>
+            Nifty World is a virtual space for gamers to connect, collaborate, and compete with
+            each other. The initial districts are designed by the Nifty League team, but
+            ultimately the vision is for Nifty World to be a dynamic and interoperable platform
+            for developers to create their own games, ensuring a wide variety of immersive
+            experiences for players.
+          </p>
+        </div>
+      </div>
+      <div class="w-full md:w-1/2 lg:w-5/12">
+        <div class="relative text-right ps-0 lg:ps-5 mb-3 aspect-video">
+          <GatedViewportVideo
+            client:visible={{ rootMargin: '200px' }}
+            label="Nifty World preview"
+            width="100%"
+            height="100%"
+            muted
+            loop
+            playsInline
+            data-keepplaying
+            deferLoad
+            poster="/img/games/video-posters/nifty-royale.webp"
+            src="/video/arcade-token.mp4"
+          />
+        </div>
+      </div>
+      <div class="purple-bg-orb orb-top-right"></div>
+    </section>
+
+    <NiftyWorldProperties />
+  </div>
+
+  <HomeNiftyWorldSection />
 </Marketing>

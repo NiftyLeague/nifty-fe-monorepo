@@ -3,7 +3,7 @@ import { readFileSync, statSync } from 'node:fs'
 
 const roadmapCard = 'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx'
 const roadmapConstants = 'apps/web/src/components/RoadmapTimeline/constants.tsx'
-const satoshiStyles = 'apps/web/src/app/(main)/roadmap/satoshi-right.module.css'
+const satoshiStyles = 'apps/web/src/styles/roadmap-satoshi.module.css'
 
 const roadmapMedia = [
   {
