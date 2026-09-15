@@ -8,7 +8,7 @@ import { CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'
 import styles from './index.module.css'
 
 export interface ConsoleGameProps {
-  children: JSX.Element
+  children?: JSX.Element
   isNearViewport?: boolean
   renderGradientOverlay?: boolean
   src: string
@@ -47,10 +47,10 @@ export function ConsoleGame(props: ConsoleGameProps) {
   })
 
   return (
-    <div class="relative overflow-hidden">
+    <div class="relative overflow-hidden h-full">
       <div
         style={{ position: 'relative', display: 'flex', 'flex-grow': '1' }}
-        class="md:animation-hidden"
+        class="md:animation-hidden h-full"
       >
         {props.children}
         <video

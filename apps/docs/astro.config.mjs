@@ -87,6 +87,7 @@ export default defineConfig({
       sourcemap: process.env.ASTRO_SOURCEMAP === 'true',
     },
     resolve: { alias: [sourceAlias(import.meta.url)] },
+    preview: { allowedHosts: ['amf-mb-pro'] },
     ...bundleSsrGraph(),
   },
 })
