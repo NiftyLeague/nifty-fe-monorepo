@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
 
 let SocialIcons: typeof import('./social-icons')
@@ -20,7 +20,7 @@ describe('social-icons', () => {
     const iconNames = Object.keys(SocialIcons) as (keyof typeof SocialIcons)[]
     for (const name of iconNames) {
       const IconFn = SocialIcons[name]
-      const { container } = render(<IconFn />)
+      const { container } = render(() => <IconFn />)
       const svg = container.querySelector('svg')
       expect(svg).toBeTruthy()
       expect(svg?.querySelector('path')).toBeTruthy()

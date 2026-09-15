@@ -1,10 +1,7 @@
-'use client'
-
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { createSignal } from 'solid-js'
+import { createForm, setValue, zodForm } from '@modular-forms/solid'
 import { z } from 'zod'
-import { KeyRound, Loader, Lock, Mail } from 'lucide-react'
+import { KeyRound, Loader, Lock, Mail } from 'lucide-solid'
 
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
@@ -26,7 +23,7 @@ type ViewType = (typeof VIEWS)[keyof typeof VIEWS]
 export interface LoginFormProps extends SocialAuthProps {
   enableAccountCreation?: boolean
   enableProviderSignOn?: boolean
-  setAuthView: React.Dispatch<React.SetStateAction<ViewType>>
+  setAuthView: (view: ViewType) => void
   handleLogin: (values: { email: string; password: string; remember_me: boolean }) => Promise<void>
   handleSignup: (values: { email: string; password: string; remember_me: boolean }) => Promise<void>
   view: ViewType
@@ -41,175 +38,178 @@ const passwordSchema = z
   .regex(/\d/, 'Password must contain at least one number')
   .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character')
 
-export function LoginForm({
-  enableAccountCreation = false,
-  enableProviderSignOn = false,
-  enableSocialColors = false,
-  handleLogin,
-  handleProviderLogin,
-  handleSignup,
-  setAuthView,
-  view,
-}: LoginFormProps) {
-  const formSchema = z.object({
-    email: z.email(),
-    password: view === VIEWS.LOGIN ? z.string().min(1) : passwordSchema,
-    remember_me: z.boolean(),
-  })
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { email: '', password: '', remember_me: true },
-  })
-  const disabled = form.formState.isSubmitting
-  const [showPassword, setShowPassword] = useState(false)
+const loginSchema = z.object({
+  email: z.email(),
+  password: z.string().min(1),
+  remember_me: z.boolean(),
+})
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    if (view === VIEWS.LOGIN) await handleLogin(values)
-    else if (view === VIEWS.SIGN_UP) await handleSignup(values)
+const signupSchema = z.object({
+  email: z.email(),
+  password: passwordSchema,
+  remember_me: z.boolean(),
+})
+
+type LoginFormValues = z.infer<typeof loginSchema>
+
+export function LoginForm(props: LoginFormProps) {
+  const isLogin = () => props.view === VIEWS.LOGIN
+  // The schema is resolved at validation time so switching between the login
+  // and sign-up views tightens password rules without recreating the form.
+  const [form] = createForm<LoginFormValues>({
+    validate: (values) => zodForm(isLogin() ? loginSchema : signupSchema)(values),
+    initialValues: { email: '', password: '', remember_me: true },
+  })
+  const disabled = () => form.submitting
+  const [showPassword, setShowPassword] = createSignal(false)
+
+  const onSubmit = async (values: LoginFormValues) => {
+    if (isLogin()) await props.handleLogin(values)
+    else if (props.view === VIEWS.SIGN_UP) await props.handleSignup(values)
   }
 
-  // `method="post"` keeps a pre-hydration native submit (Enter before React attaches)
+  // `method="post"` keeps a pre-hydration native submit (Enter before Solid attaches)
   // from falling back to GET, which would put typed fields into the URL.
   return (
-    <Form {...form}>
-      <form method="post" onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <InputGroup>
-                <InputGroupAddon>
-                  <InputGroupText>
-                    <Mail absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <FormControl>
-                  <InputGroupInput
-                    {...field}
-                    type="email"
-                    autoComplete={view === VIEWS.LOGIN ? 'on' : 'off'}
-                    disabled={disabled}
-                  />
-                </FormControl>
-              </InputGroup>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
-                <InputGroupAddon>
-                  <InputGroupText>
-                    <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <FormControl>
-                  <InputGroupInput
-                    {...field}
-                    type={showPassword ? 'text' : 'password'}
-                    autoComplete={view === VIEWS.LOGIN ? 'current-password' : 'new-password'}
-                    disabled={disabled}
-                  />
-                </FormControl>
-                {field.value ? (
-                  <InputGroupAddon align="inline-end">
-                    <InputGroupPasswordToggle
-                      visible={showPassword}
-                      onVisibleChange={setShowPassword}
-                      disabled={disabled}
-                    />
-                  </InputGroupAddon>
-                ) : null}
-              </InputGroup>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="remember_me"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-3">
-                <FormControl>
-                  <Checkbox
-                    checked={form.getValues('remember_me')}
-                    onCheckedChange={(checked) => field.onChange(checked)}
-                    disabled={disabled}
-                  />
-                </FormControl>
-                <FormLabel>Remember Me</FormLabel>
-                {view === VIEWS.LOGIN && (
-                  // A button, not an anchor: it switches the form view in
-                  // place, so it needs `type="button"` to stay out of the
-                  // submit path and keyboard focusability. The muted
-                  // foreground matches the adjacent label, which holds AA on
-                  // the auth backdrop where the accent blue did not.
-                  <button
-                    type="button"
-                    onClick={() => !disabled && setAuthView(VIEWS.FORGOT_PASSWORD)}
-                    disabled={disabled}
-                    className={cn(
-                      'ml-auto mt-0.5 text-sm text-muted-foreground underline underline-offset-4',
-                      !disabled && 'cursor-pointer hover:text-foreground'
-                    )}
-                  >
-                    Forgot your password?
-                  </button>
-                )}
-              </div>
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="w-full" disabled={disabled}>
-          {disabled ? (
-            <Loader
-              absoluteStrokeWidth
-              className="animate-spin motion-reduce:animate-none"
-              size={20}
-              strokeWidth={1.5}
-            />
-          ) : (
-            <>
-              <Lock absoluteStrokeWidth size={20} strokeWidth={1.5} />
-              {view === VIEWS.LOGIN ? 'Login' : 'Sign Up'}
-            </>
-          )}
-        </Button>
-        {enableProviderSignOn && (
-          <SocialAuth
-            disabled={disabled}
-            enableSocialColors={enableSocialColors}
-            handleProviderLogin={handleProviderLogin}
-          />
+    <Form of={form} onSubmit={onSubmit} method="post" class="grid gap-4">
+      <FormField
+        of={form}
+        name="email"
+        render={({ field, props: fieldProps }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>
+                  <Mail absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                </InputGroupText>
+              </InputGroupAddon>
+              <FormControl>
+                <InputGroupInput
+                  {...fieldProps}
+                  type="email"
+                  value={field.value ?? ''}
+                  autocomplete={isLogin() ? 'on' : 'off'}
+                  disabled={disabled()}
+                />
+              </FormControl>
+            </InputGroup>
+            <FormMessage />
+          </FormItem>
         )}
-        {enableAccountCreation && (
-          <div className="text-center text-sm">
-            {view === VIEWS.LOGIN ? "Don't have an account? " : 'Already have an account? '}
-            {/* A view switch, not navigation: a type="button" is keyboard focusable. */}
-            <button
-              type="button"
-              onClick={() =>
-                !disabled && setAuthView(view === VIEWS.LOGIN ? VIEWS.SIGN_UP : VIEWS.LOGIN)
-              }
-              disabled={disabled}
-              className={cn(
-                'underline underline-offset-4',
-                !disabled && 'cursor-pointer hover:text-foreground'
+      />
+      <FormField
+        of={form}
+        name="password"
+        render={({ field, props: fieldProps }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>
+                  <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                </InputGroupText>
+              </InputGroupAddon>
+              <FormControl>
+                <InputGroupInput
+                  {...fieldProps}
+                  type={showPassword() ? 'text' : 'password'}
+                  value={field.value ?? ''}
+                  autocomplete={isLogin() ? 'current-password' : 'new-password'}
+                  disabled={disabled()}
+                />
+              </FormControl>
+              {field.value ? (
+                <InputGroupAddon align="inline-end">
+                  <InputGroupPasswordToggle
+                    visible={showPassword()}
+                    onVisibleChange={setShowPassword}
+                    disabled={disabled()}
+                  />
+                </InputGroupAddon>
+              ) : null}
+            </InputGroup>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        of={form}
+        name="remember_me"
+        render={({ field }) => (
+          <FormItem>
+            <div class="flex items-center gap-3">
+              <FormControl>
+                <Checkbox
+                  checked={Boolean(field.value)}
+                  onCheckedChange={(checked) => setValue(form, 'remember_me', checked)}
+                  disabled={disabled()}
+                />
+              </FormControl>
+              <FormLabel>Remember Me</FormLabel>
+              {isLogin() && (
+                // A button, not an anchor: it switches the form view in
+                // place, so it needs `type="button"` to stay out of the
+                // submit path and keyboard focusability. The muted
+                // foreground matches the adjacent label, which holds AA on
+                // the auth backdrop where the accent blue did not.
+                <button
+                  type="button"
+                  onClick={() => !disabled() && props.setAuthView(VIEWS.FORGOT_PASSWORD)}
+                  disabled={disabled()}
+                  class={cn(
+                    'ml-auto mt-0.5 text-sm text-muted-foreground underline underline-offset-4',
+                    !disabled() && 'cursor-pointer hover:text-foreground'
+                  )}
+                >
+                  Forgot your password?
+                </button>
               )}
-            >
-              {view === VIEWS.LOGIN ? 'Sign up' : 'Login'}
-            </button>
-          </div>
+            </div>
+          </FormItem>
         )}
-      </form>
+      />
+      <Button type="submit" class="w-full" disabled={disabled()}>
+        {disabled() ? (
+          <Loader
+            absoluteStrokeWidth
+            class="animate-spin motion-reduce:animate-none"
+            size={20}
+            strokeWidth={1.5}
+          />
+        ) : (
+          <>
+            <Lock absoluteStrokeWidth size={20} strokeWidth={1.5} />
+            {isLogin() ? 'Login' : 'Sign Up'}
+          </>
+        )}
+      </Button>
+      {props.enableProviderSignOn && (
+        <SocialAuth
+          disabled={disabled()}
+          enableSocialColors={props.enableSocialColors ?? false}
+          handleProviderLogin={props.handleProviderLogin}
+        />
+      )}
+      {props.enableAccountCreation && (
+        <div class="text-center text-sm">
+          {isLogin() ? "Don't have an account? " : 'Already have an account? '}
+          {/* A view switch, not navigation: a type="button" is keyboard focusable. */}
+          <button
+            type="button"
+            onClick={() =>
+              !disabled() && props.setAuthView(isLogin() ? VIEWS.SIGN_UP : VIEWS.LOGIN)
+            }
+            disabled={disabled()}
+            class={cn(
+              'underline underline-offset-4',
+              !disabled() && 'cursor-pointer hover:text-foreground'
+            )}
+          >
+            {isLogin() ? 'Sign up' : 'Login'}
+          </button>
+        </div>
+      )}
     </Form>
   )
 }

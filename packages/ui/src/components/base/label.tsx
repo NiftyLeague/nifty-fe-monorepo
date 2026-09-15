@@ -1,19 +1,25 @@
-'use client'
-
-import * as React from 'react'
-import * as LabelPrimitive from 'radix-ui/label'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 
-function Label({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
+type LabelProps = ComponentProps<'label'> & {
+  className?: string
+  /** Radix-era alias for Solid's `for`. */
+  htmlFor?: string
+}
+
+function Label(props: LabelProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'htmlFor'])
   return (
-    <LabelPrimitive.Root
+    <label
       data-slot="label"
-      className={cn(
+      for={local.htmlFor}
+      class={cn(
         'flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }

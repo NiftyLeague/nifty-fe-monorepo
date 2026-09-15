@@ -1,24 +1,27 @@
-import * as React from 'react'
-import * as SeparatorPrimitive from 'radix-ui/separator'
+import * as SeparatorPrimitive from '@kobalte/core/separator'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 
-function Separator({
-  className,
-  orientation = 'horizontal',
-  decorative = true,
-  ...props
-}: React.ComponentProps<typeof SeparatorPrimitive.Root>) {
+type SeparatorProps = ComponentProps<typeof SeparatorPrimitive.Root> & {
+  className?: string
+  /** Radix-era prop: decorative separators stay out of the accessibility tree. */
+  decorative?: boolean
+}
+
+function Separator(props: SeparatorProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'orientation', 'decorative'])
   return (
     <SeparatorPrimitive.Root
       data-slot="separator"
-      decorative={decorative}
-      orientation={orientation}
-      className={cn(
+      orientation={local.orientation ?? 'horizontal'}
+      role={(local.decorative ?? true) ? 'none' : undefined}
+      class={cn(
         'bg-separator shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }

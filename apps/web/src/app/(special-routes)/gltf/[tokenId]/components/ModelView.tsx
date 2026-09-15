@@ -1,97 +1,60 @@
-'use client'
-
-// Prefer the ESM build so Next can analyze the optional 3D graph instead of
-// treating the prebundled UMD entry as opaque.
+import { createSignal, onCleanup, onMount } from 'solid-js'
+// Prefer the ESM build so the bundler can analyze the optional 3D graph instead
+// of treating the prebundled UMD entry as opaque.
 import '@google/model-viewer/dist/model-viewer-module.min.js'
-import { useEffect, useRef, useState } from 'react'
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
 
 import { DEGEN_3D_MODEL_URL } from '@/constants/degen-assets'
 import { SRC } from '@/types/gltf'
 import styles from '../gltf.module.css'
 
-type ModelViewerProps = {
-  ref?: React.Ref<HTMLElement>
-  'animation-name'?: string
-  'ar-modes'?: string
-  'ar-status'?: string
-  'auto-rotate-delay': string
-  'auto-rotate': string
-  'camera-controls': string
-  'disable-tap': string
-  'interaction-bounds'?: string
-  'interaction-prompt-threshold': string
-  'interaction-prompt': string
-  'max-camera-orbit'?: string
-  'min-camera-orbit'?: string
-  'shadow-intensity': string
-  'shadow-softness': string
-  'touch-action': string
-  alt: string
-  ar?: string
-  exposure: string
-  id: string
-  loading: string
-  orientation?: string
-  poster?: string
-  scale?: string
-  src: string
-  style: React.CSSProperties
-}
+export default function ModelView(props: { source: SRC; tokenId: string }) {
+  let modelViewerEl: HTMLElement | undefined
+  const [loading, setLoading] = createSignal(true)
+  const MODEL_SRC = () => `${DEGEN_3D_MODEL_URL}/${props.tokenId}/${props.tokenId}.gltf`
 
-const ModelViewer: React.FC<ModelViewerProps> = (props) => {
-  // @ts-expect-error - model-viewer known attribute
-  return <model-viewer {...props} />
-}
-
-export default function ModelView({ source, tokenId }: { source: SRC; tokenId: string }) {
-  const [loading, setLoading] = useState(true)
-  const modelViewerRef = useRef<HTMLElement | null>(null)
-  const MODEL_SRC = `${DEGEN_3D_MODEL_URL}/${tokenId}/${tokenId}.gltf`
-
-  const handleProgress: EventListenerOrEventListenerObject = (event) => {
-    // @ts-expect-error - model-viewer known attribute
-    const progress = event?.detail?.totalProgress || 0
+  const handleProgress = (event: Event) => {
+    const progress = (event as CustomEvent<{ totalProgress?: number }>).detail?.totalProgress || 0
     if (progress === 1) setLoading(false)
   }
 
-  useEffect(() => {
-    const model = modelViewerRef.current
+  // Solid does not reflect custom-element properties to attributes before
+  // model-viewer upgrades. Set the source after the element is mounted so the
+  // viewer starts loading the selected model in every browser.
+  onMount(() => {
+    const model = modelViewerEl
     if (!model) return
-
-    // React does not reliably reflect custom-element properties to attributes
-    // before model-viewer upgrades. Set the source after the element is mounted
-    // so the viewer starts loading the selected model in every browser.
-    model.setAttribute('src', MODEL_SRC)
+    model.setAttribute('src', MODEL_SRC())
     model.addEventListener('progress', handleProgress, { passive: true })
-    return function cleanup() {
-      model.removeEventListener('progress', handleProgress)
-    }
-  }, [MODEL_SRC])
+    onCleanup(() => model.removeEventListener('progress', handleProgress))
+  })
 
   return (
-    <div className={styles.model__wrapper}>
-      {source === SRC.MODEL && loading ? (
+    <div class={styles.model__wrapper}>
+      {props.source === SRC.MODEL && loading() ? (
         <div
           style={{
-            minHeight: '100vh',
+            'min-height': '100vh',
             width: '100%',
             position: 'absolute',
             display: 'flex',
-            zIndex: 2,
+            'z-index': 2,
           }}
         >
-          <CircularProgress size={75} color="light" className="m-auto" />
+          <CircularProgress size={75} color="light" class="m-auto" />
         </div>
       ) : null}
-      <ModelViewer
-        ref={modelViewerRef}
+      <model-viewer
+        ref={(el: HTMLElement) => (modelViewerEl = el)}
         // https://modelviewer.dev/docs/index.html#loading-attributes
         id="model-viewer"
         alt="Nifty League DEGEN 3D model"
-        style={source === SRC.MODEL ? { minHeight: '100vh', width: '100%' } : { display: 'none' }}
-        src={MODEL_SRC}
-        // poster={POSTER_SRC}
+        style={
+          props.source === SRC.MODEL
+            ? { 'min-height': '100vh', width: '100%' }
+            : { display: 'none' }
+        }
+        src={MODEL_SRC()}
         loading="lazy"
         exposure="0.72"
         shadow-intensity="1"
@@ -103,15 +66,6 @@ export default function ModelView({ source, tokenId }: { source: SRC; tokenId: s
         interaction-prompt="auto"
         interaction-prompt-threshold="10000"
         disable-tap="true"
-        // ar="true"
-        // ar-modes="webxr scene-viewer quick-look"
-        // ar-status="not-presenting"
-        // interaction-bounds="none"
-        // animation-name="Idle"
-        // max-camera-orbit="Infinity 100deg auto"
-        // min-camera-orbit="-Infinity 0deg 300%"
-        // scale="0.5 0.5 0.5"
-        // orientation="0 0 200deg"
       />
     </div>
   )

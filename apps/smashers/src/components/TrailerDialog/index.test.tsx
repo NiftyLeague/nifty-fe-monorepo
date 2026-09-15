@@ -7,10 +7,10 @@ const source = readFileSync(fileURLToPath(new URL('./index.tsx', import.meta.url
 describe('TrailerDialog', () => {
   it('uses CSS for the iframe border instead of the deprecated frameBorder attribute', () => {
     expect(source).not.toContain('frameBorder=')
-    expect(source).toMatch(/className="[^"]*\bborder-0\b[^"]*"/)
+    expect(source).toMatch(/class="[^"]*\bborder-0\b[^"]*"/)
   })
 
   it('loads the user-requested trailer as soon as the dialog opens', () => {
-    expect(source).toMatch(/allowFullScreen\s+loading="eager"/)
+    expect(source).toMatch(/allowfullscreen\s+loading="eager"/)
   })
 })

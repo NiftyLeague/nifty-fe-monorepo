@@ -1,5 +1,5 @@
 {
-  "extends": "@nl/typescript-config/react-library.json",
+  "extends": "@nl/typescript-config/solid-library.json",
   "compilerOptions": {
     "incremental": true,
     "outDir": "dist",

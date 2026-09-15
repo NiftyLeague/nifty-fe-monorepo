@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { TokenMenuErrorBoundary } from './TokenMenuBoundary'
@@ -13,11 +13,11 @@ describe('TokenMenuErrorBoundary', () => {
     console.error = () => undefined
 
     try {
-      render(
+      render(() => (
         <TokenMenuErrorBoundary>
           <ThrowingTokenMenu />
         </TokenMenuErrorBoundary>
-      )
+      ))
     } finally {
       console.error = originalConsoleError
     }

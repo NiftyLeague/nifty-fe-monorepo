@@ -1,4 +1,7 @@
-import type { ComponentProps, CSSProperties } from 'react'
+import type { JSX } from 'solid-js'
+
+type CSSProperties = JSX.CSSProperties
+type ComponentProps<Tag extends keyof JSX.HTMLElementTags> = JSX.HTMLElementTags[Tag]
 
 /**
  * The `<img>` attribute contract shared by every surface that renders an
@@ -15,7 +18,7 @@ import type { ComponentProps, CSSProperties } from 'react'
  *   - the `decoding` and `loading` defaults, including the eager/lazy rule for
  *     `priority`/`preload`;
  *   - width/height adoption from an object source;
- *   - `fetchPriority` selection (`high` for priority, `low` for lazy);
+ *   - `fetchpriority` selection (`high` for priority, `low` for lazy);
  *   - `fill` handling (drop the intrinsic size, pin the element to its box);
  *   - dropping `undefined` attributes so React does not emit empty ones.
  *
@@ -70,15 +73,18 @@ export function imageAttributes({
   if (!props.width && typeof src === 'object' && src?.width) props.width = src.width
   if (!props.height && typeof src === 'object' && src?.height) props.height = src.height
 
-  if (!props.fetchPriority) {
-    props.fetchPriority =
+  if (!props.fetchpriority) {
+    props.fetchpriority =
       priority || preload ? 'high' : props.loading === 'lazy' ? 'low' : undefined
   }
 
   if (fill) {
     delete props.width
     delete props.height
-    props.style = { ...IMAGE_FILL_STYLE, ...attributes.style }
+    props.style = {
+      ...IMAGE_FILL_STYLE,
+      ...(typeof attributes.style === 'object' ? attributes.style : {}),
+    }
   }
 
   return props

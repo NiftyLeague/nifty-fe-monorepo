@@ -1,6 +1,4 @@
-'use client'
-
-import * as React from 'react'
+import { splitProps, type ComponentProps } from 'solid-js'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@nl/ui/utils'
@@ -8,21 +6,26 @@ import { cn } from '@nl/ui/utils'
 import { Button } from './button'
 import { Input } from './input'
 
-function InputGroup({ className, ...props }: React.ComponentProps<'div'>) {
+type DivProps = ComponentProps<'div'> & { className?: string }
+type SpanProps = ComponentProps<'span'> & { className?: string }
+
+function InputGroup(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="input-group"
       role="group"
-      className={cn(
+      class={cn(
         'group/input-group relative flex w-full items-center rounded-md border border-input shadow-xs transition-[color,box-shadow] outline-none dark:bg-input/30',
         'h-9 min-w-0',
         'has-[>[data-align=inline-start]]:[&>input]:pl-2',
         'has-[>[data-align=inline-end]]:[&>input]:pr-2',
         'has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50',
         'has-[[data-slot][aria-invalid=true]]:border-destructive has-[[data-slot][aria-invalid=true]]:ring-destructive/20 dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
@@ -40,22 +43,19 @@ const inputGroupAddonVariants = cva(
   }
 )
 
-function InputGroupAddon({
-  className,
-  align = 'inline-start',
-  ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
+function InputGroupAddon(props: DivProps & VariantProps<typeof inputGroupAddonVariants>) {
+  const [local, others] = splitProps(props, ['class', 'className', 'align'])
   return (
     <div
       role="group"
       data-slot="input-group-addon"
-      data-align={align}
-      className={cn(inputGroupAddonVariants({ align }), className)}
+      data-align={local.align ?? 'inline-start'}
+      class={cn(inputGroupAddonVariants({ align: local.align }), local.class, local.className)}
       onClick={(event) => {
         if ((event.target as HTMLElement).closest('button')) return
         event.currentTarget.parentElement?.querySelector('input')?.focus()
       }}
-      {...props}
+      {...others}
     />
   )
 }
@@ -70,21 +70,19 @@ const inputGroupButtonVariants = cva('flex items-center gap-2 text-sm shadow-non
   defaultVariants: { size: 'xs' },
 })
 
-function InputGroupButton({
-  className,
-  type = 'button',
-  variant = 'ghost',
-  size = 'xs',
-  ...props
-}: Omit<React.ComponentProps<typeof Button>, 'size'> &
-  VariantProps<typeof inputGroupButtonVariants>) {
+type ButtonProps = Parameters<typeof Button>[0]
+
+function InputGroupButton(
+  props: Omit<ButtonProps, 'size'> & VariantProps<typeof inputGroupButtonVariants>
+) {
+  const [local, others] = splitProps(props, ['class', 'className', 'type', 'variant', 'size'])
   return (
     <Button
-      type={type}
-      data-size={size}
-      variant={variant}
-      className={cn(inputGroupButtonVariants({ size }), className)}
-      {...props}
+      type={local.type ?? 'button'}
+      data-size={local.size ?? 'xs'}
+      variant={local.variant ?? 'ghost'}
+      class={cn(inputGroupButtonVariants({ size: local.size }), local.class, local.className)}
+      {...others}
     />
   )
 }
@@ -95,44 +93,44 @@ type InputGroupPasswordToggleProps = {
   disabled?: boolean
 }
 
-function InputGroupPasswordToggle({
-  visible,
-  onVisibleChange,
-  disabled,
-}: InputGroupPasswordToggleProps) {
+function InputGroupPasswordToggle(props: InputGroupPasswordToggleProps) {
   return (
     <InputGroupButton
       size="sm"
-      disabled={disabled}
-      onClick={() => onVisibleChange(!visible)}
-      aria-label={visible ? 'Hide' : 'Reveal'}
+      disabled={props.disabled}
+      onClick={() => props.onVisibleChange(!props.visible)}
+      aria-label={props.visible ? 'Hide' : 'Reveal'}
     >
-      {visible ? 'Hide' : 'Reveal'}
+      {props.visible ? 'Hide' : 'Reveal'}
     </InputGroupButton>
   )
 }
 
-function InputGroupText({ className, ...props }: React.ComponentProps<'span'>) {
+function InputGroupText(props: SpanProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <span
-      className={cn(
+      class={cn(
         "flex items-center gap-2 text-sm text-muted-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function InputGroupInput({ className, ...props }: React.ComponentProps<'input'>) {
+function InputGroupInput(props: ComponentProps<'input'> & { className?: string }) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <Input
       data-slot="input-group-control"
-      className={cn(
+      class={cn(
         'flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }

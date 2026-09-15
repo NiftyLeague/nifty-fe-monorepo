@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test'
 
 import ResponsiveCarousel from './index'
@@ -23,11 +23,11 @@ describe('ResponsiveCarousel', () => {
       window.addEventListener = originalAddEventListener
     }
 
-    const { unmount } = render(
+    const { unmount } = render(() => (
       <ResponsiveCarousel>
         <div>Slide</div>
       </ResponsiveCarousel>
-    )
+    ))
 
     expect(addEventListener.mock.calls.some(([type]) => type === 'resize')).toBe(false)
     unmount()
@@ -54,12 +54,12 @@ describe('ResponsiveCarousel', () => {
       })
     }
 
-    const { container, unmount } = render(
+    const { container, unmount } = render(() => (
       <ResponsiveCarousel showControls>
         <div>First slide</div>
         <div>Second slide</div>
       </ResponsiveCarousel>
-    )
+    ))
     const viewport = container.querySelector(
       '[aria-label="Featured content slides"]'
     ) as HTMLDivElement
@@ -107,12 +107,12 @@ describe('ResponsiveCarousel', () => {
     const clearIntervalSpy = spyOn(window, 'clearInterval')
 
     try {
-      const { unmount } = render(
+      const { unmount } = render(() => (
         <ResponsiveCarousel autoPlay>
           <div>First slide</div>
           <div>Second slide</div>
         </ResponsiveCarousel>
-      )
+      ))
 
       expect(setIntervalSpy).not.toHaveBeenCalled()
       expect(observedElement).toBeDefined()
@@ -167,12 +167,12 @@ describe('ResponsiveCarousel', () => {
     const clearIntervalSpy = spyOn(window, 'clearInterval')
 
     try {
-      const { unmount } = render(
+      const { unmount } = render(() => (
         <ResponsiveCarousel autoPlay>
           <div>First slide</div>
           <div>Second slide</div>
         </ResponsiveCarousel>
-      )
+      ))
 
       act(() =>
         intersectionCallback?.(

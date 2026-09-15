@@ -1,20 +1,29 @@
-'use client'
-
-import type { ComponentType, PropsWithChildren } from 'react'
-import { createContext, useCallback, useEffect, useMemo } from 'react'
-import { SnackbarProvider } from 'notistack'
+import {
+  createContext,
+  createEffect,
+  type Accessor,
+  type ParentComponent,
+  type Resource,
+} from 'solid-js'
 
 import { fetchJson, FetchError } from '../../utils/fetchJson'
-import { USER_CONTEXT_INITIAL_STATE } from '../../constants'
 import { useUserInfo } from '../../hooks/useUserInfo'
 import { useUserSession } from '../../hooks/useUserSession'
-import type { User, UserContextType } from '../../types'
+import type { UserInfo, User } from '../../types'
 
-const CompatibleSnackbarProvider = SnackbarProvider as unknown as ComponentType<
-  PropsWithChildren<{ maxSnack?: number; autoHideDuration?: number }>
->
+/**
+ * Solid context value: everything is an accessor so consumers stay reactive.
+ * `UserContextType` (the React-era plain shape) is derived from this in
+ * `useUserContext` for call sites that want a snapshot.
+ */
+export interface UserContextValue {
+  isLoggedIn: Accessor<boolean>
+  user: Resource<User | undefined>
+  userInfo: Resource<UserInfo | undefined>
+  refetchPlayer: () => Promise<UserInfo | undefined>
+}
 
-export const UserContext = createContext<UserContextType>(USER_CONTEXT_INITIAL_STATE)
+export const UserContext = createContext<UserContextValue>()
 
 /**
  * The auth surface is a plain document, so `?game-token=` is read from the
@@ -26,72 +35,54 @@ const readGameToken = (): string | null => {
   return new URLSearchParams(window.location.search).get('game-token')
 }
 
-export const UserContextProvider = (props: PropsWithChildren) => {
+export const UserContextProvider: ParentComponent = (props) => {
   const gameToken = readGameToken()
   const { user, mutateUser } = useUserSession()
   const { userInfo, mutateUserInfo } = useUserInfo(user)
-  const isLoggedIn = Boolean(user?.isLoggedIn)
-  const persistLogin = Boolean(user?.persistLogin)
-  const customId = user?.CustomId
+  const isLoggedIn = () => Boolean(user()?.isLoggedIn)
 
-  const handleAnonLogin = useCallback(
-    async (CustomId: string) => {
-      // Login player with stored CustomID
-      try {
-        const res = await fetchJson<User>('/api/playfab/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ CustomId }),
-        })
-        mutateUser(res)
-      } catch (error) {
-        // Cleanup & force logout so we can verify Custom ID
-        const status = (error as FetchError).response.status
-        switch (status) {
-          case 400: // AccountDeleted
-          case 404: // AccountNotFound
-            mutateUser(await fetchJson('/api/playfab/logout', { method: 'POST' }))
-            break
-          default:
-            break
-        }
+  const handleAnonLogin = async (CustomId: string) => {
+    // Login player with stored CustomID
+    try {
+      const res = await fetchJson<User>('/api/playfab/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ CustomId }),
+      })
+      mutateUser(res)
+    } catch (error) {
+      // Cleanup & force logout so we can verify Custom ID
+      const status = (error as FetchError).response?.status
+      switch (status) {
+        case 400: // AccountDeleted
+        case 404: // AccountNotFound
+          mutateUser(await fetchJson('/api/playfab/logout', { method: 'POST' }))
+          break
+        default:
+          break
       }
-    },
-    [mutateUser]
-  )
+    }
+  }
 
-  useEffect(() => {
+  createEffect(() => {
     if (gameToken) {
       void handleAnonLogin(gameToken)
-    } else if (!isLoggedIn && customId && persistLogin) {
-      void handleAnonLogin(customId)
+    } else if (!isLoggedIn() && user()?.CustomId && user()?.persistLogin) {
+      void handleAnonLogin(user()!.CustomId as string)
     }
-  }, [gameToken, customId, handleAnonLogin, isLoggedIn, persistLogin])
+  })
 
-  const refetchPlayer = useCallback(async () => await mutateUserInfo(), [mutateUserInfo])
+  const value: UserContextValue = {
+    isLoggedIn,
+    user,
+    userInfo,
+    refetchPlayer: async () => {
+      await mutateUserInfo()
+      return userInfo()
+    },
+  }
 
-  const value = useMemo(
-    () => ({
-      account: userInfo?.AccountInfo,
-      characters: userInfo?.CharacterList,
-      currencies: userInfo?.UserVirtualCurrency,
-      customId: user?.CustomId,
-      inventory: userInfo?.UserInventory,
-      isLoggedIn: isLoggedIn,
-      playFabId: user?.PlayFabId,
-      profile: userInfo?.PlayerProfile,
-      publisherData: userInfo?.PublisherData,
-      refetchPlayer,
-      stats: userInfo?.PlayerStatistics,
-    }),
-    [isLoggedIn, refetchPlayer, user, userInfo]
-  )
-
-  return (
-    <CompatibleSnackbarProvider maxSnack={3} autoHideDuration={5000}>
-      <UserContext.Provider value={value} {...props} />
-    </CompatibleSnackbarProvider>
-  )
+  return <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
 }
 
 export default UserContextProvider

@@ -8,7 +8,7 @@ export default function TeamCarousel() {
   return (
     <Carousel isMobileViewOnly hideGradient tabletItems={2} ariaLabel="Nifty League team">
       {[...CORE_TEAM, ...DEGEN_DELEGATES].map((item) => (
-        <TeamCardItem key={item.name} {...item} />
+        <TeamCardItem {...item} />
       ))}
     </Carousel>
   )

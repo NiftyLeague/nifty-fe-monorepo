@@ -1,5 +1,5 @@
-import { LoaderCircle } from 'lucide-react'
-import type { SVGProps } from 'react'
+import { LoaderCircle } from 'lucide-solid'
+import { splitProps, type ComponentProps } from 'solid-js'
 import { cn } from '@nl/ui/utils'
 
 type CircularProgressSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number
@@ -22,11 +22,12 @@ const DEFAULT_COLORS = {
 
 type CircularProgressColor = keyof typeof DEFAULT_COLORS | (string & {})
 
-type CircularProgressProps = Omit<SVGProps<SVGSVGElement>, 'color' | 'fill'> & {
+type CircularProgressProps = Omit<ComponentProps<'svg'>, 'color' | 'fill'> & {
   absoluteStrokeWidth?: boolean
   size?: CircularProgressSize
   color?: CircularProgressColor
   fill?: CircularProgressColor
+  className?: string
 }
 
 const resolveSize = (size: CircularProgressSize) =>
@@ -44,28 +45,30 @@ const resolveColor = (color: CircularProgressColor) =>
  * under `prefers-reduced-motion`, which keeps the indicator visible while
  * removing the rotation.
  */
-export function CircularProgress({
-  absoluteStrokeWidth = true,
-  className = '',
-  color = 'currentColor',
-  fill = 'none',
-  size = 'xl',
-  strokeWidth = 2.5,
-  ...props
-}: CircularProgressProps) {
+export function CircularProgress(props: CircularProgressProps) {
+  const [local, others] = splitProps(props, [
+    'absoluteStrokeWidth',
+    'class',
+    'className',
+    'color',
+    'fill',
+    'size',
+    'stroke-width',
+  ])
   return (
     <LoaderCircle
-      absoluteStrokeWidth={absoluteStrokeWidth}
-      color={resolveColor(color)}
-      fill={resolveColor(fill)}
-      size={resolveSize(size)}
-      strokeWidth={strokeWidth}
-      className={cn(
+      absoluteStrokeWidth={local.absoluteStrokeWidth ?? true}
+      color={resolveColor(local.color ?? 'currentColor')}
+      fill={resolveColor(local.fill ?? 'none')}
+      size={resolveSize(local.size ?? 'xl')}
+      stroke-width={local['stroke-width'] ?? 2.5}
+      class={cn(
         'inline-block flex-shrink-0 animate-spin motion-reduce:animate-none',
-        className
+        local.class,
+        local.className
       )}
       aria-hidden="true"
-      {...props}
+      {...others}
     />
   )
 }

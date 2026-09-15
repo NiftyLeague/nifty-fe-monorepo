@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('./ModelView', () => ({
@@ -15,35 +15,37 @@ import DegenViews from './DegenViews'
 
 describe('DegenViews', () => {
   it('keeps the lightweight 2D surface initial and loads 3D on selection', async () => {
-    render(
+    render(() => (
       <DegenViews
         tokenId="42"
         initialImage={<div data-testid="initial-image">2D degen</div>}
         spriteImage={<div data-testid="sprite-image">Degen Sprite</div>}
         logo={<span>Nifty League</span>}
       />
-    )
+    ))
 
-    expect(screen.getByRole('radio', { name: 'Toggle 2D' }).getAttribute('data-state')).toBe('on')
+    expect(screen.getByRole('button', { name: 'Toggle 2D' }).getAttribute('aria-pressed')).toBe(
+      'true'
+    )
     expect(screen.queryByTestId('model-view')).toBeNull()
 
-    fireEvent.click(screen.getByRole('radio', { name: 'Toggle 3D' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Toggle 3D' }))
 
     expect(await screen.findByTestId('model-view')).toBeDefined()
     expect(screen.getByTestId('model-actions')).toBeDefined()
   })
 
   it('keeps Sprite available without loading the 3D surface', () => {
-    render(
+    render(() => (
       <DegenViews
         tokenId="42"
         initialImage={<div data-testid="initial-image">2D degen</div>}
         spriteImage={<div data-testid="sprite-image">Degen Sprite</div>}
         logo={<span>Nifty League</span>}
       />
-    )
+    ))
 
-    fireEvent.click(screen.getByRole('radio', { name: 'Toggle Sprite' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Toggle Sprite' }))
 
     expect(screen.getByTestId('sprite-image')).toBeDefined()
     expect(screen.queryByTestId('model-view')).toBeNull()

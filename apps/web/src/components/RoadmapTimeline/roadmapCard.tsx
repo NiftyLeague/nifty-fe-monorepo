@@ -1,4 +1,5 @@
-import { Check, X } from 'lucide-react'
+import type { JSX } from 'solid-js'
+import { Check, X } from 'lucide-solid'
 
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
@@ -12,7 +13,7 @@ export const getRoadmapCardSide = (index: number): RoadmapCardSide =>
   index % 2 === 0 ? 'left' : 'right'
 
 interface RoadmapCardProps {
-  body: React.ReactNode
+  body: JSX.Element
   cancelled?: boolean
   current?: boolean
   completed?: boolean
@@ -26,7 +27,7 @@ interface RoadmapCardProps {
     style: { top: string; right?: string }
   }
   side?: RoadmapCardSide
-  title: string | React.ReactNode
+  title: string | JSX.Element
 }
 
 const RoadmapCard = ({
@@ -39,9 +40,9 @@ const RoadmapCard = ({
   image,
   side = 'left',
   title,
-}: RoadmapCardProps): React.ReactNode => (
+}: RoadmapCardProps): JSX.Element => (
   <div
-    className={cx(styles.cd_timeline_block, styles.fade_in)}
+    class={cx(styles.cd_timeline_block, styles.fade_in)}
     data-roadmap-card
     data-roadmap-status={
       cancelled ? 'cancelled' : completed ? 'completed' : current ? 'current' : 'planned'
@@ -50,10 +51,10 @@ const RoadmapCard = ({
     data-timeline-side={side}
   >
     {divider ? (
-      <h4 className={styles.cd_timeline_divider}>Options below are TBD!</h4>
+      <h4 class={styles.cd_timeline_divider}>Options below are TBD!</h4>
     ) : (
       <div
-        className={cx(styles.cd_timeline_checkpoint, {
+        class={cx(styles.cd_timeline_checkpoint, {
           [styles.completed as string]: completed,
           [styles.cancelled as string]: cancelled,
         })}
@@ -62,25 +63,19 @@ const RoadmapCard = ({
           <Check
             absoluteStrokeWidth
             aria-hidden="true"
-            className="m-auto"
+            class="m-auto"
             size={20}
-            strokeWidth={2.5}
+            stroke-width={2.5}
           />
         )}
         {cancelled && (
-          <X
-            absoluteStrokeWidth
-            aria-hidden="true"
-            className="m-auto"
-            size={20}
-            strokeWidth={2.5}
-          />
+          <X absoluteStrokeWidth aria-hidden="true" class="m-auto" size={20} stroke-width={2.5} />
         )}
       </div>
     )}
 
     {image && (
-      <div className={styles.timeline_content_img} style={image.style}>
+      <div class={styles.timeline_content_img} style={image.style}>
         {image.src.endsWith('.gif') && image.posterSrc ? (
           <DeferredAnimatedImage
             src={image.posterSrc}
@@ -112,22 +107,22 @@ const RoadmapCard = ({
             height={image.height}
             sizes="200px"
             loading="lazy"
-            fetchPriority="low"
+            fetchpriority="low"
             style={{ width: '100%', height: 'auto' }}
           />
         )}
       </div>
     )}
 
-    <div className={styles.cd_timeline_content}>
-      <div className={styles.timeline_content_body}>
-        <h3 className="[word-spacing:-10px] heading-look-5 text-highlight-purple">{title}</h3>
+    <div class={styles.cd_timeline_content}>
+      <div class={styles.timeline_content_body}>
+        <h3 class="[word-spacing:-10px] heading-look-5 text-highlight-purple">{title}</h3>
         {(completed || cancelled) && (
-          <div className={styles.timeline_content_info}>
-            <span className={styles.timeline_content_info_title}>
+          <div class={styles.timeline_content_info}>
+            <span class={styles.timeline_content_info_title}>
               {cancelled ? 'Cancelled' : 'Mission Accomplished'}
             </span>
-            <span className={styles.timeline_content_info_date}>{completionDate}</span>
+            <span class={styles.timeline_content_info_date}>{completionDate}</span>
           </div>
         )}
         {body}
@@ -135,7 +130,7 @@ const RoadmapCard = ({
     </div>
 
     {current ? (
-      <div className={styles.satoshiStationary}>
+      <div class={styles.satoshiStationary}>
         <OptimizedImage
           src="/img/space/satoshi_stationary.gif"
           unoptimized

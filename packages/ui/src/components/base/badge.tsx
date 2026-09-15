@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as SlotPrimitive from 'radix-ui/slot'
+import { Badge as BadgePrimitive } from '@kobalte/core/badge'
+import { splitProps, type ComponentProps } from 'solid-js'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@nl/ui/utils'
@@ -21,15 +21,18 @@ const badgeVariants = cva(
   }
 )
 
-function Badge({
-  className,
-  variant,
-  asChild = false,
-  ...props
-}: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? SlotPrimitive.Slot : 'span'
+type BadgeProps = ComponentProps<typeof BadgePrimitive> &
+  VariantProps<typeof badgeVariants> & { className?: string }
 
-  return <Comp data-slot="badge" className={cn(badgeVariants({ variant }), className)} {...props} />
+function Badge(props: BadgeProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'variant'])
+  return (
+    <BadgePrimitive
+      data-slot="badge"
+      class={cn(badgeVariants({ variant: local.variant }), local.class, local.className)}
+      {...others}
+    />
+  )
 }
 
 export { Badge, badgeVariants }

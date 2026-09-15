@@ -1,6 +1,4 @@
-'use client'
-
-import { useEffect, useState, type ComponentType } from 'react'
+import { For, Show, createSignal, onMount, type Component } from 'solid-js'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import NativeImage from '@nl/ui/custom/native-image'
@@ -13,7 +11,7 @@ type ActiveModal = 'credits' | 'play' | 'trailer' | 'unity' | null
 type ModalType = Exclude<ActiveModal, 'unity' | null>
 // The dialogs are controlled by this group: `open` plus `onOpenChange` is what
 // makes Escape / overlay / close-button closes actually reach them.
-type ModalComponent = ComponentType<{
+type ModalComponent = Component<{
   open?: boolean
   onOpenChange?: (open: boolean) => void
 }>
@@ -46,76 +44,80 @@ const modalActions: Record<ModalType, ModalAction> = {
   },
 }
 
-function DeferredModalAction({
-  action,
-  open,
-  onRequest,
-  setOpen,
-}: {
+function DeferredModalAction(props: {
   action: ModalAction
   open: boolean
   onRequest: () => void
   setOpen: (open: boolean) => void
 }) {
-  const { Component: Modal, hasError, retry } = useDeferredComponent(action.load, open)
-
-  if (Modal)
-    return (
-      <Modal
-        open={open}
-        // The dialogs are controlled; close requests (Escape, overlay click,
-        // close button) must clear the group's requested modal or the dialog
-        // can never close.
-        onOpenChange={setOpen}
-      />
-    )
-
-  const isLoading = open && !hasError
-  const label = hasError ? `Retry ${action.label}` : action.label
+  const {
+    Component: Modal,
+    hasError,
+    retry,
+  } = useDeferredComponent(props.action.load, () => props.open)
 
   return (
-    <button
-      type="button"
-      data-slot="button"
-      className={buttonVariants()}
-      aria-busy={isLoading}
-      aria-label={label}
-      onClick={() => {
-        onRequest()
-        if (hasError) retry()
-      }}
+    <Show
+      when={Modal()}
+      fallback={
+        <button
+          type="button"
+          data-slot="button"
+          class={buttonVariants()}
+          aria-busy={props.open && !hasError()}
+          aria-label={hasError() ? `Retry ${props.action.label}` : props.action.label}
+          onClick={() => {
+            props.onRequest()
+            if (hasError()) retry()
+          }}
+        >
+          <NativeImage src={props.action.image} alt={props.action.alt} width={22} height={22} />
+          {props.action.label}
+        </button>
+      }
     >
-      <NativeImage src={action.image} alt={action.alt} width={22} height={22} />
-      {action.label}
-    </button>
+      {(DeferredModal) => {
+        const ModalComponent = DeferredModal()
+        return (
+          <ModalComponent
+            open={props.open}
+            // The dialogs are controlled; close requests (Escape, overlay click,
+            // close button) must clear the group's requested modal or the dialog
+            // can never close.
+            onOpenChange={props.setOpen}
+          />
+        )
+      }}
+    </Show>
   )
 }
 
 const ActionButtonsGroup = () => {
-  const [requestedModal, setRequestedModal] = useState<ModalType | null>(null)
+  const [requestedModal, setRequestedModal] = createSignal<ModalType | null>(null)
 
-  useEffect(() => {
+  onMount(() => {
     // The home page is prerendered, so the referral deep link can only be read
     // here: an arriving ?referral link opens the Play dialog directly.
     if (new URLSearchParams(window.location.search).has('referral')) {
       setRequestedModal('play')
     }
-  }, [])
+  })
 
   return (
-    <div className={styles.heroBtnGroup}>
-      {(Object.keys(modalActions) as ModalType[]).map((type) => {
-        const action = modalActions[type]
-        return (
-          <DeferredModalAction
-            key={type}
-            action={action}
-            open={requestedModal === type}
-            onRequest={() => setRequestedModal(type)}
-            setOpen={(next) => setRequestedModal(next ? type : null)}
-          />
-        )
-      })}
+    <div class={styles.heroBtnGroup}>
+      <For each={Object.keys(modalActions) as ModalType[]}>
+        {(type) => {
+          const action = modalActions[type]
+          return (
+            <DeferredModalAction
+              action={action}
+              open={requestedModal() === type}
+              onRequest={() => setRequestedModal(type)}
+              setOpen={(next) => setRequestedModal(next ? type : null)}
+            />
+          )
+        }}
+      </For>
     </div>
   )
 }

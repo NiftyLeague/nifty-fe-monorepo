@@ -35,7 +35,7 @@ const [flagship, ...games] = NIFTY_GAMES
           worlds. Everything is waiting for you in the app.
         </p>
         <ThemeBtnGroup
-          className="justify-center md:justify-start"
+          class="justify-center md:justify-start"
           primary={{ href: NIFTY_APP_URL, title: 'PLAY NOW', external: true }}
         />
       </div>
@@ -49,9 +49,9 @@ const [flagship, ...games] = NIFTY_GAMES
             height="100%"
             muted
             loop
-            playsInline
+            playsinline
             data-keepplaying
-            className="hidden md:block"
+            class="hidden md:block"
             poster="/img/games/smashers/lobby.webp"
             src="/video/lobby.mp4"
           />
@@ -65,8 +65,8 @@ const [flagship, ...games] = NIFTY_GAMES
               sizes="(min-width: 768px) 50vw, 339px"
               style={{
                 width: '100%',
-                maxWidth: '339px',
-                marginInline: 'auto',
+                'max-width': '339px',
+                'margin-inline': 'auto',
                 height: 'auto',
               }}
             />
@@ -94,7 +94,7 @@ const [flagship, ...games] = NIFTY_GAMES
       </div>
 
       <ThemeBtnGroup
-        className="mt-6 xl:mt-8"
+        class="mt-6 xl:mt-8"
         primary={{ href: NIFTY_APP_URL, title: 'PLAY NOW', external: true }}
       />
     </section>

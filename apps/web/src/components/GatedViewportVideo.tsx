@@ -1,28 +1,26 @@
-'use client'
-
-import type { ComponentPropsWithoutRef } from 'react'
+import { splitProps, type JSX } from 'solid-js'
 import { DeferredSkeleton } from '@nl/ui/custom/deferred-skeleton'
-import { ViewportVideo } from '@nl/ui/custom/viewport-video'
+import { ViewportVideo, type ViewportVideoProps } from '@nl/ui/custom/viewport-video'
 import IdleGate from '@/components/IdleGate'
 
-type ViewportVideoProps = ComponentPropsWithoutRef<typeof ViewportVideo>
+type GatedViewportVideoProps = ViewportVideoProps & { label?: string }
 
-export default function GatedViewportVideo({
-  label = 'video',
-  ...props
-}: ViewportVideoProps & { label?: string }) {
+const GatedViewportVideo = (props: GatedViewportVideoProps): JSX.Element => {
+  const [local, videoProps] = splitProps(props, ['label'])
   return (
     <IdleGate
       fallback={
         <DeferredSkeleton
           role="status"
           aria-live="polite"
-          aria-label={`Loading ${label}`}
-          className="h-full w-full"
+          aria-label={`Loading ${local.label ?? 'video'}`}
+          class="h-full w-full"
         />
       }
     >
-      <ViewportVideo {...props} />
+      <ViewportVideo {...videoProps} />
     </IdleGate>
   )
 }
+
+export default GatedViewportVideo

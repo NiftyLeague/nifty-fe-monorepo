@@ -2,39 +2,39 @@ import { ViewportVideo } from '@nl/ui/custom/viewport-video'
 
 const GameSection = () => {
   return (
-    <div className="flex flex-col-reverse lg:flex-col">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-        <div className="md:col-span-12 lg:col-span-6">
-          <div className="text-center lg:text-left mb-6">
-            <h2 className="transition-vertical-fade">
+    <div class="flex flex-col-reverse lg:flex-col">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+        <div class="md:col-span-12 lg:col-span-6">
+          <div class="text-center lg:text-left mb-6">
+            <h2 class="transition-vertical-fade">
               FREE-TO-PLAY
               <br />
-              <span className="font-default font-normal">PARTY PLATFORM FIGHTER</span>
+              <span class="font-default font-normal">PARTY PLATFORM FIGHTER</span>
             </h2>
           </div>
-          <div className="text-center lg:text-left">
-            <p className="leading-relaxed transition-vertical-fade">
-              Nifty Smashers is an <strong className="font-semibold">online multiplayer</strong>{' '}
-              that blends elements of a{' '}
-              <strong className="font-semibold">casual party survival</strong> experience with the
-              fast-paced action of a <strong className="font-semibold">platform fighter</strong>!
+          <div class="text-center lg:text-left">
+            <p class="leading-relaxed transition-vertical-fade">
+              Nifty Smashers is an <strong class="font-semibold">online multiplayer</strong> that
+              blends elements of a <strong class="font-semibold">casual party survival</strong>{' '}
+              experience with the fast-paced action of a{' '}
+              <strong class="font-semibold">platform fighter</strong>!
               <br />
               <br />
               Play on iOS, Android, and Steam with{' '}
-              <strong className="font-semibold">full cross-play support</strong>! Jump in and brawl
+              <strong class="font-semibold">full cross-play support</strong>! Jump in and brawl
               anytime, anywhere!
             </p>
           </div>
         </div>
-        <div className="md:col-span-12 lg:col-span-6">
-          <div className="transition-quick-pop overflow-hidden rounded-[40px]">
+        <div class="md:col-span-12 lg:col-span-6">
+          <div class="transition-quick-pop overflow-hidden rounded-[40px]">
             <ViewportVideo
               id="level-video"
-              className="h-auto w-full"
+              class="h-auto w-full"
               deferLoad
               muted
               loop
-              playsInline
+              playsinline
               data-keepplaying
               poster="/img/games/smashers/rocket-poster.webp"
               src="/video/rocket.mp4"
@@ -49,17 +49,17 @@ const GameSection = () => {
        * ViewportVideo loads on idle, waits for the viewport, and never plays when
        * `prefers-reduced-motion: reduce` is set.
        */}
-      <div className="my-10 block text-center transition-fade-slow">
+      <div class="my-10 block text-center transition-fade-slow">
         <ViewportVideo
           id="party-modes-video"
-          className="w-full h-auto rounded-[40px]"
+          class="w-full h-auto rounded-[40px]"
           width={1350}
           height={566}
           aria-label="Smashers Party Modes"
           deferLoad
           muted
           loop
-          playsInline
+          playsinline
           data-keepplaying
           poster="/img/games/smashers/party_modes-poster.webp"
           src="/video/party-modes.mp4"

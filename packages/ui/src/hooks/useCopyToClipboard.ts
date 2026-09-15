@@ -1,12 +1,10 @@
-'use client'
-
-import { useState } from 'react'
+import { createSignal, type Accessor } from 'solid-js'
 
 type CopiedValue = string | null
 type CopyFn = (text: string) => Promise<boolean> // Return success
 
-export const useCopyToClipboard = (): [CopiedValue, CopyFn] => {
-  const [copiedText, setCopiedText] = useState<CopiedValue>(null)
+export const useCopyToClipboard = (): [Accessor<CopiedValue>, CopyFn] => {
+  const [copiedText, setCopiedText] = createSignal<CopiedValue>(null)
 
   const copy: CopyFn = async (text) => {
     if (!navigator?.clipboard) {

@@ -1,11 +1,11 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import DeferredSkeleton from './index'
 
 describe('DeferredSkeleton', () => {
   it('keeps the shared skeleton tokens while honoring radius overrides', () => {
-    const { container } = render(<DeferredSkeleton className="h-8 rounded-none" />)
+    const { container } = render(() => <DeferredSkeleton className="h-8 rounded-none" />)
     const skeleton = container.firstElementChild
 
     expect(skeleton?.className).toContain('bg-accent')

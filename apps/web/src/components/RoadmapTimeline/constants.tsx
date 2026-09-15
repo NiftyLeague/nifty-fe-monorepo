@@ -25,7 +25,7 @@ export const ROADMAP_CARDS = [
           </strong>
           .
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Nifty Smashers stands as one of the earliest NFT-enabled games on Ethereum. At the time,
           it was especially rare for a game to sell avatars or digital assets with a playable
           prototype.
@@ -45,7 +45,7 @@ export const ROADMAP_CARDS = [
     title: 'Desktop App',
     body: (
       <>
-        <p className="mb-0">
+        <p class="mb-0">
           Considering browser limitations with WebGL games, we made a point to focus our immediate
           efforts on creating a launcher to house our games going forward. Avoiding browser memory
           limits allows us to introduce additional animations, movesets, and other NFT integrations
@@ -72,7 +72,7 @@ export const ROADMAP_CARDS = [
           </strong>
           .
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           While the largest winnings went to those players who stood victorious, all participants
           were rewarded <strong>NFTL</strong> every match for their efforts in helping us playtest
           the game.
@@ -87,7 +87,7 @@ export const ROADMAP_CARDS = [
     title: 'Merch',
     body: (
       <>
-        <p className="mb-0">
+        <p class="mb-0">
           We know our community couldn&apos;t wait to showcase their cool DEGENS on the streets! We
           are excited to unveil custom Nifty League merch!
         </p>
@@ -111,7 +111,7 @@ export const ROADMAP_CARDS = [
           holders. We introduced a rental system to scale our playerbase as much as possible without
           devaluing our genesis DEGEN NFT collection.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           We introduced a bespoke rental system allowing DEGEN holders to earn <strong>NFTL</strong>{' '}
           daily through fees. Each DEGEN could be rented indefinitely but the cost for doing so
           increased exponentially with each additional rental. This allowed the market to decide the
@@ -142,7 +142,7 @@ export const ROADMAP_CARDS = [
           We&apos;ll include game stats for daily, weekly, monthly, and of course all-time leaders
           for all of our games in Nifty World. Some early honorary DEGENS:
         </p>
-        <ul className={styles.content_skills}>
+        <ul class={styles.content_skills}>
           <li>fvsvy 🌊</li>
           <li>SEIYA</li>
           <li>sacx</li>
@@ -176,7 +176,7 @@ export const ROADMAP_CARDS = [
           is a game of timing and reflex. The purpose of the mini-game is to try and hit as many
           baseballs (launched from a baseball machine) as possible in a row to get a high score.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           With this mini-game we introduced our Arcade Tokens system! Players earn Arcade Tokens
           every day they complete a Nifty Smashers match! This game marks our first Arcade Game
           launched and can be played without owning or renting a DEGEN.
@@ -197,7 +197,7 @@ export const ROADMAP_CARDS = [
     title: 'Mt. Gawx',
     body: (
       <>
-        <p className="mb-0">
+        <p class="mb-0">
           Hearing the DEGENs&apos; pleas to spend their hard-earned NFTL and with bigger sinks still
           under development, Satoshi suggests the DEGENs climb to the top of the{' '}
           <strong>
@@ -225,7 +225,7 @@ export const ROADMAP_CARDS = [
     title: 'Crypto Winter',
     body: (
       <>
-        <p className="mb-0">
+        <p class="mb-0">
           <strong>
             <a
               href="https://app.niftyleague.com/games/crypto-winter"
@@ -263,7 +263,7 @@ export const ROADMAP_CARDS = [
           </strong>{' '}
           .
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           IMX is solely focused on powering the next generation of Web3 games which positions Nifty
           League to capitalize on the upcoming wave of mainstream adoption.
         </p>
@@ -300,8 +300,8 @@ export const ROADMAP_CARDS = [
         <p>
           <strong>Comic burning remains open until further notice!</strong>
         </p>
-        <div className="flex flex-wrap -mx-1">
-          <div className="w-1/2 p-1">
+        <div class="flex flex-wrap -mx-1">
+          <div class="w-1/2 p-1">
             <OptimizedImage
               alt="comic 1"
               height={500}
@@ -309,10 +309,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
-              className="w-full h-auto"
+              class="w-full h-auto"
             />
           </div>
-          <div className="w-1/2 p-1">
+          <div class="w-1/2 p-1">
             <OptimizedImage
               alt="comic 2"
               height={500}
@@ -320,10 +320,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
-              className="w-full h-auto"
+              class="w-full h-auto"
             />
           </div>
-          <div className="w-1/2 p-1">
+          <div class="w-1/2 p-1">
             <OptimizedImage
               alt="comic 3"
               height={500}
@@ -331,10 +331,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
-              className="w-full h-auto"
+              class="w-full h-auto"
             />
           </div>
-          <div className="w-1/2 p-1">
+          <div class="w-1/2 p-1">
             <OptimizedImage
               alt="comic 4"
               height={500}
@@ -342,10 +342,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
-              className="w-full h-auto"
+              class="w-full h-auto"
             />
           </div>
-          <div className="w-1/2 p-1">
+          <div class="w-1/2 p-1">
             <OptimizedImage
               alt="comic 5"
               height={500}
@@ -353,10 +353,10 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
-              className="w-full h-auto"
+              class="w-full h-auto"
             />
           </div>
-          <div className="w-1/2 p-1">
+          <div class="w-1/2 p-1">
             <OptimizedImage
               alt="comic 6"
               height={500}
@@ -364,7 +364,7 @@ export const ROADMAP_CARDS = [
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               style={{ width: '100%', height: 'auto' }}
-              className="w-full h-auto"
+              class="w-full h-auto"
             />
           </div>
         </div>
@@ -383,7 +383,7 @@ export const ROADMAP_CARDS = [
     },
     title: '2D Nifty Smashers - PC Alpha',
     body: (
-      <p className="mb-0">
+      <p class="mb-0">
         We implemented a new deterministic roll-back netcode solution which improved lag
         considerably. This netcode also enables some cool features such as broadcasting live games
         and having replays readily available through our archive.
@@ -402,7 +402,7 @@ export const ROADMAP_CARDS = [
           extinction. Community members lined up to send 8 DEGENs through a portal forever burning
           their existence from the blockchain. In return? A claim at one of 98 rare Hydra eggs.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Hydras are amphibious water dragons that roam freely underwater or on land. Their cuteness
           belies their wise and fighting prowess. They pack a punch with their tridents, spears, and
           ranged attacks and bring a wealth of lore knowledge to Nifty League, being the oldest
@@ -427,7 +427,7 @@ export const ROADMAP_CARDS = [
           Scaling our platform is a high priority. Part of this process is onboarding new users who
           may not be able to afford expensive digital assets.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Our new free-2-play focus allows players to experience our games using generic characters
           of each tribe while more premium access is still restricted to DEGEN holders.
         </p>
@@ -451,7 +451,7 @@ export const ROADMAP_CARDS = [
           systems. These systems incentivize players to stick around by rewarding them for
           milestones that drive engagement and retention.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Nifty Smashers is the first game we integrated with live ops tooling as part of its mobile
           launch. In addition, we are training Smashers AI to keep lobbies full and accomodate
           multiple skill levels.
@@ -471,7 +471,7 @@ export const ROADMAP_CARDS = [
     title: 'PocketWhale Partnership',
     body: (
       <>
-        <p className="mb-0">
+        <p class="mb-0">
           Video game creative and marketing agency focusing on mobile, PC and console games. With
           offices in USA, Germany, France and Japan,{' '}
           <a href="https://www.pocketwhale.com/" target="_blank" rel="noreferrer">
@@ -479,7 +479,7 @@ export const ROADMAP_CARDS = [
           </a>{' '}
           plans and executes our global game marketing campaigns.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Their team designs tailor-made creative assets and has a holistic approach to media. They
           operate marketing campaigns online and offline through PR, influencer marketing, TV
           advertising, digital advertising, and events.
@@ -499,14 +499,14 @@ export const ROADMAP_CARDS = [
     title: 'Nifty Smashers - Mobile Alpha',
     body: (
       <>
-        <p className="mb-0">
+        <p class="mb-0">
           Porting Smashers to{' '}
           <a href="https://niftysmashers.com" target="_blank" rel="noreferrer">
             Android & iOS
           </a>
           !
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Going forward all of our games will be mobile compatible. With a high concentration of
           gamers using mobile platforms, this release was pivotal for the direction of Nifty League.
         </p>
@@ -530,7 +530,7 @@ export const ROADMAP_CARDS = [
           After months of refining complex in-game progression and metasystem mechanics, we&apos;ve
           crafted a top-tier mobile experience that players will love.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           We are now in the final stages of testing and polishing before the global launch!
         </p>
       </>
@@ -558,7 +558,7 @@ export const ROADMAP_CARDS = [
           kicked off in August 2023 as part of a case study into our decentalized vision. Nifty
           League is managing an external game studio responsible for development.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Early-access is available for playtesting! Find the latest build{' '}
           <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
             on our webapp
@@ -594,7 +594,7 @@ export const ROADMAP_CARDS = [
           - a chain for games that offers EVM compatibility, low cost, massive scale, and Ethereum
           security. The most cutting-edge technology in gaming with the largest ecosystem in web3.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           We migrated NFTL along with our Items & Comics collections, allowing our users to benefit
           from low fees and scalability for our platform.
         </p>
@@ -622,7 +622,7 @@ export const ROADMAP_CARDS = [
           development through community contributions enabling us to build a gaming platform like no
           other.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Read our{' '}
           <a
             href="https://niftyleague.com/docs/overview/nifty-dao/guidelines"
@@ -655,7 +655,7 @@ export const ROADMAP_CARDS = [
           </a>
           !
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           This marks a major milestone in our journey, expanding beyond mobile to bring the full
           party platform-fighting experience to PC players. Expect continued updates, new content,
           and even more ways to play as we build towards a full cross-play future!
@@ -679,7 +679,7 @@ export const ROADMAP_CARDS = [
           Nifty Royale is an action-packed battle royale set in Nifty World, designed to deliver an
           immersive and competitive experience for DEGENs.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Alpha development was completed in April 2025. Find the latest build{' '}
           <a href="https://app.niftyleague.com" target="_blank" rel="noreferrer">
             on our webapp
@@ -710,7 +710,7 @@ export const ROADMAP_CARDS = [
           launching the game with significant investment. We struggled with long-term retention and
           ultimately could not secure publisher support, so we sunset the game.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           While that decision is difficult, it is a common part of game development. Many promising
           games are shelved when the numbers show that a launch would not be profitable.
         </p>
@@ -728,7 +728,7 @@ export const ROADMAP_CARDS = [
     },
     title: 'Nifty World - Alpha',
     body: (
-      <p className="mb-0">
+      <p class="mb-0">
         The Nifty World Alpha is live on{' '}
         <a href="https://niftyleague.com/app/world" target="_blank" rel="noreferrer">
           niftyleague.com/app/world
@@ -759,7 +759,7 @@ export const ROADMAP_CARDS = [
           explore destinations across the map, and jump into titles like Nifty Smashers and Nifty
           Kart.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           The long-term vision also gives creators room to build the world, design assets, and shape
           new experiences for the community.
         </p>
@@ -785,7 +785,7 @@ export const ROADMAP_CARDS = [
           </a>
           !
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Future items will be provided to community testers as well as found in our games. Free-2-
           play mobile players that includes you! Players may get lucky and find rare wearables or
           weapons in game that are mintable on IMX!
@@ -810,7 +810,7 @@ export const ROADMAP_CARDS = [
           as long as they meet platform guidelines. For larger developments that span across a
           region we will introduce an HOA model for build proposals.
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           Oh... and it&apos;s probably worth noting the land and assets will be sold with{' '}
           <strong>NFTL</strong>.
         </p>
@@ -832,7 +832,7 @@ export const ROADMAP_CARDS = [
           </strong>
           , and we couldn&apos;t agree more!
         </p>
-        <p className="mb-0">
+        <p class="mb-0">
           DEGEN NFT holders would receive whitelist spots so our community can create pets at their
           leisure. A public offering will follow for any remaining pets. If you missed the first
           minting experience be sure to keep this one on your calendar!
@@ -849,7 +849,7 @@ export const ROADMAP_CARDS = [
     },
     title: 'Nifty Tennis',
     body: (
-      <p className="mb-0">
+      <p class="mb-0">
         It&apos;s important to note that any subsequent games will be voted upon by the DAO. Early
         development of Nifty Tennis started in 2022, making Tennis a top release candidate. We plan
         to accommodate all playstyles whether playing competitively or just for fun.
@@ -865,7 +865,7 @@ export const ROADMAP_CARDS = [
     },
     title: 'Nifty Kart',
     body: (
-      <p className="mb-0">
+      <p class="mb-0">
         Old school classics are core to our game offerings as we recognize the power of reliving
         childhood favorites with a Web3 twist. Own your characters &amp; karts and get ready to race
         for <strong>NFTL</strong>!
@@ -876,7 +876,7 @@ export const ROADMAP_CARDS = [
     image: { src: '/img/roadmap/gen2_v01.webp', style: { top: '-120px' }, width: 550, height: 451 },
     title: 'Gen2 DEGENs',
     body: (
-      <p className="mb-0">
+      <p class="mb-0">
         As our platform grows and demand increases for DEGENs - we may consider introducing new
         tribes. Do note that the final decision to go this route will rest with the DAO.
       </p>

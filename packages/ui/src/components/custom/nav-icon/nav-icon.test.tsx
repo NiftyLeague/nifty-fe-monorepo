@@ -1,11 +1,13 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { NavIcon } from './index'
 
 describe('NavIcon', () => {
   it('renders decorative themed glyphs without a client-only icon registry', () => {
-    const { container } = render(<NavIcon name="gamepad" className="text-sidebar-foreground" />)
+    const { container } = render(() => (
+      <NavIcon name="gamepad" className="text-sidebar-foreground" />
+    ))
     const icon = container.querySelector('svg')
 
     expect(icon).not.toBeNull()
@@ -16,7 +18,7 @@ describe('NavIcon', () => {
   })
 
   it('supports an accessible label when the glyph carries meaning', () => {
-    const { container } = render(<NavIcon name="sparkles" aria-label="Mint-O-Matic" />)
+    const { container } = render(() => <NavIcon name="sparkles" aria-label="Mint-O-Matic" />)
     const icon = container.querySelector('svg')
 
     expect(icon?.getAttribute('aria-label')).toBe('Mint-O-Matic')
@@ -24,7 +26,7 @@ describe('NavIcon', () => {
   })
 
   it('renders the earth glyph for world navigation', () => {
-    const { container } = render(<NavIcon name="earth" />)
+    const { container } = render(() => <NavIcon name="earth" />)
     const icon = container.querySelector('svg')
 
     expect(icon?.querySelector('circle')).not.toBeNull()

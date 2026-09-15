@@ -1,5 +1,4 @@
-'use client'
-
+import type { JSX } from 'solid-js'
 import { COMMUNITY_DEGEN_LIST } from '@/constants/degens'
 import { RenderDegen } from '@/components/Carousel/DegenCardItem'
 import styles from './CommunityDegenCarousel.module.css'
@@ -12,19 +11,15 @@ import styles from './CommunityDegenCarousel.module.css'
  */
 export default function CommunityDegenCarousel() {
   return (
-    <div className={styles.marquee} aria-label="Community DEGENs">
+    <div class={styles.marquee} aria-label="Community DEGENs">
       <div
-        className={styles.track}
-        style={
-          { '--marquee-duration': `${COMMUNITY_DEGEN_LIST.length * 3}s` } as React.CSSProperties
-        }
+        class={styles.track}
+        style={{ '--marquee-duration': `${COMMUNITY_DEGEN_LIST.length * 3}s` } as JSX.CSSProperties}
       >
         {[0, 1].map((copy) => (
-          <div className={styles.group} key={copy} aria-hidden={copy === 1}>
+          <div class={styles.group} aria-hidden={copy === 1}>
             {COMMUNITY_DEGEN_LIST.map((degen) => (
-              <div className={styles.item} key={`${copy}-${degen.name}`}>
-                {RenderDegen(degen)}
-              </div>
+              <div class={styles.item}>{RenderDegen(degen)}</div>
             ))}
           </div>
         ))}

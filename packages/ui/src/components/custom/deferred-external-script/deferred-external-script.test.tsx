@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react'
+import { act, render } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import DeferredExternalScript from '.'
@@ -39,7 +39,9 @@ describe('DeferredExternalScript', () => {
       value: mock(),
     })
 
-    const rendered = render(<DeferredExternalScript id="test-external-script" src="/stats.js" />)
+    const rendered = render(() => (
+      <DeferredExternalScript id="test-external-script" src="/stats.js" />
+    ))
 
     try {
       expect(timeoutCallbacks).toHaveLength(1)
@@ -89,12 +91,12 @@ describe('DeferredExternalScript', () => {
       value: mock(),
     })
 
-    const rendered = render(
+    const rendered = render(() => (
       <>
         <DeferredExternalScript id="test-external-script" src="/stats.js" />
         <DeferredExternalScript id="test-external-script-two" src="/other-stats.js" />
       </>
-    )
+    ))
 
     try {
       expect(timeoutCallbacks).toHaveLength(1)

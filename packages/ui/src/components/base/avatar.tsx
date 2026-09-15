@@ -1,39 +1,49 @@
-'use client'
-
-import * as React from 'react'
-import * as AvatarPrimitive from 'radix-ui/avatar'
+import * as ImagePrimitive from '@kobalte/core/image'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 
-function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>) {
+type AvatarProps = ComponentProps<typeof ImagePrimitive.Root> & { className?: string }
+
+function Avatar(props: AvatarProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
-    <AvatarPrimitive.Root
+    <ImagePrimitive.Root
       data-slot="avatar"
-      className={cn('relative flex size-8 shrink-0 overflow-hidden rounded-full', className)}
-      {...props}
+      class={cn(
+        'relative flex size-8 shrink-0 overflow-hidden rounded-full',
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }
 
-function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+function AvatarImage(props: ComponentProps<typeof ImagePrimitive.Img> & { className?: string }) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
-    <AvatarPrimitive.Image
+    <ImagePrimitive.Img
       data-slot="avatar-image"
-      className={cn('aspect-square size-full', className)}
-      {...props}
+      class={cn('aspect-square size-full', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function AvatarFallback({
-  className,
-  ...props
-}: React.ComponentProps<typeof AvatarPrimitive.Fallback>) {
+function AvatarFallback(
+  props: ComponentProps<typeof ImagePrimitive.Fallback> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
-    <AvatarPrimitive.Fallback
+    <ImagePrimitive.Fallback
       data-slot="avatar-fallback"
-      className={cn('bg-muted flex size-full items-center justify-center rounded-full', className)}
-      {...props}
+      class={cn(
+        'bg-muted flex size-full items-center justify-center rounded-full',
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }

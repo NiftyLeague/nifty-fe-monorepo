@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 1,
+  "app": "docs",
+  "generatedAt": "2026-09-15T03:42:28.601Z",
+  "gitRevision": "92d7ddd18d54e75fd602f3ab7da1e0c8ccf1085f",
+  "label": "solid-baseline",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1610.099,
+        "minimum": 1609.827,
+        "maximum": 1621.31
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.01149174216751759,
+        "minimum": 0.01149174216751759,
+        "maximum": 0.01149174216751759
+      },
+      "fcpMs": {
+        "median": 807.799,
+        "minimum": 805.742,
+        "maximum": 809.461
+      },
+      "siMs": {
+        "median": 996,
+        "minimum": 993,
+        "maximum": 1002
+      },
+      "diagnostics": [
+        "largest-contentful-paint (1.6 s)",
+        "interactive (2.2 s)",
+        "image-delivery-insight (Est savings of 18 KiB)",
+        "network-dependency-tree-insight",
+        "image-delivery-insight (Est savings of 15 KiB)"
+      ]
+    },
+    {
+      "route": "/overview/intro",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2175.247,
+        "minimum": 2162.575,
+        "maximum": 2177.446
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 805.93,
+        "minimum": 803.504,
+        "maximum": 810.502
+      },
+      "siMs": {
+        "median": 1126,
+        "minimum": 1121,
+        "maximum": 1130
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.2 s)",
+        "interactive (2.4 s)",
+        "image-delivery-insight (Est savings of 28 KiB)",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/roadmap",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2588.105,
+        "minimum": 2587.221,
+        "maximum": 2588.246
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 801.729,
+        "minimum": 796.09,
+        "maximum": 812.445
+      },
+      "siMs": {
+        "median": 1744,
+        "minimum": 1742,
+        "maximum": 1750
+      },
+      "diagnostics": [
+        "largest-contentful-paint (2.6 s)",
+        "interactive (2.4 s)",
+        "image-delivery-insight (Est savings of 52 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/nifty-dao/nftl/supply",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 804.401,
+        "minimum": 800.454,
+        "maximum": 805.312
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.05415591330170146,
+        "minimum": 0.05415591330170146,
+        "maximum": 0.05415591330170146
+      },
+      "fcpMs": {
+        "median": 804.401,
+        "minimum": 800.454,
+        "maximum": 805.312
+      },
+      "siMs": {
+        "median": 820,
+        "minimum": 816,
+        "maximum": 821
+      },
+      "diagnostics": [
+        "cumulative-layout-shift (0.054)",
+        "interactive (2.4 s)",
+        "image-delivery-insight (Est savings of 34 KiB)",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/nfts/nifty-marketplace/comics",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 855.17,
+        "minimum": 846.124,
+        "maximum": 871.916
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 855.17,
+        "minimum": 846.124,
+        "maximum": 871.916
+      },
+      "siMs": {
+        "median": 1281,
+        "minimum": 1267,
+        "maximum": 1300
+      },
+      "diagnostics": [
+        "interactive (3.6 s)",
+        "image-delivery-insight (Est savings of 508 KiB)",
+        "network-dependency-tree-insight",
+        "image-delivery-insight (Est savings of 547 KiB)"
+      ]
+    },
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1782.233,
+        "minimum": 1780.968,
+        "maximum": 1786.897
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.002200420825672008,
+        "minimum": 0.002200420825672008,
+        "maximum": 0.002200420825672008
+      },
+      "fcpMs": {
+        "median": 781.771,
+        "minimum": 770.758,
+        "maximum": 785.55
+      },
+      "siMs": {
+        "median": 1091,
+        "minimum": 1082,
+        "maximum": 1092
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (1.8 s)",
+        "speed-index (1.1 s)",
+        "interactive (2.3 s)",
+        "image-delivery-insight (Est savings of 78 KiB)",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/intro",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 88,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2173.622,
+        "minimum": 2169.616,
+        "maximum": 2186.802
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009090814070571755,
+        "minimum": 0.0009090814070571755,
+        "maximum": 0.0009090814070571755
+      },
+      "fcpMs": {
+        "median": 775.136,
+        "minimum": 764.194,
+        "maximum": 775.171
+      },
+      "siMs": {
+        "median": 1098,
+        "minimum": 1089,
+        "maximum": 1101
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.2 s)",
+        "speed-index (1.1 s)",
+        "interactive (2.4 s)",
+        "image-delivery-insight (Est savings of 54 KiB)",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/roadmap",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 84,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2587.349,
+        "minimum": 2584.956,
+        "maximum": 2596.622
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0009664558434025042,
+        "minimum": 0.0009664558434025042,
+        "maximum": 0.0009664558434025042
+      },
+      "fcpMs": {
+        "median": 771.057,
+        "minimum": 767.415,
+        "maximum": 773.401
+      },
+      "siMs": {
+        "median": 1387,
+        "minimum": 1383,
+        "maximum": 1389
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.6 s)",
+        "speed-index (1.4 s)",
+        "interactive (2.4 s)",
+        "image-delivery-insight (Est savings of 24 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/nifty-dao/nftl/supply",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 84,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2791.472,
+        "minimum": 2789.162,
+        "maximum": 2815.976
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0018490474418468902,
+        "minimum": 0.0018490474418468902,
+        "maximum": 0.0018490474418468902
+      },
+      "fcpMs": {
+        "median": 775.436,
+        "minimum": 773.104,
+        "maximum": 790.04
+      },
+      "siMs": {
+        "median": 1054,
+        "minimum": 1052,
+        "maximum": 1077
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.8 s)",
+        "speed-index (1.1 s)",
+        "interactive (2.4 s)",
+        "image-delivery-insight (Est savings of 34 KiB)",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "route": "/overview/nfts/nifty-marketplace/comics",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2438.352,
+        "minimum": 2407.844,
+        "maximum": 2451.369
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0006293198931792312,
+        "minimum": 0.0006293198931792312,
+        "maximum": 0.0006293198931792312
+      },
+      "fcpMs": {
+        "median": 785.165,
+        "minimum": 776.096,
+        "maximum": 789.337
+      },
+      "siMs": {
+        "median": 1302,
+        "minimum": 1291,
+        "maximum": 1307
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.5 s)",
+        "speed-index (1.3 s)",
+        "interactive (3.6 s)",
+        "image-delivery-insight (Est savings of 493 KiB)",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (2.4 s)"
+      ]
+    }
+  ]
+}

@@ -1,14 +1,10 @@
-'use client'
+import { createEffect, createSignal, onCleanup, type Accessor, type Component } from 'solid-js'
 
-import { startTransition, useCallback, useEffect, useState, type ComponentType } from 'react'
-
-export type DeferredComponentLoader<T extends object> = () => Promise<{
-  default: ComponentType<T>
-}>
+export type DeferredComponentLoader<T extends object> = () => Promise<{ default: Component<T> }>
 
 export interface DeferredComponentState<T extends object> {
-  Component: ComponentType<T> | null
-  hasError: boolean
+  Component: Accessor<Component<T> | null>
+  hasError: Accessor<boolean>
   retry: () => void
 }
 
@@ -16,7 +12,7 @@ const componentLoadCache = new WeakMap<object, Promise<unknown>>()
 
 function getComponentLoad<T extends object>(load: DeferredComponentLoader<T>) {
   const cachedLoad = componentLoadCache.get(load)
-  if (cachedLoad) return cachedLoad as Promise<{ default: ComponentType<T> }>
+  if (cachedLoad) return cachedLoad as Promise<{ default: Component<T> }>
 
   const nextLoad = Promise.resolve().then(load)
   componentLoadCache.set(load, nextLoad)
@@ -29,14 +25,16 @@ function getComponentLoad<T extends object>(load: DeferredComponentLoader<T>) {
  */
 export function useDeferredComponent<T extends object>(
   load: DeferredComponentLoader<T>,
-  enabled = true
+  enabled: Accessor<boolean> | boolean = true
 ): DeferredComponentState<T> {
-  const [Component, setComponent] = useState<ComponentType<T> | null>(null)
-  const [hasError, setHasError] = useState(false)
-  const [retryCount, setRetryCount] = useState(0)
+  const [Component, setComponent] = createSignal<Component<T> | null>(null)
+  const [hasError, setHasError] = createSignal(false)
+  const [retryCount, setRetryCount] = createSignal(0)
 
-  useEffect(() => {
-    if (!enabled || Component) return
+  const isEnabled = () => (typeof enabled === 'function' ? enabled() : enabled)
+
+  createEffect(() => {
+    if (!isEnabled() || Component() || retryCount() < 0) return
 
     let active = true
     setHasError(false)
@@ -45,23 +43,19 @@ export function useDeferredComponent<T extends object>(
 
     pendingLoad
       .then(({ default: nextComponent }) => {
-        if (active) {
-          startTransition(() => setComponent(() => nextComponent))
-        }
+        if (active) setComponent(() => nextComponent)
       })
       .catch(() => {
         if (componentLoadCache.get(load) === pendingLoad) componentLoadCache.delete(load)
-        if (active) {
-          startTransition(() => setHasError(true))
-        }
+        if (active) setHasError(true)
       })
 
-    return () => {
+    onCleanup(() => {
       active = false
-    }
-  }, [Component, enabled, load, retryCount])
+    })
+  })
 
-  const retry = useCallback(() => setRetryCount((count) => count + 1), [])
+  const retry = () => setRetryCount((count) => count + 1)
 
   return { Component, hasError, retry }
 }

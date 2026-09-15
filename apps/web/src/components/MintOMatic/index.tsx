@@ -5,7 +5,7 @@ const MintOMatic = () => {
   return (
     <>
       <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
-        <div className="relative">
+        <div class="relative">
           <NativeImage
             src="/img/mint-o-matic/animated/top.webp"
             alt="NFTL Token Top"
@@ -13,12 +13,12 @@ const MintOMatic = () => {
             height={1778}
             loading="lazy"
             decoding="async"
-            className="pixelated"
+            class="pixelated"
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
       </ParallaxWrapper>
-      <div className="absolute home-nftl-token-image flex-grow">
+      <div class="absolute home-nftl-token-image flex-grow">
         <NativeImage
           src="/img/mint-o-matic/animated/nftl-token-coin.webp"
           alt="NFTL Token Coin"
@@ -26,11 +26,11 @@ const MintOMatic = () => {
           height={1778}
           loading="lazy"
           decoding="async"
-          className="pixelated"
+          class="pixelated"
           style={{ width: '100%', height: 'auto' }}
         />
       </div>
-      <div className="absolute animate-blink home-nftl-token-image flex-grow">
+      <div class="absolute animate-blink home-nftl-token-image flex-grow">
         <NativeImage
           src="/img/mint-o-matic/animated/nftl-token-tears.webp"
           alt="NFTL Token Tears"
@@ -38,12 +38,12 @@ const MintOMatic = () => {
           height={1778}
           loading="lazy"
           decoding="async"
-          className="pixelated"
+          class="pixelated"
           style={{ width: '100%', height: 'auto' }}
         />
       </div>
       <ParallaxWrapper parallaxDirection="left" parallaxIntensity="normal">
-        <div className="parallax-child absolute home-nftl-token-image home-nftl-token-bottom-image flex-grow">
+        <div class="parallax-child absolute home-nftl-token-image home-nftl-token-bottom-image flex-grow">
           <NativeImage
             src="/img/mint-o-matic/animated/bottom.webp"
             alt="NFTL Token Bottom"
@@ -51,7 +51,7 @@ const MintOMatic = () => {
             height={1778}
             loading="lazy"
             decoding="async"
-            className="pixelated"
+            class="pixelated"
             style={{ width: '100%', height: 'auto' }}
           />
         </div>

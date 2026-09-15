@@ -1,14 +1,5 @@
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
-const collectComicImages = (node: unknown): Array<{ alt?: string; sizes?: string }> => {
-  if (Array.isArray(node)) return node.flatMap(collectComicImages)
-  if (!node || typeof node !== 'object') return []
-
-  const props = (node as { props?: { alt?: string; children?: unknown; sizes?: string } }).props
-  if (!props) return []
-
-  const image = props.alt?.startsWith('comic ') ? [{ alt: props.alt, sizes: props.sizes }] : []
-  return [...image, ...collectComicImages(props.children)]
-}
 
 const catalogLoaders = {
   careers: () => import('./careers'),
@@ -36,7 +27,13 @@ describe('website catalogs', () => {
     const { ROADMAP_CARDS } = await import('../components/RoadmapTimeline/constants')
     const comicsCard = ROADMAP_CARDS.find((card) => card.title === 'Comics Burning')
 
-    const images = collectComicImages(comicsCard?.body)
+    // Solid builds real DOM at JSX evaluation, so inspect the rendered output
+    // instead of walking a virtual element tree.
+    const { container } = render(() => comicsCard?.body ?? null)
+    const images = [...container.querySelectorAll('img[alt^="comic "]')].map((image) => ({
+      alt: image.getAttribute('alt') ?? undefined,
+      sizes: image.getAttribute('sizes') ?? undefined,
+    }))
 
     expect(images).toHaveLength(6)
     expect(images.every(({ sizes }) => sizes === '(max-width: 767px) 50vw, 250px')).toBe(true)

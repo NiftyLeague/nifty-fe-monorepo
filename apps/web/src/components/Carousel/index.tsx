@@ -1,12 +1,10 @@
-'use client'
-
-import { Children, memo, useRef, type ReactNode } from 'react'
+import { Show, type JSX } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 
 export interface NiftyCarouselProps {
-  children: ReactNode
+  children?: JSX.Element
   isMobileViewOnly?: boolean
   mobileItems?: number
   tabletItems?: number
@@ -22,68 +20,70 @@ const loadInteractiveCarousel = () => import('./InteractiveCarousel')
 // handoff without loading its client bundle during the first scroll segment.
 export const CAROUSEL_ROOT_MARGIN = '160px 0px'
 
-const NiftyCarousel = ({
-  children,
-  isMobileViewOnly = false,
-  mobileItems = 1,
-  tabletItems = 3,
-  desktopItems = 4,
-  superLargeDesktopItems = 5,
-  hideGradient = false,
-  ariaLabel = 'Featured content',
-}: NiftyCarouselProps): React.ReactNode => {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(containerRef, CAROUSEL_ROOT_MARGIN, { once: true })
+const NiftyCarousel = (props: NiftyCarouselProps) => {
+  let containerEl: HTMLDivElement | undefined
+  const isNearViewport = useOnScreen(() => containerEl, CAROUSEL_ROOT_MARGIN, { once: true })
   const { Component: InteractiveCarousel } = useDeferredComponent<NiftyCarouselProps>(
     loadInteractiveCarousel,
     isNearViewport
   )
 
   return (
-    <div ref={containerRef} className="relative">
-      {InteractiveCarousel ? (
-        <InteractiveCarousel
-          isMobileViewOnly={isMobileViewOnly}
-          mobileItems={mobileItems}
-          tabletItems={tabletItems}
-          desktopItems={desktopItems}
-          superLargeDesktopItems={superLargeDesktopItems}
-          hideGradient={hideGradient}
-          ariaLabel={ariaLabel}
-        >
-          {children}
-        </InteractiveCarousel>
-      ) : (
-        <StaticCarousel mobileItems={mobileItems} hideGradient={hideGradient}>
-          {children}
-        </StaticCarousel>
-      )}
+    <div ref={(el) => (containerEl = el)} class="relative">
+      <Show
+        when={InteractiveCarousel()}
+        fallback={
+          <StaticCarousel mobileItems={props.mobileItems} hideGradient={props.hideGradient}>
+            {props.children}
+          </StaticCarousel>
+        }
+      >
+        {(DeferredCarousel) => {
+          const CarouselComponent = DeferredCarousel()
+          return (
+            <CarouselComponent
+              isMobileViewOnly={props.isMobileViewOnly}
+              mobileItems={props.mobileItems}
+              tabletItems={props.tabletItems}
+              desktopItems={props.desktopItems}
+              superLargeDesktopItems={props.superLargeDesktopItems}
+              hideGradient={props.hideGradient}
+              ariaLabel={props.ariaLabel}
+            >
+              {props.children}
+            </CarouselComponent>
+          )
+        }}
+      </Show>
     </div>
   )
 }
 
-const StaticCarousel = ({
-  children,
-  mobileItems,
-  hideGradient,
-}: Pick<NiftyCarouselProps, 'children' | 'mobileItems' | 'hideGradient'>) => {
-  const itemBasis = `${100 / (mobileItems ?? 1)}%`
+const StaticCarousel = (
+  props: Pick<NiftyCarouselProps, 'children' | 'mobileItems' | 'hideGradient'>
+) => {
+  const itemBasis = `${100 / (props.mobileItems ?? 1)}%`
+  const items = () => {
+    const raw = props.children
+    return Array.isArray(raw) ? raw : raw !== undefined && raw !== null ? [raw] : []
+  }
 
   return (
     <>
-      <div className="overflow-hidden">
-        <div className="flex items-stretch">
-          {Children.toArray(children).map((child, index) => (
-            <div key={index} className="min-w-0 shrink-0 px-5" style={{ flex: `0 0 ${itemBasis}` }}>
+      <div class="overflow-hidden">
+        <div class="flex items-stretch">
+          {items().map((child, _index) => (
+            <div class="min-w-0 shrink-0 px-5" style={{ flex: `0 0 ${itemBasis}` }}>
               {child}
             </div>
           ))}
         </div>
       </div>
-      {!hideGradient && <div className="dark-gradient-overlay !top-0 !h-full" />}
+      <Show when={!props.hideGradient}>
+        <div class="dark-gradient-overlay !top-0 !h-full" />
+      </Show>
     </>
   )
 }
 
-const MemoizedNiftyCarousel = memo(NiftyCarousel)
-export default MemoizedNiftyCarousel
+export default NiftyCarousel

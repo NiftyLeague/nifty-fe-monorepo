@@ -1,12 +1,11 @@
-'use client'
-
-import { startTransition, useEffect, useState } from 'react'
+import { createEffect, createSignal, onCleanup, type Accessor } from 'solid-js'
 
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
 export interface UseDeferredActivationOptions {
   delay?: number
-  enabled?: boolean
+  /** Reactive accessors let callers gate activation on viewport signals. */
+  enabled?: boolean | Accessor<boolean>
 }
 
 /**
@@ -15,32 +14,22 @@ export interface UseDeferredActivationOptions {
  * scheduleDeferredActivation, so mounting more deferred features does not
  * multiply global event handlers.
  */
-export default function useDeferredActivation({
-  delay,
-  enabled = true,
-}: UseDeferredActivationOptions = {}): boolean {
-  const [isActivated, setIsActivated] = useState(false)
+export default function useDeferredActivation(
+  options: UseDeferredActivationOptions = {}
+): Accessor<boolean> {
+  const [isActivated, setIsActivated] = createSignal(false)
 
-  useEffect(() => {
-    if (!enabled) {
-      setIsActivated(false)
-      return
-    }
+  createEffect(() => {
+    const enabled =
+      typeof options.enabled === 'function' ? options.enabled() : (options.enabled ?? true)
+    if (!enabled) return
 
-    let active = true
     const cleanup = scheduleDeferredActivation({
-      delay,
-      onActivate: () => {
-        if (!active) return
-        startTransition(() => setIsActivated(true))
-      },
+      delay: options.delay,
+      onActivate: () => setIsActivated(true),
     })
-
-    return () => {
-      active = false
-      cleanup()
-    }
-  }, [delay, enabled])
+    onCleanup(cleanup)
+  })
 
   return isActivated
 }

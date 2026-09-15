@@ -1,6 +1,4 @@
-'use client'
-
-import { memo, useRef, type ComponentProps } from 'react'
+import { splitProps } from 'solid-js'
 
 import AnimatedImage from '@nl/ui/custom/animated-image'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -22,7 +20,7 @@ function prefersReducedData() {
 }
 
 export type DeferredAnimatedImageProps = Omit<
-  ComponentProps<typeof AnimatedImage>,
+  Parameters<typeof AnimatedImage>[0],
   'animatedSrc' | 'animatedType' | 'animatedMedia' | 'fallbackAnimatedSrc' | 'fallbackAnimatedType'
 > & {
   /** Load the animated source this many pixels before it enters the viewport. */
@@ -31,7 +29,7 @@ export type DeferredAnimatedImageProps = Omit<
   deferAnimation?: boolean
   /** Delay before idle activation when deferAnimation is enabled. */
   activationDelay?: number
-  /** Static fallback wrapper classes, while image className styles the image itself. */
+  /** Static fallback wrapper classes, while image class styles the image itself. */
   containerClassName?: string
   /** New callers can defer any media format, including GIF. */
   animatedSrc?: string
@@ -48,49 +46,53 @@ export type DeferredAnimatedImageProps = Omit<
  * the larger animated source only when the image is near the viewport. Heavy
  * animations can also wait for the shared idle/interaction activation window.
  */
-export const DeferredAnimatedImage = memo(function DeferredAnimatedImage({
-  activationDelay,
-  containerClassName,
-  deferAnimation = false,
-  animatedMedia,
-  animatedSrc,
-  animatedType,
-  fallbackAnimatedSrc,
-  fallbackAnimatedType,
-  rootMargin = DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN,
-  ...imageProps
-}: DeferredAnimatedImageProps) {
-  const imageRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(imageRef, rootMargin, { once: true })
-  const hasAnimatedSource = Boolean(animatedSrc || fallbackAnimatedSrc)
+export function DeferredAnimatedImage(props: DeferredAnimatedImageProps) {
+  const [local, imageProps] = splitProps(props, [
+    'activationDelay',
+    'containerClassName',
+    'deferAnimation',
+    'animatedMedia',
+    'animatedSrc',
+    'animatedType',
+    'fallbackAnimatedSrc',
+    'fallbackAnimatedType',
+    'rootMargin',
+  ])
+  let imageEl: HTMLDivElement | undefined
+  const isNearViewport = useOnScreen(
+    () => imageEl,
+    local.rootMargin ?? DEFAULT_DEFERRED_ANIMATED_IMAGE_ROOT_MARGIN,
+    { once: true }
+  )
+  const hasAnimatedSource = () => Boolean(local.animatedSrc || local.fallbackAnimatedSrc)
   const isAnimationActivated = useDeferredActivation({
-    delay: activationDelay,
-    enabled: deferAnimation && isNearViewport && hasAnimatedSource,
+    delay: local.activationDelay,
+    enabled: () => (local.deferAnimation ?? false) && isNearViewport() && hasAnimatedSource(),
   })
   const isDataSavingRequested = prefersReducedData()
-  const isAnimationReady =
-    !hasAnimatedSource ||
+  const isAnimationReady = () =>
+    !hasAnimatedSource() ||
     isDataSavingRequested ||
-    (isNearViewport && (!deferAnimation || isAnimationActivated))
-  const shouldAttachAnimatedSource = isAnimationReady && !isDataSavingRequested
+    (isNearViewport() && (!local.deferAnimation || isAnimationActivated()))
+  const shouldAttachAnimatedSource = () => isAnimationReady() && !isDataSavingRequested
 
   return (
     <div
-      ref={imageRef}
-      className={containerClassName}
-      aria-busy={!isAnimationReady}
+      ref={(el) => (imageEl = el)}
+      class={local.containerClassName}
+      aria-busy={!isAnimationReady()}
       data-deferred-animated-image
     >
       <AnimatedImage
         {...imageProps}
-        animatedMedia={animatedMedia}
-        animatedSrc={shouldAttachAnimatedSource ? animatedSrc : undefined}
-        animatedType={animatedType}
-        fallbackAnimatedSrc={shouldAttachAnimatedSource ? fallbackAnimatedSrc : undefined}
-        fallbackAnimatedType={fallbackAnimatedType}
+        animatedMedia={local.animatedMedia}
+        animatedSrc={shouldAttachAnimatedSource() ? local.animatedSrc : undefined}
+        animatedType={local.animatedType}
+        fallbackAnimatedSrc={shouldAttachAnimatedSource() ? local.fallbackAnimatedSrc : undefined}
+        fallbackAnimatedType={local.fallbackAnimatedType}
       />
     </div>
   )
-})
+}
 
 export default DeferredAnimatedImage

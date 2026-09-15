@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const state = {
@@ -12,15 +12,15 @@ const state = {
 mock.module('@nl/ui/hooks/useOnScreen', () => ({
   useOnScreen: (_ref: unknown, rootMargin: string) => {
     state.rootMargin = rootMargin
-    return state.nearViewport
+    return () => state.nearViewport
   },
 }))
 
 mock.module('@nl/ui/hooks/useDeferredActivation', () => ({
   default: ({ enabled, delay }: { enabled: boolean; delay?: number }) => {
-    state.activationEnabled = enabled
+    state.activationEnabled = typeof enabled === 'function' ? enabled() : enabled
     state.activationDelay = delay
-    return enabled && state.animationActivated
+    return () => state.activationEnabled && state.animationActivated
   },
 }))
 
@@ -45,7 +45,7 @@ describe('DeferredAnimatedImage', () => {
   })
 
   it('keeps the animated source out of the initial render while retaining the poster', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredAnimatedImage
         src="/poster.webp"
         animatedSrc="/animation.webp"
@@ -57,7 +57,7 @@ describe('DeferredAnimatedImage', () => {
         loading="lazy"
         containerClassName="my-10 block"
       />
-    )
+    ))
 
     expect(container.querySelector('source')).toBeNull()
     expect(container.querySelector('img')?.getAttribute('src')).toBe('/poster.webp')
@@ -70,7 +70,7 @@ describe('DeferredAnimatedImage', () => {
   it('attaches the animated source when the poster is near the viewport', () => {
     state.nearViewport = true
 
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredAnimatedImage
         src="/poster.webp"
         animatedSrc="/animation.webp"
@@ -81,7 +81,7 @@ describe('DeferredAnimatedImage', () => {
         height={566}
         loading="lazy"
       />
-    )
+    ))
 
     expect(container.querySelector('source')?.getAttribute('srcset')).toBe('/animation.webp')
     expect(container.querySelector('source')?.getAttribute('media')).toBe(
@@ -94,7 +94,7 @@ describe('DeferredAnimatedImage', () => {
     state.nearViewport = true
     setSaveData(true)
 
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredAnimatedImage
         src="/poster.webp"
         animatedSrc="/animation.webp"
@@ -105,7 +105,7 @@ describe('DeferredAnimatedImage', () => {
         width={1350}
         height={566}
       />
-    )
+    ))
 
     expect(container.querySelectorAll('source')).toHaveLength(0)
     expect(container.querySelector('img')?.getAttribute('src')).toBe('/poster.webp')
@@ -115,7 +115,7 @@ describe('DeferredAnimatedImage', () => {
   it('keeps heavy animation deferred until shared idle activation', () => {
     state.nearViewport = true
 
-    const rendered = render(
+    const rendered = render(() => (
       <DeferredAnimatedImage
         src="/poster.webp"
         animatedSrc="/animation.webp"
@@ -125,7 +125,7 @@ describe('DeferredAnimatedImage', () => {
         deferAnimation
         activationDelay={1000}
       />
-    )
+    ))
 
     expect(rendered.container.querySelector('source')).toBeNull()
     expect(rendered.container.querySelector('img')?.getAttribute('src')).toBe('/poster.webp')
@@ -155,7 +155,7 @@ describe('DeferredAnimatedImage', () => {
   it('defers non-WebP media while keeping its static fallback', () => {
     state.nearViewport = false
 
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredAnimatedImage
         src="/poster.webp"
         animatedSrc="/animation.gif"
@@ -164,13 +164,13 @@ describe('DeferredAnimatedImage', () => {
         width={1350}
         height={566}
       />
-    )
+    ))
 
     expect(container.querySelector('source')).toBeNull()
     expect(container.querySelector('img')?.getAttribute('src')).toBe('/poster.webp')
 
     state.nearViewport = true
-    const rerendered = render(
+    const rerendered = render(() => (
       <DeferredAnimatedImage
         src="/poster.webp"
         animatedSrc="/animation.gif"
@@ -179,7 +179,7 @@ describe('DeferredAnimatedImage', () => {
         width={1350}
         height={566}
       />
-    )
+    ))
 
     expect(rerendered.container.querySelector('source')?.getAttribute('type')).toBe('image/gif')
     expect(rerendered.container.querySelector('source')?.getAttribute('srcset')).toBe(
@@ -199,7 +199,7 @@ describe('DeferredAnimatedImage', () => {
       height: 98,
     }
 
-    const initial = render(<DeferredAnimatedImage {...props} />)
+    const initial = render(() => <DeferredAnimatedImage {...props} />)
 
     expect(initial.container.querySelectorAll('source')).toHaveLength(0)
     expect(initial.container.querySelector('img')?.getAttribute('src')).toBe(
@@ -207,7 +207,7 @@ describe('DeferredAnimatedImage', () => {
     )
 
     state.nearViewport = true
-    const nearViewport = render(<DeferredAnimatedImage {...props} />)
+    const nearViewport = render(() => <DeferredAnimatedImage {...props} />)
 
     const sources = [...nearViewport.container.querySelectorAll('source')]
     expect(sources).toHaveLength(2)

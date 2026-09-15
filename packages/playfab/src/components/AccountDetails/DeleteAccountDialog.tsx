@@ -1,6 +1,4 @@
-'use client'
-
-import { useSnackbar } from 'notistack'
+import { toast } from 'solid-sonner'
 
 import { Button } from '@nl/ui/base/button'
 import {
@@ -20,9 +18,8 @@ import { fetchJson } from '../../utils/fetchJson'
 import { errorMsgHandler } from '../../utils/errorHandlers'
 import { navigate, useUserSession } from '../../hooks/useUserSession'
 
-export default function DeleteAccountDialog({ loading = false }) {
+export default function DeleteAccountDialog(props: { loading?: boolean }) {
   const { mutateUser } = useUserSession({ redirectTo: '/login' })
-  const { enqueueSnackbar } = useSnackbar()
 
   const handleDeleteUser = async () => {
     try {
@@ -33,25 +30,24 @@ export default function DeleteAccountDialog({ loading = false }) {
         })
       )
       navigate('/login')
-      enqueueSnackbar('Delete Account Success!', { variant: 'success' })
+      toast.success('Delete Account Success!')
     } catch (e) {
       const msg = errorMsgHandler(e)
-      enqueueSnackbar(msg, { variant: 'error' })
+      toast.error(msg)
     }
   }
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button
-          variant="destructive"
-          size="lg"
-          className="w-full cursor-pointer disabled:cursor-not-allowed"
-          disabled={loading}
-        >
-          <Icon name="trash" />
-          Delete Account
-        </Button>
+      <AlertDialogTrigger
+        as={Button}
+        variant="destructive"
+        size="lg"
+        className="w-full cursor-pointer disabled:cursor-not-allowed"
+        disabled={props.loading}
+      >
+        <Icon name="trash" />
+        Delete Account
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/deferred-section', () => ({
@@ -25,7 +25,7 @@ import { DeferredDegenSpecialsTable } from './DeferredDegenSections'
 
 describe('DeferredDegenSpecialsTable', () => {
   it('keeps the tribe table deferred with a stable accessible boundary', () => {
-    render(<DeferredDegenSpecialsTable />)
+    render(() => <DeferredDegenSpecialsTable />)
 
     expect(screen.getByRole('status').textContent).toBe('Loading DEGEN tribe specials')
     expect(screen.getByTestId('deferred-degen-specials').getAttribute('data-min-height')).toBe(

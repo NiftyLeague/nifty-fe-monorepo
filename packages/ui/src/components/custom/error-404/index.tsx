@@ -1,43 +1,46 @@
+import { splitProps, type ComponentProps } from 'solid-js'
+
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { cn } from '@nl/ui/utils'
 
-interface Error404Props extends React.ComponentProps<'div'> {}
-
-export function Error404({ className }: Error404Props) {
+export function Error404(props: ComponentProps<'div'> & { className?: string }) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
-      className={cn(
+      class={cn(
         `flex min-h-[95vh] mt-[5vh] items-center justify-center bg-transparent text-foreground`,
-        className
+        local.class,
+        local.className
       )}
+      {...others}
     >
-      <div className="flex w-full flex-col items-center justify-center gap-4">
-        <div className="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
+      <div class="flex w-full flex-col items-center justify-center gap-4">
+        <div class="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
           <OptimizedImage src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill />
           <OptimizedImage src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill />
           <OptimizedImage
             src="/img/maintenance/img-error-text.svg"
             alt="404 Text"
             fill
-            className="animate-[custom-bounce_3s_ease-in-out_infinite]"
+            class="animate-[custom-bounce_3s_ease-in-out_infinite]"
           />
           <OptimizedImage
             src="/img/maintenance/img-error-blue.svg"
             alt="Blue Shapes"
             fill
-            className="animate-[wings_15s_ease-in-out_infinite]"
+            class="animate-[wings_15s_ease-in-out_infinite]"
           />
           <OptimizedImage
             src="/img/maintenance/img-error-purple.svg"
             alt="Purple Shapes"
             fill
-            className="animate-[wings_12s_ease-in-out_infinite]"
+            class="animate-[wings_12s_ease-in-out_infinite]"
           />
         </div>
-        <div className="mx-auto px-4 max-w-[550px] text-center">
-          <div className="flex flex-col gap-4">
+        <div class="mx-auto px-4 max-w-[550px] text-center">
+          <div class="flex flex-col gap-4">
             <h4>Something is wrong...</h4>
-            <p className="text-base">
+            <p class="text-base">
               The page you are looking for was moved, removed, renamed, or might have never existed!
             </p>
           </div>

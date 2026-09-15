@@ -10,23 +10,18 @@ interface NavLinkContentProps {
   title: string
 }
 
-export function NavLinkContent({
-  description,
-  descriptionClassName,
-  external,
-  title,
-}: NavLinkContentProps) {
+export function NavLinkContent(props: NavLinkContentProps) {
   return (
     <>
-      <span className="w-full leading-none">
-        {title}
-        {external && <ExternalIcon />}
+      <span class="w-full leading-none">
+        {props.title}
+        {props.external && <ExternalIcon />}
       </span>
-      {description && (
+      {props.description && (
         <span
-          className={`w-full text-xs leading-snug text-muted-foreground line-clamp-2 ${descriptionClassName ?? ''}`}
+          class={`w-full text-xs leading-snug text-muted-foreground line-clamp-2 ${props.descriptionClassName ?? ''}`}
         >
-          {description}
+          {props.description}
         </span>
       )}
     </>

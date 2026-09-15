@@ -1,17 +1,13 @@
-'use client'
-
-import dynamic from '@/runtime/client-only'
-import type { PropsWithChildren } from 'react'
-
+import { lazy, type ParentComponent } from 'solid-js'
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 
 import type { TokenMenuProps } from './TokenMenu'
 
-const TokenMenu = dynamic(() => import('./TokenMenu'), { ssr: false })
+const TokenMenu = lazy(() => import('./TokenMenu'))
 
-export function TokenMenuErrorBoundary({ children }: PropsWithChildren) {
-  return <ErrorBoundary>{children}</ErrorBoundary>
-}
+export const TokenMenuErrorBoundary: ParentComponent = (props) => (
+  <ErrorBoundary>{props.children}</ErrorBoundary>
+)
 
 export default function TokenMenuBoundary(props: TokenMenuProps) {
   return (

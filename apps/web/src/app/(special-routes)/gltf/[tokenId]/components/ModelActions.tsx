@@ -1,23 +1,11 @@
-'use client'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
 
-import { Dispatch, SetStateAction } from 'react'
-
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@nl/ui/base/select'
-
-import { Color } from '@/types/gltf'
+import type { Color } from '@/types/gltf'
 import styles from '../gltf.module.css'
 
-type ModelActionsProps = { color: Color; setColor: Dispatch<SetStateAction<Color>> }
+type ModelActionsProps = { color: Color; setColor: (color: Color) => void }
 
-const COLOR_OPTIONS: [string, string][] = [
+const COLOR_OPTIONS: [Color, string][] = [
   ['blue', 'Blue'],
   ['bluegreen', 'Blue Green'],
   ['bluepurple', 'Blue Purple'],
@@ -34,30 +22,25 @@ const COLOR_OPTIONS: [string, string][] = [
   ['yellow', 'Yellow'],
 ]
 
-export default function ModelActions({ color, setColor }: ModelActionsProps) {
-  const handleSelectColor = (value: Color) => value && setColor(value)
-
+export default function ModelActions(props: ModelActionsProps) {
   return (
-    <div className={styles.menu__overlay__colorpicker}>
-      <Select value={color} onValueChange={handleSelectColor}>
-        <SelectTrigger className="w-[160px] border-1 border-primary">
+    <div class={styles.menu__overlay__colorpicker}>
+      <Select
+        options={COLOR_OPTIONS.map(([value]) => value)}
+        value={props.color}
+        optionValue={(value: Color) => value}
+        itemComponent={(itemProps) => (
+          <SelectItem item={itemProps.item}>
+            {String(itemProps.item.rawValue).toUpperCase()}
+          </SelectItem>
+        )}
+        onChange={(value: Color | null) => value && props.setColor(value)}
+      >
+        <SelectTrigger class="w-[160px] border-1 border-primary">
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Background Color</SelectLabel>
-            {COLOR_OPTIONS.map(([value, name]) => (
-              <SelectItem value={value} key={value}>
-                {name.toUpperCase()}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
+        <SelectContent />
       </Select>
-
-      {/* <Button slot="ar-button" id="ar-button">
-        View in your space
-      </Button> */}
     </div>
   )
 }

@@ -1,6 +1,4 @@
-'use client'
-
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal, onCleanup } from 'solid-js'
 
 const NFTL_CONTRACT_ADDRESS = '0x3c8D2FCE49906e11e71cB16Fa0fFeB2B16C29638'
 const ACCUMULATED_SELECTOR = '0xc607cde7'
@@ -67,18 +65,18 @@ export async function readAccumulatedNFTL(
 }
 
 interface NFTLClaimableState {
-  balance: number
-  loading: boolean
+  balance: () => number
+  loading: () => boolean
 }
 
 export default function useClaimableNFTL(tokenId: number | string): NFTLClaimableState {
   const tokenNumber = typeof tokenId === 'number' ? tokenId : Number(tokenId)
   const invalidToken = !Number.isSafeInteger(tokenNumber) || tokenNumber < 0
 
-  const [balance, setTotalBalance] = useState(0)
-  const [loading, setLoading] = useState(!invalidToken)
+  const [balance, setTotalBalance] = createSignal(0)
+  const [loading, setLoading] = createSignal(!invalidToken)
 
-  useEffect(() => {
+  createEffect(() => {
     if (invalidToken) return
 
     let cancelled = false
@@ -95,13 +93,13 @@ export default function useClaimableNFTL(tokenId: number | string): NFTLClaimabl
       }
     }
 
-    readContract()
+    void readContract()
 
-    return () => {
+    onCleanup(() => {
       cancelled = true
       controller.abort()
-    }
-  }, [invalidToken, tokenNumber])
+    })
+  })
 
   return { balance, loading }
 }

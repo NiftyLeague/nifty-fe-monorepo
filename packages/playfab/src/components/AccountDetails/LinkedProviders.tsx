@@ -1,13 +1,11 @@
-'use client'
-
-import { useCallback, useState, useMemo } from 'react'
+import { For, Show, createSignal } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 import { SocialIconButton } from '@nl/ui/custom/social-icon-button'
 import { getOAuthProvider, getSignInPath } from '../../auth/oauth'
 import { useUserContext } from '../../hooks/useUserContext'
 import { fetchJson } from '../../utils/fetchJson'
-import type { Provider, UserContextType } from '../../types'
+import type { Provider } from '../../types'
 
 export interface Props {
   providers: Provider[]
@@ -25,25 +23,23 @@ const handleSignIn = (provider: Provider) => {
   window.location.assign(getSignInPath(provider))
 }
 
-export default function LinkedProviders({
-  providers,
-  socialLayout = 'horizontal',
-  loading = false,
-}: Props) {
-  const player: UserContextType = useUserContext()
-  const [optimisticUnlinked, setOptimisticUnlinked] = useState<Provider[]>([])
+export default function LinkedProviders(props: Props) {
+  const player = useUserContext()
+  const [optimisticUnlinked, setOptimisticUnlinked] = createSignal<Provider[]>([])
 
   // Linking is server-side, so the linked set is whatever PlayFab reports; only
   // unlinks need local optimism, since the refetch that confirms them is async.
-  const linkedProviders = useMemo(() => {
+  const linkedProviders = () => {
     const fromProfile =
-      player.profile?.LinkedAccounts?.map((p) =>
-        p.Platform === 'GooglePlay' ? 'google' : p.Platform?.toLowerCase()
-      ) || []
-    return [...new Set(fromProfile)].filter((p) => !optimisticUnlinked.includes(p as never))
-  }, [player.profile, optimisticUnlinked])
+      player
+        .userInfo()
+        ?.PlayerProfile?.LinkedAccounts?.map((p: { Platform?: string }) =>
+          p.Platform === 'GooglePlay' ? 'google' : p.Platform?.toLowerCase()
+        ) || []
+    return [...new Set(fromProfile)].filter((p) => !optimisticUnlinked().includes(p as never))
+  }
 
-  const handleUnlinkProvider = useCallback(async (provider: Provider) => {
+  const handleUnlinkProvider = async (provider: Provider) => {
     try {
       setOptimisticUnlinked((prev) => [...prev, provider])
       await fetchJson('/api/playfab/user/unlink-provider', {
@@ -55,32 +51,35 @@ export default function LinkedProviders({
       console.error(e)
       setOptimisticUnlinked((prev) => prev.filter((p) => p !== provider))
     }
-  }, [])
+  }
 
-  return providers && providers.length > 0 ? (
-    <div
-      className={cn(
-        'w-full grid gap-2',
-        socialLayout === 'horizontal' && 'grid-cols-2 md:grid-cols-4'
-      )}
-    >
-      {providers.map((provider) => {
-        const isLinked = linkedProviders.includes(provider)
-        return (
-          <div key={provider} className="w-full">
-            <SocialIconButton
-              key={provider}
-              label={isLinked ? 'Unlink' : 'Sign in'}
-              onClick={
-                isLinked ? () => handleUnlinkProvider(provider) : () => handleSignIn(provider)
-              }
-              provider={provider}
-              withColor={isLinked}
-              disabled={loading}
-            />
-          </div>
-        )
-      })}
-    </div>
-  ) : null
+  return (
+    <Show when={props.providers && props.providers.length > 0}>
+      <div
+        class={cn(
+          'w-full grid gap-2',
+          props.socialLayout === 'horizontal' && 'grid-cols-2 md:grid-cols-4'
+        )}
+      >
+        <For each={props.providers}>
+          {(provider) => {
+            const isLinked = linkedProviders().includes(provider)
+            return (
+              <div class="w-full">
+                <SocialIconButton
+                  label={isLinked ? 'Unlink' : 'Sign in'}
+                  onClick={
+                    isLinked ? () => handleUnlinkProvider(provider) : () => handleSignIn(provider)
+                  }
+                  provider={provider}
+                  withColor={isLinked}
+                  disabled={props.loading}
+                />
+              </div>
+            )
+          }}
+        </For>
+      </div>
+    </Show>
+  )
 }

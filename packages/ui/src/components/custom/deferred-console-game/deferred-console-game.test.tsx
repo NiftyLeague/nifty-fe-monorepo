@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react'
-import { act, render, screen } from '@testing-library/react'
+import type { ComponentProps } from 'solid-js'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const observedRootMargins: string[] = []
@@ -9,23 +9,23 @@ const activationCallbacks: Array<() => void> = []
 mock.module('@nl/ui/hooks/useOnScreen', () => ({
   useOnScreen: (_ref: unknown, rootMargin: string) => {
     observedRootMargins.push(rootMargin)
-    return isNearViewport
+    return () => isNearViewport
   },
 }))
 
 mock.module('@nl/ui/hooks/useDeferredComponent', () => ({
-  default: (_load: unknown, enabled: boolean) => ({
-    Component: enabled
-      ? ({
-          children,
-          isNearViewport: active,
-        }: ComponentProps<'div'> & { isNearViewport?: boolean }) => (
-          <div data-testid="console-game" data-video-active={String(active)}>
-            {children}
-            <video>{active ? <source src="/video/example.mp4" /> : null}</video>
-          </div>
-        )
-      : null,
+  default: (_load: unknown, enabled: boolean | (() => boolean)) => ({
+    Component: () =>
+      (typeof enabled === 'function' ? enabled() : enabled)
+        ? (props: ComponentProps<'div'> & { isNearViewport?: boolean }) => (
+            <div data-testid="console-game" data-video-active={String(props.isNearViewport)}>
+              {props.children}
+              <video>{props.isNearViewport ? <source src="/video/example.mp4" /> : null}</video>
+            </div>
+          )
+        : null,
+    hasError: () => false,
+    retry: () => undefined,
   }),
 }))
 
@@ -37,7 +37,7 @@ mock.module('@nl/ui/lib/deferred-activation', () => ({
 }))
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
-  default: ({ src, ...props }: ComponentProps<'img'>) => <img {...props} src={src} />,
+  default: (props: ComponentProps<'img'>) => <img {...props} src={props.src} />,
 }))
 
 describe('DeferredConsoleGame', () => {
@@ -51,11 +51,11 @@ describe('DeferredConsoleGame', () => {
   })
 
   it('renders the backdrop while keeping video media out of the initial viewport', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredConsoleGame src="/video/example.mp4">
         <img alt="Game Console Backdrop" loading="eager" src="/img/backdrop.webp" />
       </DeferredConsoleGame>
-    )
+    ))
     const backdrop = screen.getByRole('img', { name: 'Game Console Backdrop' })
 
     expect(backdrop.getAttribute('loading')).toBe('eager')
@@ -64,19 +64,19 @@ describe('DeferredConsoleGame', () => {
     expect(container.querySelector('.dark-gradient-overlay')).not.toBeNull()
     expect(screen.queryByRole('img', { name: 'Loading game preview' })).toBeNull()
     expect(container.firstElementChild?.className).toContain('overflow-hidden')
-    expect(container.firstElementChild?.getAttribute('style')).toContain(
-      'aspect-ratio: 4842 / 3371'
+    expect(container.firstElementChild?.getAttribute('style')).toMatch(
+      /aspect-ratio:\s*4842 \/ 3371/
     )
     expect(observedRootMargins).toEqual(['0px 0px -25% 0px'])
   })
 
   it('keeps the backdrop visible while an opt-in video waits for activation', () => {
     isNearViewport = true
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredConsoleGame deferVideo src="/video/example.mp4">
         <img alt="Game Console Backdrop" loading="eager" src="/img/backdrop.webp" />
       </DeferredConsoleGame>
-    )
+    ))
 
     expect(screen.queryByTestId('console-game')).toBeNull()
     expect(screen.getByRole('img', { name: 'Game Console Backdrop' })).not.toBeNull()
