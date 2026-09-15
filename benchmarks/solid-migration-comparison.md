@@ -88,6 +88,13 @@ The runtime wins above are the trade. docs and smashers are within noise.
 
 ## apps/app
 
-Not benchmarked: the app is still on React (see the migration notes in the PR
-description). Its Lighthouse baselines (`lh-app-solid-baseline-*.json`) are
-recorded for the follow-up port.
+Now ported to SolidJS: TanStack Start + Solid Router/Query, framework-agnostic
+`@wagmi/core` bindings via `src/runtime/wagmi.ts`, Kobalte via `@nl/ui`. React,
+`react-dom`, `wagmi`, and all React testing packages are removed from the
+package. Typecheck, lint, build, and the full unit suite (320 tests) are green.
+
+Lighthouse numbers pending a served build: the app builds to a Nitro/`.vercel`
+function output rather than static files, so it needs the server runtime (or a
+deploy preview) before `scripts/lighthouse-benchmark.mjs` can measure it. The
+pre-migration baselines (`lh-app-solid-baseline-*.json`) are recorded for that
+comparison.
