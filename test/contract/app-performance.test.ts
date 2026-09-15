@@ -242,9 +242,12 @@ describe('app performance contracts', () => {
     const source = readFileSync(testHarnessPreload, 'utf8')
 
     expect(source).toContain('async function importFirstAvailable')
-    expect(source).toContain('`../node_modules/solid-js/${entry}`')
-    expect(source).toContain('`../node_modules/.bun/node_modules/solid-js/${entry}`')
-    expect(source).toContain('mock.module(workspaceSolid')
+    expect(source).toContain("'node_modules'")
+    expect(source).toContain("'node_modules/.bun/node_modules'")
+    expect(source).toContain('mock.module(moduleId')
+    for (const subpackage of ["''", "'store'", "'web'"]) {
+      expect(source).toContain(subpackage)
+    }
 
     for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
       expect(source).toContain(`'${workspace}'`)

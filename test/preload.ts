@@ -25,41 +25,47 @@ async function importFirstAvailable(...relativePaths: string[]): Promise<ModuleE
   throw new Error(`Unable to load a shared test runtime from: ${relativePaths.join(', ')}`)
 }
 
-// `browser.import` (used by the test commands' --conditions=browser) resolves
-// to dist/*.js while plain resolution can hit dist/*.cjs — cover both.
-const solidEntrypoints = ['dist/solid.js', 'dist/solid.cjs']
-const solidWebEntrypoints = ['web/dist/web.js', 'web/dist/web.cjs']
+/**
+ * `solid-js`, `solid-js/store`, and `solid-js/web` resolve to inert server
+ * builds under node conditions. The suite cannot pass --conditions=browser
+ * globally — Node-only dependencies (e.g. @aws-sdk) select broken browser
+ * bundles under it — so the DOM builds are aliased in by module ID instead.
+ * happy-dom registers the DOM globals first, so the web build is safe to load.
+ */
+const SOLID_SUBPACKAGES: Record<string, { dom: string; entries: string[] }> = {
+  '': { dom: 'dist/solid.js', entries: ['solid', 'dev', 'server'] },
+  store: { dom: 'store/dist/store.js', entries: ['store', 'dev', 'server'] },
+  web: { dom: 'web/dist/web.js', entries: ['web', 'dev', 'server'] },
+}
 
-const rootSolid = await importFirstAvailable(
-  ...solidEntrypoints.flatMap((entry) => [
-    `../node_modules/solid-js/${entry}`,
-    `../node_modules/.bun/node_modules/solid-js/${entry}`,
-  ])
-)
-const rootSolidWeb = await importFirstAvailable(
-  ...solidWebEntrypoints.flatMap((entry) => [
-    `../node_modules/solid-js/${entry}`,
-    `../node_modules/.bun/node_modules/solid-js/${entry}`,
-  ])
-)
+const nodeModulesRoots = ['node_modules', 'node_modules/.bun/node_modules']
 
-// Bun preserves workspace-local solid-js module IDs even when they resolve to
-// the same installed version. Target those IDs directly so shared Testing
-// Library helpers and workspace hooks share one reactive owner in isolated
-// tests (split instances break context and cleanup across the boundary).
-for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
-  for (const entry of solidEntrypoints) {
-    const workspaceSolid = resolve(
-      import.meta.dir,
-      `../${workspace}/node_modules/solid-js/${entry}`
-    )
-    mock.module(workspaceSolid, () => ({ ...rootSolid, default: rootSolid }))
-  }
-  for (const entry of solidWebEntrypoints) {
-    const workspaceSolidWeb = resolve(
-      import.meta.dir,
-      `../${workspace}/node_modules/solid-js/${entry}`
-    )
-    mock.module(workspaceSolidWeb, () => ({ ...rootSolidWeb, default: rootSolidWeb }))
+const domModules = new Map<string, ModuleExports>()
+for (const [subpath, { dom }] of Object.entries(SOLID_SUBPACKAGES)) {
+  domModules.set(
+    subpath,
+    await importFirstAvailable(...nodeModulesRoots.map((root) => `../${root}/solid-js/${dom}`))
+  )
+}
+
+const workspaces = ['apps/app', 'apps/web', 'packages/ui']
+const moduleRoots = [
+  ...nodeModulesRoots,
+  ...workspaces.map((workspace) => `${workspace}/node_modules`),
+]
+
+for (const [subpath, { entries }] of Object.entries(SOLID_SUBPACKAGES)) {
+  const domExports = domModules.get(subpath) as ModuleExports
+  const subdir = subpath ? `${subpath}/` : ''
+  for (const moduleRoot of moduleRoots) {
+    for (const distEntry of entries) {
+      for (const ext of ['js', 'cjs']) {
+        const moduleId = resolve(
+          import.meta.dir,
+          `../${moduleRoot}/solid-js/${subdir}dist/${distEntry}.${ext}`
+        )
+        mock.module(moduleId, () => ({ ...domExports, default: domExports }))
+      }
+    }
   }
 }
