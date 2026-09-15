@@ -1935,7 +1935,9 @@ describe('shared console game loading contract', () => {
     expect(consoleGameSource).toContain(
       '{nearViewport() ? <source src={props.src} type="video/mp4" /> : null}'
     )
-    expect(consoleGameSource).toContain('children: JSX.Element')
+    // The loaded console overlays the SSR backdrop rather than receiving it as
+    // children, so its children prop is optional.
+    expect(consoleGameSource).toContain('children?: JSX.Element')
     expect(deferredSource).toContain('isNearViewport={isNearViewport() && videoActivated()}')
     expect(deferredSource).toContain('scheduleDeferredActivation')
     expect(deferredSource).toContain('children: JSX.Element')
