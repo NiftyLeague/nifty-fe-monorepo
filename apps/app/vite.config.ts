@@ -25,30 +25,10 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
-  environments: {
-    client: {
-      build: {
-        rollupOptions: {
-          output: {
-            // Route-level splitting produces dozens of 1KB chunks; on mobile
-            // profiles (150ms RTT) the request count costs more than the bytes.
-            // Fold tiny shared modules into one chunk so the initial module
-            // graph resolves in a handful of requests instead of ~35.
-            codeSplitting: {
-              groups: [
-                {
-                  name: 'shared',
-                  minShareCount: 2,
-                  maxModuleSize: 32 * 1024,
-                  maxSize: 192 * 1024,
-                },
-              ],
-            },
-          },
-        },
-      },
-    },
-  },
+  // Note: bundler-level chunk consolidation (rolldown `codeSplitting` groups)
+  // was tried for the mobile request-count problem and reverted — merging
+  // modules across the route-split graph created circular chunk imports that
+  // broke ESM eval order at runtime (viem LruMap "not a constructor").
   plugins: [
     tailwindcss(),
     tanstackStart({ srcDirectory: 'src' }),
