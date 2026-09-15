@@ -1,13 +1,54 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/overview/page'
-import AstroOverviewFAQ from '@/components/OverviewFAQ'
-import { metadata as routeMetadata } from '@/app/(main)/overview/layout'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import LearnCards from '@/components/LearnCards'
+import OverviewCommunity from '@/components/OverviewCommunity'
+import OverviewFAQ from '@/components/OverviewFAQ'
+
+const metadata = {
+  title: 'Overview',
+  description: 'Overview and FAQ for Nifty League',
+  openGraph: {
+    title: 'Nifty League | Overview',
+    description: 'Overview and FAQ for Nifty League',
+    images: 'https://niftyleague.com/img/backgrounds/mars-degens.webp',
+  },
+}
 ---
-<Marketing metadata={routeMetadata} rootClass="learn-pg" canonical="/overview">
-  <LegacyPage>
-  <Fragment slot="webIsland0">
-<AstroOverviewFAQ client:visible={{ rootMargin: "200px" }} />
-  </Fragment>
-  </LegacyPage>
+<Marketing metadata={metadata} rootClass="learn-pg" canonical="/overview">
+  <div class="container relative pt-20">
+    <div class="purple-bg-orb orb-top-right"></div>
+    <section class="section relative">
+      <h1 class="text-center">OVERVIEW</h1>
+      <div class="mt-3">
+        <p class="text-center text-highlight-purple">
+          Learn how to navigate the Nifty League Platform
+        </p>
+      </div>
+      <LearnCards />
+      <div class="purple-bg-orb orb-bottom-left"></div>
+      <div class="purple-bg-orb orb-bottom-right"></div>
+    </section>
+
+    <section class="section">
+      <div class="text-center mb-5 relative">
+        <h2>Frequently Asked Questions</h2>
+        <div class="purple-bg-orb" style={{ left: 'calc(50% - 200px)', top: '100px' }}></div>
+      </div>
+
+      <OverviewFAQ client:visible={{ rootMargin: '200px' }} />
+
+      <ThemeBtnGroup
+        className="mt-6 xl:mt-8"
+        primary={{
+          href: '/docs/faq/general',
+          title: 'More FAQ',
+          external: true,
+          className: 'theme-btn-purple',
+        }}
+      />
+    </section>
+  </div>
+
+  <OverviewCommunity />
 </Marketing>

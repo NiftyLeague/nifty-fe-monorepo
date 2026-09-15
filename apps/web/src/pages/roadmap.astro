@@ -1,13 +1,63 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/roadmap/page'
+import OptimizedImage from '@nl/ui/custom/optimized-image'
 import RoadmapTimeline from '@/components/RoadmapTimeline'
-import { metadata as routeMetadata } from '@/app/(main)/roadmap/layout'
+import roadmapStyles from '@/components/RoadmapTimeline/index.module.css'
+import satoshiStyles from '@/styles/roadmap-satoshi.module.css'
+
+const metadata = {
+  title: 'Roadmap',
+  description: 'Nifty League roadmap... or moonmap?',
+  openGraph: {
+    title: 'Nifty League | Roadmap',
+    description: 'Nifty League roadmap... or moonmap?',
+    images: 'https://niftyleague.com/img/roadmap/roadmap.webp',
+  },
+}
 ---
-<Marketing metadata={routeMetadata} rootClass="roadmap-pg" canonical="/roadmap">
-  <LegacyPage>
-  <Fragment slot="webIsland0">
-<RoadmapTimeline client:visible={{ rootMargin: "200px" }} />
-  </Fragment>
-  </LegacyPage>
+<Marketing metadata={metadata} rootClass="roadmap-pg" canonical="/roadmap">
+  <div class={roadmapStyles.roadmap_pg}>
+    <div class={roadmapStyles.stars}>
+      <div class={roadmapStyles.stars2}>
+        <div class={satoshiStyles.satoshiMove}>
+          <OptimizedImage
+            src="/img/space/satoshi_move.gif"
+            unoptimized
+            alt="satoshi moving"
+            width={200}
+            height={200}
+            priority
+            sizes="(min-width: 1170px) 250px, (min-width: 1000px) 200px, (min-width: 850px) 175px, 120px"
+            style={{ width: '100%', height: 'auto' }}
+          />
+        </div>
+        <div class={roadmapStyles.earth}></div>
+        <h2 class={roadmapStyles.roadmap_title}>Nifty League Moonmap</h2>
+        <div class={roadmapStyles.cat_planet}></div>
+        <div class={roadmapStyles.animated_star}></div>
+        <div class={roadmapStyles.animated_star2}></div>
+        <div class={roadmapStyles.animated_star3}></div>
+        <div class={roadmapStyles.animated_star4}></div>
+        <div class={roadmapStyles.animated_star5}></div>
+        <div class={roadmapStyles.animated_star6}></div>
+        <RoadmapTimeline client:visible={{ rootMargin: '200px' }} />
+        <div class={roadmapStyles.mars}></div>
+        <div class={roadmapStyles.animated_star7}></div>
+        <div class={roadmapStyles.animated_star8}></div>
+        <div class={roadmapStyles.animated_star9}></div>
+        <div class="w-full flex justify-center">
+          <div class={roadmapStyles.moon}>
+            <OptimizedImage
+              src="/img/space/moon.webp"
+              alt="moon"
+              width={800}
+              height={800}
+              sizes="(min-width: 920px) 800px, 600px"
+              style={{ width: '100%', height: 'auto' }}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </Marketing>

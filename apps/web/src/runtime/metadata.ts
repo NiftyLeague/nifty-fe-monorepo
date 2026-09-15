@@ -1,6 +1,4 @@
 /** Static marketing route metadata; replaces the Next.js `Metadata` shape. */
-export type RouteMetadata = Record<string, unknown>
-
 export const DEFAULT_METADATA = {
   title: 'Nifty League',
   description:

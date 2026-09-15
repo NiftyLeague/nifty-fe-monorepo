@@ -54,8 +54,9 @@ const appRouteContracts: Record<string, string[]> = {
     'src/pages/index.astro',
   ],
   web: [
-    // Marketing site: campaign landing routes compiled from Astro pages that
-    // wrap the retained React slot composers (LegacyPage).
+    // Marketing site: campaign landing routes compiled from native Astro
+    // templates. Every page renders its static markup plus intentional
+    // hydration islands.
     'src/pages/index.astro',
     'src/pages/roadmap.astro',
     'src/pages/team.astro',
@@ -238,9 +239,9 @@ const smashersTelemetryRuntime = 'apps/smashers/src/runtime/telemetry.ts'
 const smashersServerSentryRuntime = 'apps/smashers/src/runtime/sentry-server.ts'
 const smashersMiddleware = 'apps/smashers/src/middleware.ts'
 const deferredConsoleGameRoutes = [
-  'apps/web/src/app/(main)/page.tsx',
-  'apps/web/src/app/(main)/degens/page.tsx',
-  'apps/web/src/app/(main)/niftyworld/page.tsx',
+  'apps/web/src/pages/index.astro',
+  'apps/web/src/pages/degens.astro',
+  'apps/web/src/pages/niftyworld.astro',
   'apps/smashers/src/pages/index.astro',
 ]
 const sharedDeferredSection = 'packages/ui/src/components/custom/deferred-section/index.tsx'
@@ -259,8 +260,9 @@ const routeLoadingBoundaries = [
   dashboardRentalsBoundary,
 ]
 const routeFallbacks = 'apps/app/src/components/runtime/RouteFallbacks.tsx'
-const webHomePage = 'apps/web/src/app/(main)/page.tsx'
-const webOverviewPage = 'apps/web/src/app/(main)/overview/page.tsx'
+const webHomePage = 'apps/web/src/pages/index.astro'
+const webHomeSectionsLayout = 'apps/web/src/layouts/HomeSections.astro'
+const webOverviewPage = 'apps/web/src/pages/overview.astro'
 const gltfPage = 'apps/web/src/pages/shells/gltf.astro'
 const gltfClientRuntime = 'apps/web/src/runtime/GltfClient.tsx'
 const gltfClient = 'apps/web/src/app/(special-routes)/gltf/[tokenId]/components/DegenViews.tsx'
@@ -278,21 +280,21 @@ const sharedWebMobileTrigger = 'packages/ui/src/components/custom/navbar/MobileN
 const sharedConsoleGame = 'packages/ui/src/components/custom/console-game/index.tsx'
 const sharedDeferredConsoleGame =
   'packages/ui/src/components/custom/deferred-console-game/index.tsx'
-const webCommunityPage = 'apps/web/src/app/(main)/community/page.tsx'
-const webTeamPage = 'apps/web/src/app/(main)/team/page.tsx'
+const webCommunityPage = 'apps/web/src/pages/community.astro'
+const webTeamPage = 'apps/web/src/pages/team.astro'
 const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const sharedThemeButton = 'packages/ui/src/components/custom/theme-button-group/index.tsx'
 const animationFreeMarketingPages = [
-  'apps/web/src/app/(main)/page.tsx',
-  'apps/web/src/app/(main)/games/page.tsx',
-  'apps/web/src/app/(main)/niftyworld/page.tsx',
-  'apps/web/src/app/(main)/overview/page.tsx',
-  'apps/web/src/app/(main)/degens/page.tsx',
-  'apps/web/src/app/(main)/compete-and-earn/page.tsx',
-  'apps/web/src/app/(main)/careers/page.tsx',
-  'apps/web/src/app/(main)/team/page.tsx',
-  'apps/web/src/app/(main)/community/page.tsx',
-  'apps/web/src/app/(main)/lore/page.tsx',
+  'apps/web/src/pages/index.astro',
+  'apps/web/src/pages/games.astro',
+  'apps/web/src/pages/niftyworld.astro',
+  'apps/web/src/pages/overview.astro',
+  'apps/web/src/pages/degens.astro',
+  'apps/web/src/pages/compete-and-earn.astro',
+  'apps/web/src/pages/careers.astro',
+  'apps/web/src/pages/team.astro',
+  'apps/web/src/pages/community.astro',
+  'apps/web/src/pages/lore.astro',
 ]
 const animationFreeMarketingComponents = [
   'apps/smashers/src/components/GameSection/index.tsx',
@@ -304,20 +306,17 @@ const animationFreeMarketingComponents = [
   'packages/ui/src/components/custom/degen-specials-table/index.tsx',
 ]
 const staticLegalPages = [
-  'apps/web/src/app/(main)/terms-of-service/page.tsx',
-  'apps/web/src/app/(main)/privacy-policy/page.tsx',
-  'apps/web/src/app/(main)/disclaimer/page.tsx',
+  'apps/web/src/pages/terms-of-service.astro',
+  'apps/web/src/pages/privacy-policy.astro',
+  'apps/web/src/pages/disclaimer.astro',
 ]
 const webDefinitions = 'apps/web/src/components/Definitions.tsx'
 const smashersHomePage = 'apps/smashers/src/pages/index.astro'
 const webDeferredHomeMedia = 'apps/web/src/components/DeferredHomeMedia.tsx'
-const webDeferredHomeSections = 'apps/web/src/components/DeferredHomeSections.tsx'
-const webDeferredHomeSectionsBoundary = 'apps/web/src/components/DeferredHomeSectionsBoundary.tsx'
-const webHomeSectionConfig = 'apps/web/src/components/home-section-config.ts'
 const webDeferredTeamSections = 'apps/web/src/components/DeferredTeamSections.tsx'
 const webTeamCarousel = 'apps/web/src/components/TeamCarousel.tsx'
 const webOverviewFAQ = 'apps/web/src/components/OverviewFAQ.tsx'
-const webCareersPage = 'apps/web/src/app/(main)/careers/page.tsx'
+const webCareersPage = 'apps/web/src/pages/careers.astro'
 const webDeferredCareersSections = 'apps/web/src/components/DeferredCareersSections.tsx'
 const webCareersJobs = 'apps/web/src/components/CareersJobs.tsx'
 const appShell = 'apps/app/src/layouts/_layout/AppShell.tsx'
@@ -363,9 +362,9 @@ describe('external route surface contract', () => {
             true
           )
           if (app === 'web') {
-            // Each Astro marketing page must wrap the retained React slot
-            // composer so the migrated page keeps rendering its islands.
-            expect(readFileSync(path, 'utf8')).toContain('LegacyPage')
+            // Each Astro marketing page must own its shell through the shared
+            // Marketing layout so navigation, footer, and meta stay uniform.
+            expect(readFileSync(path, 'utf8')).toContain('layouts/Marketing.astro')
           }
         })
       }
@@ -615,6 +614,13 @@ describe('website build performance contract', () => {
 
     expect(baseSource).toContain("import '../styles/app.css'")
     expect(astroConfig).toContain("output: 'static'")
+
+    // The marketing markup lives in src/pages/*.astro, so the Tailwind scan
+    // must cover .astro files — without it every md:/lg: variant on those
+    // pages silently loses its CSS rule (the games grid collapsed to one
+    // column exactly this way).
+    const appCss = readFileSync(join(process.cwd(), 'apps/web/src/styles/app.css'), 'utf8')
+    expect(appCss).toContain('@source "../**/*.{ts,tsx,astro}"')
   })
 
   it('builds the marketing site through Astro instead of Next', () => {
@@ -653,12 +659,9 @@ describe('website build performance contract', () => {
   })
 
   it('defers the below-fold NiftyWorld showcase video', () => {
-    const source = readFileSync(
-      join(process.cwd(), 'apps/web/src/app/(main)/niftyworld/page.tsx'),
-      'utf8'
-    )
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/pages/niftyworld.astro'), 'utf8')
     const videoStart = source.indexOf('src="/video/arcade-token.mp4"')
-    const videoBlockStart = source.lastIndexOf('<ViewportVideo', videoStart)
+    const videoBlockStart = source.lastIndexOf('<GatedViewportVideo', videoStart)
 
     expect(videoStart).toBeGreaterThan(-1)
     expect(source.slice(videoBlockStart, videoStart)).toContain('deferLoad')
@@ -666,8 +669,8 @@ describe('website build performance contract', () => {
 
   it('defers the large marketing hero videos while keeping their backdrops eager', () => {
     const heroVideoRoutes = [
-      ['apps/web/src/app/(main)/degens/page.tsx', '/video/unboxing.mp4'],
-      ['apps/web/src/app/(main)/niftyworld/page.tsx', '/video/mansion_showcase.mp4'],
+      ['apps/web/src/pages/degens.astro', '/video/unboxing.mp4'],
+      ['apps/web/src/pages/niftyworld.astro', '/video/mansion_showcase.mp4'],
     ] as const
 
     for (const [file, videoSource] of heroVideoRoutes) {
@@ -688,10 +691,7 @@ describe('website build performance contract', () => {
   })
 
   it('eagerly loads the mobile games hero artwork without elevating secondary media', () => {
-    const source = readFileSync(
-      join(process.cwd(), 'apps/web/src/app/(main)/games/page.tsx'),
-      'utf8'
-    )
+    const source = readFileSync(join(process.cwd(), 'apps/web/src/pages/games.astro'), 'utf8')
     const mobileImageStart = source.indexOf('<MobileOnlyImage')
     const mobileImageEnd = source.indexOf('/>', mobileImageStart)
 
@@ -1917,7 +1917,7 @@ describe('shared console game loading contract', () => {
 
   it('shares the Smashers video asset across marketing apps', () => {
     const smashersSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
-    const webSource = readFileSync(join(process.cwd(), 'apps/web/src/app/(main)/page.tsx'), 'utf8')
+    const webSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
 
     expect(smashersSource).toContain('src="/video/smashers.mp4"')
     expect(webSource).toContain('src="/video/smashers.mp4"')
@@ -1971,19 +1971,10 @@ describe('shared below-fold loading contract', () => {
     expect(source).toContain('Retry')
   })
 
-  it('defers below-fold marketing interaction without clipping visual effects', () => {
+  it('renders the below-fold home sections as static markup without hydration', () => {
     const pageSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
+    const sectionsLayoutSource = readFileSync(join(process.cwd(), webHomeSectionsLayout), 'utf8')
     const deferredSource = readFileSync(join(process.cwd(), webDeferredHomeMedia), 'utf8')
-    const deferredHomeSectionsSource = readFileSync(
-      join(process.cwd(), webDeferredHomeSections),
-      'utf8'
-    )
-    const deferredHomeSectionsBoundarySource = readFileSync(
-      join(process.cwd(), webDeferredHomeSectionsBoundary),
-      'utf8'
-    )
-    const homeSectionConfigSource = readFileSync(join(process.cwd(), webHomeSectionConfig), 'utf8')
-    const sharedDeferredSource = readFileSync(join(process.cwd(), sharedDeferredSection), 'utf8')
     const homeSectionNames = [
       'HomeV3Characters',
       'HomeV3Games',
@@ -2001,8 +1992,11 @@ describe('shared below-fold loading contract', () => {
       .join('\n')
     const homeStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
 
-    expect(pageSource).toContain("from '@/components/DeferredHomeSectionsBoundary'")
-    expect(pageSource).toContain('DeferredHomeSectionsBoundary')
+    // The legacy slot-composer boundary is gone: the page mounts the sections
+    // layout directly and the hookless sections ship no island at all.
+    expect(pageSource).toContain("from '@/layouts/HomeSections.astro'")
+    expect(pageSource).toContain('<HomeSections />')
+    expect(pageSource).not.toContain('DeferredHomeSectionsBoundary')
     expect(pageSource).not.toContain('DeferredHomeDegens')
     expect(pageSource).not.toContain('DeferredHomeCompete')
     expect(pageSource).not.toContain('DeferredHomeDashboard')
@@ -2016,21 +2010,17 @@ describe('shared below-fold loading contract', () => {
     expect(pageSource).not.toContain("from '@/components/Carousel/DegenCardItem'")
     expect(deferredSource).not.toContain("import('@/components/HomeBelowFold')")
     expect(existsSync(join(process.cwd(), 'apps/web/src/components/HomeBelowFold.tsx'))).toBe(false)
-    expect(deferredHomeSectionsSource).toContain("from '@nl/ui/custom/deferred-section'")
-    expect(deferredHomeSectionsSource).toContain("from './home-section-config'")
-    expect(deferredHomeSectionsBoundarySource).toContain("from './home-section-config'")
-    expect(deferredHomeSectionsBoundarySource).toContain('useOnScreen')
-    expect(deferredHomeSectionsBoundarySource).toContain('useDeferredComponent')
-    expect(homeSectionConfigSource).toContain("export const HOME_SECTION_ROOT_MARGIN = '240px 0px'")
-    expect(deferredHomeSectionsSource).toContain('loadingMode="minimal"')
+    expect(
+      existsSync(join(process.cwd(), 'apps/web/src/components/DeferredHomeSections.tsx'))
+    ).toBe(false)
+    expect(
+      existsSync(join(process.cwd(), 'apps/web/src/components/DeferredHomeSectionsBoundary.tsx'))
+    ).toBe(false)
+    // Every home section is presentation-only: no client boundary in the layout
+    // and no directive that would ship React for static markup.
+    expect(sectionsLayoutSource).not.toContain('client:')
     for (const section of homeSectionNames) {
-      expect(deferredHomeSectionsSource).toContain(`import('@/components/HomeSections/${section}')`)
-    }
-    expect(sharedDeferredSource).toContain('className="deferred-section"')
-    expect(sharedDeferredSource).toContain("loadingMode?: 'skeleton' | 'minimal'")
-    expect(deferredSource).toContain("import('@/components/CommunityDegenCarousel')")
-    expect(deferredSource).toContain("import('@/components/MintOMatic')")
-    for (const section of homeSectionNames) {
+      expect(sectionsLayoutSource).toContain(`import Home${section.replace('Home', '')}`)
       expect(
         readFileSync(
           join(process.cwd(), `apps/web/src/components/HomeSections/${section}.tsx`),
@@ -2038,6 +2028,10 @@ describe('shared below-fold loading contract', () => {
         )
       ).not.toContain("'use client'")
     }
+    // DeferredHomeMedia keeps owning the genuinely lazy home media islands.
+    expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
+    expect(deferredSource).toContain("import('@/components/CommunityDegenCarousel')")
+    expect(deferredSource).toContain("import('@/components/MintOMatic')")
     expect(homeSectionSources).toContain("from '@nl/ui/custom/optimized-image'")
     expect(homeSectionSources).toContain("from '@nl/ui/custom/theme-button-group'")
     expect(homeSectionSources).toContain('home-v3')
@@ -2055,7 +2049,7 @@ describe('shared below-fold loading contract', () => {
     const faqSource = readFileSync(join(process.cwd(), webOverviewFAQ), 'utf8')
 
     expect(pageSource).toContain("from '@/components/OverviewFAQ'")
-    expect(pageSource).toContain('<OverviewFAQ />')
+    expect(pageSource).toContain('<OverviewFAQ client:visible')
     expect(pageSource).not.toContain("from '@nl/ui/custom/accordion'")
     expect(faqSource).toContain("from '@nl/ui/base/accordion'")
     expect(faqSource).not.toContain("from '@nl/ui/custom/accordion'")
@@ -2207,11 +2201,15 @@ describe('web marketing image sizing contract', () => {
   it('preloads only the responsive hero background on the homepage critical path', () => {
     const homeSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
 
-    expect(homeSource).toContain("import { preload } from 'react-dom'")
-    expect(homeSource).toContain("media: '(min-width: 769px)'")
-    expect(homeSource).toContain("media: '(max-width: 768px)'")
+    // react-dom's preload() does not hoist out of Astro SSR: the art-directed
+    // candidates live on the emitted <source>/<img> pair and finalize-static
+    // injects the <link rel="preload"> hints into the built document.
+    expect(homeSource).toContain("src: '/img/hero/bg.webp'")
+    expect(homeSource).toContain("src: '/img/backgrounds/banner-dark.webp'")
     expect(homeSource).toContain("fetchPriority: 'high'")
     expect(homeSource).toContain('data-preload-media="(min-width: 769px)"')
+    expect(homeSource).toContain('media="(max-width: 768px)"')
+    expect(homeSource).not.toContain("from 'react-dom'")
     expect(homeSource).not.toContain('speech-bubble.webp\n            alt="Learn More"')
     expect(homeSource).not.toContain('loading="eager"\n            fetchPriority="high"')
   })
@@ -2272,18 +2270,15 @@ describe('web marketing image sizing contract', () => {
       ],
       ['apps/web/src/components/Sponsors.tsx', 'sizes="80px"'],
       ['apps/web/src/components/LearnCards/index.tsx', 'sizes="(min-width: 640px) 50vw, 100vw"'],
-      [
-        'apps/web/src/app/(main)/compete-and-earn/page.tsx',
-        'sizes="(min-width: 768px) 50vw, 100vw"',
-      ],
-      ['apps/web/src/app/(main)/careers/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
-      ['apps/web/src/app/(main)/games/page.tsx', 'sizes="(min-width: 768px) 50vw, 100vw"'],
+      ['apps/web/src/pages/compete-and-earn.astro', 'sizes="(min-width: 768px) 50vw, 100vw"'],
+      ['apps/web/src/pages/careers.astro', 'sizes="(min-width: 768px) 50vw, 100vw"'],
+      ['apps/web/src/pages/games.astro', 'sizes="(min-width: 768px) 50vw, 339px"'],
       ['apps/web/src/components/DegenGallery.tsx', 'sizes="(max-width: 768px) 33vw, 205px"'],
       [
         'apps/web/src/components/NiftyWorldProperties.tsx',
         'sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"',
       ],
-      ['apps/web/src/app/(main)/roadmap/page.tsx', 'sizes="(min-width: 920px) 800px, 600px"'],
+      ['apps/web/src/pages/roadmap.astro', 'sizes="(min-width: 920px) 800px, 600px"'],
       ['apps/web/src/components/RoadmapTimeline/roadmapCard.tsx', 'sizes="200px"'],
     ]
 
@@ -2295,17 +2290,17 @@ describe('web marketing image sizing contract', () => {
   it('server-renders static marketing artwork without client deferred wrappers', () => {
     const staticSectionRoutes: Array<[string, string, string]> = [
       [
-        'apps/web/src/app/(main)/degens/page.tsx',
+        'apps/web/src/pages/degens.astro',
         "from '@/components/DegenGallery'",
         'DeferredDegenGallery',
       ],
       [
-        'apps/web/src/app/(main)/niftyworld/page.tsx',
+        'apps/web/src/pages/niftyworld.astro',
         "from '@/components/NiftyWorldProperties'",
         'DeferredNiftyWorldProperties',
       ],
       [
-        'apps/web/src/app/(main)/overview/page.tsx',
+        'apps/web/src/pages/overview.astro',
         "from '@/components/OverviewCommunity'",
         'DeferredOverviewCommunity',
       ],
@@ -2360,7 +2355,7 @@ describe('web marketing image sizing contract', () => {
       'utf8'
     )
     const roadmapSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/app/(main)/roadmap/page.tsx'),
+      join(process.cwd(), 'apps/web/src/pages/roadmap.astro'),
       'utf8'
     )
 
@@ -2373,7 +2368,7 @@ describe('web marketing image sizing contract', () => {
     expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
     expect(roadmapSource).toContain('src="/img/space/moon.webp"')
     expect(roadmapSource).not.toContain(
-      'src="/img/space/moon.webp"\n                alt="moon"\n                width={800}\n                height={800}\n                priority'
+      'src="/img/space/moon.webp"\n              alt="moon"\n              width={800}\n              height={800}\n              priority'
     )
   })
 
@@ -2409,13 +2404,13 @@ describe('web marketing image sizing contract', () => {
 
     expect(communitySource).toContain('src="/img/space/moon-satoshi.webp"')
     expect(communitySource).toContain(
-      'src="/img/space/moon-satoshi.webp"\n                alt="Satoshi moon"\n                width={445}\n                height={437}\n                priority'
+      'src="/img/space/moon-satoshi.webp"\n            alt="Satoshi moon"\n            width={445}\n            height={437}\n            priority'
     )
     expect(communitySource).not.toContain(
-      'src="/img/space/earth-darkened.webp"\n              width={1684}\n              height={525}\n              alt="Earth"\n              priority'
+      'src="/img/space/earth-darkened.webp"\n          width={1684}\n          height={525}\n          alt="Earth"\n          priority'
     )
     expect(communitySource).not.toContain(
-      'src="/img/gradient/purple-light-grad.svg"\n                priority'
+      'src="/img/gradient/purple-light-grad.svg"\n            priority'
     )
   })
 })
@@ -2849,9 +2844,9 @@ describe('public route dependency contract', () => {
       join(process.cwd(), 'apps/web/src/styles/marketing.css'),
       'utf8'
     )
-    const homePage = readFileSync(join(process.cwd(), 'apps/web/src/app/(main)/page.tsx'), 'utf8')
+    const homePage = readFileSync(join(process.cwd(), 'apps/web/src/pages/index.astro'), 'utf8')
     const communityPage = readFileSync(
-      join(process.cwd(), 'apps/web/src/app/(main)/community/page.tsx'),
+      join(process.cwd(), 'apps/web/src/pages/community.astro'),
       'utf8'
     )
     const webStyles = readFileSync(join(process.cwd(), 'apps/web/src/styles/home.css'), 'utf8')
