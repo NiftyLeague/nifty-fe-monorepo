@@ -2,11 +2,11 @@ import https from 'https'
 import type { Request, Response } from 'express'
 import type { Metadata } from '@/types'
 
-import { S3_BASE_URL } from '../constants/aws'
+import { CDN_BASE_URL } from '../constants/aws'
 
 const REQUEST_TIMEOUT_MS = 10000
-const ALLOWED_UPSTREAM_ORIGIN = new URL(S3_BASE_URL).origin
-const ALLOWED_S3_HOSTNAME = new URL(S3_BASE_URL).hostname
+const ALLOWED_UPSTREAM_ORIGIN = new URL(CDN_BASE_URL).origin
+const ALLOWED_S3_HOSTNAME = new URL(CDN_BASE_URL).hostname
 
 const isAllowedFetchHostname = (hostname: string) =>
   hostname === ALLOWED_S3_HOSTNAME ||
@@ -58,7 +58,9 @@ export async function resolveDegenMetadata(req: Request): Promise<Metadata | nul
   const network = Array.isArray(req.params.network) ? req.params.network[0] : req.params.network
   const token_id = Array.isArray(req.params.token_id) ? req.params.token_id[0] : req.params.token_id
   if (!['mainnet', 'sepolia'].includes(network) || !/^\d+$/.test(token_id)) return null
-  const URI = `https://nifty-league.s3.amazonaws.com/degens/${encodeURIComponent(network)}/metadata/${encodeURIComponent(token_id)}.json`
+  // Both networks resolve to the flat mainnet asset layout on R2 (sepolia
+  // mirrors mainnet and is no longer written separately).
+  const URI = `${CDN_BASE_URL}/degens/metadata/${encodeURIComponent(token_id)}.json`
   return fetchMetadata(URI)
 }
 

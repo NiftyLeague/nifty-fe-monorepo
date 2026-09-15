@@ -30,18 +30,18 @@ describe('api.fetchMetadata', () => {
       json: async () => ({ name: 'Degen', id: 1 }),
     })
 
-    const meta = await fetchMetadata('https://nifty-league.s3.amazonaws.com/1.json')
+    const meta = await fetchMetadata('https://cdn.niftyleague.com/1.json')
     expect(meta).toEqual({ name: 'Degen', id: 1 })
   })
 
   it('returns null when the response status is >= 400', async () => {
     mockFetch.mockResolvedValue({ status: 500, json: async () => ({}) })
-    expect(await fetchMetadata('https://nifty-league.s3.amazonaws.com/1.json')).toBeNull()
+    expect(await fetchMetadata('https://cdn.niftyleague.com/1.json')).toBeNull()
   })
 
   it('returns null when the fetch throws', async () => {
     mockFetch.mockRejectedValue(new Error('network down'))
-    expect(await fetchMetadata('https://nifty-league.s3.amazonaws.com/1.json')).toBeNull()
+    expect(await fetchMetadata('https://cdn.niftyleague.com/1.json')).toBeNull()
   })
 
   it('fails closed for an unsupported upstream host', async () => {
@@ -62,7 +62,7 @@ describe('api.resolveDegenMetadata', () => {
       expect.objectContaining({ signal: expect.any(AbortSignal) })
     )
     expect((mockFetch.mock.calls[0] as [URL])[0].href).toBe(
-      'https://nifty-league.s3.amazonaws.com/degens/mainnet/metadata/7.json'
+      'https://cdn.niftyleague.com/degens/metadata/7.json'
     )
   })
 
@@ -105,12 +105,12 @@ describe('api.pipeRequest', () => {
       return { setTimeout: mock(), on: mock(), destroy: mock() }
     })
 
-    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
+    pipeRequest('https://cdn.niftyleague.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((mockHttpsGet.mock.calls[0] as [any])[0]).toEqual(
       expect.objectContaining({
-        hostname: 'nifty-league.s3.amazonaws.com',
+        hostname: 'cdn.niftyleague.com',
         path: '/x',
         port: 443,
         protocol: 'https:',
@@ -149,7 +149,7 @@ describe('api.pipeRequest', () => {
       return { setTimeout: mock(), on: mock(), destroy: mock() }
     })
 
-    pipeRequest('https://nifty-league.s3.amazonaws.com/missing', res)
+    pipeRequest('https://cdn.niftyleague.com/missing', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).status).toHaveBeenCalledWith(404)
@@ -179,7 +179,7 @@ describe('api.pipeRequest', () => {
     }
     mockHttpsGet.mockReturnValue(fakeReq as never)
 
-    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
+    pipeRequest('https://cdn.niftyleague.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).status).toHaveBeenCalledWith(502)
@@ -219,7 +219,7 @@ describe('api.pipeRequest', () => {
       return req
     })
 
-    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
+    pipeRequest('https://cdn.niftyleague.com/x', res)
     await new Promise((r) => setTimeout(r, 20))
 
     expect((res as any).status).toHaveBeenCalledWith(502)
@@ -249,7 +249,7 @@ describe('api.pipeRequest', () => {
     }
     mockHttpsGet.mockReturnValue(fakeReq as never)
 
-    pipeRequest('https://nifty-league.s3.amazonaws.com/x', res)
+    pipeRequest('https://cdn.niftyleague.com/x', res)
     await new Promise((r) => setTimeout(r, 5))
 
     expect((res as any).end).toHaveBeenCalled()

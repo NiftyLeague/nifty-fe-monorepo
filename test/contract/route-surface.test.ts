@@ -2777,11 +2777,8 @@ describe('public route dependency contract', () => {
   })
 
   it('keeps the public launcher action independent from the network registry', () => {
-    const source = readFileSync(join(process.cwd(), 'apps/app/src/hooks/useVersion.ts'), 'utf8')
-
-    expect(source).toContain("NETWORK === 'mainnet'")
-    expect(source).not.toContain("from '@/constants/networks'")
-    expect(source).not.toContain('TARGET_NETWORK')
+    // The Windows launcher flow was retired; the hook must not return as dead UI.
+    expect(existsSync(join(process.cwd(), 'apps/app/src/hooks/useVersion.ts'))).toBe(false)
   })
 
   it('keeps the removed desktop download dialog from returning as dead UI', () => {

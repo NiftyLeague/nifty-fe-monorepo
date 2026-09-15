@@ -12,7 +12,7 @@ import {
   TRAIT_VALUE_MAP,
 } from '@/constants/metadata/degens'
 import { DEGEN_CONTRACT_NAME } from '@/constants/contracts'
-import { S3_DEGENS_BUCKET } from '@/constants/aws'
+import { DEGENS_ASSET_PREFIX } from '@/constants/aws'
 import { Minty } from './minty'
 
 /**
@@ -58,7 +58,7 @@ export class Degen extends Minty {
     // Upload NFT asset from file
     const basename = path.basename(filePath)
     const { assetURI, assetGatewayURL } = await this.pinImage(`/degens/${basename}`, content)
-    await this.uploadToS3(`${this.targetNetwork}/images/${basename}`, content, S3_DEGENS_BUCKET)
+    await this.uploadToS3(`images/${basename}`, content, DEGENS_ASSET_PREFIX)
     const metadata = await this.makeNFTMetadata(tokenId, traits, rarity, assetGatewayURL)
     await this.refreshOpenSea(tokenId)
 
@@ -132,9 +132,9 @@ export class Degen extends Minty {
       attributes,
     }
     await this.uploadToS3(
-      `${this.targetNetwork}/metadata/${tokenId}.json`,
+      `metadata/${tokenId}.json`,
       JSON.stringify(metadata, null, 2),
-      S3_DEGENS_BUCKET
+      DEGENS_ASSET_PREFIX
     )
     return metadata
   }
@@ -157,9 +157,9 @@ export class Degen extends Minty {
     const newMetadata = { ...metadata }
     newMetadata.name = name || `DEGEN #${tokenId}`
     await this.uploadToS3(
-      `${this.targetNetwork}/metadata/${tokenId}.json`,
+      `metadata/${tokenId}.json`,
       JSON.stringify(newMetadata, null, 2),
-      S3_DEGENS_BUCKET
+      DEGENS_ASSET_PREFIX
     )
     await this.refreshOpenSea(tokenId)
     return { newMetadata }
@@ -185,9 +185,9 @@ export class Degen extends Minty {
       attributes: metadata.attributes,
     }
     await this.uploadToS3(
-      `${this.targetNetwork}/metadata/${tokenId}.json`,
+      `metadata/${tokenId}.json`,
       JSON.stringify(newMetadata, null, 2),
-      S3_DEGENS_BUCKET
+      DEGENS_ASSET_PREFIX
     )
     await this.refreshOpenSea(tokenId)
     return { newMetadata }
@@ -212,12 +212,12 @@ export class Degen extends Minty {
     const content = await fs.promises.readFile(filePath)
     const basename = path.basename(filePath)
     const { assetURI } = await this.pinImage(`/degens/${basename}`, content)
-    await this.uploadToS3(`${this.targetNetwork}/images/${basename}`, content, S3_DEGENS_BUCKET)
+    await this.uploadToS3(`images/${basename}`, content, DEGENS_ASSET_PREFIX)
     // Update S3 metadata with new image URI
     const newMetadata = { ...metadata }
     newMetadata.image = assetURI
-    const s3MetadataPath = `${this.targetNetwork}/metadata/${tokenId}.json`
-    await this.uploadToS3(s3MetadataPath, JSON.stringify(newMetadata, null, 2), S3_DEGENS_BUCKET)
+    const s3MetadataPath = `metadata/${tokenId}.json`
+    await this.uploadToS3(s3MetadataPath, JSON.stringify(newMetadata, null, 2), DEGENS_ASSET_PREFIX)
     await this.refreshOpenSea(tokenId)
     return { newMetadata }
   }

@@ -22,7 +22,8 @@
     ".hermes/**",
     ".pi/**",
     "**/.output/**",
-    "**/.app-images/**"
+    "**/.app-images/**",
+    "**/public/scripts/stats.js"
   ],
   "overrides": [
     {

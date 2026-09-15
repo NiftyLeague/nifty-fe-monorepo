@@ -159,7 +159,7 @@ describe('Degen.generateNFT', () => {
 
     // 5. Image uploaded to S3
     expect(uploadToS3Spy).toHaveBeenCalledWith(
-      'mainnet/images/42.png',
+      'images/42.png',
       Buffer.from('fake-image-data'),
       'degens'
     )
@@ -226,14 +226,14 @@ describe('Degen.updateDegenImage', () => {
 
     // Image uploaded to S3 (first call)
     expect(uploadToS3Spy).toHaveBeenCalledWith(
-      'mainnet/images/42.png',
+      'images/42.png',
       Buffer.from('fake-image-data'),
       'degens'
     )
 
     // Metadata uploaded to S3 with updated image URI (second call)
     expect(uploadToS3Spy).toHaveBeenLastCalledWith(
-      'mainnet/metadata/42.json',
+      'metadata/42.json',
       expect.stringContaining('ipfs://QmNewCid/degens/42.png'),
       'degens'
     )

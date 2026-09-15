@@ -17,7 +17,6 @@ const migratedRemoteOwners = [
   'apps/app/src/components/leaderboards/TopModal.tsx',
   'apps/app/src/components/leaderboards/LeaderboardRankAction.tsx',
   'apps/app/src/hooks/useRentalPassCount.ts',
-  'apps/app/src/hooks/useVersion.ts',
   'apps/app/src/hooks/merkleDistributor/useUserClaimData.ts',
 ]
 

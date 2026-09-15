@@ -2,7 +2,7 @@ import fs from 'fs'
 
 import type { ContractName, Metadata, TargetNetwork } from '@/types'
 import { getAssetPath, type AssetKind } from '@/utils/assets'
-import { S3_MARKETPLACE_BUCKET } from '@/constants/aws'
+import { MARKETPLACE_ASSET_PREFIX } from '@/constants/aws'
 import { makeGatewayURL } from '@/utils/uriHelpers'
 import { Minty } from './minty'
 
@@ -62,7 +62,7 @@ export class MarketplaceCollection extends Minty {
     await this.uploadToS3(
       `metadata/${tokenId}.json`,
       JSON.stringify(metadata, null, 2),
-      S3_MARKETPLACE_BUCKET
+      MARKETPLACE_ASSET_PREFIX
     )
     return metadata
   }
@@ -89,7 +89,7 @@ export class MarketplaceCollection extends Minty {
       `${ipfsPathPrefix}/${assetFileName}`,
       content
     )
-    await this.uploadToS3(`images/${assetFileName}`, content, S3_MARKETPLACE_BUCKET)
+    await this.uploadToS3(`images/${assetFileName}`, content, MARKETPLACE_ASSET_PREFIX)
     const metadata = await this.makeMetadata(tokenId, assetGatewayURL)
 
     return {

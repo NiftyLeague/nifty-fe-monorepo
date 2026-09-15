@@ -44,7 +44,6 @@ describe('uploadToS3', () => {
         Bucket: 'assets-bucket',
         Key: 'mainnet/images/character.png',
         ContentType: 'image/png',
-        ACL: 'public-read',
       })
     )
   })

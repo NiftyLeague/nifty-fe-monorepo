@@ -24,7 +24,6 @@ export const uploadToS3 = async (
     Key: `${baseDirectory}/${fileName}`,
     Body: content,
     ContentType: mimeTypes[path.extname(fileName) as ExtType] || 'application/json',
-    ACL: 'public-read',
   } as PutObjectCommandInput
 
   try {

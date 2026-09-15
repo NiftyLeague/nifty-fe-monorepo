@@ -19,7 +19,7 @@ import {
 import { DEFAULTS, getEndpoints } from './constants/api'
 import { CONTRACT_METHODS } from './constants/contracts'
 import { LEGGIES } from './constants/metadata/degens'
-import { S3_BASE_URL, S3_DEGENS_BUCKET, S3_MARKETPLACE_BUCKET } from './constants/aws'
+import { CDN_BASE_URL, DEGENS_ASSET_PREFIX, MARKETPLACE_ASSET_PREFIX } from './constants/aws'
 import { MARKETPLACE_COLLECTION_METADATA } from './constants/metadata/marketplace'
 import type { Attribute, TargetNetwork } from './types'
 
@@ -160,7 +160,9 @@ app.get('/:network/degen/metadata/:token_id', function (req: Request, res: Respo
     res.sendStatus(404)
     return
   }
-  pipeRequest(`${S3_BASE_URL}/${S3_DEGENS_BUCKET}/${network}/metadata/${token_id}.json`, res)
+  // Both networks serve the flat mainnet asset layout on R2 (sepolia mirrors
+  // mainnet and is no longer written separately).
+  pipeRequest(`${CDN_BASE_URL}/${DEGENS_ASSET_PREFIX}/metadata/${token_id}.json`, res)
 })
 
 app.get('/:network/degen/image/:token_id', function (req: Request, res: Response) {
@@ -171,7 +173,7 @@ app.get('/:network/degen/image/:token_id', function (req: Request, res: Response
     return
   }
   const type = LEGGIES.includes(Number(token_id)) ? 'gif' : 'png'
-  pipeRequest(`${S3_BASE_URL}/${S3_DEGENS_BUCKET}/${network}/images/${token_id}.${type}`, res)
+  pipeRequest(`${CDN_BASE_URL}/${DEGENS_ASSET_PREFIX}/images/${token_id}.${type}`, res)
 })
 
 app.get(
@@ -211,7 +213,7 @@ app.get('/imx/marketplace/metadata/:token_id', function (req: Request, res: Resp
     res.sendStatus(404)
     return
   }
-  pipeRequest(`${S3_BASE_URL}/${S3_MARKETPLACE_BUCKET}/metadata/${tokenId}.json`, res)
+  pipeRequest(`${CDN_BASE_URL}/${MARKETPLACE_ASSET_PREFIX}/metadata/${tokenId}.json`, res)
 })
 
 app.get('/imx/marketplace/images/:token_id', function (req: Request, res: Response) {
@@ -222,7 +224,7 @@ app.get('/imx/marketplace/images/:token_id', function (req: Request, res: Respon
   }
   // COMICS 1-100 are PNG, Items 101+ are GIF
   const fileType = Number(tokenId) <= 100 ? 'png' : 'gif'
-  pipeRequest(`${S3_BASE_URL}/${S3_MARKETPLACE_BUCKET}/images/${tokenId}.${fileType}`, res)
+  pipeRequest(`${CDN_BASE_URL}/${MARKETPLACE_ASSET_PREFIX}/images/${tokenId}.${fileType}`, res)
 })
 
 //////////////////////////////////////////////

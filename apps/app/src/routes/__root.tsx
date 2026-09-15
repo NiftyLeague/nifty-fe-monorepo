@@ -39,10 +39,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <DeferredAnalytics />
         <NuqsAdapter>{children}</NuqsAdapter>
         <Scripts />
-        <DeferredExternalScript
-          id="device-stats"
-          src="https://d7ct17ettlkln.cloudfront.net/public/stats.js"
-        />
+        <DeferredExternalScript id="device-stats" src="/scripts/stats.js" />
       </body>
     </html>
   )
