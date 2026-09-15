@@ -12,7 +12,7 @@ import { setAuthToken, setNonce, setUUIDToken } from '@/state/auth-storage'
 type Param<T> = T | (() => T | undefined)
 type Params = { auth?: AUTH_Token; token?: Param<UUID_Token>; nonce?: Param<Nonce> }
 
-const resolveParam = <T,>(param?: Param<T>) =>
+const resolveParam = <T>(param?: Param<T>) =>
   (typeof param === 'function' ? (param as () => T | undefined)() : param) as T | undefined
 
 const useSignAuthMsg = (params: Params = {}) => {

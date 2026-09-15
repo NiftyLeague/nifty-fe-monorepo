@@ -8,7 +8,7 @@ import { queryKeys } from '@/query/app-query'
 import useAuth from './useAuth'
 
 type MaybeAccessor<T> = T | Accessor<T>
-const resolve = <T,>(value: MaybeAccessor<T>): T =>
+const resolve = <T>(value: MaybeAccessor<T>): T =>
   typeof value === 'function' ? (value as Accessor<T>)() : value
 
 const useRent = (

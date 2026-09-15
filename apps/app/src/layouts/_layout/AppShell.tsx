@@ -48,8 +48,7 @@ function AppShellContent(props: AppShellProps) {
     setDrawerOpen(isDesktopNavigation())
   })
 
-  const isNoFilterPage = () =>
-    Boolean(pathname() && /(degens|dashboard\/degens)/.test(pathname()))
+  const isNoFilterPage = () => Boolean(pathname() && /(degens|dashboard\/degens)/.test(pathname()))
 
   return (
     <>

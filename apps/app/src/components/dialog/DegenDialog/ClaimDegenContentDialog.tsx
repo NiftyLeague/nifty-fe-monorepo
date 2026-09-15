@@ -21,13 +21,9 @@ const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
   const degenTokenIndices = createMemo(() => [parseInt(tokenId(), 10)])
   const claimable = useClaimableNFTL(degenTokenIndices)
 
-  const handleClaimNFTL = async (
-    event: MouseEvent & { currentTarget: HTMLButtonElement }
-  ) => {
+  const handleClaimNFTL = async (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
     if (DEBUG) console.log('Claim', degenTokenIndices(), claimable.balance)
-    await network.tx(
-      network.writeContracts[NFTL_CONTRACT].claim(degenTokenIndices())
-    )
+    await network.tx(network.writeContracts[NFTL_CONTRACT].claim(degenTokenIndices()))
     setTimeout(() => claimable.refetch(), 5000)
     props.onClose?.(event)
   }
@@ -48,7 +44,9 @@ const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
           class="w-full"
           disabled={!(claimable.balance > 0.0 && network.writeContracts[NFTL_CONTRACT])}
           variant="default"
-          onClick={(e: MouseEvent & { currentTarget: HTMLButtonElement }) => void handleClaimNFTL(e)}
+          onClick={(e: MouseEvent & { currentTarget: HTMLButtonElement }) =>
+            void handleClaimNFTL(e)
+          }
         >
           Claim
         </Button>

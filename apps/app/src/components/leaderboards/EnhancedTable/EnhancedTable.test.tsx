@@ -24,11 +24,12 @@ describe('leaderboard table query ownership', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    render(() => <QueryClientProvider client={client}>
+    render(() => (
+      <QueryClientProvider client={client}>
         <EnhancedTable {...props} />
         <EnhancedTable {...props} />
       </QueryClientProvider>
-    )
+    ))
 
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
   })
@@ -44,10 +45,11 @@ describe('leaderboard table query ownership', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    const { container } = render(() => <QueryClientProvider client={client}>
+    const { container } = render(() => (
+      <QueryClientProvider client={client}>
         <EnhancedTable {...props} />
       </QueryClientProvider>
-    )
+    ))
 
     expect(container.querySelector('svg#preloader-arcade')).toBeTruthy()
   })

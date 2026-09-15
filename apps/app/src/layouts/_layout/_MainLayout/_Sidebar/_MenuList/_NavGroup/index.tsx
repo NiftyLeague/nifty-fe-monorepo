@@ -30,11 +30,7 @@ const NavGroup = ({ item }: NavGroupProps) => {
       case 'item':
         return <NavItem item={menu} level={1} />
       default:
-        return (
-          <h6 class="text-center text-error">
-            Menu Items Error
-          </h6>
-        )
+        return <h6 class="text-center text-error">Menu Items Error</h6>
     }
   })
 

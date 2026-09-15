@@ -170,9 +170,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
 
   return (
     <div>
-      <div
-        class={cn(styles.root, 'flex flex-col max-w-[430px] mx-1 sm:mx-auto gap-12 sm:gap-10')}
-      >
+      <div class={cn(styles.root, 'flex flex-col max-w-[430px] mx-1 sm:mx-auto gap-12 sm:gap-10')}>
         <Button
           variant="ghost"
           size="icon"
@@ -181,12 +179,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
           onClick={props.onClose}
           aria-label="close"
         >
-          <X
-            aria-hidden="true"
-            color="var(--color-purple)"
-            size={18}
-            stroke-width={1.5}
-          />
+          <X aria-hidden="true" color="var(--color-purple)" size={18} stroke-width={1.5} />
         </Button>
 
         <RentStepper rentSuccess={rentSuccess()} checkBalance={checkBalance()} />
@@ -242,10 +235,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
               }
             >
               <div class="flex flex-col w-full justify-between" style={{ height: '146px' }}>
-                <div
-                  class="flex flex-col"
-                  style={{ display: checkBalance() ? 'none' : 'flex' }}
-                >
+                <div class="flex flex-col" style={{ display: checkBalance() ? 'none' : 'flex' }}>
                   <span class="text-xs" style={{ 'line-height': '2' }}>
                     Who are you renting for?
                   </span>
@@ -269,12 +259,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                         <Show when={disabledRentFor()}>
                           <Tooltip>
                             <TooltipTrigger>
-                              <Info
-                                aria-hidden="true"
-                                size={18}
-                                stroke-width={1.5}
-                                class="-mt-1"
-                              />
+                              <Info aria-hidden="true" size={18} stroke-width={1.5} class="-mt-1" />
                             </TooltipTrigger>
                             <TooltipContent>
                               DEGEN ownership is required to sponsor Recruits on this DEGEN.

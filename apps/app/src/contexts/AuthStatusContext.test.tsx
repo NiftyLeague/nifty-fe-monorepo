@@ -1,7 +1,6 @@
 import { act, renderHook } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-
 import { AuthStatusProvider, useAuthStatus } from './AuthStatusContext'
 import type { JSX } from 'solid-js'
 

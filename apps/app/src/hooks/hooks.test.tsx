@@ -54,9 +54,7 @@ describe('useAsyncInterval', () => {
 
     await waitFor(() => expect(callback).toHaveBeenCalledTimes(2))
     // The interval is installed after the leading callback's promise settles.
-    await waitFor(() =>
-      expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100)
-    )
+    await waitFor(() => expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100))
     unmount()
   })
 

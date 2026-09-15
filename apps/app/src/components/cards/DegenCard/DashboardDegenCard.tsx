@@ -37,13 +37,11 @@ function DashboardDegenCardInViewInner<T extends PublicDegen>(props: DegenCardPr
 // Memoized so unchanged grids skip re-rendering when the page around them
 // updates; the casts restore the generic card the same way `DeferredComponent`
 // does.
-export const DashboardDegenCard = (DashboardDegenCardInner) as <T extends PublicDegen>(
+export const DashboardDegenCard = DashboardDegenCardInner as <T extends PublicDegen>(
   props: DegenCardProps<T>
 ) => JSX.Element
 
-export const DashboardDegenCardInView = (DashboardDegenCardInViewInner) as <
-  T extends PublicDegen,
->(
+export const DashboardDegenCardInView = DashboardDegenCardInViewInner as <T extends PublicDegen>(
   props: DegenCardProps<T>
 ) => JSX.Element
 

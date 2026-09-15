@@ -13,7 +13,10 @@ interface DegensTopNavControlsProps {
   handleSort: (sortOptions: string) => void
   sortValue: string
   layoutMode: string
-  handleChangeLayoutMode: (_event: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => void
+  handleChangeLayoutMode: (
+    _event: MouseEvent & { currentTarget: HTMLElement },
+    newMode: string
+  ) => void
 }
 
 export default function DegensTopNavControls(props: DegensTopNavControlsProps) {

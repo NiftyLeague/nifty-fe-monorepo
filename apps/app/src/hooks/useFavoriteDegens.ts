@@ -54,7 +54,11 @@ export default function useFavoriteDegens() {
       })
       return { previous }
     },
-    onError: (_error: unknown, _favorites: string[], context: { previous?: { favorites: string } } | undefined) => {
+    onError: (
+      _error: unknown,
+      _favorites: string[],
+      context: { previous?: { favorites: string } } | undefined
+    ) => {
       if (context) {
         queryClient.setQueryData(queryKeys.profile.favorites(scope()), context.previous)
       }
@@ -67,7 +71,9 @@ export default function useFavoriteDegens() {
   }))
 
   const toggleFavorite = (degenId: string) =>
-    mutation.mutateAsync(toggleValue((favoritesQuery.data ?? EMPTY_FAVORITES).filter(Boolean), degenId))
+    mutation.mutateAsync(
+      toggleValue((favoritesQuery.data ?? EMPTY_FAVORITES).filter(Boolean), degenId)
+    )
 
   return {
     get favDegens() {

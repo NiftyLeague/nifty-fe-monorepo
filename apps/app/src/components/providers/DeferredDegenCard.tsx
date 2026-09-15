@@ -43,7 +43,7 @@ function DeferredDegenCardInner<T extends PublicDegen>({
 
 // Memoized so a stable degen reference and stable callbacks skip the whole
 // deferral machinery when the page re-renders around an unchanged grid.
-const DeferredDegenCard = (DeferredDegenCardInner) as <T extends PublicDegen>(
+const DeferredDegenCard = DeferredDegenCardInner as <T extends PublicDegen>(
   props: DegenCardProps<T> & { children?: JSX.Element }
 ) => JSX.Element
 

@@ -15,7 +15,6 @@ const SatoshiAnimations = (props: { burning: boolean; children?: JSX.Element }) 
   )
 }
 
-
 const SatoshiAnimationsWithContext = ({ burning = false }) => {
   return <SatoshiAnimations burning={burning} />
 }

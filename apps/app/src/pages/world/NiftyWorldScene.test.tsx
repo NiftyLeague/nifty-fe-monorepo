@@ -1,4 +1,3 @@
-
 import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock } from 'bun:test'
 
@@ -36,8 +35,6 @@ describe('NiftyWorldScene', () => {
     expect(screen.getByRole('button', { name: 'Enter fullscreen' })).toBeTruthy()
   })
 })
-
-
 
 mock.module('@/runtime/Link', () => ({
   default: ({ children, href, ...props }: { href: string } & { children?: JSX.Element }) => (

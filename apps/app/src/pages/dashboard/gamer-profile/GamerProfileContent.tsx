@@ -33,9 +33,9 @@ const GamerProfileContent = (): JSX.Element => {
   const avatarFee = useProfileAvatarFee()
   const profileAvatars = () => avatarFee.avatarsAndFee?.avatars
   const nfts = useNFTsBalances()
-  const degenIds = createMemo(
-    () => [...new Set(nfts.degensBalances.map((degen) => String(degen.id)))]
-  )
+  const degenIds = createMemo(() => [
+    ...new Set(nfts.degensBalances.map((degen) => String(degen.id))),
+  ])
   const publicDegensQuery = usePublicDegensByIds(degenIds)
 
   const filteredDegens = createMemo(() => {
@@ -137,11 +137,7 @@ const GamerProfileContent = (): JSX.Element => {
 
   return (
     <div class="mb-6 flex flex-col gap-8">
-      <Show
-        when={
-          gamerProfile.error && !gamerProfile.profile && !gamerProfile.loadingProfile
-        }
-      >
+      <Show when={gamerProfile.error && !gamerProfile.profile && !gamerProfile.loadingProfile}>
         {renderEmptyProfile()}
       </Show>
       <Show when={gamerProfile.profile || gamerProfile.loadingProfile}>

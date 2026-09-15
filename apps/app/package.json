@@ -17,7 +17,6 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@modular-forms/solid": "^0.25.1",
     "@nl/contracts": "workspace:*",
     "@nl/imx-passport": "workspace:*",
     "@nl/ui": "workspace:*",
@@ -45,6 +44,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.63.0",
+    "@solidjs/testing-library": "^0.8.10",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
     "chrome-launcher": "^1.2.1",

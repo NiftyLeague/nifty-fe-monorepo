@@ -92,10 +92,7 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
   }
 
   return (
-    <DialogContent
-      showCloseButton={false}
-      class="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]"
-    >
+    <DialogContent showCloseButton={false} class="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]">
       <div class="flex flex-col gap-4">
         <Title level={4} class="text-center">
           Rename DEGEN
@@ -115,9 +112,7 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
               display: 'block',
             }}
           />
-          <p class="text-center text-xs text-muted-foreground">
-            Owned by {props.degen?.owner}
-          </p>
+          <p class="text-center text-xs text-muted-foreground">Owned by {props.degen?.owner}</p>
         </div>
         <div class="grid gap-2">
           <Label for="new-degen-name" class={error() ? 'text-destructive' : undefined}>
@@ -155,9 +150,7 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
         <Button
           variant="default"
           class="w-full"
-          disabled={
-            !input() || Boolean(error()) || insufficientBalance() || isLoadingRename()
-          }
+          disabled={!input() || Boolean(error()) || insufficientBalance() || isLoadingRename()}
           onClick={() => void handleRename()}
         >
           {!input()

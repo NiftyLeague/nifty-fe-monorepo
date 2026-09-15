@@ -10,8 +10,7 @@ type DynamicLoader<Props extends object> = () => Promise<
  * straight to a component function; those must wrap as `default`, never as
  * the module.
  */
-const isComponent = (value: unknown): value is Component<never> =>
-  typeof value === 'function'
+const isComponent = (value: unknown): value is Component<never> => typeof value === 'function'
 
 interface DynamicOptions {
   /**

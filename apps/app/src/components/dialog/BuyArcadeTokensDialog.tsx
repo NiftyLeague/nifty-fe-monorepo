@@ -80,9 +80,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
   const purchaseArcadeToken = async () => {
     const details = detailsQuery.data
     if (!details) return
-    const items = [
-      { item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount() },
-    ]
+    const items = [{ item_id: PRODUCT_ID, item_name: 'Arcade Tokens', quantity: tokenCount() }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
     try {
       const response = await fetch(PURCHASE_ARCADE_TOKEN_BALANCE_API, {
@@ -146,9 +144,9 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
             {(details) => (
               <>
                 <span class="mx-auto mt-4 block max-w-[450px] text-center text-base">
-                  To play an arcade game, you need at least 1 arcade token. Arcade tokens are
-                  sold in packs containing {details.items['arcade-token'] ?? 0} tokens (i.e 1
-                  pack = {details.items['arcade-token'] ?? 0} tokens)
+                  To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold
+                  in packs containing {details.items['arcade-token'] ?? 0} tokens (i.e 1 pack ={' '}
+                  {details.items['arcade-token'] ?? 0} tokens)
                 </span>
                 <span class="my-4 block text-center text-base font-bold text-warning">
                   {details.price} NFTL Each
@@ -209,8 +207,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                           : 'var(--color-foreground)',
                     }}
                   >
-                    Bal:{' '}
-                    {accountBalance() ? formatNumberToDisplay(accountBalance()) : '0.00'} NFTL
+                    Bal: {accountBalance() ? formatNumberToDisplay(accountBalance()) : '0.00'} NFTL
                   </span>
                   <span class="flex text-base" style={{ 'font-weight': '500' }}>
                     Total:{' '}
@@ -224,9 +221,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                     {tokenCount() * (details.items['arcade-token'] ?? 0)} Arcade Tokens
                   </span>
                   <Show
-                    when={
-                      accountBalance() > 0 && accountBalance() < tokenCount() * details.price
-                    }
+                    when={accountBalance() > 0 && accountBalance() < tokenCount() * details.price}
                   >
                     <span class="my-1 text-xs text-warning">
                       Balance is too low.{' '}

@@ -24,9 +24,7 @@ mock.module('@/runtime/dynamic', () => ({
 
 mock.module('@nl/ui/base/dialog', () => ({
   Dialog: ({ children }: { children: JSX.Element }) => <div>{children}</div>,
-  DialogContent: ({ children }: { children: JSX.Element }) => (
-    <div role="dialog">{children}</div>
-  ),
+  DialogContent: ({ children }: { children: JSX.Element }) => <div role="dialog">{children}</div>,
 }))
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
@@ -65,12 +63,13 @@ describe('DegenDialog', () => {
   it('loads contract traits without blocking on a redundant metadata request', async () => {
     const { default: DegenDialog } = await import('./index')
 
-    render(() => <DegenDialog
+    render(() => (
+      <DegenDialog
         open
         degen={{ id: '1', name: 'Fallback Name' } as DashboardDegen}
         setIsRent={() => undefined}
       />
-    )
+    ))
 
     expect(await screen.findByText('Chain Name 1')).not.toBeNull()
     expect(getName).toHaveBeenCalledWith('1')
@@ -84,7 +83,8 @@ describe('DegenDialog', () => {
 
     const { default: DegenDialog } = await import('./index')
 
-    render(() => <DegenDialog
+    render(() => (
+      <DegenDialog
         open
         degen={
           {
@@ -95,7 +95,7 @@ describe('DegenDialog', () => {
         }
         setIsRent={() => undefined}
       />
-    )
+    ))
 
     expect(await screen.findByText('Fallback Name 1,17,0,0,0,0,263')).not.toBeNull()
   })

@@ -40,7 +40,8 @@ describe('PublicDegenDialog', () => {
   })
 
   it('maps numeric trait ids to readable trait names and values', () => {
-    render(() => <PublicDegenDialog
+    render(() => (
+      <PublicDegenDialog
         open
         degen={{
           id: '1',
@@ -49,7 +50,7 @@ describe('PublicDegenDialog', () => {
         }}
         onClose={() => {}}
       />
-    )
+    ))
 
     expect(screen.getByText('Tribe')).not.toBeNull()
     expect(screen.getByText('Ape')).not.toBeNull()

@@ -1,5 +1,7 @@
 import { createSignal } from 'solid-js'
-import { createForm, setValue, zodForm } from '@modular-forms/solid'
+import { createForm, setValue } from '@modular-forms/solid'
+
+import { zodForm } from './zod-form'
 import { z } from 'zod'
 import { KeyRound, Loader, Lock, Mail } from 'lucide-solid'
 

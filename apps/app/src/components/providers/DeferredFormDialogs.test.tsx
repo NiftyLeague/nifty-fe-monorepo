@@ -13,12 +13,13 @@ mock.module('@nl/ui/custom/deferred-component', () => ({
 describe('deferred dashboard form dialogs', () => {
   it('keeps the rental nickname form unloaded until its dialog opens', async () => {
     const { default: DeferredChangeNicknameDialog } = await import('./DeferredChangeNicknameDialog')
-    const rendered = render(() => <DeferredChangeNicknameDialog
+    const rendered = render(() => (
+      <DeferredChangeNicknameDialog
         open={false}
         rental={{} as RentalDataGrid}
         updateNickname={() => {}}
       />
-    )
+    ))
 
     expect(screen.queryByRole('status')).toBeNull()
 

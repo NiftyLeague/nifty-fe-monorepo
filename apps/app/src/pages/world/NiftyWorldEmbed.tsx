@@ -69,9 +69,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
     }
 
     document.addEventListener('fullscreenchange', handleFullscreenChange)
-    onCleanup(() =>
-      document.removeEventListener('fullscreenchange', handleFullscreenChange)
-    )
+    onCleanup(() => document.removeEventListener('fullscreenchange', handleFullscreenChange))
   })
 
   onMount(() => {
@@ -126,7 +124,9 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
       return
     }
 
-    void experienceShell()!.requestFullscreen().catch(() => undefined)
+    void experienceShell()!
+      .requestFullscreen()
+      .catch(() => undefined)
   }
 
   const handleFrameLoad = () => {

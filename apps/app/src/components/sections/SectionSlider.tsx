@@ -82,9 +82,7 @@ const SectionSlider = (props: Props & { children?: JSX.Element }): JSX.Element =
         <Show when={isSlider()} fallback={props.children}>
           <ResponsiveCarousel
             {...settings()}
-            ariaLabel={
-              typeof props.title === 'string' ? props.title : 'Featured content'
-            }
+            ariaLabel={typeof props.title === 'string' ? props.title : 'Featured content'}
             ref={(api) => {
               sliderApi = api
             }}

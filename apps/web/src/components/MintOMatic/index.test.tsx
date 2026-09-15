@@ -15,8 +15,18 @@ describe('MintOMatic', () => {
     const images = [...container.querySelectorAll('img')]
 
     expect(images).toHaveLength(4)
-    expect(images.map((image) => image.getAttribute('loading'))).toEqual(['lazy', 'lazy', 'eager', 'lazy'])
-    expect(images.map((image) => image.getAttribute('fetchpriority'))).toEqual(['low', 'low', 'high', 'low'])
+    expect(images.map((image) => image.getAttribute('loading'))).toEqual([
+      'lazy',
+      'lazy',
+      'eager',
+      'lazy',
+    ])
+    expect(images.map((image) => image.getAttribute('fetchpriority'))).toEqual([
+      'low',
+      'low',
+      'high',
+      'low',
+    ])
     expect(images.map((image) => image.getAttribute('decoding'))).toEqual(Array(4).fill('async'))
     expect(
       images.map((image) => [image.getAttribute('width'), image.getAttribute('height')])

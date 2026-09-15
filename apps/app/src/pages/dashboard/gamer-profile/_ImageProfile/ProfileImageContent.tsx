@@ -78,10 +78,7 @@ const ProfileImagePicker = (props: ProfileImagePickerProps) => {
         </div>
       }
       actions={
-        <SearchRental
-          placeholder="Search degen by token # or name"
-          handleSearch={props.onSearch}
-        />
+        <SearchRental placeholder="Search degen by token # or name" handleSearch={props.onSearch} />
       }
     >
       <Show

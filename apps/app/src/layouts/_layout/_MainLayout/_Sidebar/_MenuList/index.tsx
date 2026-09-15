@@ -1,4 +1,3 @@
-
 // project imports
 import NavGroup from './_NavGroup'
 import { PublicItems, PrivateItems } from '@/constants/menu-items'
@@ -16,15 +15,11 @@ const MenuList = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
       case 'group':
         return <NavGroup item={item} />
       default:
-        return (
-          <h6 class="text-center text-error">
-            Menu Items Error
-          </h6>
-        )
+        return <h6 class="text-center text-error">Menu Items Error</h6>
     }
   })
 
   return <>{navItems}</>
 }
 
-export default (MenuList)
+export default MenuList

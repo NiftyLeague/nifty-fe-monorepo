@@ -1,4 +1,3 @@
-
 import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
@@ -48,7 +47,6 @@ describe('public navigation links', () => {
     expect(screen.getByRole('link', { name: 'Games' }).getAttribute('href')).toBe('/')
   })
 })
-
 
 mock.module('@/runtime/Link', () => ({
   default: ({

@@ -53,10 +53,7 @@ function DegenCardInner<T extends PublicDegen>({
   const buttonFontSize = size === 'small' ? '12px' : 'var(--text-sm)'
 
   return (
-    <Card
-      class="h-full w-full gap-0 border py-0 pb-2"
-      style={sx as JSX.CSSProperties | undefined}
-    >
+    <Card class="h-full w-full gap-0 border py-0 pb-2" style={sx as JSX.CSSProperties | undefined}>
       {id && (
         <DegenImage
           tokenId={id}
@@ -136,7 +133,7 @@ function DegenCardInner<T extends PublicDegen>({
  * same pattern `DeferredComponent` uses. Shallow comparison is enough now that
  * every callback prop can be stable.
  */
-const DegenCard = (DegenCardInner) as <T extends PublicDegen>(
+const DegenCard = DegenCardInner as <T extends PublicDegen>(
   props: DegenCardProps<T> & { children?: JSX.Element }
 ) => JSX.Element
 

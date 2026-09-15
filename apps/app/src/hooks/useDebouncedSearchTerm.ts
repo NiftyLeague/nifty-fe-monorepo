@@ -28,7 +28,9 @@ export function useDebouncedSearchTerm(
     if (timer) clearTimeout(timer)
   })
 
-  const handleChange: JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event> = (event) => {
+  const handleChange: JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event> = (
+    event
+  ) => {
     const value = (event.target as HTMLInputElement | HTMLTextAreaElement).value
     setDraft(value)
     if (timer) clearTimeout(timer)

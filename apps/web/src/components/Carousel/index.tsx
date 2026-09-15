@@ -1,3 +1,5 @@
+'use client'
+
 import { Show, type JSX } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'

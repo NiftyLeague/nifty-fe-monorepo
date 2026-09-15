@@ -43,13 +43,14 @@ describe('NiftyWorldCard', () => {
   })
 
   it('provides one shared full-bleed card contract for worlds and mini games', () => {
-    render(() => <NiftyWorldCard
+    render(() => (
+      <NiftyWorldCard
         title="Degen Dodge"
         description="Dodge danger"
         image="https://niftyworld.gg/assets/maps/degen-dodge.webp"
         href="/games/degen-dodge"
       />
-    )
+    ))
 
     const card = screen.getByText('Degen Dodge')
     expect(card.getAttribute('data-auto-height')).toBe('true')

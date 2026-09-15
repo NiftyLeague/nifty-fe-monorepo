@@ -41,8 +41,7 @@ export function useQueryStates<P extends Parsers>(
   options: QueryStatesOptions = {}
 ): [ValuesOf<P>, (values: SetValues<P>, setOptions?: { history?: HistoryMode }) => Promise<void>] {
   const search = useSearch({ strict: false })
-  const searchValues = () =>
-    (search() ?? {}) as Record<string, string | string[] | undefined>
+  const searchValues = () => (search() ?? {}) as Record<string, string | string[] | undefined>
   const navigate = useNavigate()
 
   const state = {} as ValuesOf<P>

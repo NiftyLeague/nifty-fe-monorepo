@@ -14,5 +14,7 @@ import { getRequestCookieHeader } from '@/runtime/request-cookies'
 export default function WalletAuthContextWrapper(props: ParentProps) {
   const cookies = getRequestCookieHeader()
 
-  return <WalletAuthProvidersBoundary cookies={cookies}>{props.children}</WalletAuthProvidersBoundary>
+  return (
+    <WalletAuthProvidersBoundary cookies={cookies}>{props.children}</WalletAuthProvidersBoundary>
+  )
 }

@@ -49,12 +49,7 @@ export const SLOTS: EquipItemSlot[] = [
         height={40}
         alt="Purple Bat"
       />,
-      <NativeImage
-        src="/img/items/equips/bread-bat.webp"
-        width={40}
-        height={40}
-        alt="Bread Bat"
-      />,
+      <NativeImage src="/img/items/equips/bread-bat.webp" width={40} height={40} alt="Bread Bat" />,
     ],
   },
 ]

@@ -49,11 +49,7 @@ const UserProfile = () => {
       <Avatar class="size-20">
         <AvatarImage alt="avatar" src={ensAvatar.data || avatar()?.url} />
         <AvatarFallback>
-          <UserRound
-            aria-hidden="true"
-            class="size-10 text-muted-foreground"
-            stroke-width={1.5}
-          />
+          <UserRound aria-hidden="true" class="size-10 text-muted-foreground" stroke-width={1.5} />
         </AvatarFallback>
       </Avatar>
       <div class="my-2 flex flex-col items-center">

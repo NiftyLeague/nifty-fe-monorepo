@@ -5,7 +5,9 @@ import CustomModal from './CustomModal'
 
 describe('leaderboard rank dialog', () => {
   it('keeps the closed dialog out of the document', () => {
-    render(() => <CustomModal open={false} onOpenChange={mock()} child={<span>Leaderboard rows</span>} />)
+    render(() => (
+      <CustomModal open={false} onOpenChange={mock()} child={<span>Leaderboard rows</span>} />
+    ))
 
     expect(screen.queryByRole('dialog')).toBeNull()
   })
@@ -13,13 +15,14 @@ describe('leaderboard rank dialog', () => {
   it('exposes an accessible title and description when controlled open', () => {
     const onOpenChange = mock()
 
-    render(() => <CustomModal
+    render(() => (
+      <CustomModal
         open
         onOpenChange={onOpenChange}
         child={<span>Leaderboard rows</span>}
         flag="score"
       />
-    )
+    ))
 
     expect(screen.getByRole('dialog', { name: 'Your leaderboard rank' })).toBeTruthy()
     expect(screen.getByText('Your rank and nearby leaderboard scores.')).toBeTruthy()

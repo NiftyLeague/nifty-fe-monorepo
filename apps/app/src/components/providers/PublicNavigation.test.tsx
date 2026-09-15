@@ -1,4 +1,3 @@
-
 import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
@@ -24,10 +23,11 @@ import type { JSX } from 'solid-js'
 
 describe('PublicNavigation', () => {
   it('does not render implementation notes as page content', () => {
-    render(() => <PublicNavigation>
+    render(() => (
+      <PublicNavigation>
         <p>Public content</p>
       </PublicNavigation>
-    )
+    ))
 
     expect(document.querySelector('[data-public-navigation]')?.textContent).not.toContain(
       'Keyboard-scrollable'
@@ -38,10 +38,11 @@ describe('PublicNavigation', () => {
   })
 
   it('keeps the desktop sidebar open with an accessible native disclosure control', () => {
-    render(() => <PublicNavigation>
+    render(() => (
+      <PublicNavigation>
         <p>Public content</p>
       </PublicNavigation>
-    )
+    ))
 
     // Selected by the panel it controls: the summary keeps its implicit role so
     // the browser supplies aria-expanded, which means a role query cannot find it.
@@ -97,8 +98,8 @@ describe('PublicNavigation', () => {
     )
     // Happy-dom does not propagate img alt into the anchor's accessible
     // name, so match the logo links structurally.
-    const logos = [...document.querySelectorAll('img[alt="NiftyLogo"]')].map(
-      (img) => img.closest('a')
+    const logos = [...document.querySelectorAll('img[alt="NiftyLogo"]')].map((img) =>
+      img.closest('a')
     )
     expect(logos).toHaveLength(2)
     expect(logos.every((link) => link instanceof HTMLAnchorElement)).toBe(true)

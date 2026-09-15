@@ -1,4 +1,3 @@
-
 import { act, fireEvent, render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, jest, mock } from 'bun:test'
 
@@ -172,8 +171,6 @@ describe('NiftyWorldGame', () => {
     expect(new URL(secondUrl ?? '').searchParams.get('visit')).toBeTruthy()
   })
 })
-
-
 
 mock.module('@/runtime/Link', () => ({
   default: ({

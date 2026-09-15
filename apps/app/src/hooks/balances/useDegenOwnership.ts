@@ -25,9 +25,7 @@ export default function useDegenOwnership(): DegenOwnershipState {
 
   const degensBalances = createMemo<Character[]>(() => {
     const characters = owner()?.characters
-    return characters
-      ? characters.map((degen) => ({ ...degen, id: degen.tokenId.toString() }))
-      : []
+    return characters ? characters.map((degen) => ({ ...degen, id: degen.tokenId.toString() })) : []
   })
 
   const degenTokenIndices = createMemo(() =>

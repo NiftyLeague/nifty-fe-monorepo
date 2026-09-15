@@ -38,9 +38,7 @@ const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
             rel="noreferrer"
             class="flex flex-row flex-nowrap items-center"
           >
-            <span class="text-muted-foreground no-underline">
-              DEGEN ID #{props.degen?.id}{' '}
-            </span>
+            <span class="text-muted-foreground no-underline">DEGEN ID #{props.degen?.id} </span>
             <NativeImage
               src="/img/logos/other/OpenSea.webp"
               alt="OpenSea Logo"
@@ -102,12 +100,7 @@ const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
           </div>
           <div class="flex w-full flex-col gap-2">
             <Show when={props.onClose}>
-              <Button
-                variant="default"
-                class="w-full"
-                onClick={props.onClose}
-                autofocus
-              >
+              <Button variant="default" class="w-full" onClick={props.onClose} autofocus>
                 Close
               </Button>
             </Show>

@@ -45,7 +45,9 @@ function SidebarReadyContent() {
 const Sidebar = ({ walletReady = true }: { walletReady?: boolean }) => {
   return (
     <SidebarFrame
-      footer={walletReady ? <LogoutButton sx={{ 'margin-bottom': '12px', width: '85%' }} /> : undefined}
+      footer={
+        walletReady ? <LogoutButton sx={{ 'margin-bottom': '12px', width: '85%' }} /> : undefined
+      }
     >
       {walletReady ? <SidebarReadyContent /> : <UserProfileLoading />}
       {!walletReady && <MenuList />}

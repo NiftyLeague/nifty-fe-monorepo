@@ -7,7 +7,8 @@ describe('ExpandableListItem', () => {
   it('uses an accessible accordion trigger and preserves row selection', () => {
     const onSelect = mock()
 
-    render(() => <ExpandableListItem
+    render(() => (
+      <ExpandableListItem
         checkboxSelection
         details={<span>Expanded row details</span>}
         onSelect={onSelect}
@@ -16,7 +17,7 @@ describe('ExpandableListItem', () => {
         selected={false}
         summary="Player One"
       />
-    )
+    ))
 
     const trigger = screen.getByRole('button', { name: 'Player One' })
     expect(trigger.getAttribute('aria-expanded')).toBe('false')

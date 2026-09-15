@@ -32,11 +32,12 @@ describe('DeferredPublicUserProfile', () => {
     loadedPlacement = 'mobile'
     const { default: DeferredPublicUserProfile } = await import('./DeferredPublicUserProfile')
 
-    render(() => <>
+    render(() => (
+      <>
         <DeferredPublicUserProfile placement="mobile" />
         <DeferredPublicUserProfile placement="desktop" />
       </>
-    )
+    ))
 
     expect(screen.getAllByTestId('loaded-profile')).toHaveLength(1)
     expect(screen.getAllByLabelText('Loading profile and login controls')).toHaveLength(1)
@@ -48,11 +49,12 @@ describe('DeferredPublicUserProfile', () => {
     loadedPlacement = 'desktop'
     const { default: DeferredPublicUserProfile } = await import('./DeferredPublicUserProfile')
 
-    render(() => <>
+    render(() => (
+      <>
         <DeferredPublicUserProfile placement="mobile" />
         <DeferredPublicUserProfile placement="desktop" />
       </>
-    )
+    ))
 
     expect(screen.getAllByTestId('loaded-profile')).toHaveLength(1)
     expect(screen.getByTestId('loaded-profile').getAttribute('data-placement')).toBe('desktop')

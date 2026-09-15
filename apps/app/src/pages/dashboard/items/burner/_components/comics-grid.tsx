@@ -110,9 +110,7 @@ export default function ComicsGrid(props: {
                             inputMode="numeric"
                             pattern="[0-9]*"
                             min={0}
-                            max={
-                              nfts.comicsBalances.find((c) => c.id === comic.id)?.balance || 0
-                            }
+                            max={nfts.comicsBalances.find((c) => c.id === comic.id)?.balance || 0}
                             style={{
                               'text-align': 'center',
                               'padding-bottom': '2.5px',

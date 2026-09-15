@@ -43,10 +43,11 @@ afterEach(() => {
 describe('private main layout startup shell', () => {
   it('renders the navigation shell before wallet features are ready', async () => {
     const MainLayout = (await import('./index')).default
-    const { container } = render(() => <MainLayout walletReady={false}>
+    const { container } = render(() => (
+      <MainLayout walletReady={false}>
         <p>Loading content</p>
       </MainLayout>
-    )
+    ))
 
     expect(container.querySelector('[data-sidebar-wallet-ready="false"]')).not.toBeNull()
     expect(container.querySelector('[data-network-warning="absent"]')).not.toBeNull()
@@ -55,10 +56,11 @@ describe('private main layout startup shell', () => {
 
   it('restores wallet-dependent chrome once the provider is ready', async () => {
     const MainLayout = (await import('./index')).default
-    const { container } = render(() => <MainLayout>
+    const { container } = render(() => (
+      <MainLayout>
         <p>Dashboard</p>
       </MainLayout>
-    )
+    ))
 
     expect(container.querySelector('[data-sidebar-wallet-ready="true"]')).not.toBeNull()
     expect(container.querySelector('[data-network-warning="present"]')).not.toBeNull()

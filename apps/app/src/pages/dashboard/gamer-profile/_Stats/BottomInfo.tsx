@@ -17,11 +17,7 @@ interface BottomInfoProps {
   crypto_winter: ProfileMiniGame | undefined
 }
 
-const BottomInfo = ({
-  nifty_smashers,
-  wen_game,
-  crypto_winter,
-}: BottomInfoProps): JSX.Element => {
+const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps): JSX.Element => {
   const { isLoadingProfile } = useGamerProfileContext()
 
   return (

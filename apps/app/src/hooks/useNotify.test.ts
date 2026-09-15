@@ -45,7 +45,7 @@ describe('useNotify', () => {
       wait: mock().mockResolvedValue(undefined),
     }
     sendTransactionMock.mockResolvedValue(transaction)
-    const { result } = renderHook(() => useNotify(() => ({} as never)))
+    const { result } = renderHook(() => useNotify(() => ({}) as never))
 
     await act(async () => {
       await result.current(Promise.resolve({}) as never)

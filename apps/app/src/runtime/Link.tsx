@@ -28,8 +28,7 @@ export default function Link(props: LinkProps) {
   const [local, rest] = splitProps(props, ['children', 'href', 'prefetch'])
   const href = () => local.href ?? ''
 
-  const isPlainAnchor = () =>
-    !local.href || href().startsWith('#') || EXTERNAL_HREF.test(href())
+  const isPlainAnchor = () => !local.href || href().startsWith('#') || EXTERNAL_HREF.test(href())
 
   const parts = () => splitHref(href())
 

@@ -351,9 +351,7 @@ const MyRentalsDataGrid = (props: Props): JSX.Element => {
 
   const visibleColumns = createMemo(() => {
     const visibility = columnVisibilityModel()
-    return visibility
-      ? columns().filter((col) => visibility[col.field] !== false)
-      : columns()
+    return visibility ? columns().filter((col) => visibility[col.field] !== false) : columns()
   })
 
   const paginatedRows = createMemo(() =>

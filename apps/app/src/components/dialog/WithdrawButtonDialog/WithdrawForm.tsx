@@ -78,17 +78,15 @@ const WithdrawForm = (props: WithdrawFormProps): JSX.Element => {
 
         <p class="text-base">
           You have until{' '}
-          <span style={{ 'font-weight': 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span>{' '}
-          to withdraw.
+          <span style={{ 'font-weight': 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span> to
+          withdraw.
         </p>
 
         <Alert class="border-blue/40 bg-blue/10 text-blue">
           NFTL will be sent to your Immutable zkEVM wallet!
         </Alert>
 
-        <Show when={error()}>
-          {(msg) => <Alert variant="destructive">{msg()}</Alert>}
-        </Show>
+        <Show when={error()}>{(msg) => <Alert variant="destructive">{msg()}</Alert>}</Show>
 
         <Button
           size="lg"

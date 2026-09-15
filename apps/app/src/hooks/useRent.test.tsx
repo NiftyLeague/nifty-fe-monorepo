@@ -2,7 +2,6 @@ import { QueryClientProvider } from '@tanstack/solid-query'
 import { act, renderHook } from '@nl/ui/test-utils'
 import { describe, expect, it, mock, spyOn } from 'bun:test'
 
-
 import { createAppQueryClient, getAuthQueryScope, queryKeys } from '@/query/app-query'
 import type { JSX } from 'solid-js'
 
@@ -34,7 +33,5 @@ describe('rent mutation', () => {
     expect(client.getQueryState(catalogueKey)?.isInvalidated).toBe(true)
   })
 })
-
-
 
 mock.module('./useAuth', () => ({ default: () => ({ authToken: 'test-token' }) }))

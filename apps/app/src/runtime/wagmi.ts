@@ -6,7 +6,6 @@ import {
   getConnectorClient,
   getEnsAvatar,
   getEnsName,
-  getWalletClient,
   readContract,
   signMessage as coreSignMessage,
   switchChain as coreSwitchChain,
@@ -17,8 +16,6 @@ import {
   type GetConnectorClientParameters,
   type GetEnsAvatarParameters,
   type GetEnsNameParameters,
-  type GetWalletClientParameters,
-  type GetWalletClientReturnType,
   type ReadContractParameters,
   type SignMessageParameters,
   type SwitchChainParameters,
@@ -46,7 +43,6 @@ function requireConfig(): Config {
   return wagmiConfig
 }
 
-export const getWagmiConfig = requireConfig
 export const useWagmiConfig = requireConfig
 
 type Source<T> = T | (() => T)
@@ -240,8 +236,8 @@ export function useSwitchChain() {
 
 export function useDisconnect() {
   const config = requireConfig()
-  const mutation = createMutation<void, { connector?: unknown } | undefined>(
-    (params) => coreDisconnect(config, params as never)
+  const mutation = createMutation<void, { connector?: unknown } | undefined>((params) =>
+    coreDisconnect(config, params as never)
   )
   return {
     get isPending() {
@@ -281,9 +277,7 @@ export function useSignMessage(options?: {
   }
 }
 
-export function useConnectorClient(
-  params?: Source<GetConnectorClientParameters | undefined>
-) {
+export function useConnectorClient(params?: Source<GetConnectorClientParameters | undefined>) {
   const config = requireConfig()
   const account = useAccount()
   const source = createMemo(() => {
@@ -291,33 +285,6 @@ export function useConnectorClient(
     return { ...resolve(params), connector: account.connector } as GetConnectorClientParameters
   })
   const [data, { refetch }] = createResource(source, (p) => getConnectorClient(config, p))
-  return {
-    get data() {
-      return data()
-    },
-    get error() {
-      return (data.error as Error | undefined) ?? null
-    },
-    get isLoading() {
-      return data.loading
-    },
-    refetch,
-  }
-}
-
-export function useWalletClient(params?: Source<GetWalletClientParameters | undefined>): {
-  readonly data: GetWalletClientReturnType | undefined
-  readonly error: Error | null
-  readonly isLoading: boolean
-  refetch: () => void
-} {
-  const config = requireConfig()
-  const account = useAccount()
-  const source = createMemo(() => {
-    if (!account.isConnected) return null
-    return (resolve(params) ?? {}) as GetWalletClientParameters
-  })
-  const [data, { refetch }] = createResource(source, (p) => getWalletClient(config, p))
   return {
     get data() {
       return data()

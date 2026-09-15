@@ -33,10 +33,7 @@ function ProfileProviderLoading() {
 
 function ProfileProviderError({ retry }: { retry: () => void }) {
   return (
-    <div
-      class="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center"
-      role="alert"
-    >
+    <div class="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center" role="alert">
       <p class="text-sm">Sign-in is temporarily unavailable.</p>
       <button type="button" class={DEFERRED_RETRY_BUTTON_CLASS} onClick={retry}>
         Retry
@@ -47,8 +44,7 @@ function ProfileProviderError({ retry }: { retry: () => void }) {
 
 export default function DeferredPublicUserProfile(props: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
-  const isVisiblePlacement = () =>
-    props.placement === 'desktop' ? isDesktop() : !isDesktop()
+  const isVisiblePlacement = () => (props.placement === 'desktop' ? isDesktop() : !isDesktop())
   const {
     Component: PublicUserProfile,
     hasError,
@@ -60,10 +56,7 @@ export default function DeferredPublicUserProfile(props: PublicUserProfileProps)
       when={isVisiblePlacement() && PublicUserProfile()}
       fallback={
         <div data-public-user-profile data-placement={props.placement}>
-          <Show
-            when={isVisiblePlacement() && hasError()}
-            fallback={<ProfileProviderLoading />}
-          >
+          <Show when={isVisiblePlacement() && hasError()} fallback={<ProfileProviderLoading />}>
             <ProfileProviderError retry={retry} />
           </Show>
         </div>

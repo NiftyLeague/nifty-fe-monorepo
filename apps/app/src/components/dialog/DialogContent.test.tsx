@@ -5,7 +5,8 @@ import { Dialog, DialogContent, DialogTrigger } from './index'
 
 describe('application DialogContent wrapper', () => {
   it('forwards shared layout and accessibility props to the dialog surface', () => {
-    render(() => <Dialog>
+    render(() => (
+      <Dialog>
         <DialogTrigger>
           <button type="button">Open dialog</button>
         </DialogTrigger>
@@ -18,7 +19,7 @@ describe('application DialogContent wrapper', () => {
           Dialog body
         </DialogContent>
       </Dialog>
-    )
+    ))
 
     fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }))
     const dialog = screen.getByRole('dialog', { name: 'Dialog title' })

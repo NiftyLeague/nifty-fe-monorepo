@@ -64,9 +64,7 @@ export function renderHook<Args extends unknown[], HookResult>(
       hookResult = hook(...((options?.initialProps ?? []) as Args))
       return null
     }
-    const rendered = render(() => (
-      <Wrapper children={probe as unknown as JSX.Element} />
-    ))
+    const rendered = render(() => <Wrapper children={probe as unknown as JSX.Element} />)
     return {
       result: { current: hookResult as HookResult },
       unmount: rendered.unmount,

@@ -57,18 +57,13 @@ export default function LeaderBoards(): JSX.Element {
     void setSearchState({
       game: gameKey as typeof searchState.game,
       table: (tables[0] as TableType).key,
-      time:
-        gameKey === 'nftl_burner' && selectedTimeFilter() === 'weekly'
-          ? 'all_time'
-          : undefined,
+      time: gameKey === 'nftl_burner' && selectedTimeFilter() === 'weekly' ? 'all_time' : undefined,
       page: 1,
     })
   }
 
   const handleChangeType = (tableKey: string) => {
-    const table = currentGame().tables.find(
-      (candidate: TableType) => candidate.key === tableKey
-    )
+    const table = currentGame().tables.find((candidate: TableType) => candidate.key === tableKey)
     if (table) void setSearchState({ table: table.key, page: 1 })
   }
 
@@ -90,9 +85,7 @@ export default function LeaderBoards(): JSX.Element {
             optionValue="key"
             optionTextValue="display"
             value={LEADERBOARD_GAME_LIST.find((game) => game.key === selectedGame())}
-            onValueChange={(option) =>
-              option && handleChangeGame((option as LeaderboardGame).key)
-            }
+            onValueChange={(option) => option && handleChangeGame((option as LeaderboardGame).key)}
             itemComponent={(itemProps) => (
               <SelectItem item={itemProps.item}>{itemProps.item.rawValue.display}</SelectItem>
             )}
@@ -110,13 +103,9 @@ export default function LeaderBoards(): JSX.Element {
               optionValue="key"
               optionTextValue="display"
               value={NiftySmashersTables.find((table) => table.key === selectedType())}
-              onValueChange={(option) =>
-                option && handleChangeType((option as TableType).key)
-              }
+              onValueChange={(option) => option && handleChangeType((option as TableType).key)}
               itemComponent={(itemProps) => (
-                <SelectItem item={itemProps.item}>
-                  {itemProps.item.rawValue.display}
-                </SelectItem>
+                <SelectItem item={itemProps.item}>{itemProps.item.rawValue.display}</SelectItem>
               )}
             >
               <SelectTrigger class="py-1.5" aria-label="Score type">

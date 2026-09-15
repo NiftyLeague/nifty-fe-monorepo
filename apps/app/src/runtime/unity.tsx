@@ -20,11 +20,7 @@ export interface UnityConfig {
 }
 
 interface UnityInstance {
-  SendMessage: (
-    gameObject: string,
-    method: string,
-    parameter?: string | number | boolean
-  ) => void
+  SendMessage: (gameObject: string, method: string, parameter?: string | number | boolean) => void
   SetFullscreen: (fullscreen: number) => void
   Quit: () => Promise<void>
 }
@@ -60,11 +56,7 @@ export interface UnityContext {
   isLoaded: () => boolean
   loadingProgression: () => number
   initialisationError: () => unknown
-  sendMessage: (
-    gameObject: string,
-    method: string,
-    parameter?: string | number | boolean
-  ) => void
+  sendMessage: (gameObject: string, method: string, parameter?: string | number | boolean) => void
   requestFullscreen: (enabled: boolean) => void
   addEventListener: (event: string, callback: UnityEventCallback) => void
   removeEventListener: (event: string, callback: UnityEventCallback) => void

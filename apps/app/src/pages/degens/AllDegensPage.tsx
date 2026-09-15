@@ -53,9 +53,7 @@ const AllDegensPage = (): JSX.Element => {
   const pageSize = () =>
     !isSmallScreen() && !isGridView() && !isDrawerOpen() ? 18 : DEGENS_PER_PAGE
 
-  const requestQuery = createMemo(() =>
-    buildPublicDegensRequestQuery(searchState(), pageSize())
-  )
+  const requestQuery = createMemo(() => buildPublicDegensRequestQuery(searchState(), pageSize()))
 
   const degensQuery = usePublicDegensPage(requestQuery)
 
@@ -149,11 +147,7 @@ const AllDegensPage = (): JSX.Element => {
           <Show
             when={pageData()}
             keyed
-            fallback={
-              <For each={Array.from({ length: 8 })}>
-                {() => renderSkeletonItem()}
-              </For>
-            }
+            fallback={<For each={Array.from({ length: 8 })}>{() => renderSkeletonItem()}</For>}
           >
             {(page) => <For each={page.items}>{renderDegen}</For>}
           </Show>

@@ -155,9 +155,7 @@ const DashboardRentalPage = (): JSX.Element => {
                 option && handleChangeCategory((option as (typeof CATEGORY_OPTIONS)[number]).value)
               }
               itemComponent={(itemProps) => (
-                <SelectItem item={itemProps.item}>
-                  {itemProps.item.rawValue.label}
-                </SelectItem>
+                <SelectItem item={itemProps.item}>{itemProps.item.rawValue.label}</SelectItem>
               )}
             >
               <SelectTrigger id="category">

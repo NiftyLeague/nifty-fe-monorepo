@@ -107,9 +107,7 @@ const DataList = (props: DataListProps) => {
   }
 
   const getRowClass = (index: number) => {
-    return props.rowsClassArray && props.rowsClassArray[index]
-      ? props.rowsClassArray[index]
-      : ''
+    return props.rowsClassArray && props.rowsClassArray[index] ? props.rowsClassArray[index] : ''
   }
 
   const visibleRows = () =>
@@ -134,9 +132,7 @@ const DataList = (props: DataListProps) => {
             <Checkbox
               style={{ padding: '0 10px 5px 0' }}
               checked={selection().length === props.data.length}
-              indeterminate={
-                selection().length > 0 && selection().length < props.data.length
-              }
+              indeterminate={selection().length > 0 && selection().length < props.data.length}
               onCheckedChange={() => handleSelectAll()}
             />
             <span class="text-sm">Select All</span>

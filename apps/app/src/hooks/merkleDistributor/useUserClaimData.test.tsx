@@ -2,7 +2,6 @@ import { QueryClientProvider } from '@tanstack/solid-query'
 import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock, spyOn } from 'bun:test'
 
-
 import { createAppQueryClient, queryKeys } from '@/query/app-query'
 import type { JSX } from 'solid-js'
 

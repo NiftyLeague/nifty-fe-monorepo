@@ -11,7 +11,9 @@ beforeEach(() => {
 
   mock.module('@/runtime/navigation', () => ({ usePathname: () => () => '/dashboard' }))
   mock.module('@nl/ui/base/scroll-area', () => ({
-    ScrollArea: ({ children }: { children?: JSX.Element }) => <div data-scroll-area>{children}</div>,
+    ScrollArea: ({ children }: { children?: JSX.Element }) => (
+      <div data-scroll-area>{children}</div>
+    ),
   }))
   mock.module('@nl/ui/custom/app-bar', () => ({
     default: ({ children }: { children?: JSX.Element }) => <div data-app-bar>{children}</div>,
@@ -45,10 +47,11 @@ describe('app shell rendering', () => {
     const sidebar = <aside data-sidebar />
     const children = <p>Dashboard</p>
 
-    const view = render(() => <AppShell header={header} sidebar={sidebar}>
+    const view = render(() => (
+      <AppShell header={header} sidebar={sidebar}>
         {children}
       </AppShell>
-    )
+    ))
 
     expect(breadcrumbRenderCount).toBe(1)
     expect(view.container.querySelector('[data-scroll-area]')).not.toBeNull()

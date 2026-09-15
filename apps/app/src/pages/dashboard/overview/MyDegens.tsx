@@ -39,9 +39,9 @@ const MyDegens = (): JSX.Element => {
 
   const nfts = useNFTsBalances()
 
-  const degenIds = createMemo(
-    () => [...new Set(nfts.degensBalances.map((degen) => String(degen.id)))]
-  )
+  const degenIds = createMemo(() => [
+    ...new Set(nfts.degensBalances.map((degen) => String(degen.id))),
+  ])
   const publicDegensQuery = usePublicDegensByIds(degenIds)
 
   const filteredDegens = createMemo(() => {

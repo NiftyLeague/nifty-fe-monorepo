@@ -17,9 +17,7 @@ const ProfileVerification = (): JSX.Element => {
   )
 }
 
-export default function withVerification<P extends object>(
-  Wrapped: Component<P>
-): Component<P> {
+export default function withVerification<P extends object>(Wrapped: Component<P>): Component<P> {
   const VerifiedComponent = (props: P) => {
     const auth = useAuth()
     return (

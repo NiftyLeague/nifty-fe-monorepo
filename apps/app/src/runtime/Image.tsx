@@ -45,7 +45,11 @@ export function OptimizedImage(props: OptimizedImageProps) {
   const result = getOptimizedImageProps(props)
 
   if ((props.priority || props.preload) && typeof result.src === 'string') {
-    preloadImage(result.src, result.srcSet as string | undefined, result.sizes as string | undefined)
+    preloadImage(
+      result.src,
+      result.srcSet as string | undefined,
+      result.sizes as string | undefined
+    )
   }
 
   return <img {...result} />

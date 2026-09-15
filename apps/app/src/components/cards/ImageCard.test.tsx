@@ -16,13 +16,14 @@ beforeEach(async () => {
 
 describe('ImageCard', () => {
   it('keeps external marketplace media lazy through the shared image primitive', () => {
-    render(() => <ImageCard
+    render(() => (
+      <ImageCard
         thumbnail="https://cdn.example.test/thumb.webp"
         image="https://cdn.example.test/full.webp"
         title="Marketplace item"
         ratio={1}
       />
-    )
+    ))
 
     const images = screen.getAllByRole('img')
 

@@ -33,13 +33,9 @@ export default function useUserClaimData(): {
   const wagmiAccount = useAccount()
   const account = () => imx.address ?? wagmiAccount.address
 
-  const enabled = () =>
-    Boolean(account() && isAddress(account() as string) && imx.imxChainId)
+  const enabled = () => Boolean(account() && isAddress(account() as string) && imx.imxChainId)
   const query = useQuery(() => ({
-    queryKey: queryKeys.merkleClaim(
-      imx.imxChainId as ChainId,
-      account()?.toLowerCase() ?? ''
-    ),
+    queryKey: queryKeys.merkleClaim(imx.imxChainId as ChainId, account()?.toLowerCase() ?? ''),
     queryFn: ({ signal }) => fetchClaim(account() as string, signal),
     enabled: enabled(),
   }))

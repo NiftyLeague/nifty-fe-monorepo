@@ -23,12 +23,13 @@ describe('LeaderboardRankBoundary', () => {
     window.localStorage.setItem('nifty-auth-status', 'false')
     const { default: LeaderboardRankBoundary } = await import('./LeaderboardRankBoundary')
 
-    render(() => <LeaderboardRankBoundary
+    render(() => (
+      <LeaderboardRankBoundary
         selectedGame="nifty_smashers"
         selectedTable="kills"
         selectedTimeFilter="all_time"
       />
-    )
+    ))
 
     expect(screen.queryByTestId('rank-action-loaded')).toBeNull()
     expect(dynamicLoaders).toHaveLength(0)
@@ -38,12 +39,13 @@ describe('LeaderboardRankBoundary', () => {
     window.localStorage.setItem('nifty-auth-status', 'true')
     const { default: LeaderboardRankBoundary } = await import('./LeaderboardRankBoundary')
 
-    render(() => <LeaderboardRankBoundary
+    render(() => (
+      <LeaderboardRankBoundary
         selectedGame="nifty_smashers"
         selectedTable="kills"
         selectedTimeFilter="all_time"
       />
-    )
+    ))
 
     expect(screen.getByTestId('rank-action-loaded')).toBeTruthy()
     expect(dynamicLoaders).toHaveLength(1)

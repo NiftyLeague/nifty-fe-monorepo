@@ -6,7 +6,7 @@ import type { Accessor } from 'solid-js'
 import { queryKeys } from '@/query/app-query'
 import { fetchScores } from '@/utils/leaderboard'
 
-const resolve = <T,>(value: T | Accessor<T>): T =>
+const resolve = <T>(value: T | Accessor<T>): T =>
   typeof value === 'function' ? (value as Accessor<T>)() : value
 
 export const useLeaderboardScores = (

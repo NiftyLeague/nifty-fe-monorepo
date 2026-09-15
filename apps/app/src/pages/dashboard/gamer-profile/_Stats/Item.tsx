@@ -9,12 +9,7 @@ interface ItemProps {
   isLoading?: boolean
 }
 
-const Item = ({
-  label,
-  value,
-  isDisable = false,
-  isLoading = true,
-}: ItemProps): JSX.Element => (
+const Item = ({ label, value, isDisable = false, isLoading = true }: ItemProps): JSX.Element => (
   <div class="flex flex-row justify-between">
     <span class={cn('text-base', isDisable ? 'text-muted-foreground' : 'text-foreground')}>
       {label}:
@@ -22,9 +17,7 @@ const Item = ({
     {isLoading ? (
       <DeferredSkeleton class="h-[18.67px] w-[15%] rounded" />
     ) : (
-      <span
-        class={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}
-      >
+      <span class={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}>
         {value}
       </span>
     )}

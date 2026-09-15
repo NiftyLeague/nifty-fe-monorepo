@@ -97,18 +97,12 @@ const ComicCard = (props: ComicCardProps): JSX.Element => {
                   'z-index': '3',
                 }}
               >
-                <span class="text-[20px] font-bold text-foreground">
-                  {props.data.balance}
-                </span>
+                <span class="text-[20px] font-bold text-foreground">{props.data.balance}</span>
               </div>
             </div>
           }
         >
-          <ComicCardPane
-            data={props.data}
-            width={dimensions.width}
-            height={dimensions.height}
-          />
+          <ComicCardPane data={props.data} width={dimensions.width} height={dimensions.height} />
         </Show>
       </div>
     </Show>

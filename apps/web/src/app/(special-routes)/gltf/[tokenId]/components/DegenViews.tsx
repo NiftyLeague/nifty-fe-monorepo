@@ -1,3 +1,5 @@
+'use client'
+
 import { Show, createSignal, type JSX } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'

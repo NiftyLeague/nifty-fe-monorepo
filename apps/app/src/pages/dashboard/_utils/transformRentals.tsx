@@ -101,9 +101,7 @@ export const transformRentals = (rows: Rentals[], userId: string): RentalDataGri
         playerAddress: accounts?.player?.address,
         playerNickname: isDirectRenter
           ? 'Myself'
-          : (accounts?.player?.address &&
-              nicknames() &&
-              nicknames()?.[accounts.player.address]) ||
+          : (accounts?.player?.address && nicknames() && nicknames()?.[accounts.player.address]) ||
             'No nickname',
         rentalName: name_cased,
         category,

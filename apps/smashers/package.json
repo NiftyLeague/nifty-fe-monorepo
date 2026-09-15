@@ -27,7 +27,6 @@
     "iron-session": "^9.0.1",
     "lucide-solid": "^1.46.0",
     "solid-js": "^1.9.15",
-    "solid-sonner": "^0.3.2",
     "web-vitals": "^6.2.1"
   },
   "devDependencies": {

@@ -32,7 +32,9 @@ export default function WalletAuthProvidersBoundary(props: WalletAuthProvidersBo
       when={(props.enabled ?? true) && !hasError() && WalletAuthProviders()}
       keyed
       fallback={
-        hasError() ? (props.errorFallback?.(retry) ?? <WalletProviderError onRetry={retry} />) : fallback()
+        hasError()
+          ? (props.errorFallback?.(retry) ?? <WalletProviderError onRetry={retry} />)
+          : fallback()
       }
     >
       {(Providers) => (

@@ -54,9 +54,7 @@ const DegenDashboardActions = (props: DegenDashboardActionsProps) => {
           size="icon"
           class="mr-3 size-6 cursor-pointer p-0"
           onClick={props.onClickFavorite}
-          aria-label={
-            props.fav ? 'Remove degen from favorites' : 'Add degen to favorites'
-          }
+          aria-label={props.fav ? 'Remove degen from favorites' : 'Add degen to favorites'}
         >
           <Heart
             color="currentColor"

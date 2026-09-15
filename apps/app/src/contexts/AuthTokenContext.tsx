@@ -38,7 +38,15 @@ export const AuthTokenProvider = (props: { children?: JSX.Element }) => {
   }
 
   return (
-    <Show when={Runtime()} keyed fallback={<AuthTokenContext.Provider value={fallbackValue}>{props.children}</AuthTokenContext.Provider>}>
+    <Show
+      when={Runtime()}
+      keyed
+      fallback={
+        <AuthTokenContext.Provider value={fallbackValue}>
+          {props.children}
+        </AuthTokenContext.Provider>
+      }
+    >
       {(Loaded) => <Loaded>{props.children}</Loaded>}
     </Show>
   )

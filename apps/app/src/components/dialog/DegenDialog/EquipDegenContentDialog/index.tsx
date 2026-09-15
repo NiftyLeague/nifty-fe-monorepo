@@ -209,12 +209,7 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
                         )}
                         onClick={() => handleUnequip(index())}
                       >
-                        <X
-                          aria-hidden="true"
-                          size={12}
-                          stroke-width={1.5}
-                          class="cursor-pointer"
-                        />
+                        <X aria-hidden="true" size={12} stroke-width={1.5} class="cursor-pointer" />
                       </Button>
                     </Show>
                   </div>
@@ -288,9 +283,7 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
                     }}
                   >
                     {pendingEquipped()[index()] ? inventory.empty : inventory.filled}
-                    <Show
-                      when={!pendingEquipped()[index()] && (multipliers[index()] ?? 0) >= 2}
-                    >
+                    <Show when={!pendingEquipped()[index()] && (multipliers[index()] ?? 0) >= 2}>
                       <div
                         class={cn(tag, 'flex items-center justify-center')}
                         style={{

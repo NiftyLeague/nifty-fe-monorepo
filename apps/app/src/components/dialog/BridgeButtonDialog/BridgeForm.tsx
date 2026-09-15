@@ -71,12 +71,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
     if (!network.address) return
     const destinationChainId = imx.imxChainId
     const bn = parseEther(bridgeAmount().toString())
-    await increaseBridgeAllowance(
-      network.writeContracts,
-      network.address,
-      destinationChainId,
-      bn
-    )
+    await increaseBridgeAllowance(network.writeContracts, network.address, destinationChainId, bn)
     nftlAllowance.refetch()
     return
   }
@@ -178,8 +173,8 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
           <NativeImage src="/icons/axelar.svg" alt="Axelar" width={126} height={30} />
         </Title>
         <Alert variant="default" class="border-blue/40 bg-blue/10 text-blue">
-          <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to
-          process. <br />
+          <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}
+          <br />
           If you need your funds immediately use the{' '}
           <a
             href={IMX_SQUID_BRIDGE_URL}
@@ -281,8 +276,8 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
           }
           style={{ 'text-transform': 'none' }}
         >
-          Bridge {bridgeAmount() !== 0 ? formatNumberToDisplay(Number(bridgeAmount())) : ''}{' '}
-          NFTL to Immutable zkEVM
+          Bridge {bridgeAmount() !== 0 ? formatNumberToDisplay(Number(bridgeAmount())) : ''} NFTL to
+          Immutable zkEVM
           <Show when={bridgePending()}>
             <CircularProgress size="sm" />
           </Show>

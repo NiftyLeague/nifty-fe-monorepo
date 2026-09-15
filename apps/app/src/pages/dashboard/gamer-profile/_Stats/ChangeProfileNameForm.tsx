@@ -90,10 +90,7 @@ const ChangeProfileNameForm = (props: ChangeProfileNameFormProps): JSX.Element =
         </Show>
         <div class="flex flex-col gap-1">
           <div class="grid gap-2">
-            <Label
-              for="gamer-profile-name"
-              class={nameError() ? 'text-destructive' : undefined}
-            >
+            <Label for="gamer-profile-name" class={nameError() ? 'text-destructive' : undefined}>
               Enter the new name
             </Label>
             <div class="relative">

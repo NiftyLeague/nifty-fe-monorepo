@@ -1,3 +1,5 @@
+'use client'
+
 import { For, Show, createSignal, onMount, type Component } from 'solid-js'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'

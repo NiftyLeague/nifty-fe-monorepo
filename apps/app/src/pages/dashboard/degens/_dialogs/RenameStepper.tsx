@@ -13,35 +13,22 @@ const StepIcon = (props: { icon: number; color: string }) => (
       <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />
     </Match>
     <Match when={props.icon === 2}>
-      <ShieldCheck
-        aria-hidden={true}
-        color={props.color}
-        size={28}
-        stroke-width={2.5}
-      />
+      <ShieldCheck aria-hidden={true} color={props.color} size={28} stroke-width={2.5} />
     </Match>
     <Match when={props.icon === 3}>
-      <UserRoundCheck
-        aria-hidden={true}
-        color={props.color}
-        size={28}
-        stroke-width={2.5}
-      />
+      <UserRoundCheck aria-hidden={true} color={props.color} size={28} stroke-width={2.5} />
     </Match>
     <Match when={props.icon === 4}>
-      <CheckCheck
-        aria-hidden={true}
-        color={props.color}
-        size={28}
-        stroke-width={2.5}
-      />
+      <CheckCheck aria-hidden={true} color={props.color} size={28} stroke-width={2.5} />
     </Match>
   </Switch>
 )
 
 function ColorlibStepIcon(props: { active: boolean; completed: boolean; icon: number }) {
   return (
-    <div class={cn(styles.root, props.active && styles.active, props.completed && styles.completed)}>
+    <div
+      class={cn(styles.root, props.active && styles.active, props.completed && styles.completed)}
+    >
       <StepIcon
         icon={props.icon}
         color={props.active ? 'var(--color-light)' : 'var(--color-purple)'}

@@ -31,11 +31,12 @@ describe('PublicUserProfile', () => {
   it('activates only the mobile profile slot on compact screens', async () => {
     const { default: PublicUserProfile } = await import('./PublicUserProfile')
 
-    render(() => <>
+    render(() => (
+      <>
         <PublicUserProfile placement="mobile" />
         <PublicUserProfile placement="desktop" />
       </>
-    )
+    ))
 
     expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
     expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)
@@ -52,11 +53,12 @@ describe('PublicUserProfile', () => {
     isDesktopViewport = true
     const { default: PublicUserProfile } = await import('./PublicUserProfile')
 
-    render(() => <>
+    render(() => (
+      <>
         <PublicUserProfile placement="mobile" />
         <PublicUserProfile placement="desktop" />
       </>
-    )
+    ))
 
     expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
     expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)

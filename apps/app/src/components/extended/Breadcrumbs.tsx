@@ -106,12 +106,7 @@ const Breadcrumbs = (props: BreadCrumbsProps) => {
                     style={{ color: 'inherit' }}
                   >
                     <Show when={props.icons}>
-                      <AppNavIcon
-                        name="house"
-                        color="blue"
-                        fill="dim"
-                        style={iconStyle}
-                      />
+                      <AppNavIcon name="house" color="blue" fill="dim" style={iconStyle} />
                     </Show>
                     <Show when={props.icon}>
                       <AppNavIcon
@@ -131,10 +126,7 @@ const Breadcrumbs = (props: BreadCrumbsProps) => {
                           class="flex items-center text-sm font-medium text-foreground no-underline"
                         >
                           <Show when={props.icons}>
-                            <AppNavIcon
-                              name={mainItem.icon ?? 'list-tree'}
-                              style={iconStyle}
-                            />
+                            <AppNavIcon name={mainItem.icon ?? 'list-tree'} style={iconStyle} />
                           </Show>
                           {mainItem.title}
                         </Link>

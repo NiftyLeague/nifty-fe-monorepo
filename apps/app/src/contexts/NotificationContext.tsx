@@ -18,9 +18,7 @@ export function NotificationProvider(props: { children?: JSX.Element }) {
   // Component bodies run once in Solid, so the store is created directly.
   const store = createNotificationStore()
 
-  return (
-    <NotificationContext.Provider value={store}>{props.children}</NotificationContext.Provider>
-  )
+  return <NotificationContext.Provider value={store}>{props.children}</NotificationContext.Provider>
 }
 
 function useNotificationStore(): NotificationStore {

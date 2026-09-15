@@ -1,4 +1,4 @@
-import { createEffect, createResource, type Resource } from 'solid-js'
+import { createEffect, createResource } from 'solid-js'
 
 import type { User } from '../types'
 import fetchJson from '../utils/fetchJson'
@@ -10,11 +10,6 @@ import fetchJson from '../utils/fetchJson'
 export const navigate = (href: string): void => {
   if (typeof window === 'undefined') return
   window.location.assign(href)
-}
-
-export interface UserSessionState {
-  user: Resource<User | undefined>
-  mutateUser: (user?: User) => void
 }
 
 export function useUserSession({ redirectTo = '', redirectIfFound = false } = {}) {

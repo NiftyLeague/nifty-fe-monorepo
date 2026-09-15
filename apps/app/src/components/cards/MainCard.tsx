@@ -67,9 +67,7 @@ const MainCard = (props: MainCardProps) => {
 
       {/* card content */}
       <Show when={content()} fallback={local.children}>
-        <CardContent class={cn('p-4', local.contentClass || '')}>
-          {local.children}
-        </CardContent>
+        <CardContent class={cn('p-4', local.contentClass || '')}>{local.children}</CardContent>
       </Show>
     </Card>
   )

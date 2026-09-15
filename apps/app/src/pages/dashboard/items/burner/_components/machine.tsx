@@ -50,9 +50,7 @@ const ComicsBurnerMachine = (props: ComicsBurnerMachineProps) => {
         }
       >
         <Show when={!props.address}>
-          <MachineFrame
-            frames={['/img/comics/burner/machine/connectwalletabove_button_01.webp']}
-          />
+          <MachineFrame frames={['/img/comics/burner/machine/connectwalletabove_button_01.webp']} />
         </Show>
         <Show when={props.selectedComics.length < 1}>
           <MachineFrame frames={['/img/comics/burner/machine/selectcomics_button_02.webp']} />

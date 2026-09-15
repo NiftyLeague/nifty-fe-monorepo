@@ -31,10 +31,11 @@ const baseDegen = {
 
 describe('DegenInternalImage', () => {
   it('uses the shared viewport video for animated legendary avatars', () => {
-    render(() => <DegenInternalImage
+    render(() => (
+      <DegenInternalImage
         degen={{ ...baseDegen, background: 'legendary', url: '/media/legendary.mp4' }}
       />
-    )
+    ))
 
     const video = screen.getByTestId('viewport-video')
     expect(video.getAttribute('src')).toBe('/media/legendary.mp4')
@@ -52,8 +53,6 @@ describe('DegenInternalImage', () => {
     expect(image.getAttribute('fetchpriority')).toBe('low')
   })
 })
-
-
 
 mock.module('@nl/ui/custom/viewport-video', () => ({
   ViewportVideo: (props: ComponentProps<'video'>) => (

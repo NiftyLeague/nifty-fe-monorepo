@@ -7,7 +7,8 @@ describe('DegensTopNav', () => {
   it('uses the shared accessible select for sorting degens', async () => {
     const handleSort = mock()
 
-    render(() => <DegensTopNav
+    render(() => (
+      <DegensTopNav
         searchTerm=""
         handleChangeSearchTerm={() => {}}
         handleSort={handleSort}
@@ -15,7 +16,7 @@ describe('DegensTopNav', () => {
         layoutMode="gridView"
         handleChangeLayoutMode={() => {}}
       />
-    )
+    ))
 
     const searchInput = screen.getByRole('textbox', { name: 'Search degens by token # or name' })
     const searchField = searchInput.parentElement

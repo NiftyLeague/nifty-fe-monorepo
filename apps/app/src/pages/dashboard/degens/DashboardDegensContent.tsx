@@ -129,8 +129,10 @@ const DashboardDegensPageContent = (): JSX.Element => {
     void favorites.toggleFavorite(degen.id)
   }
 
-
-  const handleChangeLayoutMode = (_: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => {
+  const handleChangeLayoutMode = (
+    _: MouseEvent & { currentTarget: HTMLElement },
+    newMode: string
+  ) => {
     void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
   }
 
@@ -138,12 +140,10 @@ const DashboardDegensPageContent = (): JSX.Element => {
     void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 })
   }
 
-
   const handleClickEditName = (degen: DashboardDegen) => {
     setSelectedDegen(() => degen)
     setIsRenameDegenModalOpen(true)
   }
-
 
   const handleViewTraits = (degen: DashboardDegen) => {
     setSelectedDegen(() => degen)
@@ -152,143 +152,137 @@ const DashboardDegensPageContent = (): JSX.Element => {
     setIsDegenModalOpen(true)
   }
 
-
   const handleClaimDegen = (degen: DashboardDegen) => {
     setSelectedDegen(() => degen)
     setIsClaimDialog(true)
     setIsRentDialog(false)
     setIsDegenModalOpen(true)
-}
+  }
 
   const isGridView = () => layoutMode() === 'gridView'
 
   const renderSkeletonItem = () => (
-      <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
-        <SkeletonDegenPlaceholder size={isGridView() ? 'normal' : 'small'} />
-      </div>
-    )
+    <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
+      <SkeletonDegenPlaceholder size={isGridView() ? 'normal' : 'small'} />
+    </div>
+  )
 
   const renderDrawer = () => <DeferredDegensFilter defaultFilterValues={defaultValues()} />
 
   const renderDegen = (degen: DashboardDegen) => (
-      <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
-        <DegenCard
-          degen={degen}
-          deferAnimatedMedia
-          favs={favorites.favDegens}
-          isDashboardDegen
-          onClickClaim={handleClaimDegen}
-          onClickDetail={handleViewTraits}
-          onClickEditName={handleClickEditName}
-          onClickFavorite={handleFavoriteToggle}
-          size={isGridView() ? 'normal' : 'small'}
-        />
-      </div>
-    )
+    <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
+      <DegenCard
+        degen={degen}
+        deferAnimatedMedia
+        favs={favorites.favDegens}
+        isDashboardDegen
+        onClickClaim={handleClaimDegen}
+        onClickDetail={handleViewTraits}
+        onClickEditName={handleClickEditName}
+        onClickFavorite={handleFavoriteToggle}
+        size={isGridView() ? 'normal' : 'small'}
+      />
+    </div>
+  )
 
   const renderMain = () => (
-      <div class="flex h-full flex-col gap-3">
-        {/* Main Grid title */}
-        <SectionTitle firstSection>
-          <div class="mb-4 flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              class="cursor-pointer"
-              aria-label={isDrawerOpen() ? 'Hide filters' : 'Show filters'}
-              onClick={() => setIsDrawerOpen(!isDrawerOpen())}
-            >
-              {isDrawerOpen() ? (
-                <ChevronLeft aria-hidden="true" size={28} stroke-width={1.5} />
-              ) : (
-                <ChevronRight aria-hidden="true" size={28} stroke-width={1.5} />
-              )}
-            </Button>
-            {filteredData().length} Degens
-          </div>
-        </SectionTitle>
-        {/* Main grid content */}
-        <div
-          class={`grid grid-cols-12 gap-4 -mt-9 ${
-            !nfts.degensBalances.length ? 'h-full justify-center items-center' : ''
-          }`}
+    <div class="flex h-full flex-col gap-3">
+      {/* Main Grid title */}
+      <SectionTitle firstSection>
+        <div class="mb-4 flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            class="cursor-pointer"
+            aria-label={isDrawerOpen() ? 'Hide filters' : 'Show filters'}
+            onClick={() => setIsDrawerOpen(!isDrawerOpen())}
+          >
+            {isDrawerOpen() ? (
+              <ChevronLeft aria-hidden="true" size={28} stroke-width={1.5} />
+            ) : (
+              <ChevronRight aria-hidden="true" size={28} stroke-width={1.5} />
+            )}
+          </Button>
+          {filteredData().length} Degens
+        </div>
+      </SectionTitle>
+      {/* Main grid content */}
+      <div
+        class={`grid grid-cols-12 gap-4 -mt-9 ${
+          !nfts.degensBalances.length ? 'h-full justify-center items-center' : ''
+        }`}
+      >
+        <Show
+          when={!loading() && hasConnectedAccount()}
+          fallback={<For each={Array.from({ length: 8 })}>{() => renderSkeletonItem()}</For>}
         >
           <Show
-            when={!loading() && hasConnectedAccount()}
+            when={dataForCurrentPage().length}
             fallback={
-              <For each={Array.from({ length: 8 })}>
-                {() => renderSkeletonItem()}
-              </For>
+              <Show when={!nfts.degensBalances.length}>
+                <a
+                  href={DEGEN_COLLECTION_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="col-span-12 flex justify-center"
+                >
+                  <EmptyState
+                    message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
+                    buttonText="Buy a DEGEN"
+                  />
+                </a>
+              </Show>
             }
           >
-            <Show
-              when={dataForCurrentPage().length}
-              fallback={
-                <Show when={!nfts.degensBalances.length}>
-                  <a
-                    href={DEGEN_COLLECTION_URL}
-                    target="_blank"
-                    rel="noreferrer"
-                    class="col-span-12 flex justify-center"
-                  >
-                    <EmptyState
-                      message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
-                      buttonText="Buy a DEGEN"
-                    />
-                  </a>
-                </Show>
-              }
-            >
-              <For each={dataForCurrentPage()}>{renderDegen}</For>
-            </Show>
+            <For each={dataForCurrentPage()}>{renderDegen}</For>
           </Show>
-        </div>
-        <Show when={dataForCurrentPage().length > 0}>
-          <div
-            class="mx-auto flex flex-wrap items-center justify-center gap-1"
-            style={{ 'padding-bottom': '16px' }}
-          >
-            <Button
-              variant="ghost"
-              size={isMobile() ? 'sm' : 'icon'}
-              class="cursor-pointer"
-              disabled={currentPage() === 1}
-              onClick={() => jump(currentPage() - 1)}
-              aria-label="Previous page"
-            >
-              <ChevronLeft aria-hidden="true" size={20} stroke-width={1.5} />
-            </Button>
-            <For each={pageItems()}>
-              {(p) =>
-                p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-                  <span class="px-1 text-muted-foreground">…</span>
-                ) : (
-                  <Button
-                    variant={p === currentPage() ? 'default' : 'ghost'}
-                    size={isMobile() ? 'sm' : 'icon'}
-                    class="cursor-pointer"
-                    onClick={() => jump(p)}
-                  >
-                    {p}
-                  </Button>
-                )
-              }
-            </For>
-            <Button
-              variant="ghost"
-              size={isMobile() ? 'sm' : 'icon'}
-              class="cursor-pointer"
-              disabled={currentPage() === maxPage()}
-              onClick={() => jump(currentPage() + 1)}
-              aria-label="Next page"
-            >
-              <ChevronRight aria-hidden="true" size={20} stroke-width={1.5} />
-            </Button>
-          </div>
         </Show>
       </div>
-    )
-
+      <Show when={dataForCurrentPage().length > 0}>
+        <div
+          class="mx-auto flex flex-wrap items-center justify-center gap-1"
+          style={{ 'padding-bottom': '16px' }}
+        >
+          <Button
+            variant="ghost"
+            size={isMobile() ? 'sm' : 'icon'}
+            class="cursor-pointer"
+            disabled={currentPage() === 1}
+            onClick={() => jump(currentPage() - 1)}
+            aria-label="Previous page"
+          >
+            <ChevronLeft aria-hidden="true" size={20} stroke-width={1.5} />
+          </Button>
+          <For each={pageItems()}>
+            {(p) =>
+              p === 'ellipsis-start' || p === 'ellipsis-end' ? (
+                <span class="px-1 text-muted-foreground">…</span>
+              ) : (
+                <Button
+                  variant={p === currentPage() ? 'default' : 'ghost'}
+                  size={isMobile() ? 'sm' : 'icon'}
+                  class="cursor-pointer"
+                  onClick={() => jump(p)}
+                >
+                  {p}
+                </Button>
+              )
+            }
+          </For>
+          <Button
+            variant="ghost"
+            size={isMobile() ? 'sm' : 'icon'}
+            class="cursor-pointer"
+            disabled={currentPage() === maxPage()}
+            onClick={() => jump(currentPage() + 1)}
+            aria-label="Next page"
+          >
+            <ChevronRight aria-hidden="true" size={20} stroke-width={1.5} />
+          </Button>
+        </div>
+      </Show>
+    </div>
+  )
 
   return (
     <>

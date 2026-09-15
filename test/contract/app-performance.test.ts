@@ -299,7 +299,7 @@ describe('app performance contracts', () => {
   it('preserves a visible signed-out profile affordance', () => {
     const source = readFileSync(join(process.cwd(), appUserProfile), 'utf8')
 
-    expect(source).toContain("from 'lucide-react'")
+    expect(source).toContain("from 'lucide-solid'")
     expect(source).toContain('<UserRound')
     expect(source).toContain('Login to view dashboards')
   })
@@ -369,18 +369,18 @@ describe('app performance contracts', () => {
     const source = readFileSync(deferredConsoleGame, 'utf8')
     const backdropSource = readFileSync(consoleGameBackdrop, 'utf8')
     expect(source).toContain("const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'")
-    expect(source).toContain('useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)')
+    expect(source).toContain('useOnScreen(() => rootEl, CONSOLE_GAME_ROOT_MARGIN)')
     // The interactive chunk waits for the viewport in every case, and the
     // video remains behind the activation window unless a consumer opts into
     // loading the chunk on viewport.
-    expect(source).toContain('const shouldLoadInteractiveGame = loadInteractiveOnViewport')
-    expect(source).toContain('? isNearViewport')
-    expect(source).toContain(': isNearViewport && (!deferVideo || videoActivated)')
-    expect(source).toContain('children: ReactNode')
+    expect(source).toContain('const shouldLoadInteractiveGame = () =>')
+    expect(source).toContain('? isNearViewport()')
+    expect(source).toContain(': isNearViewport() && (!props.deferVideo || videoActivated())')
+    expect(source).toContain('children: JSX.Element')
     expect(source).not.toContain('ConsoleGameBackdrop')
     expect(source).not.toContain('<DeferredSkeleton')
     expect(source).not.toContain('<video')
-    expect(source).toContain('<div className="dark-gradient-overlay" />')
+    expect(source).toContain('<div class="dark-gradient-overlay" />')
     expect(source).toContain('renderGradientOverlay={false}')
     expect(backdropSource).toContain('alt="Game Console Backdrop"')
   })
@@ -440,7 +440,7 @@ describe('app performance contracts', () => {
     const mobileSheetSource = readFileSync(mobileSidebarSheet, 'utf8')
 
     expect(sidebarSource).toContain("lazy(() => import('./MobileSidebarSheet'))")
-    expect(sidebarSource).toContain('isCompactScreen && drawerOpen')
+    expect(sidebarSource).toContain('isCompactScreen() && drawerOpen()')
     expect(sidebarSource).toContain('<Suspense fallback={null}>')
     expect(sidebarSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(mobileSheetSource).toContain("from '@nl/ui/base/sheet'")
@@ -472,7 +472,7 @@ describe('app performance contracts', () => {
     expect(contextSource).toContain('useMediaQuery(desktopNavigationMediaQuery)')
     expect(shellSource).toContain('isDesktopNavigation')
     expect(sidebarSource).not.toContain('useMediaQuery')
-    expect(sidebarSource).toContain('const isCompactScreen = !isDesktopNavigation')
+    expect(sidebarSource).toContain('const isCompactScreen = () => !isDesktopNavigation()')
   })
 
   it('keeps the private provider shell out of the initial route bundle', () => {
@@ -500,7 +500,7 @@ describe('app performance contracts', () => {
     const appBarStyles = readFileSync(sharedAppBarStyles, 'utf8')
 
     expect(shellSource).toContain("from '@nl/ui/custom/app-bar'")
-    expect(shellSource).toContain('<AppBar>{header}</AppBar>')
+    expect(shellSource).toContain('<AppBar>{props.header}</AppBar>')
     expect(appBarSource).toContain("import styles from './app-bar.module.css'")
     expect(appBarStyles).toContain('min-height: 56px')
     expect(appBarStyles).toContain('padding: 8px 16px')
@@ -540,11 +540,9 @@ describe('app performance contracts', () => {
     expect(sharedCarousel).toContain('aria-roledescription="carousel"')
     expect(sharedCarousel).toContain("from '@nl/ui/hooks/useMediaQuery'")
     expect(sharedCarousel).toContain("useMediaQuery('(prefers-reduced-motion: reduce)')")
-    expect(sharedCarousel).toContain('const viewportWidthRef = useRef(0)')
-    expect(sharedCarousel).toContain('if (nextWidth === viewportWidthRef.current) return')
-    expect(sharedCarousel).toContain(
-      'const getPageWidth = useCallback(() => viewportWidthRef.current, [])'
-    )
+    expect(sharedCarousel).toContain('let viewportWidthValue = 0')
+    expect(sharedCarousel).toContain('if (nextWidth === viewportWidthValue) return')
+    expect(sharedCarousel).toContain('const getPageWidth = () => viewportWidthValue')
     expect(sharedCarousel).not.toContain("window.matchMedia('(prefers-reduced-motion: reduce)')")
     expect(sharedCarouselStyles).toContain('scroll-snap-type: x mandatory')
     expect(manifest.dependencies?.['react-slick']).toBeUndefined()
@@ -680,12 +678,12 @@ describe('app performance contracts', () => {
     expect(graphqlSource).toContain("'Content-Type': 'application/json'")
   })
 
-  it('keeps deferred rename forms on native React Hook Form rules', () => {
+  it('keeps deferred rename forms on client-side required checks without a form library', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
     for (const file of [deferredNicknameForm, deferredProfileNameForm]) {
       const source = readFileSync(file, 'utf8')
-      expect(source).toContain('rules={{ required:')
+      expect(source).toContain('is required')
       expect(source).not.toContain('yup')
       expect(source).not.toContain('@hookform/resolvers')
     }
@@ -706,7 +704,7 @@ describe('app performance contracts', () => {
     const inputGroupSource = readFileSync(sharedInputGroup, 'utf8')
 
     expect(inputGroupSource).toContain('role="group"')
-    expect(inputGroupSource).toContain("aria-label={visible ? 'Hide' : 'Reveal'}")
+    expect(inputGroupSource).toContain("aria-label={props.visible ? 'Hide' : 'Reveal'}")
     expect(existsSync(retiredCustomInput)).toBe(false)
 
     for (const file of sharedInputGroupConsumers) {
@@ -781,12 +779,12 @@ describe('app performance contracts', () => {
     expect(graphqlSource).toContain("'Content-Type': 'application/json'")
   })
 
-  it('keeps deferred rename forms on native React Hook Form rules', () => {
+  it('keeps deferred rename forms on client-side required checks without a form library', () => {
     const manifest = JSON.parse(readFileSync(appManifest, 'utf8'))
 
     for (const file of [deferredNicknameForm, deferredProfileNameForm]) {
       const source = readFileSync(file, 'utf8')
-      expect(source).toContain('rules={{ required:')
+      expect(source).toContain('is required')
       expect(source).not.toContain('yup')
       expect(source).not.toContain('@hookform/resolvers')
     }
@@ -839,7 +837,7 @@ describe('app performance contracts', () => {
 
     expect(pageSource).toContain("from '@/components/pagination/PaginationControls'")
     expect(pageSource).toContain("from '@nl/ui/base/pagination'")
-    expect(pageSource).toContain("aria-current={p === currentPage ? 'page' : undefined}")
+    expect(pageSource).toContain("aria-current={p === currentPage() ? 'page' : undefined}")
 
     for (const file of appCarouselSettingsSources) {
       const source = readFileSync(file, 'utf8')
@@ -895,7 +893,7 @@ describe('app performance contracts', () => {
     }
 
     const appNavIconSource = readFileSync('apps/app/src/components/AppNavIcon.tsx', 'utf8')
-    expect(appNavIconSource).toContain("from 'lucide-react'")
+    expect(appNavIconSource).toContain("from 'lucide-solid'")
     expect(appNavIconSource).toContain("'layout-grid': LayoutGrid")
     expect(appNavIconSource).toContain("'list-ordered': ListOrdered")
   })

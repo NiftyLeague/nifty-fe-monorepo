@@ -47,9 +47,7 @@ export default function DataTable(props: DataTableProps) {
               fallback={
                 <TableRow>
                   <TableCell colSpan={props.columns.length} class="px-4 py-3">
-                    <span class="text-muted-foreground">
-                      {props.noContentText ?? 'No Content'}
-                    </span>
+                    <span class="text-muted-foreground">{props.noContentText ?? 'No Content'}</span>
                   </TableCell>
                 </TableRow>
               }
@@ -59,10 +57,7 @@ export default function DataTable(props: DataTableProps) {
                   <TableRow class="hover:bg-accent/50">
                     <For each={props.columns}>
                       {(column) => (
-                        <TableCell
-                          align={column.align || 'left'}
-                          class="px-4 py-3"
-                        >
+                        <TableCell align={column.align || 'left'} class="px-4 py-3">
                           {column.renderCell
                             ? column.renderCell({
                                 value: row[column.field],

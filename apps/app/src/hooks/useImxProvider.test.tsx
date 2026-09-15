@@ -6,7 +6,11 @@ const [isConnected, setIsConnected] = createSignal(false)
 const connectEvm = mock(async () => ({ request: async () => [] }))
 
 mock.module('@/runtime/wagmi', () => ({
-  useAccount: () => ({ get isConnected() { return isConnected() } }),
+  useAccount: () => ({
+    get isConnected() {
+      return isConnected()
+    },
+  }),
   useConnectorClient: () => ({ data: undefined }),
 }))
 mock.module('@nl/imx-passport', () => ({

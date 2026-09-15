@@ -21,8 +21,7 @@ const ItemDetail = (props: ItemDetailProps): JSX.Element => {
   return (
     <Show
       when={
-        props.data &&
-        !(props.data.balance && props.data.balance > 1 && props.subIndex < 0)
+        props.data && !(props.data.balance && props.data.balance > 1 && props.subIndex < 0)
           ? props.data
           : null
       }

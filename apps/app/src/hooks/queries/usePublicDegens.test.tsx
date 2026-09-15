@@ -2,7 +2,6 @@ import { QueryClientProvider } from '@tanstack/solid-query'
 import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, spyOn } from 'bun:test'
 
-
 import { createAppQueryClient } from '@/query/app-query'
 import { usePublicDegensByIds } from './usePublicDegens'
 import type { JSX } from 'solid-js'

@@ -45,11 +45,9 @@ export function Web3ModalProvider(props: Web3ModalProviderProps) {
       when={Runtime()}
       keyed
       fallback={
-        loadError() ? (
-          (props.errorFallback?.(retry) ?? <WalletProviderError onRetry={retry} />)
-        ) : (
-          (props.loadingFallback ?? <WalletProviderLoading />)
-        )
+        loadError()
+          ? (props.errorFallback?.(retry) ?? <WalletProviderError onRetry={retry} />)
+          : (props.loadingFallback ?? <WalletProviderLoading />)
       }
     >
       {(Loaded) => <Loaded cookies={props.cookies}>{props.children}</Loaded>}

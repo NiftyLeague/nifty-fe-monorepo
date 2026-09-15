@@ -1,4 +1,6 @@
-import { createForm, zodForm } from '@modular-forms/solid'
+import { createForm } from '@modular-forms/solid'
+
+import { zodForm } from './zod-form'
 import { z } from 'zod'
 import { Inbox, Loader, Mail } from 'lucide-solid'
 

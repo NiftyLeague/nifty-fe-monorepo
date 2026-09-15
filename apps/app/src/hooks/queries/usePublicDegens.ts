@@ -8,7 +8,7 @@ import { fetchApiQuery, PUBLIC_STALE_TIME_MS, queryKeys } from '@/query/app-quer
 import type { DashboardDegen } from '@/types/degens'
 import { PUBLIC_DEGENS_WIRE_MEDIA_TYPE, type PublicDegenPageWire } from '@/utils/public-degens'
 
-const resolve = <T,>(value: T | Accessor<T>): T =>
+const resolve = <T>(value: T | Accessor<T>): T =>
   typeof value === 'function' ? (value as Accessor<T>)() : value
 
 export const usePublicDegensPage = (query: string | Accessor<string>) => {

@@ -45,9 +45,7 @@ const Snackbar = () => {
         : 'default'
     const options: ExternalToast = {
       action:
-        actionButton || variant !== 'alert'
-          ? { label: 'UNDO', onClick: closeSnackbar }
-          : undefined,
+        actionButton || variant !== 'alert' ? { label: 'UNDO', onClick: closeSnackbar } : undefined,
       class: getSnackbarTransitionClass(transition),
       closeButton: close !== false,
       duration: 6000,

@@ -89,11 +89,7 @@ const DegenDialog = (props: DegenDialogProps) => {
         const contract = readContracts[DEGEN_CONTRACT]
         const characterDataPromise =
           contract &&
-          Promise.all([
-            contract.getName(id),
-            contract.ownerOf(id),
-            contract.getCharacterTraits(id),
-          ])
+          Promise.all([contract.getName(id), contract.ownerOf(id), contract.getCharacterTraits(id)])
 
         const characterData = await characterDataPromise
 
@@ -152,11 +148,7 @@ const DegenDialog = (props: DegenDialogProps) => {
           styles.customDialog,
           props.isRent && styles.customDialogRent,
           props.isEquip && styles.customDialogEquip,
-          props.isClaim
-            ? '!max-w-fit'
-            : props.isRent
-              ? '!max-w-[444px]'
-              : '!max-w-[900px]',
+          props.isClaim ? '!max-w-fit' : props.isRent ? '!max-w-[444px]' : '!max-w-[900px]',
           fullScreen() &&
             'top-0 left-0 h-screen w-screen max-h-screen !max-w-none translate-x-0 translate-y-0 rounded-none'
         )}
@@ -172,7 +164,10 @@ const DegenDialog = (props: DegenDialogProps) => {
         </Show>
         <Show
           when={
-            !props.isRent && !props.isClaim && !props.isEquip && (props.setIsRent || props.setIsClaim)
+            !props.isRent &&
+            !props.isClaim &&
+            !props.isEquip &&
+            (props.setIsRent || props.setIsClaim)
           }
         >
           <ViewTraitsContentDialog

@@ -28,9 +28,7 @@ const FilterAllTraitCheckboxes: Component<FilterAllTraitCheckboxesProps> = (prop
               value={traitKey}
               checked={props.cosmeticsValue.includes(traitKey)}
               class={props.inputCheckBoxStyle}
-              onCheckedChange={(checked) =>
-                props.onCheckboxChange(checked === true, traitKey)
-              }
+              onCheckedChange={(checked) => props.onCheckboxChange(checked === true, traitKey)}
             />
             <span class="text-base">{traitValue}</span>
           </label>

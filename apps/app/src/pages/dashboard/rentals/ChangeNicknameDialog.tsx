@@ -65,17 +65,12 @@ const ChangeNicknameDialog = (props: Props): JSX.Element => {
       </DialogHeader>
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2">
-          <Show when={rental().degenId}>
-            {(degenId) => <DegenImage tokenId={degenId()} />}
-          </Show>
+          <Show when={rental().degenId}>{(degenId) => <DegenImage tokenId={degenId()} />}</Show>
           <p class="text-center text-xs text-muted-foreground">Recruit</p>
           <p class="text-center text-xs text-muted-foreground">{rental().renter}</p>
         </div>
         <div class="grid gap-2">
-          <Label
-            for="recruit-wallet-nickname"
-            class={nameError() ? 'text-destructive' : undefined}
-          >
+          <Label for="recruit-wallet-nickname" class={nameError() ? 'text-destructive' : undefined}>
             Enter nickname for recruit wallet
           </Label>
           <div class="relative">

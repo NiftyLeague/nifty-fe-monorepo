@@ -13,7 +13,8 @@ export function shouldLoadPrivateRoutesWallet(
   return auditFixtureEnabled || isLoggedIn
 }
 
-interface PrivateRoutesAuthGateProps { children?: JSX.Element; 
+interface PrivateRoutesAuthGateProps {
+  children?: JSX.Element
   loading: JSX.Element
 }
 

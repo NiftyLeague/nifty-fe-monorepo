@@ -12,7 +12,7 @@ import DeferredPublicUserProfile from './DeferredPublicUserProfile'
 import PublicDesktopNavigationToggle from './PublicDesktopNavigationToggle'
 import PublicNavLinks from './PublicNavLinks'
 
-const PublicSidebar = (function PublicSidebar() {
+const PublicSidebar = function PublicSidebar() {
   return (
     <nav
       id="public-desktop-navigation"
@@ -35,7 +35,7 @@ const PublicSidebar = (function PublicSidebar() {
       </aside>
     </nav>
   )
-})
+}
 
 export default function PublicNavigation(props: { children?: JSX.Element }) {
   return (

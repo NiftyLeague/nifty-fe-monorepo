@@ -5,10 +5,11 @@ import StaticSection from './StaticSection'
 
 describe('StaticSection', () => {
   it('renders the shared section title, actions, and server-compatible content slot', () => {
-    render(() => <StaticSection firstSection title="Flagship Games" actions={<button>Install</button>}>
+    render(() => (
+      <StaticSection firstSection title="Flagship Games" actions={<button>Install</button>}>
         <p>Game cards</p>
       </StaticSection>
-    )
+    ))
 
     expect(screen.getByRole('heading', { name: 'Flagship Games' })).not.toBeNull()
     expect(screen.getByRole('button', { name: 'Install' })).not.toBeNull()

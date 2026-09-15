@@ -3,7 +3,6 @@ import { act, render, renderHook, waitFor } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test'
 import type { Mock } from 'bun:test'
 
-
 import { createAppQueryClient, getAuthQueryScope, queryKeys } from '@/query/app-query'
 import { useAuthToken } from '@/hooks/useAuthStorage'
 import useFavoriteDegens, { parseFavorites } from './useFavoriteDegens'
@@ -134,7 +133,8 @@ describe('favorite DEGEN mutation', () => {
     }
 
     const client = createAppQueryClient()
-    render(() => <AuthTokenContext.Provider
+    render(() => (
+      <AuthTokenContext.Provider
         value={{
           authToken: 'test-token',
           handleConnectWallet: () => Promise.resolve(),
@@ -147,7 +147,7 @@ describe('favorite DEGEN mutation', () => {
           <FavoritesConsumer />
         </QueryClientProvider>
       </AuthTokenContext.Provider>
-    )
+    ))
     await waitFor(() => expect(authRenders).toBeGreaterThan(0))
     const rendersBeforeToggle = authRenders
 

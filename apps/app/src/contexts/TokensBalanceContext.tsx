@@ -83,7 +83,9 @@ export const TokensBalanceProvider = (props: { children?: JSX.Element }): JSX.El
     },
   }
 
-  return <TokensBalanceContext.Provider value={value}>{props.children}</TokensBalanceContext.Provider>
+  return (
+    <TokensBalanceContext.Provider value={value}>{props.children}</TokensBalanceContext.Provider>
+  )
 }
 
 export default TokensBalanceContext

@@ -5,8 +5,9 @@ import { AppNavIcon } from './AppNavIcon'
 
 describe('AppNavIcon', () => {
   it('keeps mapped navigation icons decorative and preserves theme defaults', () => {
-    const { container, rerender } = render(() => <AppNavIcon name="layout-grid" size="lg" color="blue" fill="dim" />
-    )
+    const { container, rerender } = render(() => (
+      <AppNavIcon name="layout-grid" size="lg" color="blue" fill="dim" />
+    ))
     const icon = container.querySelector('svg')
 
     expect(icon).not.toBeNull()

@@ -40,9 +40,7 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
 
   // shorten user id letters
   const handleShareOnTwitter = () => {
-    const currentGame = LEADERBOARD_GAME_LIST.filter(
-      (game) => game.key === props.selectedGame
-    )?.[0]
+    const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === props.selectedGame)?.[0]
     if (!currentGame) return
     const { display } = currentGame
     const obj = {

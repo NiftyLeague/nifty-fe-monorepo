@@ -12,18 +12,15 @@ interface PublicDegenDialogProps {
 
 const loadPublicDegenDialog = () => import('@/components/dialog/PublicDegenDialog')
 
-export default function DeferredPublicDegenDialog({
-  open,
-  degen,
-  onClose,
-}: PublicDegenDialogProps) {
+export default function DeferredPublicDegenDialog(props: PublicDegenDialogProps) {
+  const open = () => props.open
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="DEGEN details"
       load={loadPublicDegenDialog}
       loadingFallback={<DeferredDialogLoading label="Loading degen details" />}
-      props={{ open, degen, onClose }}
+      props={{ ...props, open: open() }}
     />
   )
 }

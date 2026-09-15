@@ -7,7 +7,11 @@ mock.module('@/runtime/Link', () => ({
     children,
     href,
     prefetch,
-  }: { href: string; prefetch?: boolean; children?: JSX.Element }) => (
+  }: {
+    href: string
+    prefetch?: boolean
+    children?: JSX.Element
+  }) => (
     <a href={href} data-prefetch={String(prefetch)}>
       {children}
     </a>

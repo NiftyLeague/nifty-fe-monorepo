@@ -2,7 +2,6 @@ import { QueryClientProvider } from '@tanstack/solid-query'
 import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock, spyOn } from 'bun:test'
 
-
 import { createAppQueryClient } from '@/query/app-query'
 import type { JSX } from 'solid-js'
 
@@ -30,7 +29,5 @@ describe('rental pass query', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 })
-
-
 
 mock.module('./useAuth', () => ({ default: () => ({ authToken: 'test-token' }) }))

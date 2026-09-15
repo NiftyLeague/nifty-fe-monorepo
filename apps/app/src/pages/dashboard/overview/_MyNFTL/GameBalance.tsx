@@ -8,7 +8,7 @@ import useUserUnclaimedAmount from '@/hooks/merkleDistributor/useUserUnclaimedAm
 import WithdrawButtonDialog from '@/components/dialog/WithdrawButtonDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 
-const GameBalance = (() => {
+const GameBalance = () => {
   const { nftlUnclaimed, loading } = useUserUnclaimedAmount()
 
   return (
@@ -42,6 +42,6 @@ const GameBalance = (() => {
       }
     />
   )
-})
+}
 
 export default GameBalance

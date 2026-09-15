@@ -39,10 +39,7 @@ function ProfileProviderLoading() {
 
 function ProfileProviderError(props: { retry: () => void }) {
   return (
-    <div
-      class="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center"
-      role="alert"
-    >
+    <div class="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center" role="alert">
       <p class="text-sm">Sign-in is temporarily unavailable.</p>
       <Button type="button" variant="outline" class="w-full" onClick={props.retry}>
         Retry
@@ -60,11 +57,7 @@ function SignedOutProfile(props: { onConnect: () => void }) {
     >
       <Avatar class="size-20">
         <AvatarFallback>
-          <UserRound
-            aria-hidden="true"
-            class="size-10 text-muted-foreground"
-            stroke-width={1.5}
-          />
+          <UserRound aria-hidden="true" class="size-10 text-muted-foreground" stroke-width={1.5} />
         </AvatarFallback>
       </Avatar>
       <div class="my-2 flex flex-col items-center">
@@ -79,8 +72,7 @@ function SignedOutProfile(props: { onConnect: () => void }) {
 
 export default function PublicUserProfile(props: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
-  const isVisiblePlacement = () =>
-    props.placement === 'desktop' ? isDesktop() : !isDesktop()
+  const isVisiblePlacement = () => (props.placement === 'desktop' ? isDesktop() : !isDesktop())
   const [walletRequested, setWalletRequested] = createSignal(false)
   const [modalError, setModalError] = createSignal(false)
 

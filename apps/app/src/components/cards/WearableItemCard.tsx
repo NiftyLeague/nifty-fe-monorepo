@@ -113,9 +113,7 @@ const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Elemen
                     'z-index': '3',
                   }}
                 >
-                  <span class="text-[20px] font-bold text-foreground">
-                    {props.data.balance}
-                  </span>
+                  <span class="text-[20px] font-bold text-foreground">{props.data.balance}</span>
                 </div>
               </>
             }

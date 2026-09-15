@@ -36,10 +36,11 @@ describe('leaderboard rank dialog data', () => {
     }
 
     const client = createAppQueryClient()
-    const { rerender } = render(() => <QueryClientProvider client={client}>
+    const { rerender } = render(() => (
+      <QueryClientProvider client={client}>
         <TopModal {...baseProps} />
       </QueryClientProvider>
-    )
+    ))
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
 
     expect(fetchCalls[0]?.slice(0, 5)).toEqual(['nifty_smashers', 'score', 'all_time', 10, 2])
@@ -66,11 +67,12 @@ describe('leaderboard rank dialog data', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    render(() => <QueryClientProvider client={client}>
+    render(() => (
+      <QueryClientProvider client={client}>
         <TopModal {...props} />
         <TopModal {...props} />
       </QueryClientProvider>
-    )
+    ))
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
   })
 })

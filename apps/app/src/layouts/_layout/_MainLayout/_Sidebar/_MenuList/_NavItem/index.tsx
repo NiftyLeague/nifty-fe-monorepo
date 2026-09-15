@@ -35,7 +35,10 @@ const NavItem = (props: NavItemProps) => {
       </span>
       <span class="flex-1">
         <span
-          class={cx('text-base text-sidebar-foreground', isSelected() ? 'font-bold' : 'font-normal')}
+          class={cx(
+            'text-base text-sidebar-foreground',
+            isSelected() ? 'font-bold' : 'font-normal'
+          )}
         >
           {props.item.title}
         </span>

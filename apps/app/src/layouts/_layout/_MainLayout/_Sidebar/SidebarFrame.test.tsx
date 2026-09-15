@@ -24,7 +24,9 @@ beforeEach(async () => {
       viewportClassName: _viewportClassName,
       ...props
     }: Record<string, unknown> & { children?: JSX.Element }) => (
-      <div data-scroll-area {...props}>{children}</div>
+      <div data-scroll-area {...props}>
+        {children}
+      </div>
     ),
   }))
   mock.module('../_LogoSection', () => ({ default: () => <span>Logo</span> }))

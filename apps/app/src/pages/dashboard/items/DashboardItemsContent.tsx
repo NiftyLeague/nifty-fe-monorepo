@@ -162,9 +162,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
                       <BuyCard
                         onBuy={() => {}}
                         isNew={
-                          !nfts.comicsBalances.some(
-                            (comic) => comic.balance && comic.balance > 0
-                          )
+                          !nfts.comicsBalances.some((comic) => comic.balance && comic.balance > 0)
                         }
                       />
                     </a>
@@ -186,11 +184,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
                 onClick={removeItemSelection}
                 class="flex flex-col gap-6 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
               >
-                <Show
-                  when={
-                    selectedItem()?.balance && (selectedItem()?.balance ?? 0) > 1
-                  }
-                >
+                <Show when={selectedItem()?.balance && (selectedItem()?.balance ?? 0) > 1}>
                   <div class="flex flex-col gap-8">
                     <div class="flex flex-col gap-4 md:flex-row md:gap-20">
                       <WearableItemCard data={selectedItem() as Item} />
@@ -206,9 +200,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
                       <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
                         <BuyCard
                           onBuy={() => {}}
-                          isNew={
-                            !nfts.itemsBalances.some((it) => it.balance && it.balance > 0)
-                          }
+                          isNew={!nfts.itemsBalances.some((it) => it.balance && it.balance > 0)}
                         />
                       </a>
                     </div>

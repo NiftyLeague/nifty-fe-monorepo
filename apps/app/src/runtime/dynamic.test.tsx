@@ -20,9 +20,9 @@ describe('dynamic loader shapes', () => {
   it('mounts a memoized named export', async () => {
     // () returns an exotic element object rather than a function, which is
     // what previously broke lazy() with React error #306.
-    const MemoCard = (function MemoCard() {
+    const MemoCard = function MemoCard() {
       return <div>memo-card</div>
-    })
+    }
     const Loaded = dynamic(() => Promise.resolve({ Named: MemoCard }).then((m) => m.Named))
     render(() => <Loaded />)
     expect(await screen.findByText('memo-card')).toBeTruthy()
