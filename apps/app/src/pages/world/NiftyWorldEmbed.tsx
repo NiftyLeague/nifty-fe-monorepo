@@ -156,7 +156,13 @@ export default function NiftyWorldEmbed({
           <h1 className="text-2xl font-normal font-subheader tracking-subheader">{title}</h1>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Link href={backHref} prefetch={false} className={buttonVariants({ variant: 'outline' })}>
+          {/* Anchor buttons inherit the primary link color, which lands just
+                under the 4.5:1 axe bar on the outline surface. */}
+          <Link
+            href={backHref}
+            prefetch={false}
+            className={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
+          >
             <ArrowLeft aria-hidden="true" />
             <span>{backLabel}</span>
           </Link>
@@ -164,7 +170,7 @@ export default function NiftyWorldEmbed({
             href={canonicalUrl}
             target="_blank"
             rel="noreferrer"
-            className={buttonVariants({ variant: 'outline' })}
+            className={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
           >
             Open in new tab <ExternalIcon />
           </a>

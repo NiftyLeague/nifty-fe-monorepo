@@ -62,7 +62,7 @@ export const NIFTY_WORLD_SCENES = [
     title: 'Nifty Arcade',
     description: 'A neon-lit stop in the city.',
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/arcade.webp`,
-    path: '/scenes/arcade',
+    path: '/other/arcade',
   },
 ] as const
 

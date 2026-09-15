@@ -27,6 +27,13 @@ describe('Nifty World scene catalog', () => {
     )
   })
 
+  it('points the relocated arcade scene at its /other home', () => {
+    const arcade = NIFTY_WORLD_SCENES.find((scene) => scene.id === 'arcade')
+
+    expect(arcade).toBeTruthy()
+    expect(getNiftyWorldSceneUrl(arcade!)).toBe('https://niftyworld.gg/other/arcade')
+  })
+
   it('keeps map descriptions compact enough for one-line cards', () => {
     expect(NIFTY_WORLD_SCENES.every(({ description }) => description.length <= 42)).toBe(true)
     expect(NIFTY_WORLD_SCENES.every(({ description }) => !description.includes('\n'))).toBe(true)

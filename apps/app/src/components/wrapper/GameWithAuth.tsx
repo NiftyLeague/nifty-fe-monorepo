@@ -12,30 +12,26 @@ import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
 import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { Preloader } from '@nl/ui/custom/preloader'
-import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
 import { getGameViewedAnalyticsContentId } from '@/constants/games'
 import { DEBUG } from '@/constants/index'
 import { SUBGRAPH_VERSION } from '@/runtime/env'
 import withVerification from '@/components/wrapper/Authentication'
-import ArcadeTokensRequired from '@/components/ArcadeTokensRequired'
 import useAuth from '@/hooks/useAuth'
 import { setCanvasInteraction } from '@/utils/canvas-interaction'
 
 interface GameProps {
   unityConfig: UnityConfig
-  arcadeTokenRequired?: boolean
 }
 
 interface CustomEventWithCallback<T> extends CustomEvent {
   detail: { callback: (data: T) => void }
 }
 
-const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
+const Game = ({ unityConfig }: GameProps) => {
   const { authToken } = useAuth()
   const pathname = usePathname()
   const { address } = useAccount()
-  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances()
   const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`
   const authCallback = useRef<null | ((authMsg: string) => void)>(null)
   const [unityError, setUnityError] = useState<Error | null>(null)
@@ -144,14 +140,6 @@ const Game = ({ unityConfig, arcadeTokenRequired = false }: GameProps) => {
 
   const handleOnClickFullscreen = () => {
     requestFullscreen(true)
-  }
-
-  if (arcadeTokenRequired && loadingArcadeBal) {
-    return <></>
-  }
-
-  if (arcadeTokenRequired && Number(tokensBalances.AT) === 0) {
-    return <ArcadeTokensRequired refetchArcadeBal={refetchArcadeBal} />
   }
 
   return (
