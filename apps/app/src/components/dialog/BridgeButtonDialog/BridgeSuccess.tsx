@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from '@/types'
 import { X } from 'lucide-react'
 
 import { Alert } from '@nl/ui/base/alert'
@@ -17,7 +17,7 @@ type BridgeSuccessProps = {
 const BridgeSuccess = ({
   successDialogOpen,
   setSuccessDialogOpen,
-}: BridgeSuccessProps): React.ReactNode => {
+}: BridgeSuccessProps): JSX.Element => {
   const { address } = useNetworkContext()
   const { refreshNFTLBalance } = useTokensBalances()
 

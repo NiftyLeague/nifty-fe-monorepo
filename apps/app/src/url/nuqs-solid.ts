@@ -36,10 +36,9 @@ export function useQueryStates<P extends Parsers>(
   parsers: P,
   options: QueryStatesOptions = {}
 ): [ValuesOf<P>, (values: SetValues<P>, setOptions?: { history?: HistoryMode }) => Promise<void>] {
-  const search = useSearch({ strict: false }) as unknown as Record<
-    string,
-    string | string[] | undefined
-  >
+  const search = useSearch({ strict: false })
+  const searchValues = () =>
+    (search() ?? {}) as Record<string, string | string[] | undefined>
   const navigate = useNavigate()
 
   const state = {} as ValuesOf<P>
@@ -48,7 +47,7 @@ export function useQueryStates<P extends Parsers>(
     if (!parser) continue
     Object.defineProperty(state, key, {
       get: () => {
-        const value = search[key]
+        const value = searchValues()[key]
         if (value === undefined) return parser.defaultValue
         return parser.parse(value as string)
       },
@@ -60,7 +59,7 @@ export function useQueryStates<P extends Parsers>(
     values: SetValues<P>,
     setOptions?: { history?: HistoryMode }
   ): Promise<void> => {
-    const next: Record<string, unknown> = { ...search }
+    const next: Record<string, unknown> = { ...searchValues() }
     for (const key of Object.keys(parsers) as Array<keyof P & string>) {
       if (!(key in values)) continue
       const parser: Parser | undefined = parsers[key]

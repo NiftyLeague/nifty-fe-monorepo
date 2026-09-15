@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from '@/types'
 import type { PublicDegen } from '@/types/degens'
 import type { DegenFilter } from '@/types/degenFilter'
 import DEFAULT_STATIC_FILTER from './constants'

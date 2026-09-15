@@ -1,7 +1,6 @@
 'use client'
 
-import {  } from 'solid-js'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useSignMessage } from '@/runtime/wagmi'
 
 import * as gtm from '@nl/ui/gtm/events'
 import type { AUTH_Token, UUID_Token, Nonce } from '@/types/auth'
@@ -14,22 +13,23 @@ type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce }
 
 const useSignAuthMsg = (params: Params = {}) => {
   const { setIsLoggedIn } = useAuthStatus()
-  const { address } = useAccount()
-  const addressToLower = address?.toLowerCase()
-  const signAddress = `${addressToLower?.slice(0, 6)}...${addressToLower?.slice(-4)}`
+  const account = useAccount()
+  const addressToLower = () => account.address?.toLowerCase()
+  const signAddress = () => `${addressToLower()?.slice(0, 6)}...${addressToLower()?.slice(-4)}`
 
   const uuidToken = useUUIDToken()
   const storageNonce = useNonce()
 
-  const token = params.token || uuidToken
-  const nonce = params.nonce || storageNonce
+  const token = params.token || uuidToken()
+  const nonce = params.nonce || storageNonce()
 
   const verifyWallet = async (verification: string) => {
+    const address = addressToLower()
     try {
-      if (!addressToLower) return
+      if (!address) return
       const result = await fetch(WALLET_VERIFICATION, {
         method: 'POST',
-        body: JSON.stringify({ token, nonce, verification, address: addressToLower }),
+        body: JSON.stringify({ token, nonce, verification, address }),
       })
         .then((res) => {
           if (res.status === 404) {
@@ -48,7 +48,7 @@ const useSignAuthMsg = (params: Params = {}) => {
         setNonce(nonce)
 
         setIsLoggedIn(true)
-        gtm.sendUserId(addressToLower)
+        gtm.sendUserId(address)
       } else {
         throw Error('Failed to verify signature!')
       }
@@ -59,7 +59,7 @@ const useSignAuthMsg = (params: Params = {}) => {
     }
   }
 
-  const { signMessageAsync, isError, isSuccess } = useSignMessage({
+  const signMutation = useSignMessage({
     mutation: {
       onSuccess(data) {
         verifyWallet(data)
@@ -71,13 +71,21 @@ const useSignAuthMsg = (params: Params = {}) => {
     },
   })
 
-  const signMessage = (async () => {
-    return await signMessageAsync({
-      message: `Please sign this message to verify that ${signAddress} belongs to you. ${nonce}`,
+  const signMessage = async () => {
+    return await signMutation.signMessageAsync({
+      message: `Please sign this message to verify that ${signAddress()} belongs to you. ${nonce}`,
     })
-  }, [signAddress, nonce, signMessageAsync])
+  }
 
-  return { signMessage, isError, isSuccess }
+  return {
+    signMessage,
+    get isError() {
+      return signMutation.isError
+    },
+    get isSuccess() {
+      return signMutation.isSuccess
+    },
+  }
 }
 
 export default useSignAuthMsg

@@ -1,8 +1,8 @@
 'use client'
 
-import {  } from 'solid-js'
-import { useWalletClient } from 'wagmi'
+import { watchAsset } from '@wagmi/core'
 import useNetworkContext from '@/hooks/useNetworkContext'
+import { useWagmiConfig } from '@/runtime/wagmi'
 import { NFTL_CONTRACT } from '@/constants/contracts'
 
 /*
@@ -20,16 +20,17 @@ interface ImportNFTLToWalletState {
 }
 
 export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
-  const { data: walletClient } = useWalletClient()
-  const { writeContracts } = useNetworkContext()
+  const config = useWagmiConfig()
+  const network = useNetworkContext()
 
-  const handleImportNFTLToWallet = (async () => {
-    if (!walletClient || !writeContracts[NFTL_CONTRACT]) return
+  const handleImportNFTLToWallet = async () => {
+    const nftlContract = network.writeContracts[NFTL_CONTRACT]
+    if (!nftlContract) return
     try {
-      const success = await walletClient.watchAsset({
+      const success = await watchAsset(config, {
         type: 'ERC20',
         options: {
-          address: await writeContracts[NFTL_CONTRACT].getAddress(),
+          address: await nftlContract.getAddress(),
           symbol: 'NFTL',
           decimals: 18,
           image: 'https://raw.githubusercontent.com/NiftyLeague/Nifty-League-Images/main/NFTL.webp',
@@ -39,7 +40,7 @@ export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
     } catch (err) {
       console.error(err)
     }
-  }, [writeContracts, walletClient])
+  }
 
   return { handleImportNFTLToWallet }
 }

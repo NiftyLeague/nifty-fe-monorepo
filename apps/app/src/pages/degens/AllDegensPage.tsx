@@ -1,9 +1,9 @@
 'use client'
 
-import { createMemo, createSignal } from 'solid-js'
+import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useQueryStates } from 'nuqs'
+import { ChevronLeft, ChevronRight } from 'lucide-solid'
+import { useQueryStates } from '@/url/nuqs-solid'
 
 import { Button } from '@nl/ui/base/button'
 import { PaginationEllipsis } from '@nl/ui/base/pagination'
@@ -44,166 +44,153 @@ const AllDegensPage = (): JSX.Element => {
     history: 'push',
     shallow: true,
   })
-  const searchStateKey = JSON.stringify(rawSearchState)
-  const searchState = createMemo(() => normalizeDegenSearchState(rawSearchState), [searchStateKey])
-  const layoutMode = searchState.layout
+  const searchState = createMemo(() => normalizeDegenSearchState(rawSearchState))
+  const layoutMode = () => searchState().layout
 
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
-  const isGridView = layoutMode === 'gridView'
-  const pageSize = !isSmallScreen && !isGridView && !isDrawerOpen ? 18 : DEGENS_PER_PAGE
-  const requestedPage = searchState.page
-  const sortValue = searchState.sort
+  const isGridView = () => layoutMode() === 'gridView'
+  const pageSize = () =>
+    !isSmallScreen() && !isGridView() && !isDrawerOpen() ? 18 : DEGENS_PER_PAGE
 
-  const requestQuery = createMemo(() => {
-    return buildPublicDegensRequestQuery(searchState, pageSize)
-  }, [pageSize, requestedPage, searchState])
-
-  const { data, error, refetch } = usePublicDegensPage(requestQuery)
-
-  const pageData = createMemo(() => (data ? fromPublicDegenPageWire(data) : undefined), [data])
-  const defaultValues = createMemo(
-    () => ({
-      ...DEFAULT_STATIC_FILTER,
-      prices: pageData?.priceRange ?? DEFAULT_STATIC_FILTER.prices,
-    }),
-    [pageData?.priceRange]
-  )
-  const currentPage = pageData?.page ?? requestedPage
-  const maxPage = Math.ceil((pageData?.total ?? 0) / pageSize)
-  const pageItems = createMemo(() => getPageItems(currentPage, maxPage), [currentPage, maxPage])
-
-  const jump = (
-    (page: number) => void setSearchState({ page: Math.max(1, page) }),
-    [setSearchState]
+  const requestQuery = createMemo(() =>
+    buildPublicDegensRequestQuery(searchState(), pageSize())
   )
 
-  const commitSearchTerm = (
-    (searchTerm: string | null) =>
-      void setSearchState({ searchTerm, page: 1 }, { history: 'replace' }),
-    [setSearchState]
-  )
+  const degensQuery = usePublicDegensPage(requestQuery)
+
+  const pageData = createMemo(() => {
+    const data = degensQuery.data
+    return data ? fromPublicDegenPageWire(data) : undefined
+  })
+  const defaultValues = createMemo(() => ({
+    ...DEFAULT_STATIC_FILTER,
+    prices: pageData()?.priceRange ?? DEFAULT_STATIC_FILTER.prices,
+  }))
+  const currentPage = () => pageData()?.page ?? searchState().page
+  const maxPage = () => Math.ceil((pageData()?.total ?? 0) / pageSize())
+  const pageItems = createMemo(() => getPageItems(currentPage(), maxPage()))
+
+  const jump = (page: number) => void setSearchState({ page: Math.max(1, page) })
+
+  const commitSearchTerm = (searchTerm: string | null) =>
+    void setSearchState({ searchTerm, page: 1 }, { history: 'replace' })
   const [searchTermDraft, handleChangeSearchTerm] = useDebouncedSearchTerm(
-    searchState.searchTerm,
+    () => searchState().searchTerm,
     commitSearchTerm
   )
 
-  const handleChangeLayoutMode = (_event: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => {
+  const handleChangeLayoutMode = (
+    _event: MouseEvent & { currentTarget: HTMLElement },
+    newMode: string
+  ) => {
     void setSearchState({ layout: newMode === 'gridOn' ? 'gridOn' : 'gridView', page: 1 })
   }
 
-  const handleSort = (
-    (sort: string) => void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 }),
-    [setSearchState]
-  )
+  const handleSort = (sort: string) =>
+    void setSearchState({ sort: sort === 'idDown' ? 'idDown' : 'idUp', page: 1 })
 
-  const handleViewTraits = ((degen: PublicDegen): void => {
-    setSelectedDegen(degen)
+  const handleViewTraits = (degen: PublicDegen): void => {
+    setSelectedDegen(() => degen)
     setIsDegenModalOpen(true)
-  }, [])
+  }
 
-  const renderSkeletonItem = (
-    (_: undefined, index: number) => (
-      <div key={`degen-skeleton-${index}`} class={getGridSizeClass(isGridView, isDrawerOpen)}>
-        <SkeletonDegenPlaceholder size={isGridView ? 'normal' : 'small'} />
-      </div>
-    ),
-    [isDrawerOpen, isGridView]
+  const renderSkeletonItem = (index: number) => (
+    <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
+      <SkeletonDegenPlaceholder size={isGridView() ? 'normal' : 'small'} />
+    </div>
   )
 
-  const renderDrawer = (
-    () => <DeferredDegensFilter defaultFilterValues={defaultValues} />,
-    [defaultValues]
+  const renderDegen = (degen: PublicDegen) => (
+    <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
+      <DeferredDegenCard
+        degen={degen}
+        deferAnimatedMedia
+        size={isGridView() ? 'normal' : 'small'}
+        onClickDetail={handleViewTraits}
+      />
+    </div>
   )
 
-  const renderDegen = (
-    (degen: PublicDegen) => (
-      <div class={getGridSizeClass(isGridView, isDrawerOpen)}>
-        <DeferredDegenCard
-          degen={degen}
-          deferAnimatedMedia
-          size={isGridView ? 'normal' : 'small'}
-          onClickDetail={handleViewTraits}
-        />
-      </div>
-    ),
-    [handleViewTraits, isDrawerOpen, isGridView]
-  )
+  const renderDrawer = () => <DeferredDegensFilter defaultFilterValues={defaultValues()} />
 
-  const renderMain = (
-    () => (
-      <div class="flex h-full flex-col gap-3">
-        <SectionTitle firstSection>
-          <div class="mb-4 flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              class="cursor-pointer"
-              aria-label={isDrawerOpen ? 'Hide filters' : 'Show filters'}
-              onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-            >
-              {isDrawerOpen ? (
-                <ChevronLeft absoluteStrokeWidth aria-hidden="true" size={28} stroke-width={1.5} />
-              ) : (
-                <ChevronRight absoluteStrokeWidth aria-hidden="true" size={28} stroke-width={1.5} />
-              )}
-            </Button>
-            {pageData?.total ?? 0} Degens
-          </div>
-        </SectionTitle>
-        <div class="grid grid-cols-12 gap-4 -mt-9">
-          {error ? (
-            <div class="col-span-12">
-              <QueryErrorState error={error} onRetry={() => void refetch()} />
-            </div>
-          ) : !pageData ? (
-            [...Array(8)].map(renderSkeletonItem)
-          ) : (
-            pageData.items.map(renderDegen)
-          )}
-        </div>
-        <PaginationControls
-          class="mx-auto flex-wrap justify-center gap-1 pb-4"
-          buttonClassName={isMobile ? 'size-8' : undefined}
-          hasNext={currentPage < maxPage}
-          hasPrev={currentPage > 1}
-          nextLabel="Next page"
-          onClickNext={() => jump(currentPage + 1)}
-          onClickPrev={() => jump(currentPage - 1)}
-          pageLabel={pageItems.map((p) =>
-            p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-              <PaginationEllipsis />
+  const renderMain = () => (
+    <div class="flex h-full flex-col gap-3">
+      <SectionTitle firstSection>
+        <div class="mb-4 flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            class="cursor-pointer"
+            aria-label={isDrawerOpen() ? 'Hide filters' : 'Show filters'}
+            onClick={() => setIsDrawerOpen((open) => !open)}
+          >
+            {isDrawerOpen() ? (
+              <ChevronLeft aria-hidden="true" size={28} stroke-width={1.5} />
             ) : (
-              <Button                
-                type="button"
-                variant={p === currentPage ? 'default' : 'ghost'}
-                size={isMobile ? 'sm' : 'icon'}
-                class="cursor-pointer"
-                onClick={() => jump(p)}
-                aria-current={p === currentPage ? 'page' : undefined}
-                aria-label={`Go to page ${p}`}
-              >
-                {p}
-              </Button>
-            )
-          )}
-          previousLabel="Previous page"
-        />
+              <ChevronRight aria-hidden="true" size={28} stroke-width={1.5} />
+            )}
+          </Button>
+          {pageData()?.total ?? 0} Degens
+        </div>
+      </SectionTitle>
+      <div class="grid grid-cols-12 gap-4 -mt-9">
+        <Show
+          when={!degensQuery.error}
+          fallback={
+            <div class="col-span-12">
+              <QueryErrorState
+                error={degensQuery.error as Error}
+                onRetry={() => void degensQuery.refetch()}
+              />
+            </div>
+          }
+        >
+          <Show
+            when={pageData()}
+            keyed
+            fallback={
+              <For each={Array.from({ length: 8 })}>
+                {(_, index) => renderSkeletonItem(index())}
+              </For>
+            }
+          >
+            {(page) => <For each={page.items}>{renderDegen}</For>}
+          </Show>
+        </Show>
       </div>
-    ),
-    [
-      currentPage,
-      isDrawerOpen,
-      isMobile,
-      jump,
-      maxPage,
-      pageData,
-      pageItems,
-      error,
-      refetch,
-      renderDegen,
-      renderSkeletonItem,
-    ]
+      <PaginationControls
+        class="mx-auto flex-wrap justify-center gap-1 pb-4"
+        buttonClassName={isMobile() ? 'size-8' : undefined}
+        hasNext={currentPage() < maxPage()}
+        hasPrev={currentPage() > 1}
+        nextLabel="Next page"
+        onClickNext={() => jump(currentPage() + 1)}
+        onClickPrev={() => jump(currentPage() - 1)}
+        pageLabel={
+          <For each={pageItems()}>
+            {(p) =>
+              p === 'ellipsis-start' || p === 'ellipsis-end' ? (
+                <PaginationEllipsis />
+              ) : (
+                <Button
+                  type="button"
+                  variant={p === currentPage() ? 'default' : 'ghost'}
+                  size={isMobile() ? 'sm' : 'icon'}
+                  class="cursor-pointer"
+                  onClick={() => jump(p)}
+                  aria-current={p === currentPage() ? 'page' : undefined}
+                  aria-label={`Go to page ${p}`}
+                >
+                  {p}
+                </Button>
+              )
+            }
+          </For>
+        }
+        previousLabel="Previous page"
+      />
+    </div>
   )
 
   return (
@@ -211,28 +198,28 @@ const AllDegensPage = (): JSX.Element => {
       <div class="flex h-full flex-col justify-start align-top gap-4 pl-2">
         <div class="pl-4 pr-6">
           <DegensTopNav
-            searchTerm={searchTermDraft}
+            searchTerm={searchTermDraft()}
             handleChangeSearchTerm={handleChangeSearchTerm}
             handleSort={handleSort}
-            sortValue={sortValue}
-            layoutMode={layoutMode}
+            sortValue={searchState().sort}
+            layoutMode={layoutMode()}
             handleChangeLayoutMode={handleChangeLayoutMode}
           />
         </div>
         <CollapsibleSidebarLayout
-          isDrawerOpen={isDrawerOpen}
+          isDrawerOpen={isDrawerOpen()}
           setIsDrawerOpen={setIsDrawerOpen}
           renderDrawer={renderDrawer}
           renderMain={renderMain}
         />
       </div>
-      {isDegenModalOpen && (
+      <Show when={isDegenModalOpen()}>
         <DeferredPublicDegenDialog
           open
-          degen={selectedDegen}
+          degen={selectedDegen()}
           onClose={() => setIsDegenModalOpen(false)}
         />
-      )}
+      </Show>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount, useDisconnect } from '@/runtime/wagmi'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
 

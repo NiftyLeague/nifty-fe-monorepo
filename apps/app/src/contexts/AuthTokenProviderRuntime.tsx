@@ -1,7 +1,7 @@
 'use client'
 
-import { createEffect, createMemo } from 'solid-js'
-import { useAccount } from 'wagmi'
+import { createEffect, type JSX } from 'solid-js'
+import { useAccount } from '@/runtime/wagmi'
 
 import type { AuthTokenContextType } from '@/types/auth'
 import AuthTokenContext from '@/contexts/AuthTokenContext'
@@ -11,45 +11,55 @@ import { useAuthToken } from '@/hooks/useAuthStorage'
 import useSignAuthMsg from '@/hooks/useSignAuthMsg'
 import { DEBUG } from '@/constants/index'
 
-export default function AuthTokenProviderRuntime({ children }: { children?: JSX.Element }) {
-  const { isConnected } = useAccount()
-  const { isLoggedIn } = useAuthStatus()
+export default function AuthTokenProviderRuntime(props: { children?: JSX.Element }) {
+  const account = useAccount()
+  const auth = useAuthStatus()
   const { checkAddress } = useCheckAuth()
   const { signMessage } = useSignAuthMsg()
   const authToken = useAuthToken()
-  let msgSent: any = false
-  let connectedRef: any = isConnected
+  let msgSent = false
+  let wasConnected = account.isConnected
 
-  const signMsg = (async () => {
+  const signMsg = async () => {
     const initialized = await checkAddress()
     if (!initialized) await signMessage()
-    msgSent.current = true
-  }, [checkAddress, signMessage])
+    msgSent = true
+  }
 
-  const handleConnectWallet = (async () => {
-    if (!isConnected) {
+  const handleConnectWallet = async () => {
+    if (!account.isConnected) {
       const { openWalletModal } = await import('@/contexts/WalletModal')
       await openWalletModal()
       return
     }
     await signMsg()
-  }, [isConnected, signMsg])
+  }
 
   createEffect(() => {
-    const connected = connectedRef.current
-    connectedRef.current = isConnected
+    const connected = account.isConnected
+    const loggedIn = auth.isLoggedIn
+    const previouslyConnected = wasConnected
+    wasConnected = connected
 
-    if (!connected && isConnected && !isLoggedIn && msgSent.current === false) {
+    if (!previouslyConnected && connected && !loggedIn && !msgSent) {
       if (DEBUG) console.log('CONNECT_SUCCESS')
-      msgSent.current = true
+      msgSent = true
       void signMsg()
     }
-  }, [isConnected, isLoggedIn, signMsg])
+  })
 
-  const value = useMemo<AuthTokenContextType>(
-    () => ({ authToken, handleConnectWallet, isConnected, isLoggedIn }),
-    [authToken, handleConnectWallet, isConnected, isLoggedIn]
-  )
+  const value: AuthTokenContextType = {
+    get authToken() {
+      return authToken()
+    },
+    handleConnectWallet,
+    get isConnected() {
+      return account.isConnected
+    },
+    get isLoggedIn() {
+      return auth.isLoggedIn
+    },
+  }
 
-  return <AuthTokenContext.Provider value={value}>{children}</AuthTokenContext.Provider>
+  return <AuthTokenContext.Provider value={value}>{props.children}</AuthTokenContext.Provider>
 }

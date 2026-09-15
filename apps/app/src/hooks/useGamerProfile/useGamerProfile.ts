@@ -2,7 +2,6 @@
 
 import { GET_GAMER_PROFILE_API } from '@/constants/api'
 import { useQuery } from '@tanstack/solid-query'
-import {  } from 'solid-js'
 import useAuth from '@/hooks/useAuth'
 import {
   AUTHENTICATED_STALE_TIME_MS,
@@ -13,32 +12,42 @@ import {
 import type { Profile } from '@/types/account'
 
 const useGamerProfile = (): {
-  error?: Error
-  profile?: Profile
-  loadingProfile?: boolean
+  readonly error?: Error
+  readonly profile?: Profile
+  readonly loadingProfile?: boolean
   fetchUserProfile?: () => Promise<Profile>
 } => {
-  const { isLoggedIn, authToken } = useAuth()
-  const scope = getAuthQueryScope(authToken)
+  const auth = useAuth()
 
-  const { error, data, isLoading, refetch } = useQuery({
-    queryKey: queryKeys.profile.current(scope),
+  const query = useQuery(() => ({
+    queryKey: queryKeys.profile.current(getAuthQueryScope(auth.authToken)),
     queryFn: ({ signal }) =>
       fetchApiQuery<Profile>(GET_GAMER_PROFILE_API, {
         signal,
-        init: { headers: { authorizationToken: authToken || '' } },
+        init: { headers: { authorizationToken: auth.authToken || '' } },
       }),
-    enabled: isLoggedIn && !!authToken,
+    enabled: auth.isLoggedIn && !!auth.authToken,
     staleTime: AUTHENTICATED_STALE_TIME_MS,
-  })
+  }))
 
-  const fetchUserProfile = (async () => {
-    const result = await refetch({ throwOnError: true })
+  const fetchUserProfile = async () => {
+    const result = await query.refetch({ throwOnError: true })
     if (!result.data) throw new Error('Profile unavailable')
     return result.data
-  }, [refetch])
+  }
 
-  return { error: error ?? undefined, profile: data, loadingProfile: isLoading, fetchUserProfile }
+  return {
+    get error() {
+      return (query.error as Error | undefined) ?? undefined
+    },
+    get profile() {
+      return query.data
+    },
+    get loadingProfile() {
+      return query.isLoading
+    },
+    fetchUserProfile,
+  }
 }
 
 export default useGamerProfile

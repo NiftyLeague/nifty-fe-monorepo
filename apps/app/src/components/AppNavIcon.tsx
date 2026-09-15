@@ -15,7 +15,7 @@ import {
   User,
 } from 'lucide-solid'
 import type { LucideIcon } from 'lucide-solid'
-import type { SVGProps } from 'react'
+import type { JSX } from 'solid-js'
 
 const DEFAULT_SIZES = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 } as const
 
@@ -54,7 +54,7 @@ type AppNavIconName = keyof typeof iconMap
 type AppNavIconSize = keyof typeof DEFAULT_SIZES
 type AppNavIconColor = keyof typeof DEFAULT_COLORS | (string & {})
 
-type AppNavIconProps = Omit<SVGProps<SVGSVGElement>, 'color' | 'fill' | 'width' | 'height'> & {
+type AppNavIconProps = Omit<JSX.SvgSVGAttributes<SVGSVGElement>, 'color' | 'fill' | 'width' | 'height'> & {
   absoluteStrokeWidth?: boolean
   name?: AppNavIconName
   size?: AppNavIconSize | number

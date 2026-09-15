@@ -1,9 +1,9 @@
 'use client'
-import { createEffect, createMemo, createSignal } from 'solid-js'
+import { createEffect, createSignal, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
-import { toast } from 'sonner'
+import { toast } from 'solid-sonner'
 import { isAddress } from 'ethers'
-import { AlertCircle, Info, X } from 'lucide-react'
+import { AlertCircle, Info, X } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
@@ -41,11 +41,11 @@ const handleBuyNFTL = () => {
   gtm.sendEvent(GTM_EVENTS.RENTAL_BUY_NFTL_CLICKED)
 }
 
-const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps) => {
+const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
   const router = useRouter()
-  const { account, refetchAccount } = useGameAccount()
+  const gameAccount = useGameAccount()
   const agreementAccepted = useAgreementAccepted()
-  const agreement = agreementAccepted === 'ACCEPTED'
+  const agreement = () => agreementAccepted() === 'ACCEPTED'
   const [rentForUserSelection, setRentForUserSelection] = createSignal<string>('myself')
   const [ethAddress, setEthAddress] = createSignal<string>('')
   const [isUseRentalPass, setIsUseRentalPass] = createSignal<boolean>(false)
@@ -53,42 +53,40 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
   const [checkBalance, setCheckBalance] = createSignal<boolean>(false)
   const [rentSuccess, setRentSuccess] = createSignal<boolean>(false)
   const [openTOS, setOpenTOS] = createSignal<boolean>(false)
-  const { isDegenOwner } = useNFTsBalances()
+  const nfts = useNFTsBalances()
 
-  const disabledRentFor = createMemo(() => {
-    if (!degen || degen?.background === 'common') return false
-    return !isDegenOwner
-  }, [degen, isDegenOwner])
+  const disabledRentFor = () => {
+    if (!props.degen || props.degen.background === 'common') return false
+    return !nfts.isDegenOwner
+  }
 
-  const rentFor = disabledRentFor ? 'myself' : rentForUserSelection
+  const rentFor = () => (disabledRentFor() ? 'myself' : rentForUserSelection())
 
-  const accountBalance = account?.balance ?? 0
-  const sufficientBalance = createMemo(
-    () => accountBalance >= (degen?.price || 0),
-    [accountBalance, degen?.price]
-  )
+  const accountBalance = () => gameAccount.account?.balance ?? 0
+  const sufficientBalance = () => accountBalance() >= (props.degen?.price || 0)
 
-  const [, , rentalPassCount] = useRentalPassCount(degen?.id)
-  const { rent, isPending: loading } = useRent(
-    degen?.id,
-    degen?.rental_count || 0,
-    degen?.price || 0,
+  const [, , rentalPassCount] = useRentalPassCount(() => props.degen?.id)
+  const rentState = useRent(
+    () => props.degen?.id,
+    () => props.degen?.rental_count || 0,
+    () => props.degen?.price || 0,
     ethAddress,
     isUseRentalPass
   )
+  const loading = () => rentState.isPending
 
-  const handleChangeRentingFor = (_: Event & { currentTarget: HTMLInputElement }, value: string) => {
+  const handleChangeRentingFor = (value: string) => {
     if (value === 'recruit') {
       gtm.sendEvent(GTM_EVENTS.RENTAL_RECRUIT_CLICKED)
     }
     setRentForUserSelection(value)
   }
 
-  const handleChangeUseRentalPass = (event: Event & { currentTarget: HTMLInputElement }) => {
-    if (event.target.checked) {
+  const handleChangeUseRentalPass = (checked: boolean) => {
+    if (checked) {
       gtm.sendEvent(GTM_EVENTS.RENTAL_PASS_CLICKED)
     }
-    setIsUseRentalPass(event.target.checked)
+    setIsUseRentalPass(checked)
   }
 
   const validateAddress = (value: string) => {
@@ -102,39 +100,39 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
     }
   }
 
-  const handleRent = (async () => {
-    const items = [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }]
+  const handleRent = async () => {
+    const items = [{ item_id: `${props.degen?.id}`, item_name: 'DEGEN Rental' }]
     gtm.sendEvent(GTM_EVENTS.BEGIN_CHECKOUT, { items })
     try {
-      await rent()
+      await rentState.rent()
       setRentSuccess(true)
 
       gtm.sendEvent(GTM_EVENTS.PURCHASE_COMPLETE, { items })
       gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
         virtual_currency_name: 'NFTL',
-        value: degen?.price || 0,
+        value: props.degen?.price || 0,
         item_name: 'DEGEN Rental',
       })
     } catch (err: unknown) {
       toast.error(errorMsgHandler(err))
     }
-  }, [degen, rent])
+  }
 
-  const isShowRentalPassOption = () => rentalPassCount > 0 && !degen?.rental_count
+  const isShowRentalPassOption = () => rentalPassCount() > 0 && !props.degen?.rental_count
 
   createEffect(() => {
     gtm.sendEvent(GTM_EVENTS.ADD_TO_CART, {
-      items: [{ item_id: `${degen?.id}`, item_name: 'DEGEN Rental' }],
+      items: [{ item_id: `${props.degen?.id}`, item_name: 'DEGEN Rental' }],
     })
-  }, [degen?.id])
+  })
 
-  const openTOSDialog: JSX.EventHandler<HTMLButtonElement> = (event) => {
+  const openTOSDialog: JSX.EventHandler<HTMLElement, MouseEvent> = (event) => {
     event.preventDefault()
     setOpenTOS(true)
   }
 
   const handleTOSDialogClose = (
-    event: object,
+    _event: object,
     reason: 'backdropClick' | 'escapeKeyDown' | 'accepted' | 'cancel'
   ) => {
     if (reason === 'accepted') {
@@ -145,30 +143,30 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
 
   const handleRefreshBalance = () => {
     gtm.sendEvent(GTM_EVENTS.RENTAL_REFRESH_BALANCE_CLICKED)
-    refetchAccount()
+    gameAccount.refetchAccount()
   }
 
   const handleGoCheckBalance = () => {
-    if (rentFor === 'recruit' && !ethAddress) {
+    if (rentFor() === 'recruit' && !ethAddress()) {
       setAddressError('Please input an address.')
       return
     }
 
-    if (rentFor === 'recruit' && Boolean(addressError)) {
+    if (rentFor() === 'recruit' && Boolean(addressError())) {
       return
     }
 
-    if (rentFor === 'myself') {
+    if (rentFor() === 'myself') {
       setEthAddress('')
     }
 
     setCheckBalance(true)
-    refetchAccount()
+    gameAccount.refetchAccount()
   }
 
-  const handleClickPlay = (() => {
+  const handleClickPlay = () => {
     router.push('/games/smashers')
-  }, [router])
+  }
 
   return (
     <div>
@@ -180,19 +178,18 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
           size="icon"
           class="cursor-pointer absolute right-[12px] top-[6px] z-1 w-[20px] h-[20px] rounded-full border"
           style={{ border: 'var(--border-purple)' }}
-          onClick={onClose}
+          onClick={props.onClose}
           aria-label="close"
         >
           <X
             aria-hidden="true"
-            absoluteStrokeWidth
             color="var(--color-purple)"
             size={18}
             stroke-width={1.5}
           />
         </Button>
 
-        <RentStepper rentSuccess={rentSuccess} checkBalance={checkBalance} />
+        <RentStepper rentSuccess={rentSuccess()} checkBalance={checkBalance()} />
         <div
           class="flex flex-row items-center justify-center w-full p-2"
           style={{ 'background-color': '#262930' }}
@@ -202,54 +199,60 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
         <div class="flex flex-row mt-1 gap-3 sm:gap-7">
           <div class="flex flex-col">
             <div class="flex justify-center">
-              {degen?.id && (
-                <DegenImage
-                  sx={{
-                    'object-fit': 'contain',
-                    width: 132,
-                    height: 146,
-                    'border-radius': '10px',
-                    border: 'var(--border-default)',
-                  }}
-                  tokenId={degen.id}
-                />
-              )}
+              <Show when={props.degen?.id}>
+                {(id) => (
+                  <DegenImage
+                    sx={{
+                      'object-fit': 'contain',
+                      width: '132px',
+                      height: '146px',
+                      'border-radius': '10px',
+                      border: 'var(--border-default)',
+                    }}
+                    tokenId={id()}
+                  />
+                )}
+              </Show>
             </div>
             <div class="flex flex-col items-center mt-1">
               <span
                 class="text-xs"
-                style={{ 'line-height': 2, color: '#535659' }}
-              >{`Owned by ${degen?.owner?.substring(0, 5)}`}</span>
+                style={{ 'line-height': '2', color: '#535659' }}
+              >{`Owned by ${props.degen?.owner?.substring(0, 5)}`}</span>
             </div>
           </div>
           <div class="flex flex-col w-full">
-            {rentSuccess ? (
-              <div
-                class="flex flex-col w-full items-center justify-between"
-                style={{ height: 146 }}
-              >
-                <Title level={6} class={cn(styles.successInfo, 'mt-4')}>
-                  Congratulations!
-                </Title>
-                <Title level={6} class={styles.successInfo}>
-                  Your rental is active.
-                </Title>
-                <Button variant="default" class="w-full" onClick={handleClickPlay}>
-                  Play Nifty Smashers Now
-                </Button>
-              </div>
-            ) : (
-              <div class="flex flex-col w-full justify-between" style={{ height: 146 }}>
-                <div class="flex flex-col" style={{ display: checkBalance ? 'none' : 'flex' }}>
-                  <span class="text-xs" style={{ 'line-height': 2 }}>
+            <Show
+              when={!rentSuccess()}
+              fallback={
+                <div
+                  class="flex flex-col w-full items-center justify-between"
+                  style={{ height: '146px' }}
+                >
+                  <Title level={6} class={cn(styles.successInfo, 'mt-4')}>
+                    Congratulations!
+                  </Title>
+                  <Title level={6} class={styles.successInfo}>
+                    Your rental is active.
+                  </Title>
+                  <Button variant="default" class="w-full" onClick={handleClickPlay}>
+                    Play Nifty Smashers Now
+                  </Button>
+                </div>
+              }
+            >
+              <div class="flex flex-col w-full justify-between" style={{ height: '146px' }}>
+                <div
+                  class="flex flex-col"
+                  style={{ display: checkBalance() ? 'none' : 'flex' }}
+                >
+                  <span class="text-xs" style={{ 'line-height': '2' }}>
                     Who are you renting for?
                   </span>
                   <RadioGroup
                     class="flex flex-row gap-4 items-center"
-                    value={rentFor}
-                    onValueChange={(value) =>
-                      handleChangeRentingFor({} as Event & { currentTarget: HTMLInputElement }, value)
-                    }
+                    value={rentFor()}
+                    onValueChange={(value) => handleChangeRentingFor(value)}
                   >
                     <div class="flex items-center gap-1">
                       <RadioGroupItem value="myself" id="rent-myself" />
@@ -259,16 +262,15 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                       <RadioGroupItem
                         value="recruit"
                         id="rent-recruit"
-                        disabled={disabledRentFor}
+                        disabled={disabledRentFor()}
                       />
                       <div class="flex items-center">
                         <span>Recruit</span>
-                        {disabledRentFor && (
+                        <Show when={disabledRentFor()}>
                           <Tooltip>
                             <TooltipTrigger>
                               <Info
                                 aria-hidden="true"
-                                absoluteStrokeWidth
                                 size={18}
                                 stroke-width={1.5}
                                 class="-mt-1"
@@ -278,11 +280,11 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                               DEGEN ownership is required to sponsor Recruits on this DEGEN.
                             </TooltipContent>
                           </Tooltip>
-                        )}
+                        </Show>
                       </div>
                     </div>
                   </RadioGroup>
-                  {rentFor === 'recruit' && (
+                  <Show when={rentFor() === 'recruit'}>
                     <div class="flex flex-col items-center my-1">
                       <div class="flex flex-col gap-1">
                         <div class="relative">
@@ -290,31 +292,31 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                             id="rent-recruit-address"
                             placeholder="Paste your recruit's eth address"
                             name="address"
-                            class={cn(styles.input, addressError && 'pr-10')}
-                            value={ethAddress}
-                            aria-invalid={addressError !== ''}
+                            class={cn(styles.input, addressError() && 'pr-10')}
+                            value={ethAddress()}
+                            aria-invalid={addressError() !== ''}
                             aria-describedby={
-                              addressError ? 'rent-recruit-address-error' : undefined
+                              addressError() ? 'rent-recruit-address-error' : undefined
                             }
-                            onChange={(event) => validateAddress(event.target.value)}
+                            onInput={(event) => validateAddress(event.target.value)}
                           />
-                          {addressError && (
+                          <Show when={addressError()}>
                             <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
                               <AlertCircle aria-hidden="true" size={18} />
                             </span>
-                          )}
+                          </Show>
                         </div>
-                        {addressError && (
+                        <Show when={addressError()}>
                           <span
                             id="rent-recruit-address-error"
                             class={cn(styles.formHelper, 'text-xs text-error')}
                           >
-                            {addressError}
+                            {addressError()}
                           </span>
-                        )}
+                        </Show>
                       </div>
                     </div>
-                  )}
+                  </Show>
                 </div>
                 <div class="flex flex-col">
                   <div class="flex justify-between">
@@ -322,22 +324,22 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                     <span
                       class="text-base"
                       style={{
-                        textDecoration: isUseRentalPass ? 'line-through' : 'none',
+                        'text-decoration': isUseRentalPass() ? 'line-through' : 'none',
                       }}
-                    >{`${formatNumberToDisplay(degen?.price || 0)} NFTL`}</span>
+                    >{`${formatNumberToDisplay(props.degen?.price || 0)} NFTL`}</span>
                   </div>
-                  {checkBalance && (
+                  <Show when={checkBalance()}>
                     <div class="flex flex-col">
                       <div class="flex justify-between">
                         <span class="text-base">Balance:</span>
                         <span
                           class="text-base"
                           style={{
-                            color: sufficientBalance ? '#007B60' : '#B51424',
+                            color: sufficientBalance() ? '#007B60' : '#B51424',
                           }}
-                        >{`${accountBalance ? formatNumberToDisplay(accountBalance) : '0.00'} NFTL`}</span>
+                        >{`${accountBalance() ? formatNumberToDisplay(accountBalance()) : '0.00'} NFTL`}</span>
                       </div>
-                      {!sufficientBalance && (
+                      <Show when={!sufficientBalance()}>
                         <span class="mt-1 ml-auto text-xs text-warning">
                           Balance low.{' '}
                           <a
@@ -351,81 +353,89 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                             Buy NFTL now
                           </a>
                         </span>
-                      )}
+                      </Show>
                     </div>
-                  )}
+                  </Show>
                 </div>
                 <div class="flex flex-col">
-                  {checkBalance && isShowRentalPassOption() && (
+                  <Show when={checkBalance() && isShowRentalPassOption()}>
                     <div class="flex justify-between items-center">
                       <div class={styles.inputCheckFormControl}>
                         <div class="flex items-center gap-1">
                           <Checkbox
-                            checked={isUseRentalPass}
-                            onCheckedChange={(checked) =>
-                              handleChangeUseRentalPass({
-                                target: { checked: !!checked },
-                              } as Event & { currentTarget: HTMLInputElement })
-                            }
+                            checked={isUseRentalPass()}
+                            onCheckedChange={(checked) => handleChangeUseRentalPass(!!checked)}
                             class={styles.inputCheck}
                           />
                           <span class="text-xs text-muted-foreground">Rental Pass</span>
                         </div>
                       </div>
-                      {isUseRentalPass && (
+                      <Show when={isUseRentalPass()}>
                         <div class="flex justify-between items-center w-[100px]">
                           <span class="text-base">Balance:</span>
                           <span class="text-base" style={{ color: 'var(--color-purple)' }}>
-                            {rentalPassCount}
+                            {rentalPassCount()}
                           </span>
                         </div>
-                      )}
+                      </Show>
                     </div>
-                  )}
+                  </Show>
                   <ConnectWrapper fullWidth>
-                    {!checkBalance ? (
-                      <Button variant="default" class="w-full" onClick={handleGoCheckBalance}>
-                        Next
-                      </Button>
-                    ) : sufficientBalance || isUseRentalPass ? (
-                      <div class="flex flex-col gap-2">
-                        <Button
-                          variant="default"
-                          class="w-full"
-                          onClick={handleRent}
-                          disabled={!agreement || loading}
-                        >
-                          {loading && <CircularProgress size="sm" />}
-                          Rent
+                    <Show
+                      when={checkBalance()}
+                      fallback={
+                        <Button variant="default" class="w-full" onClick={handleGoCheckBalance}>
+                          Next
                         </Button>
-                        <div class="flex items-center gap-1 justify-center">
-                          <Checkbox
-                            checked={agreement}
-                            onChange={() => setAgreementAccepted(!agreement ? 'ACCEPTED' : 'FALSE')}
-                            class={styles.inputCheck}
-                          />
-                          <span class="text-xs text-muted-foreground">
-                            I have read the{' '}
-                            <span
-                              class="mx-1 no-underline font-bold text-purple cursor-pointer hover:underline"
-                              onClick={openTOSDialog}
-                            >
-                              terms &amp; conditions
-                            </span>{' '}
-                            regarding rentals
-                          </span>
+                      }
+                    >
+                      <Show
+                        when={sufficientBalance() || isUseRentalPass()}
+                        fallback={
+                          <Button variant="default" class="w-full" onClick={handleRefreshBalance}>
+                            Refresh Balance
+                          </Button>
+                        }
+                      >
+                        <div class="flex flex-col gap-2">
+                          <Button
+                            variant="default"
+                            class="w-full"
+                            onClick={() => void handleRent()}
+                            disabled={!agreement() || loading()}
+                          >
+                            <Show when={loading()}>
+                              <CircularProgress size="sm" />
+                            </Show>
+                            Rent
+                          </Button>
+                          <div class="flex items-center gap-1 justify-center">
+                            <Checkbox
+                              checked={agreement()}
+                              onCheckedChange={(checked) =>
+                                setAgreementAccepted(checked ? 'ACCEPTED' : 'FALSE')
+                              }
+                              class={styles.inputCheck}
+                            />
+                            <span class="text-xs text-muted-foreground">
+                              I have read the{' '}
+                              <span
+                                class="mx-1 no-underline font-bold text-purple cursor-pointer hover:underline"
+                                onClick={openTOSDialog}
+                              >
+                                terms &amp; conditions
+                              </span>{' '}
+                              regarding rentals
+                            </span>
+                          </div>
+                          <TermsOfServiceDialog open={openTOS()} onClose={handleTOSDialogClose} />
                         </div>
-                        <TermsOfServiceDialog open={openTOS} onClose={handleTOSDialogClose} />
-                      </div>
-                    ) : (
-                      <Button variant="default" class="w-full" onClick={handleRefreshBalance}>
-                        Refresh Balance
-                      </Button>
-                    )}
+                      </Show>
+                    </Show>
                   </ConnectWrapper>
                 </div>
               </div>
-            )}
+            </Show>
           </div>
         </div>
         <div class="flex flex-col mb-6">
@@ -437,11 +447,11 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
               <div class="flex flex-col gap-2">
                 <div class="flex justify-between">
                   <span class="text-base">Multipliers</span>
-                  <span class={styles.greyText}>{degen?.multiplier}x</span>
+                  <span class={styles.greyText}>{props.degen?.multiplier}x</span>
                 </div>
                 <div class="flex justify-between">
                   <span class="text-base">Queue</span>
-                  <span class={styles.greyText}>{degen?.rental_count}</span>
+                  <span class={styles.greyText}>{props.degen?.rental_count}</span>
                 </div>
               </div>
             </div>
@@ -453,7 +463,7 @@ const RentDegenContentDialog = ({ degen, onClose }: RentDegenContentDialogProps)
                 </div>
                 <div class="flex justify-between">
                   <span class="text-base">Renewal Cost</span>
-                  <span class={styles.greyText}>{degen?.price_daily}/Day</span>
+                  <span class={styles.greyText}>{props.degen?.price_daily}/Day</span>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
-import { createEffect, type JSX } from 'solid-js'
-import { X } from 'lucide-react'
+import { createEffect, Show, type JSX } from 'solid-js'
+import { X } from 'lucide-solid'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { IconButton } from '@nl/ui/base/icon-button'
@@ -15,58 +15,54 @@ interface Props {
   setIsDrawerOpen: (v: boolean | ((prev: boolean) => boolean)) => void
 }
 
-const CollapsibleSidebarLayout = ({
-  drawerWidth = 320,
-  renderDrawer,
-  renderMain,
-  isDrawerOpen,
-  setIsDrawerOpen,
-}: Props): JSX.Element => {
+const CollapsibleSidebarLayout = (props: Props): JSX.Element => {
   const isDesktopNavigation = useMediaQuery(desktopNavigationMediaQuery)
-  const matchDownLG = !isDesktopNavigation
+  const matchDownLG = () => !isDesktopNavigation()
+  const drawerWidth = () => props.drawerWidth ?? 320
+  const isDrawerOpen = () => props.isDrawerOpen
 
   // toggle sidebar
-  const handleDrawerOpen = (() => {
-    setIsDrawerOpen((prevState) => !prevState)
-  }, [setIsDrawerOpen])
+  const handleDrawerOpen = () => {
+    props.setIsDrawerOpen((prevState) => !prevState)
+  }
 
   // close drawer by default on mobile, open on desktop
   createEffect(() => {
-    setIsDrawerOpen(!matchDownLG)
-  }, [matchDownLG, setIsDrawerOpen])
+    props.setIsDrawerOpen(!matchDownLG())
+  })
 
-  const isMobileDrawer = matchDownLG && isDrawerOpen
+  const isMobileDrawer = () => matchDownLG() && isDrawerOpen()
 
   return (
     <div class="relative flex flex-row items-start">
       {/* Mobile overlay */}
-      {isMobileDrawer && (
+      <Show when={isMobileDrawer()}>
         <div
           aria-hidden="true"
           class="fixed inset-0 z-[1090] bg-black/50"
           onClick={handleDrawerOpen}
         />
-      )}
+      </Show>
 
       {/* Filter drawer */}
       <div
         class="shrink-0 rounded-md border-none"
         style={{
-          width: `min(${drawerWidth}px, calc(100vw - 32px))`,
+          width: `min(${drawerWidth()}px, calc(100vw - 32px))`,
           'background-color': 'var(--color-sidebar)',
           position: 'fixed',
-          top: matchDownLG ? appHeaderHeight : 'auto',
-          left: matchDownLG ? '16px' : 'auto',
-          height: matchDownLG ? `calc(100vh - ${appHeaderHeight}px)` : 'auto',
-          'margin-left': matchDownLG ? 0 : '16px',
-          'z-index': isDrawerOpen ? 1100 : -1,
-          visibility: isDrawerOpen ? 'visible' : 'hidden',
+          top: matchDownLG() ? `${appHeaderHeight}px` : 'auto',
+          left: matchDownLG() ? '16px' : 'auto',
+          height: matchDownLG() ? `calc(100vh - ${appHeaderHeight}px)` : 'auto',
+          'margin-left': matchDownLG() ? '0' : '16px',
+          'z-index': isDrawerOpen() ? '1100' : '-1',
+          visibility: isDrawerOpen() ? 'visible' : 'hidden',
           'border-radius': 'var(--radius-default)',
-          boxSizing: 'border-box',
+          'box-sizing': 'border-box',
         }}
       >
         {/* Close button for mobile */}
-        {matchDownLG && isDrawerOpen && (
+        <Show when={matchDownLG() && isDrawerOpen()}>
           <IconButton
             type="button"
             aria-label="Close filters"
@@ -75,18 +71,18 @@ const CollapsibleSidebarLayout = ({
             class="absolute right-3 top-3 z-[1101] size-8 cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
             onClick={handleDrawerOpen}
           >
-            <X aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
+            <X aria-hidden="true" size={20} stroke-width={1.5} />
           </IconButton>
-        )}
+        </Show>
         <ScrollArea
           style={{
-            height: matchDownLG
+            height: matchDownLG()
               ? `calc(100vh - ${appHeaderHeight}px)`
               : `calc(100vh - ${appHeaderHeight + 100}px)`,
           }}
-          viewportClassName={matchDownLG ? 'px-4 pt-11 pb-5' : 'px-4 py-5'}
+          viewportClassName={matchDownLG() ? 'px-4 pt-11 pb-5' : 'px-4 py-5'}
         >
-          {isDrawerOpen ? renderDrawer() : null}
+          {isDrawerOpen() ? props.renderDrawer() : null}
         </ScrollArea>
       </div>
 
@@ -94,9 +90,9 @@ const CollapsibleSidebarLayout = ({
       <div
         class="flex-grow min-w-0"
         style={{
-          'padding-left': isDrawerOpen && !matchDownLG ? 24 : 0,
-          'margin-left': isDrawerOpen && !matchDownLG ? `${drawerWidth}px` : 0,
-          transition: `margin 200ms cubic-bezier(${isDrawerOpen ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'}) 0ms`,
+          'padding-left': isDrawerOpen() && !matchDownLG() ? '24px' : '0',
+          'margin-left': isDrawerOpen() && !matchDownLG() ? `${drawerWidth()}px` : '0',
+          transition: `margin 200ms cubic-bezier(${isDrawerOpen() ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'}) 0ms`,
         }}
       >
         <ScrollArea
@@ -106,9 +102,9 @@ const CollapsibleSidebarLayout = ({
             'background-color': 'var(--color-sidebar)',
             'margin-right': '24px',
           }}
-          viewportClassName={matchDownLG ? 'px-4 py-2.5' : 'px-6 py-4'}
+          viewportClassName={matchDownLG() ? 'px-4 py-2.5' : 'px-6 py-4'}
         >
-          {renderMain()}
+          {props.renderMain()}
         </ScrollArea>
       </div>
     </div>

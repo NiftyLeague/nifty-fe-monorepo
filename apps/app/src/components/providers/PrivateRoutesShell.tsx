@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
@@ -13,7 +13,7 @@ import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 import DeferredNotifications from './DeferredNotifications'
 import PrivateRoutesAuthGate from './PrivateRoutesAuthGate'
 
-function PrivateRoutesContentLoading(): React.ReactNode {
+function PrivateRoutesContentLoading(): JSX.Element {
   return (
     <div
       class="flex min-h-[24rem] flex-col gap-6 rounded-lg bg-background p-6"
@@ -30,7 +30,7 @@ function PrivateRoutesContentLoading(): React.ReactNode {
   )
 }
 
-interface PrivateRoutesShellProps extends PropsWithChildren {
+interface PrivateRoutesShellProps extends ParentProps {
   cookies?: string | null
 }
 
@@ -49,7 +49,7 @@ export default function PrivateRoutesShell({ children, cookies }: PrivateRoutesS
           <NotificationProvider>
             <AuthTokenProvider>
               <FeatureFlagProvider>
-                <MainLayout>{children}</MainLayout>
+                <MainLayout>{props.children}</MainLayout>
                 <DeferredNotifications />
               </FeatureFlagProvider>
             </AuthTokenProvider>

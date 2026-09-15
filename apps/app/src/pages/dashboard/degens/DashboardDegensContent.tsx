@@ -1,7 +1,7 @@
 'use client'
 import { createEffect, createMemo, createSignal } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@/runtime/wagmi'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useQueryStates } from 'nuqs'
 

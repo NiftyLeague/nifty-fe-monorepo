@@ -3,7 +3,7 @@
 import Link from '@/runtime/Link'
 import { createMemo } from 'solid-js'
 import { UserRound } from 'lucide-react'
-import { useAccount, useEnsAvatar, useEnsName } from 'wagmi'
+import { useAccount, useEnsAvatar, useEnsName } from '@/runtime/wagmi'
 import { normalize } from 'viem/ens'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@nl/ui/base/avatar'

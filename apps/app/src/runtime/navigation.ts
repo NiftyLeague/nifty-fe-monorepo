@@ -4,7 +4,7 @@ import {
   useRouter as useTanStackRouter,
   useSearch,
 } from '@tanstack/solid-router'
-import { createMemo } from 'solid-js'
+import { createMemo, type Accessor } from 'solid-js'
 
 /**
  * The navigation hooks this app uses, backed by the TanStack Router. Keeping
@@ -16,16 +16,17 @@ const EXTERNAL_HREF = /^[a-z][a-z0-9+.-]*:|^\/\//i
 
 const isInternalHref = (href: string) => !EXTERNAL_HREF.test(href)
 
-export function usePathname(): string {
-  return useLocation({ select: (location) => location.pathname })
+export function usePathname(): Accessor<string> {
+  const location = useLocation()
+  return createMemo(() => location().pathname)
 }
 
-export function useSearchParams(): URLSearchParams {
-  const search = useSearch({ strict: false }) as Record<string, unknown>
+export function useSearchParams(): Accessor<URLSearchParams> {
+  const search = useSearch({ strict: false }) as Accessor<Record<string, unknown>>
 
   return createMemo(() => {
     const params = new URLSearchParams()
-    for (const [key, value] of Object.entries(search)) {
+    for (const [key, value] of Object.entries(search())) {
       if (value === undefined || value === null) continue
       if (Array.isArray(value)) {
         for (const entry of value) params.append(key, String(entry))
@@ -34,7 +35,7 @@ export function useSearchParams(): URLSearchParams {
       params.set(key, String(value))
     }
     return params
-  }, [search])
+  })
 }
 
 interface Router {
@@ -54,31 +55,29 @@ export function useRouter(): Router {
   const navigate = useNavigate()
   const router = useTanStackRouter()
 
-  return createMemo(() => {
-    const navigateTo = (href: string, replace: boolean) => {
-      if (!isInternalHref(href)) {
-        if (typeof window !== 'undefined') {
-          if (replace) window.location.replace(href)
-          else window.location.assign(href)
-        }
-        return
+  const navigateTo = (href: string, replace: boolean) => {
+    if (!isInternalHref(href)) {
+      if (typeof window !== 'undefined') {
+        if (replace) window.location.replace(href)
+        else window.location.assign(href)
       }
-
-      void navigate({ to: href as never, replace })
+      return
     }
 
-    return {
-      back: () => router.history.back(),
-      forward: () => router.history.forward(),
-      prefetch: async (href: string) => {
-        if (!isInternalHref(href)) return
-        await router.preloadRoute({ to: href as never })
-      },
-      push: (href: string) => navigateTo(href, false),
-      refresh: async () => {
-        await router.invalidate()
-      },
-      replace: (href: string) => navigateTo(href, true),
-    }
-  }, [navigate, router])
+    void navigate({ to: href as never, replace })
+  }
+
+  return {
+    back: () => router.history.back(),
+    forward: () => router.history.forward(),
+    prefetch: async (href: string) => {
+      if (!isInternalHref(href)) return
+      await router.preloadRoute({ to: href as never })
+    },
+    push: (href: string) => navigateTo(href, false),
+    refresh: async () => {
+      await router.invalidate()
+    },
+    replace: (href: string) => navigateTo(href, true),
+  }
 }

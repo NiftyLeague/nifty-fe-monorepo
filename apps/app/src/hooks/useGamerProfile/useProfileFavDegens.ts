@@ -26,10 +26,24 @@ export const profileFavoritesQueryOptions = (authToken?: string) => ({
   staleTime: AUTHENTICATED_STALE_TIME_MS,
 })
 
-const useProfileFavDegens = (): { error?: Error; favs?: string; loadingFavs?: boolean } => {
-  const { authToken } = useAuth()
-  const { error, data, isLoading } = useQuery(profileFavoritesQueryOptions(authToken))
-  return { error: error ?? undefined, favs: data?.favorites, loadingFavs: isLoading }
+const useProfileFavDegens = (): {
+  readonly error?: Error
+  readonly favs?: string
+  readonly loadingFavs?: boolean
+} => {
+  const auth = useAuth()
+  const query = useQuery(() => profileFavoritesQueryOptions(auth.authToken))
+  return {
+    get error() {
+      return (query.error as Error | undefined) ?? undefined
+    },
+    get favs() {
+      return query.data?.favorites
+    },
+    get loadingFavs() {
+      return query.isLoading
+    },
+  }
 }
 
 export default useProfileFavDegens

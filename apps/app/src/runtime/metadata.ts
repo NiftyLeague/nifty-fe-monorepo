@@ -1,10 +1,10 @@
-import type { DetailedHTMLProps, MetaHTMLAttributes, LinkHTMLAttributes } from 'react'
+import type { MetaDescriptor } from '@tanstack/solid-router'
 
 /** Props for a single `<meta>` element rendered into the document head. */
-export type MetaTag = DetailedHTMLProps<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>
+export type MetaTag = MetaDescriptor
 
 /** Props for a single `<link>` element rendered into the document head. */
-export type LinkTag = DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>
+export type LinkTag = Record<string, string>
 
 /** The `head()` return shape TanStack Router expects for route metadata. */
 export interface RouteHeadContent {

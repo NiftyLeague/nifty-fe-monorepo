@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from '@/types'
 import DataList from './DataList'
 import DataTable from './DataTable'
 
@@ -22,7 +22,7 @@ type ResponsiveTableProps = {
 /**
  * Responsive read-only leaderboard table and accessible expandable mobile list.
  */
-const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
+const ResponsiveTable: Component<ResponsiveTableProps> = ({
   checkboxSelection,
   columns,
   count,
@@ -36,7 +36,7 @@ const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
   serverPaginated,
   showPagination,
 }) => {
-  const handleChangePage = (event: React.MouseEvent | null, page: number) => {
+  const handleChangePage = (event: MouseEvent | null, page: number) => {
     onPaginationModelChange((model) => ({ page, pageSize: model.pageSize }))
   }
 

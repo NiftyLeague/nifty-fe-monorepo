@@ -1,7 +1,6 @@
 'use client'
 
-import { createContext, useEffect, useMemo, useRef } from 'react'
-import type { PropsWithChildren } from 'react'
+import { createContext, createEffect, type JSX } from 'solid-js'
 
 import useArcadeBalance from '@/hooks/balances/useArcadeBalance'
 import useAuth from '@/hooks/useAuth'
@@ -14,18 +13,18 @@ interface TokensBalances {
   NFTL: { eth: number; imx: number } // NFTL cross-chain
 }
 
-interface TokensBalanceContext {
-  loadingArcadeBal: boolean
-  loadingNFTLAccrued: boolean
-  loadingNFTLBal: boolean
+export interface TokensBalanceContextValue {
+  readonly loadingArcadeBal: boolean
+  readonly loadingNFTLAccrued: boolean
+  readonly loadingNFTLBal: boolean
   refetchArcadeBal: () => void
   refreshClaimableNFTL: () => void
   refreshNFTLBalance: () => void
-  tokensBalances: TokensBalances
-  totalAccruedNFTL: number
+  readonly tokensBalances: TokensBalances
+  readonly totalAccruedNFTL: number
 }
 
-const CONTEXT_INITIAL_STATE: TokensBalanceContext = {
+const CONTEXT_INITIAL_STATE: TokensBalanceContextValue = {
   loadingArcadeBal: false,
   loadingNFTLAccrued: false,
   loadingNFTLBal: false,
@@ -36,73 +35,55 @@ const CONTEXT_INITIAL_STATE: TokensBalanceContext = {
   totalAccruedNFTL: 0,
 }
 
-const TokensBalanceContext = createContext<TokensBalanceContext>(CONTEXT_INITIAL_STATE)
+const TokensBalanceContext = createContext<TokensBalanceContextValue>(CONTEXT_INITIAL_STATE)
 
-export const TokensBalanceProvider = ({ children }: PropsWithChildren): React.ReactNode => {
-  const { degenTokenIndices: degens, loadingDegens } = useNFTsBalances()
-  const firstRenderRef = useRef(true)
-  const { isLoggedIn } = useAuth()
+export const TokensBalanceProvider = (props: { children?: JSX.Element }): JSX.Element => {
+  const nfts = useNFTsBalances()
+  let firstRender = true
+  const auth = useAuth()
 
   // Load user DEGEN's NFTL claimable balance
-  const {
-    balance: totalAccruedNFTL,
-    loading: loadingClaim,
-    refetch: refreshClaimableNFTL,
-  } = useClaimableNFTL(degens)
+  const claimable = useClaimableNFTL(() => nfts.degenTokenIndices)
   // Load user Ethereum & Immutable zkEVM NFTL balances
-  const {
-    balances: nftlBalances,
-    loading: loadingNFTLBal,
-    refetch: refreshNFTLBalance,
-  } = useNFTLBalance()
+  const nftl = useNFTLBalance()
   // Load user off-chain Arcade Token (AT) balance
-  const {
-    balance: arcadeBalance,
-    loading: arcadeLoading,
-    refetch: refetchArcadeBal,
-  } = useArcadeBalance()
+  const arcade = useArcadeBalance()
 
   // Refetch on login state change, avoiding initial render
-  useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false
+  createEffect(() => {
+    const loggedIn = auth.isLoggedIn
+    if (firstRender) {
+      firstRender = false
       return
     }
-    if (!isLoggedIn) return
-    refreshClaimableNFTL()
-    refreshNFTLBalance()
-    refetchArcadeBal()
-  }, [isLoggedIn])
+    if (!loggedIn) return
+    claimable.refetch()
+    nftl.refetch()
+    arcade.refetch()
+  })
 
-  const tokensBalances = useMemo(
-    () => ({ AT: arcadeBalance, NFTL: nftlBalances }),
-    [arcadeBalance, nftlBalances]
-  )
-  const value = useMemo(
-    () => ({
-      loadingArcadeBal: arcadeLoading,
-      loadingNFTLAccrued: loadingDegens || loadingClaim,
-      loadingNFTLBal,
-      refetchArcadeBal,
-      refreshClaimableNFTL,
-      refreshNFTLBalance,
-      tokensBalances,
-      totalAccruedNFTL,
-    }),
-    [
-      arcadeLoading,
-      loadingClaim,
-      loadingDegens,
-      loadingNFTLBal,
-      refetchArcadeBal,
-      refreshClaimableNFTL,
-      refreshNFTLBalance,
-      tokensBalances,
-      totalAccruedNFTL,
-    ]
-  )
+  const value: TokensBalanceContextValue = {
+    get loadingArcadeBal() {
+      return arcade.loading
+    },
+    get loadingNFTLAccrued() {
+      return nfts.loadingDegens || claimable.loading
+    },
+    get loadingNFTLBal() {
+      return nftl.loading
+    },
+    refetchArcadeBal: arcade.refetch,
+    refreshClaimableNFTL: claimable.refetch,
+    refreshNFTLBalance: nftl.refetch,
+    get tokensBalances() {
+      return { AT: arcade.balance, NFTL: nftl.balances }
+    },
+    get totalAccruedNFTL() {
+      return claimable.balance
+    },
+  }
 
-  return <TokensBalanceContext.Provider value={value}>{children}</TokensBalanceContext.Provider>
+  return <TokensBalanceContext.Provider value={value}>{props.children}</TokensBalanceContext.Provider>
 }
 
 export default TokensBalanceContext

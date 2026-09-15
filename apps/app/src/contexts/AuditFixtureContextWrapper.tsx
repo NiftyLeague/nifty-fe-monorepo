@@ -1,11 +1,11 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 
 import AuditFixtureWalletContextWrapper from '@/contexts/AuditFixtureWalletContextWrapper'
 import TokensBalanceContext from '@/contexts/TokensBalanceContext'
 
-const AuditFixtureContextWrapper = ({ children }: PropsWithChildren): React.ReactNode => {
+const AuditFixtureContextWrapper = (props: ParentProps): JSX.Element => {
   return (
     <AuditFixtureWalletContextWrapper>
       <TokensBalanceContext.Provider
@@ -20,7 +20,7 @@ const AuditFixtureContextWrapper = ({ children }: PropsWithChildren): React.Reac
           totalAccruedNFTL: 42,
         }}
       >
-        {children}
+        {props.children}
       </TokensBalanceContext.Provider>
     </AuditFixtureWalletContextWrapper>
   )

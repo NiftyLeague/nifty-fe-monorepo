@@ -1,23 +1,26 @@
 'use client'
 
-import { createEffect } from 'solid-js'
+import { createEffect, onCleanup, type Accessor } from 'solid-js'
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/dynamic'
+
+type RefreshKey = string | number | Accessor<string | number | undefined> | undefined
 
 export default function useAsyncInterval(
   callback: () => Promise<void>,
   delay: number | undefined,
   leading = true,
-  refreshKey = ''
+  ...refreshKeys: RefreshKey[]
 ): void {
-  let savedCallback: any = callback
-
+  // Always invoke the latest callback so interval ticks never close over
+  // stale values.
+  let savedCallback = callback
   createEffect(() => {
-    savedCallback.current = callback
-  }, [callback])
+    savedCallback = callback
+  })
 
   createEffect(() => {
     const tick = async () => {
-      await savedCallback.current?.()
+      await savedCallback?.()
     }
 
     let stopped = false
@@ -30,13 +33,14 @@ export default function useAsyncInterval(
 
     if (delay) void start()
 
-    return () => {
+    onCleanup(() => {
       stopped = true
       if (intervalId) void clearIntervalAsync(intervalId)
-    }
-  }, [delay, leading])
+    })
+  })
 
   createEffect(() => {
-    if (refreshKey) void savedCallback.current?.()
-  }, [refreshKey])
+    const keys = refreshKeys.map((key) => (typeof key === 'function' ? key() : key))
+    if (keys.some((key) => key !== undefined && key !== '')) void savedCallback?.()
+  })
 }

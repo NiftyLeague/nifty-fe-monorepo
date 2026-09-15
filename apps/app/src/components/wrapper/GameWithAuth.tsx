@@ -1,12 +1,12 @@
 'use client'
 
-import { createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
-import { Unity, useUnityContext } from 'react-unity-webgl'
-import type { UnityConfig } from 'react-unity-webgl'
+import { Unity, useUnityContext } from '@/runtime/unity'
+import type { UnityConfig } from '@/runtime/unity'
 import { Button } from '@nl/ui/base/button'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@/runtime/wagmi'
 
 import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
@@ -28,82 +28,77 @@ interface CustomEventWithCallback<T> extends CustomEvent {
   detail: { callback: (data: T) => void }
 }
 
-const Game = ({ unityConfig }: GameProps) => {
-  const { authToken } = useAuth()
+const Game = (props: GameProps) => {
+  const auth = useAuth()
   const pathname = usePathname()
-  const { address } = useAccount()
-  const authMsg = `true,${address || '0x0'},Vitalik,${authToken}`
-  const authCallback = useRef<null | ((authMsg: string) => void)>(null)
+  const account = useAccount()
+  const authMsg = () => `true,${account.address || '0x0'},Vitalik,${auth.authToken}`
+  let authCallback: ((authMsg: string) => void) | null = null
   const [unityError, setUnityError] = createSignal<Error | null>(null)
 
+  const unity = useUnityContext(props.unityConfig)
   const {
-    unityProvider,
     isLoaded,
     loadingProgression,
     sendMessage,
     requestFullscreen,
     addEventListener,
     removeEventListener,
-  } = useUnityContext(unityConfig)
-
-  // Conditionally throw errors to be caught by the ErrorBoundary
-  if (unityError) throw unityError
+  } = unity
 
   createEffect(() => {
-    if (address?.length && authCallback.current) {
-      authCallback.current(authMsg)
+    if (account.address?.length && authCallback) {
+      authCallback(authMsg())
     }
-  }, [address, authMsg])
+  })
 
   createEffect(() => {
-    const contentId = getGameViewedAnalyticsContentId(pathname)
+    const contentId = getGameViewedAnalyticsContentId(pathname())
     if (contentId) {
       gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, { content_type: 'game', content_id: contentId })
     }
-  }, [pathname])
+  })
 
-  const startAuthentication = (
-    (e: CustomEventWithCallback<string>) => {
-      if (DEBUG) console.log('Authenticating:', authMsg)
-      e.detail.callback(authMsg)
-      authCallback.current = e.detail.callback
-    },
-    [authMsg]
-  )
+  const startAuthentication = (e: CustomEventWithCallback<string>) => {
+    if (DEBUG) console.log('Authenticating:', authMsg())
+    e.detail.callback(authMsg())
+    authCallback = e.detail.callback
+  }
 
-  const getConfiguration = ((e: CustomEventWithCallback<string>) => {
+  const getConfiguration = (e: CustomEventWithCallback<string>) => {
     const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
     const version = SUBGRAPH_VERSION
     if (DEBUG) console.log(`${networkName},${version ?? ''}`)
     setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
-  }, [])
+  }
 
-  const enableGameInteraction = (function enableGameInteraction() {
+  const enableGameInteraction = () => {
     if (setCanvasInteraction('game-canvas', true)) {
       // The canvas remains interactive after activation. Remove the global
       // listener so game pages do not keep doing a DOM lookup on every move.
       document.removeEventListener('mousemove', enableGameInteraction)
     }
-  }, [])
+  }
 
-  const handleLoaded = (() => {
+  const handleLoaded = () => {
     if (DEBUG) console.log('Unity loaded')
-  }, [])
+  }
 
-  const handleError = ((error: unknown) => {
+  const handleError = (error: unknown) => {
     const message = typeof error === 'string' ? error : 'Unity loading error'
     setUnityError(new Error(message))
-  }, [])
+  }
 
-  const handleProgress = ((progress: unknown) => {
-    // v10: loadingProgression is already 0-1, progress param is also 0-1
+  const handleProgress = (progress: unknown) => {
+    // loadingProgression is already 0-1, progress param is also 0-1
     if (DEBUG && typeof progress === 'number') console.log(`Unity progress: ${progress * 100}%`)
-  }, [])
+  }
 
-  createEffect(() => {
+  onMount(() => {
     // Bridge sendMessage to window.unityInstance for external callers (Unity C# -> JS)
     window.unityInstance = {
-      SendMessage: (...args) => sendMessage(...args),
+      SendMessage: (...args: [string, string, string | number?]) =>
+        sendMessage(args[0], args[1], args[2]),
       removeAllEventListeners: () => {
         removeEventListener('loaded', handleLoaded)
         removeEventListener('error', handleError)
@@ -119,24 +114,13 @@ const Game = ({ unityConfig }: GameProps) => {
     window.addEventListener('GetConfiguration', getConfiguration as EventListener)
     document.addEventListener('mousemove', enableGameInteraction, { passive: true })
 
-    return () => {
+    onCleanup(() => {
       window.unityInstance?.removeAllEventListeners()
       window.removeEventListener('StartAuthentication', startAuthentication as EventListener)
       window.removeEventListener('GetConfiguration', getConfiguration as EventListener)
       document.removeEventListener('mousemove', enableGameInteraction)
-    }
-  }, [
-    sendMessage,
-    requestFullscreen,
-    addEventListener,
-    removeEventListener,
-    handleLoaded,
-    handleError,
-    handleProgress,
-    enableGameInteraction,
-    startAuthentication,
-    getConfiguration,
-  ])
+    })
+  })
 
   const handleOnClickFullscreen = () => {
     requestFullscreen(true)
@@ -144,24 +128,26 @@ const Game = ({ unityConfig }: GameProps) => {
 
   return (
     <div class="relative">
-      <Preloader ready={isLoaded} progress={loadingProgression * 100} label="Loading game" />
+      {/* Surfacing a thrown error inside a tracked scope lets the surrounding
+          ErrorBoundary catch async Unity failures, matching the React throw. */}
+      {(() => {
+        const error = unityError()
+        if (error) throw error
+        return null
+      })()}
+      <Preloader ready={isLoaded()} progress={loadingProgression() * 100} label="Loading game" />
       <div class="flex flex-row items-start">
         <div class="flex flex-col items-start">
-          <Unity            
+          <Unity
             class="game-canvas"
-            unityProvider={unityProvider}
+            unityProvider={unity}
             style={{
               width: 'calc(77vh * 1.33)',
               height: '77vh',
-              visibility: isLoaded ? 'visible' : 'hidden',
+              visibility: isLoaded() ? 'visible' : 'hidden',
             }}
           />
-          <Button
-            variant="default"
-            size="lg"
-            onClick={handleOnClickFullscreen}
-            class="mt-[6px]"
-          >
+          <Button variant="default" size="lg" onClick={handleOnClickFullscreen} class="mt-[6px]">
             Fullscreen
           </Button>
         </div>
@@ -172,12 +158,15 @@ const Game = ({ unityConfig }: GameProps) => {
 
 const GameWithAuth = withVerification((props: GameProps) => {
   const { isOpera, browserName } = useUserAgent()
-  return isOpera() ? (
-    <h2 class="mt-8 text-center">{browserName} Browser Not Supported</h2>
-  ) : (
-    <ErrorBoundary>
-      <Game {...props} />
-    </ErrorBoundary>
+  return (
+    <Show
+      when={!isOpera()}
+      fallback={<h2 class="mt-8 text-center">{browserName()} Browser Not Supported</h2>}
+    >
+      <ErrorBoundary>
+        <Game {...props} />
+      </ErrorBoundary>
+    </Show>
   )
 })
 

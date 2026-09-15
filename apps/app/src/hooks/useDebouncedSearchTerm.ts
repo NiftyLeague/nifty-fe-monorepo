@@ -1,6 +1,6 @@
 'use client'
 
-import { createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup, type Accessor, type JSX } from 'solid-js'
 
 /**
  * Decouples typing from the URL-owned search term.
@@ -12,40 +12,31 @@ import { createEffect, createSignal } from 'solid-js'
  * what re-syncs it right after the debounce commits.
  */
 export function useDebouncedSearchTerm(
-  committed: string,
+  committed: string | Accessor<string>,
   commit: (searchTerm: string | null) => void,
   delayMs = 300
-): [string, JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>] {
-  const [draft, setDraft] = createSignal(committed)
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  let commitRef: any = commit
-  commitRef.current = commit
+): [Accessor<string>, JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>] {
+  const committedValue = () => (typeof committed === 'function' ? committed() : committed)
+  const [draft, setDraft] = createSignal(committedValue())
+  let timer: ReturnType<typeof setTimeout> | null = null
 
   createEffect(() => {
-    setDraft(committed)
-  }, [committed])
+    setDraft(committedValue())
+  })
 
-  createEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current)
-    },
-    []
-  )
+  onCleanup(() => {
+    if (timer) clearTimeout(timer)
+  })
 
-  const handleChange = useCallback<
-    JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>
-  >(
-    (event) => {
-      const value = event.target.value
-      setDraft(value)
-      if (timer.current) clearTimeout(timer.current)
-      timer.current = setTimeout(() => {
-        timer.current = null
-        commitRef.current(value || null)
-      }, delayMs)
-    },
-    [delayMs]
-  )
+  const handleChange: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
+    const value = event.target.value
+    setDraft(value)
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      timer = null
+      commit(value || null)
+    }, delayMs)
+  }
 
   return [draft, handleChange]
 }

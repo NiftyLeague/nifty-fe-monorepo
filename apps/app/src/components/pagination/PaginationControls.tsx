@@ -1,5 +1,5 @@
-import type { MouseEventHandler, ReactNode } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import type { JSX } from 'solid-js'
+import { ChevronLeft, ChevronRight } from 'lucide-solid'
 
 import { IconButton } from '@nl/ui/base/icon-button'
 import { cn } from '@nl/ui/utils'
@@ -7,9 +7,9 @@ import { cn } from '@nl/ui/utils'
 interface PaginationControlsProps {
   hasNext: boolean
   hasPrev: boolean
-  onClickNext: MouseEventHandler<HTMLButtonElement>
-  onClickPrev: MouseEventHandler<HTMLButtonElement>
-  pageLabel?: ReactNode
+  onClickNext: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>
+  onClickPrev: JSX.EventHandlerUnion<HTMLButtonElement, MouseEvent>
+  pageLabel?: JSX.Element
   className?: string
   buttonClassName?: string
   iconSize?: number
@@ -17,36 +17,25 @@ interface PaginationControlsProps {
   nextLabel?: string
 }
 
-export function PaginationControls({
-  hasNext,
-  hasPrev,
-  onClickNext,
-  onClickPrev,
-  pageLabel,
-  className,
-  buttonClassName,
-  iconSize = 18,
-  previousLabel = 'Previous page',
-  nextLabel = 'Next page',
-}: PaginationControlsProps) {
+export function PaginationControls(props: PaginationControlsProps) {
   return (
-    <div class={cn('flex items-center gap-2', className)}>
+    <div class={cn('flex items-center gap-2', props.className)}>
       <IconButton
-        aria-label={previousLabel}
-        class={cn('cursor-pointer', buttonClassName)}
-        disabled={!hasPrev}
-        onClick={onClickPrev}
+        aria-label={props.previousLabel ?? 'Previous page'}
+        class={cn('cursor-pointer', props.buttonClassName)}
+        disabled={!props.hasPrev}
+        onClick={props.onClickPrev}
       >
-        <ChevronLeft aria-hidden="true" absoluteStrokeWidth size={iconSize} strokeWidth={1.5} />
+        <ChevronLeft aria-hidden="true" size={props.iconSize ?? 18} stroke-width={1.5} />
       </IconButton>
-      {pageLabel}
+      {props.pageLabel}
       <IconButton
-        aria-label={nextLabel}
-        class={cn('cursor-pointer', buttonClassName)}
-        disabled={!hasNext}
-        onClick={onClickNext}
+        aria-label={props.nextLabel ?? 'Next page'}
+        class={cn('cursor-pointer', props.buttonClassName)}
+        disabled={!props.hasNext}
+        onClick={props.onClickNext}
       >
-        <ChevronRight aria-hidden="true" absoluteStrokeWidth size={iconSize} strokeWidth={1.5} />
+        <ChevronRight aria-hidden="true" size={props.iconSize ?? 18} stroke-width={1.5} />
       </IconButton>
     </div>
   )

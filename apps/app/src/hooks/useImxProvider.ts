@@ -1,9 +1,9 @@
 'use client'
 
-import { createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup, onMount, type Accessor } from 'solid-js'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@/runtime/wagmi'
 
 import useEthersSigner, { type Signer } from '@/hooks/useEthersSigner'
 import { IS_PRODUCTION } from '@/runtime/env'
@@ -33,18 +33,19 @@ export function getNetwork(): Chain {
   return IS_PRODUCTION ? immutableZkEvm : immutableZkEvmTestnet
 }
 
-export function useConnectedToIMXCheck(): boolean {
-  const { chain } = useAccount()
-  return chain?.id === immutableZkEvm.id || chain?.id === immutableZkEvmTestnet.id
+export function useConnectedToIMXCheck(): Accessor<boolean> {
+  const account = useAccount()
+  const chainId = () => account.chain?.id
+  return () => chainId() === immutableZkEvm.id || chainId() === immutableZkEvmTestnet.id
 }
 
-/** Memoized action to convert an IMX Passport instance to an ethers.js Provider. */
-export function useImxProvider(): BrowserProvider | undefined {
+/** Action to convert an IMX Passport instance to an ethers.js Provider. */
+export function useImxProvider(): Accessor<BrowserProvider | undefined> {
   const [provider, setProvider] = createSignal<BrowserProvider>()
-  const { isConnected } = useAccount()
+  const account = useAccount()
 
   createEffect(() => {
-    if (!isConnected) {
+    if (!account.isConnected) {
       setProvider(undefined)
       return
     }
@@ -56,28 +57,26 @@ export function useImxProvider(): BrowserProvider | undefined {
       })
       .catch(console.error)
 
-    return () => {
+    onCleanup(() => {
       mounted = false
-    }
-  }, [isConnected])
+    })
+  })
 
   return provider
 }
 
-/** Memoized action to convert a viem Wallet Client to an ethers.js Signer connected to IMX */
-export function useImxSigner(): Signer {
+/** Action to convert a viem Wallet Client to an ethers.js Signer connected to IMX */
+export function useImxSigner(): Accessor<Signer> {
   const passportNetwork = getNetwork()
-  const imxChainId = passportNetwork.id
-  const signer = useEthersSigner({ chainId: imxChainId })
-  return signer
+  return useEthersSigner({ chainId: passportNetwork.id })
 }
 
 /** ========== Launches Passport sign-in popup to authenticate user =========== */
-/** Memoized action to convert an IMX Passport instance to an ethers.js Signer. */
-export function usePassportSigner(): JsonRpcSigner | null {
+/** Action to convert an IMX Passport instance to an ethers.js Signer. */
+export function usePassportSigner(): Accessor<JsonRpcSigner | null> {
   const [signer, setSigner] = createSignal<JsonRpcSigner | null>(null)
 
-  createEffect(() => {
+  onMount(() => {
     let mounted = true
     getPassportSigner()
       .then((nextSigner) => {
@@ -88,10 +87,10 @@ export function usePassportSigner(): JsonRpcSigner | null {
         setSigner(null) // Ensure the state reflects a failed signer fetch
       })
 
-    return () => {
+    onCleanup(() => {
       mounted = false // Cleanup function to handle component unmounting
-    }
-  }, [])
+    })
+  })
 
   return signer
 }

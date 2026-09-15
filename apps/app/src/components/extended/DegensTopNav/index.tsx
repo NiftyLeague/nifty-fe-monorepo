@@ -1,3 +1,4 @@
+import type { JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
 import { Input } from '@nl/ui/base/input'
@@ -26,14 +27,7 @@ interface DegensTopNavProps {
   handleChangeLayoutMode: (_: MouseEvent & { currentTarget: HTMLElement }, newMode: string) => void
 }
 
-const DegensTopNav = ({
-  searchTerm,
-  handleChangeSearchTerm,
-  handleSort,
-  sortValue,
-  layoutMode,
-  handleChangeLayoutMode,
-}: DegensTopNavProps) => (
+const DegensTopNav = (props: DegensTopNavProps) => (
   <div class={styles.topNav} data-slot="degen-top-nav">
     <div class={styles.searchToolbar} data-slot="degen-search-toolbar">
       <div class={styles.searchField} data-slot="degen-search-field">
@@ -43,15 +37,15 @@ const DegensTopNav = ({
           class={`${styles.searchTextField} h-8 border-0 bg-muted`}
           name="search-degen-by-token-id-name"
           placeholder="Search degens by token # or name"
-          value={searchTerm}
-          onChange={handleChangeSearchTerm}
+          value={props.searchTerm}
+          onInput={props.handleChangeSearchTerm}
         />
       </div>
       <DegensTopNavControls
-        handleChangeLayoutMode={handleChangeLayoutMode}
-        handleSort={handleSort}
-        layoutMode={layoutMode}
-        sortValue={sortValue}
+        handleChangeLayoutMode={props.handleChangeLayoutMode}
+        handleSort={props.handleSort}
+        layoutMode={props.layoutMode}
+        sortValue={props.sortValue}
       />
     </div>
   </div>

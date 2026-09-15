@@ -1,4 +1,4 @@
-import type { SetStateAction } from 'react'
+import type { SetStateAction } from '@/types'
 
 import type { AgreementAccepted, AUTH_Token, Nonce, USER_ID, UUID_Token } from '@/types/auth'
 import { createNonce, createUUID } from '@/utils/auth'

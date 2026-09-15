@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from '@/types'
 import { X } from 'lucide-react'
 
 import { Button } from '@nl/ui/base/button'
@@ -14,7 +14,7 @@ type WithdrawSuccessProps = {
 const WithdrawSuccess = ({
   successDialogOpen,
   setSuccessDialogOpen,
-}: WithdrawSuccessProps): React.ReactNode => {
+}: WithdrawSuccessProps): JSX.Element => {
   const { refreshNFTLBalance } = useTokensBalances()
 
   const handleClose = () => {

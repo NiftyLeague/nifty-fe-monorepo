@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { JSX, ParentProps } from 'solid-js'
 import { lazy, memo, Suspense, useMemo } from 'react'
 
 import { ScrollArea } from '@nl/ui/base/scroll-area'
@@ -19,8 +19,8 @@ const compactAppHeaderHeight = 56
 
 const MobileSidebarSheet = lazy(() => import('./MobileSidebarSheet'))
 
-interface SidebarFrameProps extends PropsWithChildren {
-  footer?: ReactNode
+interface SidebarFrameProps extends ParentProps {
+  footer?: JSX.Element
 }
 
 function SidebarFrame({ children, footer }: SidebarFrameProps) {
@@ -48,7 +48,7 @@ function SidebarFrame({ children, footer }: SidebarFrameProps) {
         viewportClassName="px-4"
       >
         <div class="flex h-full flex-col justify-between">
-          <div>{children}</div>
+          <div>{props.children}</div>
           {footer && <div class="flex flex-col items-center">{footer}</div>}
         </div>
       </ScrollArea>

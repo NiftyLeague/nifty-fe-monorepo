@@ -6,10 +6,10 @@ import { queryKeys } from '@/query/app-query'
 import useAuth from './useAuth'
 
 const useTeminateRental = () => {
-  const { authToken } = useAuth()
+  const auth = useAuth()
   const queryClient = useQueryClient()
   const terminalRental = async (rentalId: string | undefined) => {
-    if (!authToken || !rentalId) {
+    if (!auth.authToken || !rentalId) {
       return
     }
 
@@ -17,20 +17,20 @@ const useTeminateRental = () => {
       `${TERMINATE_RENTAL_API_URL}?${new URLSearchParams({ id: rentalId })}`,
       {
         method: 'POST',
-        headers: { authorizationToken: authToken },
+        headers: { authorizationToken: auth.authToken },
       }
     )
     return res
   }
 
-  const mutation = useMutation({
+  const mutation = useMutation(() => ({
     mutationFn: terminalRental,
     onSuccess: async (response) => {
       if (response?.ok) {
         await queryClient.invalidateQueries({ queryKey: queryKeys.rentalsAll })
       }
     },
-  })
+  }))
 
   return mutation.mutateAsync
 }

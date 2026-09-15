@@ -1,4 +1,4 @@
-import type { UnityConfig } from 'react-unity-webgl'
+import type { UnityConfig } from '@/runtime/unity'
 
 import {
   UNITY_BURNER_BASE_URL,

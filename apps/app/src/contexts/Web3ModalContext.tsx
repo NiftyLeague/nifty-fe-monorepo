@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren, ReactNode } from 'react'
+import { Show, type Component, type JSX } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import type { Web3ModalRuntimeProps as LoadedWeb3ModalRuntimeProps } from './Web3ModalRuntime'
@@ -10,9 +10,10 @@ import {
 } from '@/components/providers/WalletProviderFallbacks'
 
 type Web3ModalProviderProps = {
+  children?: JSX.Element
   cookies?: string | null
-  loadingFallback?: ReactNode
-  errorFallback?: (retry: () => void) => ReactNode
+  loadingFallback?: JSX.Element
+  errorFallback?: (retry: () => void) => JSX.Element
 }
 type Web3ModalRuntimeProps = Omit<LoadedWeb3ModalRuntimeProps, 'config'>
 
@@ -23,29 +24,32 @@ const loadWeb3ModalRuntime = async () => {
   ])
 
   return {
-    default: (props: Web3ModalRuntimeProps) => <Runtime {...props} config={config} />,
+    default: ((props: Web3ModalRuntimeProps) => (
+      <Runtime {...props} config={config} />
+    )) as Component<Web3ModalRuntimeProps>,
   }
 }
 
-export function Web3ModalProvider({
-  children,
-  cookies,
-  loadingFallback,
-  errorFallback,
-}: PropsWithChildren<Web3ModalProviderProps>) {
+export function Web3ModalProvider(props: Web3ModalProviderProps) {
   const {
     Component: Runtime,
     hasError: loadError,
     retry,
   } = useDeferredComponent<Web3ModalRuntimeProps>(loadWeb3ModalRuntime)
 
-  if (loadError) {
-    return errorFallback ? errorFallback(retry) : <WalletProviderError onRetry={retry} />
-  }
-
-  if (!Runtime) {
-    return loadingFallback ?? <WalletProviderLoading />
-  }
-
-  return <Runtime cookies={cookies}>{children}</Runtime>
+  return (
+    <Show
+      when={Runtime()}
+      keyed
+      fallback={
+        loadError() ? (
+          (props.errorFallback?.(retry) ?? <WalletProviderError onRetry={retry} />)
+        ) : (
+          (props.loadingFallback ?? <WalletProviderLoading />)
+        )
+      }
+    >
+      {(Loaded) => <Loaded cookies={props.cookies}>{props.children}</Loaded>}
+    </Show>
+  )
 }

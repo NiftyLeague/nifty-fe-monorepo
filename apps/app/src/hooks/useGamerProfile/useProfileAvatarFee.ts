@@ -17,26 +17,31 @@ interface ProfileAvatarsRes {
   price: number
 }
 const useProfileAvatarFee = (): {
-  errorAvatarsAndFee?: Error
-  avatarsAndFee?: ProfileAvatarsRes
-  loadingAvatarsAndFee?: boolean
+  readonly errorAvatarsAndFee?: Error
+  readonly avatarsAndFee?: ProfileAvatarsRes
+  readonly loadingAvatarsAndFee?: boolean
 } => {
-  const { authToken } = useAuth()
-  const scope = getAuthQueryScope(authToken)
-  const { error, data, isLoading } = useQuery({
-    queryKey: queryKeys.profile.avatars(scope),
+  const auth = useAuth()
+  const query = useQuery(() => ({
+    queryKey: queryKeys.profile.avatars(getAuthQueryScope(auth.authToken)),
     queryFn: ({ signal }) =>
       fetchApiQuery<ProfileAvatarsRes>(GET_PROFILE_AVATARS_AND_COST_API, {
         signal,
-        init: { headers: { authorizationToken: authToken || '' } },
+        init: { headers: { authorizationToken: auth.authToken || '' } },
       }),
-    enabled: !!authToken,
+    enabled: !!auth.authToken,
     staleTime: AUTHENTICATED_STALE_TIME_MS,
-  })
+  }))
   return {
-    errorAvatarsAndFee: error ?? undefined,
-    avatarsAndFee: data,
-    loadingAvatarsAndFee: isLoading,
+    get errorAvatarsAndFee() {
+      return (query.error as Error | undefined) ?? undefined
+    },
+    get avatarsAndFee() {
+      return query.data
+    },
+    get loadingAvatarsAndFee() {
+      return query.isLoading
+    },
   }
 }
 

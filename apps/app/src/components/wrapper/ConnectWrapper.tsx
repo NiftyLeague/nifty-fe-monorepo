@@ -1,7 +1,8 @@
+import { splitProps, type JSX } from 'solid-js'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
 
-interface ConnectWrapperProps {
+interface ConnectWrapperProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'contained' | 'outlined'
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
   fullWidth?: boolean
@@ -10,33 +11,36 @@ interface ConnectWrapperProps {
 }
 
 const ConnectWrapper = (props: ConnectWrapperProps) => {
-  const {
-    children,
-    buttonText,
-    variant = 'contained',
-    color: _color,
-    fullWidth,
-    ...otherProps
-  } = props
-  const { isConnected, isLoggedIn, handleConnectWallet } = useAuth()
+  const [local, otherProps] = splitProps(props, [
+    'children',
+    'buttonText',
+    'variant',
+    'color',
+    'fullWidth',
+  ])
+  const auth = useAuth()
 
-  return isLoggedIn ? (
-    children
-  ) : (
-    <button
-      type="button"
-      data-slot="button"
-      class={buttonVariants({
-        variant: variant === 'outlined' ? 'outline' : 'default',
-        className: fullWidth ? 'w-full' : undefined,
-      })}
-      onClick={handleConnectWallet}
-      {...otherProps}
-    >
-      {isConnected
-        ? buttonText?.replace('Connect Wallet', 'Sign In') || 'Sign In'
-        : buttonText || 'Connect Wallet'}
-    </button>
+  return (
+    <>
+      {auth.isLoggedIn ? (
+        local.children
+      ) : (
+        <button
+          type="button"
+          data-slot="button"
+          class={buttonVariants({
+            variant: local.variant === 'outlined' ? 'outline' : 'default',
+            className: local.fullWidth ? 'w-full' : undefined,
+          })}
+          onClick={() => void auth.handleConnectWallet()}
+          {...otherProps}
+        >
+          {auth.isConnected
+            ? local.buttonText?.replace('Connect Wallet', 'Sign In') || 'Sign In'
+            : local.buttonText || 'Connect Wallet'}
+        </button>
+      )}
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useAccount, useSwitchChain } from 'wagmi'
+import { useAccount, useSwitchChain } from '@/runtime/wagmi'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import { Info, TriangleAlert } from 'lucide-react'
 

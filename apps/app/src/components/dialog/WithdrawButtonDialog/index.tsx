@@ -3,7 +3,7 @@
 import { createSignal } from 'solid-js'
 import { Badge } from '@nl/ui/base/badge'
 import { Button } from '@nl/ui/base/button'
-import { useSwitchChain } from 'wagmi'
+import { useSwitchChain } from '@/runtime/wagmi'
 
 import { TARGET_NETWORK } from '@/constants/networks'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'

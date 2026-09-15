@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, createMemo } from 'solid-js'
+import { createContext, type JSX } from 'solid-js'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 
 import type { BrowserProvider } from 'ethers'
@@ -11,15 +11,15 @@ import useContractLoader from '@/hooks/useContractLoader'
 import useImxProvider, { getNetwork, useImxSigner } from '@/hooks/useImxProvider'
 import type { Signer } from '@/hooks/useEthersSigner'
 
-interface Context {
-  address?: `0x${string}`
-  imxChainId: number
-  imxContracts: Contracts
-  imxSigner?: Signer
-  passportProvider?: BrowserProvider
+export interface IMXContextValue {
+  readonly address?: `0x${string}`
+  readonly imxChainId: number
+  readonly imxContracts: Contracts
+  readonly imxSigner?: Signer
+  readonly passportProvider?: BrowserProvider
 }
 
-const CONTEXT_INITIAL_STATE: Context = {
+const CONTEXT_INITIAL_STATE: IMXContextValue = {
   address: undefined,
   imxChainId: IS_PRODUCTION ? immutableZkEvm.id : immutableZkEvmTestnet.id,
   imxContracts: {} as Contracts,
@@ -27,9 +27,9 @@ const CONTEXT_INITIAL_STATE: Context = {
   passportProvider: undefined,
 }
 
-const IMXContext = createContext(CONTEXT_INITIAL_STATE)
+const IMXContext = createContext<IMXContextValue>(CONTEXT_INITIAL_STATE)
 
-export const IMXProvider = ({ children }: { children?: JSX.Element }): JSX.Element => {
+export const IMXProvider = (props: { children?: JSX.Element }): JSX.Element => {
   // IMX Passport instance converted to an ethers.js Provider
   const passportProvider = useImxProvider()
   const passportNetwork = getNetwork()
@@ -37,16 +37,27 @@ export const IMXProvider = ({ children }: { children?: JSX.Element }): JSX.Eleme
 
   // Ethers.js Signer connected to Immutable zkEVM
   const imxSigner = useImxSigner()
-  const address = imxSigner?.address as `0x${string}` | undefined
 
   // Load Immutable zkEVM contracts with Read access
   const imxContracts = useContractLoader(passportProvider, { chainId: imxChainId })
-  const value = createMemo(
-    () => ({ address, imxChainId, imxContracts, imxSigner, passportProvider }),
-    [address, imxChainId, imxContracts, imxSigner, passportProvider]
-  )
 
-  return <IMXContext.Provider value={value}>{children}</IMXContext.Provider>
+  const value: IMXContextValue = {
+    get address() {
+      return imxSigner()?.address as `0x${string}` | undefined
+    },
+    imxChainId,
+    get imxContracts() {
+      return imxContracts()
+    },
+    get imxSigner() {
+      return imxSigner()
+    },
+    get passportProvider() {
+      return passportProvider()
+    },
+  }
+
+  return <IMXContext.Provider value={value}>{props.children}</IMXContext.Provider>
 }
 
 export default IMXContext

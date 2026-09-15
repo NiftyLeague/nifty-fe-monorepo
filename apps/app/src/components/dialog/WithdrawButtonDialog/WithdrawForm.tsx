@@ -3,7 +3,7 @@
 import { useContext, createSignal } from 'solid-js'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import type { TransactionResponse } from 'ethers'
-import { useSwitchChain } from 'wagmi'
+import { useSwitchChain } from '@/runtime/wagmi'
 
 import { Alert } from '@nl/ui/base/alert'
 import { Button } from '@nl/ui/base/button'

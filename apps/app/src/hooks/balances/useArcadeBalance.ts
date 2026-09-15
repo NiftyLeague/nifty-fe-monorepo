@@ -1,6 +1,5 @@
 'use client'
 
-import { createMemo } from 'solid-js'
 import { useQuery } from '@tanstack/solid-query'
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
 import useAuth from '@/hooks/useAuth'
@@ -30,27 +29,35 @@ interface ArcadeBalanceInfo {
 }
 
 interface ArcadeBalanceState {
-  balance: number
-  error: Error | null
-  loading: boolean
+  readonly balance: number
+  readonly error: Error | null
+  readonly loading: boolean
   refetch: () => void
 }
 
 export default function useArcadeBalance(): ArcadeBalanceState {
-  const { authToken, isLoggedIn } = useAuth()
-  const scope = getAuthQueryScope(authToken)
-  const { data, isLoading, error, refetch } = useQuery<ArcadeBalanceInfo>({
-    queryKey: queryKeys.account.arcadeBalance(scope),
+  const auth = useAuth()
+  const query = useQuery(() => ({
+    queryKey: queryKeys.account.arcadeBalance(getAuthQueryScope(auth.authToken)),
     queryFn: ({ signal }) =>
       fetchApiQuery<ArcadeBalanceInfo>(GET_ARCADE_TOKEN_BALANCE_API, {
         signal,
-        init: { headers: { authorizationToken: authToken || '' } },
+        init: { headers: { authorizationToken: auth.authToken || '' } },
       }),
-    enabled: !!authToken && isLoggedIn,
+    enabled: !!auth.authToken && auth.isLoggedIn,
     staleTime: AUTHENTICATED_STALE_TIME_MS,
-  })
+  }))
 
-  const balance = createMemo(() => data?.balance ?? 0, [data])
-
-  return { balance, error, loading: isLoading, refetch }
+  return {
+    get balance() {
+      return query.data?.balance ?? 0
+    },
+    get error() {
+      return (query.error as Error | null) ?? null
+    },
+    get loading() {
+      return query.isLoading
+    },
+    refetch: () => void query.refetch(),
+  }
 }

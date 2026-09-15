@@ -1,7 +1,7 @@
 'use client'
 
 import { createMemo } from 'solid-js'
-import { useAccount } from 'wagmi'
+import { useAccount } from '@/runtime/wagmi'
 
 import { Title } from '@nl/ui/custom/typography'
 import { Separator } from '@nl/ui/base/separator'

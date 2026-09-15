@@ -1,12 +1,12 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@nl/ui/base/sheet'
 
 interface MobileSidebarSheetProps {
   appHeaderHeight: number
-  drawer: ReactNode
-  logo: ReactNode
+  drawer: JSX.Element
+  logo: JSX.Element
   onOpenChange: (open: boolean) => void
   open: boolean
 }

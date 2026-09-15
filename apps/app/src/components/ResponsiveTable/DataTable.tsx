@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 
 import { CustomColDef, getRowId, Row } from './types'
@@ -63,7 +63,7 @@ export default function DataTable(props: DataTableProps) {
                               row,
                               field: column.field,
                               id: row.id,
-                            }) as ReactNode)
+                            }) as JSX.Element)
                           : String(row[column.field] ?? '')}
                       </TableCell>
                     ))}

@@ -1,34 +1,41 @@
 'use client'
 
+import type { Accessor } from 'solid-js'
 import { RENT_URL } from '@/constants/url'
 import type { MyRental } from '@/types/rental'
 import { useMutation, useQueryClient } from '@tanstack/solid-query'
 import { queryKeys } from '@/query/app-query'
 import useAuth from './useAuth'
 
+type MaybeAccessor<T> = T | Accessor<T>
+const resolve = <T,>(value: MaybeAccessor<T>): T =>
+  typeof value === 'function' ? (value as Accessor<T>)() : value
+
 const useRent = (
-  degenId: string | undefined,
-  position: number,
-  price: number | undefined,
-  address: string,
-  isUseRentalPass: boolean
-): { rent: () => Promise<MyRental | undefined>; isPending: boolean } => {
-  const { authToken } = useAuth()
+  degenId: MaybeAccessor<string | undefined>,
+  position: MaybeAccessor<number>,
+  price: MaybeAccessor<number | undefined>,
+  address: MaybeAccessor<string>,
+  isUseRentalPass: MaybeAccessor<boolean>
+): { rent: () => Promise<MyRental | undefined>; readonly isPending: boolean } => {
+  const auth = useAuth()
   const queryClient = useQueryClient()
   const rent = async (): Promise<MyRental | undefined> => {
-    if (!authToken || !degenId || !price) {
+    const token = auth.authToken
+    const resolvedPrice = resolve(price)
+    if (!token || !resolve(degenId) || !resolvedPrice) {
       return undefined
     }
 
     const res = await fetch(RENT_URL, {
       method: 'POST',
-      headers: { authorizationToken: authToken },
+      headers: { authorizationToken: token },
       body: JSON.stringify({
-        degen_id: degenId,
-        position,
-        price,
-        address,
-        use_item: isUseRentalPass ? 'rental-pass-base' : undefined,
+        degen_id: resolve(degenId),
+        position: resolve(position),
+        price: resolvedPrice,
+        address: resolve(address),
+        use_item: resolve(isUseRentalPass) ? 'rental-pass-base' : undefined,
       }),
     })
     if (res.status === 404) {
@@ -44,7 +51,7 @@ const useRent = (
     throw Error('Something wrong!')
   }
 
-  const mutation = useMutation({
+  const mutation = useMutation(() => ({
     mutationFn: rent,
     onSuccess: async (rental) => {
       if (!rental) return
@@ -54,9 +61,14 @@ const useRent = (
         queryClient.invalidateQueries({ queryKey: queryKeys.account.all }),
       ])
     },
-  })
+  }))
 
-  return { rent: mutation.mutateAsync, isPending: mutation.isPending }
+  return {
+    rent: () => mutation.mutateAsync(),
+    get isPending() {
+      return mutation.isPending
+    },
+  }
 }
 
 export default useRent
