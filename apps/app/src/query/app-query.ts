@@ -67,8 +67,6 @@ export const queryKeys = {
   rentalsAll: ['rentals'] as const,
   rentalPass: (scope: string) => ['rentals', 'pass-balance', scope] as const,
   merkleClaim: (chainId: number, address: string) => ['merkle-claim', chainId, address] as const,
-  launcherVersion: (environment: string, platform: string) =>
-    ['launcher-version', environment, platform] as const,
 } as const
 
 export const getAuthQueryScope = (authToken?: string): string => {

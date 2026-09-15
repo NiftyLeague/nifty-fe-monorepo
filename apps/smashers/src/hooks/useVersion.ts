@@ -1,18 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 
 const COMMON_MSG = 'Download Nifty Smashers Beta on mobile or PC!'
-const DESKTOP_MSG = '' //'Epic Store will be supported soon.';
-
-enum MSGS {
-  Windows = `${COMMON_MSG} ${DESKTOP_MSG}`,
-  Android = 'Download Nifty Smashers Beta on Google Play!',
-  IOS = `Download Nifty Smashers Beta on the App Store!`,
-  LINUX = `${COMMON_MSG} ${DESKTOP_MSG}`,
-  MAC = `${COMMON_MSG} ${DESKTOP_MSG}`,
-}
 
 enum OS {
   Windows = 'win',
@@ -23,66 +13,13 @@ enum OS {
 }
 
 const useVersion = () => {
-  const [version, setVersion] = useState<string | null>(null)
-  const env = process.env.PUBLIC_DEPLOY_ENV === 'production' ? 'prod' : 'stage'
   const { isWindows, isMacOs, isAndroid, isIos, isLinux } = useUserAgent()
-  let os = ''
-  let message = ''
 
-  if (isWindows()) {
-    os = OS.Windows
-    message = MSGS.Windows
-  } else if (isAndroid()) {
-    os = OS.Android
-    message = MSGS.Android
-  } else if (isIos()) {
-    os = OS.IOS
-    message = MSGS.IOS
-  } else if (isLinux()) {
-    os = OS.LINUX
-    message = MSGS.LINUX
-  } else if (isMacOs()) {
-    os = OS.MAC
-    message = MSGS.MAC
-  }
-
-  const fileName = `NiftyLauncher-setup-${version?.substring(0, version?.indexOf('-'))}.exe`
-  const downloadURL =
-    os === 'win'
-      ? `https://d7ct17ettlkln.cloudfront.net/launcher/${env}/${os}/${version}/${fileName}`
-      : null
-
-  useEffect(() => {
-    const fetchVersion = async () => {
-      if (os === 'win') {
-        const v: string = await fetch(
-          `https://nifty-league.s3.amazonaws.com/launcher/${env}/${os}/version.bin?t=${Date.now()}`
-        )
-          .then(async (res) => {
-            if (res.status >= 400) {
-              console.error(await res.text())
-              return ''
-            }
-            return res.text()
-          })
-          .catch((e) => {
-            console.error(e)
-            return ''
-          })
-        setVersion(v)
-      }
-    }
-    fetchVersion()
-  }, [env, os])
-
-  return {
-    downloadURL,
-    version,
-    isWindows: isWindows(),
-    isLinux: isLinux(),
-    isMacOs: isMacOs(),
-    message,
-  }
+  if (isAndroid()) return { message: 'Download Nifty Smashers Beta on Google Play!', os: OS.Android }
+  if (isIos()) return { message: 'Download Nifty Smashers Beta on the App Store!', os: OS.IOS }
+  if (isWindows()) return { message: COMMON_MSG, os: OS.Windows }
+  if (isLinux()) return { message: COMMON_MSG, os: OS.LINUX }
+  return { message: COMMON_MSG, os: OS.MAC }
 }
 
 export default useVersion

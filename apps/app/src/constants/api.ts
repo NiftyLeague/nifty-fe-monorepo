@@ -1,6 +1,8 @@
 export const BASE_API_URL = 'https://odgwhiwhzb.execute-api.us-east-1.amazonaws.com/prod'
 
-export const DEGEN_BASE_API_URL = 'https://nifty-league.s3.amazonaws.com'
+// Cloudflare R2 bucket behind cdn.niftyleague.com — migrated public assets.
+// Remaining S3 dependencies (Unity builds, degen glTFs) are tracked separately.
+export const CDN_BASE_URL = 'https://cdn.niftyleague.com'
 export const PUBLIC_DEGENS_API_URL = '/api/degens'
 export const getPublicDegensByIdsUrl = (ids: string[]) =>
   `${PUBLIC_DEGENS_API_URL}?ids=${ids.map(encodeURIComponent).join(',')}`
