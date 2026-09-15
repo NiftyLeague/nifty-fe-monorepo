@@ -3,11 +3,11 @@ import { Button } from '@nl/ui/base/button'
 
 type DraggableDialogProps = { open: boolean; setOpen: (open: boolean) => void }
 
-export default function DraggableDialog({ open, setOpen }: DraggableDialogProps) {
-  const handleClose = () => setOpen(false)
+export default function DraggableDialog(props: DraggableDialogProps) {
+  const handleClose = () => props.setOpen(false)
 
   return (
-    <Dialog open={open} onOpenChange={(nextOpen) => !nextOpen && handleClose()}>
+    <Dialog open={props.open} onOpenChange={(nextOpen) => !nextOpen && handleClose()}>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
           <DialogTitle class="cursor-move">HELP</DialogTitle>
