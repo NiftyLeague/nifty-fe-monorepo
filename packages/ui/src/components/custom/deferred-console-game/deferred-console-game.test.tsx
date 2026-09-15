@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'solid-js'
-import { act, render, screen } from '@nl/ui/test-utils'
+import { act, render, screen, waitFor } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const observedRootMargins: string[] = []
@@ -70,7 +70,7 @@ describe('DeferredConsoleGame', () => {
     expect(observedRootMargins).toEqual(['0px 0px -25% 0px'])
   })
 
-  it('keeps the backdrop visible while an opt-in video waits for activation', () => {
+  it('keeps the backdrop visible while an opt-in video waits for activation', async () => {
     isNearViewport = true
     const { container } = render(() => (
       <DeferredConsoleGame deferVideo src="/video/example.mp4">
@@ -78,16 +78,20 @@ describe('DeferredConsoleGame', () => {
       </DeferredConsoleGame>
     ))
 
-    expect(screen.queryByTestId('console-game')).toBeNull()
+    expect(container.querySelector('video')).toBeNull()
+    expect(container.querySelector('source')).toBeNull()
     expect(screen.getByRole('img', { name: 'Game Console Backdrop' })).not.toBeNull()
     expect(container.querySelector('.dark-gradient-overlay')).not.toBeNull()
     expect(activationCallbacks).toHaveLength(1)
 
-    act(() => activationCallbacks[0]?.())
+    await act(async () => activationCallbacks[0]?.())
 
-    expect(screen.getByTestId('console-game').getAttribute('data-video-active')).toBe('true')
-    expect(screen.getByTestId('console-game').querySelector('source')?.getAttribute('src')).toBe(
-      '/video/example.mp4'
-    )
+    await waitFor(() => {
+      expect(container.querySelector('video')).not.toBeNull()
+      expect(container.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
+    })
+    // The SSR backdrop stays mounted outside the deferred boundary so hydration
+    // never moves the island's astro-slot element across a swapped branch.
+    expect(screen.getByRole('img', { name: 'Game Console Backdrop' })).not.toBeNull()
   })
 })

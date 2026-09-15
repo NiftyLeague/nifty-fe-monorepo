@@ -1,10 +1,6 @@
-import { createEffect, createSignal, onCleanup, Show, type JSX } from 'solid-js'
-import { Dynamic } from 'solid-js/web'
-import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
+import { createEffect, createSignal, lazy, onCleanup, Show, Suspense, type JSX } from 'solid-js'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
-
-import type { ConsoleGameProps } from '../console-game'
 
 interface DeferredConsoleGameProps {
   children: JSX.Element
@@ -25,8 +21,7 @@ interface DeferredConsoleGameProps {
 // section are visible at the bottom of a marketing page's initial viewport.
 const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'
 
-const loadConsoleGame = () =>
-  import('../console-game').then(({ ConsoleGame }) => ({ default: ConsoleGame }))
+const ConsoleGame = lazy(() => import('../console-game'))
 
 const DeferredConsoleGame = (props: DeferredConsoleGameProps) => {
   let rootEl: HTMLDivElement | undefined
@@ -44,11 +39,6 @@ const DeferredConsoleGame = (props: DeferredConsoleGameProps) => {
     props.loadInteractiveOnViewport
       ? isNearViewport()
       : isNearViewport() && (!props.deferVideo || videoActivated())
-  const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
-    loadConsoleGame,
-    shouldLoadInteractiveGame
-  )
-
   createEffect(() => {
     if (!props.deferVideo || !isNearViewport() || videoActivated()) return
 
@@ -67,17 +57,17 @@ const DeferredConsoleGame = (props: DeferredConsoleGameProps) => {
       // reserves the full art-directed frame before the deferred client chunk loads.
       style={{ 'aspect-ratio': '4842 / 3371' }}
     >
-      <Show when={ConsoleGame()} fallback={props.children}>
-        {(Loaded) => (
-          <Dynamic
-            component={Loaded()}
-            isNearViewport={isNearViewport() && videoActivated()}
-            renderGradientOverlay={false}
-            src={props.src}
-          >
-            {props.children}
-          </Dynamic>
-        )}
+      {props.children}
+      <Show when={shouldLoadInteractiveGame()}>
+        <Suspense>
+          <div class="absolute inset-0">
+            <ConsoleGame
+              isNearViewport={isNearViewport() && videoActivated()}
+              renderGradientOverlay={false}
+              src={props.src}
+            />
+          </div>
+        </Suspense>
       </Show>
       <div class="dark-gradient-overlay" />
     </div>

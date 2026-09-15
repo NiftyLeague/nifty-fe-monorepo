@@ -57,4 +57,5 @@ export default defineConfig({
       },
     }),
   ],
+  preview: { allowedHosts: ['amf-mb-pro'] },
 })
