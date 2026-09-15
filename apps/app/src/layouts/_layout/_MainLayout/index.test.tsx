@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 const appShellMock = mock(
   ({
@@ -7,11 +8,12 @@ const appShellMock = mock(
     header,
     networkWarning,
     sidebar,
-  }: JSX.{
+  }: {
     header: JSX.Element
     sidebar: JSX.Element
     networkWarning?: JSX.Element
-  } & { children?: JSX.Element }) => (
+    children?: JSX.Element
+  }) => (
     <div data-network-warning={networkWarning ? 'present' : 'absent'}>
       {header}
       {sidebar}

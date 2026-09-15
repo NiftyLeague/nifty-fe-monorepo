@@ -1,6 +1,6 @@
 'use client'
 
-import { createMemo } from 'solid-js'
+import { createMemo, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
@@ -17,47 +17,44 @@ interface ImageProfileProps {
   avatarFee?: number
 }
 
-const ImageProfile = ({ degens, avatar, avatarFee }: ImageProfileProps): JSX.Element => {
-  const { isLoadingDegens, fetchUserProfile } = useGamerProfileContext()
-  const degenSelected = createMemo(() => avatar?.id ?? degens?.[0]?.id, [avatar, degens])
+const ImageProfile = (props: ImageProfileProps): JSX.Element => {
+  const profile = useGamerProfileContext()
+  const degenSelected = createMemo(() => props.avatar?.id ?? props.degens?.[0]?.id)
 
   const handleChangeAvatar = () => {
-    fetchUserProfile?.()
+    void profile.fetchUserProfile?.()
   }
 
   const renderImage = () => {
-    if (isLoadingDegens) {
+    if (profile.isLoadingDegens) {
       return <DeferredSkeleton class="h-[320px] w-full rounded" />
-    } else {
-      if (!degenSelected) {
-        return (
-          <NativeImage
-            src="/img/degens/unavailable-image.webp"
-            alt="no avatar"
-            width={730}
-            height={800}
-            class="mx-auto max-w-[500px] object-cover"
-            style={{ width: '100%', height: 'auto' }}
-          />
-        )
-      }
-      return <DegenImage tokenId={degenSelected} sx={{ 'max-width': '500px' }} />
     }
+    if (!degenSelected()) {
+      return (
+        <NativeImage
+          src="/img/degens/unavailable-image.webp"
+          alt="no avatar"
+          width={730}
+          height={800}
+          class="mx-auto max-w-[500px] object-cover"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      )
+    }
+    return <DegenImage tokenId={degenSelected()!} sx={{ 'max-width': '500px' }} />
   }
 
   return (
-    <>
-      <div class="relative [&_img]:rounded-[var(--radius-default)]">
-        {renderImage()}
-        {degens && degens.length > 0 && (
-          <DeferredProfileImageDialog
-            onChangeAvatar={handleChangeAvatar}
-            degens={degens}
-            avatarFee={avatarFee}
-          />
-        )}
-      </div>
-    </>
+    <div class="relative [&_img]:rounded-[var(--radius-default)]">
+      {renderImage()}
+      <Show when={props.degens && props.degens.length > 0}>
+        <DeferredProfileImageDialog
+          onChangeAvatar={handleChangeAvatar}
+          degens={props.degens}
+          avatarFee={props.avatarFee}
+        />
+      </Show>
+    </div>
   )
 }
 

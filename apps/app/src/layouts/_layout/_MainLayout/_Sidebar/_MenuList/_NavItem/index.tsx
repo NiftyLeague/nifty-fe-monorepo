@@ -1,3 +1,4 @@
+import { Show } from 'solid-js'
 import Link from '@/runtime/Link'
 import { usePathname } from '@/runtime/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
@@ -15,59 +16,57 @@ interface NavItemProps {
 
 // ==============================|| SIDEBAR MENU LIST ITEMS ||============================== //
 
-const NavItem = ({ item, level }: NavItemProps) => {
+const NavItem = (props: NavItemProps) => {
   const pathname = usePathname()
   const isDesktopNavigation = useIsDesktopNavigation()
   const setDrawerOpen = useSetDrawerOpen()
-  const isSelected = pathname === item.url
+  const isSelected = () => pathname() === props.item.url
 
-  let itemTarget: LinkTarget = '_self'
-  if (item.target) {
-    itemTarget = '_blank'
-  }
+  const itemTarget = (): LinkTarget => (props.item.target ? '_blank' : '_self')
 
   const itemHandler = () => {
-    if (!isDesktopNavigation) setDrawerOpen(false)
+    if (!isDesktopNavigation()) setDrawerOpen(false)
   }
 
   const inner = (
     <>
-      <span class="my-auto" style={{ 'min-width': !item?.icon ? 18 : 36 }}>
-        <AppNavIcon name={item?.icon ?? 'dot'} size="lg" />
+      <span class="my-auto" style={{ 'min-width': `${!props.item?.icon ? 18 : 36}px` }}>
+        <AppNavIcon name={props.item?.icon ?? 'dot'} size="lg" />
       </span>
       <span class="flex-1">
         <span
-          class={cx('text-base', isSelected ? 'font-bold' : 'font-normal')}
+          class={cx('text-base', isSelected() ? 'font-bold' : 'font-normal')}
           style={{ color: 'inherit' }}
         >
-          {item.title}
+          {props.item.title}
         </span>
-        {item.caption && (
+        <Show when={props.item.caption}>
           <span class="block text-xs font-medium uppercase text-muted-foreground">
-            {item.caption}
+            {props.item.caption}
           </span>
-        )}
+        </Show>
       </span>
     </>
   )
 
-  const linkClass = cx(
-    'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left transition-colors hover:border-purple hover:bg-muted',
-    isSelected && 'border-purple bg-muted'
-  )
+  const linkClass = () =>
+    cx(
+      'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left transition-colors hover:border-purple hover:bg-muted',
+      isSelected() && 'border-purple bg-muted'
+    )
   const style = {
-    'padding-left': `${level * 24}px`,
-    'padding-top': level > 1 ? 8 : 10,
-    'padding-bottom': level > 1 ? 8 : 10,
+    'padding-left': `${props.level * 24}px`,
+    'padding-top': `${props.level > 1 ? 8 : 10}px`,
+    'padding-bottom': `${props.level > 1 ? 8 : 10}px`,
   }
 
-  if (item?.external) {
+  if (props.item?.external) {
     return (
       <a
-        href={item.url}
-        target={itemTarget}
+        href={props.item.url}
+        target={itemTarget()}
         rel="noopener noreferrer"
-        class={linkClass}
+        class={linkClass()}
         style={style}
         onClick={itemHandler}
       >
@@ -78,10 +77,10 @@ const NavItem = ({ item, level }: NavItemProps) => {
 
   return (
     <Link
-      href={item.url!}
+      href={props.item.url!}
       prefetch={false}
-      target={itemTarget}
-      class={linkClass}
+      target={itemTarget()}
+      class={linkClass()}
       style={style}
       onClick={itemHandler}
     >

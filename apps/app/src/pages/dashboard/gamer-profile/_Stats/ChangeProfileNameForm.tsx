@@ -1,9 +1,8 @@
 'use client'
 
-import { createSignal, useContext } from 'solid-js'
-import { AlertCircle } from 'lucide-react'
-import { toast } from 'sonner'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { createSignal, Show, useContext, type JSX } from 'solid-js'
+import { AlertCircle } from 'lucide-solid'
+import { toast } from 'solid-sonner'
 
 import { Button } from '@nl/ui/base/button'
 import { Input } from '@nl/ui/base/input'
@@ -21,37 +20,30 @@ import useAuth from '@/hooks/useAuth'
 interface ChangeProfileNameFormProps {
   updateNewName: (name: string) => void
 }
-interface IFormInput {
-  name: string
-}
 
-const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): JSX.Element => {
+const ChangeProfileNameForm = (props: ChangeProfileNameFormProps): JSX.Element => {
   const [isLoadingRename, setLoadingRename] = createSignal(false)
-  const { fee, loadingFee } = useProfileRenameFee()
+  const renameFee = useProfileRenameFee()
   const [, setIsOpen] = useContext(DialogContext)
-  const { authToken } = useAuth()
+  const auth = useAuth()
+  const [name, setName] = createSignal('')
+  const [nameError, setNameError] = createSignal('')
 
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<IFormInput>({
-    mode: 'onChange',
-    defaultValues: { name: '' },
-  })
-
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    if (!data.name || !authToken) {
+  const onSubmit = async () => {
+    if (!name().trim()) {
+      setNameError('Name is required')
+      return
+    }
+    if (!auth.authToken) {
       return
     }
 
     try {
       setLoadingRename(true)
       const response = await fetch(PROFILE_RENAME_API, {
-        headers: { authorizationToken: authToken as string },
+        headers: { authorizationToken: auth.authToken as string },
         method: 'POST',
-        body: JSON.stringify({ name: data.name }),
+        body: JSON.stringify({ name: name() }),
       })
       if (!response.ok) {
         const errMsg = await response.text()
@@ -70,66 +62,72 @@ const ChangeProfileNameForm = ({ updateNewName }: ChangeProfileNameFormProps): J
   const onRenameRentalSuccess = (newName: string) => {
     setLoadingRename(false)
     toast.success('Rename Profile Successful!')
-    updateNewName(newName)
+    props.updateNewName(newName)
     setIsOpen(false)
-    reset()
-  }
-
-  const renderFee = () => {
-    if (loadingFee) {
-      return <DeferredSkeleton class="h-[18.67px] w-full rounded" />
-    }
-    if (!loadingFee && fee) {
-      return (
-        <Title level={5}>There is a {fee} NFTL fee for changing your gamer profile username</Title>
-      )
-    }
-    return null
+    setName('')
+    setNameError('')
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault()
+        void onSubmit()
+      }}
+    >
       <div class="flex flex-col gap-4">
-        {renderFee()}
-        <Controller
-          name="name"
-          control={control}
-          rules={{ required: 'Name is required' }}
-          render={({ field }) => (
-            <div class="flex flex-col gap-1">
-              <div class="grid gap-2">
-                <Label
-                  for="gamer-profile-name"
-                  class={errors.name ? 'text-destructive' : undefined}
-                >
-                  Enter the new name
-                </Label>
-                <div class="relative">
-                  <Input
-                    {...field}
-                    id="gamer-profile-name"
-                    aria-invalid={!!errors.name}
-                    aria-describedby={errors.name ? 'gamer-profile-name-error' : undefined}
-                    class={errors.name ? 'pr-10' : undefined}
-                    disabled={isLoadingRename}
-                  />
-                  {errors.name && (
-                    <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
-                      <AlertCircle aria-hidden="true" size={18} />
-                    </span>
-                  )}
-                </div>
-              </div>
-              {errors.name && (
-                <span id="gamer-profile-name-error" class="text-xs text-error">
-                  {errors.name.message}
+        <Show
+          when={!renameFee.loadingFee}
+          fallback={<DeferredSkeleton class="h-[18.67px] w-full rounded" />}
+        >
+          <Show when={renameFee.fee}>
+            {(fee) => (
+              <Title level={5}>
+                There is a {fee()} NFTL fee for changing your gamer profile username
+              </Title>
+            )}
+          </Show>
+        </Show>
+        <div class="flex flex-col gap-1">
+          <div class="grid gap-2">
+            <Label
+              for="gamer-profile-name"
+              class={nameError() ? 'text-destructive' : undefined}
+            >
+              Enter the new name
+            </Label>
+            <div class="relative">
+              <Input
+                id="gamer-profile-name"
+                value={name()}
+                onInput={(event) => {
+                  setName(event.currentTarget.value)
+                  setNameError('')
+                }}
+                aria-invalid={!!nameError()}
+                aria-describedby={nameError() ? 'gamer-profile-name-error' : undefined}
+                class={nameError() ? 'pr-10' : undefined}
+                disabled={isLoadingRename()}
+              />
+              <Show when={nameError()}>
+                <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+                  <AlertCircle aria-hidden="true" size={18} />
                 </span>
-              )}
+              </Show>
             </div>
-          )}
-        />
-        <Button type="submit" class="w-full" disabled={isLoadingRename}>
-          {isLoadingRename && <CircularProgress size="sm" />}
+          </div>
+          <Show when={nameError()}>
+            {(msg) => (
+              <span id="gamer-profile-name-error" class="text-xs text-error">
+                {msg()}
+              </span>
+            )}
+          </Show>
+        </div>
+        <Button type="submit" class="w-full" disabled={isLoadingRename()}>
+          <Show when={isLoadingRename()}>
+            <CircularProgress size="sm" />
+          </Show>
           Update
         </Button>
       </div>

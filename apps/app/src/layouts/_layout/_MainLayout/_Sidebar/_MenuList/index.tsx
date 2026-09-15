@@ -1,4 +1,3 @@
-import {  } from 'solid-js'
 
 // project imports
 import NavGroup from './_NavGroup'

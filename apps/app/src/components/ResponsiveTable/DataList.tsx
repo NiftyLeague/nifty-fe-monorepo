@@ -1,6 +1,6 @@
 'use client'
 
-import { createSignal } from 'solid-js'
+import { createSignal, For, Show } from 'solid-js'
 import { Checkbox } from '@nl/ui/base/checkbox'
 
 import { CellRenderer, LabelRenderer } from './Renderer'
@@ -18,7 +18,7 @@ interface DataListProps {
   data: Row[]
   excludePrimaryFromDetails?: boolean
   noContentText?: string
-  onChangePage: (event: JSX.MouseEvent | null, page: number) => void
+  onChangePage: (event: MouseEvent | null, page: number) => void
   onSelectionChange: (params: { rowIds: (string | number)[] }) => void
   page: number
   rowsClassArray?: string[]
@@ -39,11 +39,13 @@ const createListItemTitle = (tableColumns: CustomColDef[], row: Row, rows: Row[]
   return primaryColumns.length === 0 ? (
     <CellRenderer column={firstColumn} row={row} data={rows} />
   ) : (
-    primaryColumns.map((column, index) => (
-      <span class={index === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
-        <CellRenderer column={column} row={row} data={rows} />
-      </span>
-    ))
+    <For each={primaryColumns}>
+      {(column, index) => (
+        <span class={index() === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
+          <CellRenderer column={column} row={row} data={rows} />
+        </span>
+      )}
+    </For>
   )
 }
 
@@ -54,10 +56,9 @@ const createListItemDescription = (
   excludePrimary = false
 ) => (
   <div>
-    {tableColumns
-      .filter((column) => !excludePrimary || column.field !== 'id')
-      .map((column, index) => (
-        <div key={`${column.headerName}-${index}`} class="flex w-full flex-row gap-4">
+    <For each={tableColumns.filter((column) => !excludePrimary || column.field !== 'id')}>
+      {(column) => (
+        <div class="flex w-full flex-row gap-4">
           <div class="flex-1">
             <LabelRenderer column={column} data={rows} />
           </div>
@@ -65,7 +66,8 @@ const createListItemDescription = (
             <CellRenderer column={column} row={row} data={rows} />
           </div>
         </div>
-      ))}
+      )}
+    </For>
   </div>
 )
 
@@ -73,31 +75,16 @@ const createListItemDescription = (
  * List with expandable items - mobile table analogue
  */
 const DataList = (props: DataListProps) => {
-  const {
-    checkboxSelection,
-    columns,
-    count,
-    data,
-    excludePrimaryFromDetails,
-    noContentText,
-    onChangePage,
-    onSelectionChange,
-    page,
-    rowsClassArray,
-    rowsPerPage,
-    scrollOptions,
-    scrollToSelected = false,
-    serverPaginated = false,
-    showPagination,
-  } = props
+  const scrollToSelected = () => props.scrollToSelected ?? false
+  const serverPaginated = () => props.serverPaginated ?? false
 
   const [selection, setSelection] = createSignal<(string | number)[]>([])
 
-  const handleChangePage = (event: JSX.MouseEvent | null, nextPage: number) =>
-    onChangePage(event, nextPage)
+  const handleChangePage = (event: MouseEvent | null, nextPage: number) =>
+    props.onChangePage(event, nextPage)
 
   const handleSelection = (row: Row) => {
-    const newSelection = [...selection]
+    const newSelection = [...selection()]
     const rowId = getRowId(row)
     if (newSelection.indexOf(rowId) === -1) {
       newSelection.push(rowId)
@@ -105,76 +92,86 @@ const DataList = (props: DataListProps) => {
       newSelection.splice(newSelection.indexOf(rowId), 1)
     }
     setSelection(newSelection)
-    onSelectionChange({ rowIds: newSelection })
+    props.onSelectionChange({ rowIds: newSelection })
   }
 
   const handleSelectAll = () => {
-    let newSelection = [...selection]
+    let newSelection = [...selection()]
     if (newSelection.length > 0) {
       newSelection = []
     } else {
-      newSelection = data.map(getRowId)
+      newSelection = props.data.map(getRowId)
     }
     setSelection(newSelection)
-    onSelectionChange({ rowIds: newSelection })
+    props.onSelectionChange({ rowIds: newSelection })
   }
 
   const getRowClass = (index: number) => {
-    return rowsClassArray && rowsClassArray[index] ? rowsClassArray[index] : ''
+    return props.rowsClassArray && props.rowsClassArray[index]
+      ? props.rowsClassArray[index]
+      : ''
   }
 
-  if (
-    !Array.isArray(data) ||
-    data.length === 0 ||
-    !Array.isArray(columns) ||
-    columns.length === 0
-  ) {
-    return <NoContent text={noContentText} />
-  }
+  const visibleRows = () =>
+    serverPaginated()
+      ? props.data
+      : props.data.slice(
+          props.page * props.rowsPerPage,
+          props.page * props.rowsPerPage + props.rowsPerPage
+        )
+
+  const hasContent = () =>
+    Array.isArray(props.data) &&
+    props.data.length > 0 &&
+    Array.isArray(props.columns) &&
+    props.columns.length > 0
 
   return (
-    <div>
-      {checkboxSelection && (
-        <div style={{ padding: `12px 16px` }}>
-          <Checkbox
-            style={{ padding: `0 10px 5px 0` }}
-            checked={
-              selection.length === data.length
-                ? true
-                : selection.length > 0
-                  ? 'indeterminate'
-                  : false
-            }
-            onCheckedChange={() => handleSelectAll()}
+    <Show when={hasContent()} fallback={<NoContent text={props.noContentText} />}>
+      <div>
+        <Show when={props.checkboxSelection}>
+          <div style={{ padding: '12px 16px' }}>
+            <Checkbox
+              style={{ padding: '0 10px 5px 0' }}
+              checked={selection().length === props.data.length}
+              indeterminate={
+                selection().length > 0 && selection().length < props.data.length
+              }
+              onCheckedChange={() => handleSelectAll()}
+            />
+            <span class="text-sm">Select All</span>
+          </div>
+        </Show>
+        <For each={visibleRows()}>
+          {(row) => (
+            <ExpandableListItem
+              checkboxSelection={props.checkboxSelection}
+              details={createListItemDescription(
+                props.columns,
+                row,
+                props.data,
+                props.excludePrimaryFromDetails
+              )}
+              onSelect={handleSelection}
+              panelClass={getRowClass(index())}
+              row={row}
+              scrollOptions={props.scrollOptions}
+              scrollToSelected={scrollToSelected()}
+              selected={selection().indexOf(getRowId(row)) !== -1}
+              summary={createListItemTitle(props.columns, row, props.data)}
+            />
+          )}
+        </For>
+        <Show when={props.showPagination}>
+          <Pagination
+            count={props.count}
+            rowsPerPage={props.rowsPerPage}
+            page={props.page}
+            onChangePage={handleChangePage}
           />
-          <span class="text-sm">Select All</span>
-        </div>
-      )}
-      {(serverPaginated
-        ? data
-        : data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-      ).map((row, index) => (
-        <ExpandableListItem
-          checkboxSelection={checkboxSelection}
-          details={createListItemDescription(columns, row, data, excludePrimaryFromDetails)}          
-          onSelect={handleSelection}
-          panelClass={getRowClass(index)}
-          row={row}
-          scrollOptions={scrollOptions}
-          scrollToSelected={scrollToSelected}
-          selected={selection.indexOf(getRowId(row)) !== -1}
-          summary={createListItemTitle(columns, row, data)}
-        />
-      ))}
-      {showPagination && (
-        <Pagination
-          count={count}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-        />
-      )}
-    </div>
+        </Show>
+      </div>
+    </Show>
   )
 }
 

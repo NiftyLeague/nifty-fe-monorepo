@@ -1,21 +1,22 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 mock.module('@/runtime/env', () => ({ AUDIT_FIXTURE: true }))
 mock.module('@/runtime/request-cookies', () => ({ getRequestCookieHeader: () => null }))
 mock.module('@/runtime/dynamic', () => ({
   default:
     () =>
-    ({ children }: { children?: JSX.Element } &) =>
+    ({ children }: { children?: JSX.Element }) =>
       children,
 }))
 mock.module('@/contexts/AuditFixtureContextWrapper', () => ({
-  default: ({ children }: { children?: JSX.Element } &) => (
+  default: ({ children }: { children?: JSX.Element }) => (
     <div data-testid="audit-fixture-provider">{children}</div>
   ),
 }))
 mock.module('@/contexts/WalletAuthProviders', () => ({
-  default: ({ children }: { children?: JSX.Element } &) => (
+  default: ({ children }: { children?: JSX.Element }) => (
     <div data-testid="live-wallet-provider">{children}</div>
   ),
 }))

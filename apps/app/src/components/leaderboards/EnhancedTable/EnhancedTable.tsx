@@ -1,6 +1,6 @@
 'use client'
 
-import { createEffect, createMemo } from 'solid-js'
+import { createEffect, createMemo, Match, Switch, type JSX } from 'solid-js'
 
 import { Preloader } from '@nl/ui/custom/preloader'
 import { ResponsiveTable } from '@/components/ResponsiveTable'
@@ -21,33 +21,33 @@ const flatObject = (obj: { [key: string]: unknown }): Record<string, unknown> =>
   return flattened
 }
 
-export default function EnhancedTable({
-  page,
-  onPageChange,
-  selectedGame,
-  selectedTable,
-  selectedTimeFilter,
-}: TableProps): JSX.Element | null {
-  const paginationModel = { pageSize: 50, page: Math.max(0, page - 1) }
-  const { data, error, isPending, refetch } = useLeaderboardScores(
-    selectedGame,
-    selectedTable.key,
-    selectedTimeFilter,
-    paginationModel.pageSize,
-    paginationModel.page * paginationModel.pageSize
+export default function EnhancedTable(props: TableProps): JSX.Element | null {
+  const paginationModel = () => ({
+    pageSize: 50,
+    page: Math.max(0, props.page - 1),
+  })
+  const query = useLeaderboardScores(
+    () => props.selectedGame,
+    () => props.selectedTable.key,
+    () => props.selectedTimeFilter,
+    () => paginationModel().pageSize,
+    () => paginationModel().page * paginationModel().pageSize
   )
-  const rows = createMemo(() => data?.data.map(flatObject) ?? [], [data?.data])
-  const maxPage = Math.max(1, Math.ceil((data?.count ?? 0) / paginationModel.pageSize))
+  const rows = createMemo(() => query.data?.data.map(flatObject) ?? [])
+  const maxPage = () =>
+    Math.max(1, Math.ceil((query.data?.count ?? 0) / paginationModel().pageSize))
 
   createEffect(() => {
-    if (!isPending && page > maxPage) onPageChange(maxPage)
-  }, [isPending, maxPage, onPageChange, page])
+    if (!query.isPending && props.page > maxPage()) props.onPageChange(maxPage())
+  })
 
   const handlePaginationModelChange = (
-    update: { pageSize: number; page: number }
+    update:
+      | { pageSize: number; page: number }
+      | ((model: { pageSize: number; page: number }) => { pageSize: number; page: number })
   ) => {
-    const next = typeof update === 'function' ? update(paginationModel) : update
-    onPageChange(next.page + 1)
+    const next = typeof update === 'function' ? update(paginationModel()) : update
+    props.onPageChange(next.page + 1)
   }
 
   const columns = createMemo(() => {
@@ -62,43 +62,50 @@ export default function EnhancedTable({
     ]
 
     return baseColumns.concat(
-      selectedTable.rows.map((headerCell: TableRowType) => ({
+      props.selectedTable.rows.map((headerCell: TableRowType) => ({
         field: headerCell.key,
         headerName: headerCell.display,
         width: 250,
         primary: headerCell.primary,
       }))
     )
-  }, [selectedTable.rows])
+  })
 
   return (
     <div class="relative mb-20 min-h-96 sm:mb-0">
-      {isPending ? (
-        <Preloader ready={false} progress={0} label="Loading leaderboard" />
-      ) : error ? (
-        <QueryErrorState
-          error={error}
-          onRetry={() => void refetch()}
-          class="flex min-h-72 items-center justify-center gap-3 text-error"
-        />
-      ) : (
-        <div class="relative">
-          <LeaderboardRankBoundary
-            selectedGame={selectedGame}
-            selectedTable={selectedTable.key}
-            selectedTimeFilter={selectedTimeFilter}
-          />
-          <ResponsiveTable
-            paginationModel={paginationModel}
-            onPaginationModelChange={handlePaginationModelChange}
-            columns={columns}
-            showPagination={true}
-            data={rows}
-            count={data?.count ?? 0}
-            serverPaginated
-          />
-        </div>
-      )}
+      <Switch
+        fallback={
+          <div class="relative">
+            <LeaderboardRankBoundary
+              selectedGame={props.selectedGame}
+              selectedTable={props.selectedTable.key}
+              selectedTimeFilter={props.selectedTimeFilter}
+            />
+            <ResponsiveTable
+              paginationModel={paginationModel()}
+              onPaginationModelChange={handlePaginationModelChange}
+              columns={columns()}
+              showPagination={true}
+              data={rows()}
+              count={query.data?.count ?? 0}
+              serverPaginated
+            />
+          </div>
+        }
+      >
+        <Match when={query.isPending}>
+          <Preloader ready={false} progress={0} label="Loading leaderboard" />
+        </Match>
+        <Match when={query.error} keyed>
+          {(error) => (
+            <QueryErrorState
+              error={error}
+              onRetry={() => void query.refetch()}
+              className="flex min-h-72 items-center justify-center gap-3 text-error"
+            />
+          )}
+        </Match>
+      </Switch>
     </div>
   )
 }

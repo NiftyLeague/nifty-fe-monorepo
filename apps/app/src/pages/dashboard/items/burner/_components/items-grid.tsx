@@ -27,7 +27,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
               : item.title.toUpperCase().replace(/ BAT$| CHARACTER$/, '')
 
           return (
-            <div key={item.id}>
+            <div>
               <DeferredAnimatedImage
                 src={item.thumbnail ?? item.image}
                 animatedSrc={item.imageWebp}
@@ -53,7 +53,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
           )
         })}
       </div>
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ 'text-align': 'center' }}>
         <DeferredAnimatedImage
           src={citadelKey.thumbnail ?? citadelKey.image}
           animatedSrc={citadelKey.imageWebp}

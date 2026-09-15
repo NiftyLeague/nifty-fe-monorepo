@@ -1,13 +1,13 @@
 'use client'
 
 // third party
-import {  } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
 // project imports
 import AppShell from '@/layouts/_layout/AppShell'
 import Header from './_Header'
 import Sidebar from './_Sidebar'
+import type { JSX } from 'solid-js'
 
 const NetworkWarning = dynamic(() => import('./_Header/NetworkWarning'), { ssr: false })
 

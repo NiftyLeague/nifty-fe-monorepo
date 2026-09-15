@@ -1,4 +1,4 @@
-import { createMemo } from 'solid-js'
+import { createMemo, For, type JSX } from 'solid-js'
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import type { ProfileTotal, ProfileNiftySmsher } from '@/types/account'
@@ -11,8 +11,10 @@ interface LeftInfoProps {
   data: ProfileTotal | ProfileNiftySmsher | undefined
 }
 
-const LeftInfo = ({ data }: LeftInfoProps): JSX.Element => {
-  const leftDataMapper: { label: string; value: string | number | undefined }[] = createMemo(() => {
+const LeftInfo = (props: LeftInfoProps): JSX.Element => {
+  const profile = useGamerProfileContext()
+  const leftDataMapper = createMemo((): { label: string; value: string | number | undefined }[] => {
+    const data = props.data
     return [
       { label: 'XP Rank', value: data?.rank || 0 },
       { label: 'XP', value: Math.round(data?.xp || 0) },
@@ -24,14 +26,13 @@ const LeftInfo = ({ data }: LeftInfoProps): JSX.Element => {
       },
       { label: 'Time Played', value: `${secondsToHours(data?.time_played ?? 0)} Hours` },
     ]
-  }, [data])
+  })
 
-  const { isLoadingProfile } = useGamerProfileContext()
   return (
     <div class="flex flex-1 flex-col gap-2">
-      {leftDataMapper.map((child) => (
-        <Item {...child} isLoading={isLoadingProfile} />
-      ))}
+      <For each={leftDataMapper()}>
+        {(child) => <Item {...child} isLoading={profile.isLoadingProfile} />}
+      </For>
     </div>
   )
 }

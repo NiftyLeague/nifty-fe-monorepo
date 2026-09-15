@@ -20,7 +20,7 @@ const DegensTopNavControls = dynamic(() => import('./DegensTopNavControls'), {
 
 interface DegensTopNavProps {
   searchTerm: string
-  handleChangeSearchTerm: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>
+  handleChangeSearchTerm: JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event>
   handleSort: (sortOptions: string) => void
   sortValue: string
   layoutMode: string

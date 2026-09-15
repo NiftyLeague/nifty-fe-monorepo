@@ -9,6 +9,7 @@ import MiniGameContent from './MiniGameContent'
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 
 import type { ProfileNiftySmsher, ProfileMiniGame } from '@/types/account'
+import type { JSX } from 'solid-js'
 
 interface BottomInfoProps {
   nifty_smashers: ProfileNiftySmsher | undefined

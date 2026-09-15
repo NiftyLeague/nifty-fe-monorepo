@@ -15,7 +15,7 @@ export function useDebouncedSearchTerm(
   committed: string | Accessor<string>,
   commit: (searchTerm: string | null) => void,
   delayMs = 300
-): [Accessor<string>, JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement>] {
+): [Accessor<string>, JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event>] {
   const committedValue = () => (typeof committed === 'function' ? committed() : committed)
   const [draft, setDraft] = createSignal(committedValue())
   let timer: ReturnType<typeof setTimeout> | null = null
@@ -28,8 +28,8 @@ export function useDebouncedSearchTerm(
     if (timer) clearTimeout(timer)
   })
 
-  const handleChange: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement> = (event) => {
-    const value = event.target.value
+  const handleChange: JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event> = (event) => {
+    const value = (event.target as HTMLInputElement | HTMLTextAreaElement).value
     setDraft(value)
     if (timer) clearTimeout(timer)
     timer = setTimeout(() => {

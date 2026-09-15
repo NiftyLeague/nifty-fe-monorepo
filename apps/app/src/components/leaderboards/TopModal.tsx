@@ -1,5 +1,6 @@
 'use client'
 
+import { For, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 
 import { CircularProgress } from '@nl/ui/custom/circular-progress'
@@ -21,34 +22,33 @@ interface TableModalProps {
   myRank?: number
 }
 
-const TableModal = ({
-  selectedGame,
-  flag,
-  selectedTimeFilter,
-  myRank,
-}: TableModalProps): JSX.Element | null => {
-  const offset = myRank && myRank >= 3 ? myRank - 3 : 0
-  const {
-    data: result,
-    error,
-    isPending,
-    refetch,
-  } = useLeaderboardScores(selectedGame, flag, selectedTimeFilter, 10, offset, Boolean(myRank))
-  const data = result?.data as DataType[] | undefined
+const TableModal = (props: TableModalProps): JSX.Element | null => {
+  const offset = () => (props.myRank && props.myRank >= 3 ? props.myRank - 3 : 0)
+  const query = useLeaderboardScores(
+    () => props.selectedGame,
+    () => props.flag,
+    () => props.selectedTimeFilter,
+    10,
+    offset,
+    () => Boolean(props.myRank)
+  )
+  const data = () => query.data?.data as DataType[] | undefined
 
   const getTextStyleForRank = (rank: number) => {
-    return rank === myRank ? { color: '#E49C8E' } : {}
+    return rank === props.myRank ? { color: '#E49C8E' } : {}
   }
 
   // shorten user id letters
   const handleShareOnTwitter = () => {
-    const currentGame = LEADERBOARD_GAME_LIST.filter((game) => game.key === selectedGame)?.[0]
+    const currentGame = LEADERBOARD_GAME_LIST.filter(
+      (game) => game.key === props.selectedGame
+    )?.[0]
     if (!currentGame) return
     const { display } = currentGame
     const obj = {
       original_referer: 'https://app.niftyleague.com/',
       ref_src: 'twsrc^tfw|twcamp^buttonembed|twterm^share|twgr^',
-      text: `I ranked #${myRank} on the ${display} Top Score Leaderboard. Check out @niftyleague games: https://app.niftyleague.com/`,
+      text: `I ranked #${props.myRank} on the ${display} Top Score Leaderboard. Check out @niftyleague games: https://app.niftyleague.com/`,
       hashtags: 'NiftyLeague,NFT,NFTGaming',
     }
     if (typeof window !== 'undefined')
@@ -57,18 +57,20 @@ const TableModal = ({
 
   return (
     <div class={styles.tableRoot}>
-      {isPending && myRank && (
+      <Show when={query.isPending && props.myRank}>
         <div class={styles.loadingBox} role="status" aria-label="Loading leaderboard">
           <CircularProgress />
         </div>
-      )}
-      {error && (
-        <QueryErrorState
-          error={error}
-          onRetry={() => void refetch()}
-          class="flex items-center justify-center gap-3 py-4 text-error"
-        />
-      )}
+      </Show>
+      <Show when={query.error}>
+        {(error) => (
+          <QueryErrorState
+            error={error()}
+            onRetry={() => void query.refetch()}
+            className="flex items-center justify-center gap-3 py-4 text-error"
+          />
+        )}
+      </Show>
       <Table class="modal-table">
         <TableHeader class="header [&_tr]:border-0">
           <TableRow class="row border-0 hover:bg-transparent">
@@ -78,124 +80,151 @@ const TableModal = ({
             <TableHead class="cell ellipsis" scope="col">
               <code>USERNAME</code>
             </TableHead>
-            {flag === 'win_rate' && (
+            <Show when={props.flag === 'win_rate'}>
               <TableHead class="cell ellipsis" scope="col">
                 <code>WIN RATE</code>
               </TableHead>
-            )}
-            {flag === 'earnings' && (
+            </Show>
+            <Show when={props.flag === 'earnings'}>
               <TableHead
                 class="cell ellipsis"
                 scope="col"
-                style={{ fontSize: 10, textAlign: 'center' }}
+                style={{ 'font-size': '10px', 'text-align': 'center' }}
               >
                 <code>TOTAL NFTL EARNED</code>
               </TableHead>
-            )}
-            {selectedGame === 'nifty_smashers' && (
+            </Show>
+            <Show when={props.selectedGame === 'nifty_smashers'}>
               <TableHead
                 class="cell ellipsis"
                 scope="col"
-                style={{ fontSize: 10, textAlign: 'center' }}
+                style={{ 'font-size': '10px', 'text-align': 'center' }}
               >
                 <code>MATCHES PLAYED</code>
               </TableHead>
-            )}
-            {flag === 'earnings' && (
+            </Show>
+            <Show when={props.flag === 'earnings'}>
               <TableHead
                 class="cell ellipsis"
                 scope="col"
-                style={{ fontSize: 10, textAlign: 'center' }}
+                style={{ 'font-size': '10px', 'text-align': 'center' }}
               >
                 <code>AVG,NFTL / MATCH</code>
               </TableHead>
-            )}
-            {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
+            </Show>
+            <Show when={props.flag !== 'win_rate' && props.selectedGame === 'nifty_smashers'}>
               <TableHead class="cell ellipsis" scope="col">
                 <code>KILLS</code>
               </TableHead>
-            )}
-            {flag === 'score' && (
+            </Show>
+            <Show when={props.flag === 'score'}>
               <TableHead class="cell ellipsis" scope="col">
                 <code>HIGH SCORE</code>
               </TableHead>
-            )}
-            {flag === 'burnings' && (
+            </Show>
+            <Show when={props.flag === 'burnings'}>
               <TableHead class="cell ellipsis" scope="col">
                 <code>NFTL BURNED</code>
               </TableHead>
-            )}
+            </Show>
           </TableRow>
         </TableHeader>
         <TableBody class="body">
-          {data?.map((i) => (
-            <TableRow
-              class="row first border-0 hover:bg-transparent"
-              key={`${i.rank}-${i.user_id}`}
-            >
-              <TableCell class="cell index" style={{ color: '#9ba5bf' }}>
-                <span class={styles.rankBody} style={getTextStyleForRank(i.rank)}>
-                  {i.rank}
-                </span>
-                {i.rank === 1 && <div class={styles.lineTopBox} />}
-                {i.rank === 10 && <div class={styles.lineBottomBox} />}
-              </TableCell>
-              <TableCell
-                style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
-                class="cell ellipsis"
-              >
-                {i.user_id}
-                {i.rank === 1 && <div class={styles.lineTopBox} />}
-                {i.rank === 10 && <div class={styles.lineBottomBox} />}
-              </TableCell>
-              {flag === 'win_rate' && (
-                <TableCell class="cell ellipsis">{i.stats.win_rate}</TableCell>
-              )}
-              {flag === 'earnings' && (
-                <TableCell class="cell ellipsis end">
-                  {i.stats.earnings}
-                  {i.rank === 1 && flag === 'earnings' && <div class={styles.lineTopBox} />}
-                  {i.rank === 10 && flag === 'earnings' && <div class={styles.lineBottomBox} />}
+          <For each={data()}>
+            {(i) => (
+              <TableRow class="row first border-0 hover:bg-transparent">
+                <TableCell class="cell index" style={{ color: '#9ba5bf' }}>
+                  <span class={styles.rankBody} style={getTextStyleForRank(i.rank)}>
+                    {i.rank}
+                  </span>
+                  <Show when={i.rank === 1}>
+                    <div class={styles.lineTopBox} />
+                  </Show>
+                  <Show when={i.rank === 10}>
+                    <div class={styles.lineBottomBox} />
+                  </Show>
                 </TableCell>
-              )}
-              {selectedGame === 'nifty_smashers' && (
                 <TableCell
-                  style={{ ...getTextStyleForRank(i.rank), fontSize: 14, background: '' }}
-                  class="cell ellipsis end"
+                  style={{
+                    ...getTextStyleForRank(i.rank),
+                    'font-size': '14px',
+                    background: '',
+                  }}
+                  class="cell ellipsis"
                 >
-                  {i.stats.matches}
-                  {i.rank === 1 && flag === 'earnings' && <div class={styles.lineTopBox} />}
-                  {i.rank === 10 && flag === 'earnings' && <div class={styles.lineBottomBox} />}
+                  {i.user_id}
+                  <Show when={i.rank === 1}>
+                    <div class={styles.lineTopBox} />
+                  </Show>
+                  <Show when={i.rank === 10}>
+                    <div class={styles.lineBottomBox} />
+                  </Show>
                 </TableCell>
-              )}
-              {flag === 'earnings' && (
-                <TableCell class="cell ellipsis end">
-                  {i.stats['avg_NFTL/match']}
-                  {i.rank === 1 && <div class={styles.lineTopBox} />}
-                  {i.rank === 10 && <div class={styles.lineBottomBox} />}
-                </TableCell>
-              )}
-              {flag !== 'win_rate' && selectedGame === 'nifty_smashers' && (
-                <TableCell class="cell ellipsis end">{i.stats.kills}</TableCell>
-              )}
-              {selectedGame !== 'nifty_smashers' && (
-                <TableCell
-                  style={{ ...getTextStyleForRank(i.rank), fontSize: 14 }}
-                  class="cell ellipsis end"
-                >
-                  {i.score}
-                </TableCell>
-              )}
-            </TableRow>
-          ))}
+                <Show when={props.flag === 'win_rate'}>
+                  <TableCell class="cell ellipsis">{i.stats.win_rate}</TableCell>
+                </Show>
+                <Show when={props.flag === 'earnings'}>
+                  <TableCell class="cell ellipsis end">
+                    {i.stats.earnings}
+                    <Show when={i.rank === 1 && props.flag === 'earnings'}>
+                      <div class={styles.lineTopBox} />
+                    </Show>
+                    <Show when={i.rank === 10 && props.flag === 'earnings'}>
+                      <div class={styles.lineBottomBox} />
+                    </Show>
+                  </TableCell>
+                </Show>
+                <Show when={props.selectedGame === 'nifty_smashers'}>
+                  <TableCell
+                    style={{
+                      ...getTextStyleForRank(i.rank),
+                      'font-size': '14px',
+                      background: '',
+                    }}
+                    class="cell ellipsis end"
+                  >
+                    {i.stats.matches}
+                    <Show when={i.rank === 1 && props.flag === 'earnings'}>
+                      <div class={styles.lineTopBox} />
+                    </Show>
+                    <Show when={i.rank === 10 && props.flag === 'earnings'}>
+                      <div class={styles.lineBottomBox} />
+                    </Show>
+                  </TableCell>
+                </Show>
+                <Show when={props.flag === 'earnings'}>
+                  <TableCell class="cell ellipsis end">
+                    {i.stats['avg_NFTL/match']}
+                    <Show when={i.rank === 1}>
+                      <div class={styles.lineTopBox} />
+                    </Show>
+                    <Show when={i.rank === 10}>
+                      <div class={styles.lineBottomBox} />
+                    </Show>
+                  </TableCell>
+                </Show>
+                <Show when={props.flag !== 'win_rate' && props.selectedGame === 'nifty_smashers'}>
+                  <TableCell class="cell ellipsis end">{i.stats.kills}</TableCell>
+                </Show>
+                <Show when={props.selectedGame !== 'nifty_smashers'}>
+                  <TableCell
+                    style={{ ...getTextStyleForRank(i.rank), 'font-size': '14px' }}
+                    class="cell ellipsis end"
+                  >
+                    {i.score}
+                  </TableCell>
+                </Show>
+              </TableRow>
+            )}
+          </For>
         </TableBody>
       </Table>
-      {data && (
+      <Show when={data()}>
         <button type="button" class={styles.twitterTypography} onClick={handleShareOnTwitter}>
           Share on twitter{' '}
           <NativeImage src="/icons/socials/twitter.svg" alt="Twitter Icon" width={22} height={20} />
         </button>
-      )}
+      </Show>
     </div>
   )
 }
@@ -205,27 +234,20 @@ type TopModalProps = TableModalProps & {
   open: boolean
 }
 
-const TopModal = ({
-  selectedGame,
-  flag,
-  onOpenChange,
-  open,
-  selectedTimeFilter,
-  myRank,
-}: TopModalProps): JSX.Element | null => {
+const TopModal = (props: TopModalProps): JSX.Element | null => {
   return (
     <CustomModal
       child={
         <TableModal
-          selectedGame={selectedGame}
-          flag={flag}
-          selectedTimeFilter={selectedTimeFilter}
-          myRank={myRank}
+          selectedGame={props.selectedGame}
+          flag={props.flag}
+          selectedTimeFilter={props.selectedTimeFilter}
+          myRank={props.myRank}
         />
       }
-      flag={flag}
-      onOpenChange={onOpenChange}
-      open={open}
+      flag={props.flag}
+      onOpenChange={props.onOpenChange}
+      open={props.open}
     />
   )
 }

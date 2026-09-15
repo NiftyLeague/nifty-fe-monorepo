@@ -1,9 +1,9 @@
 'use client'
 
-import { createMemo } from 'solid-js'
+import { createMemo, type JSX } from 'solid-js'
 import { useQuery } from '@tanstack/solid-query'
-import { useQueryStates } from 'nuqs'
-import { toast } from 'sonner'
+import { useQueryStates } from '@/url/nuqs-solid'
+import { toast } from 'solid-sonner'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
 
 import {
@@ -30,19 +30,29 @@ import {
 } from '@/query/app-query'
 import { rentalSearchParsers } from '@/url/search-state'
 
+const CATEGORY_OPTIONS: { value: RentalType | 'full-history'; label: string }[] = [
+  { value: 'all', label: 'All' },
+  { value: 'direct-rental', label: 'Direct Rental' },
+  { value: 'recruited', label: 'Recruited' },
+  { value: 'owned-sponsorship', label: 'Owned Sponsorship' },
+  { value: 'non-owned-sponsorship', label: 'Non-Owned Sponsorship' },
+  { value: 'direct-renter', label: 'Direct Renter' },
+  { value: 'terminated', label: 'Terminated' },
+  { value: 'full-history', label: 'Full History' },
+]
+
 const DashboardRentalPage = (): JSX.Element => {
-  const { authToken } = useAuth()
-  const scope = getAuthQueryScope(authToken)
+  const auth = useAuth()
   const [searchState, setSearchState] = useQueryStates(rentalSearchParsers, {
     history: 'push',
     shallow: true,
   })
-  const searchTerm = searchState.search
-  const category = searchState.category as RentalType
+  const searchTerm = () => searchState.search
+  const category = () => searchState.category as RentalType
   const terminalRental = useTeminateRental()
 
   const getFetchUrl = (): string[] => {
-    switch (category) {
+    switch (category()) {
       case 'all':
         return [
           ALL_RENTAL_API_URL,
@@ -70,7 +80,7 @@ const DashboardRentalPage = (): JSX.Element => {
       urls.map((url) =>
         fetchApiQuery<Rentals[]>(url, {
           signal,
-          init: { method: 'GET', headers: { authorizationToken: authToken || '' } },
+          init: { method: 'GET', headers: { authorizationToken: auth.authToken || '' } },
         })
       )
     )
@@ -78,21 +88,22 @@ const DashboardRentalPage = (): JSX.Element => {
     return getUniqueListBy(totalRentals as Rentals[], 'id')
   }
 
-  const { data, isLoading, isFetching, refetch } = useQuery<Rentals[]>({
-    queryKey: queryKeys.rentals(scope, category),
+  const rentalsQuery = useQuery(() => ({
+    queryKey: queryKeys.rentals(getAuthQueryScope(auth.authToken), category()),
     queryFn: ({ signal }) => fetchRentals(signal),
-    enabled: !!authToken,
+    enabled: !!auth.authToken,
     staleTime: AUTHENTICATED_STALE_TIME_MS,
-  })
+  }))
 
   const rentals = createMemo(() => {
+    const data = rentalsQuery.data
     if (!data) return []
-    return filterBySearch(data, searchTerm, (rental: Rentals) => [
+    return filterBySearch(data, searchTerm(), (rental: Rentals) => [
       rental?.accounts?.player?.address,
       rental?.degen?.id,
       rental?.accounts?.player?.name,
     ])
-  }, [data, searchTerm])
+  })
 
   const terminateRentalById = async (rentalId: string) => {
     try {
@@ -105,7 +116,7 @@ const DashboardRentalPage = (): JSX.Element => {
       const res = await result?.json()
       if (res) {
         toast.success('Terminate rental successfully!')
-        refetch()
+        rentalsQuery.refetch()
       }
     } catch (error) {
       toast.error(`Can not terminate the rental: ${error}`)
@@ -113,7 +124,7 @@ const DashboardRentalPage = (): JSX.Element => {
   }
 
   const updateRentalName = () => {
-    refetch()
+    rentalsQuery.refetch()
   }
 
   const handleSearch = (currentValue: string) => {
@@ -135,30 +146,34 @@ const DashboardRentalPage = (): JSX.Element => {
             <Label for="category" class="mb-1 block text-xs text-muted-foreground">
               Category
             </Label>
-            <Select value={category} onValueChange={handleChangeCategory}>
+            <Select<(typeof CATEGORY_OPTIONS)[number]>
+              options={CATEGORY_OPTIONS}
+              optionValue="value"
+              optionTextValue="label"
+              value={CATEGORY_OPTIONS.find((option) => option.value === category())}
+              onValueChange={(option) =>
+                option && handleChangeCategory((option as (typeof CATEGORY_OPTIONS)[number]).value)
+              }
+              itemComponent={(itemProps) => (
+                <SelectItem item={itemProps.item}>
+                  {itemProps.item.rawValue.label}
+                </SelectItem>
+              )}
+            >
               <SelectTrigger id="category">
-                <SelectValue />
+                <SelectValue<(typeof CATEGORY_OPTIONS)[number]> />
               </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All</SelectItem>
-                <SelectItem value="direct-rental">Direct Rental</SelectItem>
-                <SelectItem value="recruited">Recruited</SelectItem>
-                <SelectItem value="owned-sponsorship">Owned Sponsorship</SelectItem>
-                <SelectItem value="non-owned-sponsorship">Non-Owned Sponsorship</SelectItem>
-                <SelectItem value="direct-renter">Direct Renter</SelectItem>
-                <SelectItem value="terminated">Terminated</SelectItem>
-                <SelectItem value="full-history">Full History</SelectItem>
-              </SelectContent>
+              <SelectContent />
             </Select>
           </div>
-          <SearchRental handleSearch={handleSearch} value={searchTerm} />
+          <SearchRental handleSearch={handleSearch} value={searchTerm()} />
         </div>
       </div>
       <div class="h-[calc(100vh-208px)]">
         <MyRentalsDataGrid
-          loading={isLoading || isFetching}
-          rows={rentals}
-          category={category}
+          loading={rentalsQuery.isLoading || rentalsQuery.isFetching}
+          rows={rentals()}
+          category={category()}
           onTerminateRental={terminateRentalById}
           updateRentalName={updateRentalName}
         />

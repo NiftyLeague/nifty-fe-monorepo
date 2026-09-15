@@ -7,6 +7,7 @@ import { useGamerProfile } from '@/hooks/useGamerProfile'
 import GamerProfileContext from '@/contexts/GamerProfileContext'
 import LeftInfo from '../gamer-profile/_Stats/LeftInfo'
 import type { Profile } from '@/types/account'
+import type { JSX } from 'solid-js'
 
 const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
   return (

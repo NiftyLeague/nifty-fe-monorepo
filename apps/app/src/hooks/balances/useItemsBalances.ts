@@ -39,8 +39,8 @@ export default function useItemssBalances(): ItemsBalancesState {
   const marketplaceContract = () => getDeployedContract(imx.imxChainId, MARKETPLACE_CONTRACT)
 
   const contract = useReadContract(() => ({
-    address: marketplaceContract()?.address,
-    abi: marketplaceContract()?.abi,
+    address: marketplaceContract()?.address as `0x${string}`,
+    abi: marketplaceContract()?.abi as never,
     chainId: imx.imxChainId,
     functionName: 'balanceOfBatch',
     args: [Array(ITEM_IDS.length).fill(account.address) as AddressLike[], ITEM_IDS],

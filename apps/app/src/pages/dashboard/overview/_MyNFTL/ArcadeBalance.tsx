@@ -1,6 +1,6 @@
 'use client'
 
-import { createSignal } from 'solid-js'
+import { createSignal, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 
@@ -13,30 +13,30 @@ import HoverDataCard from '@/components/cards/HoverDataCard'
 
 const ArcadeBalance = (): JSX.Element => {
   const router = useRouter()
-  const { tokensBalances, loadingArcadeBal, refetchArcadeBal } = useTokensBalances()
+  const tokens = useTokensBalances()
   const [openBuyAT, setOpenBuyAT] = createSignal(false)
 
   const handleBuyArcadeTokens = () => {
     setOpenBuyAT(true)
   }
 
-  const handlePlayArcade = (() => {
+  const handlePlayArcade = () => {
     gtm.sendEvent(GTM_EVENTS.PLAY_ARCADE_GAMES_BUTTON_TAPPED)
     router.push('/games')
-  }, [router])
+  }
 
   return (
     <>
       <HoverDataCard
         title="Arcade Token Balance"
-        primary={`${tokensBalances.AT} Tokens`}
+        primary={`${tokens.tokensBalances.AT} Tokens`}
         customStyle={{
           'background-color': 'var(--color-card)',
           border: 'var(--border-default)',
           position: 'relative',
         }}
         secondary=" "
-        isLoading={loadingArcadeBal}
+        isLoading={tokens.loadingArcadeBal}
         actions={
           <>
             <div class="flex w-full flex-row items-center gap-2">
@@ -51,10 +51,10 @@ const ArcadeBalance = (): JSX.Element => {
         }
       />
       <BuyArcadeTokensDialog
-        open={openBuyAT}
+        open={openBuyAT()}
         onSuccess={() => {
           setOpenBuyAT(false)
-          refetchArcadeBal()
+          tokens.refetchArcadeBal()
         }}
         onClose={() => setOpenBuyAT(false)}
       />

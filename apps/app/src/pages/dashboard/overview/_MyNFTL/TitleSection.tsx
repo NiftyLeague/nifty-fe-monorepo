@@ -6,6 +6,7 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import SectionTitle from '@/components/sections/SectionTitle'
 import AddNFTLToMetamask from '@/layouts/_layout/_MainLayout/_Header/AddNFTLToMetamask'
+import type { JSX } from 'solid-js'
 
 const TitleSection = (): JSX.Element => {
   const { loadingNFTLBal, tokensBalances } = useTokensBalances()

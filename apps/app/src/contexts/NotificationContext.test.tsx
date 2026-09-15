@@ -1,59 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
+import type { JSX } from 'solid-js'
 import { describe, expect, it } from 'bun:test'
-import { act, renderHook } from '@testing-library/react'
-import { describe, expect, it } from 'bun:test'
-
-
-import {
-  NotificationProvider,
-  useCloseSnackbar,
-  useOpenSnackbar,
-  useSnackbar,
-} from './NotificationContext'
-
-const wrapper = ({ children }: { children?: JSX.Element }) => (
-  <NotificationProvider>{children}</NotificationProvider>
-)
-
-describe('NotificationContext', () => {
-  it('normalizes themed notification input and closes it without Redux', () => {
-    const { result } = renderHook(
-      () => ({
-        snackbar: useSnackbar(),
-        openSnackbar: useOpenSnackbar(),
-        closeSnackbar: useCloseSnackbar(),
-      }),
-      { wrapper }
-    )
-
-    act(() =>
-      result.current.openSnackbar({
-        open: true,
-        message: 'Saved',
-        variant: 'alert',
-        alert: { color: 'success' },
-        close: false,
-      })
-    )
-
-    expect(result.current.snackbar).toMatchObject({
-      open: true,
-      message: 'Saved',
-      variant: 'alert',
-      alert: { color: 'success', variant: 'filled' },
-      close: false,
-    })
-
-    act(() => result.current.closeSnackbar())
-    expect(result.current.snackbar.open).toBe(false)
-  })
-
-  it('fails clearly when consumed outside its provider', () => {
-    expect(() => renderHook(() => useSnackbar())).toThrow(
-      'useNotification must be used inside NotificationProvider'
-    )
-  })
-})
 
 
 import {

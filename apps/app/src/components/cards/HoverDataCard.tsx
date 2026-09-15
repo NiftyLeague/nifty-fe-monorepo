@@ -3,6 +3,7 @@ import { Title } from '@nl/ui/custom/typography'
 import type { GenericCardProps } from '@/types'
 // project imports
 import MainCard from './MainCard'
+import type { JSX } from 'solid-js'
 
 // ============================|| HOVER DATA CARD ||============================ //
 

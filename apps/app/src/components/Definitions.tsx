@@ -1,3 +1,5 @@
+import type { JSX } from 'solid-js'
+
 const Definitions = (): JSX.Element => (
   <>
     <h3>Interpretation and Definitions</h3>

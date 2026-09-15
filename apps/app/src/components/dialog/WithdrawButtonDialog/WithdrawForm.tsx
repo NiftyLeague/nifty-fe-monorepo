@@ -1,7 +1,6 @@
 'use client'
 
-import { useContext, createSignal } from 'solid-js'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useContext, createSignal, Show, type JSX } from 'solid-js'
 import type { TransactionResponse } from 'ethers'
 import { useSwitchChain } from '@/runtime/wagmi'
 
@@ -19,90 +18,89 @@ import useIMXContext from '@/hooks/useIMXContext'
 import { DialogContext } from '@/components/dialog'
 
 type WithdrawFormProps = { balance: number; onWithdrawSuccess: () => void }
-type IFormInput = { withdrawal: string }
 
-const WithdrawForm = ({ balance, onWithdrawSuccess }: WithdrawFormProps): JSX.Element => {
-  const { imxChainId } = useIMXContext()
+const WithdrawForm = (props: WithdrawFormProps): JSX.Element => {
+  const imx = useIMXContext()
   const isConnectedToIMX = useConnectedToIMXCheck()
   const { switchChain } = useSwitchChain()
   const { claimCallback } = useClaimCallback()
 
   const [, setIsOpen] = useContext(DialogContext)
   const [loading, setLoading] = createSignal(false)
-
-  const {
-    handleSubmit,
-    setError,
-    reset,
-    formState: { errors },
-  } = useForm<IFormInput>()
+  const [error, setError] = createSignal('')
 
   const resetForm = () => {
     setLoading(false)
-    reset()
+    setError('')
     setIsOpen(false)
   }
 
-  const handleWithdrawNFTL = (async (): Promise<{
+  const handleWithdrawNFTL = async (): Promise<{
     txRes: TransactionResponse | null
   }> => {
     const txRes = await claimCallback()
     return { txRes }
-  }, [claimCallback])
+  }
 
-  const onSubmit: SubmitHandler<IFormInput> = async () => {
-    if (!isConnectedToIMX) {
-      switchChain?.({ chainId: imxChainId })
+  const onSubmit = async () => {
+    if (!isConnectedToIMX()) {
+      switchChain?.({ chainId: imx.imxChainId })
       return
     }
-    if (balance === 0) {
-      setError('withdrawal', { type: 'custom', message: 'No NFTL available to withdraw.' })
+    if (props.balance === 0) {
+      setError('No NFTL available to withdraw.')
       return
     }
     setLoading(true)
     const { txRes } = await handleWithdrawNFTL()
     if (txRes === null) {
-      setError('withdrawal', {
-        type: 'custom',
-        message: 'Failed to withdraw NFTL. Please try again.',
-      })
+      setError('Failed to withdraw NFTL. Please try again.')
       setLoading(false)
       return
     }
-    onWithdrawSuccess()
+    props.onWithdrawSuccess()
     resetForm()
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault()
+        void onSubmit()
+      }}
+    >
       <div class="flex flex-col items-center gap-4">
         <Title level={4}>Game &amp; Rental Balance</Title>
         <Title level={2} class="opacity-70">
-          {formatNumberToDisplay(balance)} NFTL
+          {formatNumberToDisplay(props.balance)} NFTL
           <span class="block text-base">Available to Withdraw</span>
         </Title>
 
         <p class="text-base">
           You have until{' '}
-          <span style={{ 'font-weight': 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span> to
-          withdraw.
+          <span style={{ 'font-weight': 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span>{' '}
+          to withdraw.
         </p>
 
         <Alert class="border-blue/40 bg-blue/10 text-blue">
           NFTL will be sent to your Immutable zkEVM wallet!
         </Alert>
 
-        {errors.withdrawal && <Alert variant="destructive">{errors.withdrawal.message}</Alert>}
+        <Show when={error()}>
+          {(msg) => <Alert variant="destructive">{msg()}</Alert>}
+        </Show>
 
         <Button
           size="lg"
           type="submit"
           variant="default"
           class="w-full"
-          disabled={loading || (isConnectedToIMX && balance === 0)}
+          disabled={loading() || (isConnectedToIMX() && props.balance === 0)}
         >
-          {loading && <CircularProgress size="sm" />}
-          {!isConnectedToIMX ? 'Switch Network to IMX' : 'Withdraw NFTL'}
+          <Show when={loading()}>
+            <CircularProgress size="sm" />
+          </Show>
+          {!isConnectedToIMX() ? 'Switch Network to IMX' : 'Withdraw NFTL'}
         </Button>
       </div>
     </form>

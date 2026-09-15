@@ -1,13 +1,13 @@
 'use client'
 
-import {  } from 'solid-js'
+import { type Component } from 'solid-js'
 import DeferredSection from '@nl/ui/custom/deferred-section'
 
 const createWeb3GameGrid = (Web3GameList: Component) =>
   function Web3GameGrid() {
     return (
       <div class="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
-        {createElement(Web3GameList)}
+        <Web3GameList />
       </div>
     )
   }

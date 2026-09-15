@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from 'solid-js'
-import { Edit } from 'lucide-react'
+import { Edit } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
 import DeferredComponent from '@nl/ui/custom/deferred-component'
@@ -9,6 +9,7 @@ import { Dialog, DialogContext, DialogTrigger, DialogContent } from '@/component
 import DeferredDialogLoading from '@/components/providers/DeferredDialogLoading'
 
 import type { ProfileImageContentProps } from './ProfileImageContent'
+import type { JSX } from 'solid-js'
 
 const loadProfileImageContent = () => import('./ProfileImageContent')
 
@@ -17,7 +18,7 @@ function DeferredProfileImageContent(props: ProfileImageContentProps): JSX.Eleme
 
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="profile image picker"
       load={loadProfileImageContent}
       loadingFallback={<DeferredDialogLoading label="Loading profile image picker" />}

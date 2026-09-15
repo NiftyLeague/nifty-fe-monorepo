@@ -1,7 +1,7 @@
 'use client'
 
 import { PaginationControls } from '@/components/pagination/PaginationControls'
-import { createMemo, type JSX } from 'solid-js'
+import { createMemo, Show, type JSX } from 'solid-js'
 import type { SxProps } from '@/types'
 import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
 import type {
@@ -23,56 +23,46 @@ interface Props {
   styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
 }
 
-const SectionSlider = ({
-  title,
-  firstSection,
-  children,
-  actions,
-  sliderSettingsOverride,
-  isSlider = true,
-  variant = 'h2',
-  styles,
-}: Props & { children?: JSX.Element }): JSX.Element => {
-  let refSlider: ResponsiveCarouselRef | undefined
-  const settings = useMemo<ResponsiveCarouselSettings>(
-    () => ({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      infinite: true,
-      rows: 1,
-      responsive: [
-        { breakpoint: 1536, settings: { slidesToShow: 4 } },
-        { breakpoint: 1280, settings: { slidesToShow: 3 } },
-        { breakpoint: 1024, settings: { slidesToShow: 2 } },
-        { breakpoint: 768, settings: { slidesToShow: 1 } },
-        { breakpoint: 640, settings: { slidesToShow: 1 } },
-      ],
-      ...sliderSettingsOverride,
-    }),
-    [sliderSettingsOverride]
-  )
+const SectionSlider = (props: Props & { children?: JSX.Element }): JSX.Element => {
+  let sliderApi: ResponsiveCarouselRef | undefined
+  const isSlider = () => props.isSlider ?? true
+  const variant = () => props.variant ?? 'h2'
+  const settings = createMemo<ResponsiveCarouselSettings>(() => ({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    infinite: true,
+    rows: 1,
+    responsive: [
+      { breakpoint: 1536, settings: { slidesToShow: 4 } },
+      { breakpoint: 1280, settings: { slidesToShow: 3 } },
+      { breakpoint: 1024, settings: { slidesToShow: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1 } },
+      { breakpoint: 640, settings: { slidesToShow: 1 } },
+    ],
+    ...props.sliderSettingsOverride,
+  }))
 
   const onClickNext = () => {
-    refSlider?.current?.slickNext()
+    sliderApi?.slickNext()
   }
 
   const onClickPrev = () => {
-    refSlider?.current?.slickPrev()
+    sliderApi?.slickPrev()
   }
 
   return (
     <div
       class="flex flex-col"
-      style={{ gap: sectionSpacing * 8, ...(styles?.root as JSX.CSSProperties) }}
+      style={{ gap: `${sectionSpacing * 8}px`, ...(props.styles?.root as JSX.CSSProperties) }}
     >
-      <div style={styles?.headerRow as JSX.CSSProperties}>
+      <div style={props.styles?.headerRow as JSX.CSSProperties}>
         <SectionTitle
-          firstSection={firstSection}
-          variant={variant}
+          firstSection={props.firstSection}
+          variant={variant()}
           actions={
             <div class="flex flex-row gap-4">
-              {actions}
-              {isSlider && (
+              {props.actions}
+              <Show when={isSlider()}>
                 <PaginationControls
                   hasNext
                   hasPrev
@@ -81,27 +71,29 @@ const SectionSlider = ({
                   onClickNext={onClickNext}
                   onClickPrev={onClickPrev}
                 />
-              )}
+              </Show>
             </div>
           }
         >
-          {title}
+          {props.title}
         </SectionTitle>
       </div>
-      <div style={styles?.mainRow as JSX.CSSProperties}>
-        {isSlider ? (
+      <div style={props.styles?.mainRow as JSX.CSSProperties}>
+        <Show when={isSlider()} fallback={props.children}>
           <ResponsiveCarousel
-            {...settings}
-            ariaLabel={typeof title === 'string' ? title : 'Featured content'}
-            ref={refSlider}
+            {...settings()}
+            ariaLabel={
+              typeof props.title === 'string' ? props.title : 'Featured content'
+            }
+            ref={(api) => {
+              sliderApi = api
+            }}
             slidePadding="0"
             showControls={false}
           >
-            {children}
+            {props.children}
           </ResponsiveCarousel>
-        ) : (
-          children
-        )}
+        </Show>
       </div>
     </div>
   )

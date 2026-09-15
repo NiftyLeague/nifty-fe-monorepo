@@ -1,6 +1,6 @@
-import {  } from 'solid-js'
 import SatoshiFrame from './satoshi-frame'
 import SatoshiBurnAnim from './satoshi-burn-animations'
+import type { JSX } from 'solid-js'
 
 const SatoshiAnimations = (props: { burning: boolean; children?: JSX.Element }) => {
   const { burning } = props

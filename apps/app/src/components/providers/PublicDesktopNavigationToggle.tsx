@@ -1,6 +1,6 @@
 'use client'
 
-import { createEffect } from 'solid-js'
+import { onMount } from 'solid-js'
 
 function syncSidebarState(details: HTMLDetailsElement) {
   const shell = details.closest<HTMLElement>('[data-public-navigation]')
@@ -8,15 +8,15 @@ function syncSidebarState(details: HTMLDetailsElement) {
 }
 
 export default function PublicDesktopNavigationToggle() {
-  const detailsRef = useRef<HTMLDetailsElement>(null)
+  let detailsRef: HTMLDetailsElement | undefined
 
-  createEffect(() => {
-    if (detailsRef.current) syncSidebarState(detailsRef.current)
-  }, [])
+  onMount(() => {
+    if (detailsRef) syncSidebarState(detailsRef)
+  })
 
   return (
     <details
-      ref={detailsRef}
+      ref={(el) => (detailsRef = el)}
       id="public-desktop-navigation-toggle"
       open
       class="hidden lg:block"

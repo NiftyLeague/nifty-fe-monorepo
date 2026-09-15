@@ -9,7 +9,11 @@ import { useAuthStatus } from '@/contexts/AuthStatusContext'
 import { useNonce, useUUIDToken } from '@/hooks/useAuthStorage'
 import { setAuthToken, setNonce, setUUIDToken } from '@/state/auth-storage'
 
-type Params = { auth?: AUTH_Token; token?: UUID_Token; nonce?: Nonce }
+type Param<T> = T | (() => T | undefined)
+type Params = { auth?: AUTH_Token; token?: Param<UUID_Token>; nonce?: Param<Nonce> }
+
+const resolveParam = <T,>(param?: Param<T>) =>
+  (typeof param === 'function' ? (param as () => T | undefined)() : param) as T | undefined
 
 const useSignAuthMsg = (params: Params = {}) => {
   const { setIsLoggedIn } = useAuthStatus()
@@ -20,8 +24,8 @@ const useSignAuthMsg = (params: Params = {}) => {
   const uuidToken = useUUIDToken()
   const storageNonce = useNonce()
 
-  const token = params.token || uuidToken()
-  const nonce = params.nonce || storageNonce()
+  const token = () => resolveParam(params.token) || uuidToken()
+  const nonce = () => resolveParam(params.nonce) || storageNonce()
 
   const verifyWallet = async (verification: string) => {
     const address = addressToLower()
@@ -29,7 +33,7 @@ const useSignAuthMsg = (params: Params = {}) => {
       if (!address) return
       const result = await fetch(WALLET_VERIFICATION, {
         method: 'POST',
-        body: JSON.stringify({ token, nonce, verification, address }),
+        body: JSON.stringify({ token: token(), nonce: nonce(), verification, address }),
       })
         .then((res) => {
           if (res.status === 404) {
@@ -44,8 +48,8 @@ const useSignAuthMsg = (params: Params = {}) => {
       if (result?.length) {
         const auth = result.slice(1, -1)
         setAuthToken(auth)
-        setUUIDToken(token)
-        setNonce(nonce)
+        setUUIDToken(token())
+        setNonce(nonce())
 
         setIsLoggedIn(true)
         gtm.sendUserId(address)
@@ -73,7 +77,7 @@ const useSignAuthMsg = (params: Params = {}) => {
 
   const signMessage = async () => {
     return await signMutation.signMessageAsync({
-      message: `Please sign this message to verify that ${signAddress()} belongs to you. ${nonce}`,
+      message: `Please sign this message to verify that ${signAddress()} belongs to you. ${nonce()}`,
     })
   }
 

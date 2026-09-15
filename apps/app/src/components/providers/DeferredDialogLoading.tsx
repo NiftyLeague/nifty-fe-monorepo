@@ -1,4 +1,5 @@
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
+import type { JSX } from 'solid-js'
 
 interface DeferredDialogLoadingProps {
   label: string

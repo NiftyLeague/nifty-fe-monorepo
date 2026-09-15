@@ -97,8 +97,8 @@ const Game = (props: GameProps) => {
   onMount(() => {
     // Bridge sendMessage to window.unityInstance for external callers (Unity C# -> JS)
     window.unityInstance = {
-      SendMessage: (...args: [string, string, string | number?]) =>
-        sendMessage(args[0], args[1], args[2]),
+      SendMessage: (gameObjectName, methodName, parameter) =>
+        sendMessage(gameObjectName, methodName, parameter),
       removeAllEventListeners: () => {
         removeEventListener('loaded', handleLoaded)
         removeEventListener('error', handleError)
@@ -160,8 +160,8 @@ const GameWithAuth = withVerification((props: GameProps) => {
   const { isOpera, browserName } = useUserAgent()
   return (
     <Show
-      when={!isOpera()}
-      fallback={<h2 class="mt-8 text-center">{browserName()} Browser Not Supported</h2>}
+      when={!isOpera}
+      fallback={<h2 class="mt-8 text-center">{browserName} Browser Not Supported</h2>}
     >
       <ErrorBoundary>
         <Game {...props} />

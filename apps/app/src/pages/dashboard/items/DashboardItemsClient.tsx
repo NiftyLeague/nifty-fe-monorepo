@@ -1,10 +1,12 @@
 'use client'
 
+import { For } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
+import type { JSX } from 'solid-js'
 
 const DashboardItemsPageContent = dynamic(() => import('./DashboardItemsContent'), {
   ssr: false,
@@ -18,9 +20,9 @@ const DashboardItemsPageContent = dynamic(() => import('./DashboardItemsContent'
     >
       <DeferredSkeleton class="h-10 w-full rounded" />
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {Array.from({ length: 8 }, (_, index) => (
-          <DeferredSkeleton key={index} class="h-48 w-full rounded" />
-        ))}
+        <For each={Array.from({ length: 8 })}>
+          {() => <DeferredSkeleton class="h-48 w-full rounded" />}
+        </For>
       </div>
       <span class="sr-only">Loading dashboard comics and items</span>
     </div>

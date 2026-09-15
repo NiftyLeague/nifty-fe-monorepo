@@ -4,3 +4,5 @@ export interface EquipItemSlot {
   filled?: JSX.Element
   filledArr?: JSX.Element[]
 }
+
+import type { JSX } from 'solid-js'

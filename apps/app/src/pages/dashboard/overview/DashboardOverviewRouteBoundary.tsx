@@ -3,6 +3,7 @@
 import dynamic from '@/runtime/dynamic'
 
 import RouteLoading from '@nl/ui/custom/route-loading'
+import type { JSX } from 'solid-js'
 
 const DashboardOverviewClient = dynamic(() => import('./DashboardOverviewClient'), {
   ssr: false,

@@ -1,9 +1,9 @@
 'use client'
 
-import { createMemo } from 'solid-js'
+import { createMemo, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
-import { toast } from 'sonner'
-import { Heart } from 'lucide-react'
+import { toast } from 'solid-sonner'
+import { Heart } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
@@ -15,31 +15,28 @@ interface DegenDashboardActionsProps {
   tokenId: string
   fav: boolean
   size: 'small' | 'normal'
-  onClickFavorite?: JSX.EventHandler<HTMLButtonElement>
+  onClickFavorite?: JSX.EventHandlerUnion<HTMLButtonElement, Event>
 }
 
-const DegenClaimBal = (({ tokenId, fontSize }: { tokenId: string; 'font-size': string }) => {
-  const degenTokenIndices = createMemo(() => [parseInt(tokenId, 10)], [tokenId])
-  const { balance } = useClaimableNFTL(degenTokenIndices)
-  const amountParsed = formatNumberToDisplay(balance, 0)
-  return <span class="text-center" style={{ fontSize }}>{`${amountParsed} NFTL`}</span>
-})
+const DegenClaimBal = (props: { tokenId: string; 'font-size': string }) => {
+  const degenTokenIndices = createMemo(() => [parseInt(props.tokenId, 10)])
+  const claimable = useClaimableNFTL(degenTokenIndices)
+  const amountParsed = () => formatNumberToDisplay(claimable.balance, 0)
+  return (
+    <span class="text-center" style={{ 'font-size': props['font-size'] }}>
+      {`${amountParsed()} NFTL`}
+    </span>
+  )
+}
 
-DegenClaimBal.displayName = 'DegenClaimBal'
-
-const DegenDashboardActions = ({
-  tokenId,
-  fav,
-  size,
-  onClickFavorite,
-}: DegenDashboardActionsProps) => {
-  const { authToken } = useAuth()
-  const tinyFontSize = size === 'small' ? '8px' : 'var(--text-xs)'
+const DegenDashboardActions = (props: DegenDashboardActionsProps) => {
+  const auth = useAuth()
+  const tinyFontSize = () => (props.size === 'small' ? '8px' : 'var(--text-xs)')
 
   const onClickDownload = async () => {
-    if (!authToken) return
+    if (!auth.authToken) return
     try {
-      await downloadDegenAsZip(authToken, tokenId)
+      await downloadDegenAsZip(auth.authToken, props.tokenId)
     } catch (err) {
       toast.error(errorMsgHandler(err))
     }
@@ -56,15 +53,16 @@ const DegenDashboardActions = ({
           variant="ghost"
           size="icon"
           class="mr-3 size-6 cursor-pointer p-0"
-          onClick={onClickFavorite}
-          aria-label={fav ? 'Remove degen from favorites' : 'Add degen to favorites'}
+          onClick={props.onClickFavorite}
+          aria-label={
+            props.fav ? 'Remove degen from favorites' : 'Add degen to favorites'
+          }
         >
           <Heart
-            absoluteStrokeWidth
             color="currentColor"
-            stroke-width={fav ? 0 : 1.5}
-            fill={fav ? 'var(--color-foreground)' : 'none'}
-            size={size === 'small' ? 12 : 16}
+            stroke-width={props.fav ? 0 : 1.5}
+            fill={props.fav ? 'var(--color-foreground)' : 'none'}
+            size={props.size === 'small' ? 12 : 16}
             aria-hidden="true"
           />
         </Button>
@@ -73,19 +71,19 @@ const DegenDashboardActions = ({
           variant="ghost"
           size="sm"
           class="h-auto cursor-pointer gap-0 p-0"
-          onClick={onClickDownload}
+          onClick={() => void onClickDownload()}
           aria-label="Download degen"
         >
-          <span style={{ 'font-size': tinyFontSize, 'padding-right': '4px' }}>IP</span>
+          <span style={{ 'font-size': tinyFontSize(), 'padding-right': '4px' }}>IP</span>
           <NativeImage
             src="/icons/download-solid.svg"
             alt=""
-            width={size === 'small' ? 12 : 16}
-            height={size === 'small' ? 12 : 16}
+            width={props.size === 'small' ? 12 : 16}
+            height={props.size === 'small' ? 12 : 16}
           />
         </Button>
       </div>
-      <DegenClaimBal tokenId={tokenId} fontSize={tinyFontSize} />
+      <DegenClaimBal tokenId={props.tokenId} font-size={tinyFontSize()} />
     </div>
   )
 }

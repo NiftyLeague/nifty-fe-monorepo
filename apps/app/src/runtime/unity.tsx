@@ -20,19 +20,13 @@ export interface UnityConfig {
 }
 
 interface UnityInstance {
-  SendMessage: (gameObject: string, method: string, parameter?: string | number) => void
+  SendMessage: (
+    gameObject: string,
+    method: string,
+    parameter?: string | number | boolean
+  ) => void
   SetFullscreen: (fullscreen: number) => void
   Quit: () => Promise<void>
-}
-
-declare global {
-  interface Window {
-    createUnityInstance?: (
-      canvas: HTMLCanvasElement,
-      config: UnityConfig,
-      onProgress?: (progress: number) => void
-    ) => Promise<UnityInstance>
-  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,7 +60,11 @@ export interface UnityContext {
   isLoaded: () => boolean
   loadingProgression: () => number
   initialisationError: () => unknown
-  sendMessage: (gameObject: string, method: string, parameter?: string | number) => void
+  sendMessage: (
+    gameObject: string,
+    method: string,
+    parameter?: string | number | boolean
+  ) => void
   requestFullscreen: (enabled: boolean) => void
   addEventListener: (event: string, callback: UnityEventCallback) => void
   removeEventListener: (event: string, callback: UnityEventCallback) => void

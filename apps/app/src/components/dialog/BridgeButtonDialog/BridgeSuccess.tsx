@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from '@/types'
-import { X } from 'lucide-react'
+import { X } from 'lucide-solid'
 
 import { Alert } from '@nl/ui/base/alert'
 import { Button } from '@nl/ui/base/button'
@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@nl/ui/ba
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { AXELAR_TRANSACTIONS_URL } from '@/constants/url'
+import type { JSX } from 'solid-js'
 
 type BridgeSuccessProps = {
   successDialogOpen: boolean

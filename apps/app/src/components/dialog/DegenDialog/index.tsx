@@ -1,11 +1,11 @@
 'use client'
 
-import { createEffect, createSignal } from 'solid-js'
+import { createEffect, createSignal, onCleanup, Show, type JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
-import { toast } from 'sonner'
+import { toast } from 'solid-sonner'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
 import { TRAIT_INDEXES } from '@/constants/traitIndexes'
@@ -49,10 +49,7 @@ export interface DegenDialogProps {
   setIsEquip?: (v: boolean) => void
   onRent?: (degen: DashboardDegen) => void
   open?: boolean
-  onClose?: (
-    event: MouseEvent & { currentTarget: HTMLButtonElement },
-    reason: 'backdropClick' | 'escapeKeyDown'
-  ) => void
+  onClose?: (reason?: 'backdropClick' | 'escapeKeyDown') => void
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   fullWidth?: boolean
   scroll?: 'body' | 'paper'
@@ -61,48 +58,41 @@ export interface DegenDialogProps {
   children?: JSX.Element
 }
 
-const DegenDialog = ({
-  open,
-  degen,
-  isRent,
-  setIsRent,
-  isClaim,
-  setIsClaim,
-  // onRent,
-  isEquip,
-  // setIsEquip,
-  onClose,
-}: DegenDialogProps) => {
-  const tokenId = degen?.id || 0
+const DegenDialog = (props: DegenDialogProps) => {
+  const tokenId = () => props.degen?.id || 0
   const fullScreen = useMediaQuery('(max-width:768px)')
-  const { readContracts } = useNetworkContext()
+  const network = useNetworkContext()
   const [character, setCharacter] = createSignal<CharacterType>({
     name: null,
     owner: null,
     traitList: [],
   })
-  const { name, traitList } = character
+  const name = () => character().name
+  const traitList = () => character().traitList
   const resetDialog = () => {
     setCharacter({ name: null, owner: null, traitList: [] })
   }
 
   createEffect(() => {
+    const open = props.open
+    const id = tokenId()
+    const readContracts = network.readContracts
+    if (!open || !id || !readContracts || !readContracts[DEGEN_CONTRACT]) {
+      return
+    }
+
     let cancelled = false
 
     const fetchData = async () => {
-      if (!open || !tokenId || !readContracts || !readContracts[DEGEN_CONTRACT]) {
-        return
-      }
-
       try {
         // Fetch character data from contract
         const contract = readContracts[DEGEN_CONTRACT]
         const characterDataPromise =
           contract &&
           Promise.all([
-            contract.getName(tokenId),
-            contract.ownerOf(tokenId),
-            contract.getCharacterTraits(tokenId),
+            contract.getName(id),
+            contract.ownerOf(id),
+            contract.getCharacterTraits(id),
           ])
 
         const characterData = await characterDataPromise
@@ -127,30 +117,31 @@ const DegenDialog = ({
 
     void fetchData()
 
-    return () => {
+    onCleanup(() => {
       cancelled = true
-    }
-  }, [tokenId, readContracts, open])
+    })
+  })
 
-  const displayName = name || degen?.name || 'No Name DEGEN'
-  const traits = traitList.length
-    ? traitList.reduce<Record<string, bigint>>((acc, trait, index) => {
-        const traitType = TRAIT_INDEXES[index]
-        if (traitType) acc[traitType] = trait
-        return acc
-      }, {})
-    : (degen?.traits_string ?? '')
+  const displayName = () => name() || props.degen?.name || 'No Name DEGEN'
+  const traits = () =>
+    traitList().length
+      ? traitList().reduce<Record<string, bigint>>((acc, trait, index) => {
+          const traitType = TRAIT_INDEXES[index]
+          if (traitType) acc[traitType] = trait
+          return acc
+        }, {})
+      : (props.degen?.traits_string ?? '')
 
-  const handleClose = (event?: MouseEvent & { currentTarget: HTMLButtonElement }) => {
-    onClose?.(event as MouseEvent & { currentTarget: HTMLButtonElement }, 'backdropClick')
-    setIsClaim?.(false)
-    setIsRent?.(false)
+  const handleClose = () => {
+    props.onClose?.('backdropClick')
+    props.setIsClaim?.(false)
+    props.setIsRent?.(false)
     resetDialog()
   }
 
   return (
     <Dialog
-      open={open}
+      open={props.open}
       onOpenChange={(isOpen) => {
         if (!isOpen) handleClose()
       }}
@@ -159,24 +150,38 @@ const DegenDialog = ({
         showCloseButton={false}
         class={cn(
           styles.customDialog,
-          isRent && styles.customDialogRent,
-          isEquip && styles.customDialogEquip,
-          isClaim ? '!max-w-fit' : isRent ? '!max-w-[444px]' : '!max-w-[900px]',
-          fullScreen &&
+          props.isRent && styles.customDialogRent,
+          props.isEquip && styles.customDialogEquip,
+          props.isClaim
+            ? '!max-w-fit'
+            : props.isRent
+              ? '!max-w-[444px]'
+              : '!max-w-[900px]',
+          fullScreen() &&
             'top-0 left-0 h-screen w-screen max-h-screen !max-w-none translate-x-0 translate-y-0 rounded-none'
         )}
       >
-        {isClaim && <ClaimDegenContentDialog degen={degen} onClose={handleClose} />}
-        {isEquip && <EquipDegenContentDialog degen={degen} name={name ?? undefined} />}
-        {isRent && <RentDegenContentDialog degen={degen} onClose={handleClose} />}
-        {!isRent && !isClaim && !isEquip && (setIsRent || setIsClaim) && (
+        <Show when={props.isClaim}>
+          <ClaimDegenContentDialog degen={props.degen} onClose={handleClose} />
+        </Show>
+        <Show when={props.isEquip}>
+          <EquipDegenContentDialog degen={props.degen} name={name() ?? undefined} />
+        </Show>
+        <Show when={props.isRent}>
+          <RentDegenContentDialog degen={props.degen} onClose={handleClose} />
+        </Show>
+        <Show
+          when={
+            !props.isRent && !props.isClaim && !props.isEquip && (props.setIsRent || props.setIsClaim)
+          }
+        >
           <ViewTraitsContentDialog
-            degen={degen}
-            traits={traits}
-            displayName={displayName}
+            degen={props.degen}
+            traits={traits()}
+            displayName={displayName()}
             onClose={handleClose}
           />
-        )}
+        </Show>
       </DialogContent>
     </Dialog>
   )

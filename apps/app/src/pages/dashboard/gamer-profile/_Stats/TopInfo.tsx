@@ -1,5 +1,5 @@
 'use client'
-import { Copy } from 'lucide-react'
+import { Copy } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
 
@@ -10,6 +10,7 @@ import type { Profile } from '@/types/account'
 import ProgressGamer from './ProgressGamer'
 import DeferredProfileNameDialog from '@/components/providers/DeferredProfileNameDialog'
 import TopInfoSkeleton from './TopInfoSkeleton'
+import type { JSX } from 'solid-js'
 
 interface TopInfoProps {
   profile: Profile | undefined

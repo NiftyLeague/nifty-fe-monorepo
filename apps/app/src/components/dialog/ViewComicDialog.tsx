@@ -1,3 +1,4 @@
+import { Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
@@ -11,33 +12,35 @@ interface ViewComicDialogProps {
   onClose: () => void
 }
 
-const ViewComicDialog = ({ comic, open, onClose }: ViewComicDialogProps): JSX.Element => {
+const ViewComicDialog = (props: ViewComicDialogProps): JSX.Element => {
   const fullScreen = useMediaQuery('(max-width:640px)')
 
   return (
-    <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
+    <Dialog open={props.open} onOpenChange={(isOpen) => !isOpen && props.onClose()}>
       <DialogContent
         showCloseButton={false}
         class={cn(
           'p-0',
-          fullScreen
+          fullScreen()
             ? 'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
             : 'max-w-[900px] md:max-w-[900px] lg:max-w-[900px]'
         )}
       >
         <div class="flex justify-center p-6">
-          {comic?.image ? (
-            <NativeImage
-              src={comic.image}
-              alt={`Comic: ${comic?.title}`}
-              width={500}
-              height={500}
-              style={{ width: fullScreen ? '100%' : 500, height: 'auto' }}
-            />
-          ) : null}
+          <Show when={props.comic?.image}>
+            {(image) => (
+              <NativeImage
+                src={image()}
+                alt={`Comic: ${props.comic?.title}`}
+                width={500}
+                height={500}
+                style={{ width: fullScreen() ? '100%' : '500px', height: 'auto' }}
+              />
+            )}
+          </Show>
         </div>
         <div class="flex items-center gap-2 px-6 pb-6">
-          <Button variant="ghost" class="w-full" onClick={onClose}>
+          <Button variant="ghost" class="w-full" onClick={props.onClose}>
             Close
           </Button>
         </div>

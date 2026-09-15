@@ -49,7 +49,7 @@ const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) =
         </DialogContent>
       </Dialog>
       <WithdrawSuccess
-        successDialogOpen={successDialogOpen}
+        successDialogOpen={successDialogOpen()}
         setSuccessDialogOpen={setSuccessDialogOpen}
       />
     </>

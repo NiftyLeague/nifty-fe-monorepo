@@ -1,4 +1,4 @@
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart } from 'lucide-solid'
 import useComicDimension from '@/hooks/useComicDimension'
 
 interface BuyCardProps {
@@ -19,7 +19,7 @@ const BuyCard = (props: BuyCardProps) => {
     <div
       onClick={handleBuyComic}
       class="flex cursor-pointer flex-col items-center justify-center rounded-[5px] border border-[#363636]"
-      style={{ width: cardWidth, height: cardHeight }}
+      style={{ width: `${cardWidth}px`, height: `${cardHeight}px` }}
     >
       <ShoppingCart
         aria-hidden="true"

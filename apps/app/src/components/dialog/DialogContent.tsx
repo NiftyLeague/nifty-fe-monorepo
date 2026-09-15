@@ -1,4 +1,4 @@
-import { useContext } from 'solid-js'
+import { Show, splitProps, useContext, type JSX } from 'solid-js'
 
 import {
   Dialog as DialogBase,
@@ -11,41 +11,44 @@ import { DialogContext } from '.'
 import type { DialogProps } from '@/types/dialog'
 import { CloseIconButton } from './DialogActions'
 
-const DialogContentBase = ({
-  children,
-  sx,
-  dialogTitle: _dialogTitle,
-  dividers: _dividers,
-  onClose: _onClose,
-  ...props
-}: DialogProps) => {
+const DialogContentBase = (props: DialogProps) => {
+  const [local, others] = splitProps(props, [
+    'children',
+    'sx',
+    'dialogTitle',
+    'dividers',
+    'onClose',
+  ])
   const [isOpen, setIsOpen] = useContext(DialogContext)
 
-  if (!isOpen) return null
   return (
-    <DialogBase open={isOpen} onOpenChange={(open) => !open && setIsOpen(false)}>
-      <DialogContentPrimitive {...props} showCloseButton={false} style={{ ...props.style, ...sx }}>
-        {children}
-      </DialogContentPrimitive>
-    </DialogBase>
+    <Show when={isOpen()}>
+      <DialogBase open={isOpen()} onOpenChange={(open) => !open && setIsOpen(false)}>
+        <DialogContentPrimitive
+          {...others}
+          showCloseButton={false}
+          style={{ ...others.style, ...local.sx }}
+        >
+          {local.children}
+        </DialogContentPrimitive>
+      </DialogBase>
+    </Show>
   )
 }
 
-const DialogContent = ({
-  dialogTitle,
-  children,
-  dividers,
-  ...props
-}: DialogProps): JSX.Element => (
-  <DialogContentBase {...props}>
-    <DialogHeader class={dividers ? 'border-b pb-4' : ''}>
-      <DialogTitle>
-        {dialogTitle}
-        <CloseIconButton />
-      </DialogTitle>
-    </DialogHeader>
-    {children}
-  </DialogContentBase>
-)
+const DialogContent = (props: DialogProps): JSX.Element => {
+  const [local, others] = splitProps(props, ['dialogTitle', 'children', 'dividers'])
+  return (
+    <DialogContentBase {...others}>
+      <DialogHeader class={local.dividers ? 'border-b pb-4' : ''}>
+        <DialogTitle>
+          {local.dialogTitle}
+          <CloseIconButton />
+        </DialogTitle>
+      </DialogHeader>
+      {local.children}
+    </DialogContentBase>
+  )
+}
 
 export { DialogContent }

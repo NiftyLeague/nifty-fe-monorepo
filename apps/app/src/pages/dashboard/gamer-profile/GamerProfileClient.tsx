@@ -5,6 +5,7 @@ import dynamic from '@/runtime/dynamic'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
+import type { JSX } from 'solid-js'
 
 const GamerProfilePageContent = dynamic(() => import('./GamerProfileContent'), {
   ssr: false,

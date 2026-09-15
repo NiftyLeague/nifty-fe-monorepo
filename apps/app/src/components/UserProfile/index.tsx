@@ -2,7 +2,7 @@
 
 import Link from '@/runtime/Link'
 import { createMemo } from 'solid-js'
-import { UserRound } from 'lucide-react'
+import { UserRound } from 'lucide-solid'
 import { useAccount, useEnsAvatar, useEnsName } from '@/runtime/wagmi'
 import { normalize } from 'viem/ens'
 
@@ -14,26 +14,32 @@ import useGamerProfile from '@/hooks/useGamerProfile/useGamerProfile'
 import useAuth from '@/hooks/useAuth'
 
 const UserProfile = () => {
-  const { isLoggedIn, isConnected } = useAuth()
-  const { address } = useAccount()
-  const ensName = useEnsName({ address, chainId: 1, query: { enabled: isConnected && !!address } })
-  const ensAvatar = useEnsAvatar({
-    name: ensName.data ? normalize(ensName.data) : undefined,
+  const auth = useAuth()
+  const account = useAccount()
+  const ensName = useEnsName(() => ({
+    address: account.address as `0x${string}`,
     chainId: 1,
-    query: { enabled: isConnected && !!ensName.data },
-  })
+    query: { enabled: account.isConnected && !!account.address },
+  }))
+  const ensAvatar = useEnsAvatar(() => ({
+    name: ensName.data ? normalize(ensName.data as string) : undefined,
+    chainId: 1,
+    query: { enabled: account.isConnected && !!ensName.data },
+  }))
   const { profile } = useGamerProfile()
 
-  const username = isLoggedIn && profile ? profile.name_cased : undefined
-  const avatar = isLoggedIn && profile ? profile.avatar : undefined
+  const username = () => (auth.isLoggedIn && profile ? profile.name_cased : undefined)
+  const avatar = () => (auth.isLoggedIn && profile ? profile.avatar : undefined)
 
   const displayName = createMemo(() => {
+    const address = account.address
     if (!address) return 'Login to view dashboards'
     const addressSubstring = `${address.slice(0, 5)}..${address.slice(-4)}`.toLowerCase()
-    if (username?.length && username !== addressSubstring) return username
+    const name = username()
+    if (name?.length && name !== addressSubstring) return name
     if (ensName.isError || ensName.isLoading) return addressSubstring
     return ensName.data || addressSubstring
-  }, [address, ensName.data, ensName.isError, ensName.isLoading, username])
+  })
 
   return (
     <div
@@ -41,7 +47,7 @@ const UserProfile = () => {
       style={{ background: 'var(--color-muted)', border: 'var(--border-default)' }}
     >
       <Avatar class="size-20">
-        <AvatarImage alt="avatar" src={ensAvatar.data || avatar?.url} />
+        <AvatarImage alt="avatar" src={ensAvatar.data || avatar()?.url} />
         <AvatarFallback>
           <UserRound
             aria-hidden="true"
@@ -51,7 +57,7 @@ const UserProfile = () => {
         </AvatarFallback>
       </Avatar>
       <div class="my-2 flex flex-col items-center">
-        <span style={{ 'white-space': 'nowrap' }}>{displayName}</span>
+        <span style={{ 'white-space': 'nowrap' }}>{displayName()}</span>
       </div>
       <ConnectWrapper fullWidth>
         <Link

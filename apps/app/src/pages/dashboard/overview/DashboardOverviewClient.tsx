@@ -2,6 +2,7 @@
 
 import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import DeferredSection from '@nl/ui/custom/deferred-section'
+import type { JSX } from 'solid-js'
 
 const loadMyComics = () => import('./MyComics')
 const loadMyItems = () => import('./MyItems')

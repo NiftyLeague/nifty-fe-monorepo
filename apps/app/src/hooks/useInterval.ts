@@ -1,21 +1,21 @@
 'use client'
 
-import { createEffect } from 'solid-js'
+import { createEffect, onCleanup } from 'solid-js'
 
 function useInterval(callback: () => void, delay: number | null) {
-  let savedCallback: any = callback
+  let savedCallback = callback
 
   createEffect(() => {
-    savedCallback.current = callback
-  }, [callback])
+    savedCallback = callback
+  })
 
   createEffect(() => {
     if (delay == null) return
 
-    const id = setInterval(() => savedCallback.current(), delay)
+    const id = setInterval(() => savedCallback(), delay)
 
-    return () => clearInterval(id)
-  }, [delay])
+    onCleanup(() => clearInterval(id))
+  })
 }
 
 export default useInterval

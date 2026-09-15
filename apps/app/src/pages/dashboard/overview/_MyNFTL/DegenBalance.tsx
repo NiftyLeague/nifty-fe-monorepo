@@ -7,6 +7,7 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL'
 import useNetworkContext from '@/hooks/useNetworkContext'
+import type { JSX } from 'solid-js'
 
 const DegenBalance = (): JSX.Element => {
   const { isConnected } = useNetworkContext()
@@ -17,7 +18,7 @@ const DegenBalance = (): JSX.Element => {
       title="DEGEN Balance"
       primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
       customStyle={{
-        backgroundColor: 'var(--color-card)',
+        'background-color': 'var(--color-card)',
         border: 'var(--border-default)',
         position: 'relative',
       }}

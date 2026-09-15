@@ -1,4 +1,4 @@
-import {  } from 'solid-js'
+import { For, type JSX } from 'solid-js'
 
 import AppBar from '@nl/ui/custom/app-bar'
 import { cx } from '@nl/ui/class-names'
@@ -24,7 +24,7 @@ const PublicSidebar = (function PublicSidebar() {
           styles.publicDesktopSidebar,
           'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
         )}
-        style={{ width: 260, top: 60 }}
+        style={{ width: '260px', top: '60px' }}
       >
         <div class="h-full overflow-y-auto px-4 py-5">
           <div class="mb-5">
@@ -37,7 +37,7 @@ const PublicSidebar = (function PublicSidebar() {
   )
 })
 
-export default function PublicNavigation({ children }: { children?: JSX.Element }) {
+export default function PublicNavigation(props: { children?: JSX.Element }) {
   return (
     <div class={cx('flex', styles.publicNavigationShell)} data-public-navigation>
       <header class="fixed top-0 right-0 left-0 z-50 border-0 bg-sidebar">
@@ -51,7 +51,7 @@ export default function PublicNavigation({ children }: { children?: JSX.Element 
               <MobileNavigationDisclosure
                 id="public-mobile-navigation"
                 label="Toggle navigation"
-                class="lg:hidden"
+                className="lg:hidden"
                 summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
                 panelClassName="fixed top-[56px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
               >
@@ -79,23 +79,25 @@ export default function PublicNavigation({ children }: { children?: JSX.Element 
               </MobileNavigationDisclosure>
             </div>
             <div class="hidden items-center justify-between gap-4 lg:flex">
-              {APP_EXTERNAL_LINKS.map((page) => (
-                <a                  
-                  href={page.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="cursor-pointer text-foreground underline-offset-4 hover:underline"
-                >
-                  {page.name} <ExternalIcon />
-                </a>
-              ))}
+              <For each={APP_EXTERNAL_LINKS}>
+                {(page) => (
+                  <a
+                    href={page.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cursor-pointer text-foreground underline-offset-4 hover:underline"
+                  >
+                    {page.name} <ExternalIcon />
+                  </a>
+                )}
+              </For>
             </div>
           </div>
         </AppBar>
       </header>
       <PublicSidebar />
       <main class={styles.publicMain} tabIndex={0}>
-        {children}
+        {props.children}
       </main>
     </div>
   )

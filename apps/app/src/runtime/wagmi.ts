@@ -18,6 +18,7 @@ import {
   type GetEnsAvatarParameters,
   type GetEnsNameParameters,
   type GetWalletClientParameters,
+  type GetWalletClientReturnType,
   type ReadContractParameters,
   type SignMessageParameters,
   type SwitchChainParameters,
@@ -153,7 +154,7 @@ export function useReadContract(params: Source<UseReadContractParameters>) {
   }
 }
 
-interface MutationState<TResult, TVariables> {
+interface MutationState<TResult> {
   data: TResult | undefined
   error: Error | null
   isError: boolean
@@ -169,7 +170,7 @@ interface MutationCallbacks<TResult, TVariables> {
 function createMutation<TResult, TVariables>(
   mutate: (variables: TVariables) => Promise<TResult>,
   callbacks?: MutationCallbacks<TResult, TVariables>
-): MutationState<TResult, TVariables> & {
+): MutationState<TResult> & {
   mutateAsync: (variables: TVariables) => Promise<TResult>
   mutate: (variables: TVariables) => void
 } {
@@ -239,8 +240,8 @@ export function useSwitchChain() {
 
 export function useDisconnect() {
   const config = requireConfig()
-  const mutation = createMutation((params?: { connector?: unknown }) =>
-    coreDisconnect(config, params as never)
+  const mutation = createMutation<void, { connector?: unknown } | undefined>(
+    (params) => coreDisconnect(config, params as never)
   )
   return {
     get isPending() {
@@ -304,7 +305,12 @@ export function useConnectorClient(
   }
 }
 
-export function useWalletClient(params?: Source<GetWalletClientParameters | undefined>) {
+export function useWalletClient(params?: Source<GetWalletClientParameters | undefined>): {
+  readonly data: GetWalletClientReturnType | undefined
+  readonly error: Error | null
+  readonly isLoading: boolean
+  refetch: () => void
+} {
   const config = requireConfig()
   const account = useAccount()
   const source = createMemo(() => {

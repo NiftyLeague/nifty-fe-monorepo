@@ -1,12 +1,13 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 mock.module('@/runtime/Link', () => ({
   default: ({
     children,
     href,
     prefetch,
-  }: JSX.{ href: string; prefetch?: boolean } & { children?: JSX.Element }) => (
+  }: { href: string; prefetch?: boolean; children?: JSX.Element }) => (
     <a href={href} data-prefetch={String(prefetch)}>
       {children}
     </a>

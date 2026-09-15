@@ -15,9 +15,9 @@ const SatoshiFrame = ({ frames, interval = 0 }: SatoshiFrameProps) => {
         position: 'absolute',
         left: 0,
         right: 0,
-        top: 504,
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        top: '504px',
+        'margin-left': 'auto',
+        'margin-right': 'auto',
         width: '316px',
         height: 'auto',
       }}

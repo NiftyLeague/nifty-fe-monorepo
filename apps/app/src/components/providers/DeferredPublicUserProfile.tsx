@@ -1,5 +1,7 @@
 'use client'
 
+import { Show } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
@@ -43,26 +45,31 @@ function ProfileProviderError({ retry }: { retry: () => void }) {
   )
 }
 
-export default function DeferredPublicUserProfile({ placement }: PublicUserProfileProps) {
+export default function DeferredPublicUserProfile(props: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
-  const isVisiblePlacement = placement === 'desktop' ? isDesktop : !isDesktop
+  const isVisiblePlacement = () =>
+    props.placement === 'desktop' ? isDesktop() : !isDesktop()
   const {
     Component: PublicUserProfile,
     hasError,
     retry,
   } = useDeferredComponent<PublicUserProfileProps>(loadPublicUserProfile, isVisiblePlacement)
 
-  if (isVisiblePlacement && PublicUserProfile) {
-    return <PublicUserProfile placement={placement} />
-  }
-
   return (
-    <div data-public-user-profile data-placement={placement}>
-      {isVisiblePlacement && hasError ? (
-        <ProfileProviderError retry={retry} />
-      ) : (
-        <ProfileProviderLoading />
-      )}
-    </div>
+    <Show
+      when={isVisiblePlacement() && PublicUserProfile()}
+      fallback={
+        <div data-public-user-profile data-placement={props.placement}>
+          <Show
+            when={isVisiblePlacement() && hasError()}
+            fallback={<ProfileProviderLoading />}
+          >
+            <ProfileProviderError retry={retry} />
+          </Show>
+        </div>
+      }
+    >
+      {(Loaded) => <Dynamic component={Loaded()} placement={props.placement} />}
+    </Show>
   )
 }

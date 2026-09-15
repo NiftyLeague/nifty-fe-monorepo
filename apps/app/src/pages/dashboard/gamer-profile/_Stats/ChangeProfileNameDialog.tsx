@@ -4,9 +4,10 @@ import { useContext } from 'solid-js'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import { Button } from '@nl/ui/base/button'
-import { Pencil } from 'lucide-react'
+import { Pencil } from 'lucide-solid'
 import { Dialog, DialogContext, DialogTrigger, DialogContent } from '@/components/dialog'
 import DeferredDialogLoading from '@/components/providers/DeferredDialogLoading'
+import type { JSX } from 'solid-js'
 
 interface ChangeProfileNameDialogProps {
   handleUpdateNewName: (newName: string) => void
@@ -21,7 +22,7 @@ function DeferredChangeProfileNameForm({
 
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="profile name form"
       load={loadChangeProfileNameForm}
       loadingFallback={<DeferredDialogLoading label="Loading profile name form" />}

@@ -15,6 +15,7 @@ import {
   User,
 } from 'lucide-solid'
 import type { LucideIcon } from 'lucide-solid'
+import { Dynamic } from 'solid-js/web'
 import type { JSX } from 'solid-js'
 
 const DEFAULT_SIZES = { xs: 14, sm: 18, md: 20, lg: 24, xl: 28 } as const
@@ -54,37 +55,50 @@ type AppNavIconName = keyof typeof iconMap
 type AppNavIconSize = keyof typeof DEFAULT_SIZES
 type AppNavIconColor = keyof typeof DEFAULT_COLORS | (string & {})
 
-type AppNavIconProps = Omit<JSX.SvgSVGAttributes<SVGSVGElement>, 'color' | 'fill' | 'width' | 'height'> & {
+type AppNavIconProps = Omit<
+  JSX.SvgSVGAttributes<SVGSVGElement>,
+  'color' | 'fill' | 'width' | 'height'
+> & {
   absoluteStrokeWidth?: boolean
   name?: AppNavIconName
   size?: AppNavIconSize | number
   color?: AppNavIconColor
   fill?: AppNavIconColor
+  /** camelCase alias kept for call-site compatibility; maps to `stroke-width`. */
+  strokeWidth?: number | string
 }
 
-function AppNavIcon({
-  absoluteStrokeWidth = true,
-  color = 'currentColor',
-  fill = 'none',
-  name,
-  size = 'md',
-  strokeWidth = 1.5,
-  ...props
-}: AppNavIconProps) {
-  const IconComponent = (name && iconMap[name]) || Dot
-  const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size]
-  const iconColor = DEFAULT_COLORS[color as keyof typeof DEFAULT_COLORS] || color
-  const iconFill = DEFAULT_COLORS[fill as keyof typeof DEFAULT_COLORS] || fill
+function AppNavIcon(props: AppNavIconProps) {
+  const rest = () => {
+    const {
+      absoluteStrokeWidth: _a,
+      color: _c,
+      fill: _f,
+      name: _n,
+      size: _s,
+      strokeWidth: _w,
+      ...restProps
+    } = props
+    return restProps
+  }
+  const icon = () => (props.name && iconMap[props.name]) || Dot
+  const iconSize = () =>
+    typeof props.size === 'number' ? props.size : DEFAULT_SIZES[props.size ?? 'md']
+  const iconColor = () =>
+    DEFAULT_COLORS[props.color as keyof typeof DEFAULT_COLORS] || props.color || 'currentColor'
+  const iconFill = () =>
+    DEFAULT_COLORS[props.fill as keyof typeof DEFAULT_COLORS] || props.fill || 'none'
 
   return (
-    <IconComponent
-      absoluteStrokeWidth={absoluteStrokeWidth}
-      color={iconColor}
-      fill={iconFill}
-      size={iconSize}
-      stroke-width={strokeWidth}
-      aria-hidden={props['aria-label'] ? undefined : 'true'}
-      {...({ ...props, className: undefined, class: (props as Record<string, unknown>).className } as never)}
+    <Dynamic
+      component={icon()}
+      absoluteStrokeWidth={props.absoluteStrokeWidth ?? true}
+      color={iconColor()}
+      fill={iconFill()}
+      size={iconSize()}
+      stroke-width={props.strokeWidth ?? 1.5}
+      aria-hidden={rest()['aria-label'] ? undefined : 'true'}
+      {...rest()}
     />
   )
 }

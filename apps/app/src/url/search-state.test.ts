@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { mock } from 'bun:test'
-import { useQueryStates } from 'nuqs'
+import { useQueryStates } from '@/url/nuqs-solid'
 import { withNuqsTestingAdapter } from 'nuqs/adapters/testing'
 
 import {

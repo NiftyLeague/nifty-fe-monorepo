@@ -19,7 +19,11 @@ type Parser = { parse: (v: string) => unknown; defaultValue?: unknown }
 type Parsers = Record<string, Parser>
 
 type ValuesOf<P extends Parsers> = {
-  [K in keyof P]: P[K] extends { parse: (v: string) => infer T } ? T : never
+  [K in keyof P]: P[K] extends { parse: (v: string) => infer T }
+    ? P[K] extends { defaultValue: unknown }
+      ? NonNullable<T>
+      : T
+    : never
 }
 
 type SetValues<P extends Parsers> = Partial<{ [K in keyof P]: ValuesOf<P>[K] | null }>
@@ -49,7 +53,10 @@ export function useQueryStates<P extends Parsers>(
       get: () => {
         const value = searchValues()[key]
         if (value === undefined) return parser.defaultValue
-        return parser.parse(value as string)
+        const parsed = parser.parse(value as string)
+        // A failed parse means "clear" in nuqs; withDefault parsers fall back.
+        if (parsed === null && parser.defaultValue !== undefined) return parser.defaultValue
+        return parsed
       },
       enumerable: true,
     })

@@ -15,42 +15,40 @@ interface ClaimDegenContentDialogProps {
   onClose?: (event: MouseEvent & { currentTarget: HTMLButtonElement }) => void
 }
 
-const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProps) => {
-  const { tx, writeContracts } = useNetworkContext()
-  const tokenId = degen?.id ?? ''
-  const degenTokenIndices = createMemo(() => [parseInt(tokenId, 10)], [tokenId])
-  const { balance, refetch } = useClaimableNFTL(degenTokenIndices)
+const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
+  const network = useNetworkContext()
+  const tokenId = () => props.degen?.id ?? ''
+  const degenTokenIndices = createMemo(() => [parseInt(tokenId(), 10)])
+  const claimable = useClaimableNFTL(degenTokenIndices)
 
-  const handleClaimNFTL = (
-    async (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
-      if (DEBUG) console.log('Claim', degenTokenIndices, balance)
-      await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices))
-      setTimeout(() => refetch(), 5000)
-      onClose?.(event)
-    },
-    [onClose, refetch, degenTokenIndices, balance, tx, writeContracts]
-  )
+  const handleClaimNFTL = async (
+    event: MouseEvent & { currentTarget: HTMLButtonElement }
+  ) => {
+    if (DEBUG) console.log('Claim', degenTokenIndices(), claimable.balance)
+    await network.tx(
+      network.writeContracts[NFTL_CONTRACT].claim(degenTokenIndices())
+    )
+    setTimeout(() => claimable.refetch(), 5000)
+    props.onClose?.(event)
+  }
 
-  const handleClose = (
-    (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
-      onClose?.(event)
-    },
-    [onClose]
-  )
+  const handleClose = (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
+    props.onClose?.(event)
+  }
 
-  const amountParsed = formatNumberToDisplay(balance)
+  const amountParsed = () => formatNumberToDisplay(claimable.balance)
 
   return (
     <div class="flex flex-col gap-4 p-6">
       <Title level={4} class="text-center">
-        {`${amountParsed} claimable for this DEGEN`}
+        {`${amountParsed()} claimable for this DEGEN`}
       </Title>
       <div class="flex flex-col gap-2">
         <Button
           class="w-full"
-          disabled={!(balance > 0.0 && writeContracts[NFTL_CONTRACT])}
+          disabled={!(claimable.balance > 0.0 && network.writeContracts[NFTL_CONTRACT])}
           variant="default"
-          onClick={handleClaimNFTL}
+          onClick={(e: MouseEvent & { currentTarget: HTMLButtonElement }) => void handleClaimNFTL(e)}
         >
           Claim
         </Button>

@@ -1,10 +1,11 @@
 import type { Dispatch, SetStateAction } from '@/types'
-import { X } from 'lucide-react'
+import { X } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@nl/ui/base/dialog'
 
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import type { JSX } from 'solid-js'
 
 type WithdrawSuccessProps = {
   successDialogOpen: boolean

@@ -42,21 +42,18 @@ export const SLOTS: EquipItemSlot[] = [
         width={40}
         height={40}
         alt="Diamond Bat"
-        key="diamond"
       />,
       <NativeImage
         src="/img/items/equips/purple-bat.webp"
         width={40}
         height={40}
         alt="Purple Bat"
-        key="purple"
       />,
       <NativeImage
         src="/img/items/equips/bread-bat.webp"
         width={40}
         height={40}
         alt="Bread Bat"
-        key="bread"
       />,
     ],
   },

@@ -95,7 +95,7 @@ const AllDegensPage = (): JSX.Element => {
     setIsDegenModalOpen(true)
   }
 
-  const renderSkeletonItem = (index: number) => (
+  const renderSkeletonItem = () => (
     <div class={getGridSizeClass(isGridView(), isDrawerOpen())}>
       <SkeletonDegenPlaceholder size={isGridView() ? 'normal' : 'small'} />
     </div>
@@ -151,7 +151,7 @@ const AllDegensPage = (): JSX.Element => {
             keyed
             fallback={
               <For each={Array.from({ length: 8 })}>
-                {(_, index) => renderSkeletonItem(index())}
+                {() => renderSkeletonItem()}
               </For>
             }
           >
@@ -160,7 +160,7 @@ const AllDegensPage = (): JSX.Element => {
         </Show>
       </div>
       <PaginationControls
-        class="mx-auto flex-wrap justify-center gap-1 pb-4"
+        className="mx-auto flex-wrap justify-center gap-1 pb-4"
         buttonClassName={isMobile() ? 'size-8' : undefined}
         hasNext={currentPage() < maxPage()}
         hasPrev={currentPage() > 1}

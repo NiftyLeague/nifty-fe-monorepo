@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 let isDesktopViewport = false
 
@@ -18,7 +19,7 @@ mock.module('@/contexts/WalletModal', () => ({
 }))
 
 mock.module('@/contexts/WalletAuthProvidersBoundary', () => ({
-  default: ({ children, enabled }: JSX.{ enabled?: boolean } & { children?: JSX.Element }) =>
+  default: ({ children, enabled }: { enabled?: boolean; children?: JSX.Element }) =>
     enabled ? <div data-testid="wallet-auth-boundary">{children}</div> : null,
 }))
 

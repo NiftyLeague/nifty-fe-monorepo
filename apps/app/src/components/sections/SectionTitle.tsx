@@ -1,4 +1,5 @@
 import { Title } from '@nl/ui/custom/typography'
+import type { JSX } from 'solid-js'
 
 interface SectionTitleProps {
   actions?: JSX.Element

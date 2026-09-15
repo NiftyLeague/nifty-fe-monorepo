@@ -1,7 +1,6 @@
 'use client'
 
 import NativeImage from '@nl/ui/custom/native-image'
-import {  } from 'solid-js'
 import { Button } from '@nl/ui/base/button'
 
 import { formatNumberToDisplay } from '@nl/ui/number-format'
@@ -44,7 +43,5 @@ const GameBalance = (() => {
     />
   )
 })
-
-GameBalance.displayName = 'GameBalance'
 
 export default GameBalance

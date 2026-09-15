@@ -23,13 +23,15 @@ function DeferredDegenCardInner<T extends PublicDegen>({
   ...props
 }: DegenCardProps<T>) {
   let cardRef: HTMLDivElement | undefined
-  const isNearViewport = useOnScreen(cardRef, DEFERRED_DEGEN_CARD_ROOT_MARGIN, { once: true })
+  const isNearViewport = useOnScreen(() => cardRef, DEFERRED_DEGEN_CARD_ROOT_MARGIN, {
+    once: true,
+  })
 
   return (
-    <div ref={cardRef}>
+    <div ref={(el) => (cardRef = el)}>
       <DeferredComponent
         disabledFallback={<SkeletonDegenPlaceholder size={size} />}
-        enabled={isNearViewport}
+        enabled={isNearViewport()}
         label="DEGEN card"
         load={loadDegenCard}
         loadingFallback={<SkeletonDegenPlaceholder size={size} />}

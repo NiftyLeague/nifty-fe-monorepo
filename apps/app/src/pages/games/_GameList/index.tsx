@@ -60,7 +60,7 @@ const GameArtwork = ({
     sizes={GAME_CARD_IMAGE_SIZES}
     quality={60}
     loading={loading}
-    fetchPriority={fetchPriority}
+    fetchpriority={fetchPriority}
     class="object-cover"
   />
 )

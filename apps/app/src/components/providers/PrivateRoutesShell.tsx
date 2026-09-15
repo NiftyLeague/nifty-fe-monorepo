@@ -12,6 +12,7 @@ import { NotificationProvider } from '@/contexts/NotificationContext'
 import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 import DeferredNotifications from './DeferredNotifications'
 import PrivateRoutesAuthGate from './PrivateRoutesAuthGate'
+import type { JSX } from 'solid-js'
 
 function PrivateRoutesContentLoading(): JSX.Element {
   return (
@@ -34,12 +35,12 @@ interface PrivateRoutesShellProps extends ParentProps {
   cookies?: string | null
 }
 
-export default function PrivateRoutesShell({ children, cookies }: PrivateRoutesShellProps) {
+export default function PrivateRoutesShell(props: PrivateRoutesShellProps) {
   return (
     <AuthStatusProvider>
       <PrivateRoutesAuthGate loading={<PrivateRoutesContentLoading />}>
         <WalletStorageProviders
-          cookies={cookies}
+          cookies={props.cookies}
           loadingFallback={
             <MainLayout walletReady={false}>
               <PrivateRoutesContentLoading />

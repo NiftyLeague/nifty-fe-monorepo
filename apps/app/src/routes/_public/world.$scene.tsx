@@ -19,9 +19,9 @@ export const Route = createFileRoute('/_public/world/$scene')({
 })
 
 function NiftyWorldSceneRoute() {
-  const scene = getNiftyWorldScene(Route.useParams().scene)
+  const scene = getNiftyWorldScene(Route.useParams()().scene)
 
   if (!scene) return null
 
-  return <NiftyWorldScene key={scene.id} scene={scene} />
+  return <NiftyWorldScene scene={scene} />
 }

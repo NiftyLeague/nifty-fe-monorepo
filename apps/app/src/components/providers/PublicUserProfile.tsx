@@ -1,13 +1,13 @@
 'use client'
 
 import dynamic from '@/runtime/dynamic'
-import { createSignal } from 'solid-js'
+import { createSignal, Match, Show, Switch } from 'solid-js'
 
 import { Avatar, AvatarFallback } from '@nl/ui/base/avatar'
 import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
-import { UserRound } from 'lucide-react'
+import { UserRound } from 'lucide-solid'
 
 import { desktopNavigationMediaQuery } from '@/layouts/_layout/navigation-breakpoints'
 import WalletAuthProvidersBoundary from '@/contexts/WalletAuthProvidersBoundary'
@@ -37,21 +37,21 @@ function ProfileProviderLoading() {
   )
 }
 
-function ProfileProviderError({ retry }: { retry: () => void }) {
+function ProfileProviderError(props: { retry: () => void }) {
   return (
     <div
       class="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center"
       role="alert"
     >
       <p class="text-sm">Sign-in is temporarily unavailable.</p>
-      <Button type="button" variant="outline" class="w-full" onClick={retry}>
+      <Button type="button" variant="outline" class="w-full" onClick={props.retry}>
         Retry
       </Button>
     </div>
   )
 }
 
-function SignedOutProfile({ onConnect }: { onConnect: () => void }) {
+function SignedOutProfile(props: { onConnect: () => void }) {
   return (
     <div
       data-public-signed-out-profile
@@ -70,50 +70,53 @@ function SignedOutProfile({ onConnect }: { onConnect: () => void }) {
       <div class="my-2 flex flex-col items-center">
         <span>Login to view dashboards</span>
       </div>
-      <Button type="button" class="w-full" onClick={onConnect}>
+      <Button type="button" class="w-full" onClick={props.onConnect}>
         Connect Account
       </Button>
     </div>
   )
 }
 
-export default function PublicUserProfile({ placement }: PublicUserProfileProps) {
+export default function PublicUserProfile(props: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
-  const isVisiblePlacement = placement === 'desktop' ? isDesktop : !isDesktop
+  const isVisiblePlacement = () =>
+    props.placement === 'desktop' ? isDesktop() : !isDesktop()
   const [walletRequested, setWalletRequested] = createSignal(false)
   const [modalError, setModalError] = createSignal(false)
 
-  const handleConnectWallet = (() => {
+  const handleConnectWallet = () => {
     setWalletRequested(true)
     void import('@/contexts/WalletModal')
       .then(({ openWalletModal }) => openWalletModal())
       .catch(() => setModalError(true))
-  }, [])
+  }
 
-  const retryWalletModal = (() => {
+  const retryWalletModal = () => {
     setModalError(false)
     setWalletRequested(false)
-  }, [])
+  }
 
   return (
-    <div data-public-user-profile data-placement={placement}>
-      {isVisiblePlacement ? (
-        modalError ? (
-          <ProfileProviderError retry={retryWalletModal} />
-        ) : walletRequested ? (
-          <WalletAuthProvidersBoundary
-            enabled
-            errorFallback={(retry) => <ProfileProviderError retry={retry} />}
-            loadingFallback={<ProfileProviderLoading />}
-          >
-            <DeferredUserProfile />
-          </WalletAuthProvidersBoundary>
-        ) : (
-          <SignedOutProfile onConnect={handleConnectWallet} />
-        )
-      ) : (
-        <ProfileProviderLoading />
-      )}
+    <div data-public-user-profile data-placement={props.placement}>
+      <Show when={isVisiblePlacement()} fallback={<ProfileProviderLoading />}>
+        <Switch>
+          <Match when={modalError()}>
+            <ProfileProviderError retry={retryWalletModal} />
+          </Match>
+          <Match when={walletRequested()}>
+            <WalletAuthProvidersBoundary
+              enabled
+              errorFallback={(retry) => <ProfileProviderError retry={retry} />}
+              loadingFallback={<ProfileProviderLoading />}
+            >
+              <DeferredUserProfile />
+            </WalletAuthProvidersBoundary>
+          </Match>
+          <Match when={true}>
+            <SignedOutProfile onConnect={handleConnectWallet} />
+          </Match>
+        </Switch>
+      </Show>
     </div>
   )
 }

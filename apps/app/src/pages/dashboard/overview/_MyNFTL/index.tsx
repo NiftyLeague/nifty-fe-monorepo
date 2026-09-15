@@ -5,6 +5,7 @@ import DegenBalance from './DegenBalance'
 import GameBalance from './GameBalance'
 import TitleSection from './TitleSection'
 import WalletBalances from './WalletBalances'
+import type { JSX } from 'solid-js'
 
 const loadArcadeBalance = () => import('./ArcadeBalance')
 

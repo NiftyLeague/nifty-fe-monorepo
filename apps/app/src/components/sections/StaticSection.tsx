@@ -14,24 +14,21 @@ interface StaticSectionProps {
   styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
 }
 
-const StaticSection = ({
-  title,
-  firstSection,
-  children,
-  actions,
-  variant = 'h2',
-  styles,
-}: ParentProps<StaticSectionProps>) => (
+const StaticSection = (props: ParentProps<StaticSectionProps>) => (
   <div
     class="flex flex-col"
-    style={{ gap: sectionSpacing * 8, ...(styles?.root as JSX.CSSProperties) }}
+    style={{ gap: `${sectionSpacing * 8}px`, ...(props.styles?.root as JSX.CSSProperties) }}
   >
-    <div style={styles?.headerRow as JSX.CSSProperties}>
-      <SectionTitle firstSection={firstSection} variant={variant} actions={actions}>
-        {title}
+    <div style={props.styles?.headerRow as JSX.CSSProperties}>
+      <SectionTitle
+        firstSection={props.firstSection}
+        variant={props.variant ?? 'h2'}
+        actions={props.actions}
+      >
+        {props.title}
       </SectionTitle>
     </div>
-    <div style={styles?.mainRow as JSX.CSSProperties}>{props.children}</div>
+    <div style={props.styles?.mainRow as JSX.CSSProperties}>{props.children}</div>
   </div>
 )
 

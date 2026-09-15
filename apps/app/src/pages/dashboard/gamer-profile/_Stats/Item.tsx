@@ -1,5 +1,6 @@
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import { cn } from '@nl/ui/utils'
+import type { JSX } from 'solid-js'
 
 interface ItemProps {
   label?: string

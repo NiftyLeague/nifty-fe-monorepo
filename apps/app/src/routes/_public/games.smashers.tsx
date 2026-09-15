@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_public/games/smashers')({
 function SmashersGame() {
   return (
     <GameRoute unityConfig={smashersBuild.config}>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ 'margin-bottom': '20px' }}>
         <strong>
           Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our
           latest mobile game please visit{' '}

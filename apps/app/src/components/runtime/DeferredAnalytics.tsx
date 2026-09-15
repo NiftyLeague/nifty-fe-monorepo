@@ -1,4 +1,5 @@
-import { createEffect, createSignal } from 'solid-js'
+import { createSignal, onCleanup, onMount, type Component, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 
 import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
@@ -14,7 +15,7 @@ export default function DeferredAnalytics(): JSX.Element {
   // The shared analytics gate enables production deploys and honors VITE_TELEMETRY opt-out.
   const enabled = productionTelemetryEnabled(IS_PRODUCTION, TELEMETRY)
 
-  createEffect(() => {
+  onMount(() => {
     if (!enabled) return
     let cancelled = false
 
@@ -29,17 +30,17 @@ export default function DeferredAnalytics(): JSX.Element {
       ])
 
       if (!cancelled) {
-        startTransition(() => setGoogleTagManager(() => gtmModule.default))
+        setGoogleTagManager(() => gtmModule.default)
       }
     }
 
     const cleanup = scheduleDeferredActivation({ onActivate: activate })
 
-    return () => {
+    onCleanup(() => {
       cancelled = true
       cleanup()
-    }
-  }, [])
+    })
+  })
 
-  return GoogleTagManager ? <GoogleTagManager /> : null
+  return <Dynamic component={GoogleTagManager() ?? undefined} />
 }

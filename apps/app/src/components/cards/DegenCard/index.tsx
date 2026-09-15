@@ -1,7 +1,7 @@
 'use client'
 
 import { type JSX } from 'solid-js'
-import { Pencil } from 'lucide-react'
+import { Pencil } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'

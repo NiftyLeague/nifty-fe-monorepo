@@ -1,10 +1,11 @@
 import { Button } from '@nl/ui/base/button'
 import { Card } from '@nl/ui/base/card'
+import type { JSX } from 'solid-js'
 
 interface EmptyStateProps {
   message?: string
   buttonText?: string
-  onClick?: JSX.EventHandler<HTMLButtonElement>
+  onClick?: JSX.EventHandlerUnion<HTMLButtonElement, Event>
   noBorder?: boolean
 }
 const EmptyState = ({ message, buttonText, onClick, noBorder = false }: EmptyStateProps) => (

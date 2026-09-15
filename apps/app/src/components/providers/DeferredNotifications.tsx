@@ -1,16 +1,14 @@
 'use client'
 
-import { createEffect, createSignal } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+import { createSignal, onCleanup, onMount, type Component, type JSX } from 'solid-js'
 
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
 const loadSnackbar = () => import('@/components/extended/Snackbar')
 const loadToaster = () => import('@nl/ui/base/sonner')
 
-const LoadedNotifications = ({
-  Snackbar,
-  Toaster,
-}: {
+const LoadedNotifications = (props: {
   Snackbar: Component
   Toaster: Component<{
     position: 'top-right'
@@ -19,8 +17,8 @@ const LoadedNotifications = ({
   }>
 }) => (
   <>
-    <Snackbar />
-    <Toaster position="top-right" closeButton richColors />
+    <props.Snackbar />
+    <props.Toaster position="top-right" closeButton richColors />
   </>
 )
 
@@ -44,7 +42,7 @@ const loadNotifications = () =>
 export default function DeferredNotifications(): JSX.Element {
   const [Notifications, setNotifications] = createSignal<Component | null>(null)
 
-  createEffect(() => {
+  onMount(() => {
     let cancelled = false
 
     const activate = async () => {
@@ -61,11 +59,11 @@ export default function DeferredNotifications(): JSX.Element {
 
     const cleanup = scheduleDeferredActivation({ onActivate: activate })
 
-    return () => {
+    onCleanup(() => {
       cancelled = true
       cleanup()
-    }
-  }, [])
+    })
+  })
 
-  return Notifications ? <Notifications /> : null
+  return <Dynamic component={Notifications() ?? undefined} />
 }

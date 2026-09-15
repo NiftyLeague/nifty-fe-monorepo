@@ -8,7 +8,7 @@ interface DegenPlaceholderProps {
 
 const DegenPlaceholder = ({ size = 'normal' }: DegenPlaceholderProps) => (
   <MainCard content={false} boxShadow={false} border={false}>
-    <DeferredSkeleton style={{ height: size === 'small' ? 200 : 320 }} />
+    <DeferredSkeleton style={{ height: size === 'small' ? '200px' : '320px' }} />
     <CardContent class="px-4 pt-1 pb-0">
       <div class="mb-1 flex flex-row justify-between gap-2">
         <DeferredSkeleton class="h-8 w-25" />

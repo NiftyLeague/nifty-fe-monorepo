@@ -55,7 +55,6 @@ export default function PublicDegenDialog({ open, degen, onClose }: PublicDegenD
                 <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {traits.map((trait) => (
                     <li
-                      key={trait.key}
                       class="flex min-w-0 flex-col rounded-md border px-3 py-2 text-center text-sm"
                     >
                       {trait.name && <span class="font-semibold">{trait.name}</span>}

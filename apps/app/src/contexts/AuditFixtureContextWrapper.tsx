@@ -4,6 +4,7 @@ import type { ParentProps } from 'solid-js'
 
 import AuditFixtureWalletContextWrapper from '@/contexts/AuditFixtureWalletContextWrapper'
 import TokensBalanceContext from '@/contexts/TokensBalanceContext'
+import type { JSX } from 'solid-js'
 
 const AuditFixtureContextWrapper = (props: ParentProps): JSX.Element => {
   return (

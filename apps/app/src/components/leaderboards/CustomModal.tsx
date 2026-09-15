@@ -9,6 +9,7 @@ import {
 } from '@nl/ui/base/dialog'
 
 import styles from './CustomModal.module.css'
+import type { JSX } from 'solid-js'
 
 const backgroundImage = (flag: string | undefined) =>
   flag === 'score'
@@ -39,11 +40,11 @@ const CustomModal = (props: ModalProps): JSX.Element | null => {
           style={{
             width: '67.5vh',
             height: '90vh',
-            paddingTop: 16,
-            paddingLeft: 32,
-            paddingRight: 32,
-            paddingBottom: 24,
-            backgroundImage: `url(${backgroundImage(flag)})`,
+            'padding-top': '16px',
+            'padding-left': '32px',
+            'padding-right': '32px',
+            'padding-bottom': '24px',
+            'background-image': `url(${backgroundImage(flag)})`,
           }}
         >
           {child}

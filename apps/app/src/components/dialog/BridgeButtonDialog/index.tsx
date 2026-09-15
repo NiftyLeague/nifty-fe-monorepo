@@ -44,7 +44,7 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
         </DialogContent>
       </Dialog>
       <BridgeSuccess
-        successDialogOpen={successDialogOpen}
+        successDialogOpen={successDialogOpen()}
         setSuccessDialogOpen={setSuccessDialogOpen}
       />
     </>

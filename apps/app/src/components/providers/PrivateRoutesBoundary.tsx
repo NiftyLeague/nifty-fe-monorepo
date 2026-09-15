@@ -2,6 +2,7 @@ import dynamic from '@/runtime/dynamic'
 import type { ParentProps } from 'solid-js'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
+import type { JSX } from 'solid-js'
 
 interface PrivateRoutesBoundaryProps extends ParentProps {
   cookies?: string | null
@@ -29,6 +30,6 @@ const PrivateRoutesShell = dynamic(() => import('./PrivateRoutesShell'), {
   loading: PrivateRoutesLoading,
 })
 
-export default function PrivateRoutesBoundary({ children, cookies }: PrivateRoutesBoundaryProps) {
-  return <PrivateRoutesShell cookies={cookies}>{props.children}</PrivateRoutesShell>
+export default function PrivateRoutesBoundary(props: PrivateRoutesBoundaryProps) {
+  return <PrivateRoutesShell cookies={props.cookies}>{props.children}</PrivateRoutesShell>
 }

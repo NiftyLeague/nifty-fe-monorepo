@@ -2,6 +2,7 @@
 
 import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
+import type { JSX } from 'solid-js'
 
 interface Props {
   handleSearch: (currentValue: string) => void

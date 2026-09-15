@@ -1,7 +1,7 @@
 'use client'
-import { createMemo, createSignal } from 'solid-js'
+import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
-import { useQueryStates } from 'nuqs'
+import { useQueryStates } from '@/url/nuqs-solid'
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
 import { Checkbox } from '@nl/ui/base/checkbox'
@@ -19,48 +19,64 @@ interface DegensFilterProps {
   defaultFilterValues: DegenFilter
 }
 
-const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): JSX.Element => {
+const DegensFilter = (props: DegensFilterProps): JSX.Element => {
   const [queryState, setQueryState] = useQueryStates(degenSearchParsers, {
     history: 'push',
     shallow: true,
   })
-  const queryStateKey = JSON.stringify(queryState)
-  const state = createMemo(() => normalizeDegenSearchState(queryState), [queryStateKey])
-  const isParamsEmpty =
-    state.page === 1 &&
-    state.sort === 'idUp' &&
-    !state.searchTerm &&
-    !state.prices.length &&
-    !state.multipliers.length &&
-    !state.rentals.length &&
-    !state.tribes.length &&
-    !state.backgrounds.length &&
-    !state.cosmetics.length &&
-    !state.wearables.length &&
-    !state.walletAddress &&
-    !state.tokenId
+  const state = createMemo(() => normalizeDegenSearchState(queryState))
+  const isParamsEmpty = () =>
+    state().page === 1 &&
+    state().sort === 'idUp' &&
+    !state().searchTerm &&
+    !state().prices.length &&
+    !state().multipliers.length &&
+    !state().rentals.length &&
+    !state().tribes.length &&
+    !state().backgrounds.length &&
+    !state().cosmetics.length &&
+    !state().wearables.length &&
+    !state().walletAddress &&
+    !state().tokenId
 
   const [showMore, setShowMore] = createSignal(false)
-  const tribesValue = state.tribes.length ? state.tribes : defaultFilterValues.tribes
-  const backgroundsValue = state.backgrounds.length
-    ? state.backgrounds
-    : defaultFilterValues.backgrounds
-  const cosmeticsValue = state.cosmetics.length ? state.cosmetics : defaultFilterValues.cosmetics
+  const tribesValue = () =>
+    state().tribes.length ? state().tribes : props.defaultFilterValues.tribes
+  const backgroundsValue = () =>
+    state().backgrounds.length ? state().backgrounds : props.defaultFilterValues.backgrounds
+  const cosmeticsValue = () =>
+    state().cosmetics.length ? state().cosmetics : props.defaultFilterValues.cosmetics
 
   const handleCheckboxChange = (
-    (checked: boolean, source: FilterSource, current: string[], value: string) => {
-      const next = checked ? [...current, value] : current.filter((item) => item !== value)
-      const update = next.length ? next : null
-      if (source === 'tribes') void setQueryState({ tribes: update, page: 1 })
-      if (source === 'backgrounds') void setQueryState({ backgrounds: update, page: 1 })
-      if (source === 'cosmetics') void setQueryState({ cosmetics: update, page: 1 })
-    },
-    [setQueryState]
-  )
+    checked: boolean,
+    source: FilterSource,
+    current: string[],
+    value: string
+  ) => {
+    const next = checked ? [...current, value] : current.filter((item) => item !== value)
+    const update = next.length ? next : null
+    if (source === 'tribes') void setQueryState({ tribes: update, page: 1 })
+    if (source === 'backgrounds') void setQueryState({ backgrounds: update, page: 1 })
+    if (source === 'cosmetics') void setQueryState({ cosmetics: update, page: 1 })
+  }
 
   const handleReset = () => {
-    if (isParamsEmpty) return
-    void setQueryState(null)
+    if (isParamsEmpty()) return
+    void setQueryState({
+      prices: null,
+      multipliers: null,
+      rentals: null,
+      tribes: null,
+      backgrounds: null,
+      cosmetics: null,
+      wearables: null,
+      walletAddress: null,
+      tokenId: null,
+      searchTerm: null,
+      sort: null,
+      page: null,
+      layout: null,
+    })
   }
 
   return (
@@ -71,10 +87,10 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): JSX.Element =
           <Button
             type="button"
             variant="outline"
-            disabled={isParamsEmpty}
+            disabled={isParamsEmpty()}
             onClick={handleReset}
             class="h-7 text-error"
-            style={{ borderColor: 'var(--color-error)' }}
+            style={{ 'border-color': 'var(--color-error)' }}
           >
             Reset
           </Button>
@@ -87,26 +103,28 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): JSX.Element =
           length={tribes.length}
         >
           <div class="flex flex-row flex-wrap">
-            {tribes.map((tribe) => (
-              <label                
-                class={cn('flex min-w-0 items-center', styles.filterOption)}
-                style={{ flex: '0 0 50%' }}
-              >
-                <Checkbox
-                  name={tribe.name}
-                  value={tribe.name}
-                  checked={tribesValue.includes(tribe.name)}
-                  class={styles.inputCheck}
-                  onCheckedChange={(checked) =>
-                    handleCheckboxChange(checked === true, 'tribes', tribesValue, tribe.name)
-                  }
-                />
-                <div class="flex flex-row items-center">
-                  <NativeImage src={tribe.icon} alt="" width={18} height={18} />
-                  <span class="ml-2 text-base">{tribe.name}</span>
-                </div>
-              </label>
-            ))}
+            <For each={tribes}>
+              {(tribe) => (
+                <label
+                  class={cn('flex min-w-0 items-center', styles.filterOption)}
+                  style={{ flex: '0 0 50%' }}
+                >
+                  <Checkbox
+                    name={tribe.name}
+                    value={tribe.name}
+                    checked={tribesValue().includes(tribe.name)}
+                    class={styles.inputCheck}
+                    onCheckedChange={(checked) =>
+                      handleCheckboxChange(checked === true, 'tribes', tribesValue(), tribe.name)
+                    }
+                  />
+                  <div class="flex flex-row items-center">
+                    <NativeImage src={tribe.icon} alt="" width={18} height={18} />
+                    <span class="ml-2 text-base">{tribe.name}</span>
+                  </div>
+                </label>
+              )}
+            </For>
           </div>
         </FilterAccordion>
         <FilterAccordion
@@ -115,76 +133,79 @@ const DegensFilter = ({ defaultFilterValues }: DegensFilterProps): JSX.Element =
           expanded={true}
         >
           <div class="flex flex-row flex-wrap">
-            {backgrounds.map((background) => (
-              <label                
-                class={`${styles.inputCheckFormControl} ${styles.filterOption} flex items-center`}
-                style={{ flex: '0 0 50%' }}
-              >
-                <Checkbox
-                  name={background}
-                  value={background}
-                  checked={backgroundsValue.includes(background)}
-                  class={styles.inputCheck}
-                  onCheckedChange={(checked) =>
-                    handleCheckboxChange(
-                      checked === true,
-                      'backgrounds',
-                      backgroundsValue,
-                      background
-                    )
-                  }
-                />
-                <span class="text-base">{background}</span>
-              </label>
-            ))}
+            <For each={backgrounds}>
+              {(background) => (
+                <label
+                  class={`${styles.inputCheckFormControl} ${styles.filterOption} flex items-center`}
+                  style={{ flex: '0 0 50%' }}
+                >
+                  <Checkbox
+                    name={background}
+                    value={background}
+                    checked={backgroundsValue().includes(background)}
+                    class={styles.inputCheck}
+                    onCheckedChange={(checked) =>
+                      handleCheckboxChange(
+                        checked === true,
+                        'backgrounds',
+                        backgroundsValue(),
+                        background
+                      )
+                    }
+                  />
+                  <span class="text-base">{background}</span>
+                </label>
+              )}
+            </For>
           </div>
         </FilterAccordion>
-        {!showMore ? (
-          <Button
-            type="button"
-            variant="link"
-            class="mx-3.5 h-auto justify-start p-0 py-2 text-base font-normal"
-            onClick={() => setShowMore(true)}
-          >
-            More
-          </Button>
-        ) : (
-          <>
-            {Object.keys(CosmeticsFilter.TRAIT_VALUE_MAP)
-              .toSorted()
-              .map((categoryKey) => {
-                const traitGroup = Object.entries(
-                  CosmeticsFilter.TRAIT_VALUE_MAP[
-                    categoryKey as keyof typeof CosmeticsFilter.TRAIT_VALUE_MAP
-                  ]
+        <Show
+          when={showMore()}
+          fallback={
+            <Button
+              type="button"
+              variant="link"
+              class="mx-3.5 h-auto justify-start p-0 py-2 text-base font-normal"
+              onClick={() => setShowMore(true)}
+            >
+              More
+            </Button>
+          }
+        >
+          <For each={Object.keys(CosmeticsFilter.TRAIT_VALUE_MAP).toSorted()}>
+            {(categoryKey) => {
+              const traitGroup = Object.entries(
+                CosmeticsFilter.TRAIT_VALUE_MAP[
+                  categoryKey as keyof typeof CosmeticsFilter.TRAIT_VALUE_MAP
+                ]
+              )
+                .toSorted((a: [string, unknown], b: [string, unknown]) =>
+                  (a[1] as string).localeCompare(b[1] as string)
                 )
-                  .toSorted((a: [string, unknown], b: [string, unknown]) =>
-                    (a[1] as string).localeCompare(b[1] as string)
-                  )
-                  .map((item) => item[0])
-                return (
-                  <div class="flex flex-row flex-wrap">
-                    <FilterAccordion
-                      summary={<Title level={4}>{categoryKey}</Title>}
-                      length={traitGroup.length}
-                      expanded={false}
-                    >
-                      <FilterAllTraitCheckboxes
-                        traitGroup={traitGroup}
-                        categoryKey={categoryKey}
-                        cosmeticsValue={cosmeticsValue}
-                        onCheckboxChange={(checked, value) =>
-                          handleCheckboxChange(checked, 'cosmetics', cosmeticsValue, value)
-                        }
-                        inputCheckBoxStyle={cn(styles.inputCheck)}
-                        inputCheckFormControlStyle={cn(styles.inputCheckFormControl)}
-                      />
-                    </FilterAccordion>
-                  </div>
-                )
-              })}
-          </>
-        )}
+                .map((item) => item[0])
+              return (
+                <div class="flex flex-row flex-wrap">
+                  <FilterAccordion
+                    summary={<Title level={4}>{categoryKey}</Title>}
+                    length={traitGroup.length}
+                    expanded={false}
+                  >
+                    <FilterAllTraitCheckboxes
+                      traitGroup={traitGroup}
+                      categoryKey={categoryKey}
+                      cosmeticsValue={cosmeticsValue()}
+                      onCheckboxChange={(checked, value) =>
+                        handleCheckboxChange(checked, 'cosmetics', cosmeticsValue(), value)
+                      }
+                      inputCheckBoxStyle={cn(styles.inputCheck)}
+                      inputCheckFormControlStyle={cn(styles.inputCheckFormControl)}
+                    />
+                  </FilterAccordion>
+                </div>
+              )
+            }}
+          </For>
+        </Show>
       </div>
     </div>
   )

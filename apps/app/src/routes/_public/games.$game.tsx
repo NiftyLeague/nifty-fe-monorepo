@@ -19,9 +19,9 @@ export const Route = createFileRoute('/_public/games/$game')({
 })
 
 function NiftyWorldGameRoute() {
-  const game = getNiftyWorldGame(Route.useParams().game)
+  const game = getNiftyWorldGame(Route.useParams()().game)
 
   if (!game) return null
 
-  return <NiftyWorldGame key={game.id} game={game} />
+  return <NiftyWorldGame game={game} />
 }

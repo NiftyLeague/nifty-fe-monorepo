@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
-import { HeadContent, Scripts, createRootRouteWithContext, type JSX } from '@tanstack/solid-router'
+import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/solid-router'
+import type { JSX } from 'solid-js'
 
 import DeferredExternalScript from '@nl/ui/custom/deferred-external-script'
 import { cx } from '@nl/ui/class-names'

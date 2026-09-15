@@ -8,6 +8,7 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import BridgeButtonDialog from '@/components/dialog/BridgeButtonDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 import { GOVERNANCE_PORTAL_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url'
+import type { JSX } from 'solid-js'
 
 const WalletBalances = (): JSX.Element => {
   const { loadingNFTLBal, tokensBalances } = useTokensBalances()
@@ -20,7 +21,7 @@ const WalletBalances = (): JSX.Element => {
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
           isLoading={loadingNFTLBal}
           customStyle={{
-            backgroundColor: 'var(--color-card)',
+            'background-color': 'var(--color-card)',
             border: 'var(--border-default)',
             position: 'relative',
           }}
@@ -71,7 +72,7 @@ const WalletBalances = (): JSX.Element => {
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
           customStyle={{
-            backgroundColor: 'var(--color-card)',
+            'background-color': 'var(--color-card)',
             border: 'var(--border-default)',
             position: 'relative',
           }}

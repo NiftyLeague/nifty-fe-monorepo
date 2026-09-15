@@ -2,6 +2,7 @@ import { Progress } from '@nl/ui/base/progress'
 import { cn } from '@nl/ui/utils'
 
 import type { ProfileTotal, ProfileNiftySmsher, ProfileMiniGame } from '@/types/account'
+import type { JSX } from 'solid-js'
 
 interface ProgressGamerProps {
   data?: ProfileTotal | ProfileNiftySmsher | ProfileMiniGame
@@ -26,7 +27,7 @@ const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): JSX.Element =
       />
       <span
         class="absolute -right-1.5 top-0 bottom-0 z-[1] m-auto flex items-center justify-center rounded-full bg-[var(--color-purple)] font-bold"
-        style={{ width: badgeSize, height: badgeSize, fontSize: badgeFontSize }}
+        style={{ width: badgeSize, height: badgeSize, 'font-size': badgeFontSize }}
       >
         {rank}
       </span>

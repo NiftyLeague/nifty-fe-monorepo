@@ -2,7 +2,7 @@
 
 import { useAccount, useSwitchChain } from '@/runtime/wagmi'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
-import { Info, TriangleAlert } from 'lucide-react'
+import { Info, TriangleAlert } from 'lucide-solid'
 
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -21,7 +21,7 @@ export default function NetworkWarning() {
           ? 'bg-success-dark/[80%] flex h-[60px] w-full items-center justify-center'
           : 'bg-error/[80%] flex h-[60px] w-full items-center justify-center'
       }
-      style={{ zIndex: 1, position: 'absolute' }}
+      style={{ 'z-index': 1, position: 'absolute' }}
     >
       {isConnectedToIMX ? (
         <Info aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={2.5} />

@@ -1,3 +1,4 @@
+import { For, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import type { SxProps } from '@/types'
 import type { Item } from '@/types/marketplace'
@@ -18,19 +19,21 @@ interface WearableItemCardPaneProps {
 }
 
 const WearableItemCardPane = (props: WearableItemCardPaneProps) => {
-  const { width, height, data, sx } = props
-  const { image, imageWebp, title, thumbnail } = data
   return (
     <div
       class="relative overflow-hidden rounded-[10px]"
-      style={{ width, height, ...(sx as JSX.CSSProperties | undefined) }}
+      style={{
+        width: `${props.width}px`,
+        height: `${props.height}px`,
+        ...(props.sx as JSX.CSSProperties | undefined),
+      }}
     >
       <div class="relative">
         <ImageCard
-          image={image}
-          imageWebp={imageWebp}
-          thumbnail={thumbnail}
-          title={title}
+          image={props.data.image}
+          imageWebp={props.data.imageWebp}
+          thumbnail={props.data.thumbnail}
+          title={props.data.title}
           ratio={1}
         />
       </div>
@@ -42,87 +45,91 @@ const CARD_WIDTH = 106
 const CARD_HEIGHT = 106
 
 const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Element }) => {
-  const { data, onViewItem, isSelected = false } = props
-  const { balance, empty, isNew, title } = data
-
-  const handleViewItem = (e: MouseEvent & { currentTarget: HTMLDivElement }) => {
+  const handleViewItem = (e: MouseEvent) => {
     e.stopPropagation()
-    if (!onViewItem) return
-    onViewItem()
+    props.onViewItem?.()
   }
 
-  if (!balance)
-    return (
-      <div
-        class="flex items-center justify-center"
-        style={{ width: CARD_WIDTH + 24, height: CARD_HEIGHT + 24 }}
-      >
+  return (
+    <Show
+      when={props.data.balance}
+      fallback={
         <div
-          class="flex items-center justify-center rounded-[10px] border border-[#363636]"
-          style={{ width: CARD_WIDTH, height: CARD_HEIGHT }}
+          class="flex items-center justify-center"
+          style={{ width: `${CARD_WIDTH + 24}px`, height: `${CARD_HEIGHT + 24}px` }}
         >
-          <NativeImage
-            src={empty as string}
-            alt={title}
-            width={CARD_WIDTH}
-            height={CARD_HEIGHT}
-            unoptimized
-          />
+          <div
+            class="flex items-center justify-center rounded-[10px] border border-[#363636]"
+            style={{ width: `${CARD_WIDTH}px`, height: `${CARD_HEIGHT}px` }}
+          >
+            <NativeImage
+              src={props.data.empty as string}
+              alt={props.data.title}
+              width={CARD_WIDTH}
+              height={CARD_HEIGHT}
+              unoptimized
+            />
+          </div>
+        </div>
+      }
+    >
+      <div class="relative">
+        <Show when={props.data.isNew}>
+          <span class="absolute w-full text-center" style={{ color: '#E3B210', top: '-16px' }}>
+            New!
+          </span>
+        </Show>
+        <div
+          onClick={handleViewItem}
+          class="relative flex cursor-pointer items-center justify-center rounded-[10px]"
+          style={{ width: `${CARD_WIDTH + 24}px`, height: `${CARD_HEIGHT + 24}px` }}
+        >
+          <Show
+            when={props.data.balance === 1}
+            fallback={
+              <>
+                <For each={[0, 1, 2]}>
+                  {(item) => (
+                    <WearableItemCardPane
+                      data={props.data}
+                      width={CARD_WIDTH}
+                      height={CARD_HEIGHT}
+                      sx={{
+                        position: 'absolute',
+                        'z-index': `${2 - item}`,
+                        top: `${item * 8}px`,
+                        left: `${(item + 1) * 8}px`,
+                        border: 'var(--border-default)',
+                      }}
+                    />
+                  )}
+                </For>
+                <div
+                  class="absolute bottom-0 left-0 flex items-center justify-center rounded-[10px]"
+                  style={{
+                    width: '38px',
+                    height: '35px',
+                    background: '#8F4BF4',
+                    'z-index': '3',
+                  }}
+                >
+                  <span class="text-[20px] font-bold text-foreground">
+                    {props.data.balance}
+                  </span>
+                </div>
+              </>
+            }
+          >
+            <WearableItemCardPane
+              data={props.data}
+              width={CARD_WIDTH}
+              height={CARD_HEIGHT}
+              sx={{ outline: props.isSelected ? '3px solid var(--color-purple)' : 'none' }}
+            />
+          </Show>
         </div>
       </div>
-    )
-
-  return (
-    <div class="relative">
-      {isNew && (
-        <span class="absolute w-full text-center" style={{ color: '#E3B210', top: -16 }}>
-          New!
-        </span>
-      )}
-      <div
-        onClick={handleViewItem}
-        class="relative flex cursor-pointer items-center justify-center rounded-[10px]"
-        style={{ width: CARD_WIDTH + 24, height: CARD_HEIGHT + 24 }}
-      >
-        {balance === 1 ? (
-          <WearableItemCardPane
-            data={data}
-            width={CARD_WIDTH}
-            height={CARD_HEIGHT}
-            sx={{ outline: isSelected ? '3px solid var(--color-purple)' : 'none' }}
-          />
-        ) : (
-          <>
-            {[0, 1, 2].map((item) => (
-              <WearableItemCardPane
-                data={data}
-                width={CARD_WIDTH}
-                height={CARD_HEIGHT}
-                key={`WearableItemCard-${item}`}
-                sx={{
-                  position: 'absolute',
-                  zIndex: 2 - item,
-                  top: item * 8,
-                  left: (item + 1) * 8,
-                  border: 'var(--border-default)',
-                }}
-              />
-            ))}
-            <div
-              class="absolute bottom-0 left-0 flex items-center justify-center rounded-[10px]"
-              style={{
-                width: 38,
-                height: 35,
-                background: '#8F4BF4',
-                zIndex: 3,
-              }}
-            >
-              <span class="text-[20px] font-bold text-foreground">{balance}</span>
-            </div>
-          </>
-        )}
-      </div>
-    </div>
+    </Show>
   )
 }
 

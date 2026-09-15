@@ -1,4 +1,4 @@
-import { createMemo } from 'solid-js'
+import { createMemo, For, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 
@@ -11,10 +11,9 @@ import { ITEM_PURCHASE_URL } from '@/constants/url'
 
 const MyItems = (): JSX.Element => {
   const router = useRouter()
-  const { itemsBalances, loadingItems } = useNFTsBalances()
-  const filteredItems = createMemo(
-    () => itemsBalances.filter((item) => item.balance && item.balance > 0),
-    [itemsBalances]
+  const nfts = useNFTsBalances()
+  const filteredItems = createMemo(() =>
+    nfts.itemsBalances.filter((item) => item.balance && item.balance > 0)
   )
 
   const settings = {
@@ -31,7 +30,7 @@ const MyItems = (): JSX.Element => {
   return (
     <>
       <SectionSlider
-        isSlider={filteredItems.length > 0}
+        isSlider={filteredItems().length > 0}
         firstSection
         title="My Items"
         variant="h3"
@@ -42,26 +41,36 @@ const MyItems = (): JSX.Element => {
           </Button>
         }
       >
-        {loadingItems ? (
-          <div class="px-1">
-            <ComicPlaceholder />
-          </div>
-        ) : filteredItems.length ? (
-          filteredItems.map((item) => (
+        <Show
+          when={!nfts.loadingItems}
+          fallback={
             <div class="px-1">
-              <WearableItemCard data={item} />
+              <ComicPlaceholder />
             </div>
-          ))
-        ) : (
-          <div class="flex items-center justify-center">
-            <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
-              <EmptyState
-                message="No Items found. Please check your address or go purchase some if you have not done so already!"
-                buttonText="Buy Items"
-              />
-            </a>
-          </div>
-        )}
+          }
+        >
+          <Show
+            when={filteredItems().length > 0}
+            fallback={
+              <div class="flex items-center justify-center">
+                <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
+                  <EmptyState
+                    message="No Items found. Please check your address or go purchase some if you have not done so already!"
+                    buttonText="Buy Items"
+                  />
+                </a>
+              </div>
+            }
+          >
+            <For each={filteredItems()}>
+              {(item) => (
+                <div class="px-1">
+                  <WearableItemCard data={item} />
+                </div>
+              )}
+            </For>
+          </Show>
+        </Show>
       </SectionSlider>
     </>
   )

@@ -43,7 +43,7 @@ export default function useContractReader(
     const activeContracts = resolveContracts()
     if (!skip && activeContracts && activeContracts[contractName]) {
       try {
-        let newValue
+        let newValue: unknown
         const contract = activeContracts[contractName] as BaseContract as Contract
         if (contract) {
           const fn = contract[functionName] as ContractMethod
