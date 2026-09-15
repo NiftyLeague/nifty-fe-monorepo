@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { PrivateRoutesLoading } from './PrivateRoutesBoundary'
 
 describe('PrivateRoutes loading boundary', () => {
   it('keeps an accessible shell while the private app loads', () => {
-    render(<PrivateRoutesLoading />)
+    render(() => <PrivateRoutesLoading />)
 
     expect(screen.getByRole('status').getAttribute('aria-busy')).toBe('true')
     expect(screen.getByText('Loading private app')).toBeTruthy()

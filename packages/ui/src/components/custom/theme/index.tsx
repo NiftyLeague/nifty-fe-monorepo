@@ -1,46 +1,24 @@
-'use client'
-
-import * as React from 'react'
-import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes'
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Sun } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
+import { ThemeProvider, useTheme } from '@nl/ui/lib/theme'
 
-type ThemeProviderProps = React.PropsWithChildren<
-  Omit<React.ComponentProps<typeof NextThemesProvider>, 'children'>
->
-
-const CompatibleNextThemesProvider =
-  NextThemesProvider as unknown as React.ComponentType<ThemeProviderProps>
-
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return (
-    <CompatibleNextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-      {...props}
-    >
-      {children}
-    </CompatibleNextThemesProvider>
-  )
-}
+export { ThemeProvider }
 
 export function ThemeToggle() {
-  const { setTheme, resolvedTheme: theme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
   return (
     <Button
       variant="outline"
       size="icon"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(resolvedTheme() === 'dark' ? 'light' : 'dark')}
     >
-      {theme === 'dark' ? (
-        <Moon absoluteStrokeWidth className="h-[1.2rem] w-[1.2rem]" size={20} strokeWidth={1.5} />
+      {resolvedTheme() === 'dark' ? (
+        <Moon absoluteStrokeWidth class="h-[1.2rem] w-[1.2rem]" size={20} strokeWidth={1.5} />
       ) : (
-        <Sun absoluteStrokeWidth className="h-[1.2rem] w-[1.2rem]" size={20} strokeWidth={1.5} />
+        <Sun absoluteStrokeWidth class="h-[1.2rem] w-[1.2rem]" size={20} strokeWidth={1.5} />
       )}
-      <span className="sr-only">Toggle theme</span>
+      <span class="sr-only">Toggle theme</span>
     </Button>
   )
 }

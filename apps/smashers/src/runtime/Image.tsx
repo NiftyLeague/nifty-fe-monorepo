@@ -1,5 +1,3 @@
-import { preload as preloadImage } from 'react-dom'
-import type { ComponentProps } from 'react'
 import { imageAttributes, imageSource, stripUndefinedAttributes } from '@nl/ui/lib/image-attributes'
 import { canOptimize, isOptimizableSource, optimizedUrl, selectWidths } from './image-url'
 
@@ -17,7 +15,7 @@ import { canOptimize, isOptimizableSource, optimizedUrl, selectWidths } from './
  * The Vite alias in astro.config.mjs redirects the shared specifier here; the
  * consuming components keep importing `@nl/ui/custom/optimized-image`.
  */
-export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> {
+export interface OptimizedImageProps extends Omit<Record<string, unknown>, 'src'> {
   src: string | { src: string; width?: number; height?: number }
   priority?: boolean
   preload?: boolean
@@ -46,7 +44,7 @@ export function getOptimizedImageProps({
   placeholder: _placeholder,
   blurDataURL: _blurDataURL,
   ...attributes
-}: OptimizedImageProps): ComponentProps<'img'> & { src: string } {
+}: OptimizedImageProps): Record<string, unknown> & { src: string } {
   const source = imageSource(suppliedSource)
 
   // `sizes` stays in `attributes`: pulling it out here would reorder the emitted
@@ -62,27 +60,38 @@ export function getOptimizedImageProps({
   const optimizable = canOptimize() && !unoptimized && isOptimizableSource(source)
   if (optimizable) {
     const nativeWidth =
-      typeof suppliedSource === 'object' ? suppliedSource?.width : Number(props.width) || undefined
-    const widths = selectWidths(nativeWidth, attributes.sizes)
+      typeof suppliedSource === 'object'
+        ? suppliedSource?.width
+        : Number(props.width as string | undefined) || undefined
+    const widths = selectWidths(nativeWidth, attributes.sizes as string | undefined)
     props.src = optimizedUrl(source, widths.at(-1) as number, quality)
-    props.srcSet = widths
+    props.srcset = widths
       .map((width) => `${optimizedUrl(source, width, quality)} ${width}w`)
       .join(', ')
   }
 
-  return stripUndefinedAttributes(props)
+  return stripUndefinedAttributes(props as unknown as Record<string, unknown>) as Record<
+    string,
+    unknown
+  > & { src: string }
 }
 
 export default function OptimizedImage(props: OptimizedImageProps) {
   const result = getOptimizedImageProps(props)
-  if (props.priority || props.preload) {
-    preloadImage(result.src, {
-      as: 'image',
-      fetchPriority: 'high',
-      imageSrcSet: result.srcSet,
-      imageSizes: props.sizes,
-    })
+
+  // High-priority artwork gets a preload hint once the island hydrates; the
+  // React version used `react-dom/preload`, which emitted the link during SSR.
+  if ((props.priority || props.preload) && typeof document !== 'undefined') {
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.setAttribute('fetchpriority', 'high')
+    if (result.srcset) link.setAttribute('imagesrcset', String(result.srcset))
+    if (props.sizes) link.setAttribute('imagesizes', String(props.sizes))
+    link.href = String(result.src)
+    document.head.append(link)
   }
+
   return <img {...result} />
 }
 export { OptimizedImage }

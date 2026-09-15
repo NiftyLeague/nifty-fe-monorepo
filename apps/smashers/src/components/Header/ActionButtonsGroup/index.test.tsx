@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
 
 describe('ActionButtonsGroup', () => {
@@ -9,7 +9,7 @@ describe('ActionButtonsGroup', () => {
   })
 
   it('renders accessible themed actions without preloading modal content', () => {
-    render(<ActionButtonsGroup />)
+    render(() => <ActionButtonsGroup />)
 
     for (const label of ['Play', 'Trailer', 'Credits']) {
       const button = screen.getByRole('button', { name: label })

@@ -1,7 +1,8 @@
 import { BrowserProvider, Provider } from 'ethers'
 
-import type { UnityInstance as ReactUnityInstance, UnityMessageParameter } from 'react-unity-webgl'
 import type { Ethereumish } from '@/types/web3'
+
+type UnityMessageParameter = string | number | boolean | undefined
 
 interface UnityWindowBridge {
   SendMessage: (
@@ -11,6 +12,16 @@ interface UnityWindowBridge {
   ) => void
   removeAllEventListeners: () => void
   setFullscreen?: (fullscreen: boolean) => void
+}
+
+interface UnityInstance {
+  SendMessage: (
+    gameObjectName: string,
+    methodName: string,
+    parameter?: UnityMessageParameter
+  ) => void
+  SetFullscreen: (fullscreen: number) => void
+  Quit: () => Promise<void>
 }
 
 interface UnityParameters {
@@ -32,7 +43,7 @@ declare global {
       canvasHtmlElement: HTMLCanvasElement,
       parameters: UnityParameters,
       onProgress?: (progression: number) => void
-    ) => Promise<ReactUnityInstance>
+    ) => Promise<UnityInstance>
     ethereum?: Ethereumish
     ReactUnityWebGL: {
       canvas: () => void

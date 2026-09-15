@@ -1,9 +1,9 @@
-import type { PropsWithChildren } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 mock.module('@/runtime/Link', () => ({
-  default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
+  default: ({ children, href, ...props }: { href: string } & { children?: JSX.Element }) => (
     <a href={href} {...props}>
       {children}
     </a>
@@ -22,7 +22,7 @@ describe('NiftyWorldMintOMatic', () => {
   it('embeds the hosted Nifty World mint experience', async () => {
     const { default: NiftyWorldMintOMatic } = await import('./NiftyWorldMintOMatic')
 
-    render(<NiftyWorldMintOMatic />)
+    render(() => <NiftyWorldMintOMatic />)
 
     const iframe = screen.getByTitle('Mint-o-Matic character creator')
     const src = iframe.getAttribute('src') ?? ''
@@ -37,3 +37,15 @@ describe('NiftyWorldMintOMatic', () => {
     expect(screen.getByRole('button', { name: 'Enter fullscreen' })).toBeTruthy()
   })
 })
+
+mock.module('@/runtime/Link', () => ({
+  default: ({ children, href, ...props }: { href: string } & { children?: JSX.Element }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}))
+
+mock.module('@nl/ui/custom/external-icon', () => ({
+  ExternalIcon: () => null,
+}))

@@ -1,12 +1,17 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 mock.module('@/runtime/Link', () => ({
   default: ({
     children,
     href,
     prefetch,
-  }: React.PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
+  }: {
+    href: string
+    prefetch?: boolean
+    children?: JSX.Element
+  }) => (
     <a href={href} data-prefetch={String(prefetch)}>
       {children}
     </a>
@@ -21,7 +26,7 @@ beforeEach(async () => {
 
 describe('Logo', () => {
   it('does not prefetch the home route from the persistent app shell', () => {
-    render(<Logo />)
+    render(() => <Logo />)
 
     const logoLink = screen.getByRole('link', { name: 'NiftyLogo' })
     expect(logoLink.getAttribute('href')).toBe('/')

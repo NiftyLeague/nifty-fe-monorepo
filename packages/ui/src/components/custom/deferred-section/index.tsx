@@ -1,6 +1,5 @@
-'use client'
-
-import { memo, useRef, type ComponentType } from 'react'
+import { Show, type Component, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 
 import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
@@ -10,7 +9,7 @@ import { DEFERRED_RETRY_BUTTON_CLASS } from '@nl/ui/lib/deferred-boundary'
 
 interface DeferredSectionProps {
   label: string
-  load: () => Promise<{ default: ComponentType }>
+  load: () => Promise<{ default: Component }>
   minHeightClassName?: string
   rootMargin?: string
   loadingMode?: 'skeleton' | 'minimal'
@@ -20,86 +19,97 @@ interface DeferredSectionProps {
 // skeleton during normal scrolling without eagerly loading lower-page media.
 export const DEFAULT_DEFERRED_SECTION_ROOT_MARGIN = '160px'
 
-export function DeferredSectionLoading({
-  label,
-  minHeightClassName = 'min-h-48',
-  loadingMode = 'skeleton',
-}: Pick<DeferredSectionProps, 'label' | 'minHeightClassName' | 'loadingMode'>): React.ReactNode {
-  if (loadingMode === 'minimal') {
+export function DeferredSectionLoading(props: {
+  label: string
+  minHeightClassName?: string
+  loadingMode?: 'skeleton' | 'minimal'
+}): JSX.Element {
+  const minHeightClassName = () => props.minHeightClassName ?? 'min-h-48'
+  if (props.loadingMode === 'minimal') {
     return (
       <div
-        className={`deferred-section-minimal ${minHeightClassName}`}
+        class={`deferred-section-minimal ${minHeightClassName()}`}
         role="status"
         aria-live="polite"
         aria-busy="true"
-        aria-label={`Loading ${label}`}
+        aria-label={`Loading ${props.label}`}
       >
-        <span className="sr-only">Loading {label}</span>
+        <span class="sr-only">Loading {props.label}</span>
       </div>
     )
   }
 
   return (
     <div
-      className={`flex ${minHeightClassName} flex-col gap-4 rounded-md border border-border bg-muted p-4`}
+      class={`flex ${minHeightClassName()} flex-col gap-4 rounded-md border border-border bg-muted p-4`}
       role="status"
       aria-live="polite"
       aria-busy="true"
-      aria-label={`Loading ${label}`}
+      aria-label={`Loading ${props.label}`}
     >
-      <DeferredSkeleton className="h-6 w-40 rounded" />
-      <div className="grid gap-4 sm:grid-cols-2">
-        <DeferredSkeleton className="h-20 w-full rounded" />
-        <DeferredSkeleton className="h-20 w-full rounded" />
+      <DeferredSkeleton class="h-6 w-40 rounded" />
+      <div class="grid gap-4 sm:grid-cols-2">
+        <DeferredSkeleton class="h-20 w-full rounded" />
+        <DeferredSkeleton class="h-20 w-full rounded" />
       </div>
-      <span className="sr-only">Loading {label}</span>
+      <span class="sr-only">Loading {props.label}</span>
     </div>
   )
 }
 
-export const DeferredSection = memo(function DeferredSection({
-  label,
-  load,
-  minHeightClassName,
-  rootMargin = DEFAULT_DEFERRED_SECTION_ROOT_MARGIN,
-  loadingMode,
-}: DeferredSectionProps): React.ReactNode {
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(sectionRef, rootMargin, { once: true })
+export function DeferredSection(props: DeferredSectionProps): JSX.Element {
+  let sectionEl: HTMLDivElement | undefined
+  const isNearViewport = useOnScreen(
+    () => sectionEl,
+    props.rootMargin ?? DEFAULT_DEFERRED_SECTION_ROOT_MARGIN,
+    { once: true }
+  )
   const {
     Component: LoadedSection,
     hasError: loadError,
     retry,
-  } = useDeferredComponent(load, isNearViewport)
+  } = useDeferredComponent(props.load, isNearViewport)
 
   return (
-    <div ref={sectionRef} className="deferred-section" aria-busy={!LoadedSection && !loadError}>
-      {loadError ? (
-        <div
-          className={`flex ${minHeightClassName ?? 'min-h-48'} flex-col items-center justify-center gap-3`}
-          role="alert"
-        >
-          <p>{label} could not be loaded.</p>
-          <Button
-            type="button"
-            data-slot="button"
-            className={DEFERRED_RETRY_BUTTON_CLASS}
-            onClick={retry}
+    <div
+      ref={(el) => (sectionEl = el)}
+      class="deferred-section"
+      aria-busy={!LoadedSection() && !loadError()}
+    >
+      <Show
+        when={!loadError()}
+        fallback={
+          <div
+            class={`flex ${props.minHeightClassName ?? 'min-h-48'} flex-col items-center justify-center gap-3`}
+            role="alert"
           >
-            Retry
-          </Button>
-        </div>
-      ) : LoadedSection ? (
-        <LoadedSection />
-      ) : (
-        <DeferredSectionLoading
-          label={label}
-          minHeightClassName={minHeightClassName}
-          loadingMode={loadingMode}
-        />
-      )}
+            <p>{props.label} could not be loaded.</p>
+            <Button
+              type="button"
+              data-slot="button"
+              class={DEFERRED_RETRY_BUTTON_CLASS}
+              onClick={retry}
+            >
+              Retry
+            </Button>
+          </div>
+        }
+      >
+        <Show
+          when={LoadedSection()}
+          fallback={
+            <DeferredSectionLoading
+              label={props.label}
+              minHeightClassName={props.minHeightClassName}
+              loadingMode={props.loadingMode}
+            />
+          }
+        >
+          {(Loaded) => <Dynamic component={Loaded()} />}
+        </Show>
+      </Show>
     </div>
   )
-})
+}
 
 export default DeferredSection

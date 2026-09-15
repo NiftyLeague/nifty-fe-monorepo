@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useMemo, type PropsWithChildren } from 'react'
+import { createContext, Show, type JSX } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 
@@ -19,24 +19,37 @@ const openWalletModal = async () => {
   await open()
 }
 
-export const AuthTokenProvider = ({ children }: PropsWithChildren) => {
-  const { isLoggedIn } = useAuthStatus()
+export const AuthTokenProvider = (props: { children?: JSX.Element }) => {
+  const auth = useAuthStatus()
   const authToken = useAuthToken()
-  const { Component: Runtime } = useDeferredComponent<PropsWithChildren>(loadAuthTokenRuntime)
-
-  const fallbackValue = useMemo(
-    () => ({
-      authToken,
-      handleConnectWallet: openWalletModal,
-      isConnected: false,
-      isLoggedIn,
-    }),
-    [authToken, isLoggedIn]
+  const { Component: Runtime } = useDeferredComponent<{ children?: JSX.Element }>(
+    loadAuthTokenRuntime
   )
 
-  if (Runtime) return <Runtime>{children}</Runtime>
+  const fallbackValue: AuthTokenContextType = {
+    get authToken() {
+      return authToken()
+    },
+    handleConnectWallet: openWalletModal,
+    isConnected: false,
+    get isLoggedIn() {
+      return auth.isLoggedIn
+    },
+  }
 
-  return <AuthTokenContext.Provider value={fallbackValue}>{children}</AuthTokenContext.Provider>
+  return (
+    <Show
+      when={Runtime()}
+      keyed
+      fallback={
+        <AuthTokenContext.Provider value={fallbackValue}>
+          {props.children}
+        </AuthTokenContext.Provider>
+      }
+    >
+      {(Loaded) => <Loaded>{props.children}</Loaded>}
+    </Show>
+  )
 }
 
 export default AuthTokenContext

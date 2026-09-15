@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { Show, type JSX } from 'solid-js'
 
 import { Label } from '@nl/ui/base/label'
 import {
@@ -12,29 +12,28 @@ type DisplayFieldProps = {
   id: string
   label: string
   value: string | number
-  icon?: ReactNode
+  icon?: JSX.Element
   className?: string
   inputClassName?: string
 }
 
-export default function DisplayField({
-  id,
-  label,
-  value,
-  icon,
-  className,
-  inputClassName,
-}: DisplayFieldProps) {
+export default function DisplayField(props: DisplayFieldProps) {
   return (
-    <div className="grid gap-2">
-      <Label htmlFor={id}>{label}</Label>
-      <InputGroup className={className}>
-        {icon ? (
+    <div class="grid gap-2">
+      <Label for={props.id}>{props.label}</Label>
+      <InputGroup class={props.className}>
+        <Show when={props.icon}>
           <InputGroupAddon>
-            <InputGroupText>{icon}</InputGroupText>
+            <InputGroupText>{props.icon}</InputGroupText>
           </InputGroupAddon>
-        ) : null}
-        <InputGroupInput id={id} type="text" value={value} disabled className={inputClassName} />
+        </Show>
+        <InputGroupInput
+          id={props.id}
+          type="text"
+          value={props.value}
+          disabled
+          class={props.inputClassName}
+        />
       </InputGroup>
     </div>
   )

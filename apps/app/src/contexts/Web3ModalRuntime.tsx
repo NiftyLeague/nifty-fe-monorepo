@@ -1,7 +1,7 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
-import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
+import { onMount, type JSX } from 'solid-js'
+import { cookieToInitialState, hydrate, type Config } from '@wagmi/core'
 
 type Web3ModalConfig = {
   wagmiAdapter: {
@@ -9,22 +9,22 @@ type Web3ModalConfig = {
   }
 }
 
-export type Web3ModalRuntimeProps = PropsWithChildren<{
+export type Web3ModalRuntimeProps = {
+  children?: JSX.Element
   config: Web3ModalConfig
   cookies?: string | null
-}>
+}
 
 /**
  * Hydrates the wagmi connection from the request cookies. The
  * `QueryClientProvider` is supplied once by the router's SSR Query integration,
  * so this boundary only contributes the wagmi runtime.
  */
-export default function Web3ModalRuntime({ children, config, cookies }: Web3ModalRuntimeProps) {
-  const initialState = cookieToInitialState(config.wagmiAdapter.wagmiConfig, cookies)
+export default function Web3ModalRuntime(props: Web3ModalRuntimeProps) {
+  onMount(() => {
+    const initialState = cookieToInitialState(props.config.wagmiAdapter.wagmiConfig, props.cookies)
+    hydrate(props.config.wagmiAdapter.wagmiConfig, { initialState, reconnectOnMount: true })
+  })
 
-  return (
-    <WagmiProvider config={config.wagmiAdapter.wagmiConfig} initialState={initialState}>
-      {children}
-    </WagmiProvider>
-  )
+  return <>{props.children}</>
 }

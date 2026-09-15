@@ -1,5 +1,6 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 const appShellMock = mock(
   ({
@@ -7,11 +8,12 @@ const appShellMock = mock(
     header,
     networkWarning,
     sidebar,
-  }: React.PropsWithChildren<{
-    header: React.ReactNode
-    sidebar: React.ReactNode
-    networkWarning?: React.ReactNode
-  }>) => (
+  }: {
+    header: JSX.Element
+    sidebar: JSX.Element
+    networkWarning?: JSX.Element
+    children?: JSX.Element
+  }) => (
     <div data-network-warning={networkWarning ? 'present' : 'absent'}>
       {header}
       {sidebar}
@@ -41,11 +43,11 @@ afterEach(() => {
 describe('private main layout startup shell', () => {
   it('renders the navigation shell before wallet features are ready', async () => {
     const MainLayout = (await import('./index')).default
-    const { container } = render(
+    const { container } = render(() => (
       <MainLayout walletReady={false}>
         <p>Loading content</p>
       </MainLayout>
-    )
+    ))
 
     expect(container.querySelector('[data-sidebar-wallet-ready="false"]')).not.toBeNull()
     expect(container.querySelector('[data-network-warning="absent"]')).not.toBeNull()
@@ -54,11 +56,11 @@ describe('private main layout startup shell', () => {
 
   it('restores wallet-dependent chrome once the provider is ready', async () => {
     const MainLayout = (await import('./index')).default
-    const { container } = render(
+    const { container } = render(() => (
       <MainLayout>
         <p>Dashboard</p>
       </MainLayout>
-    )
+    ))
 
     expect(container.querySelector('[data-sidebar-wallet-ready="true"]')).not.toBeNull()
     expect(container.querySelector('[data-network-warning="present"]')).not.toBeNull()

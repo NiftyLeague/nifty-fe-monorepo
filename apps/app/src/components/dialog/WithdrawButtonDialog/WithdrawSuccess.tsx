@@ -1,10 +1,11 @@
-import type { Dispatch, SetStateAction } from 'react'
-import { X } from 'lucide-react'
+import type { Dispatch, SetStateAction } from '@/types'
+import { X } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@nl/ui/base/dialog'
 
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import type { JSX } from 'solid-js'
 
 type WithdrawSuccessProps = {
   successDialogOpen: boolean
@@ -14,7 +15,7 @@ type WithdrawSuccessProps = {
 const WithdrawSuccess = ({
   successDialogOpen,
   setSuccessDialogOpen,
-}: WithdrawSuccessProps): React.ReactNode => {
+}: WithdrawSuccessProps): JSX.Element => {
   const { refreshNFTLBalance } = useTokensBalances()
 
   const handleClose = () => {
@@ -25,14 +26,14 @@ const WithdrawSuccess = ({
   return (
     <Dialog open={successDialogOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent showCloseButton={false}>
-        <DialogTitle className="relative text-center text-xl">
+        <DialogTitle class="relative text-center text-xl">
           Success!
           <Button
             aria-label="close"
             variant="ghost"
             size="icon"
             onClick={handleClose}
-            className="absolute top-0 right-0 cursor-pointer"
+            class="absolute top-0 right-0 cursor-pointer"
           >
             <X
               aria-hidden="true"

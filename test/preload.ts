@@ -25,39 +25,47 @@ async function importFirstAvailable(...relativePaths: string[]): Promise<ModuleE
   throw new Error(`Unable to load a shared test runtime from: ${relativePaths.join(', ')}`)
 }
 
-const rootReactModule = await importFirstAvailable(
-  '../node_modules/react/index.js',
-  '../node_modules/.bun/node_modules/react/index.js'
-)
-const rootReact = (rootReactModule.default ?? rootReactModule) as ModuleExports
-const rootReactDom = await importFirstAvailable(
-  '../node_modules/react-dom/index.js',
-  '../node_modules/.bun/node_modules/react-dom/index.js'
-)
-const rootReactDomClient = await importFirstAvailable(
-  '../node_modules/react-dom/client.js',
-  '../node_modules/.bun/node_modules/react-dom/client.js'
-)
+/**
+ * `solid-js`, `solid-js/store`, and `solid-js/web` resolve to inert server
+ * builds under node conditions. The suite cannot pass --conditions=browser
+ * globally — Node-only dependencies (e.g. @aws-sdk) select broken browser
+ * bundles under it — so the DOM builds are aliased in by module ID instead.
+ * happy-dom registers the DOM globals first, so the web build is safe to load.
+ */
+const SOLID_SUBPACKAGES: Record<string, { dom: string; entries: string[] }> = {
+  '': { dom: 'dist/solid.js', entries: ['solid', 'dev', 'server'] },
+  store: { dom: 'store/dist/store.js', entries: ['store', 'dev', 'server'] },
+  web: { dom: 'web/dist/web.js', entries: ['web', 'dev', 'server'] },
+}
 
-// Bun preserves workspace-local React module IDs even when they resolve to the
-// same installed version. Target those IDs directly so shared Testing Library
-// helpers and workspace hooks use one React dispatcher in isolated tests.
-for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
-  const workspaceReact = resolve(import.meta.dir, `../${workspace}/node_modules/react/index.js`)
-  mock.module(workspaceReact, () => ({ ...rootReact, default: rootReact }))
+const nodeModulesRoots = ['node_modules', 'node_modules/.bun/node_modules']
 
-  const workspaceReactDom = resolve(
-    import.meta.dir,
-    `../${workspace}/node_modules/react-dom/index.js`
+const domModules = new Map<string, ModuleExports>()
+for (const [subpath, { dom }] of Object.entries(SOLID_SUBPACKAGES)) {
+  domModules.set(
+    subpath,
+    await importFirstAvailable(...nodeModulesRoots.map((root) => `../${root}/solid-js/${dom}`))
   )
-  mock.module(workspaceReactDom, () => ({ ...rootReactDom, default: rootReactDom }))
+}
 
-  const workspaceReactDomClient = resolve(
-    import.meta.dir,
-    `../${workspace}/node_modules/react-dom/client.js`
-  )
-  mock.module(workspaceReactDomClient, () => ({
-    ...rootReactDomClient,
-    default: rootReactDomClient,
-  }))
+const workspaces = ['apps/app', 'apps/web', 'packages/ui']
+const moduleRoots = [
+  ...nodeModulesRoots,
+  ...workspaces.map((workspace) => `${workspace}/node_modules`),
+]
+
+for (const [subpath, { entries }] of Object.entries(SOLID_SUBPACKAGES)) {
+  const domExports = domModules.get(subpath) as ModuleExports
+  const subdir = subpath ? `${subpath}/` : ''
+  for (const moduleRoot of moduleRoots) {
+    for (const distEntry of entries) {
+      for (const ext of ['js', 'cjs']) {
+        const moduleId = resolve(
+          import.meta.dir,
+          `../${moduleRoot}/solid-js/${subdir}dist/${distEntry}.${ext}`
+        )
+        mock.module(moduleId, () => ({ ...domExports, default: domExports }))
+      }
+    }
+  }
 }

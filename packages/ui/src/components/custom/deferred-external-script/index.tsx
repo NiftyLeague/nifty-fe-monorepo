@@ -1,6 +1,4 @@
-'use client'
-
-import { useEffect } from 'react'
+import { onCleanup, onMount } from 'solid-js'
 
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
@@ -11,27 +9,23 @@ interface DeferredExternalScriptProps {
 }
 
 /** Loads a non-essential external script after interaction or an idle delay. */
-export default function DeferredExternalScript({
-  id,
-  src,
-  delay,
-}: DeferredExternalScriptProps): null {
-  useEffect(() => {
+export default function DeferredExternalScript(props: DeferredExternalScriptProps): null {
+  onMount(() => {
     const cleanup = scheduleDeferredActivation({
-      delay,
+      delay: props.delay,
       onActivate: () => {
-        if (document.getElementById(id)) return
+        if (document.getElementById(props.id)) return
 
         const script = document.createElement('script')
-        script.id = id
-        script.src = src
+        script.id = props.id
+        script.src = props.src
         script.async = true
         document.head.appendChild(script)
       },
     })
 
-    return cleanup
-  }, [delay, id, src])
+    onCleanup(cleanup)
+  })
 
   return null
 }

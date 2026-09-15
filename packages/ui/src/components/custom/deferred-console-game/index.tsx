@@ -1,6 +1,5 @@
-'use client'
-
-import { memo, useEffect, useRef, useState, type ReactNode } from 'react'
+import { createEffect, createSignal, onCleanup, Show, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
@@ -8,7 +7,7 @@ import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 import type { ConsoleGameProps } from '../console-game'
 
 interface DeferredConsoleGameProps {
-  children: ReactNode
+  children: JSX.Element
   /** Keep the interactive video out of the first idle window after it is visible. */
   deferVideo?: boolean
   /**
@@ -29,64 +28,61 @@ const CONSOLE_GAME_ROOT_MARGIN = '0px 0px -25% 0px'
 const loadConsoleGame = () =>
   import('../console-game').then(({ ConsoleGame }) => ({ default: ConsoleGame }))
 
-const DeferredConsoleGame = memo(function DeferredConsoleGame({
-  children,
-  deferVideo = false,
-  loadInteractiveOnViewport = false,
-  activationDelay,
-  src,
-}: DeferredConsoleGameProps) {
-  const rootRef = useRef<HTMLDivElement>(null)
+const DeferredConsoleGame = (props: DeferredConsoleGameProps) => {
+  let rootEl: HTMLDivElement | undefined
   // Keep the interactive console chunk out of the initial page load until the
   // preview is visible and the shared activation window allows non-critical
   // media. The server-rendered backdrop remains visible while it waits.
-  const isNearViewport = useOnScreen(rootRef, CONSOLE_GAME_ROOT_MARGIN)
-  const [videoActivated, setVideoActivated] = useState(!deferVideo)
+  const isNearViewport = useOnScreen(() => rootEl, CONSOLE_GAME_ROOT_MARGIN)
+  const [videoActivated, setVideoActivated] = createSignal(!(props.deferVideo ?? false))
   // Consumers that opt in load the interactive chunk (backdrop, controllers,
   // bonk sticker) as soon as the section approaches the viewport, leaving only
   // the video source behind the activation window so multi-megabyte files do
   // not race the page's own critical content. Default keeps the previous
   // activation-gated behaviour for other apps.
-  const shouldLoadInteractiveGame = loadInteractiveOnViewport
-    ? isNearViewport
-    : isNearViewport && (!deferVideo || videoActivated)
+  const shouldLoadInteractiveGame = () =>
+    props.loadInteractiveOnViewport
+      ? isNearViewport()
+      : isNearViewport() && (!props.deferVideo || videoActivated())
   const { Component: ConsoleGame } = useDeferredComponent<ConsoleGameProps>(
     loadConsoleGame,
     shouldLoadInteractiveGame
   )
 
-  useEffect(() => {
-    if (!deferVideo || !isNearViewport || videoActivated) return
+  createEffect(() => {
+    if (!props.deferVideo || !isNearViewport() || videoActivated()) return
 
-    return scheduleDeferredActivation({
+    const cleanup = scheduleDeferredActivation({
       onActivate: () => setVideoActivated(true),
-      ...(activationDelay === undefined ? {} : { delay: activationDelay }),
+      ...(props.activationDelay === undefined ? {} : { delay: props.activationDelay }),
     })
-  }, [activationDelay, deferVideo, isNearViewport, videoActivated])
+    onCleanup(cleanup)
+  })
 
   return (
     <div
-      ref={rootRef}
-      className="relative overflow-hidden"
+      ref={(el) => (rootEl = el)}
+      class="relative overflow-hidden"
       // The shared backdrop is 4842x3371, not 16:9. Keeping its native ratio
       // reserves the full art-directed frame before the deferred client chunk loads.
-      style={{ aspectRatio: '4842 / 3371' }}
+      style={{ 'aspect-ratio': '4842 / 3371' }}
     >
-      {ConsoleGame ? (
-        <ConsoleGame
-          isNearViewport={isNearViewport && videoActivated}
-          renderGradientOverlay={false}
-          src={src}
-        >
-          {children}
-        </ConsoleGame>
-      ) : (
-        children
-      )}
-      <div className="dark-gradient-overlay" />
+      <Show when={ConsoleGame()} fallback={props.children}>
+        {(Loaded) => (
+          <Dynamic
+            component={Loaded()}
+            isNearViewport={isNearViewport() && videoActivated()}
+            renderGradientOverlay={false}
+            src={props.src}
+          >
+            {props.children}
+          </Dynamic>
+        )}
+      </Show>
+      <div class="dark-gradient-overlay" />
     </div>
   )
-})
+}
 
 export { DeferredConsoleGame }
 export default DeferredConsoleGame

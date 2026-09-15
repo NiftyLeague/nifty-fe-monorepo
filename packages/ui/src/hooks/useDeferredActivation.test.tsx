@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 let activate: (() => void) | undefined
@@ -19,10 +19,10 @@ describe('useDeferredActivation', () => {
 
     function Fixture() {
       const isActivated = useDeferredActivation()
-      return <span>{isActivated ? 'active' : 'waiting'}</span>
+      return <span>{isActivated() ? 'active' : 'waiting'}</span>
     }
 
-    render(<Fixture />)
+    render(() => <Fixture />)
     expect(screen.getByText('waiting')).not.toBeNull()
 
     act(() => activate?.())
@@ -35,10 +35,10 @@ describe('useDeferredActivation', () => {
 
     function Fixture() {
       const isActivated = useDeferredActivation({ enabled: false })
-      return <span>{isActivated ? 'active' : 'waiting'}</span>
+      return <span>{isActivated() ? 'active' : 'waiting'}</span>
     }
 
-    render(<Fixture />)
+    render(() => <Fixture />)
     expect(screen.getByText('waiting')).not.toBeNull()
     expect(activate).toBeUndefined()
   })

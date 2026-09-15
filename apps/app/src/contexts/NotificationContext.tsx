@@ -1,8 +1,8 @@
 'use client'
 
-import { createContext, useContext, useRef, type PropsWithChildren } from 'react'
-import { useStore } from 'zustand'
+import { createContext, useContext, type Accessor, type JSX } from 'solid-js'
 
+import { useStore } from '@/state/use-store'
 import {
   createNotificationStore,
   type NotificationState,
@@ -14,22 +14,25 @@ export type { SnackbarInput } from '@/state/notification-store'
 
 const NotificationContext = createContext<NotificationStore | null>(null)
 
-export function NotificationProvider({ children }: PropsWithChildren) {
-  const storeRef = useRef<NotificationStore | null>(null)
-  if (!storeRef.current) storeRef.current = createNotificationStore()
+export function NotificationProvider(props: { children?: JSX.Element }) {
+  // Component bodies run once in Solid, so the store is created directly.
+  const store = createNotificationStore()
 
-  return (
-    <NotificationContext.Provider value={storeRef.current}>{children}</NotificationContext.Provider>
-  )
+  return <NotificationContext.Provider value={store}>{props.children}</NotificationContext.Provider>
 }
 
-export function useNotification<T>(selector: (state: NotificationState) => T): T {
+function useNotificationStore(): NotificationStore {
   const store = useContext(NotificationContext)
   if (!store) throw new Error('useNotification must be used inside NotificationProvider')
-  return useStore(store, selector)
+  return store
+}
+
+export function useNotification<T>(selector: (state: NotificationState) => T): Accessor<T> {
+  return useStore(useNotificationStore(), selector)
 }
 
 export const useSnackbar = () => useNotification((state) => state.snackbar)
+// Store actions are stable references; they do not need a subscription.
 export const useOpenSnackbar = (): ((input: SnackbarInput) => void) =>
-  useNotification((state) => state.openSnackbar)
-export const useCloseSnackbar = () => useNotification((state) => state.closeSnackbar)
+  useNotificationStore().getState().openSnackbar
+export const useCloseSnackbar = () => useNotificationStore().getState().closeSnackbar

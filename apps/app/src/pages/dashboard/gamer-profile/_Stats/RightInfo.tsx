@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createMemo, For, type JSX } from 'solid-js'
 
 import { useGamerProfileContext } from '@/hooks/useGamerProfile'
 import Item from './Item'
@@ -10,58 +10,44 @@ interface RightInfoProps {
   keyCount: number
   rentalCount: number
 }
-const RightInfo = ({
-  comicCount,
-  degenCount,
-  itemCount,
-  keyCount,
-  rentalCount: _rentalCount,
-}: RightInfoProps): React.ReactNode => {
-  const { isLoadingDegens, isLoadingComics, isLoadingItems } = useGamerProfileContext()
-  const rightDataMapper: {
-    label: string
-    value: string | number | undefined
-    isLoading?: boolean
-    isDisable?: boolean
-  }[] = useMemo(() => {
-    return [
-      { label: 'Degens Owned', value: degenCount, isLoading: isLoadingDegens },
-      // {
-      //   label: 'Degens Rented',
-      //   value: rentalCount,
-      //   isLoading: isLoadingDegens,
-      // },
-      { label: 'Comics Owned', value: comicCount, isLoading: isLoadingComics },
-      { label: 'Items Owned', value: itemCount, isLoading: isLoadingItems },
-      { label: 'Keys Owned', value: keyCount, isLoading: isLoadingItems },
-      // {
-      //   label: 'Pets Owned',
-      //   ...commonValue,
-      // },
-      // {
-      //   label: 'Land Owned',
-      //   ...commonValue,
-      // },
-      // {
-      //   label: 'Land Items Owned',
-      //   ...commonValue,
-      // },
-    ]
-  }, [
-    comicCount,
-    degenCount,
-    isLoadingComics,
-    isLoadingDegens,
-    isLoadingItems,
-    itemCount,
-    keyCount,
-  ])
+const RightInfo = (props: RightInfoProps): JSX.Element => {
+  const profile = useGamerProfileContext()
+  const rightDataMapper = createMemo(
+    (): {
+      label: string
+      value: string | number | undefined
+      isLoading?: boolean
+      isDisable?: boolean
+    }[] => {
+      return [
+        { label: 'Degens Owned', value: props.degenCount, isLoading: profile.isLoadingDegens },
+        // {
+        //   label: 'Degens Rented',
+        //   value: props.rentalCount,
+        //   isLoading: profile.isLoadingDegens,
+        // },
+        { label: 'Comics Owned', value: props.comicCount, isLoading: profile.isLoadingComics },
+        { label: 'Items Owned', value: props.itemCount, isLoading: profile.isLoadingItems },
+        { label: 'Keys Owned', value: props.keyCount, isLoading: profile.isLoadingItems },
+        // {
+        //   label: 'Pets Owned',
+        //   ...commonValue,
+        // },
+        // {
+        //   label: 'Land Owned',
+        //   ...commonValue,
+        // },
+        // {
+        //   label: 'Land Items Owned',
+        //   ...commonValue,
+        // },
+      ]
+    }
+  )
 
   return (
-    <div className="flex flex-1 flex-col gap-2">
-      {rightDataMapper.map((child) => (
-        <Item key={child.label} {...child} />
-      ))}
+    <div class="flex flex-1 flex-col gap-2">
+      <For each={rightDataMapper()}>{(child) => <Item {...child} />}</For>
     </div>
   )
 }

@@ -1,7 +1,7 @@
-import { cleanup } from '@testing-library/react'
+import { cleanup as cleanupSolid } from '@solidjs/testing-library'
 import { afterEach, mock } from 'bun:test'
 
 afterEach(() => {
-  cleanup()
+  cleanupSolid()
   mock.restore()
 })

@@ -1,19 +1,16 @@
-'use client'
-
 import {
-  Children,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useId,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+  children as resolveChildren,
+  createEffect,
+  createMemo,
+  createSignal,
+  createUniqueId,
+  For,
+  onCleanup,
+  onMount,
+  Show,
+  type JSX,
+} from 'solid-js'
+import { ChevronLeft, ChevronRight } from 'lucide-solid'
 
 import { IconButton } from '@nl/ui/base/icon-button'
 import { useDocumentVisibility } from '@nl/ui/hooks/useDocumentVisibility'
@@ -40,7 +37,7 @@ export interface ResponsiveCarouselRef {
 }
 
 export interface ResponsiveCarouselProps extends ResponsiveCarouselSettings {
-  children: ReactNode
+  children: JSX.Element
   ariaLabel?: string
   autoPlay?: boolean
   autoPlaySpeed?: number
@@ -50,6 +47,8 @@ export interface ResponsiveCarouselProps extends ResponsiveCarouselSettings {
   showDots?: boolean
   className?: string
   slidePadding?: string
+  /** Receives `{ slickNext, slickPrev }` — Solid's equivalent of the React ref API. */
+  ref?: (api: ResponsiveCarouselRef) => void
 }
 
 const DEFAULT_ITEMS = 1
@@ -104,293 +103,255 @@ const resolveSettings = (
   } as EffectiveSettings
 }
 
-const ResponsiveCarousel = forwardRef<ResponsiveCarouselRef, ResponsiveCarouselProps>(
-  (
-    {
-      children,
-      ariaLabel = 'Featured content',
-      autoPlay = false,
-      autoPlaySpeed = 4000,
-      controlsOnMobileOnly = false,
-      mobileBreakpoint = DEFAULT_MOBILE_BREAKPOINT,
-      showControls = false,
-      showDots = false,
-      className,
-      slidePadding,
-      slidesToShow,
-      slidesToScroll,
-      infinite,
-      rows,
-      slidesPerRow,
-      responsive,
-    },
-    ref
-  ) => {
-    const slides = useMemo(() => Children.toArray(children), [children])
-    const settings = useMemo<ResponsiveCarouselSettings>(
-      () => ({ slidesToShow, slidesToScroll, infinite, rows, slidesPerRow, responsive }),
-      [infinite, responsive, rows, slidesPerRow, slidesToScroll, slidesToShow]
+export function ResponsiveCarousel(props: ResponsiveCarouselProps) {
+  const slides = createMemo(() => resolveChildren(() => props.children).toArray() as JSX.Element[])
+  const sortedResponsive = createMemo(() => {
+    if (!props.responsive?.length)
+      return [] as NonNullable<ResponsiveCarouselSettings['responsive']>
+    return [...props.responsive].toSorted(
+      (left, right) => getBreakpointMax(left.breakpoint) - getBreakpointMax(right.breakpoint)
     )
-    const viewportRef = useRef<HTMLDivElement>(null)
-    const viewportId = useId()
-    const activeIndexRef = useRef(0)
-    const viewportWidthRef = useRef(0)
-    const scrollFrameRef = useRef<number | null>(null)
-    const [activeIndex, setActiveIndex] = useState(0)
-    const [viewportWidth, setViewportWidth] = useState(0)
-    const [isPaused, setIsPaused] = useState(false)
-    const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
-    const isDocumentVisible = useDocumentVisibility()
-    const isInViewport = useOnScreen(viewportRef, '0px', { enabled: autoPlay })
+  })
+  const settings = createMemo<ResponsiveCarouselSettings>(() => ({
+    slidesToShow: props.slidesToShow,
+    slidesToScroll: props.slidesToScroll,
+    infinite: props.infinite,
+    rows: props.rows,
+    slidesPerRow: props.slidesPerRow,
+    responsive: props.responsive,
+  }))
 
-    const sortedResponsive = useMemo(() => {
-      if (!responsive?.length) return [] as NonNullable<ResponsiveCarouselSettings['responsive']>
-      return [...responsive].toSorted(
-        (left, right) => getBreakpointMax(left.breakpoint) - getBreakpointMax(right.breakpoint)
-      )
-    }, [responsive])
+  let viewportEl: HTMLDivElement | undefined
+  const viewportId = createUniqueId()
+  let activeIndex = 0
+  let viewportWidthValue = 0
+  let scrollFrame: number | null = null
+  const [currentIndex, setCurrentIndex] = createSignal(0)
+  const [viewportWidth, setViewportWidth] = createSignal(0)
+  const [isPaused, setIsPaused] = createSignal(false)
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const isDocumentVisible = useDocumentVisibility()
+  const autoPlay = () => props.autoPlay ?? false
+  const isInViewport = useOnScreen(() => viewportEl, '0px', { enabled: autoPlay })
 
-    const effectiveSettings = useMemo(
-      () => resolveSettings(settings, viewportWidth, sortedResponsive),
-      [settings, sortedResponsive, viewportWidth]
-    )
-    const itemsPerPage =
-      effectiveSettings.slidesToShow * effectiveSettings.rows * effectiveSettings.slidesPerRow
-    const pages = useMemo(() => {
-      const result: ReactNode[][] = []
-
-      for (let index = 0; index < slides.length; index += itemsPerPage) {
-        result.push(slides.slice(index, index + itemsPerPage))
-      }
-
-      return result
-    }, [itemsPerPage, slides])
-    const maxIndex = Math.max(0, pages.length - 1)
-    const isMobileViewport = viewportWidth > 0 && viewportWidth < mobileBreakpoint
-    const shouldShowControls =
-      showControls && (!controlsOnMobileOnly || isMobileViewport) && maxIndex > 0
-    const shouldShowDots = showDots && shouldShowControls
-
-    const getPageWidth = useCallback(() => viewportWidthRef.current, [])
-
-    const goToIndex = useCallback(
-      (requestedIndex: number) => {
-        const viewport = viewportRef.current
-        const pageWidth = getPageWidth()
-        if (!viewport || !pageWidth || maxIndex === 0) return
-
-        const pageCount = maxIndex + 1
-        const nextIndex = effectiveSettings.infinite
-          ? ((requestedIndex % pageCount) + pageCount) % pageCount
-          : Math.min(maxIndex, Math.max(0, requestedIndex))
-
-        activeIndexRef.current = nextIndex
-        setActiveIndex(nextIndex)
-        viewport.scrollTo({
-          left: nextIndex * pageWidth,
-          behavior: prefersReducedMotion ? 'auto' : 'smooth',
-        })
-      },
-      [effectiveSettings, getPageWidth, maxIndex, prefersReducedMotion]
-    )
-
-    const moveBy = useCallback(
-      (direction: 1 | -1) => {
-        goToIndex(
-          activeIndexRef.current + direction * Math.max(1, effectiveSettings.slidesToScroll)
-        )
-      },
-      [effectiveSettings.slidesToScroll, goToIndex]
-    )
-
-    const slickNext = useCallback(() => {
-      moveBy(1)
-    }, [moveBy])
-
-    const slickPrev = useCallback(() => {
-      moveBy(-1)
-    }, [moveBy])
-
-    useImperativeHandle(ref, () => ({ slickNext, slickPrev }), [slickNext, slickPrev])
-
-    useEffect(() => {
-      const updateViewport = () => {
-        const nextWidth = viewportRef.current?.clientWidth ?? window.innerWidth
-        if (nextWidth === viewportWidthRef.current) return
-
-        viewportWidthRef.current = nextWidth
-        setViewportWidth(nextWidth)
-      }
-
-      updateViewport()
-      const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(updateViewport) : null
-      if (resizeObserver && viewportRef.current) resizeObserver.observe(viewportRef.current)
-      // ResizeObserver already tracks the element's effective width. Keep the
-      // window listener only as the compatibility path for older browsers so
-      // every carousel does not process the same resize twice.
-      if (!resizeObserver) window.addEventListener('resize', updateViewport, { passive: true })
-
-      return () => {
-        if (scrollFrameRef.current !== null) {
-          window.cancelAnimationFrame(scrollFrameRef.current)
-          scrollFrameRef.current = null
-        }
-        resizeObserver?.disconnect()
-        if (!resizeObserver) window.removeEventListener('resize', updateViewport)
-      }
-    }, [])
-
-    useEffect(() => {
-      const nextIndex = Math.min(activeIndexRef.current, maxIndex)
-      activeIndexRef.current = nextIndex
-      setActiveIndex(nextIndex)
-    }, [maxIndex])
-
-    useEffect(() => {
-      if (
-        !autoPlay ||
-        !isInViewport ||
-        !isDocumentVisible ||
-        isPaused ||
-        prefersReducedMotion ||
-        maxIndex === 0
-      )
-        return
-
-      const interval = window.setInterval(slickNext, autoPlaySpeed)
-
-      return () => window.clearInterval(interval)
-    }, [
-      autoPlay,
-      autoPlaySpeed,
-      isDocumentVisible,
-      isInViewport,
-      isPaused,
-      maxIndex,
-      prefersReducedMotion,
-      slickNext,
-    ])
-
-    const handleScroll = () => {
-      if (scrollFrameRef.current !== null) return
-
-      scrollFrameRef.current = window.requestAnimationFrame(() => {
-        scrollFrameRef.current = null
-        const pageWidth = getPageWidth()
-        const viewport = viewportRef.current
-        if (!viewport || !pageWidth) return
-
-        const nextIndex = Math.min(
-          maxIndex,
-          Math.max(0, Math.round(viewport.scrollLeft / pageWidth))
-        )
-        if (nextIndex === activeIndexRef.current) return
-
-        activeIndexRef.current = nextIndex
-        setActiveIndex(nextIndex)
-      })
+  const effectiveSettings = createMemo(() =>
+    resolveSettings(settings(), viewportWidth(), sortedResponsive())
+  )
+  const itemsPerPage = () =>
+    effectiveSettings().slidesToShow * effectiveSettings().rows * effectiveSettings().slidesPerRow
+  const pages = createMemo(() => {
+    const result: JSX.Element[][] = []
+    const allSlides = slides()
+    for (let index = 0; index < allSlides.length; index += itemsPerPage()) {
+      result.push(allSlides.slice(index, index + itemsPerPage()))
     }
+    return result
+  })
+  const maxIndex = () => Math.max(0, pages().length - 1)
+  const isMobileViewport = () =>
+    viewportWidth() > 0 && viewportWidth() < (props.mobileBreakpoint ?? DEFAULT_MOBILE_BREAKPOINT)
+  const shouldShowControls = () =>
+    (props.showControls ?? false) &&
+    (!(props.controlsOnMobileOnly ?? false) || isMobileViewport()) &&
+    maxIndex() > 0
+  const shouldShowDots = () => (props.showDots ?? false) && shouldShowControls()
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+  const getPageWidth = () => viewportWidthValue
 
-      event.preventDefault()
-      if (event.key === 'ArrowRight') slickNext()
-      else slickPrev()
-    }
+  const goToIndex = (requestedIndex: number) => {
+    const viewport = viewportEl
+    const pageWidth = getPageWidth()
+    if (!viewport || !pageWidth || maxIndex() === 0) return
 
-    const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-      if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsPaused(false)
-    }
+    const pageCount = maxIndex() + 1
+    const nextIndex = effectiveSettings().infinite
+      ? ((requestedIndex % pageCount) + pageCount) % pageCount
+      : Math.min(maxIndex(), Math.max(0, requestedIndex))
 
-    const carouselStyle = {
-      '--carousel-columns': effectiveSettings.slidesToShow,
-      '--carousel-rows': effectiveSettings.rows * effectiveSettings.slidesPerRow,
-    } as CSSProperties
-
-    return (
-      <div
-        role="region"
-        aria-roledescription="carousel"
-        aria-label={ariaLabel}
-        className={`${styles.root} ${className ?? ''}`.trim()}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onFocus={() => setIsPaused(true)}
-        onBlur={handleBlur}
-      >
-        <div
-          id={viewportId}
-          ref={viewportRef}
-          tabIndex={0}
-          aria-label={`${ariaLabel} slides`}
-          className={styles.viewport}
-          style={carouselStyle}
-          onKeyDown={handleKeyDown}
-          onScroll={handleScroll}
-        >
-          <div className={styles.track}>
-            {pages.map((page, pageIndex) => (
-              <div key={pageIndex} className={styles.page}>
-                {page.map((slide, slideIndex) => {
-                  const absoluteIndex = pageIndex * itemsPerPage + slideIndex
-
-                  return (
-                    <div
-                      key={absoluteIndex}
-                      className={styles.slide}
-                      style={{ '--carousel-slide-padding': slidePadding } as CSSProperties}
-                      role="group"
-                      aria-roledescription="slide"
-                      aria-label={`${absoluteIndex + 1} of ${slides.length}`}
-                    >
-                      {slide}
-                    </div>
-                  )
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {shouldShowControls ? (
-          <div className={styles.controls} aria-label="Carousel controls">
-            <IconButton
-              aria-label="Go to previous slide"
-              aria-controls={viewportId}
-              onClick={slickPrev}
-            >
-              <ChevronLeft aria-hidden="true" />
-            </IconButton>
-            <IconButton
-              aria-label="Go to next slide"
-              aria-controls={viewportId}
-              onClick={slickNext}
-            >
-              <ChevronRight aria-hidden="true" />
-            </IconButton>
-          </div>
-        ) : null}
-
-        {shouldShowDots ? (
-          <div className={styles.dots} role="group" aria-label="Choose slide">
-            {pages.map((_, index) => (
-              <IconButton
-                key={index}
-                aria-label={`Go to slide ${index + 1}`}
-                aria-controls={viewportId}
-                aria-current={index === activeIndex ? 'true' : undefined}
-                className={index === activeIndex ? styles.activeDot : styles.dot}
-                onClick={() => goToIndex(index)}
-              />
-            ))}
-          </div>
-        ) : null}
-      </div>
-    )
+    activeIndex = nextIndex
+    setCurrentIndex(nextIndex)
+    viewport.scrollTo({
+      left: nextIndex * pageWidth,
+      behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    })
   }
-)
 
-ResponsiveCarousel.displayName = 'ResponsiveCarousel'
+  const moveBy = (direction: 1 | -1) => {
+    goToIndex(activeIndex + direction * Math.max(1, effectiveSettings().slidesToScroll))
+  }
+
+  const slickNext = () => moveBy(1)
+  const slickPrev = () => moveBy(-1)
+
+  props.ref?.({ slickNext, slickPrev })
+
+  onMount(() => {
+    const updateViewport = () => {
+      const nextWidth = viewportEl?.clientWidth ?? window.innerWidth
+      if (nextWidth === viewportWidthValue) return
+
+      viewportWidthValue = nextWidth
+      setViewportWidth(nextWidth)
+    }
+
+    updateViewport()
+    const resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(updateViewport) : null
+    if (resizeObserver && viewportEl) resizeObserver.observe(viewportEl)
+    // ResizeObserver already tracks the element's effective width. Keep the
+    // window listener only as the compatibility path for older browsers so
+    // every carousel does not process the same resize twice.
+    if (!resizeObserver) window.addEventListener('resize', updateViewport, { passive: true })
+
+    onCleanup(() => {
+      if (scrollFrame !== null) {
+        window.cancelAnimationFrame(scrollFrame)
+        scrollFrame = null
+      }
+      resizeObserver?.disconnect()
+      if (!resizeObserver) window.removeEventListener('resize', updateViewport)
+    })
+  })
+
+  createEffect(() => {
+    const nextIndex = Math.min(activeIndex, maxIndex())
+    activeIndex = nextIndex
+    setCurrentIndex(nextIndex)
+  })
+
+  createEffect(() => {
+    if (
+      !autoPlay() ||
+      !isInViewport() ||
+      !isDocumentVisible() ||
+      isPaused() ||
+      prefersReducedMotion() ||
+      maxIndex() === 0
+    )
+      return
+
+    const interval = window.setInterval(slickNext, props.autoPlaySpeed ?? 4000)
+    onCleanup(() => window.clearInterval(interval))
+  })
+
+  const handleScroll = () => {
+    if (scrollFrame !== null) return
+
+    scrollFrame = window.requestAnimationFrame(() => {
+      scrollFrame = null
+      const pageWidth = getPageWidth()
+      const viewport = viewportEl
+      if (!viewport || !pageWidth) return
+
+      const nextIndex = Math.min(
+        maxIndex(),
+        Math.max(0, Math.round(viewport.scrollLeft / pageWidth))
+      )
+      if (nextIndex === activeIndex) return
+
+      activeIndex = nextIndex
+      setCurrentIndex(nextIndex)
+    })
+  }
+
+  const handleKeyDown = (event: KeyboardEvent & { currentTarget: HTMLDivElement }) => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+
+    event.preventDefault()
+    if (event.key === 'ArrowRight') slickNext()
+    else slickPrev()
+  }
+
+  const handleBlur = (event: FocusEvent & { currentTarget: HTMLDivElement }) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsPaused(false)
+  }
+
+  const carouselStyle = () =>
+    ({
+      '--carousel-columns': effectiveSettings().slidesToShow,
+      '--carousel-rows': effectiveSettings().rows * effectiveSettings().slidesPerRow,
+    }) as JSX.CSSProperties
+
+  return (
+    <div
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={props.ariaLabel ?? 'Featured content'}
+      class={`${styles.root} ${props.className ?? ''}`.trim()}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={handleBlur}
+    >
+      <div
+        id={viewportId}
+        ref={(el) => (viewportEl = el)}
+        tabIndex={0}
+        aria-label={`${props.ariaLabel ?? 'Featured content'} slides`}
+        class={styles.viewport}
+        style={carouselStyle()}
+        onKeyDown={handleKeyDown}
+        onScroll={handleScroll}
+      >
+        <div class={styles.track}>
+          <For each={pages()}>
+            {(page, pageIndex) => (
+              <div class={styles.page}>
+                <For each={page}>
+                  {(slide, slideIndex) => {
+                    const absoluteIndex = pageIndex() * itemsPerPage() + slideIndex()
+                    return (
+                      <div
+                        class={styles.slide}
+                        style={
+                          { '--carousel-slide-padding': props.slidePadding } as JSX.CSSProperties
+                        }
+                        role="group"
+                        aria-roledescription="slide"
+                        aria-label={`${absoluteIndex + 1} of ${slides().length}`}
+                      >
+                        {slide}
+                      </div>
+                    )
+                  }}
+                </For>
+              </div>
+            )}
+          </For>
+        </div>
+      </div>
+
+      <Show when={shouldShowControls()}>
+        <div class={styles.controls} aria-label="Carousel controls">
+          <IconButton
+            aria-label="Go to previous slide"
+            aria-controls={viewportId}
+            onClick={slickPrev}
+          >
+            <ChevronLeft aria-hidden="true" />
+          </IconButton>
+          <IconButton aria-label="Go to next slide" aria-controls={viewportId} onClick={slickNext}>
+            <ChevronRight aria-hidden="true" />
+          </IconButton>
+        </div>
+      </Show>
+
+      <Show when={shouldShowDots()}>
+        <div class={styles.dots} role="group" aria-label="Choose slide">
+          <For each={pages()}>
+            {(_, index) => (
+              <IconButton
+                aria-label={`Go to slide ${index() + 1}`}
+                aria-controls={viewportId}
+                aria-current={index() === currentIndex() ? 'true' : undefined}
+                class={index() === currentIndex() ? styles.activeDot : styles.dot}
+                onClick={() => goToIndex(index())}
+              />
+            )}
+          </For>
+        </div>
+      </Show>
+    </div>
+  )
+}
 
 export default ResponsiveCarousel

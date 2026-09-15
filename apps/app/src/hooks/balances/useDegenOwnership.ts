@@ -1,53 +1,63 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { createEffect, createMemo } from 'solid-js'
 
 import { useOwnerSearch } from '@/hooks/useGraphQL'
 import useAuth from '@/hooks/useAuth'
 import type { Character } from '@/types/graph'
 
 interface DegenOwnershipState {
-  degenCount: number
-  degensBalances: Character[]
-  degenTokenIndices: number[]
-  isDegenOwner: boolean
-  loadingDegens: boolean
+  readonly degenCount: number
+  readonly degensBalances: Character[]
+  readonly degenTokenIndices: number[]
+  readonly isDegenOwner: boolean
+  readonly loadingDegens: boolean
   refreshDegenBalances: () => void
 }
 
 export default function useDegenOwnership(): DegenOwnershipState {
-  const firstRenderRef = useRef(true)
-  const { isLoggedIn } = useAuth()
-  const { isFetching, data: owner, refetch: refreshDegenBalances } = useOwnerSearch()
-  const { characterCount: degenCount = 0 } = owner || {}
-  const isDegenOwner = degenCount > 0
+  let firstRender = true
+  const auth = useAuth()
+  const ownerQuery = useOwnerSearch()
 
-  const degensBalances = useMemo(() => {
-    return owner?.characters
-      ? owner.characters.map((degen) => ({ ...degen, id: degen.tokenId.toString() }))
-      : []
-  }, [owner])
+  const owner = () => ownerQuery.data
+  const degenCount = () => owner()?.characterCount ?? 0
 
-  const degenTokenIndices = useMemo(
-    () => degensBalances.map((degen) => parseInt(degen.id, 10)),
-    [degensBalances]
+  const degensBalances = createMemo<Character[]>(() => {
+    const characters = owner()?.characters
+    return characters ? characters.map((degen) => ({ ...degen, id: degen.tokenId.toString() })) : []
+  })
+
+  const degenTokenIndices = createMemo(() =>
+    degensBalances().map((degen) => parseInt(degen.id, 10))
   )
 
-  useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false
+  createEffect(() => {
+    const loggedIn = auth.isLoggedIn
+    if (firstRender) {
+      firstRender = false
       return
     }
-    if (!isLoggedIn) return
-    refreshDegenBalances()
-  }, [isLoggedIn, refreshDegenBalances])
+    if (!loggedIn) return
+    void ownerQuery.refetch()
+  })
 
   return {
-    degenCount,
-    degensBalances,
-    degenTokenIndices,
-    isDegenOwner,
-    loadingDegens: isFetching,
-    refreshDegenBalances,
+    get degenCount() {
+      return degenCount()
+    },
+    get degensBalances() {
+      return degensBalances()
+    },
+    get degenTokenIndices() {
+      return degenTokenIndices()
+    },
+    get isDegenOwner() {
+      return degenCount() > 0
+    },
+    get loadingDegens() {
+      return ownerQuery.isFetching
+    },
+    refreshDegenBalances: () => void ownerQuery.refetch(),
   }
 }

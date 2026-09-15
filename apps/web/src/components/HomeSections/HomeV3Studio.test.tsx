@@ -1,20 +1,19 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
-import type { ComponentProps, PropsWithChildren } from 'react'
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
-  default: (props: ComponentProps<'img'>) => <img {...props} />,
+  default: (props: Record<string, unknown>) => <img {...props} />,
 }))
 
 mock.module('@nl/ui/custom/theme-button-group', () => ({
-  ThemeButtonGroup: ({ children }: PropsWithChildren) => <div>{children}</div>,
+  ThemeButtonGroup: ({ children }) => <div>{children}</div>,
 }))
 
 describe('HomeV3Studio', () => {
   it('renders the replacement studio story with all three principles', async () => {
     const { default: HomeV3Studio } = await import('./HomeV3Studio')
 
-    render(<HomeV3Studio />)
+    render(() => <HomeV3Studio />)
 
     expect(screen.getByRole('heading', { name: /BY GAMERS.*FOR GAMERS/i })).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'GAMEPLAY FIRST.' })).toBeTruthy()

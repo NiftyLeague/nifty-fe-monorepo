@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
-import { Mail } from 'lucide-react'
+import { Mail } from 'lucide-solid'
 
 import {
   InputGroup,
@@ -13,9 +13,9 @@ import {
 
 describe('InputGroup', () => {
   it('keeps the shared input accessible and focuses it from the icon addon', () => {
-    render(
+    render(() => (
       <>
-        <label htmlFor="email">Email</label>
+        <label for="email">Email</label>
         <InputGroup>
           <InputGroupAddon>
             <InputGroupText>
@@ -25,7 +25,7 @@ describe('InputGroup', () => {
           <InputGroupInput id="email" type="email" aria-invalid="true" />
         </InputGroup>
       </>
-    )
+    ))
 
     const input = screen.getByLabelText('Email')
     expect(input.getAttribute('data-slot')).toBe('input-group-control')
@@ -39,14 +39,14 @@ describe('InputGroup', () => {
   })
 
   it('uses non-submitting buttons for inline actions', () => {
-    render(
+    render(() => (
       <InputGroup>
         <InputGroupInput aria-label="Wallet" />
         <InputGroupAddon align="inline-end">
           <InputGroupButton size="sm">Connect</InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
-    )
+    ))
 
     expect(screen.getByRole('button', { name: 'Connect' }).getAttribute('type')).toBe('button')
   })
@@ -57,7 +57,7 @@ describe('InputGroup', () => {
       visible = nextVisible
     }
 
-    render(
+    render(() => (
       <InputGroup>
         <InputGroupInput
           type={visible ? 'text' : 'password'}
@@ -69,7 +69,7 @@ describe('InputGroup', () => {
           <InputGroupPasswordToggle visible={visible} onVisibleChange={onVisibleChange} />
         </InputGroupAddon>
       </InputGroup>
-    )
+    ))
 
     const toggle = screen.getByRole('button', { name: 'Reveal' })
     expect(toggle.getAttribute('type')).toBe('button')

@@ -14,7 +14,7 @@ let sendTransaction: typeof import('./bnc-notify').sendTransaction
 let submitTxWithGasEstimate: typeof import('./bnc-notify').submitTxWithGasEstimate
 
 beforeEach(() => {
-  mock.module('sonner', () => ({
+  mock.module('solid-sonner', () => ({
     toast: { error: toastError, info: toastInfo, success: toastSuccess },
   }))
   mock.module('eth-rpc-errors', () => ({

@@ -1,6 +1,5 @@
-'use client'
-
-import { Loader } from 'lucide-react'
+import { Loader } from 'lucide-solid'
+import { Dynamic } from 'solid-js/web'
 
 import { cn } from '@nl/ui/utils'
 import { Button } from '@nl/ui/base/button'
@@ -17,40 +16,30 @@ interface ButtonProps {
   withColor?: boolean
 }
 
-export function SocialIconButton({
-  disabled = false,
-  label = '',
-  loading = false,
-  onClick,
-  provider,
-  withColor = false,
-}: ButtonProps) {
-  const AuthIcon = SocialIcons[provider]
-
+export function SocialIconButton(props: ButtonProps) {
   return (
     <Button
-      key={provider}
       variant="outline"
       type="button"
-      className={cn(
+      class={cn(
         'w-full cursor-pointer disabled:cursor-progress',
-        withColor && buttonStyles[provider]
+        props.withColor && buttonStyles[props.provider]
       )}
-      disabled={disabled}
-      onClick={onClick}
+      disabled={props.disabled ?? false}
+      onClick={props.onClick}
     >
-      {loading ? (
+      {props.loading ? (
         <Loader
           absoluteStrokeWidth
-          className="animate-spin motion-reduce:animate-none"
+          class="animate-spin motion-reduce:animate-none"
           size={20}
           strokeWidth={1.5}
         />
       ) : (
-        <AuthIcon />
+        <Dynamic component={SocialIcons[props.provider]} />
       )}
-      {label}
-      <span className="sr-only">{provider}</span>
+      {props.label ?? ''}
+      <span class="sr-only">{props.provider}</span>
     </Button>
   )
 }

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 import { CustomColDef, GridRenderCellParams, Row } from './types'
 
 interface RendererProps {
@@ -7,8 +7,8 @@ interface RendererProps {
   data: Row[]
 }
 
-export const CellRenderer = ({ column, row }: RendererProps): ReactNode => {
-  const value = row[column.field] as ReactNode
+export const CellRenderer = ({ column, row }: RendererProps): JSX.Element => {
+  const value = row[column.field] as JSX.Element
   if (typeof column.renderCell === 'function') {
     return column.renderCell({
       value,

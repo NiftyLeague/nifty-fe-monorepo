@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { For, Show } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
@@ -37,64 +37,55 @@ export interface NavbarProps {
 const DESKTOP_LINK_CLASS =
   'inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-3 py-2 text-lg font-bold uppercase outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none'
 
-function DesktopNavLink({
-  className,
-  description,
-  descriptionClassName,
-  external,
-  href,
-  title,
-}: NavPage & { className?: string; descriptionClassName?: string }) {
+function DesktopNavLink(props: NavPage & { className?: string; descriptionClassName?: string }) {
   return (
     <NavigationLink
-      className={cx(NAV_LINK_CONTENT_CLASS, className)}
-      description={description}
-      descriptionClassName={descriptionClassName}
-      external={external}
-      href={href}
-      title={title}
+      class={cx(NAV_LINK_CONTENT_CLASS, props.className)}
+      description={props.description}
+      descriptionClassName={props.descriptionClassName}
+      external={props.external}
+      href={props.href}
+      title={props.title}
     />
   )
 }
 
-function ListItem({ page }: { page: NavPage }) {
+function ListItem(props: { page: NavPage }) {
   return (
     <li>
       <DesktopNavLink
         className="text-base font-medium"
-        description={page.description}
+        description={props.page.description}
         descriptionClassName="whitespace-nowrap"
-        external={page.external}
-        href={page.href}
-        title={page.title}
+        external={props.page.external}
+        href={props.page.href}
+        title={props.page.title}
       />
     </li>
   )
 }
 
-function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
+function DropdownMenuItem(props: GroupedMenuItemData) {
   return (
     <li>
-      <details className="group relative">
+      <details class="group relative">
         <summary
-          className={cx(
+          class={cx(
             DESKTOP_LINK_CLASS,
             'cursor-pointer list-none [&::-webkit-details-marker]:hidden'
           )}
         >
-          {group}
+          {props.group}
           <span
             aria-hidden="true"
-            className="ml-1 inline-block text-sm transition-transform group-open:rotate-180"
+            class="ml-1 inline-block text-sm transition-transform group-open:rotate-180"
           >
             ▾
           </span>
         </summary>
-        <div className="absolute top-full left-1/2 z-50 mt-1.5 -translate-x-1/2 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow">
-          <ul className="flex w-max min-w-[300px] flex-col p-2">
-            {pages.map((page) => (
-              <ListItem key={page.title} page={page} />
-            ))}
+        <div class="absolute top-full left-1/2 z-50 mt-1.5 -translate-x-1/2 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow">
+          <ul class="flex w-max min-w-[300px] flex-col p-2">
+            <For each={props.pages}>{(page) => <ListItem page={page} />}</For>
           </ul>
         </div>
       </details>
@@ -102,61 +93,69 @@ function DropdownMenuItem({ group, pages }: GroupedMenuItemData) {
   )
 }
 
-function SingleMenuItem({ type: _type, ...page }: SingleMenuItemData) {
+function SingleMenuItem(props: SingleMenuItemData) {
   return (
     <li>
-      <DesktopNavLink className={DESKTOP_LINK_CLASS} {...page} />
+      <DesktopNavLink
+        className={DESKTOP_LINK_CLASS}
+        title={props.title}
+        href={props.href}
+        description={props.description}
+        external={props.external}
+      />
     </li>
   )
 }
 
-function DesktopNavMenu({ actionButton, navItems }: NavbarProps) {
+function DesktopNavMenu(props: NavbarProps) {
   return (
-    <nav aria-label="Primary navigation" className="hidden md:block">
-      <ul className="flex list-none items-center justify-center gap-1">
-        {navItems.map((item) => (
-          <Fragment key={item.type === 'single' ? item.title : item.group}>
-            {item.type === 'single' ? <SingleMenuItem {...item} /> : <DropdownMenuItem {...item} />}
-          </Fragment>
-        ))}
-        {actionButton && (
-          <li>
-            <a
-              href={actionButton.href}
-              target={actionButton.external ? '_blank' : undefined}
-              rel={actionButton.external ? 'noreferrer' : undefined}
-              className="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
-            >
-              {actionButton.title}
-            </a>
-          </li>
-        )}
+    <nav aria-label="Primary navigation" class="hidden md:block">
+      <ul class="flex list-none items-center justify-center gap-1">
+        <For each={props.navItems}>
+          {(item) =>
+            item.type === 'single' ? <SingleMenuItem {...item} /> : <DropdownMenuItem {...item} />
+          }
+        </For>
+        <Show when={props.actionButton}>
+          {(button) => (
+            <li>
+              <a
+                href={button().href}
+                target={button().external ? '_blank' : undefined}
+                rel={button().external ? 'noreferrer' : undefined}
+                class="theme-btn-primary theme-btn-rounded ml-3 max-w-fit"
+              >
+                {button().title}
+              </a>
+            </li>
+          )}
+        </Show>
       </ul>
     </nav>
   )
 }
 
-export function Navbar({ actionButton, navItems, className }: NavbarProps) {
-  const desktopNavItems = navItems.filter(
+export function Navbar(props: NavbarProps) {
+  const desktopNavItems = props.navItems.filter(
     (item) => item.type === 'group' || (item.type === 'single' && item.title !== 'Home')
   )
   return (
-    <NavbarScrollFrame className={className}>
-      <div className="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="/" className="flex-shrink-0">
+    <NavbarScrollFrame className={props.className}>
+      <div class="flex h-full w-screen items-center justify-between px-4 sm:px-6 lg:px-8">
+        <a href="/" class="flex-shrink-0">
           <OptimizedImage
             src="/img/logos/NL/white.webp"
             height={50}
             width={52}
             alt="Home"
             loading="eager"
-            fetchPriority="low"
-            className="h-12 w-auto transition-transform hover:scale-105"
+            fetchpriority="low"
+            class="h-12 w-auto transition-transform hover:scale-105"
           />
         </a>
 
-        <DesktopNavMenu actionButton={actionButton} navItems={desktopNavItems} />
-        <MobileNavMenu actionButton={actionButton} navItems={navItems} />
+        <DesktopNavMenu actionButton={props.actionButton} navItems={desktopNavItems} />
+        <MobileNavMenu actionButton={props.actionButton} navItems={props.navItems} />
       </div>
     </NavbarScrollFrame>
   )

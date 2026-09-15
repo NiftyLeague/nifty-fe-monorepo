@@ -14,17 +14,15 @@ interface DeferredRenameDegenDialogProps {
 const loadRenameDegenDialog = () =>
   import('@/pages/dashboard/degens/_dialogs/RenameDegenDialogContent')
 
-export default function DeferredRenameDegenDialog({
-  open = false,
-  ...props
-}: DeferredRenameDegenDialogProps) {
+export default function DeferredRenameDegenDialog(props: DeferredRenameDegenDialogProps) {
+  const open = () => props.open ?? false
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="DEGEN rename form"
       load={loadRenameDegenDialog}
       loadingFallback={<DeferredDialogLoading label="Loading rename form" />}
-      props={props}
+      props={{ ...props, open: open() }}
     />
   )
 }

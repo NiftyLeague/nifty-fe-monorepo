@@ -1,8 +1,12 @@
+import { splitProps, type JSX } from 'solid-js'
+
 import { cn } from '@nl/ui/utils'
 
 interface TextProps {
   blockquote?: boolean
+  class?: string
   className?: string
+  children?: JSX.Element
   code?: boolean
   disabled?: boolean
   keyboard?: boolean
@@ -10,28 +14,30 @@ interface TextProps {
   sm?: boolean
   strikethrough?: boolean
   strong?: boolean
-  style?: React.CSSProperties
+  style?: JSX.CSSProperties | string
   underline?: boolean
   variant?: 'default' | 'error' | 'muted' | 'primary' | 'secondary' | 'success' | 'warning'
   xs?: boolean
 }
 
-export function Text({
-  blockquote,
-  children,
-  className,
-  code,
-  disabled,
-  keyboard,
-  mark,
-  sm,
-  strikethrough,
-  strong,
-  style,
-  underline,
-  variant = 'default',
-  xs,
-}: React.PropsWithChildren<TextProps>) {
+export function Text(props: TextProps) {
+  const [local] = splitProps(props, [
+    'blockquote',
+    'class',
+    'className',
+    'children',
+    'code',
+    'disabled',
+    'keyboard',
+    'mark',
+    'sm',
+    'strikethrough',
+    'strong',
+    'style',
+    'underline',
+    'variant',
+    'xs',
+  ])
   const variantClasses = {
     default: 'text-foreground',
     error: 'text-error',
@@ -44,68 +50,52 @@ export function Text({
 
   const classes = cn(
     'text-base font-default font-normal tracking-default',
-    variantClasses[variant],
-    { 'text-muted-foreground cursor-not-allowed select-none': disabled },
-    { underline: underline },
-    { 'line-through': strikethrough },
-    { 'text-sm leading-none': sm },
-    { 'text-xs leading-none': xs }
+    variantClasses[local.variant ?? 'default'],
+    { 'text-muted-foreground cursor-not-allowed select-none': local.disabled },
+    { underline: local.underline },
+    { 'line-through': local.strikethrough },
+    { 'text-sm leading-none': local.sm },
+    { 'text-xs leading-none': local.xs }
   )
-
-  if (blockquote) {
-    return (
-      <blockquote className={cn(classes, 'mt-6 border-l-2 pl-6 italic', className)} style={style}>
-        {children}
-      </blockquote>
-    )
-  }
-
-  if (code) {
-    return (
-      <code
-        className={cn(
-          classes,
-          'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold',
-          className
-        )}
-        style={style}
-      >
-        {children}
-      </code>
-    )
-  }
-
-  if (mark) {
-    return (
-      <mark className={cn(classes, 'p-0 bg-yellow-200', className)} style={style}>
-        {children}
-      </mark>
-    )
-  }
-
-  if (keyboard) {
-    return (
-      <kbd
-        className={cn(classes, 'px-1 py-0.5 bg-gray-100 border border-gray-300 rounded', className)}
-        style={style}
-      >
-        {children}
-      </kbd>
-    )
-  }
-
-  if (strong) {
-    return (
-      <strong className={cn(classes, 'font-semibold', className)} style={style}>
-        {children}
-      </strong>
-    )
-  }
+  const className = () => cn(classes, local.class, local.className)
 
   return (
-    <span className={cn(classes, className)} style={style}>
-      {children}
-    </span>
+    <>
+      {local.blockquote ? (
+        <blockquote class={cn(className(), 'mt-6 border-l-2 pl-6 italic')} style={local.style}>
+          {local.children}
+        </blockquote>
+      ) : local.code ? (
+        <code
+          class={cn(
+            className(),
+            'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
+          )}
+          style={local.style}
+        >
+          {local.children}
+        </code>
+      ) : local.mark ? (
+        <mark class={cn(className(), 'p-0 bg-yellow-200')} style={local.style}>
+          {local.children}
+        </mark>
+      ) : local.keyboard ? (
+        <kbd
+          class={cn(className(), 'px-1 py-0.5 bg-gray-100 border border-gray-300 rounded')}
+          style={local.style}
+        >
+          {local.children}
+        </kbd>
+      ) : local.strong ? (
+        <strong class={cn(className(), 'font-semibold')} style={local.style}>
+          {local.children}
+        </strong>
+      ) : (
+        <span class={className()} style={local.style}>
+          {local.children}
+        </span>
+      )}
+    </>
   )
 }
 

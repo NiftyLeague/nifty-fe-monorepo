@@ -1,10 +1,20 @@
-import type { DetailedHTMLProps, MetaHTMLAttributes, LinkHTMLAttributes } from 'react'
+import type { JSX } from 'solid-js'
 
-/** Props for a single `<meta>` element rendered into the document head. */
-export type MetaTag = DetailedHTMLProps<MetaHTMLAttributes<HTMLMetaElement>, HTMLMetaElement>
+/**
+ * Props for a single `<meta>` element rendered into the document head.
+ * The solid-router `head()` API types entries as `MetaHTMLAttributes`, but the
+ * runtime additionally understands `{ title }`, `property`, `charSet`, and
+ * `script:ld+json` descriptors, so those are folded in here.
+ */
+export type MetaTag = JSX.MetaHTMLAttributes<HTMLMetaElement> & {
+  title?: string
+  charSet?: string
+  property?: string
+  'script:ld+json'?: unknown
+}
 
 /** Props for a single `<link>` element rendered into the document head. */
-export type LinkTag = DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>
+export type LinkTag = JSX.LinkHTMLAttributes<HTMLLinkElement>
 
 /** The `head()` return shape TanStack Router expects for route metadata. */
 export interface RouteHeadContent {

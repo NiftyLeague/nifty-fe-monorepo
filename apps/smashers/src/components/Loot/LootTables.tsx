@@ -1,3 +1,4 @@
+import type { JSX } from 'solid-js'
 import { Typography } from '@nl/ui/custom/typography'
 import DROP_TABLES from '@/data/droptables.json'
 import type { CrateData } from '@/types/droptables'
@@ -14,8 +15,8 @@ const formatPercentage = (value: string | number): string => {
  * keyboard access to scroll:
  * focusable, and named as a region so the focus target means something.
  */
-const ScrollableTable = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <div className={styles.itemsTable} role="region" aria-label={label} tabIndex={0}>
+const ScrollableTable = ({ label, children }: { label: string; children: JSX.Element }) => (
+  <div class={styles.itemsTable} role="region" aria-label={label} tabIndex={0}>
     {children}
   </div>
 )
@@ -32,7 +33,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
         if (!crate) return null
 
         return (
-          <div key={crate.TableId} className={styles.crateGroup}>
+          <div class={styles.crateGroup}>
             <Typography.Title level={2}>
               {crateKey
                 .split('.')
@@ -40,7 +41,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                 .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ')}
             </Typography.Title>
-            <Typography className="mb-4">Drop Tables & Odds</Typography>
+            <Typography class="mb-4">Drop Tables & Odds</Typography>
 
             <ScrollableTable label={`${crateKey} drop items`}>
               <table>
@@ -53,8 +54,8 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                   </tr>
                 </thead>
                 <tbody>
-                  {crate.Items.map((item, index) => (
-                    <tr key={`items-${index}`}>
+                  {crate.Items.map((item) => (
+                    <tr>
                       <td data-rarity={item.Rarity?.toLowerCase()}>{item.Item}</td>
                       <td>{item.Type}</td>
                       <td data-rarity={item.Rarity?.toLowerCase()}>{item.Rarity}</td>
@@ -70,17 +71,17 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                 outline is correct without changing the look. */}
             <Typography.Title
               level={3}
-              className="mt-4 mb-2 text-base font-normal font-subheader tracking-subheader"
+              class="mt-4 mb-2 text-base font-normal font-subheader tracking-subheader"
             >
               Bonus Item Odds:{' '}
               <span
                 style={{
                   background: 'var(--gradient-brand)',
-                  fontFamily: 'inherit',
-                  fontSize: 'inherit',
-                  fontWeight: 'inherit',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  'font-family': 'inherit',
+                  'font-size': 'inherit',
+                  'font-weight': 'inherit',
+                  '-webkit-background-clip': 'text',
+                  '-webkit-text-fill-color': 'transparent',
                 }}
               >
                 {crate.BonusItemOdds}
@@ -89,7 +90,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
 
             {crate.CurrencyMinMax && Object.keys(crate.CurrencyMinMax).length > 0 && (
               <>
-                <Typography.Title level={3} className="mt-4 mb-2">
+                <Typography.Title level={3} class="mt-4 mb-2">
                   Currency Rewards
                 </Typography.Title>
                 <ScrollableTable label={`${crateKey} currency rewards`}>
@@ -104,7 +105,7 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
                     </thead>
                     <tbody>
                       {Object.entries(crate.CurrencyMinMax).map(([currency, range]) => (
-                        <tr key={`range-${currency}`}>
+                        <tr>
                           <td>{currency}</td>
                           <td>{formatPercentage(crate.CurrencyRewardOdds[currency] ?? '0%')}</td>
                           <td>{range?.MIN ?? 'N/A'}</td>

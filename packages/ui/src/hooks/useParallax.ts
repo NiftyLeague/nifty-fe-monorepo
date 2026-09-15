@@ -1,6 +1,4 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
+import { createEffect, onCleanup } from 'solid-js'
 
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -101,43 +99,32 @@ interface UseParallaxOptions {
 const PARALLAX_ROOT_MARGIN = '200px'
 
 export function useParallax<T extends HTMLElement = HTMLDivElement>(
-  elementRef: React.RefObject<T | null>,
+  elementRef: () => T | null | undefined,
   options: UseParallaxOptions
 ) {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
   const isNearViewport = useOnScreen(elementRef, PARALLAX_ROOT_MARGIN, {
-    enabled: options.enabled && !prefersReducedMotion,
+    enabled: () => options.enabled && !prefersReducedMotion(),
   })
-  // The target does not change while a subscription is active; resolving it once
-  // avoids traversing the DOM on every animation frame. A ref keeps the resolved
-  // element mutable for the animation write while staying render-clean.
-  const targetRef = useRef<HTMLElement | null>(null)
 
-  useEffect(() => {
-    const element = elementRef.current
-    if (!element || !options.enabled || prefersReducedMotion || !isNearViewport) return
+  createEffect(() => {
+    const element = elementRef()
+    if (!element || !options.enabled || prefersReducedMotion() || !isNearViewport()) return
 
-    targetRef.current =
+    // The target does not change while a subscription is active; resolving it
+    // once avoids traversing the DOM on every animation frame.
+    const target =
       (element.getElementsByClassName(PARALLAX_CHILD_CLASS)[0] as HTMLElement | undefined) ??
       element
 
     const handleParallax = () => {
-      const target = targetRef.current
-      if (!target) return
       const transform = calculateTransform(element, options.direction, options.intensity)
       if (target.style.transform !== transform) target.style.transform = transform
     }
 
     handleParallax()
-    return subscribeToParallaxUpdates(handleParallax)
-  }, [
-    elementRef,
-    options.enabled,
-    options.direction,
-    options.intensity,
-    isNearViewport,
-    prefersReducedMotion,
-  ])
+    onCleanup(subscribeToParallaxUpdates(handleParallax))
+  })
 }
 
 export default useParallax

@@ -1,7 +1,7 @@
 'use client'
 
-import { useQuery, type UseQueryResult } from '@tanstack/react-query'
-import { useAccount } from 'wagmi'
+import { useQuery } from '@tanstack/solid-query'
+import { useAccount } from '@/runtime/wagmi'
 
 import type { OwnerQueryData } from '@/types/graph'
 import OWNER_QUERY from '@/queries/OWNER_QUERY'
@@ -15,26 +15,24 @@ import { GRAPH_API_KEY } from '@/runtime/env'
 const endpoint = TARGET_NETWORK.name === 'mainnet' ? SUBGRAPH_URI : SUBGRAPH_DEV_URI
 const headers = { Authorization: `Bearer ${GRAPH_API_KEY}` }
 
-export function useOwnerSearch(
-  overrideAddress?: `0x${string}`
-): UseQueryResult<OwnerQueryData['owner']> {
-  const { isLoggedIn } = useAuth()
-  const { address } = useAccount()
-  const key = (overrideAddress ?? address)?.toLowerCase() ?? ''
-  const variables = { address: key }
-  return useQuery({
-    queryKey: queryKeys.owner(key),
+export function useOwnerSearch(overrideAddress?: `0x${string}`) {
+  const auth = useAuth()
+  const account = useAccount()
+  const key = () => (overrideAddress ?? account.address)?.toLowerCase() ?? ''
+
+  return useQuery(() => ({
+    queryKey: queryKeys.owner(key()),
     queryFn: async ({ signal }) => {
       const { owner } = await requestGraphQL<OwnerQueryData>({
         endpoint,
         query: OWNER_QUERY,
-        variables,
+        variables: { address: key() },
         headers,
         signal,
       })
       return owner
     },
-    enabled: key.length > 20 && isLoggedIn,
+    enabled: key().length > 20 && auth.isLoggedIn,
     staleTime: AUTHENTICATED_STALE_TIME_MS,
-  })
+  }))
 }

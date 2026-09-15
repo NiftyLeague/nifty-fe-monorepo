@@ -1,4 +1,4 @@
-import type { ComponentProps } from 'react'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 /**
  * Lightweight loading surface for deferred boundaries.
@@ -11,16 +11,17 @@ import type { ComponentProps } from 'react'
  * use it as the loading state itself (`role="status"` with an `aria-label`, as
  * DeferredYouTubeEmbed does), so the boundary decides how it is announced.
  */
-function DeferredSkeleton({ className, ...props }: ComponentProps<'div'>) {
+function DeferredSkeleton(props: ComponentProps<'div'> & { className?: string }) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   const baseClasses = ['bg-accent', 'animate-pulse motion-reduce:animate-none', 'rounded-md']
-  const customClasses = className?.split(/\s+/).filter(Boolean) ?? []
+  const customClasses = (local.class ?? local.className)?.split(/\s+/).filter(Boolean) ?? []
 
   if (customClasses.some((cls) => cls.startsWith('rounded'))) {
     baseClasses.pop()
   }
 
   return (
-    <div data-slot="skeleton" className={[...baseClasses, ...customClasses].join(' ')} {...props} />
+    <div data-slot="skeleton" class={[...baseClasses, ...customClasses].join(' ')} {...others} />
   )
 }
 

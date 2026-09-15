@@ -101,17 +101,3 @@ export type UserInfo = {
   // Dictionary of virtual currency balance(s) belonging to the user.
   UserVirtualCurrency?: Currencies
 }
-
-export interface UserContextType {
-  account?: UserAccountInfo
-  characters?: CharacterList
-  currencies?: Currencies
-  customId?: string
-  inventory?: UserInventory
-  isLoggedIn: boolean
-  playFabId?: string
-  profile?: PlayerProfile
-  publisherData?: UserData
-  stats?: Stats
-  refetchPlayer: () => Promise<UserInfo | undefined>
-}

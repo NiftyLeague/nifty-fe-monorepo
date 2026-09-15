@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/deferred-component', () => ({
@@ -9,7 +9,7 @@ describe('profile dialog loading boundaries', () => {
   it('keeps the profile name form out of the DOM until the edit trigger opens', async () => {
     const { default: ChangeProfileNameDialog } = await import('./_Stats/ChangeProfileNameDialog')
 
-    render(<ChangeProfileNameDialog handleUpdateNewName={() => {}} />)
+    render(() => <ChangeProfileNameDialog handleUpdateNewName={() => {}} />)
 
     expect(screen.queryByRole('status')).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'edit' }))
@@ -20,7 +20,7 @@ describe('profile dialog loading boundaries', () => {
   it('keeps the profile image picker out of the DOM until the edit trigger opens', async () => {
     const { default: ProfileImageDialog } = await import('./_ImageProfile/ProfileImageDialog')
 
-    render(<ProfileImageDialog degens={[]} onChangeAvatar={() => {}} />)
+    render(() => <ProfileImageDialog degens={[]} onChangeAvatar={() => {}} />)
 
     expect(screen.queryByRole('status')).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'edit' }))

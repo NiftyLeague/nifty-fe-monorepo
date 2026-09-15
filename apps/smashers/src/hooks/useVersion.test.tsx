@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { renderHook } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test'
 
 const device = { android: false, ios: false, mac: false, windows: true, linux: false }

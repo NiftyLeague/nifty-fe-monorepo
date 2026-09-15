@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 
 // auth provider
 import AuthContext from '@/contexts/AuthTokenContext'

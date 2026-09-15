@@ -2,9 +2,9 @@
 
 import dynamic from '@/runtime/dynamic'
 import NativeImage from '@nl/ui/custom/native-image'
-import { useState } from 'react'
-import { toast } from 'sonner'
-import { useQueryClient } from '@tanstack/react-query'
+import { createSignal, Show, type JSX } from 'solid-js'
+import { toast } from 'solid-sonner'
+import { useQueryClient } from '@tanstack/solid-query'
 
 import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
@@ -25,27 +25,22 @@ export interface LeaderboardRankActionProps {
   selectedTimeFilter: string
 }
 
-const LeaderboardRankAction = ({
-  selectedGame,
-  selectedTable,
-  selectedTimeFilter,
-}: LeaderboardRankActionProps): React.ReactNode | null => {
-  const [myRank, setMyRank] = useState<number>()
-  const [isRankModalOpen, setIsRankModalOpen] = useState(false)
+const LeaderboardRankAction = (props: LeaderboardRankActionProps): JSX.Element | null => {
+  const [myRank, setMyRank] = createSignal<number>()
+  const [isRankModalOpen, setIsRankModalOpen] = createSignal(false)
   const queryClient = useQueryClient()
-  const { isLoggedIn } = useAuth()
-  const { profile } = usePlayerProfile()
-
-  if (!isLoggedIn) return null
+  const auth = useAuth()
+  const playerProfile = usePlayerProfile()
 
   const handleCheckYourRank = async () => {
     gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, {
       content_type: 'leaderboard_rank',
-      content_id: selectedGame,
+      content_id: props.selectedGame,
     })
     const errorMes =
       'You have not played the game yet! Play the game to see your rank on the leaderboard.'
 
+    const profile = playerProfile.profile
     if (!profile?.id) {
       toast.error(errorMes)
       return
@@ -54,12 +49,18 @@ const LeaderboardRankAction = ({
       const rank = await queryClient.fetchQuery({
         queryKey: queryKeys.leaderboards.rank(
           profile.id,
-          selectedGame,
-          selectedTable,
-          selectedTimeFilter
+          props.selectedGame,
+          props.selectedTable,
+          props.selectedTimeFilter
         ),
         queryFn: ({ signal }) =>
-          fetchRankByUserId(profile.id, selectedGame, selectedTable, selectedTimeFilter, signal),
+          fetchRankByUserId(
+            profile.id,
+            props.selectedGame,
+            props.selectedTable,
+            props.selectedTimeFilter,
+            signal
+          ),
         staleTime: AUTHENTICATED_STALE_TIME_MS,
       })
       if (rank < 1) {
@@ -74,38 +75,38 @@ const LeaderboardRankAction = ({
   }
 
   return (
-    <>
+    <Show when={auth.isLoggedIn}>
       <TopModal
-        selectedGame={selectedGame}
-        selectedTimeFilter={selectedTimeFilter}
-        flag={selectedTable}
-        myRank={myRank}
+        selectedGame={props.selectedGame}
+        selectedTimeFilter={props.selectedTimeFilter}
+        flag={props.selectedTable}
+        myRank={myRank()}
         onOpenChange={setIsRankModalOpen}
-        open={isRankModalOpen}
+        open={isRankModalOpen()}
       />
-      {selectedGame !== 'crypto_winter' && (
+      <Show when={props.selectedGame !== 'crypto_winter'}>
         <button
           type="button"
-          onClick={handleCheckYourRank}
-          className="mb-4 flex cursor-pointer justify-end border-0 bg-transparent p-0 text-left lg:absolute lg:right-0 lg:mb-0 lg:translate-y-1/2"
-          style={{ zIndex: 1000 }}
+          onClick={() => void handleCheckYourRank()}
+          class="mb-4 flex cursor-pointer justify-end border-0 bg-transparent p-0 text-left lg:absolute lg:right-0 lg:mb-0 lg:translate-y-1/2"
+          style={{ 'z-index': 1000 }}
         >
           <span
-            className="flex items-center justify-end text-base font-subheader font-bold text-[var(--color-purple)] underline"
-            style={{ lineHeight: '24px' }}
+            class="flex items-center justify-end text-base font-subheader font-bold text-[var(--color-purple)] underline"
+            style={{ 'line-height': '24px' }}
           >
             <NativeImage
               src="/icons/rank_icon.svg"
               alt="Rank Icon"
               width={25}
               height={20}
-              style={{ marginRight: 4 }}
+              style={{ 'margin-right': '4px' }}
             />
             RANK
           </span>
         </button>
-      )}
-    </>
+      </Show>
+    </Show>
   )
 }
 

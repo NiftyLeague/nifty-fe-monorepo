@@ -75,13 +75,13 @@ describe('image props', () => {
   it('marks priority images eager with a high fetch priority', () => {
     const props = getOptimizedImageProps({ src: '/img/a.webp', priority: true })
     expect(props.loading).toBe('eager')
-    expect(props.fetchPriority).toBe('high')
+    expect(props.fetchpriority).toBe('high')
   })
 
   it('marks ordinary images lazy with a low fetch priority', () => {
     const props = getOptimizedImageProps({ src: '/img/a.webp' })
     expect(props.loading).toBe('lazy')
-    expect(props.fetchPriority).toBe('low')
+    expect(props.fetchpriority).toBe('low')
   })
 
   it('keeps remote and unoptimized sources on their original URL', () => {
@@ -102,7 +102,7 @@ describe('image props', () => {
 })
 
 describe('astro:assets image service', () => {
-  it('resolves the same candidate as the React adapter', () => {
+  it('resolves the same candidate as the OptimizedImage adapter', () => {
     // The Base.astro preload hint goes through the service while the header
     // <img> goes through the adapter; when the two disagreed, the hero
     // wordmark was downloaded twice. Both sides must derive the rungs from
@@ -128,7 +128,7 @@ describe('astro:assets image service', () => {
     const element = getOptimizedImageProps({ ...shared, alt: '' })
 
     expect(hint.href).toBe(element.src)
-    expect(hint.imageSrcSet).toBe(element.srcSet)
+    expect(hint.imageSrcSet).toBe(element.srcset)
   })
 
   it('keeps sources the optimizer does not handle on their original URL', () => {

@@ -1,7 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useAccount, useReadContract } from 'wagmi'
+import { useAccount, useReadContract } from '@/runtime/wagmi'
 import { formatEther } from 'ethers'
 import type { AddressLike } from 'ethers'
 import type { Abi } from 'viem'
@@ -15,29 +14,37 @@ const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_
 
 type Allowance = { args: [AddressLike, AddressLike]; result: bigint }
 
-type NFTLAllowanceState = { allowance: number; loading: boolean; refetch: () => void }
+type NFTLAllowanceState = {
+  readonly allowance: number
+  readonly loading: boolean
+  refetch: () => void
+}
 
 export default function useNFTLAllowance(contractAddress: `0x${string}`): NFTLAllowanceState {
-  const { isLoggedIn } = useAuth()
-  const { address, isConnected } = useAccount()
+  const auth = useAuth()
+  const account = useAccount()
 
-  const { data, isLoading, refetch } = useReadContract<
-    UseReadContractParams<Allowance>['abi'],
-    UseReadContractParams<Allowance>['functionName'],
-    UseReadContractParams<Allowance>['args'],
-    UseReadContractParams<Allowance>['config'],
-    UseReadContractParams<Allowance>['result']
-  >({
+  const contract = useReadContract(() => ({
     address: NFTL_CONTRACT?.address as `0x${string}`,
     abi: NFTL_CONTRACT?.abi as Abi,
     chainId: TARGET_NETWORK.chainId,
     functionName: 'allowance',
-    args: [address, contractAddress],
-    query: { staleTime: 10_000, enabled: isLoggedIn && isConnected && contractAddress.length > 0 },
-  })
+    args: [account.address, contractAddress],
+    query: {
+      staleTime: 10_000,
+      enabled: auth.isLoggedIn && account.isConnected && contractAddress.length > 0,
+    },
+  }))
 
-  // Convert the allowance from wei bigint to ether number
-  const allowance = useMemo(() => (data ? parseFloat(formatEther(data)) : 0), [data])
-
-  return { allowance, loading: isLoading, refetch }
+  return {
+    // Convert the allowance from wei bigint to ether number
+    get allowance() {
+      const data = contract.data as UseReadContractParams<Allowance>['result'] | undefined
+      return data ? parseFloat(formatEther(data)) : 0
+    },
+    get loading() {
+      return contract.isLoading
+    },
+    refetch: () => void contract.refetch(),
+  }
 }

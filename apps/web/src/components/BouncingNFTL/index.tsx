@@ -55,15 +55,15 @@ function BouncingToken({ token }: { token: TokenName }) {
   const config = TOKEN_CONFIG[token]
 
   return (
-    <div className={config.wrapperClassName}>
+    <div class={config.wrapperClassName}>
       <div>
-        <div className={`${config.animationClassName} transition-fade`}>
+        <div class={`${config.animationClassName} transition-fade`}>
           <DesktopOnlyImage
             src={config.src}
             alt={config.alt}
             width={config.width}
             height={config.height}
-            className="w-full h-auto"
+            class="w-full h-auto"
             sizes={config.sizes}
           />
         </div>
@@ -72,12 +72,10 @@ function BouncingToken({ token }: { token: TokenName }) {
   )
 }
 
-const BouncingNFTL = ({
-  visibleTokens = DEFAULT_VISIBLE_TOKENS,
-}: ComponentProps): React.ReactNode => (
+const BouncingNFTL = ({ visibleTokens = DEFAULT_VISIBLE_TOKENS }: ComponentProps) => (
   <>
     {visibleTokens.map((token) => (
-      <BouncingToken key={token} token={token} />
+      <BouncingToken token={token} />
     ))}
   </>
 )

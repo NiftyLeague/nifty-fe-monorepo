@@ -167,7 +167,7 @@ describe('console-game decorative artwork', () => {
   it('keeps an accessible name on the play/pause control', () => {
     const source = read(consoleGame)
 
-    expect(source).toMatch(/aria-label=\{isPlaying \? 'Pause video' : 'Play video'\}/)
+    expect(source).toMatch(/aria-label=\{isPlaying\(\) \? 'Pause video' : 'Play video'\}/)
   })
 
   it('keeps the meaningful backdrop alt', () => {

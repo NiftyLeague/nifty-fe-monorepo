@@ -1,3 +1,4 @@
+import { For, Show } from 'solid-js'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { useUserContext } from '../../hooks/useUserContext'
 import DisplayField from '../DisplayField'
@@ -18,37 +19,40 @@ const STAT_MAP = {
 }
 
 export default function Stats() {
-  const { stats, isLoggedIn } = useUserContext()
+  const { userInfo, isLoggedIn } = useUserContext()
 
-  return isLoggedIn ? (
-    <div className="grid gap-4">
-      <fieldset>
-        <div className="grid gap-2">
-          <legend>
-            <h3 className="text-lg">Player STATs</h3>
-          </legend>
-          <div className="grid grid-cols-2 gap-2">
-            {stats?.map((stat) => {
-              const { StatisticName, Value } = stat
-              if (!StatisticName) return null
-              const statInfo = STAT_MAP[StatisticName as keyof typeof STAT_MAP] ?? {
-                displayName: StatisticName,
-                icon: '⭐',
-              }
-              return (
-                <DisplayField
-                  key={StatisticName}
-                  id={StatisticName}
-                  value={`${statInfo.icon} ${formatNumberToDisplay(Value, 0)}`}
-                  label={statInfo.displayName}
-                  className="w-full bg-purple/20"
-                  inputClassName="text-center !opacity-100 !text-purple-200"
-                />
-              )
-            })}
+  return (
+    <Show when={isLoggedIn()}>
+      <div class="grid gap-4">
+        <fieldset>
+          <div class="grid gap-2">
+            <legend>
+              <h3 class="text-lg">Player STATs</h3>
+            </legend>
+            <div class="grid grid-cols-2 gap-2">
+              <For each={userInfo()?.PlayerStatistics}>
+                {(stat) => {
+                  const { StatisticName, Value } = stat
+                  if (!StatisticName) return null
+                  const statInfo = STAT_MAP[StatisticName as keyof typeof STAT_MAP] ?? {
+                    displayName: StatisticName,
+                    icon: '⭐',
+                  }
+                  return (
+                    <DisplayField
+                      id={StatisticName}
+                      value={`${statInfo.icon} ${formatNumberToDisplay(Value, 0)}`}
+                      label={statInfo.displayName}
+                      className="w-full bg-purple/20"
+                      inputClassName="text-center !opacity-100 !text-purple-200"
+                    />
+                  )
+                }}
+              </For>
+            </div>
           </div>
-        </div>
-      </fieldset>
-    </div>
-  ) : null
+        </fieldset>
+      </div>
+    </Show>
+  )
 }

@@ -1,3 +1,4 @@
+import type { JSX } from 'solid-js'
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import Navbar from './Navbar'
 
@@ -21,32 +22,23 @@ export const HERO_ARTWORK = [
 ] as const
 const HERO_WORDMARK = HERO_ARTWORK[0]
 
-interface HeaderProps {
-  /**
-   * Interactive subtrees, injected as Astro `slot` fragments.
-   *
-   * They must arrive from the page rather than being imported here: this
-   * component renders server-side as plain HTML, so a child imported directly
-   * would ship without a `client:*` directive and never hydrate — which is
-   * exactly how the hero animation and the Play/Trailer/Credits buttons ended
-   * up inert. Passing them in lets the page attach the directives and keeps the
-   * static shell (nav, wordmark) free of JavaScript.
-   */
-  heroBackground?: React.ReactNode
-  actionButtons?: React.ReactNode
-}
-
-const Header = ({ heroBackground, actionButtons }: HeaderProps) => (
-  <div className={styles.hero}>
+const Header = ({
+  heroBackground,
+  actionButtons,
+}: {
+  heroBackground?: JSX.Element
+  actionButtons?: JSX.Element
+}) => (
+  <div class={styles.hero}>
     {heroBackground}
-    <div className="dark-gradient-overlay !h-screen" />
-    <div className={styles.heroContainer}>
+    <div class="dark-gradient-overlay !h-screen" />
+    <div class={styles.heroContainer}>
       <Navbar />
-      <div className={styles.heroContent}>
+      <div class={styles.heroContent}>
         <OptimizedImage
           src={HERO_WORDMARK.src}
           alt="Wordmark Logo"
-          className={styles.wordmark}
+          class={styles.wordmark}
           width={824}
           height={572}
           priority

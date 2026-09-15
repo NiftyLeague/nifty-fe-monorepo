@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, type PropsWithChildren, type ReactNode, useRef } from 'react'
+import { type JSX } from 'solid-js'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -22,14 +22,16 @@ function DeferredDegenCardInner<T extends PublicDegen>({
   size = 'normal',
   ...props
 }: DegenCardProps<T>) {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const isNearViewport = useOnScreen(cardRef, DEFERRED_DEGEN_CARD_ROOT_MARGIN, { once: true })
+  let cardRef: HTMLDivElement | undefined
+  const isNearViewport = useOnScreen(() => cardRef, DEFERRED_DEGEN_CARD_ROOT_MARGIN, {
+    once: true,
+  })
 
   return (
-    <div ref={cardRef}>
+    <div ref={(el) => (cardRef = el)}>
       <DeferredComponent
         disabledFallback={<SkeletonDegenPlaceholder size={size} />}
-        enabled={isNearViewport}
+        enabled={isNearViewport()}
         label="DEGEN card"
         load={loadDegenCard}
         loadingFallback={<SkeletonDegenPlaceholder size={size} />}
@@ -41,8 +43,8 @@ function DeferredDegenCardInner<T extends PublicDegen>({
 
 // Memoized so a stable degen reference and stable callbacks skip the whole
 // deferral machinery when the page re-renders around an unchanged grid.
-const DeferredDegenCard = memo(DeferredDegenCardInner) as <T extends PublicDegen>(
-  props: PropsWithChildren<DegenCardProps<T>>
-) => ReactNode
+const DeferredDegenCard = DeferredDegenCardInner as <T extends PublicDegen>(
+  props: DegenCardProps<T> & { children?: JSX.Element }
+) => JSX.Element
 
 export default DeferredDegenCard

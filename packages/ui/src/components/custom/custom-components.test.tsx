@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@nl/ui/test-utils'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, jest, mock } from 'bun:test'
 
@@ -74,12 +74,12 @@ describe('Navbar', () => {
   ]
 
   it('renders desktop, grouped, external, action, and mobile links', () => {
-    render(
+    render(() => (
       <Navbar
         navItems={navItems}
         actionButton={{ title: 'Game', href: 'https://game.example.test', external: true }}
       />
-    )
+    ))
 
     const homeLogo = screen.getByRole('img', { name: 'Home' })
     expect(homeLogo.getAttribute('loading')).toBe('eager')
@@ -103,7 +103,7 @@ describe('Navbar', () => {
   })
 
   it('renders a fixed, transparent semantic header with scroll-driven state', () => {
-    const { container } = render(<Navbar navItems={navItems} />)
+    const { container } = render(() => <Navbar navItems={navItems} />)
     const header = container.querySelector('header')
     expect(header?.className).toContain('navbar-scroll-frame')
     expect(header?.className).toContain('bg-transparent')
@@ -123,11 +123,11 @@ describe('ParallaxWrapper', () => {
   })
 
   it('keeps parallax behavior in a focused semantic wrapper', () => {
-    render(
+    render(() => (
       <ParallaxWrapper component="section" parallaxDirection="up" parallaxIntensity="strong">
         <p>Parallax content</p>
       </ParallaxWrapper>
-    )
+    ))
 
     expect(screen.getByText('Parallax content').parentElement?.tagName).toBe('SECTION')
     expect(state.parallax).toHaveBeenCalledWith(expect.anything(), {
@@ -162,7 +162,7 @@ describe('authentication forms', () => {
   it('submits login credentials and exposes account recovery and creation actions', async () => {
     const user = userEvent.setup()
     const setAuthView = mock()
-    render(
+    render(() => (
       <LoginForm
         {...handlers}
         view={VIEWS.LOGIN}
@@ -171,7 +171,7 @@ describe('authentication forms', () => {
         enableProviderSignOn
         enableSocialColors
       />
-    )
+    ))
     await user.type(screen.getByLabelText('Email'), 'player@example.com')
     await user.type(screen.getByLabelText('Password'), 'password')
     await user.click(screen.getByRole('button', { name: 'Reveal' }))
@@ -191,12 +191,12 @@ describe('authentication forms', () => {
   }, 15_000)
 
   it('submits natively as POST so a pre-hydration Enter cannot leak typed fields into the URL', () => {
-    const { container } = render(<LoginForm {...handlers} view={VIEWS.LOGIN} />)
+    const { container } = render(() => <LoginForm {...handlers} view={VIEWS.LOGIN} />)
     expect(container.querySelector('form')?.getAttribute('method')).toBe('post')
   })
 
   it('switches AuthForm views and renders status feedback', () => {
-    const { rerender } = render(
+    const { rerender } = render(() => (
       <AuthForm
         {...handlers}
         view={VIEWS.SIGN_UP}
@@ -204,7 +204,7 @@ describe('authentication forms', () => {
         error="Try again"
         enableAccountCreation
       />
-    )
+    ))
     expect(screen.getByText('Welcome to Nifty League')).not.toBeNull()
     expect(screen.getByText('Ready')).not.toBeNull()
     expect(screen.getByText('Try again')).not.toBeNull()
@@ -216,7 +216,7 @@ describe('authentication forms', () => {
   })
 
   it('keeps the shared auth logo eager and dimensioned', () => {
-    render(<AuthForm {...handlers} view={VIEWS.LOGIN} />)
+    render(() => <AuthForm {...handlers} view={VIEWS.LOGIN} />)
 
     const logo = screen.getByRole('img', { name: 'Company Logo' })
     expect(logo.getAttribute('loading')).toBe('eager')

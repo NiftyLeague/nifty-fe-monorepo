@@ -1,4 +1,6 @@
-const Definitions = (): React.ReactNode => (
+import type { JSX } from 'solid-js'
+
+const Definitions = (): JSX.Element => (
   <>
     <h3>Interpretation and Definitions</h3>
     <h4>Interpretation</h4>

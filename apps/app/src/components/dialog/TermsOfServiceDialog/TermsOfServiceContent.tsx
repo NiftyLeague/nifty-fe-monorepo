@@ -2,7 +2,7 @@ import Definitions from '@/components/Definitions'
 
 const TermsOfServiceContent = () => {
   return (
-    <div className="container">
+    <div class="container">
       <p>
         Last updated: <strong>March 15th, 2022</strong>
       </p>

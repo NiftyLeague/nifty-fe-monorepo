@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import DashboardItemsRouteBoundary from '@/pages/dashboard/items/DashboardItemsRouteBoundary'
 import { buildHead } from '@/runtime/metadata'

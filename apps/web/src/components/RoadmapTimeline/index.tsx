@@ -5,12 +5,8 @@ import styles from './index.module.css'
 
 const RoadmapTimeline = () => {
   return (
-    <section id={styles.cd_timeline} className={styles.cd_container}>
-      <RoadmapCard
-        key={FIRST_ROADMAP_CARD.title}
-        {...FIRST_ROADMAP_CARD}
-        side={getRoadmapCardSide(0)}
-      />
+    <section id={styles.cd_timeline} class={styles.cd_container}>
+      <RoadmapCard {...FIRST_ROADMAP_CARD} side={getRoadmapCardSide(0)} />
       <DeferredRoadmapCards />
     </section>
   )

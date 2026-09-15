@@ -2,7 +2,7 @@
 
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
-import { useCallback, useMemo } from 'react'
+import { createMemo } from 'solid-js'
 import type { DashboardDegen } from '@/types/degens'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
@@ -12,49 +12,45 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 
 interface ClaimDegenContentDialogProps {
   degen?: DashboardDegen
-  onClose?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onClose?: (event: MouseEvent & { currentTarget: HTMLButtonElement }) => void
 }
 
-const ClaimDegenContentDialog = ({ degen, onClose }: ClaimDegenContentDialogProps) => {
-  const { tx, writeContracts } = useNetworkContext()
-  const tokenId = degen?.id ?? ''
-  const degenTokenIndices = useMemo(() => [parseInt(tokenId, 10)], [tokenId])
-  const { balance, refetch } = useClaimableNFTL(degenTokenIndices)
+const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
+  const network = useNetworkContext()
+  const tokenId = () => props.degen?.id ?? ''
+  const degenTokenIndices = createMemo(() => [parseInt(tokenId(), 10)])
+  const claimable = useClaimableNFTL(degenTokenIndices)
 
-  const handleClaimNFTL = useCallback(
-    async (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (DEBUG) console.log('Claim', degenTokenIndices, balance)
-      await tx(writeContracts[NFTL_CONTRACT].claim(degenTokenIndices))
-      setTimeout(() => refetch(), 5000)
-      onClose?.(event)
-    },
-    [onClose, refetch, degenTokenIndices, balance, tx, writeContracts]
-  )
+  const handleClaimNFTL = async (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
+    if (DEBUG) console.log('Claim', degenTokenIndices(), claimable.balance)
+    await network.tx(network.writeContracts[NFTL_CONTRACT].claim(degenTokenIndices()))
+    setTimeout(() => claimable.refetch(), 5000)
+    props.onClose?.(event)
+  }
 
-  const handleClose = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      onClose?.(event)
-    },
-    [onClose]
-  )
+  const handleClose = (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
+    props.onClose?.(event)
+  }
 
-  const amountParsed = formatNumberToDisplay(balance)
+  const amountParsed = () => formatNumberToDisplay(claimable.balance)
 
   return (
-    <div className="flex flex-col gap-4 p-6">
-      <Title level={4} className="text-center">
-        {`${amountParsed} claimable for this DEGEN`}
+    <div class="flex flex-col gap-4 p-6">
+      <Title level={4} class="text-center">
+        {`${amountParsed()} claimable for this DEGEN`}
       </Title>
-      <div className="flex flex-col gap-2">
+      <div class="flex flex-col gap-2">
         <Button
-          className="w-full"
-          disabled={!(balance > 0.0 && writeContracts[NFTL_CONTRACT])}
+          class="w-full"
+          disabled={!(claimable.balance > 0.0 && network.writeContracts[NFTL_CONTRACT])}
           variant="default"
-          onClick={handleClaimNFTL}
+          onClick={(e: MouseEvent & { currentTarget: HTMLButtonElement }) =>
+            void handleClaimNFTL(e)
+          }
         >
           Claim
         </Button>
-        <Button variant="ghost" className="w-full" onClick={handleClose}>
+        <Button variant="ghost" class="w-full" onClick={handleClose}>
           Cancel
         </Button>
       </div>

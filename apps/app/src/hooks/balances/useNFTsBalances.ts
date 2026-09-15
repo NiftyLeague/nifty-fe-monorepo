@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 import NFTsBalanceContext from '@/contexts/NFTsBalanceContext'
 
 const useNFTsBalances = () => {

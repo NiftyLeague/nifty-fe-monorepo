@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 
 import CircularProgress from './circular-progress'
 import DeferredSkeleton from './deferred-skeleton'
@@ -25,13 +25,13 @@ const read = (relativePath: string) => readFileSync(join(import.meta.dir, relati
 
 describe('custom primitives: disclosure navigation', () => {
   it('keeps the native expanded state on the menu toggle', () => {
-    render(
+    render(() => (
       <MobileNavigationDisclosure id="public-mobile-navigation" label="Toggle navigation">
         <nav aria-label="Primary navigation">
           <a href="/games">Games</a>
         </nav>
       </MobileNavigationDisclosure>
-    )
+    ))
 
     // Queried directly: this DOM implementation maps `details` to `group` but
     // never maps `summary` to `button`, so a role query cannot see the control a
@@ -60,7 +60,7 @@ describe('custom primitives: disclosure navigation', () => {
 
 describe('custom primitives: loading states', () => {
   it('hides the spinner from the accessibility tree and stops it under reduced motion', () => {
-    render(<CircularProgress aria-label="Loading" />)
+    render(() => <CircularProgress aria-label="Loading" />)
 
     const spinner = document.querySelector('[data-slot], svg') as SVGElement
 
@@ -69,7 +69,7 @@ describe('custom primitives: loading states', () => {
   })
 
   it('names the loading region and keeps it busy until ready', () => {
-    const { rerender } = render(<PreloaderBase ready={false} percent={40} />)
+    const { rerender } = render(() => <PreloaderBase ready={false} percent={40} />)
 
     const status = screen.getByRole('status')
 
@@ -96,7 +96,7 @@ describe('custom primitives: loading states', () => {
   })
 
   it('announces route loading once, with a status and a label', () => {
-    render(<RouteLoading label="Loading dashboard" />)
+    render(() => <RouteLoading label="Loading dashboard" />)
 
     const status = screen.getByRole('status')
 
@@ -110,7 +110,7 @@ describe('custom primitives: loading states', () => {
   })
 
   it('keeps the deferred placeholder motion-safe without silencing callers', () => {
-    render(<DeferredSkeleton className="h-5 w-20" />)
+    render(() => <DeferredSkeleton className="h-5 w-20" />)
 
     const placeholder = document.querySelector('[data-slot="skeleton"]') as HTMLElement
 
@@ -121,7 +121,7 @@ describe('custom primitives: loading states', () => {
   })
 
   it('lets a boundary name the deferred placeholder it announces', () => {
-    render(<DeferredSkeleton role="status" aria-live="polite" aria-label="Loading trailer" />)
+    render(() => <DeferredSkeleton role="status" aria-live="polite" aria-label="Loading trailer" />)
 
     const status = screen.getByRole('status', { name: 'Loading trailer' })
 
@@ -131,12 +131,12 @@ describe('custom primitives: loading states', () => {
 
 describe('custom primitives: links and buttons', () => {
   it('gives a disabled action the button role and no link', () => {
-    render(
+    render(() => (
       <ThemeButtonGroup
         primary={{ title: 'Play now', href: '/games' }}
         secondary={{ title: 'Coming soon', disabled: true }}
       />
-    )
+    ))
 
     const play = screen.getByRole('link', { name: 'Play now' })
     expect(play.getAttribute('href')).toBe('/games')
@@ -147,11 +147,11 @@ describe('custom primitives: links and buttons', () => {
   })
 
   it('announces that an external action opens a new tab', () => {
-    render(
+    render(() => (
       <ThemeButtonGroup
         primary={{ title: 'Discord', href: 'https://discord.gg/niftyleague', external: true }}
       />
-    )
+    ))
 
     const link = screen.getByRole('link', { name: /Discord/ })
 
@@ -164,13 +164,13 @@ describe('custom primitives: links and buttons', () => {
 
 describe('custom primitives: typography semantics', () => {
   it('renders the requested heading level', () => {
-    render(
+    render(() => (
       <>
         <Title level={1}>DEGENs</Title>
         <Title level={3}>Traits</Title>
         <Text>Body copy</Text>
       </>
-    )
+    ))
 
     expect(screen.getByRole('heading', { level: 1, name: 'DEGENs' })).toBeTruthy()
     expect(screen.getByRole('heading', { level: 3, name: 'Traits' })).toBeTruthy()

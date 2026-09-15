@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { createEffect } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import type { GuardProps } from '@/types'
 import useAuth from '@/hooks/useAuth'
@@ -17,7 +17,7 @@ const AuthGuard = ({ children }: GuardProps) => {
   const { isLoggedIn } = useAuth()
   const auditFixtureEnabled = AUDIT_FIXTURE
 
-  useEffect(() => {
+  createEffect(() => {
     if (!auditFixtureEnabled && !isLoggedIn) router.replace('/')
   }, [auditFixtureEnabled, isLoggedIn, router])
 

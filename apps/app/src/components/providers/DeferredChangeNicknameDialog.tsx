@@ -13,17 +13,15 @@ interface DeferredChangeNicknameDialogProps {
 
 const loadChangeNicknameDialog = () => import('@/pages/dashboard/rentals/ChangeNicknameDialog')
 
-export default function DeferredChangeNicknameDialog({
-  open = false,
-  ...props
-}: DeferredChangeNicknameDialogProps) {
+export default function DeferredChangeNicknameDialog(props: DeferredChangeNicknameDialogProps) {
+  const open = () => props.open ?? false
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="Rental nickname form"
       load={loadChangeNicknameDialog}
       loadingFallback={<DeferredDialogLoading label="Loading nickname form" />}
-      props={props}
+      props={{ ...props, open: open() }}
     />
   )
 }

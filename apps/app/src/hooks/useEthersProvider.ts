@@ -1,9 +1,9 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo, type Accessor } from 'solid-js'
 import { FallbackProvider, JsonRpcProvider } from 'ethers'
 import type { Chain, Client, Transport } from 'viem'
-import { type Config, useClient } from 'wagmi'
+import { useClient } from '@/runtime/wagmi'
 
 export type Provider = FallbackProvider | JsonRpcProvider
 function clientToProvider(client: Client<Transport, Chain>): Provider {
@@ -24,7 +24,12 @@ function clientToProvider(client: Client<Transport, Chain>): Provider {
 }
 
 /** Action to convert a viem Client to an ethers.js Provider. */
-export default function useEthersProvider({ chainId }: { chainId?: number } = {}): Provider {
-  const client = useClient<Config>({ chainId })
-  return useMemo(() => clientToProvider(client as Client<Transport, Chain>), [client])
+export default function useEthersProvider({ chainId }: { chainId?: number } = {}): Accessor<
+  Provider | undefined
+> {
+  const client = useClient({ chainId })
+  return createMemo(() => {
+    const active = client()
+    return active ? clientToProvider(active as Client<Transport, Chain>) : undefined
+  })
 }

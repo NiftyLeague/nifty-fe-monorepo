@@ -112,7 +112,9 @@ describe('M1 state and data ownership', () => {
     const rootLayout = read('apps/app/src/routes/__root.tsx')
     const degensLayout = read('apps/app/src/routes/_public/degens.tsx')
     const degensRoute = read('apps/app/src/routes/_public/degens.index.tsx')
-    expect(rootLayout).toContain('<NuqsAdapter>')
+    const nuqsAdapter = read('apps/app/src/url/nuqs-solid.ts')
+    expect(nuqsAdapter).toContain("from '@tanstack/solid-router'")
+    expect(nuqsAdapter).toContain('useSearch')
     for (const layout of [rootLayout, degensLayout]) {
       expect(layout).not.toContain('QueryClientProvider')
     }

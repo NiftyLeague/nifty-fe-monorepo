@@ -561,6 +561,15 @@ h1#_top {
   margin-bottom: 1rem;
 }
 
+/*
+ * Tables that hold images must not auto-size columns from content: lazy-loaded
+ * images arriving mid-session resize the columns and shift the whole table.
+ * Fixed layout keeps columns at their first-row widths instead.
+ */
+.sl-markdown-content table:not(:where(.not-content *)):has(img) {
+  table-layout: fixed;
+}
+
 .sl-markdown-content th:not(:where(.not-content *)),
 .sl-markdown-content td:not(:where(.not-content *)) {
   border: 1px solid var(--nl-emphasis-400);

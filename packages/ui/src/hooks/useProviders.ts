@@ -1,5 +1,3 @@
-'use client'
-
 export type Provider =
   | 'google'
   | 'apple'

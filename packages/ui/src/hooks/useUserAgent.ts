@@ -1,7 +1,3 @@
-'use client'
-
-import { useMemo } from 'react'
-
 type DeviceType = 'mobile' | 'tablet' | 'desktop'
 
 const getDeviceType = (userAgent: string): DeviceType => {
@@ -62,9 +58,11 @@ const getUserAgent = (userAgent: string) => {
   }
 }
 
+// The UA string never changes within a session, so this stays a plain value
+// rather than a signal.
 export const useUserAgent = () => {
   const userAgent = typeof navigator === 'undefined' ? 'SSR' : navigator.userAgent
-  return useMemo(() => getUserAgent(userAgent), [userAgent])
+  return getUserAgent(userAgent)
 }
 
 export default useUserAgent

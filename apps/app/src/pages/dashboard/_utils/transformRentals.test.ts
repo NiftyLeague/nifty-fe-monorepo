@@ -5,7 +5,7 @@ let transformRentals: typeof import('./transformRentals').transformRentals
 
 beforeEach(async () => {
   mock.module('@/hooks/useLocalStorage', () => ({
-    default: mock(() => [{ length: 1, '0xplayer': 'Known Player' }, mock()]),
+    default: mock(() => [() => ({ length: 1, '0xplayer': 'Known Player' }), mock()]),
   }))
 
   const transformModule = await import('./transformRentals')

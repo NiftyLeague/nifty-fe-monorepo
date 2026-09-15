@@ -1,20 +1,19 @@
-import type { HTMLAttributes, PropsWithChildren } from 'react'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'
 import styles from './app-bar.module.css'
 
-export type AppBarProps = PropsWithChildren<HTMLAttributes<HTMLDivElement>>
+export type AppBarProps = ComponentProps<'div'> & { className?: string }
 
-export function AppBar({ children, className, ...props }: AppBarProps) {
+export function AppBar(props: AppBarProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="app-bar"
       data-layout="responsive"
-      className={cx(styles.appBar, className)}
-      {...props}
-    >
-      {children}
-    </div>
+      class={cx(styles.appBar, local.class, local.className)}
+      {...others}
+    />
   )
 }
 

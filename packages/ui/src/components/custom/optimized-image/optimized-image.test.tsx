@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import OptimizedImage, { getOptimizedImageProps, trimFixedWidthSrcSet } from './index'
@@ -16,7 +16,7 @@ describe('getOptimizedImageProps', () => {
     const props = getOptimizedImageProps(baseProps)
 
     expect(props.loading).toBe('lazy')
-    expect(props.fetchPriority).toBe('low')
+    expect(props.fetchpriority).toBe('low')
     expect(props.decoding).toBe('async')
   })
 
@@ -24,20 +24,20 @@ describe('getOptimizedImageProps', () => {
     const props = getOptimizedImageProps({ ...baseProps, loading: 'lazy' })
 
     expect(props.loading).toBe('lazy')
-    expect(props.fetchPriority).toBe('low')
+    expect(props.fetchpriority).toBe('low')
     expect(props.decoding).toBe('async')
   })
 
   it('preserves explicit priority and eager image behavior', () => {
     const highPriority = getOptimizedImageProps({
       ...baseProps,
-      fetchPriority: 'high',
+      fetchpriority: 'high',
       loading: 'lazy',
     })
     const eager = getOptimizedImageProps({ ...baseProps, loading: 'eager' })
 
-    expect(highPriority.fetchPriority).toBe('high')
-    expect(eager.fetchPriority).toBeUndefined()
+    expect(highPriority.fetchpriority).toBe('high')
+    expect(eager.fetchpriority).toBeUndefined()
   })
 
   it('preserves an explicit decoding mode', () => {
@@ -71,13 +71,13 @@ describe('getOptimizedImageProps', () => {
     const preloaded = getOptimizedImageProps({ ...baseProps, preload: true })
 
     expect(prioritized.loading).toBe('eager')
-    expect(prioritized.fetchPriority).toBe('high')
+    expect(prioritized.fetchpriority).toBe('high')
     expect(preloaded.loading).toBe('eager')
-    expect(preloaded.fetchPriority).toBe('high')
+    expect(preloaded.fetchpriority).toBe('high')
   })
 
   it('preloads the same responsive image variant used by the native renderer', () => {
-    render(<OptimizedImage {...baseProps} priority />)
+    render(() => <OptimizedImage {...baseProps} priority />)
 
     const preloadLink = document.head.querySelector('link[rel="preload"][as="image"]')
 

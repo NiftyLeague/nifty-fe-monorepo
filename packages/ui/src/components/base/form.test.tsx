@@ -1,7 +1,8 @@
-import { render, renderHook, screen } from '@testing-library/react'
+import { act, render, renderHook, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
-import { useForm } from 'react-hook-form'
-import React from 'react'
+import { createForm, setError, zodForm } from '@modular-forms/solid'
+import type { JSX } from 'solid-js'
+import { z } from 'zod'
 
 import {
   Form,
@@ -15,10 +16,16 @@ import {
 } from '@nl/ui/base/form'
 import { Input } from '@nl/ui/base/input'
 
-/** Wraps children in a react-hook-form FormProvider */
-function TestForm({ children }: { children: React.ReactNode }) {
-  const form = useForm({ defaultValues: { name: '' } })
-  return <Form {...form}>{children}</Form>
+const schema = z.object({ name: z.string().min(1, 'Required') })
+const errorSchema = z.object({ email: z.string().min(1, 'Email is required') })
+
+/** Wraps children in a modular-forms Form with a `name` field */
+function TestForm(props: { children: JSX.Element }) {
+  const [form] = createForm<{ name: string }>({
+    validate: zodForm(schema),
+    initialValues: { name: '' },
+  })
+  return <Form of={form}>{props.children}</Form>
 }
 
 function TestComponent() {
@@ -26,52 +33,63 @@ function TestComponent() {
   return null
 }
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <TestForm>
-    <FormField
-      name="name"
-      render={() => (
-        <FormItem>
-          <FormControl>
-            <Input />
-          </FormControl>
-          {children}
-        </FormItem>
-      )}
-    />
-  </TestForm>
-)
-
-function ErrorForm({ children }: { children: React.ReactNode }) {
-  const form = useForm({
-    defaultValues: { email: '' },
-    errors: { email: { type: 'required', message: 'Required' } },
-  })
-  return <Form {...form}>{children}</Form>
+function FormFieldWrapper(props: {
+  children: JSX.Element
+  form: ReturnType<typeof createErrorForm>
+}) {
+  return (
+    <Form of={props.form}>
+      <FormField
+        of={props.form}
+        name="email"
+        render={() => <FormItem>{props.children}</FormItem>}
+      />
+    </Form>
+  )
 }
 
-function ErrorFormWithCustomMessage({ children }: { children: React.ReactNode }) {
-  const form = useForm({
-    defaultValues: { email: '' },
-    errors: { email: { type: 'required', message: 'Email is required' } },
+function createErrorForm() {
+  const [form] = createForm<{ email: string }>({
+    validate: zodForm(errorSchema),
+    initialValues: { email: '' },
   })
-  return <Form {...form}>{children}</Form>
+  return form
 }
 
 describe('Form components', () => {
   describe('useFormField', () => {
     it('throws when called outside FormField context', () => {
       expect(() => {
-        render(
+        render(() => (
           <TestForm>
             <TestComponent />
           </TestForm>
-        )
+        ))
       }).toThrow('useFormField should be used within <FormField>')
     })
 
     it('returns field state when inside FormField and FormItem', () => {
-      const { result } = renderHook(() => useFormField(), { wrapper })
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      const fieldWrapper = (props: { children: JSX.Element }) => (
+        <Form of={form}>
+          <FormField
+            of={form}
+            name="name"
+            render={() => (
+              <FormItem>
+                <FormControl>
+                  <Input />
+                </FormControl>
+                {props.children}
+              </FormItem>
+            )}
+          />
+        </Form>
+      )
+      const { result } = renderHook(() => useFormField(), { wrapper: fieldWrapper })
 
       expect(result.current).not.toBeNull()
       expect(result.current.name).toBe('name')
@@ -83,9 +101,14 @@ describe('Form components', () => {
 
   describe('FormItem', () => {
     it('renders a div with form-item data-slot', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -95,8 +118,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       const item = document.querySelector('[data-slot="form-item"]')
       expect(item).not.toBeNull()
@@ -104,9 +127,14 @@ describe('Form components', () => {
     })
 
     it('applies className and spreads div props', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem className="extra-class" data-custom="value">
@@ -116,8 +144,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       const item = document.querySelector('[data-slot="form-item"]')
       expect(item?.className).toContain('extra-class')
@@ -127,9 +155,14 @@ describe('Form components', () => {
 
   describe('FormLabel', () => {
     it('renders a label element linked to form control', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -140,8 +173,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       const label = screen.getByText('Username')
       expect(label).not.toBeNull()
@@ -150,21 +183,16 @@ describe('Form components', () => {
     })
 
     it('shows data-error=true when a validation error exists on the field', () => {
-      render(
-        <ErrorForm>
-          <FormField
-            name="email"
-            render={() => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        </ErrorForm>
-      )
+      const form = createErrorForm()
+      render(() => (
+        <FormFieldWrapper form={form}>
+          <FormLabel>Email</FormLabel>
+          <FormControl>
+            <Input />
+          </FormControl>
+        </FormFieldWrapper>
+      ))
+      act(() => setError(form, 'email', 'Email is required'))
 
       const label = screen.getByText('Email')
       expect(label.getAttribute('data-error')).toBe('true')
@@ -173,9 +201,14 @@ describe('Form components', () => {
 
   describe('FormControl', () => {
     it('passes aria attributes to slotted child', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -185,8 +218,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       const input = screen.getByTestId('name-input')
       expect(input.getAttribute('id')).toMatch(/-form-item$/)
@@ -197,9 +230,14 @@ describe('Form components', () => {
 
   describe('FormDescription', () => {
     it('renders description text with form-description data-slot', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -210,8 +248,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       const desc = document.querySelector('[data-slot="form-description"]')
       expect(desc).not.toBeNull()
@@ -222,9 +260,14 @@ describe('Form components', () => {
 
   describe('FormMessage', () => {
     it('renders nothing when there is no error and no children', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -235,16 +278,21 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       expect(document.querySelector('[data-slot="form-message"]')).toBeNull()
     })
 
     it('renders children text when no error is present', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -255,8 +303,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       const msg = document.querySelector('[data-slot="form-message"]')
       expect(msg).not.toBeNull()
@@ -265,21 +313,16 @@ describe('Form components', () => {
     })
 
     it('renders the error message string when the field has an error', () => {
-      render(
-        <ErrorFormWithCustomMessage>
-          <FormField
-            name="email"
-            render={() => (
-              <FormItem>
-                <FormControl>
-                  <Input />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </ErrorFormWithCustomMessage>
-      )
+      const form = createErrorForm()
+      render(() => (
+        <FormFieldWrapper form={form}>
+          <FormControl>
+            <Input />
+          </FormControl>
+          <FormMessage />
+        </FormFieldWrapper>
+      ))
+      act(() => setError(form, 'email', 'Email is required'))
 
       const msg = document.querySelector('[data-slot="form-message"]')
       expect(msg).not.toBeNull()
@@ -289,9 +332,14 @@ describe('Form components', () => {
 
   describe('full composition', () => {
     it('renders a complete form field with all subcomponents', () => {
-      render(
-        <TestForm>
+      const [form] = createForm<{ name: string }>({
+        validate: zodForm(schema),
+        initialValues: { name: '' },
+      })
+      render(() => (
+        <Form of={form}>
           <FormField
+            of={form}
             name="name"
             render={() => (
               <FormItem>
@@ -304,8 +352,8 @@ describe('Form components', () => {
               </FormItem>
             )}
           />
-        </TestForm>
-      )
+        </Form>
+      ))
 
       expect(screen.getByText('Full Name')).not.toBeNull()
       expect(screen.getByText('Enter your full name')).not.toBeNull()

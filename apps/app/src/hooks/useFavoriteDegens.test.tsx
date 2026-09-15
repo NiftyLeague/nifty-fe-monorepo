@@ -1,13 +1,13 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { act, render, renderHook, waitFor } from '@testing-library/react'
+import { QueryClientProvider } from '@tanstack/solid-query'
+import { act, render, renderHook, waitFor } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, spyOn } from 'bun:test'
 import type { Mock } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import { createAppQueryClient, getAuthQueryScope, queryKeys } from '@/query/app-query'
 import { useAuthToken } from '@/hooks/useAuthStorage'
 import useFavoriteDegens, { parseFavorites } from './useFavoriteDegens'
 import AuthTokenContext from '@/contexts/AuthTokenContext'
+import type { JSX } from 'solid-js'
 
 const favoritesResponse = (favorites: string, status = 200) =>
   new Response(JSON.stringify({ favorites }), { status })
@@ -32,7 +32,7 @@ beforeEach(() => {
 
 const wrapperFor =
   (client: ReturnType<typeof createAppQueryClient>) =>
-  ({ children }: PropsWithChildren) => (
+  ({ children }: { children?: JSX.Element }) => (
     <AuthTokenContext.Provider
       value={{
         authToken: 'test-token',
@@ -133,7 +133,7 @@ describe('favorite DEGEN mutation', () => {
     }
 
     const client = createAppQueryClient()
-    render(
+    render(() => (
       <AuthTokenContext.Provider
         value={{
           authToken: 'test-token',
@@ -147,7 +147,7 @@ describe('favorite DEGEN mutation', () => {
           <FavoritesConsumer />
         </QueryClientProvider>
       </AuthTokenContext.Provider>
-    )
+    ))
     await waitFor(() => expect(authRenders).toBeGreaterThan(0))
     const rendersBeforeToggle = authRenders
 

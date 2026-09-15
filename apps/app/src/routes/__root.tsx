@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
-import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/react-router'
-import { NuqsAdapter } from 'nuqs/adapters/tanstack-router'
+import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/solid-router'
+import type { JSX } from 'solid-js'
+import { HydrationScript } from 'solid-js/web'
 
 import DeferredExternalScript from '@nl/ui/custom/deferred-external-script'
 import { cx } from '@nl/ui/class-names'
@@ -28,16 +29,17 @@ export const Route = createRootRouteWithContext<RouterContext>()({
   shellComponent: RootDocument,
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument(props: { children: JSX.Element }) {
   return (
-    <html lang="en" suppressHydrationWarning className={cx('dark', 'h-full')}>
+    <html lang="en" class={cx('dark', 'h-full')}>
       <head>
+        <HydrationScript />
         <HeadContent />
       </head>
-      <body className="h-full" suppressHydrationWarning>
+      <body class="h-full">
         <DeferredSentry enabled={import.meta.env.PROD} options={sentryOptions} />
         <DeferredAnalytics />
-        <NuqsAdapter>{children}</NuqsAdapter>
+        {props.children}
         <Scripts />
         <DeferredExternalScript id="device-stats" src="/scripts/stats.js" />
       </body>

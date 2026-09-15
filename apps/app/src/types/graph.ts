@@ -9,7 +9,7 @@ export interface Character {
   transactionHash?: string
 }
 
-interface Owner {
+export interface Owner {
   id: string
   address: string
   createdAt: bigint

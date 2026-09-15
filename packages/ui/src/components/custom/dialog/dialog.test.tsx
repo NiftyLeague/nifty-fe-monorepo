@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import Dialog from './index'
 
 describe('Dialog', () => {
   it('uses the shared eager logo without changing dialog semantics', () => {
-    render(
+    render(() => (
       <Dialog
         defaultOpen
         description="Dialog details"
@@ -14,7 +14,7 @@ describe('Dialog', () => {
       >
         <p>Dialog content</p>
       </Dialog>
-    )
+    ))
 
     expect(screen.getByRole('dialog')).toBeTruthy()
     expect(screen.getByRole('heading', { name: /Dialog title/ })).toBeTruthy()

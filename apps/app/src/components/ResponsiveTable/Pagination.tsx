@@ -1,5 +1,6 @@
 'use client'
 
+import type { JSX } from 'solid-js'
 import { cn } from '@nl/ui/utils'
 
 import { PaginationControls } from '@/components/pagination/PaginationControls'
@@ -7,41 +8,32 @@ import { PaginationControls } from '@/components/pagination/PaginationControls'
 interface PaginationProps {
   count: number
   className?: string
-  // Legacy MUI TablePagination compat: callers may specify the wrapper element.
-  component?: React.ElementType
-  onChangePage: (event: React.MouseEvent | null, page: number) => void
+  onChangePage: (event: MouseEvent | null, page: number) => void
   page: number
   rowsPerPage: number
-  style?: React.CSSProperties
+  style?: JSX.CSSProperties
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  count,
-  className,
-  onChangePage,
-  page,
-  rowsPerPage,
-  style,
-}) => {
-  const totalPages = Math.max(1, Math.ceil(count / rowsPerPage))
+const Pagination = (props: PaginationProps) => {
+  const totalPages = () => Math.max(1, Math.ceil(props.count / props.rowsPerPage))
 
-  const handleChangePage = (event: React.MouseEvent | null, newPage: number) => {
-    onChangePage(event, newPage)
+  const handleChangePage = (event: MouseEvent | null, newPage: number) => {
+    props.onChangePage(event, newPage)
   }
 
   return (
     <footer
-      className={cn('flex items-center justify-end gap-2 px-4 py-2', className)}
-      style={style}
+      class={cn('flex items-center justify-end gap-2 px-4 py-2', props.className)}
+      style={props.style}
     >
       <PaginationControls
-        hasNext={page + 1 < totalPages}
-        hasPrev={page > 0}
-        onClickNext={() => handleChangePage(null, page + 1)}
-        onClickPrev={() => handleChangePage(null, Math.max(0, page - 1))}
+        hasNext={props.page + 1 < totalPages()}
+        hasPrev={props.page > 0}
+        onClickNext={() => handleChangePage(null, props.page + 1)}
+        onClickPrev={() => handleChangePage(null, Math.max(0, props.page - 1))}
         pageLabel={
-          <span className="text-sm text-muted-foreground">
-            Page {page + 1} of {totalPages}
+          <span class="text-sm text-muted-foreground">
+            Page {props.page + 1} of {totalPages()}
           </span>
         }
         iconSize={20}

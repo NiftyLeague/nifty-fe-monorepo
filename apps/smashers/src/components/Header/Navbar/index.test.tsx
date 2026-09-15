@@ -1,10 +1,9 @@
-import type { ComponentProps } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 beforeEach(() => {
   mock.module('@nl/ui/custom/optimized-image', () => ({
-    default: ({ alt }: ComponentProps<'img'>) => <span role="img" aria-label={alt} />,
+    default: (props: { alt?: string }) => <span role="img" aria-label={props.alt} />,
   }))
 })
 
@@ -15,7 +14,7 @@ afterEach(() => {
 describe('Smashers navbar', () => {
   it('renders profile navigation as native accessible links', async () => {
     const Navbar = (await import('./index')).default
-    render(<Navbar />)
+    render(() => <Navbar />)
 
     const profileLinks = screen.getAllByRole('link', { name: 'Profile Icon' })
 

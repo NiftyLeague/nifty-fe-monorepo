@@ -1,6 +1,6 @@
-import { createRouter } from '@tanstack/react-router'
-import { setupRouterSsrQueryIntegration } from '@tanstack/react-router-ssr-query'
-import type { QueryClient } from '@tanstack/react-query'
+import { createRouter } from '@tanstack/solid-router'
+import { setupRouterSsrQueryIntegration } from '@tanstack/solid-router-ssr-query'
+import type { QueryClient } from '@tanstack/solid-query'
 
 import { createAppQueryClient } from '@/query/app-query'
 
@@ -30,7 +30,7 @@ export function getRouter() {
   return router
 }
 
-declare module '@tanstack/react-router' {
+declare module '@tanstack/solid-router' {
   interface Register {
     router: ReturnType<typeof getRouter>
   }

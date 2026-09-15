@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo, type Accessor } from 'solid-js'
 import { Contract, JsonRpcSigner, type InterfaceAbi } from 'ethers'
 import type { Contracts, Provider } from '@/types/web3'
 import CONTRACTS from '@/constants/contracts/deployments'
@@ -74,8 +74,8 @@ function loadContracts(providerOrSigner: ProviderOrSigner, chainId: Config['chai
 
 /** Action to load all necessary Nifty League or external contracts */
 export default function useContractLoader(
-  providerOrSigner: ProviderOrSigner,
+  providerOrSigner: Accessor<ProviderOrSigner>,
   { chainId }: Config
-): Contracts {
-  return useMemo(() => loadContracts(providerOrSigner, chainId), [providerOrSigner, chainId])
+): Accessor<Contracts> {
+  return createMemo(() => loadContracts(providerOrSigner(), chainId))
 }

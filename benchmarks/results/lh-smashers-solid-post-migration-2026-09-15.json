@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "app": "smashers",
+  "generatedAt": "2026-09-15T05:17:45.700Z",
+  "gitRevision": "92d7ddd18d54e75fd602f3ab7da1e0c8ccf1085f",
+  "label": "solid-post-migration",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 90
+      },
+      "lcpMs": {
+        "median": 641.044,
+        "minimum": 638.615,
+        "maximum": 644.461
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 641.044,
+        "minimum": 638.615,
+        "maximum": 644.461
+      },
+      "siMs": {
+        "median": 640,
+        "minimum": 637,
+        "maximum": 643
+      },
+      "diagnostics": [
+        "errors-in-console",
+        "meta-description"
+      ]
+    },
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 90
+      },
+      "lcpMs": {
+        "median": 599.988,
+        "minimum": 599.573,
+        "maximum": 603.82
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "fcpMs": {
+        "median": 599.988,
+        "minimum": 599.573,
+        "maximum": 603.82
+      },
+      "siMs": {
+        "median": 604,
+        "minimum": 600,
+        "maximum": 604
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.6 s)",
+        "largest-contentful-paint (0.6 s)",
+        "meta-description"
+      ]
+    }
+  ]
+}

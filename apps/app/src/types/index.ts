@@ -1,6 +1,11 @@
+import type { JSX } from 'solid-js'
 import type { AppNavIconName } from '@/components/AppNavIcon'
 
-export type SxProps = React.CSSProperties | Record<string, unknown> | undefined
+/** Solid-era equivalents of the React type helpers these interfaces used. */
+export type SetStateAction<T> = T | ((previous: T) => T)
+export type Dispatch<A> = (value: A) => void
+
+export type SxProps = JSX.CSSProperties | Record<string, unknown> | undefined
 
 export interface GenericCardProps {
   title?: string
@@ -24,15 +29,15 @@ export type NavItemType = {
   external?: string
   url?: string | undefined
   type?: string
-  title?: React.ReactNode | string
+  title?: JSX.Element | string
   color?: 'primary' | 'secondary' | 'default' | undefined
-  caption?: React.ReactNode | string
+  caption?: JSX.Element | string
   breadcrumbs?: boolean
   disabled?: boolean
   children?: NavItemType[]
 }
 
-export type GuardProps = { children: React.ReactNode }
+export type GuardProps = { children: JSX.Element }
 
 export interface MenuItemBaseProps {
   value: string

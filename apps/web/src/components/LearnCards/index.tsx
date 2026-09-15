@@ -25,8 +25,8 @@ const LearnCard = ({
   title,
 }: LearnCardProps) => {
   return (
-    <div className="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
-      <div className="absolute inset-0">
+    <div class="relative flex items-center w-full h-full rounded-2xl overflow-hidden">
+      <div class="absolute inset-0">
         <div>
           <OptimizedImage
             alt={`${title} card background`}
@@ -36,19 +36,19 @@ const LearnCard = ({
             height={310}
             {...(eager ? { loading: 'eager' as const } : {})}
             sizes="(min-width: 640px) 50vw, 100vw"
-            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+            style={{ 'object-fit': 'cover', width: '100%', height: 'auto' }}
           />
         </div>
       </div>
 
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
-        <div className="mb-4 md:mb-6">
-          <h2 className="text-center uppercase text-xl font-bold heading-look-5 text-highlight-purple">
+      <div class="relative w-full h-full flex flex-col items-center justify-center p-3 md:p-4 lg:p-5 text-center z-10">
+        <div class="mb-4 md:mb-6">
+          <h2 class="text-center uppercase text-xl font-bold heading-look-5 text-highlight-purple">
             {title}
           </h2>
         </div>
-        <div className="mb-0">
-          <p className="text-center">{subtitle}</p>
+        <div class="mb-0">
+          <p class="text-center">{subtitle}</p>
         </div>
         <ThemeBtnGroup
           primary={{
@@ -56,7 +56,7 @@ const LearnCard = ({
             title: (
               <>
                 {btnText}
-                <span className="sr-only"> about {title}</span>
+                <span class="sr-only"> about {title}</span>
               </>
             ),
             external: external,
@@ -70,9 +70,9 @@ const LearnCard = ({
 
 const LearnCards = () => {
   return (
-    <div className="flex flex-wrap -mx-1 sm:-mx-2 pt-3 lg:pt-5 lg:mt-3">
+    <div class="flex flex-wrap -mx-1 sm:-mx-2 pt-3 lg:pt-5 lg:mt-3">
       {LEARN_CARDS.map(({ btnText, external, image, link, subtitle, title }, index) => (
-        <div key={title} className="w-full sm:w-1/2 p-2">
+        <div class="w-full sm:w-1/2 p-2">
           <LearnCard
             btnText={btnText}
             eager={index < 4}

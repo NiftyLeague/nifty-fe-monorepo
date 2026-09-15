@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from '@/runtime/dynamic'
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
 import WalletAuthProviders from '@/contexts/WalletAuthProviders'
@@ -11,23 +11,23 @@ import { getRequestCookieHeader } from '@/runtime/request-cookies'
 const WalletFeatureProviders = dynamic(() => import('@/contexts/WalletFeatureProviders'), {
   ssr: false,
   loading: () => (
-    <div className="sr-only" role="status" aria-live="polite" aria-busy="true">
+    <div class="sr-only" role="status" aria-live="polite" aria-busy="true">
       Loading wallet balances
     </div>
   ),
 })
 
-export default function GameWalletProviders({ children }: PropsWithChildren) {
+export default function GameWalletProviders(props: ParentProps) {
   const auditFixtureEnabled = AUDIT_FIXTURE
 
   if (auditFixtureEnabled)
-    return <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
+    return <AuditFixtureContextWrapper>{props.children}</AuditFixtureContextWrapper>
 
   const cookies = getRequestCookieHeader()
 
   return (
     <WalletAuthProviders cookies={cookies}>
-      <WalletFeatureProviders>{children}</WalletFeatureProviders>
+      <WalletFeatureProviders>{props.children}</WalletFeatureProviders>
     </WalletAuthProviders>
   )
 }

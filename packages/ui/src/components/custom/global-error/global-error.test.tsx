@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import { GlobalErrorPage } from './index'
@@ -7,7 +7,7 @@ describe('GlobalErrorPage', () => {
   it('renders a themed, accessible retry state', () => {
     const onRetry = mock()
 
-    render(<GlobalErrorPage onRetry={onRetry} />)
+    render(() => <GlobalErrorPage onRetry={onRetry} />)
 
     expect(screen.getByRole('alert')).toBeTruthy()
     expect(screen.getByRole('heading', { name: 'Something went wrong' })).toBeTruthy()
@@ -21,7 +21,7 @@ describe('GlobalErrorPage', () => {
   it('retries through the native keyboard-accessible button', () => {
     const onRetry = mock()
 
-    render(<GlobalErrorPage onRetry={onRetry} />)
+    render(() => <GlobalErrorPage onRetry={onRetry} />)
     fireEvent.click(screen.getByRole('button', { name: 'Try again' }))
 
     expect(onRetry).toHaveBeenCalledTimes(1)

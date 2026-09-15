@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState, useMemo } from 'react'
+import { createEffect, createSignal, createMemo } from 'solid-js'
 import { type AddressLike } from 'ethers'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
@@ -22,24 +22,27 @@ import ItemsGrid from './_components/items-grid'
 
 const ComicsBurnerContent = () => {
   const router = useRouter()
-  const { itemsBalances, refreshItemsBalances } = useNFTsBalances()
-  const { address, tx, writeContracts } = useNetworkContext()
-  const [isApprovedForAll, setIsApprovedForAll] = useState(false)
-  const [helpDialogOpen, setHelpDialogOpen] = useState(false)
-  const [selectedComics, setSelectedComics] = useState<Comic[]>([])
-  const [burnCount, setBurnCount] = useState([0, 0, 0, 0, 0, 0])
-  const [burning, setBurning] = useState(false)
-  const [refreshKey, setRefreshKey] = useState(0)
-  const burnDisabled = burning || selectedComics.length < 1 || burnCount.every((c) => !c)
+  const nfts = useNFTsBalances()
+  const network = useNetworkContext()
+  const [isApprovedForAll, setIsApprovedForAll] = createSignal(false)
+  const [helpDialogOpen, setHelpDialogOpen] = createSignal(false)
+  const [selectedComics, setSelectedComics] = createSignal<Comic[]>([])
+  const [burnCount, setBurnCount] = createSignal<number[]>([0, 0, 0, 0, 0, 0])
+  const [burning, setBurning] = createSignal(false)
+  const [refreshKey, setRefreshKey] = createSignal(0)
+  const burnDisabled = () =>
+    burning() || selectedComics().length < 1 || burnCount().every((c) => !c)
 
-  const itemCounts = useMemo(() => {
-    if (itemsBalances.length) {
-      return itemsBalances.map((it) => it.balance || 0)
+  const itemCounts = createMemo(() => {
+    if (nfts.itemsBalances.length) {
+      return nfts.itemsBalances.map((it) => it.balance || 0)
     }
     return [0, 0, 0, 0, 0, 0, 0]
-  }, [itemsBalances])
+  })
 
-  useEffect(() => {
+  createEffect(() => {
+    const writeContracts = network.writeContracts
+    const address = network.address
     const getAllowance = async () => {
       const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
       const burnContractAddress = await burnContract.getAddress()
@@ -53,45 +56,47 @@ const ComicsBurnerContent = () => {
     if (
       writeContracts &&
       writeContracts[COMICS_BURNER_CONTRACT] &&
-      writeContracts[MARKETPLACE_CONTRACT]
+      writeContracts[MARKETPLACE_CONTRACT] &&
+      address
     ) {
       void getAllowance()
     }
-  }, [address, writeContracts])
+  })
 
-  const handleSetApproval = useCallback(async () => {
+  const handleSetApproval = async () => {
+    const writeContracts = network.writeContracts
     const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
-    if (!isApprovedForAll) {
+    if (!isApprovedForAll()) {
       const burnContractAddress = await burnContract.getAddress()
       const comicsContract = writeContracts[MARKETPLACE_CONTRACT]
-      await tx(comicsContract.setApprovalForAll(burnContractAddress, true))
+      await network.tx(comicsContract.setApprovalForAll(burnContractAddress, true))
     }
-  }, [isApprovedForAll, tx, writeContracts])
+  }
 
-  const handleBurn = useCallback(async () => {
-    if (!isApprovedForAll) await handleSetApproval()
+  const handleBurn = async () => {
+    if (!isApprovedForAll()) await handleSetApproval()
     setBurning(true)
-    if (DEBUG) console.log('burn comics', burnCount)
-    const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
-    const res = await tx(burnContract.burnComics(burnCount))
+    if (DEBUG) console.log('burn comics', burnCount())
+    const burnContract = network.writeContracts[COMICS_BURNER_CONTRACT]
+    const res = await network.tx(burnContract.burnComics(burnCount()))
     setBurning(false)
     if (res) {
       setSelectedComics([])
-      refreshItemsBalances()
+      nfts.refreshItemsBalances()
       setBurnCount([0, 0, 0, 0, 0, 0])
       setTimeout(() => setRefreshKey((key) => key + 1), 5000)
     }
-  }, [burnCount, handleSetApproval, isApprovedForAll, refreshItemsBalances, tx, writeContracts])
+  }
 
   const handleReturnPage = () => router.push('/dashboard/items')
 
   return (
     <>
-      <Button variant="default" className="h-7" onClick={handleReturnPage}>
+      <Button variant="default" class="h-7" onClick={handleReturnPage}>
         ← Back to Comics &amp; Items
       </Button>
-      <Machine burnDisabled={burnDisabled} selectedComics={selectedComics} />
-      <HelpDialog open={helpDialogOpen} setOpen={setHelpDialogOpen} />
+      <Machine burnDisabled={burnDisabled()} selectedComics={selectedComics()} />
+      <HelpDialog open={helpDialogOpen()} setOpen={setHelpDialogOpen} />
       <MachineButton
         height={20}
         name="Help Button"
@@ -101,23 +106,23 @@ const ComicsBurnerContent = () => {
         left={220}
       />
       <ComicsGrid
-        selectedComics={selectedComics}
+        selectedComics={selectedComics()}
         setBurnCount={setBurnCount}
-        burnCount={burnCount}
+        burnCount={burnCount()}
         setSelectedComics={setSelectedComics}
-        refreshKey={refreshKey}
+        refreshKey={refreshKey()}
       />
-      <SatoshiAnimations burning={burning} />
+      <SatoshiAnimations burning={burning()} />
       <MachineButton
-        disabled={burnDisabled}
+        disabled={burnDisabled()}
         height={48}
         name="Burn Button"
-        onClick={handleBurn}
+        onClick={() => void handleBurn()}
         width={360}
         top={850}
         left={0}
       />
-      <ItemsGrid itemCounts={itemCounts} />
+      <ItemsGrid itemCounts={itemCounts()} />
     </>
   )
 }

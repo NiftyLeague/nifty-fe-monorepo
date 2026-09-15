@@ -11,8 +11,8 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "start": "wrangler dev --local --port 3000",
-    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
-    "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
+    "test": "bun test --conditions=browser --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --conditions=browser --isolate --preload ../../test/solid-jsx.ts --preload --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "bun scripts/prepare-images.mjs --metadata-only && astro check",
     "preview": "bun run build && wrangler dev --local --port 3000",
@@ -23,15 +23,14 @@
     "performance:compare": "node scripts/compare-deployed.mjs"
   },
   "dependencies": {
-    "@astrojs/react": "6.0.5",
+    "@astrojs/solid-js": "7.0.2",
     "@google/model-viewer": "^4.3.1",
     "@nl/ui": "workspace:*",
     "@sentry/browser": "^10.69.0",
     "astro": "7.3.2",
-    "lucide-react": "^1.31.0",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
+    "lucide-solid": "^1.46.0",
     "sharp": "^0.35.4",
+    "solid-js": "^1.9.15",
     "web-vitals": "^6.2.1"
   },
   "devDependencies": {
@@ -42,8 +41,6 @@
     "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.4.0",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
     "wrangler": "4.130.0"
   }
 }

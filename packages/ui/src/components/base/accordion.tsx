@@ -1,62 +1,85 @@
-'use client'
-
-import * as React from 'react'
-import * as AccordionPrimitive from 'radix-ui/accordion'
-import { ChevronDownIcon } from 'lucide-react'
+import * as AccordionPrimitive from '@kobalte/core/accordion'
+import { splitProps, type ComponentProps } from 'solid-js'
+import { ChevronDownIcon } from 'lucide-solid'
 
 import { cn } from '@nl/ui/utils'
 
-function Accordion({ ...props }: React.ComponentProps<typeof AccordionPrimitive.Root>) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />
+type AccordionProps = Omit<
+  ComponentProps<typeof AccordionPrimitive.Root>,
+  'defaultValue' | 'multiple' | 'onChange' | 'value'
+> & {
+  className?: string
+  /** Radix-era alias: `single` maps to Kobalte's `multiple={false}`. */
+  type?: 'single' | 'multiple'
+  value?: string | string[]
+  defaultValue?: string | string[]
+  /** Radix-era alias for Kobalte's `onChange`. */
+  onValueChange?: (value: string[]) => void
 }
 
-function AccordionItem({
-  className,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Item>) {
+const toArray = (value?: string | string[]) =>
+  value === undefined ? undefined : Array.isArray(value) ? value : [value]
+
+function Accordion(props: AccordionProps) {
+  const [local, others] = splitProps(props, ['type', 'value', 'defaultValue', 'onValueChange'])
   return (
-    <AccordionPrimitive.Item
-      data-slot="accordion-item"
-      className={cn('border-b last:border-b-0', className)}
-      {...props}
+    <AccordionPrimitive.Root
+      data-slot="accordion"
+      multiple={local.type === 'multiple'}
+      value={toArray(local.value)}
+      defaultValue={toArray(local.defaultValue)}
+      onChange={local.onValueChange}
+      {...others}
     />
   )
 }
 
-function AccordionTrigger({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Trigger>) {
+function AccordionItem(
+  props: ComponentProps<typeof AccordionPrimitive.Item> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
-    <AccordionPrimitive.Header className="flex">
+    <AccordionPrimitive.Item
+      data-slot="accordion-item"
+      class={cn('border-b last:border-b-0', local.class, local.className)}
+      {...others}
+    />
+  )
+}
+
+function AccordionTrigger(
+  props: ComponentProps<typeof AccordionPrimitive.Trigger> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className', 'children'])
+  return (
+    <AccordionPrimitive.Header class="flex">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
-        className={cn(
-          'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
-          className
+        class={cn(
+          'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:ring-[3px] data-disabled:pointer-events-none data-disabled:opacity-50 [&[data-expanded]>svg]:rotate-180',
+          local.class,
+          local.className
         )}
-        {...props}
+        {...others}
       >
-        {children}
-        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
+        {local.children}
+        <ChevronDownIcon class="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
 }
 
-function AccordionContent({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof AccordionPrimitive.Content>) {
+function AccordionContent(
+  props: ComponentProps<typeof AccordionPrimitive.Content> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className', 'children'])
   return (
     <AccordionPrimitive.Content
       data-slot="accordion-content"
-      className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm"
-      {...props}
+      class="data-closed:animate-accordion-up data-expanded:animate-accordion-down overflow-hidden text-sm"
+      {...others}
     >
-      <div className={cn('pt-0 pb-4', className)}>{children}</div>
+      <div class={cn('pt-0 pb-4', local.class, local.className)}>{local.children}</div>
     </AccordionPrimitive.Content>
   )
 }

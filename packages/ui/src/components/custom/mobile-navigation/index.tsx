@@ -1,9 +1,9 @@
-import type { ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'
 
 interface MobileNavigationDisclosureProps {
-  children: ReactNode
+  children: JSX.Element
   id: string
   label: string
   className?: string
@@ -21,34 +21,27 @@ interface MobileNavigationDisclosureProps {
  * `sr-only` text rather than an `aria-label`, so the visible control and its
  * name cannot drift apart.
  */
-export function MobileNavigationDisclosure({
-  children,
-  className,
-  id,
-  label,
-  panelClassName,
-  summaryClassName,
-}: MobileNavigationDisclosureProps) {
+export function MobileNavigationDisclosure(props: MobileNavigationDisclosureProps) {
   return (
-    <details className={cx('group relative', className)}>
+    <details class={cx('group relative', props.className)}>
       <summary
-        aria-controls={id}
-        className={cx(
+        aria-controls={props.id}
+        class={cx(
           'flex size-10 cursor-pointer list-none items-center justify-center rounded-md text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden',
-          summaryClassName
+          props.summaryClassName
         )}
       >
         {/* The bars fold into a cross while open; reduced motion gets the state
             change without the transition. */}
-        <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
-          <span className="h-0.5 w-full rounded-full bg-current transition-transform motion-reduce:transition-none group-open:translate-y-2 group-open:rotate-45" />
-          <span className="h-0.5 w-full rounded-full bg-current transition-opacity motion-reduce:transition-none group-open:opacity-0" />
-          <span className="h-0.5 w-full rounded-full bg-current transition-transform motion-reduce:transition-none group-open:-translate-y-2 group-open:-rotate-45" />
+        <span aria-hidden="true" class="flex size-6 flex-col justify-center gap-1.5">
+          <span class="h-0.5 w-full rounded-full bg-current transition-transform motion-reduce:transition-none group-open:translate-y-2 group-open:rotate-45" />
+          <span class="h-0.5 w-full rounded-full bg-current transition-opacity motion-reduce:transition-none group-open:opacity-0" />
+          <span class="h-0.5 w-full rounded-full bg-current transition-transform motion-reduce:transition-none group-open:-translate-y-2 group-open:-rotate-45" />
         </span>
-        <span className="sr-only">{label}</span>
+        <span class="sr-only">{props.label}</span>
       </summary>
-      <div id={id} className={cx(panelClassName)}>
-        {children}
+      <div id={props.id} class={cx(props.panelClassName)}>
+        {props.children}
       </div>
     </details>
   )

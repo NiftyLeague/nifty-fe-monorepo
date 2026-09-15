@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 describe('DeferredComponent', () => {
@@ -9,13 +9,13 @@ describe('DeferredComponent', () => {
   })
 
   it('exposes an accessible loading state before a component resolves', () => {
-    render(
+    render(() => (
       <DeferredComponent
         label="dashboard data"
         load={() => new Promise(() => undefined)}
         props={{}}
       />
-    )
+    ))
 
     expect(screen.getByRole('status').textContent).toContain('Loading dashboard data')
   })
@@ -26,7 +26,7 @@ describe('DeferredComponent', () => {
       .mockRejectedValueOnce(new Error('temporary failure'))
       .mockResolvedValueOnce({ default: ({ name }: { name: string }) => <p>Hello {name}</p> })
 
-    render(<DeferredComponent label="profile" load={load} props={{ name: 'Nifty' }} />)
+    render(() => <DeferredComponent label="profile" load={load} props={{ name: 'Nifty' }} />)
 
     expect((await screen.findByRole('alert')).textContent).toContain('profile could not be loaded.')
     expect(screen.getByRole('button', { name: 'Retry' }).getAttribute('data-slot')).toBe('button')
@@ -41,7 +41,7 @@ describe('DeferredComponent', () => {
 
   it('does not load disabled components', () => {
     const load = mock()
-    render(<DeferredComponent enabled={false} label="disabled" load={load} props={{}} />)
+    render(() => <DeferredComponent enabled={false} label="disabled" load={load} props={{}} />)
 
     expect(load).not.toHaveBeenCalled()
     expect(screen.queryByRole('status')).toBeNull()
@@ -49,7 +49,7 @@ describe('DeferredComponent', () => {
 
   it('keeps a caller-provided placeholder while disabled', () => {
     const load = mock()
-    render(
+    render(() => (
       <DeferredComponent
         disabledFallback={<div role="status">Waiting for visibility</div>}
         enabled={false}
@@ -57,7 +57,7 @@ describe('DeferredComponent', () => {
         load={load}
         props={{}}
       />
-    )
+    ))
 
     expect(screen.getByRole('status').textContent).toContain('Waiting for visibility')
     expect(load).not.toHaveBeenCalled()

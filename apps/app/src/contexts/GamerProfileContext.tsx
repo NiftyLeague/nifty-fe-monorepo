@@ -1,15 +1,15 @@
 'use client'
 
-import { createContext, useMemo, type PropsWithChildren } from 'react'
+import { createContext, type JSX } from 'solid-js'
 import { useGamerProfile } from '@/hooks/useGamerProfile'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import type { Profile } from '@/types/account'
 
-type GamerProfileContextType = {
-  isLoadingProfile: boolean | undefined
-  isLoadingDegens: boolean | undefined
-  isLoadingComics: boolean | undefined
-  isLoadingItems: boolean | undefined
+export type GamerProfileContextType = {
+  readonly isLoadingProfile: boolean | undefined
+  readonly isLoadingDegens: boolean | undefined
+  readonly isLoadingComics: boolean | undefined
+  readonly isLoadingItems: boolean | undefined
   fetchUserProfile?: () => Promise<Profile | undefined>
 }
 
@@ -22,21 +22,27 @@ const defaultValue: GamerProfileContextType = {
 
 const GamerProfileContext = createContext<GamerProfileContextType>(defaultValue)
 
-export const GamerProfileProvider = ({ children }: PropsWithChildren) => {
-  const { loadingDegens, loadingComics, loadingItems } = useNFTsBalances()
-  const { loadingProfile, fetchUserProfile } = useGamerProfile()
-  const value = useMemo(
-    () => ({
-      isLoadingProfile: loadingProfile,
-      isLoadingDegens: loadingDegens,
-      isLoadingComics: loadingComics,
-      isLoadingItems: loadingItems,
-      fetchUserProfile,
-    }),
-    [fetchUserProfile, loadingComics, loadingDegens, loadingItems, loadingProfile]
-  )
+export const GamerProfileProvider = (props: { children?: JSX.Element }) => {
+  const nfts = useNFTsBalances()
+  const profile = useGamerProfile()
 
-  return <GamerProfileContext.Provider value={value}>{children}</GamerProfileContext.Provider>
+  const value: GamerProfileContextType = {
+    get isLoadingProfile() {
+      return profile.loadingProfile
+    },
+    get isLoadingDegens() {
+      return nfts.loadingDegens
+    },
+    get isLoadingComics() {
+      return nfts.loadingComics
+    },
+    get isLoadingItems() {
+      return nfts.loadingItems
+    },
+    fetchUserProfile: profile.fetchUserProfile,
+  }
+
+  return <GamerProfileContext.Provider value={value}>{props.children}</GamerProfileContext.Provider>
 }
 
 export default GamerProfileContext

@@ -1,3 +1,4 @@
+import type { JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 
 export interface Degen {
@@ -7,12 +8,7 @@ export interface Degen {
 }
 
 export const RenderDegen = (degen: Degen) => (
-  <DegenCardItem
-    key={degen.name}
-    name={degen.name}
-    createdDate={degen.createdDate}
-    source={degen.source}
-  />
+  <DegenCardItem name={degen.name} createdDate={degen.createdDate} source={degen.source} />
 )
 
 const DegenCardItem = ({
@@ -23,12 +19,12 @@ const DegenCardItem = ({
   name: string
   source: string
   createdDate: string
-}): React.ReactNode => (
-  <div className="grid h-full bg-card border-1 rounded-default">
-    <div className="p-3 md:p-4">
-      <div className="flex justify-between items-center">
-        <h6 className="truncate-text-1 text-xs">{name}</h6>
-        <div className="hidden sm:inline-block">
+}): JSX.Element => (
+  <div class="grid h-full bg-card border-1 rounded-default">
+    <div class="p-3 md:p-4">
+      <div class="flex justify-between items-center">
+        <h6 class="truncate-text-1 text-xs">{name}</h6>
+        <div class="hidden sm:inline-block">
           <NativeImage
             src="/icons/opensea.svg"
             alt="OpenSea Logo"
@@ -39,14 +35,14 @@ const DegenCardItem = ({
           />
         </div>
       </div>
-      <div className="hidden md:flex items-center pt-3">
-        <span className="text-muted-foreground text-[9px] border-2 rounded-sm uppercase py-0.5 px-1 mr-2">
+      <div class="hidden md:flex items-center pt-3">
+        <span class="text-muted-foreground text-[9px] border-2 rounded-sm uppercase py-0.5 px-1 mr-2">
           Created
         </span>
-        <span className="text-muted-foreground text-xs">{createdDate}</span>
+        <span class="text-muted-foreground text-xs">{createdDate}</span>
       </div>
     </div>
-    <div className="rounded-[20px]">
+    <div class="rounded-[20px]">
       {/* These cards are below the fold and use fixed local assets, so intrinsic dimensions are
           enough to preserve layout without an image-loader wrapper in the deferred card. */}
       <NativeImage
@@ -56,7 +52,7 @@ const DegenCardItem = ({
         alt={name}
         loading="lazy"
         decoding="async"
-        className="w-full h-auto"
+        class="w-full h-auto"
       />
     </div>
   </div>

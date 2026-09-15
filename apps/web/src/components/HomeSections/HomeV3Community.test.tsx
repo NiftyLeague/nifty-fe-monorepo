@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
-import type { ComponentProps } from 'react'
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
-  default: (props: ComponentProps<'img'>) => <img {...props} />,
+  default: (props: Record<string, unknown>) => <img {...props} />,
 }))
 
 mock.module('@nl/ui/custom/theme-button-group', () => ({
@@ -25,7 +24,7 @@ describe('HomeV3Community', () => {
   it('points the replacement community section to Discord and the community page', async () => {
     const { default: HomeV3Community } = await import('./HomeV3Community')
 
-    render(<HomeV3Community />)
+    render(() => <HomeV3Community />)
 
     expect(screen.getByRole('heading', { name: 'COMMUNITY' })).toBeTruthy()
     expect(screen.getByRole('img', { name: 'Community DEGENs' })).toBeTruthy()

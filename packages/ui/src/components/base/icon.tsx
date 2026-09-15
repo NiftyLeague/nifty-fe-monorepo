@@ -1,4 +1,5 @@
-import { forwardRef, type SVGProps } from 'react'
+import { Show, splitProps, type ComponentProps } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import {
   Atom,
   Axe,
@@ -29,8 +30,8 @@ import {
   Trash,
   Upload,
   UserPen,
-} from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+} from 'lucide-solid'
+import type { LucideProps } from 'lucide-solid'
 
 type IconSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -84,55 +85,61 @@ const iconMap = {
   trash: Trash,
   upload: Upload,
   'user-pen': UserPen,
-} as const satisfies Record<string, LucideIcon>
+} as const satisfies Record<string, (props: LucideProps) => unknown>
 
 type IconName = keyof typeof iconMap
 
-type IconProps = Omit<SVGProps<SVGSVGElement>, 'color' | 'fill'> & {
+type IconProps = Omit<ComponentProps<'svg'>, 'color' | 'fill'> & {
   absoluteStrokeWidth?: boolean
+  /** Camel-case alias kept for the React-era API; mapped to `stroke-width`. */
+  strokeWidth?: number
   name: IconName
   size?: IconSizes | number
   color?: IconColor | (string & {})
   fill?: IconColor | (string & {})
+  className?: string
 }
 
-const Icon = forwardRef<SVGSVGElement, IconProps>(
-  (
-    {
-      absoluteStrokeWidth = true,
-      color = 'currentColor',
-      fill = 'none',
-      name,
-      size = 'md',
-      strokeWidth = 1.5,
-      ...props
-    },
-    ref
-  ) => {
-    const iconColor = DEFAULT_COLORS[color] || color
-    const iconFill = DEFAULT_COLORS[fill] || fill
-    const iconSize = typeof size === 'number' ? size : DEFAULT_SIZES[size]
-    const IconComponent = iconMap[name]
+const Icon = (props: IconProps) => {
+  const [local, others] = splitProps(props, [
+    'absoluteStrokeWidth',
+    'color',
+    'fill',
+    'name',
+    'size',
+    'strokeWidth',
+    'class',
+    'className',
+  ])
 
-    if (!IconComponent) {
-      return <div style={{ width: iconSize, height: iconSize }} />
-    }
+  const iconColor = () => DEFAULT_COLORS[local.color ?? ''] || local.color || 'currentColor'
+  const iconFill = () => DEFAULT_COLORS[local.fill ?? ''] || local.fill || 'none'
+  const iconSize = () =>
+    typeof local.size === 'number' ? local.size : DEFAULT_SIZES[local.size ?? 'md']
 
-    return (
-      <IconComponent
-        ref={ref}
-        absoluteStrokeWidth={absoluteStrokeWidth}
-        color={iconColor}
-        fill={iconFill}
-        size={iconSize}
-        strokeWidth={strokeWidth}
-        {...props}
-      />
-    )
-  }
-)
-
-Icon.displayName = 'Icon'
+  return (
+    <Show
+      when={iconMap[local.name]}
+      fallback={<div style={{ width: `${iconSize()}px`, height: `${iconSize()}px` }} />}
+    >
+      {(IconComponent) => (
+        <Dynamic
+          component={IconComponent()}
+          absoluteStrokeWidth={local.absoluteStrokeWidth ?? true}
+          color={iconColor()}
+          fill={iconFill()}
+          size={iconSize()}
+          strokeWidth={local.strokeWidth ?? 1.5}
+          class={local.class ?? local.className}
+          {...(others as LucideProps)}
+          // A named icon is meaningful: give the svg the img role so the
+          // accessible name is exposed (unnamed icons stay decorative).
+          role={props.role ?? (props['aria-label'] || props['aria-labelledby'] ? 'img' : undefined)}
+        />
+      )}
+    </Show>
+  )
+}
 
 export { Icon }
 export type { IconColor, IconName, IconProps, IconSizes }

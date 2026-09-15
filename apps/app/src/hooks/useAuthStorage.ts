@@ -1,6 +1,6 @@
 'use client'
 
-import { useStore } from 'zustand'
+import { useStore } from '@/state/use-store'
 
 import { agreementStore, authTokenStore, nonceStore, uuidTokenStore } from '@/state/auth-storage'
 

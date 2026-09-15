@@ -1,19 +1,13 @@
-'use client'
-
-import { useEffect, useState, useRef } from 'react'
+import { createEffect, createSignal, onCleanup, onMount } from 'solid-js'
 import { Dialog } from '@nl/ui/custom/dialog'
 import NativeImage from '@nl/ui/custom/native-image'
 
 const TrailerContent = () => {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const modalIframe = useRef<HTMLIFrameElement>(null)
-  const messageCache = useRef({
-    play: '{"event":"command","func":"playVideo","args":""}',
-    pause: '{"event":"command","func":"pauseVideo","args":""}',
-  })
+  const [isLoaded, setIsLoaded] = createSignal(false)
+  let modalIframe: HTMLIFrameElement | undefined
 
   // Handle YouTube API messages
-  useEffect(() => {
+  onMount(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== 'https://www.youtube.com') return
       try {
@@ -27,45 +21,41 @@ const TrailerContent = () => {
     }
 
     window.addEventListener('message', handleMessage)
-    return () => window.removeEventListener('message', handleMessage)
-  }, [])
+    onCleanup(() => window.removeEventListener('message', handleMessage))
+  })
 
   // Handle video playback
-  useEffect(() => {
-    if (!modalIframe.current?.contentWindow) return
+  createEffect(() => {
+    if (!modalIframe?.contentWindow) return
 
     try {
-      const message = isLoaded ? messageCache.current.play : messageCache.current.pause
-      modalIframe.current.contentWindow.postMessage(message, 'https://www.youtube.com')
+      const message = isLoaded()
+        ? '{"event":"command","func":"playVideo","args":""}'
+        : '{"event":"command","func":"pauseVideo","args":""}'
+      modalIframe.contentWindow.postMessage(message, 'https://www.youtube.com')
     } catch (e) {
       console.error('Failed to control video:', e)
     }
-  }, [isLoaded])
+  })
 
   return (
     <iframe
-      ref={modalIframe}
+      ref={(el: HTMLIFrameElement) => (modalIframe = el)}
       id="trailer-modal-iframe"
       title="Nifty Smashers - Trailer"
-      className="-m-6 mt-0 aspect-video w-[calc(100%+3rem)] border-0"
+      class="-m-6 mt-0 aspect-video w-[calc(100%+3rem)] border-0"
       src="https://www.youtube.com/embed/4lnDrx4aDq8?enablejsapi=1&html5=1&autoplay=1&playsinline=1&rel=0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowFullScreen
+      allowfullscreen
       loading="eager"
     />
   )
 }
 
-const TrailerDialog = ({
-  open,
-  onOpenChange,
-}: {
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
-}) => (
+const TrailerDialog = (props: { open?: boolean; onOpenChange?: (open: boolean) => void }) => (
   <Dialog
-    open={open}
-    onOpenChange={onOpenChange}
+    open={props.open}
+    onOpenChange={props.onOpenChange}
     title="Nifty Smashers - Trailer"
     description="3D free-to-play platform fighter"
     hideDescription
@@ -77,7 +67,7 @@ const TrailerDialog = ({
           alt="YouTube Logo"
           width={22}
           height={22}
-          style={{ maxWidth: '100%', height: 'auto' }}
+          style={{ 'max-width': '100%', height: 'auto' }}
         />
         Trailer
       </button>

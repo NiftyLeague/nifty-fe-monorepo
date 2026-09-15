@@ -6,20 +6,21 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import SectionTitle from '@/components/sections/SectionTitle'
 import AddNFTLToMetamask from '@/layouts/_layout/_MainLayout/_Header/AddNFTLToMetamask'
+import type { JSX } from 'solid-js'
 
-const TitleSection = (): React.ReactNode => {
+const TitleSection = (): JSX.Element => {
   const { loadingNFTLBal, tokensBalances } = useTokensBalances()
   return (
     <SectionTitle
       firstSection
       variant="h3"
       actions={
-        <div className="flex flex-wrap items-center justify-end gap-4">
+        <div class="flex flex-wrap items-center justify-end gap-4">
           <AddNFTLToMetamask />
           {loadingNFTLBal ? (
-            <DeferredSkeleton className="h-10 w-[120px] rounded" />
+            <DeferredSkeleton class="h-10 w-[120px] rounded" />
           ) : (
-            <span className="text-base font-bold">
+            <span class="text-base font-bold">
               NFTL in Wallet:{' '}
               {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
             </span>

@@ -19,7 +19,7 @@ async function createWalletModal() {
     },
     { getContractAddress, NFTL_CONTRACT },
   ] = await Promise.all([
-    import('@reown/appkit/react'),
+    import('@reown/appkit'),
     import('./Web3ModalConfig'),
     import('@/constants/contracts'),
   ])

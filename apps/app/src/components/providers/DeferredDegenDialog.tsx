@@ -7,14 +7,15 @@ import DeferredDialogLoading from './DeferredDialogLoading'
 
 const loadDegenDialog = () => import('@/components/dialog/DegenDialog')
 
-export default function DeferredDegenDialog({ open = false, ...props }: DegenDialogProps) {
+export default function DeferredDegenDialog(props: DegenDialogProps) {
+  const open = () => props.open ?? false
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="DEGEN details"
       load={loadDegenDialog}
       loadingFallback={<DeferredDialogLoading label="Loading degen details" />}
-      props={{ open, ...props }}
+      props={{ ...props, open: open() }}
     />
   )
 }

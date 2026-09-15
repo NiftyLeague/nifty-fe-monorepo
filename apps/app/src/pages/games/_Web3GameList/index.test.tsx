@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@/components/cards/NiftyWorldCard', () => ({
@@ -32,7 +32,7 @@ describe('mini game list navigation', () => {
   })
 
   it('links every Nifty World mini game into the app', () => {
-    render(<Web3GameList />)
+    render(() => <Web3GameList />)
 
     expect(
       screen.getAllByRole('link', { name: /^Explore/ }).map((link) => link.getAttribute('href'))

@@ -1,5 +1,3 @@
-'use client'
-
 import { cn } from '@nl/ui/utils'
 import { Progress } from '@nl/ui/base/progress'
 import styles from './index.module.css'
@@ -45,36 +43,37 @@ interface PreloaderProps {
  * the `Progress` bar's `progressbar` role, so the percentage does not need to be
  * live text.
  */
-export function PreloaderBase({ label = 'Loading', ready, percent, showWarning }: PreloaderProps) {
+export function PreloaderBase(props: PreloaderProps) {
+  const label = () => props.label ?? 'Loading'
   return (
     <div
       role="status"
-      aria-label={label}
+      aria-label={label()}
       aria-live="polite"
-      aria-busy={ready ? undefined : true}
-      className={styles.preloader_overlay}
-      style={ready ? { transform: 'translateY(100%)', display: 'none' } : undefined}
+      aria-busy={props.ready ? undefined : true}
+      class={styles.preloader_overlay}
+      style={props.ready ? { transform: 'translateY(100%)', display: 'none' } : undefined}
     >
-      <span className="sr-only">{label}</span>
-      <div id="js-preloader" className={styles.preloader}>
-        <div className={cn(styles.preloader_inner, styles.fadeInUp)}>
-          <div className={styles.pong_loader} />
-          <div className={styles.pong_loader_left} />
-          <div className={styles.pong_loader_right} />
-          <svg aria-hidden="true" className={cn(styles.df_icon, styles.df_icon_preloader_arcade)}>
+      <span class="sr-only">{label()}</span>
+      <div id="js-preloader" class={styles.preloader}>
+        <div class={cn(styles.preloader_inner, styles.fadeInUp)}>
+          <div class={styles.pong_loader} />
+          <div class={styles.pong_loader_left} />
+          <div class={styles.pong_loader_right} />
+          <svg aria-hidden="true" class={cn(styles.df_icon, styles.df_icon_preloader_arcade)}>
             <PreloaderSVG />
           </svg>
         </div>
       </div>
 
-      {percent ? (
+      {props.percent ? (
         <>
-          <div className="flex justify-center items-center ml-[50px] mt-[8px]">
-            <Progress value={percent} className="w-[160px]" />
-            <div className="text-foreground text-sm min-w-[50px] ml-[10px]">{`${Math.round(percent)}%`}</div>
+          <div class="flex justify-center items-center ml-[50px] mt-[8px]">
+            <Progress value={props.percent} class="w-[160px]" />
+            <div class="text-foreground text-sm min-w-[50px] ml-[10px]">{`${Math.round(props.percent)}%`}</div>
           </div>
-          <div className="text-warning mt-2">
-            {showWarning ? 'For the best experience try us out on desktop!' : ''}
+          <div class="text-warning mt-2">
+            {props.showWarning ? 'For the best experience try us out on desktop!' : ''}
           </div>
         </>
       ) : null}

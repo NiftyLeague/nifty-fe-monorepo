@@ -3,16 +3,16 @@ import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team'
 
 export default function TeamDesktop() {
   return (
-    <div className="m-0 p-0 relative text-center items-center my-3 desktop flex flex-wrap">
-      {[...CORE_TEAM, ...DEGEN_DELEGATES].map((member, index) => (
-        <div key={`member-${index}`} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 mb-8">
-          <div className="flex flex-col p-3">
+    <div class="m-0 p-0 relative text-center items-center my-3 desktop flex flex-wrap">
+      {[...CORE_TEAM, ...DEGEN_DELEGATES].map((member) => (
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 mb-8">
+          <div class="flex flex-col p-3">
             {member.link ? (
-              <a href={member.link} target="_blank" rel="noreferrer" className="block">
-                <div className="rounded-lg overflow-hidden">
+              <a href={member.link} target="_blank" rel="noreferrer" class="block">
+                <div class="rounded-lg overflow-hidden">
                   <OptimizedImage
                     alt={`${member.name} DEGEN`}
-                    className="pixelated"
+                    class="pixelated"
                     height={293}
                     src={member.source}
                     width={268}
@@ -22,10 +22,10 @@ export default function TeamDesktop() {
                 </div>
               </a>
             ) : (
-              <div className="rounded-lg overflow-hidden">
+              <div class="rounded-lg overflow-hidden">
                 <OptimizedImage
                   alt={`${member.name} DEGEN`}
-                  className="pixelated"
+                  class="pixelated"
                   height={293}
                   src={member.source}
                   width={268}
@@ -34,9 +34,7 @@ export default function TeamDesktop() {
                 />
               </div>
             )}
-            <h3 className="mt-4 text-lg font-medium truncate-text-1 heading-look-6">
-              {member.name}
-            </h3>
+            <h3 class="mt-4 text-lg font-medium truncate-text-1 heading-look-6">{member.name}</h3>
           </div>
         </div>
       ))}

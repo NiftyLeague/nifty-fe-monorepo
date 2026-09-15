@@ -1,6 +1,4 @@
-'use client'
-
-import { useSyncExternalStore } from 'react'
+import { createSignal, onCleanup, onMount, type Accessor } from 'solid-js'
 
 const listeners = new Set<() => void>()
 
@@ -24,16 +22,21 @@ const subscribe = (listener: () => void) => {
   }
 }
 
-const getSnapshot = () => typeof document === 'undefined' || !document.hidden
-const getServerSnapshot = () => true
-
 /**
  * Shares the document visibility listener across UI primitives that own
- * background timers. The server snapshot is visible so hydration stays
- * stable, while consumers stop work as soon as the tab is hidden.
+ * background timers. SSR renders start visible so hydration stays stable,
+ * while consumers stop work as soon as the tab is hidden.
  */
-export function useDocumentVisibility(): boolean {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+export function useDocumentVisibility(): Accessor<boolean> {
+  const [visible, setVisible] = createSignal(typeof document === 'undefined' || !document.hidden)
+
+  onMount(() => {
+    const update = () => setVisible(!document.hidden)
+    update()
+    onCleanup(subscribe(update))
+  })
+
+  return visible
 }
 
 export default useDocumentVisibility

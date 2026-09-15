@@ -1,56 +1,38 @@
-'use client'
-
-import * as React from 'react'
-import * as ScrollAreaPrimitive from 'radix-ui/scroll-area'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 
-type ScrollAreaProps = React.ComponentProps<typeof ScrollAreaPrimitive.Root> & {
+// No headless primitive is needed here: the Radix version only added a custom
+// overlay scrollbar, which duplicated native behavior. A plain overflow
+// container keeps the DOM simpler and the platform's own scrolling semantics
+// (momentum, pinch, keyboard) intact.
+type ScrollAreaProps = ComponentProps<'div'> & {
+  className?: string
   viewportClassName?: string
 }
 
-function ScrollArea({ className, viewportClassName, children, ...props }: ScrollAreaProps) {
+function ScrollArea(props: ScrollAreaProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'viewportClassName', 'children'])
   return (
-    <ScrollAreaPrimitive.Root
+    <div
       data-slot="scroll-area"
-      className={cn('relative overflow-hidden', className)}
-      {...props}
+      class={cn('relative overflow-hidden', local.class, local.className)}
+      {...others}
     >
-      <ScrollAreaPrimitive.Viewport
+      <div
         data-slot="scroll-area-viewport"
-        className={cn('h-full w-full rounded-[inherit]', viewportClassName)}
+        class={cn('h-full w-full overflow-auto rounded-[inherit]', local.viewportClassName)}
       >
-        {children}
-      </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
-      <ScrollAreaPrimitive.Corner />
-    </ScrollAreaPrimitive.Root>
+        {local.children}
+      </div>
+    </div>
   )
 }
 
-function ScrollBar({
-  className,
-  orientation = 'vertical',
-  ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>) {
-  return (
-    <ScrollAreaPrimitive.ScrollAreaScrollbar
-      data-slot="scroll-area-scrollbar"
-      orientation={orientation}
-      className={cn(
-        'flex touch-none select-none transition-colors',
-        orientation === 'vertical' && 'h-full w-2.5 border-l border-l-transparent p-px',
-        orientation === 'horizontal' && 'h-2.5 flex-col border-t border-t-transparent p-px',
-        className
-      )}
-      {...props}
-    >
-      <ScrollAreaPrimitive.ScrollAreaThumb
-        data-slot="scroll-area-thumb"
-        className="bg-base-500 relative flex-1 rounded-full"
-      />
-    </ScrollAreaPrimitive.ScrollAreaScrollbar>
-  )
+// Kept as a no-op for call-site compatibility: the browser's own scrollbar is
+// used now, so there is no custom bar to render.
+function ScrollBar(_props: { className?: string; orientation?: 'vertical' | 'horizontal' }) {
+  return null
 }
 
 export { ScrollArea, ScrollBar }

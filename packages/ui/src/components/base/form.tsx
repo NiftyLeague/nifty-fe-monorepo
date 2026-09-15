@@ -1,142 +1,209 @@
-'use client'
-
-import * as React from 'react'
-import * as LabelPrimitive from 'radix-ui/label'
-import * as SlotPrimitive from 'radix-ui/slot'
-
 import {
-  Controller,
-  FormProvider,
-  useFormContext,
-  useFormState,
-  type ControllerProps,
+  createContext,
+  createEffect,
+  createUniqueId,
+  onMount,
+  Show,
+  splitProps,
+  useContext,
+  type ComponentProps,
+  type JSX,
+} from 'solid-js'
+import {
+  Field as ModularField,
+  Form as ModularForm,
+  type FieldElementProps,
   type FieldPath,
+  type FieldStore,
   type FieldValues,
-} from 'react-hook-form'
+  type FormStore,
+} from '@modular-forms/solid'
 
 import { cn } from '@nl/ui/utils'
 import { Label } from '@nl/ui/base/label'
 
-const Form = FormProvider
+/**
+ * Solid port of the shadcn form composition layer, backed by
+ * @modular-forms/solid instead of react-hook-form.
+ *
+ * API mapping for consumers migrating from the React version:
+ * - `useForm({ resolver })` → `createForm({ validate: zodForm(schema) })`
+ * - `<Form {...form}><form onSubmit={form.handleSubmit(fn)}>` →
+ *   `<Form of={form} onSubmit={fn}>`
+ * - `<FormField control={form.control} name render={({field}) => …}>` →
+ *   `<FormField of={form} name render={({field, props}) => …}>`; spread `props`
+ *   onto the input and read `field.value` / `field.error` reactively.
+ */
+const Form = ModularForm
 
-type FormFieldContextValue<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = { name: TName }
+type FormFieldContextValue = {
+  name: string
+  error: () => string
+}
 
-const FormFieldContext = React.createContext<FormFieldContextValue>(
+const FormFieldContext = createContext<FormFieldContextValue>(
   null as unknown as FormFieldContextValue
 )
 
-const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
+type FormFieldProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues>,
+> = {
+  of: FormStore<TFieldValues>
+  name: TFieldName
+  render: (args: {
+    field: FieldStore<TFieldValues, TFieldName>
+    props: FieldElementProps<TFieldValues, TFieldName>
+  }) => JSX.Element
+}
+
+const FormField = <TFieldValues extends FieldValues, TFieldName extends FieldPath<TFieldValues>>(
+  props: FormFieldProps<TFieldValues, TFieldName>
+) => {
+  // Field's prop type defers on TFieldName, so bind the generics explicitly.
+  const TypedField = ModularField as unknown as (fieldProps: {
+    of: FormStore<TFieldValues>
+    name: TFieldName
+    children: (
+      field: FieldStore<TFieldValues, TFieldName>,
+      props: FieldElementProps<TFieldValues, TFieldName>
+    ) => JSX.Element
+  }) => JSX.Element
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
-    </FormFieldContext.Provider>
+    <TypedField of={props.of} name={props.name}>
+      {(field, fieldProps) => (
+        <FormFieldContext.Provider value={{ name: props.name, error: () => field.error }}>
+          {props.render({ field, props: fieldProps })}
+        </FormFieldContext.Provider>
+      )}
+    </TypedField>
   )
 }
 
 const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext)
-  const itemContext = React.useContext(FormItemContext)
+  const fieldContext = useContext(FormFieldContext)
+  const itemContext = useContext(FormItemContext)
 
   if (!fieldContext) {
     throw new Error('useFormField should be used within <FormField>')
   }
-
-  const { getFieldState } = useFormContext()
-  const formState = useFormState({ name: fieldContext.name })
-  const fieldState = getFieldState(fieldContext.name, formState)
 
   const { id } = itemContext
 
   return {
     id,
     name: fieldContext.name,
+    get error() {
+      return fieldContext.error() ? { message: fieldContext.error() } : undefined
+    },
+    get invalid() {
+      return Boolean(fieldContext.error())
+    },
     formItemId: `${id}-form-item`,
     formDescriptionId: `${id}-form-item-description`,
     formMessageId: `${id}-form-item-message`,
-    ...fieldState,
   }
 }
 
 type FormItemContextValue = { id: string }
 
-const FormItemContext = React.createContext<FormItemContextValue>({} as FormItemContextValue)
+const FormItemContext = createContext<FormItemContextValue>({} as FormItemContextValue)
 
-function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
-  const id = React.useId()
+type DivProps = ComponentProps<'div'> & { className?: string }
+type PProps = ComponentProps<'p'> & { className?: string }
+
+function FormItem(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
+  const id = createUniqueId()
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div data-slot="form-item" className={cn('grid gap-2', className)} {...props} />
+      <div
+        data-slot="form-item"
+        class={cn('grid gap-2', local.class, local.className)}
+        {...others}
+      />
     </FormItemContext.Provider>
   )
 }
 
-function FormLabel({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {
-  const { error, formItemId } = useFormField()
+function FormLabel(props: ComponentProps<'label'> & { className?: string }) {
+  const [local, others] = splitProps(props, ['class', 'className'])
+  const field = useFormField()
 
   return (
     <Label
       data-slot="form-label"
-      data-error={!!error}
-      className={cn('data-[error=true]:text-destructive', className)}
-      htmlFor={formItemId}
-      {...props}
+      data-error={field.invalid}
+      class={cn('data-[error=true]:text-destructive', local.class, local.className)}
+      for={field.formItemId}
+      {...others}
     />
   )
 }
 
-function FormControl({ ...props }: React.ComponentProps<typeof SlotPrimitive.Slot>) {
-  const { error, formItemId, formDescriptionId, formMessageId } = useFormField()
+/**
+ * Sets the form item's id and ARIA wiring on the first element child. Solid
+ * has no Slot primitive, so the attributes are applied to the child's root
+ * element after mount — the DOM result is identical.
+ */
+function FormControl(props: { children?: JSX.Element }) {
+  const field = useFormField()
+  let host: HTMLSpanElement | undefined
+
+  const apply = () => {
+    const target = host?.firstElementChild as HTMLElement | null
+    if (!target) return
+    target.id = field.formItemId
+    target.setAttribute(
+      'aria-describedby',
+      !field.invalid
+        ? `${field.formDescriptionId}`
+        : `${field.formDescriptionId} ${field.formMessageId}`
+    )
+    target.setAttribute('aria-invalid', String(field.invalid))
+  }
+
+  // Track `field.invalid` so the wiring updates as validation state changes.
+  onMount(apply)
+  createEffect(apply)
 
   return (
-    <SlotPrimitive.Slot
-      data-slot="form-control"
-      id={formItemId}
-      aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
-      aria-invalid={!!error}
-      {...props}
-    />
+    <span ref={(el) => (host = el)} data-slot="form-control" style="display: contents">
+      {props.children}
+    </span>
   )
 }
 
-function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
+function FormDescription(props: PProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   const { formDescriptionId } = useFormField()
 
   return (
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
+      class={cn('text-muted-foreground text-sm', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message ?? '') : props.children
-
-  if (!body) {
-    return null
-  }
+function FormMessage(props: PProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'children'])
+  const field = useFormField()
 
   return (
-    <p
-      data-slot="form-message"
-      id={formMessageId}
-      className={cn('text-destructive text-sm', className)}
-      {...props}
-    >
-      {body}
-    </p>
+    <Show when={field.error?.message || local.children}>
+      <p
+        data-slot="form-message"
+        id={field.formMessageId}
+        class={cn('text-destructive text-sm', local.class, local.className)}
+        {...others}
+      >
+        {field.error?.message ? String(field.error.message) : local.children}
+      </p>
+    </Show>
   )
 }
 

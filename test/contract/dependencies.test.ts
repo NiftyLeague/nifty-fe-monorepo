@@ -198,9 +198,6 @@ describe('dependency contract', () => {
       ...IMPLICIT_PEER_DEPS,
       ...NODE_BUILTINS,
       ...VIRTUAL_AND_TEST_MODULES,
-      '@testing-library/react',
-      'react-dom/server',
-      'react-dom/client',
     ])
     const resolved = new Set(NODE_BUILTINS)
     for (const imp of imports) {
@@ -259,7 +256,7 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
   },
   'apps/smashers': {
     '@astrojs/vercel': 'Astro Vercel adapter referenced from astro.config.mjs',
-    '@astrojs/react': 'Astro React integration referenced from astro.config.mjs',
+    '@astrojs/solid-js': 'Astro Solid integration referenced from astro.config.mjs',
     '@astrojs/check': 'astro check CLI (type-check script)',
     astro: 'Astro framework (config + CLI)',
     '@tailwindcss/vite': 'shared Tailwind pipeline for the Astro build',
@@ -272,7 +269,7 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     '@nl/ui': 'shared media primitives imported in content/*.mdx and components',
     mermaid: 'renders mermaid code fences client side',
     sharp: 'image optimisation runtime for the Astro image pipeline',
-    react: 'runtime for the shared @nl/ui components rendered inside MDX content',
+    'solid-js': 'peer dep of @astrojs/solid-js (islands in MDX content)',
   },
   'packages/playfab': {
     'iron-session': 'session cookie sealing for the OAuth flow helpers',

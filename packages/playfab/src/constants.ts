@@ -1,5 +1,5 @@
 /// <reference path="./sdk/typings/PlayFabClient.d.ts" />
-import type { User, UserContextType, UserInfo } from './types'
+import type { User, UserInfo } from './types'
 
 export const USER_INITIAL_STATE = {
   isLoggedIn: false,
@@ -26,18 +26,6 @@ export const USER_INFO_INITIAL_STATE = {
   UserReadOnlyDataVersion: undefined,
   UserVirtualCurrency: undefined,
 } as UserInfo
-
-export const USER_CONTEXT_INITIAL_STATE = {
-  account: undefined,
-  currencies: undefined,
-  inventory: [],
-  isLoggedIn: false,
-  playFabId: undefined,
-  profile: undefined,
-  publisherData: undefined,
-  stats: [],
-  refetchPlayer: () => new Promise(() => undefined),
-} as UserContextType
 
 export const ProfileConstraints = {
   ShowAvatarUrl: true,

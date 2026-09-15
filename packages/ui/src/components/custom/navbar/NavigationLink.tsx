@@ -1,6 +1,7 @@
 import { NavLinkContent, NAV_LINK_CONTENT_CLASS } from './NavLinkContent'
 
 interface NavigationLinkProps {
+  class?: string
   className?: string
   description?: string
   descriptionClassName?: string
@@ -10,35 +11,30 @@ interface NavigationLinkProps {
 }
 
 /** Uses client-side navigation only for routes owned by the current app. */
-function NavigationLink({
-  className,
-  description,
-  descriptionClassName,
-  external,
-  href,
-  title,
-}: NavigationLinkProps) {
-  const content = (
-    <NavLinkContent
-      description={description}
-      descriptionClassName={descriptionClassName}
-      external={external}
-      title={title}
-    />
-  )
-  const resolvedClassName = className ?? NAV_LINK_CONTENT_CLASS
+function NavigationLink(props: NavigationLinkProps) {
+  const resolvedClassName = () => props.class ?? props.className ?? NAV_LINK_CONTENT_CLASS
 
-  if (external) {
+  if (props.external) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className={resolvedClassName}>
-        {content}
+      <a href={props.href} target="_blank" rel="noreferrer" class={resolvedClassName()}>
+        <NavLinkContent
+          description={props.description}
+          descriptionClassName={props.descriptionClassName}
+          external={props.external}
+          title={props.title}
+        />
       </a>
     )
   }
 
   return (
-    <a href={href} className={resolvedClassName}>
-      {content}
+    <a href={props.href} class={resolvedClassName()}>
+      <NavLinkContent
+        description={props.description}
+        descriptionClassName={props.descriptionClassName}
+        external={props.external}
+        title={props.title}
+      />
     </a>
   )
 }

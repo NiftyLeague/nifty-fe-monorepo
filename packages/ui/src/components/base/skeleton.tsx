@@ -1,3 +1,5 @@
+import { splitProps, type ComponentProps } from 'solid-js'
+
 import { cn } from '@nl/ui/utils'
 
 /**
@@ -9,13 +11,20 @@ import { cn } from '@nl/ui/utils'
  * `aria-hidden` or `role`, which override this default. The pulse is suppressed
  * under `prefers-reduced-motion`.
  */
-function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
+type SkeletonProps = ComponentProps<'div'> & { className?: string }
+
+function Skeleton(props: SkeletonProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="skeleton"
       aria-hidden="true"
-      className={cn('bg-accent animate-pulse rounded-md motion-reduce:animate-none', className)}
-      {...props}
+      class={cn(
+        'bg-accent animate-pulse rounded-md motion-reduce:animate-none',
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }

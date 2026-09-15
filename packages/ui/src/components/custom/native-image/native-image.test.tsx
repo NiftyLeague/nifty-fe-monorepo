@@ -1,11 +1,11 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import NativeImage from './index'
 
 describe('NativeImage', () => {
   it('keeps image semantics and lazy loading without Next image props', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <NativeImage
         src="/img/logos/NL/purple-filled.webp"
         alt="Nifty League"
@@ -14,7 +14,7 @@ describe('NativeImage', () => {
         priority
         unoptimized
       />
-    )
+    ))
     const image = container.querySelector('img')
 
     expect(image?.getAttribute('src')).toBe('/img/logos/NL/purple-filled.webp')
@@ -26,9 +26,9 @@ describe('NativeImage', () => {
   })
 
   it('preserves fill layout geometry on the native element', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <NativeImage fill src="/img/degens/nfts/1.webp" alt="Degen" sizes="100vw" />
-    )
+    ))
     const image = container.querySelector('img')
 
     expect(image?.style.position).toBe('absolute')
@@ -41,9 +41,9 @@ describe('NativeImage', () => {
   })
 
   it('preserves an explicit fetch priority', () => {
-    const { container } = render(
-      <NativeImage src="/img/logos/NL/purple-filled.webp" alt="Nifty League" fetchPriority="high" />
-    )
+    const { container } = render(() => (
+      <NativeImage src="/img/logos/NL/purple-filled.webp" alt="Nifty League" fetchpriority="high" />
+    ))
     const image = container.querySelector('img')
 
     expect(image?.getAttribute('fetchpriority')).toBe('high')

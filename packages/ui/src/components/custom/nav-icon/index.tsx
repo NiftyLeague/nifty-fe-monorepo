@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 const iconPaths = {
   cat: (
@@ -57,29 +57,36 @@ const iconPaths = {
 
 type NavIconName = keyof typeof iconPaths
 
-interface NavIconProps extends Omit<SVGProps<SVGSVGElement>, 'color' | 'name'> {
+interface NavIconProps extends Omit<ComponentProps<'svg'>, 'color' | 'name'> {
   name?: NavIconName
   size?: number | string
 }
 
-function NavIcon({ name = 'dot', size = 24, ...props }: NavIconProps) {
-  const { ['aria-hidden']: ariaHidden, ['aria-label']: ariaLabel, ...svgProps } = props
+function NavIcon(props: NavIconProps) {
+  const [local, others] = splitProps(props, ['name', 'size'])
+  const ariaLabel = () => (others as Record<string, unknown>)['aria-label'] as string | undefined
 
   return (
     <svg
-      aria-hidden={ariaHidden ?? (ariaLabel ? undefined : true)}
-      aria-label={ariaLabel}
+      // A labeled glyph is meaningful and stays in the accessibility tree;
+      // unlabeled glyphs are decorative.
+      aria-hidden={
+        ((others as Record<string, unknown>)['aria-hidden'] as boolean | undefined) ??
+        (ariaLabel() ? undefined : true)
+      }
+      aria-label={ariaLabel()}
+      role={ariaLabel() ? 'img' : undefined}
       fill="none"
-      height={size}
+      height={local.size ?? 24}
       stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="1.5"
       viewBox="0 0 24 24"
-      width={size}
-      {...svgProps}
+      width={local.size ?? 24}
+      {...others}
     >
-      {iconPaths[name]}
+      {iconPaths[local.name ?? 'dot']}
     </svg>
   )
 }

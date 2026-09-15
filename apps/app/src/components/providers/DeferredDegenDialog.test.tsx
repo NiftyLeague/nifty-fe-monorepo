@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/deferred-component', () => ({
@@ -12,14 +12,14 @@ describe('DeferredDegenDialog', () => {
   it('does not render the dialog boundary while it is closed', async () => {
     const { default: DeferredDegenDialog } = await import('./DeferredDegenDialog')
 
-    render(<DeferredDegenDialog open={false} />)
+    render(() => <DeferredDegenDialog open={false} />)
 
     expect(screen.queryByRole('status')).toBeNull()
   })
 
   it('enables the shared boundary only when the dialog opens', async () => {
     const { default: DeferredDegenDialog } = await import('./DeferredDegenDialog')
-    const rendered = render(<DeferredDegenDialog open={false} />)
+    const rendered = render(() => <DeferredDegenDialog open={false} />)
 
     await act(async () => {
       rendered.rerender(<DeferredDegenDialog open />)

@@ -1,6 +1,4 @@
-'use client'
-
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal, splitProps, type ComponentProps, type JSX } from 'solid-js'
 import { cn } from '@nl/ui/utils'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@nl/ui/base/card'
 import NativeImage from '@nl/ui/custom/native-image'
@@ -13,44 +11,49 @@ import { FORM_DESC, FORM_TITLE, VIEWS } from './constants'
 export { VIEWS } from './constants'
 export type ViewType = (typeof VIEWS)[keyof typeof VIEWS]
 
-interface AuthContainerProps extends React.ComponentProps<'div'> {
+interface AuthContainerProps extends ComponentProps<'div'> {
   view: ViewType
   message?: string
   error?: string
+  className?: string
 }
 
-function AuthContainer({
-  className,
-  children: form,
-  view,
-  message,
-  error,
-  ...props
-}: AuthContainerProps) {
+function AuthContainer(props: AuthContainerProps) {
+  const [local, others] = splitProps(props, [
+    'class',
+    'className',
+    'children',
+    'view',
+    'message',
+    'error',
+  ])
   return (
-    <div className={cn('flex flex-col gap-6 w-full h-screen', className)} {...props}>
-      <div className="flex flex-1 justify-center items-center">
-        <Card className="relative w-full max-w-[600px] overflow-hidden">
-          <CardHeader className="flex flex-col items-center text-center">
+    <div
+      class={cn('flex flex-col gap-6 w-full h-screen', local.class, local.className)}
+      {...others}
+    >
+      <div class="flex flex-1 justify-center items-center">
+        <Card class="relative w-full max-w-[600px] overflow-hidden">
+          <CardHeader class="flex flex-col items-center text-center">
             <NativeImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
               width={40}
               height={40}
               loading="eager"
-              className="absolute inset-6 h-10 w-10"
+              class="absolute inset-6 h-10 w-10"
             />
-            <CardTitle className="text-2xl font-bold uppercase">{FORM_TITLE[view]}</CardTitle>
-            <CardDescription>{FORM_DESC[view]}</CardDescription>
+            <CardTitle class="text-2xl font-bold uppercase">{FORM_TITLE[local.view]}</CardTitle>
+            <CardDescription>{FORM_DESC[local.view]}</CardDescription>
           </CardHeader>
           <CardContent>
-            {form}
-            {message && <div className="text-success text-center pt-6">{message}</div>}
-            {error && <div className="text-error text-center pt-6">{error}</div>}
+            {local.children}
+            {local.message && <div class="text-success text-center pt-6">{local.message}</div>}
+            {local.error && <div class="text-error text-center pt-6">{local.error}</div>}
           </CardContent>
         </Card>
       </div>
-      <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4 my-8">
+      <div class="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4 my-8">
         By continuing, you agree to our{' '}
         <a href="https://niftyleague.com/terms-of-service" target="_blank" rel="noreferrer">
           Terms of Service
@@ -70,54 +73,59 @@ export interface AuthFormProps
     AuthContainerProps,
     Omit<LoginFormProps & ForgotPasswordFormProps & UpdatePasswordFormProps, 'setAuthView'> {}
 
-export function AuthForm({
-  enableAccountCreation = false,
-  enableProviderSignOn = false,
-  enableSocialColors = false,
-  handleLogin,
-  handleProviderLogin,
-  handleResetPassword,
-  handleSignup,
-  handleUpdatePassword,
-  view = 'login',
-  ...props
-}: AuthFormProps) {
-  const [authView, setAuthView] = useState<ViewType>(view)
+export function AuthForm(props: AuthFormProps) {
+  const [authView, setAuthView] = createSignal<ViewType>(props.view ?? 'login')
 
-  useEffect(() => {
-    // handle view override
-    setAuthView(view)
-  }, [view])
+  // handle view override
+  createEffect(() => {
+    setAuthView(props.view ?? 'login')
+  })
 
-  const renderForm = () => {
-    switch (authView) {
+  const renderForm = (): JSX.Element => {
+    switch (authView()) {
       case VIEWS.LOGIN:
       case VIEWS.SIGN_UP:
         return (
           <LoginForm
-            enableAccountCreation={enableAccountCreation}
-            enableProviderSignOn={enableProviderSignOn}
-            enableSocialColors={enableSocialColors}
-            handleLogin={handleLogin}
-            handleProviderLogin={handleProviderLogin}
-            handleSignup={handleSignup}
+            enableAccountCreation={props.enableAccountCreation ?? false}
+            enableProviderSignOn={props.enableProviderSignOn ?? false}
+            enableSocialColors={props.enableSocialColors ?? false}
+            handleLogin={props.handleLogin}
+            handleProviderLogin={props.handleProviderLogin}
+            handleSignup={props.handleSignup}
             setAuthView={setAuthView}
-            view={authView}
+            view={authView() as typeof VIEWS.LOGIN | typeof VIEWS.SIGN_UP}
           />
         )
       case VIEWS.FORGOT_PASSWORD:
         return (
-          <ForgotPasswordForm handleResetPassword={handleResetPassword} setAuthView={setAuthView} />
+          <ForgotPasswordForm
+            handleResetPassword={props.handleResetPassword}
+            setAuthView={setAuthView}
+          />
         )
       case VIEWS.UPDATE_PASSWORD:
-        return <UpdatePasswordForm handleUpdatePassword={handleUpdatePassword} />
+        return <UpdatePasswordForm handleUpdatePassword={props.handleUpdatePassword} />
       default:
         return null
     }
   }
 
+  const [local, others] = splitProps(props, [
+    'enableAccountCreation',
+    'enableProviderSignOn',
+    'enableSocialColors',
+    'handleLogin',
+    'handleProviderLogin',
+    'handleResetPassword',
+    'handleSignup',
+    'handleUpdatePassword',
+    'view',
+  ])
+  void local
+
   return (
-    <AuthContainer view={authView} {...props}>
+    <AuthContainer view={authView()} {...others}>
       {renderForm()}
     </AuthContainer>
   )

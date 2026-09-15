@@ -1,6 +1,6 @@
-import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { tanstackStart } from '@tanstack/solid-start/plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
-import viteReact from '@vitejs/plugin-react'
+import viteSolid from 'vite-plugin-solid'
 import { nitro } from 'nitro/vite'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -24,16 +24,16 @@ export default defineConfig({
   // Resolve the `@/*` alias from tsconfig.json so app imports keep working.
   resolve: {
     tsconfigPaths: true,
-    // No aliases remain. `@nl/ui/custom/optimized-image` resolves to the shared
-    // framework-agnostic component, and the font families come from
-    // @nl/ui/styles/fonts.css; both specifiers used to be redirected to
-    // app-local copies.
   },
+  // Note: bundler-level chunk consolidation (rolldown `codeSplitting` groups)
+  // was tried for the mobile request-count problem and reverted — merging
+  // modules across the route-split graph created circular chunk imports that
+  // broke ESM eval order at runtime (viem LruMap "not a constructor").
   plugins: [
     tailwindcss(),
     tanstackStart({ srcDirectory: 'src' }),
-    // React's plugin must come after TanStack Start's.
-    viteReact(),
+    // The Solid plugin must come after TanStack Start's.
+    viteSolid({ ssr: true }),
     // Nitro produces the deployable server bundle (Vercel on this project).
     nitro({
       // Production deploys use the Vercel Build Output API; the E2E suite builds

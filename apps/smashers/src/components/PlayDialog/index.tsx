@@ -12,12 +12,12 @@ const PlayContent = () => (
       players grab your bats, unleash unique abilities, and smash each other out of the arena in a
       winner-takes-all battle!
     </Text>
-    <div className="grid grid-cols-3 gap-2 items-center">
+    <div class="grid grid-cols-3 gap-2 items-center">
       <a
         href="/android/&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"
         target="_blank"
         rel="noreferrer"
-        className="w-full justify-items-center hover:scale-102 transition-transform duration-200"
+        class="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
         <NativeImage
           src="/img/badges/google-play-badge.webp"
@@ -25,14 +25,14 @@ const PlayContent = () => (
           width={234}
           height={70}
           priority
-          style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
+          style={{ width: '100%', 'max-width': '100%', height: 'auto' }}
         />
       </a>
       <a
         href="/ios"
         target="_blank"
         rel="noreferrer"
-        className="w-full justify-items-center hover:scale-102 transition-transform duration-200"
+        class="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
         <NativeImage
           src="/img/badges/apple-store-badge.svg"
@@ -40,14 +40,14 @@ const PlayContent = () => (
           width={215}
           height={72}
           priority
-          style={{ width: '92%', maxWidth: '100%', height: 'auto' }}
+          style={{ width: '92%', 'max-width': '100%', height: 'auto' }}
         />
       </a>
       <a
         href="/steam"
         target="_blank"
         rel="noreferrer"
-        className="w-full justify-items-center hover:scale-102 transition-transform duration-200"
+        class="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
         <NativeImage
           src="/img/badges/steam-badge.webp"
@@ -55,7 +55,7 @@ const PlayContent = () => (
           width={234}
           height={69}
           priority
-          style={{ width: '100%', maxWidth: '100%', height: 'auto' }}
+          style={{ width: '100%', 'max-width': '100%', height: 'auto' }}
         />
       </a>
     </div>
@@ -86,7 +86,7 @@ const PlayDialog = ({
             alt="Game Icon"
             width={22}
             height={22}
-            style={{ maxWidth: '100%', height: 'auto' }}
+            style={{ 'max-width': '100%', height: 'auto' }}
           />
           Play
         </button>

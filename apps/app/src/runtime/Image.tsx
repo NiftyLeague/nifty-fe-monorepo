@@ -1,11 +1,10 @@
-import { preload as preloadImage } from 'react-dom'
-import type { ComponentProps } from 'react'
+import type { JSX } from 'solid-js'
 import { imageProps } from './image-props.mjs'
 
 declare const APP_IMAGE_MANIFEST: Record<string, { hash: string; width: number; height: number }>
 
 type Source = string | { src: string; width?: number; height?: number }
-export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> {
+export interface OptimizedImageProps extends Omit<JSX.ImgHTMLAttributes<HTMLImageElement>, 'src'> {
   src: Source
   priority?: boolean
   preload?: boolean
@@ -18,11 +17,23 @@ export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> 
 
 export function getOptimizedImageProps(
   props: OptimizedImageProps
-): ComponentProps<'img'> & { src: string } {
+): JSX.ImgHTMLAttributes<HTMLImageElement> & { src: string } {
   // The manifest is injected by the Vite `define` of the prepared build; in
   // unwired contexts (unit tests, unbundled SSR) it falls back to originals.
   const manifest = typeof APP_IMAGE_MANIFEST === 'undefined' ? {} : APP_IMAGE_MANIFEST
-  return imageProps(props, manifest) as ComponentProps<'img'> & { src: string }
+  return imageProps(props, manifest) as JSX.ImgHTMLAttributes<HTMLImageElement> & { src: string }
+}
+
+const preloadImage = (src: string, srcSet?: string, sizes?: string) => {
+  if (typeof document === 'undefined') return
+  const link = document.createElement('link')
+  link.rel = 'preload'
+  link.as = 'image'
+  link.href = src
+  link.setAttribute('fetchpriority', 'high')
+  if (srcSet) link.setAttribute('imagesrcset', srcSet)
+  if (sizes) link.setAttribute('imagesizes', sizes)
+  document.head.appendChild(link)
 }
 
 /**
@@ -34,11 +45,11 @@ export function OptimizedImage(props: OptimizedImageProps) {
   const result = getOptimizedImageProps(props)
 
   if ((props.priority || props.preload) && typeof result.src === 'string') {
-    preloadImage(result.src, {
-      as: 'image',
-      fetchPriority: 'high',
-      ...(result.srcSet ? { imageSrcSet: result.srcSet, imageSizes: result.sizes } : {}),
-    })
+    preloadImage(
+      result.src,
+      result.srcSet as string | undefined,
+      result.sizes as string | undefined
+    )
   }
 
   return <img {...result} />

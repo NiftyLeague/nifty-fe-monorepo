@@ -1,7 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useAccount, useReadContract } from 'wagmi'
+import { useAccount, useReadContract } from '@/runtime/wagmi'
 import { formatUnits } from 'viem'
 import {
   getContractAddress,
@@ -31,103 +30,104 @@ import useIMXContext from '@/hooks/useIMXContext'
 */
 
 interface NFTLBalanceState {
-  balance: number
-  error: Error | null
-  loading: boolean
+  readonly balance: number
+  readonly error: Error | null
+  readonly loading: boolean
   refetch: () => void
 }
 
+const toBalance = (data: unknown) =>
+  data !== undefined ? Number(formatUnits(data as bigint, 18)) : 0
+
 /** Fetch users NFTL balance on Ethereum */
 function useEthereumNFTLBalance(): NFTLBalanceState {
-  const { isLoggedIn } = useAuth()
-  const { address, isConnected } = useAccount()
+  const auth = useAuth()
+  const account = useAccount()
   const tokenAddress = getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT)
 
-  const {
-    data: balanceData,
-    isLoading,
-    refetch,
-    error,
-  } = useReadContract({
+  const contract = useReadContract(() => ({
     address: tokenAddress as `0x${string}`,
     abi: getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT),
     functionName: 'balanceOf',
-    args: address ? [address] : undefined,
+    args: account.address ? [account.address] : undefined,
     chainId: TARGET_NETWORK.chainId,
-    query: { staleTime: 10_000, enabled: isConnected && isLoggedIn && !!address },
-  })
+    query: {
+      staleTime: 10_000,
+      enabled: account.isConnected && auth.isLoggedIn && !!account.address,
+    },
+  }))
 
-  const balance = useMemo(() => {
-    if (balanceData !== undefined) {
-      return Number(formatUnits(balanceData as bigint, 18))
-    }
-    return 0
-  }, [balanceData])
-
-  return { balance, error: error as Error | null, loading: isLoading, refetch }
+  return {
+    get balance() {
+      return toBalance(contract.data)
+    },
+    get error() {
+      return contract.error
+    },
+    get loading() {
+      return contract.isLoading
+    },
+    refetch: () => void contract.refetch(),
+  }
 }
 
 /** Fetch users NFTL balance on Immutable zkEVM */
 function useImmutableNFTLBalance(): NFTLBalanceState {
-  const { isLoggedIn } = useAuth()
-  const { address, isConnected } = useAccount()
-  const { imxChainId } = useIMXContext()
-  const tokenAddress = getContractAddress(imxChainId, NFTL_IMX_CONTRACT)
+  const auth = useAuth()
+  const account = useAccount()
+  const imx = useIMXContext()
+  const tokenAddress = getContractAddress(imx.imxChainId, NFTL_IMX_CONTRACT)
 
-  const {
-    data: balanceData,
-    isLoading,
-    refetch,
-    error,
-  } = useReadContract({
+  const contract = useReadContract(() => ({
     address: tokenAddress as `0x${string}`,
-    abi: getContractABI(imxChainId, NFTL_IMX_CONTRACT),
+    abi: getContractABI(imx.imxChainId, NFTL_IMX_CONTRACT),
     functionName: 'balanceOf',
-    args: address ? [address] : undefined,
-    chainId: imxChainId,
-    query: { staleTime: 10_000, enabled: isConnected && isLoggedIn && !!address },
-  })
+    args: account.address ? [account.address] : undefined,
+    chainId: imx.imxChainId,
+    query: {
+      staleTime: 10_000,
+      enabled: account.isConnected && auth.isLoggedIn && !!account.address,
+    },
+  }))
 
-  const balance = useMemo(() => {
-    if (balanceData !== undefined) {
-      return Number(formatUnits(balanceData as bigint, 18))
-    }
-    return 0
-  }, [balanceData])
-
-  return { balance, error: error as Error | null, loading: isLoading, refetch }
+  return {
+    get balance() {
+      return toBalance(contract.data)
+    },
+    get error() {
+      return contract.error
+    },
+    get loading() {
+      return contract.isLoading
+    },
+    refetch: () => void contract.refetch(),
+  }
 }
 
 interface NFTLBalancesState {
-  balances: { eth: number; imx: number }
-  error: Error | null
-  loading: boolean
+  readonly balances: { eth: number; imx: number }
+  readonly error: Error | null
+  readonly loading: boolean
   refetch: () => void
 }
 /** Fetch users NFTL balance on both Ethereum & Immutable zkEVM */
 export default function useNFTLBalance(): NFTLBalancesState {
-  const {
-    balance: ethBal,
-    loading: ethLoading,
-    refetch: ethRefetch,
-    error: ethError,
-  } = useEthereumNFTLBalance()
-  const {
-    balance: imxBal,
-    loading: imxLoading,
-    refetch: imxRefetch,
-    error: imxError,
-  } = useImmutableNFTLBalance()
-
-  const balances = useMemo(() => ({ eth: ethBal, imx: imxBal }), [ethBal, imxBal])
+  const eth = useEthereumNFTLBalance()
+  const imx = useImmutableNFTLBalance()
 
   return {
-    balances,
-    error: ethError ?? imxError,
-    loading: ethLoading || imxLoading,
+    get balances() {
+      return { eth: eth.balance, imx: imx.balance }
+    },
+    get error() {
+      return eth.error ?? imx.error
+    },
+    get loading() {
+      return eth.loading || imx.loading
+    },
     refetch: () => {
-      ethRefetch()
-      imxRefetch()
+      eth.refetch()
+      imx.refetch()
     },
   }
 }

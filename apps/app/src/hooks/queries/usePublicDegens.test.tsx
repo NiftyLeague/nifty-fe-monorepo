@@ -1,10 +1,10 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { renderHook, waitFor } from '@testing-library/react'
+import { QueryClientProvider } from '@tanstack/solid-query'
+import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, spyOn } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import { createAppQueryClient } from '@/query/app-query'
 import { usePublicDegensByIds } from './usePublicDegens'
+import type { JSX } from 'solid-js'
 
 const originalFetch = globalThis.fetch
 
@@ -14,7 +14,7 @@ afterEach(() => {
 
 const createWrapper = () => {
   const client = createAppQueryClient()
-  return function Wrapper({ children }: PropsWithChildren) {
+  return function Wrapper({ children }: { children?: JSX.Element }) {
     return <QueryClientProvider client={client}>{children}</QueryClientProvider>
   }
 }

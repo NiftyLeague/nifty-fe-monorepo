@@ -1,7 +1,7 @@
 'use client'
 
-import { useContext } from 'react'
-import { Edit } from 'lucide-react'
+import { useContext } from 'solid-js'
+import { Edit } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
 import DeferredComponent from '@nl/ui/custom/deferred-component'
@@ -9,15 +9,16 @@ import { Dialog, DialogContext, DialogTrigger, DialogContent } from '@/component
 import DeferredDialogLoading from '@/components/providers/DeferredDialogLoading'
 
 import type { ProfileImageContentProps } from './ProfileImageContent'
+import type { JSX } from 'solid-js'
 
 const loadProfileImageContent = () => import('./ProfileImageContent')
 
-function DeferredProfileImageContent(props: ProfileImageContentProps): React.ReactNode {
+function DeferredProfileImageContent(props: ProfileImageContentProps): JSX.Element {
   const [open] = useContext(DialogContext)
 
   return (
     <DeferredComponent
-      enabled={open}
+      enabled={open()}
       label="profile image picker"
       load={loadProfileImageContent}
       loadingFallback={<DeferredDialogLoading label="Loading profile image picker" />}
@@ -30,7 +31,7 @@ const ProfileImageDialog = ({
   degens,
   onChangeAvatar,
   avatarFee,
-}: ProfileImageContentProps): React.ReactNode => {
+}: ProfileImageContentProps): JSX.Element => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -38,12 +39,12 @@ const ProfileImageDialog = ({
           variant="ghost"
           size="icon"
           aria-label="edit"
-          className="absolute left-2 top-2 cursor-pointer"
+          class="absolute left-2 top-2 cursor-pointer"
         >
-          <Edit aria-hidden="true" absoluteStrokeWidth size={28} strokeWidth={2.5} />
+          <Edit aria-hidden="true" absoluteStrokeWidth size={28} stroke-width={2.5} />
         </Button>
       </DialogTrigger>
-      <DialogContent sx={{ maxWidth: '1000px' }}>
+      <DialogContent sx={{ 'max-width': '1000px' }}>
         <DeferredProfileImageContent
           degens={degens}
           onChangeAvatar={onChangeAvatar}

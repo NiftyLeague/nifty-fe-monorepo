@@ -1,4 +1,4 @@
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { JSX, ParentProps } from 'solid-js'
 
 import type { SxProps } from '@/types'
 import SectionTitle from './SectionTitle'
@@ -6,32 +6,29 @@ import SectionTitle from './SectionTitle'
 const sectionSpacing = 2 // 16px
 
 interface StaticSectionProps {
-  title: string | ReactNode
+  title: string | JSX.Element
   firstSection?: boolean
-  actions?: ReactNode
-  children?: ReactNode
+  actions?: JSX.Element
+  children?: JSX.Element
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
 }
 
-const StaticSection = ({
-  title,
-  firstSection,
-  children,
-  actions,
-  variant = 'h2',
-  styles,
-}: PropsWithChildren<StaticSectionProps>) => (
+const StaticSection = (props: ParentProps<StaticSectionProps>) => (
   <div
-    className="flex flex-col"
-    style={{ gap: sectionSpacing * 8, ...(styles?.root as React.CSSProperties) }}
+    class="flex flex-col"
+    style={{ gap: `${sectionSpacing * 8}px`, ...(props.styles?.root as JSX.CSSProperties) }}
   >
-    <div style={styles?.headerRow as React.CSSProperties}>
-      <SectionTitle firstSection={firstSection} variant={variant} actions={actions}>
-        {title}
+    <div style={props.styles?.headerRow as JSX.CSSProperties}>
+      <SectionTitle
+        firstSection={props.firstSection}
+        variant={props.variant ?? 'h2'}
+        actions={props.actions}
+      >
+        {props.title}
       </SectionTitle>
     </div>
-    <div style={styles?.mainRow as React.CSSProperties}>{children}</div>
+    <div style={props.styles?.mainRow as JSX.CSSProperties}>{props.children}</div>
   </div>
 )
 

@@ -1,7 +1,7 @@
 'use client'
 
-import { memo, type PropsWithChildren, type ReactNode } from 'react'
-import { Pencil } from 'lucide-react'
+import { type JSX } from 'solid-js'
+import { Pencil } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
@@ -30,7 +30,7 @@ export interface DegenCardProps<T extends PublicDegen = PublicDegen> {
   onClickFavorite?: (degen: T) => void
   onClickSelect?: (degen: T) => void
   sx?: SxProps
-  dashboardActions?: React.ReactNode
+  dashboardActions?: JSX.Element
 }
 
 function DegenCardInner<T extends PublicDegen>({
@@ -47,27 +47,24 @@ function DegenCardInner<T extends PublicDegen>({
   onClickEditName,
   onClickSelect,
   dashboardActions,
-}: PropsWithChildren<DegenCardProps<T>>) {
+}: DegenCardProps<T> & { children?: JSX.Element }) {
   const { id, name } = degen
 
   const buttonFontSize = size === 'small' ? '12px' : 'var(--text-sm)'
 
   return (
-    <Card
-      className="h-full w-full gap-0 border py-0 pb-2"
-      style={sx as React.CSSProperties | undefined}
-    >
+    <Card class="h-full w-full gap-0 border py-0 pb-2" style={sx as JSX.CSSProperties | undefined}>
       {id && (
         <DegenImage
           tokenId={id}
           deferAnimation={deferAnimatedMedia}
-          sx={{ width: '100%', maxWidth: '100%' }}
+          sx={{ width: '100%', 'max-width': '100%' }}
         />
       )}
-      <CardContent className="px-2 py-2">
-        <div className="group flex flex-row justify-between gap-2">
-          <div className="flex">
-            <Title level={size === 'small' ? 6 : 5} className="truncate-text-1">
+      <CardContent class="px-2 py-2">
+        <div class="group flex flex-row justify-between gap-2">
+          <div class="flex">
+            <Title level={size === 'small' ? 6 : 5} class="truncate-text-1">
               {name || '[No Name]'}
             </Title>
             {isDashboardDegen && (
@@ -77,9 +74,9 @@ function DegenCardInner<T extends PublicDegen>({
                 size="icon"
                 aria-label="Edit degen name"
                 onClick={() => onClickEditName?.(degen)}
-                className="ml-1 hidden size-6 cursor-pointer p-0 group-hover:inline-flex"
+                class="ml-1 hidden size-6 cursor-pointer p-0 group-hover:inline-flex"
               >
-                <Pencil aria-hidden="true" absoluteStrokeWidth size={18} strokeWidth={1.5} />
+                <Pencil aria-hidden="true" absoluteStrokeWidth size={18} stroke-width={1.5} />
               </Button>
             )}
           </div>
@@ -87,19 +84,19 @@ function DegenCardInner<T extends PublicDegen>({
             href={id ? DEGEN_PURCHASE_URL(id) : '#'}
             target="_blank"
             rel="nofollow"
-            className="text-muted-foreground"
-            style={{ fontSize: buttonFontSize }}
+            class="text-muted-foreground"
+            style={{ 'font-size': buttonFontSize }}
           >
             {`#${id}`}
           </a>
         </div>
       </CardContent>
-      <div className="flex flex-row justify-between gap-2 px-2">
+      <div class="flex flex-row justify-between gap-2 px-2">
         {isSelectableDegen ? (
           <Button
             variant={isSelected ? 'default' : 'outline'}
-            className="min-w-0 flex-1"
-            style={{ fontSize: buttonFontSize }}
+            class="min-w-0 flex-1"
+            style={{ 'font-size': buttonFontSize }}
             onClick={() => onClickSelect?.(degen)}
             disabled={isSelectionDisabled && !isSelected}
           >
@@ -108,8 +105,8 @@ function DegenCardInner<T extends PublicDegen>({
         ) : (
           <Button
             variant="outline"
-            className="min-w-0 flex-1"
-            style={{ fontSize: buttonFontSize }}
+            class="min-w-0 flex-1"
+            style={{ 'font-size': buttonFontSize }}
             onClick={() => onClickDetail?.(degen)}
           >
             Details
@@ -119,8 +116,8 @@ function DegenCardInner<T extends PublicDegen>({
           <Button
             onClick={() => onClickClaim?.(degen)}
             variant="default"
-            className="min-w-0 flex-1"
-            style={{ fontSize: buttonFontSize }}
+            class="min-w-0 flex-1"
+            style={{ 'font-size': buttonFontSize }}
           >
             Claim
           </Button>
@@ -136,8 +133,8 @@ function DegenCardInner<T extends PublicDegen>({
  * same pattern `DeferredComponent` uses. Shallow comparison is enough now that
  * every callback prop can be stable.
  */
-const DegenCard = memo(DegenCardInner) as <T extends PublicDegen>(
-  props: PropsWithChildren<DegenCardProps<T>>
-) => ReactNode
+const DegenCard = DegenCardInner as <T extends PublicDegen>(
+  props: DegenCardProps<T> & { children?: JSX.Element }
+) => JSX.Element
 
 export default DegenCard

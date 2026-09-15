@@ -1,35 +1,33 @@
-'use client'
-
-import { useRef, type ElementType, type HTMLAttributes, type ReactNode } from 'react'
+import { splitProps, type ComponentProps, type ValidComponent } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import { useParallax } from '@nl/ui/hooks/useParallax'
 import type { ParallaxDirection, ParallaxIntensity } from '@nl/ui/hooks/useParallax'
 
-export interface ParallaxWrapperProps extends HTMLAttributes<HTMLElement> {
-  children: ReactNode
+export interface ParallaxWrapperProps extends ComponentProps<'div'> {
   parallaxDirection?: ParallaxDirection
   parallaxIntensity?: ParallaxIntensity
-  component?: ElementType
+  component?: ValidComponent
 }
 
-export function ParallaxWrapper({
-  children,
-  parallaxDirection = 'left',
-  parallaxIntensity = 'normal',
-  component: Wrapper = 'div',
-  ...props
-}: ParallaxWrapperProps) {
-  const ref = useRef<HTMLElement>(null)
+export function ParallaxWrapper(props: ParallaxWrapperProps) {
+  const [local, others] = splitProps(props, [
+    'children',
+    'parallaxDirection',
+    'parallaxIntensity',
+    'component',
+  ])
+  let ref: HTMLElement | undefined
 
-  useParallax(ref, {
+  useParallax(() => ref, {
     enabled: true,
-    direction: parallaxDirection,
-    intensity: parallaxIntensity,
+    direction: local.parallaxDirection ?? 'left',
+    intensity: local.parallaxIntensity ?? 'normal',
   })
 
   return (
-    <Wrapper ref={ref} {...props}>
-      {children}
-    </Wrapper>
+    <Dynamic component={local.component ?? 'div'} ref={(el: HTMLElement) => (ref = el)} {...others}>
+      {local.children}
+    </Dynamic>
   )
 }
 

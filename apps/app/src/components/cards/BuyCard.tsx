@@ -1,4 +1,4 @@
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart } from 'lucide-solid'
 import useComicDimension from '@/hooks/useComicDimension'
 
 interface BuyCardProps {
@@ -6,13 +6,11 @@ interface BuyCardProps {
   onBuy: () => void
 }
 
-const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardProps>>> = ({
-  isNew,
-  onBuy,
-}) => {
+const BuyCard = (props: BuyCardProps) => {
+  const { isNew, onBuy } = props
   const { width: cardWidth, height: cardHeight } = useComicDimension()
 
-  const handleBuyComic = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleBuyComic = (e: MouseEvent & { currentTarget: HTMLDivElement }) => {
     e.stopPropagation()
     onBuy()
   }
@@ -20,8 +18,8 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
   return (
     <div
       onClick={handleBuyComic}
-      className="flex cursor-pointer flex-col items-center justify-center rounded-[5px] border border-[#363636]"
-      style={{ width: cardWidth, height: cardHeight }}
+      class="flex cursor-pointer flex-col items-center justify-center rounded-[5px] border border-[#363636]"
+      style={{ width: `${cardWidth}px`, height: `${cardHeight}px` }}
     >
       <ShoppingCart
         aria-hidden="true"
@@ -30,7 +28,7 @@ const BuyCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BuyCardP
         size={cardWidth - 50}
         strokeWidth={3}
       />
-      <span className="mt-0.5 text-purple underline">{isNew ? 'Buy' : 'Buy More'}</span>
+      <span class="mt-0.5 text-purple underline">{isNew ? 'Buy' : 'Buy More'}</span>
     </div>
   )
 }

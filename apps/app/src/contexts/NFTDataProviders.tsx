@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 
 import AuditFixtureContextWrapper from '@/contexts/AuditFixtureContextWrapper'
 import { IMXProvider } from '@/contexts/IMXContext'
@@ -15,15 +15,15 @@ import { AUDIT_FIXTURE } from '@/runtime/env'
  * needed by the dashboard overview, so routes such as rentals and profile
  * pages can load their own data without pulling in the extra token graph.
  */
-export default function NFTDataProviders({ children }: PropsWithChildren) {
+export default function NFTDataProviders(props: ParentProps) {
   if (AUDIT_FIXTURE) {
-    return <AuditFixtureContextWrapper>{children}</AuditFixtureContextWrapper>
+    return <AuditFixtureContextWrapper>{props.children}</AuditFixtureContextWrapper>
   }
 
   return (
     <NetworkProvider>
       <IMXProvider>
-        <NFTsBalanceProvider>{children}</NFTsBalanceProvider>
+        <NFTsBalanceProvider>{props.children}</NFTsBalanceProvider>
       </IMXProvider>
     </NetworkProvider>
   )

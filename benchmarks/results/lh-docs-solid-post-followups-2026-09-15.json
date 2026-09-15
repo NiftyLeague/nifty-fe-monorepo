@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "app": "docs",
+  "generatedAt": "2026-09-15T15:22:15.426Z",
+  "gitRevision": "0862d4120f930f45949fc8864ec01461d680a841",
+  "label": "solid-post-followups",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "mobile",
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/overview/nfts/nifty-marketplace/comics",
+      "formFactor": "mobile",
+      "scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best-practices": 96,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1810.528,
+        "minimum": 1717.656,
+        "maximum": 1841.165
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 82.63599999999997,
+        "minimum": 65.20499999999993,
+        "maximum": 156.29199999999992
+      },
+      "cls": {
+        "median": 0.13767080004865126,
+        "minimum": 0.1372340716886168,
+        "maximum": 0.14805651383096557
+      },
+      "fcpMs": {
+        "median": 1613.925,
+        "minimum": 1593.219,
+        "maximum": 1646.29
+      },
+      "siMs": {
+        "median": 1766,
+        "minimum": 1761,
+        "maximum": 1822
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.6 s)",
+        "largest-contentful-paint (1.7 s)",
+        "total-blocking-time (80 ms)",
+        "max-potential-fid (100 ms)",
+        "cumulative-layout-shift (0.137)",
+        "errors-in-console",
+        "interactive (3.2 s)",
+        "redirects (Est savings of 570 ms)",
+        "layout-shifts (6 layout shifts found)",
+        "cls-culprits-insight",
+        "document-latency-insight (Est savings of 73 KiB)",
+        "network-dependency-tree-insight",
+        "largest-contentful-paint (1.8 s)",
+        "total-blocking-time (160 ms)",
+        "max-potential-fid (160 ms)",
+        "cumulative-layout-shift (0.138)",
+        "interactive (2.7 s)",
+        "redirects (Est savings of 610 ms)",
+        "layout-shifts (7 layout shifts found)",
+        "total-blocking-time (70 ms)",
+        "max-potential-fid (120 ms)",
+        "cumulative-layout-shift (0.148)",
+        "layout-shifts (5 layout shifts found)"
+      ]
+    },
+    {
+      "route": "/overview/nfts/nifty-marketplace/comics",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 78,
+        "accessibility": 100,
+        "best-practices": 96,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 1740.857,
+        "minimum": 1701.874,
+        "maximum": 1763.883
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.1888799967895397,
+        "minimum": 0.14015920446253974,
+        "maximum": 0.6187292856452296
+      },
+      "fcpMs": {
+        "median": 1533.575,
+        "minimum": 1529.746,
+        "maximum": 1540.317
+      },
+      "siMs": {
+        "median": 1614,
+        "minimum": 1600,
+        "maximum": 1622
+      },
+      "diagnostics": [
+        "first-contentful-paint (1.5 s)",
+        "largest-contentful-paint (1.7 s)",
+        "speed-index (1.6 s)",
+        "cumulative-layout-shift (0.189)",
+        "errors-in-console",
+        "interactive (3.2 s)",
+        "redirects (Est savings of 570 ms)",
+        "layout-shifts (9 layout shifts found)",
+        "cls-culprits-insight",
+        "document-latency-insight (Est savings of 73 KiB)",
+        "network-dependency-tree-insight",
+        "cumulative-layout-shift (0.619)",
+        "redirects (Est savings of 580 ms)",
+        "layout-shifts (12 layout shifts found)",
+        "largest-contentful-paint (1.8 s)",
+        "cumulative-layout-shift (0.14)",
+        "redirects (Est savings of 590 ms)",
+        "layout-shifts (10 layout shifts found)"
+      ]
+    }
+  ]
+}

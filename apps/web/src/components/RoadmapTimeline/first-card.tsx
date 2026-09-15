@@ -11,7 +11,7 @@ export const FIRST_ROADMAP_CARD = {
   },
   title: 'DEGEN Minting',
   body: (
-    <p className="mb-0">
+    <p class="mb-0">
       Nifty League{' '}
       <strong>
         <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">

@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, type PropsWithChildren, useMemo, useState } from 'react'
+import { createContext, type JSX } from 'solid-js'
 
 import { FEATURE_FLAGS } from '@/runtime/env'
 
@@ -38,20 +38,13 @@ export function parseFeatureFlags(value: string | undefined, defaultValue: FlagS
   }
 }
 
-function useProcessFlagsFromEnv(rawFlags: string, defaultValue: FlagSet) {
-  const [flags] = useState<FlagSet>(() => {
-    return parseFeatureFlags(rawFlags, defaultValue)
-  })
+export function FeatureFlagProvider(props: { children?: JSX.Element }) {
+  const value: ProviderConfig = {
+    flags: parseFeatureFlags(FEATURE_FLAGS, {
+      displayMyItems: false,
+      enableEquip: false,
+    }),
+  }
 
-  return { flags }
-}
-
-export function FeatureFlagProvider({ children }: PropsWithChildren) {
-  const { flags } = useProcessFlagsFromEnv(FEATURE_FLAGS, {
-    displayMyItems: false,
-    enableEquip: false,
-  })
-  const value = useMemo(() => ({ flags }), [flags])
-
-  return <FeatureFlagContext.Provider value={value}>{children}</FeatureFlagContext.Provider>
+  return <FeatureFlagContext.Provider value={value}>{props.children}</FeatureFlagContext.Provider>
 }

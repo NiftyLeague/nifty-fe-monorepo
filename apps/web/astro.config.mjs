@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config'
-import react from '@astrojs/react'
+import solid from '@astrojs/solid-js'
 import tailwind from '@tailwindcss/vite'
 import { dirname, resolve } from 'node:path'
 import { readFileSync, existsSync } from 'node:fs'
@@ -31,7 +31,7 @@ export default defineConfig({
   site: 'https://niftyleague.com',
   output: 'static',
   publicDir: ASSETS_PUBLIC_DIR,
-  integrations: [react()],
+  integrations: [solid()],
   build: { format: 'file', inlineStylesheets: INLINE_STYLESHEETS },
   vite: {
     plugins: [imageAdapter, tailwind()],

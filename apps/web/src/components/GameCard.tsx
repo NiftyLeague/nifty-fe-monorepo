@@ -30,7 +30,7 @@ export default function GameCard({
   return (
     <article
       aria-labelledby={headingId}
-      className={cx(
+      class={cx(
         styles.gameCard,
         compact
           ? 'flex flex-col relative'
@@ -40,11 +40,11 @@ export default function GameCard({
       )}
       data-game-name={name}
     >
-      <div className={cx(styles.copy, 'w-full', !compact && 'md:w-7/12 pr-0 md:pr-5')}>
-        <div className="flex flex-row items-center justify-between mb-3">
-          <h2 id={headingId} className="m-0 heading-look-4 whitespace-nowrap">
+      <div class={cx(styles.copy, 'w-full', !compact && 'md:w-7/12 pr-0 md:pr-5')}>
+        <div class="flex flex-row items-center justify-between mb-3">
+          <h2 id={headingId} class="m-0 heading-look-4 whitespace-nowrap">
             <a
-              className={styles.titleLink}
+              class={styles.titleLink}
               href={link}
               target="_blank"
               rel="noreferrer"
@@ -53,26 +53,26 @@ export default function GameCard({
               {name}
             </a>
           </h2>
-          <p className={cx(styles.tagGame, 'm-0')}>{tag}</p>
+          <p class={cx(styles.tagGame, 'm-0')}>{tag}</p>
         </div>
         <p>{description}</p>
       </div>
-      <div className={cx('w-full', !compact && 'md:w-5/12')}>
-        <div className={styles.media}>
+      <div class={cx('w-full', !compact && 'md:w-5/12')}>
+        <div class={styles.media}>
           <OptimizedImage
             src={image}
             alt={`${name} game artwork`}
             width={1280}
             height={720}
             loading={index === 0 ? 'eager' : 'lazy'}
-            fetchPriority={index === 0 ? 'high' : 'low'}
+            fetchpriority={index === 0 ? 'high' : 'low'}
             sizes="(min-width: 768px) 42vw, 100vw"
-            className={styles.artwork}
+            class={styles.artwork}
           />
         </div>
       </div>
       <div
-        className={cx(
+        class={cx(
           GAME_ORB_POSITION_CLASSES[index % GAME_ORB_POSITION_CLASSES.length],
           'purple-bg-orb'
         )}

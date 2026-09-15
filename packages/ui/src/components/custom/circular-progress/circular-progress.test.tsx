@@ -1,12 +1,12 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 import { CircularProgress } from './index'
 
 describe('CircularProgress', () => {
   it('renders the lightweight loader with shared size and color aliases', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <CircularProgress size="sm" color="light" fill="none" className="m-auto" />
-    )
+    ))
     const spinner = container.querySelector('svg')
 
     expect(spinner).not.toBeNull()
@@ -20,7 +20,9 @@ describe('CircularProgress', () => {
   })
 
   it('accepts a numeric size and preserves custom SVG props', () => {
-    const { container } = render(<CircularProgress size={75} color="#fff" data-testid="spinner" />)
+    const { container } = render(() => (
+      <CircularProgress size={75} color="#fff" data-testid="spinner" />
+    ))
     const spinner = container.querySelector('[data-testid="spinner"]')
 
     expect(spinner?.getAttribute('width')).toBe('75')

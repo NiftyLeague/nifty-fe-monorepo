@@ -1,5 +1,3 @@
-'use client'
-
 import useClaimableNFTL from '@/hooks/useClaimableNFTL'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 
@@ -9,11 +7,11 @@ export interface TokenMenuProps {
   tokenId: string
 }
 
-const TokenMenu = ({ tokenId }: TokenMenuProps) => {
-  const { balance, loading } = useClaimableNFTL(tokenId as string)
+const TokenMenu = (props: TokenMenuProps) => {
+  const { balance, loading } = useClaimableNFTL(props.tokenId)
   return (
-    <div className={styles.menu__nftlUnclaimed} aria-busy={loading}>
-      <strong>NFTL Unclaimed:</strong> {loading ? '…' : formatNumberToDisplay(balance)}
+    <div class={styles.menu__nftlUnclaimed} aria-busy={loading()}>
+      <strong>NFTL Unclaimed:</strong> {loading() ? '…' : formatNumberToDisplay(balance())}
     </div>
   )
 }

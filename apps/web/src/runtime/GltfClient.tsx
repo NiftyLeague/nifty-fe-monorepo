@@ -12,10 +12,10 @@ export default function GltfClient() {
       tokenId={tokenId}
       initialImage={null}
       spriteImage={
-        <div className={styles.sprite__wrapper}>
+        <div class={styles.sprite__wrapper}>
           <OptimizedImage
             alt="Degen Sprite"
-            className={styles.sprite}
+            class={styles.sprite}
             fill
             sizes="100vw"
             unoptimized
@@ -28,7 +28,7 @@ export default function GltfClient() {
           alt="Nifty League Logo"
           width={200}
           height={70}
-          style={{ maxWidth: '24vw', height: 'auto' }}
+          style={{ 'max-width': '24vw', height: 'auto' }}
           src="/img/logos/NL/wordmark.webp"
         />
       }

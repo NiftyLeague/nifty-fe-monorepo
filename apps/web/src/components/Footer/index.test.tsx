@@ -1,5 +1,4 @@
-import type { PropsWithChildren } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 describe('website footer links', () => {
@@ -7,7 +6,7 @@ describe('website footer links', () => {
 
   beforeEach(async () => {
     mock.module('@nl/ui/custom/socials-footer', () => ({
-      SocialsFooter: ({ children }: PropsWithChildren) => <footer>{children}</footer>,
+      SocialsFooter: ({ children }) => <footer>{children}</footer>,
       animateClass: '',
       linkClass: '',
     }))
@@ -17,7 +16,7 @@ describe('website footer links', () => {
   })
 
   it('keeps footer navigation on accessible regular anchors', () => {
-    render(<Footer />)
+    render(() => <Footer />)
 
     expect(screen.getByRole('link', { name: 'Home' }).getAttribute('data-next-link')).toBeNull()
     expect(screen.getByRole('link', { name: 'Games' }).getAttribute('data-next-link')).toBeNull()

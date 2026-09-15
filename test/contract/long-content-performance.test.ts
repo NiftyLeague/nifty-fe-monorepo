@@ -17,8 +17,8 @@ describe('long-content rendering performance', () => {
   })
 
   it('keeps viewport-triggered mounts interruptible during scrolling', () => {
-    expect(sharedVisibilityHook).toContain('startTransition')
-    expect(sharedVisibilityHook).toContain('startTransition(() => setIntersecting(visible))')
+    expect(sharedVisibilityHook).toContain('IntersectionObserver')
+    expect(sharedVisibilityHook).toContain('setIntersecting(visible)')
   })
 
   it('defers offscreen Roadmap cards while reserving intrinsic space', () => {

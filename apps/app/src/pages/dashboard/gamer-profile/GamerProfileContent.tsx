@@ -1,7 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useAccount } from 'wagmi'
+import { createMemo, Show, type JSX } from 'solid-js'
+import { useAccount } from '@/runtime/wagmi'
 
 import { Title } from '@nl/ui/custom/typography'
 import { Separator } from '@nl/ui/base/separator'
@@ -22,93 +22,89 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import { GamerProfileProvider } from '@/contexts/GamerProfileContext'
 
 const renderEmptyProfile = () => (
-  <div className="flex h-full items-center justify-center">
+  <div class="flex h-full items-center justify-center">
     <EmptyState message="You don't own any Gamer Profile yet." />
   </div>
 )
 
-const GamerProfileContent = (): React.ReactNode => {
-  const { profile, error, loadingProfile } = useGamerProfile()
-  const { address } = useAccount()
-  const { avatarsAndFee } = useProfileAvatarFee()
-  const profileAvatars = avatarsAndFee?.avatars
-  const { comicsBalances, degenCount, degensBalances, itemsBalances } = useNFTsBalances()
-  const degenIds = useMemo(
-    () => [...new Set(degensBalances.map((degen) => String(degen.id)))],
-    [degensBalances]
-  )
-  const { data } = usePublicDegensByIds(degenIds)
+const GamerProfileContent = (): JSX.Element => {
+  const gamerProfile = useGamerProfile()
+  const account = useAccount()
+  const avatarFee = useProfileAvatarFee()
+  const profileAvatars = () => avatarFee.avatarsAndFee?.avatars
+  const nfts = useNFTsBalances()
+  const degenIds = createMemo(() => [
+    ...new Set(nfts.degensBalances.map((degen) => String(degen.id))),
+  ])
+  const publicDegensQuery = usePublicDegensByIds(degenIds)
 
-  const filteredDegens = useMemo(() => {
-    if (!degensBalances.length || !data) return []
+  const filteredDegens = createMemo(() => {
+    const data = publicDegensQuery.data
+    if (!nfts.degensBalances.length || !data) return []
 
     const degensById = new Map(data.map((degen) => [degen.id, degen]))
-    return degensBalances
+    return nfts.degensBalances
       .map((degen) => degensById.get(String(degen.id)))
       .filter((degen): degen is DashboardDegen => Boolean(degen))
-  }, [degensBalances, data])
+  })
 
-  const filteredComics = useMemo(
-    () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
-    [comicsBalances]
+  const filteredComics = createMemo(() =>
+    nfts.comicsBalances.filter((comic) => comic.balance && comic.balance > 0)
   )
 
-  const filteredItems = useMemo(
-    () =>
-      itemsBalances.filter(
-        (item) => !item.title.includes('Key') && item.balance && item.balance > 0
-      ),
-    [itemsBalances]
+  const filteredItems = createMemo(() =>
+    nfts.itemsBalances.filter(
+      (item) => !item.title.includes('Key') && item.balance && item.balance > 0
+    )
   )
-  const filteredKeys = useMemo(
-    () =>
-      itemsBalances.filter(
-        (item) => item.title.includes('Key') && item.balance && item.balance > 0
-      ),
-    [itemsBalances]
+  const filteredKeys = createMemo(() =>
+    nfts.itemsBalances.filter(
+      (item) => item.title.includes('Key') && item.balance && item.balance > 0
+    )
   )
 
-  const profileDegens = useMemo(() => {
-    if (!profileAvatars) return filteredDegens
+  const profileDegens = createMemo(() => {
+    const avatars = profileAvatars()
+    if (!avatars) return filteredDegens()
 
-    return filteredDegens.map((degen, index) => ({
+    return filteredDegens().map((degen, index) => ({
       ...degen,
-      ...profileAvatars[index],
+      ...avatars[index],
     }))
-  }, [filteredDegens, profileAvatars])
+  })
 
-  const renderTopProfile = () => {
-    return (
-      <div className="flex flex-wrap gap-6 rounded-md bg-muted p-8">
-        <div className="w-full shrink-0 lg:w-[calc(29.1667%_-_12px)]">
-          <ImageProfile
-            avatar={profile?.avatar}
-            avatarFee={avatarsAndFee?.price}
-            degens={profileDegens}
-          />
-        </div>
-        <div className="w-full min-w-0 lg:flex-1">
-          {address && <TopInfo profile={profile} walletAddress={address} />}
-          <Separator className="mb-4" />
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col">
-              <Title level={3}>Nifty League Player Stats</Title>
-            </div>
-            <div className="flex flex-row gap-10">
-              <LeftInfo data={profile?.stats?.total} />
-              <RightInfo
-                comicCount={filteredComics?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
-                degenCount={degenCount}
-                itemCount={filteredItems?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
-                keyCount={filteredKeys?.reduce((prev, cur) => prev + Number(cur?.balance), 0)}
-                rentalCount={filteredDegens.length - degenCount}
-              />
-            </div>
+  const renderTopProfile = () => (
+    <div class="flex flex-wrap gap-6 rounded-md bg-muted p-8">
+      <div class="w-full shrink-0 lg:w-[calc(29.1667%_-_12px)]">
+        <ImageProfile
+          avatar={gamerProfile.profile?.avatar}
+          avatarFee={avatarFee.avatarsAndFee?.price}
+          degens={profileDegens()}
+        />
+      </div>
+      <div class="w-full min-w-0 lg:flex-1">
+        <Show when={account.address}>
+          {(address) => <TopInfo profile={gamerProfile.profile} walletAddress={address()} />}
+        </Show>
+        <Separator class="mb-4" />
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col">
+            <Title level={3}>Nifty League Player Stats</Title>
+          </div>
+          <div class="flex flex-row gap-10">
+            <LeftInfo data={gamerProfile.profile?.stats?.total} />
+            <RightInfo
+              comicCount={filteredComics().reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+              degenCount={nfts.degenCount}
+              itemCount={filteredItems().reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+              keyCount={filteredKeys().reduce((prev, cur) => prev + Number(cur?.balance), 0)}
+              rentalCount={filteredDegens().length - nfts.degenCount}
+            />
           </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 
   const renderBottomProfile = () => {
     const sliderSettingsOverride = {
@@ -131,26 +127,25 @@ const GamerProfileContent = (): React.ReactNode => {
         styles={{ root: { width: '100%' } }}
       >
         <BottomInfo
-          nifty_smashers={profile?.stats?.nifty_smashers}
-          wen_game={profile?.stats?.wen_game}
-          crypto_winter={profile?.stats?.crypto_winter}
+          nifty_smashers={gamerProfile.profile?.stats?.nifty_smashers}
+          wen_game={gamerProfile.profile?.stats?.wen_game}
+          crypto_winter={gamerProfile.profile?.stats?.crypto_winter}
         />
       </SectionSlider>
     )
   }
 
-  const renderGamerProfile = () => {
-    return (
-      <GamerProfileProvider>
-        {renderTopProfile()}
-        {renderBottomProfile()}
-      </GamerProfileProvider>
-    )
-  }
   return (
-    <div className="mb-6 flex flex-col gap-8">
-      {error && !profile && !loadingProfile && renderEmptyProfile()}
-      {(profile || loadingProfile) && renderGamerProfile()}
+    <div class="mb-6 flex flex-col gap-8">
+      <Show when={gamerProfile.error && !gamerProfile.profile && !gamerProfile.loadingProfile}>
+        {renderEmptyProfile()}
+      </Show>
+      <Show when={gamerProfile.profile || gamerProfile.loadingProfile}>
+        <GamerProfileProvider>
+          {renderTopProfile()}
+          {renderBottomProfile()}
+        </GamerProfileProvider>
+      </Show>
     </div>
   )
 }

@@ -1,7 +1,5 @@
-'use client'
-
-import { Suspense } from 'react'
-import { BookHeart, Database, User as UserIcon } from 'lucide-react'
+import { Show, type ParentComponent } from 'solid-js'
+import { BookHeart, Database, User as UserIcon } from 'lucide-solid'
 
 import { cn } from '@nl/ui/utils'
 import { Card, CardContent, CardHeader, CardDescription } from '@nl/ui/base/card'
@@ -24,104 +22,93 @@ interface SessionData {
  * The interactive profile island. The Next version deferred each tab panel with
  * `dynamic(..., { ssr: false })`; here the whole page is a hydrated
  * `client:load` island, so the account panel loads directly and the tab panels
- * stay behind Suspense.
+ * render inline.
  *
  * It renders the providers itself rather than being wrapped by them in the
- * layout. Astro gives every `client:*` element its own React root, so a
- * provider island in `Auth.astro` could not supply context to this one: the
- * account panel read `isLoggedIn` as false and rendered nothing, the tabs saw
- * empty feature flags, and `useSnackbar` had no provider.
+ * layout. Astro gives every `client:*` element its own root, so a provider
+ * island in `Auth.astro` could not supply context to this one: the account
+ * panel read `isLoggedIn` as false and rendered nothing, and the tabs saw empty
+ * feature flags.
  */
-export default function ProfileClient({ sessionData }: { sessionData: SessionData }) {
-  return (
-    <AuthProviders>
-      <ProfileContent sessionData={sessionData} />
-    </AuthProviders>
-  )
-}
+const ProfileClient: ParentComponent<{ sessionData: SessionData }> = (props) => (
+  <AuthProviders>
+    <ProfileContent sessionData={props.sessionData} />
+  </AuthProviders>
+)
 
 /**
  * Inner body, inside the provider root. Not exported: mounting it directly
  * would reintroduce the split-root bug this split exists to prevent.
  */
-function ProfileContent({ sessionData: _sessionData }: { sessionData: SessionData }) {
+function ProfileContent(_props: { sessionData: SessionData }) {
   const flags = useFlags()
   const tabsEnabled = flags.enableInventory || flags.enableStats
 
   return (
     <>
       <BackButton />
-      <div className="w-full h-screen flex justify-center items-center">
-        <Card className="relative w-full max-w-[800px] h-screen md:h-auto overflow-auto md:overflow-hidden">
-          <CardHeader className="pt-8 md:pt-0">
+      <div class="w-full h-screen flex justify-center items-center">
+        <Card class="relative w-full max-w-[800px] h-screen md:h-auto overflow-auto md:overflow-hidden">
+          <CardHeader class="pt-8 md:pt-0">
             <NativeImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
               width={50}
               height={48}
-              className="absolute inset-6 h-10 w-10"
+              class="absolute inset-6 h-10 w-10"
             />
-            <CardDescription className="ml-auto text-success">
-              You&apos;re signed in
-            </CardDescription>
+            <CardDescription class="ml-auto text-success">You&apos;re signed in</CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs defaultValue="account" className="w-full gap-4">
-              <TabsList className={cn('w-full', !tabsEnabled && 'bg-card')}>
+            <Tabs defaultValue="account" class="w-full gap-4">
+              <TabsList class={cn('w-full', !tabsEnabled && 'bg-card')}>
                 <TabsTrigger
                   value="account"
-                  className={cn(
+                  class={cn(
                     tabsEnabled
                       ? 'cursor-pointer data-[state=active]:cursor-not-allowed'
                       : '!bg-card border-0 border-b-1 rounded-none outline-none justify-start'
                   )}
                 >
-                  <UserIcon aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />{' '}
+                  <UserIcon aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />{' '}
                   Account
                 </TabsTrigger>
-                {flags.enableInventory && (
+                <Show when={flags.enableInventory}>
                   <TabsTrigger
                     value="inventory"
-                    className="cursor-pointer data-[state=active]:cursor-not-allowed"
+                    class="cursor-pointer data-[state=active]:cursor-not-allowed"
                   >
-                    <Database aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />{' '}
+                    <Database aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />{' '}
                     Inventory
                   </TabsTrigger>
-                )}
-                {flags.enableStats && (
+                </Show>
+                <Show when={flags.enableStats}>
                   <TabsTrigger
                     value="stats"
-                    className="cursor-pointer data-[state=active]:cursor-not-allowed"
+                    class="cursor-pointer data-[state=active]:cursor-not-allowed"
                   >
-                    <BookHeart aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />{' '}
+                    <BookHeart
+                      aria-hidden="true"
+                      absoluteStrokeWidth
+                      size={20}
+                      stroke-width={1.5}
+                    />{' '}
                     Stats
                   </TabsTrigger>
-                )}
+                </Show>
               </TabsList>
               <TabsContent value="account">
-                <Suspense
-                  fallback={<div className="text-center py-8">Loading account details...</div>}
-                >
-                  <AccountDetails
-                    enableAvatars={flags.enableAvatars}
-                    enableLinkProviders={flags.enableLinkProviders}
-                    enableLinkWallet={flags.enableLinkWallet}
-                  />
-                </Suspense>
+                <AccountDetails
+                  enableAvatars={flags.enableAvatars}
+                  enableLinkProviders={flags.enableLinkProviders}
+                  enableLinkWallet={flags.enableLinkWallet}
+                />
               </TabsContent>
               <TabsContent value="inventory">
-                <Suspense
-                  fallback={<div className="text-center py-8">Loading player inventory...</div>}
-                >
-                  <Inventory />
-                </Suspense>
+                <Inventory />
               </TabsContent>
               <TabsContent value="stats">
-                <Suspense
-                  fallback={<div className="text-center py-8">Loading player stats...</div>}
-                >
-                  <Stats />
-                </Suspense>
+                <Stats />
               </TabsContent>
             </Tabs>
           </CardContent>
@@ -130,3 +117,5 @@ function ProfileContent({ sessionData: _sessionData }: { sessionData: SessionDat
     </>
   )
 }
+
+export default ProfileClient

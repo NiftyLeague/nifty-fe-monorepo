@@ -1,7 +1,7 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { useAccount } from 'wagmi'
+import { useQuery } from '@tanstack/solid-query'
+import { useAccount } from '@/runtime/wagmi'
 import { mainnet, sepolia } from 'viem/chains'
 import { getAddress, isAddress } from 'ethers'
 import { MERKLE_TREE } from '@/constants/contracts'
@@ -25,21 +25,27 @@ const fetchClaim = async (account: string, signal: AbortSignal): Promise<UserCla
 
 // parse distributorContract blob and detect if user has claim data
 // null means we know it does not
-export default function useUserClaimData(): { claimData: UserClaimData | null; loading: boolean } {
-  const { address, imxChainId } = useIMXContext()
-  const { address: wagmiAddress } = useAccount()
-  const account = address ?? wagmiAddress
+export default function useUserClaimData(): {
+  readonly claimData: UserClaimData | null
+  readonly loading: boolean
+} {
+  const imx = useIMXContext()
+  const wagmiAccount = useAccount()
+  const account = () => imx.address ?? wagmiAccount.address
 
-  const normalizedAccount = account?.toLowerCase() ?? ''
-  const enabled = Boolean(account && isAddress(account) && imxChainId)
-  const { data, isPending } = useQuery({
-    queryKey: queryKeys.merkleClaim(imxChainId as ChainId, normalizedAccount),
-    queryFn: ({ signal }) => fetchClaim(account as string, signal),
-    enabled,
-  })
+  const enabled = () => Boolean(account() && isAddress(account() as string) && imx.imxChainId)
+  const query = useQuery(() => ({
+    queryKey: queryKeys.merkleClaim(imx.imxChainId as ChainId, account()?.toLowerCase() ?? ''),
+    queryFn: ({ signal }) => fetchClaim(account() as string, signal),
+    enabled: enabled(),
+  }))
 
   return {
-    claimData: data ?? null,
-    loading: enabled && isPending,
+    get claimData() {
+      return query.data ?? null
+    },
+    get loading() {
+      return enabled() && query.isPending
+    },
   }
 }

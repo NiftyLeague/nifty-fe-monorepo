@@ -1,5 +1,4 @@
-'use client'
-
+import type { JSX } from 'solid-js'
 import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
 
 import type { NiftyCarouselProps } from './index'
@@ -13,7 +12,7 @@ const InteractiveCarousel = ({
   superLargeDesktopItems = 5,
   hideGradient = false,
   ariaLabel = 'Featured content',
-}: NiftyCarouselProps): React.ReactNode => (
+}: NiftyCarouselProps): JSX.Element => (
   <>
     <ResponsiveCarousel
       ariaLabel={ariaLabel}
@@ -38,7 +37,7 @@ const InteractiveCarousel = ({
     >
       {children}
     </ResponsiveCarousel>
-    {!hideGradient && <div className="dark-gradient-overlay !top-0 !h-full" />}
+    {!hideGradient && <div class="dark-gradient-overlay !top-0 !h-full" />}
   </>
 )
 

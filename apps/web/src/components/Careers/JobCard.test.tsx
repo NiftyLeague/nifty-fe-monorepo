@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import JobCard from './JobCard'
@@ -15,7 +15,7 @@ const details = {
 
 describe('JobCard', () => {
   it('keeps the apply link outside the accordion trigger', () => {
-    render(<JobCard details={details} />)
+    render(() => <JobCard details={details} />)
 
     const trigger = screen.getByRole('button')
     const applyLink = screen.getByRole('link', { name: /apply/i })

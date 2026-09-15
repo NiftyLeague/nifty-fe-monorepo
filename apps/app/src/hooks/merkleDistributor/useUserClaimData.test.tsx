@@ -1,16 +1,16 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { renderHook, waitFor } from '@testing-library/react'
+import { QueryClientProvider } from '@tanstack/solid-query'
+import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock, spyOn } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import { createAppQueryClient, queryKeys } from '@/query/app-query'
+import type { JSX } from 'solid-js'
 
 const address = '0x0000000000000000000000000000000000000001'
 
 mock.module('../useIMXContext', () => ({
   default: () => ({ address, imxChainId: 1 }),
 }))
-mock.module('wagmi', () => ({ useAccount: () => ({ address: undefined }) }))
+mock.module('@/runtime/wagmi', () => ({ useAccount: () => ({ address: undefined }) }))
 
 const useUserClaimData = (await import('./useUserClaimData')).default
 
@@ -21,7 +21,7 @@ describe('Merkle claim query', () => {
       new Response(JSON.stringify({ claims: { [address]: claim } }), { status: 200 })
     )
     const client = createAppQueryClient()
-    const wrapper = ({ children }: PropsWithChildren) => (
+    const wrapper = ({ children }: { children?: JSX.Element }) => (
       <QueryClientProvider client={client}>{children}</QueryClientProvider>
     )
 

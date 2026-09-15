@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { createEffect, createSignal, For, Show } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
 
@@ -16,87 +16,85 @@ interface NavCollapseProps {
   level: number
 }
 
-const NavCollapse = ({ menu, level }: NavCollapseProps) => {
-  const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState<string | null | undefined>(null)
+const NavCollapse = (props: NavCollapseProps) => {
+  const [open, setOpen] = createSignal(false)
+  const [selected, setSelected] = createSignal<string | null | undefined>(null)
 
   const handleClick = () => {
-    setOpen(!open)
-    setSelected(!selected ? menu.id : null)
+    setOpen(!open())
+    setSelected(!selected() ? props.menu.id : null)
   }
 
   const pathname = usePathname()
 
-  useEffect(() => {
-    const children = menu?.children || []
+  createEffect(() => {
+    const children = props.menu?.children || []
+    const currentPath = pathname()
     children.forEach((item: NavGroupProps['item']) => {
-      if (pathname && pathname.includes('product-details')) {
+      if (currentPath && currentPath.includes('product-details')) {
         if (item.url && item.url.includes('product-details')) {
           setOpen(true)
         }
       }
-      if (item.url === pathname) {
+      if (item.url === currentPath) {
         setOpen(true)
       }
     })
-  }, [pathname, menu?.children])
-
-  // menu collapse & item
-  const menus = (menu?.children || []).map((item) => {
-    switch (item.type) {
-      case 'collapse':
-        return <NavCollapse key={item.id} menu={item} level={level + 1} />
-      case 'item':
-        return <NavItem key={item.id} item={item} level={level + 1} />
-      default:
-        return (
-          <h6 key={item.id} className="text-center text-error">
-            Menu Items Error
-          </h6>
-        )
-    }
   })
 
   return (
     <>
       <button
         type="button"
-        className={cx(
+        class={cx(
           'mb-0.5 flex w-full items-center rounded-md px-2 text-left',
-          level > 1 ? 'py-2' : 'py-2.5',
-          selected === menu.id ? 'bg-muted font-bold' : 'font-normal',
-          level > 1 ? 'bg-transparent' : 'bg-inherit'
+          props.level > 1 ? 'py-2' : 'py-2.5',
+          selected() === props.menu.id ? 'bg-muted font-bold' : 'font-normal',
+          props.level > 1 ? 'bg-transparent' : 'bg-inherit'
         )}
-        style={{ paddingLeft: `${level * 24}px`, alignItems: 'center' }}
+        style={{ 'padding-left': `${props.level * 24}px`, 'align-items': 'center' }}
         onClick={handleClick}
       >
-        <span className="my-auto" style={{ minWidth: !menu.icon ? 18 : 36 }}>
-          <AppNavIcon name={menu?.icon ?? 'dot'} size="lg" className="ml-1" />
+        <span class="my-auto" style={{ 'min-width': `${!props.menu.icon ? 18 : 36}px` }}>
+          <AppNavIcon name={props.menu?.icon ?? 'dot'} size="lg" class="ml-1" />
         </span>
-        <span className="flex flex-1 flex-col">
-          <span style={{ color: 'inherit' }}>{menu.title}</span>
-          {menu.caption && (
-            <span className="block text-xs font-medium uppercase text-muted-foreground">
-              {menu.caption}
+        <span class="flex flex-1 flex-col">
+          <span style={{ color: 'inherit' }}>{props.menu.title}</span>
+          <Show when={props.menu.caption}>
+            <span class="block text-xs font-medium uppercase text-muted-foreground">
+              {props.menu.caption}
             </span>
-          )}
+          </Show>
         </span>
         <AppNavIcon
           name="chevron-down"
           size="md"
-          className={cx('transition-transform', open && 'rotate-180 transform')}
+          class={cx('transition-transform', open() && 'rotate-180 transform')}
         />
       </button>
-      {open && (
-        <div className="relative">
+      <Show when={open()}>
+        <div class="relative">
           <span
             aria-hidden
-            className="absolute top-0 left-[27px] h-full w-px opacity-100"
+            class="absolute top-0 left-[27px] h-full w-px opacity-100"
             style={{ background: 'var(--color-separator)' }}
           />
-          <div>{menus}</div>
+          <div>
+            <For each={props.menu?.children || []}>
+              {(item) => {
+                switch (item.type) {
+                  case 'collapse':
+                    return <NavCollapse menu={item} level={props.level + 1} />
+                  case 'item':
+                    return <NavItem item={item} level={props.level + 1} />
+                  default:
+                    return <h6 class="text-center text-error">Menu Items Error</h6>
+                }
+              }}
+            </For>
+          </div>
         </div>
-      )}
+      </Show>
     </>
   )
 }

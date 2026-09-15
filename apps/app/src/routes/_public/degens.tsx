@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router'
+import { Outlet, createFileRoute } from '@tanstack/solid-router'
 
 import { buildHead } from '@/runtime/metadata'
 

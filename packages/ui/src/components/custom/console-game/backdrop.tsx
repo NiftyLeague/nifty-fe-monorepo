@@ -8,24 +8,21 @@ export const CONSOLE_ARTWORK_DIMENSIONS = {
 } as const
 
 interface ConsoleGameBackdropProps {
-  fetchPriority?: 'high' | 'low' | 'auto'
+  fetchpriority?: 'high' | 'low' | 'auto'
   loading?: 'eager' | 'lazy'
 }
 
-export function ConsoleGameBackdrop({
-  fetchPriority = 'low',
-  loading = 'lazy',
-}: ConsoleGameBackdropProps) {
+export function ConsoleGameBackdrop(props: ConsoleGameBackdropProps) {
   return (
     <OptimizedImage
       alt="Game Console Backdrop"
-      className="pixelated"
+      class="pixelated"
       {...CONSOLE_ARTWORK_DIMENSIONS}
-      fetchPriority={fetchPriority}
+      fetchpriority={props.fetchpriority ?? 'low'}
       src="/img/console-game/classic-gaming-reinvented-notv.webp"
-      loading={loading}
+      loading={props.loading ?? 'lazy'}
       decoding="async"
-      style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+      style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
     />
   )
 }

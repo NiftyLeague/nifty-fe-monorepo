@@ -1,12 +1,9 @@
-'use client'
-
-import React, { useState } from 'react'
+import { createSignal } from 'solid-js'
 import { AuthForm, type AuthFormProps } from '@nl/ui/custom/auth-form'
 
 import type { Provider, User } from '../../types'
 import { errorMsgHandler } from '../../utils/errorHandlers'
 import { fetchJson } from '../../utils/fetchJson'
-import { useUserContext } from '../../hooks/useUserContext'
 import { useUserSession } from '../../hooks/useUserSession'
 
 export interface PlayFabAuthFormProps extends Omit<
@@ -20,12 +17,11 @@ export interface PlayFabAuthFormProps extends Omit<
   redirectTo: string
 }
 
-function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.ReactNode {
-  const { account } = useUserContext()
+function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps) {
   const { mutateUser } = useUserSession({ redirectTo, redirectIfFound: true })
 
-  const [error, setError] = useState<string>()
-  const [message, setMessage] = useState<string>()
+  const [error, setError] = createSignal<string>()
+  const [message, setMessage] = createSignal<string>()
 
   const clearState = () => {
     setError(undefined)
@@ -51,7 +47,7 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
         headers: { 'Content-Type': 'application/json' },
         body,
       })
-      mutateUser(res, { revalidate: false })
+      mutateUser(res)
     } catch (loginError) {
       const msg = errorMsgHandler(loginError)
       setError(msg === 'Invalid input parameters' ? 'Invalid email or password' : msg)
@@ -75,7 +71,7 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
         headers: { 'Content-Type': 'application/json' },
         body,
       })
-      mutateUser(res, { revalidate: false })
+      mutateUser(res)
     } catch (signupError) {
       const msg = errorMsgHandler(signupError)
       setError(msg)
@@ -99,9 +95,10 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
 
   const handleUpdatePassword = async (_values: { old_password: string; new_password: string }) => {
     clearState()
-    const Username = account?.Username
-    const Email = account?.PrivateInfo?.Email
-    if (Email && Username) {
+    // TODO: there is no public API for password updates; see the commented
+    // PlayFabClient.AddUsernamePassword flow in the git history.
+    // oxlint-disable-next-line no-constant-condition -- placeholder until the API exists
+    if (false) {
       // TODO: there is no public API for password updates
       // const request = { Email, Username, Password: password };
       // PlayFabClient.AddUsernamePassword(
@@ -124,8 +121,8 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps): React.
       handleResetPassword={handleResetPassword}
       handleSignup={handleSignup}
       handleUpdatePassword={handleUpdatePassword}
-      error={error}
-      message={message}
+      error={error()}
+      message={message()}
       {...props}
     />
   )

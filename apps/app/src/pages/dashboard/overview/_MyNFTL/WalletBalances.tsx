@@ -8,19 +8,20 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import BridgeButtonDialog from '@/components/dialog/BridgeButtonDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 import { GOVERNANCE_PORTAL_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url'
+import type { JSX } from 'solid-js'
 
-const WalletBalances = (): React.ReactNode => {
+const WalletBalances = (): JSX.Element => {
   const { loadingNFTLBal, tokensBalances } = useTokensBalances()
 
   return (
     <>
-      <div className="col-span-12 sm:col-span-6">
+      <div class="col-span-12 sm:col-span-6">
         <HoverDataCard
           title="IMX Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
           isLoading={loadingNFTLBal}
           customStyle={{
-            backgroundColor: 'var(--color-card)',
+            'background-color': 'var(--color-card)',
             border: 'var(--border-default)',
             position: 'relative',
           }}
@@ -31,7 +32,7 @@ const WalletBalances = (): React.ReactNode => {
                 variant="ghost"
                 size="icon"
                 disabled
-                className="absolute -top-4 -right-4 cursor-pointer"
+                class="absolute -top-4 -right-4 cursor-pointer"
               >
                 <NativeImage
                   src="/img/logos/passport/32px.svg"
@@ -40,14 +41,14 @@ const WalletBalances = (): React.ReactNode => {
                   height={22}
                 />
               </Button>
-              <div className="flex w-full flex-row items-center gap-2">
+              <div class="flex w-full flex-row items-center gap-2">
                 <a
                   href={SNAPSHOT_PORTAL_URL}
                   target="_blank"
                   rel="noreferrer"
                   style={{ width: '48%' }}
                 >
-                  <Button className="w-full" variant="outline">
+                  <Button class="w-full text-foreground" variant="outline">
                     Snapshot
                   </Button>
                 </a>
@@ -57,7 +58,7 @@ const WalletBalances = (): React.ReactNode => {
                   rel="noreferrer"
                   style={{ width: '48%' }}
                 >
-                  <Button className="w-full" variant="default">
+                  <Button class="w-full" variant="default">
                     Tally
                   </Button>
                 </a>
@@ -66,12 +67,12 @@ const WalletBalances = (): React.ReactNode => {
           }
         />
       </div>
-      <div className="col-span-12 sm:col-span-6">
+      <div class="col-span-12 sm:col-span-6">
         <HoverDataCard
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
           customStyle={{
-            backgroundColor: 'var(--color-card)',
+            'background-color': 'var(--color-card)',
             border: 'var(--border-default)',
             position: 'relative',
           }}
@@ -83,7 +84,7 @@ const WalletBalances = (): React.ReactNode => {
                 variant="ghost"
                 size="icon"
                 disabled
-                className="absolute -top-4 -right-4 cursor-pointer"
+                class="absolute -top-4 -right-4 cursor-pointer"
               >
                 <NativeImage src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
               </Button>

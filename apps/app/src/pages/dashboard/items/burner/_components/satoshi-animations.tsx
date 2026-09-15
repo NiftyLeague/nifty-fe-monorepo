@@ -1,10 +1,9 @@
-import { memo } from 'react'
 import SatoshiFrame from './satoshi-frame'
 import SatoshiBurnAnim from './satoshi-burn-animations'
+import type { JSX } from 'solid-js'
 
-const SatoshiAnimations: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<{ burning: boolean }>>
-> = memo(({ burning }) => {
+const SatoshiAnimations = (props: { burning: boolean; children?: JSX.Element }) => {
+  const { burning } = props
   return (
     <>
       {burning ? (
@@ -14,7 +13,7 @@ const SatoshiAnimations: React.FC<
       )}
     </>
   )
-})
+}
 
 const SatoshiAnimationsWithContext = ({ burning = false }) => {
   return <SatoshiAnimations burning={burning} />

@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, spyOn } from 'bun:test'
 
 import { createLocalStorageStore, getLocalStorageStore } from '@/state/local-storage-store'
@@ -111,13 +111,13 @@ describe('local-storage store', () => {
     const key = nextKey('hook')
     const { result } = renderHook(() => useLocalStorage<string[]>(key, []))
 
-    expect(result.current[0]).toEqual([])
+    expect(result.current[0]()).toEqual([])
 
     act(() => {
       getLocalStorageStore<string[]>(key, []).set(['9'])
     })
 
-    expect(result.current[0]).toEqual(['9'])
+    expect(result.current[0]()).toEqual(['9'])
     expect(window.localStorage.getItem(key)).toBe(JSON.stringify(['9']))
   })
 })

@@ -20,6 +20,7 @@ const background = getOptimizedImageProps({
   alt: '',
   height: 2895,
   loading: 'eager',
+  fetchpriority: 'high',
   quality: 60,
   sizes: '100vw',
   src: '/img/backgrounds/lore/background.webp',
@@ -29,6 +30,7 @@ const mobileBackground = getOptimizedImageProps({
   alt: '',
   height: 1415,
   loading: 'eager',
+  fetchpriority: 'high',
   quality: 60,
   sizes: '100vw',
   src: '/img/backgrounds/lore/background-mobile.webp',
@@ -142,7 +144,7 @@ const backgroundAttrs = background as astroHTML.JSX.ImgHTMLAttributes
             width={556}
             height={589}
             sizes="100px"
-            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+            style={{ 'object-fit': 'cover', width: '100%', height: 'auto' }}
           />
         </div>
       </div>
@@ -154,7 +156,7 @@ const backgroundAttrs = background as astroHTML.JSX.ImgHTMLAttributes
             width={1910}
             height={620}
             sizes="300px"
-            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
+            style={{ 'object-fit': 'cover', width: '100%', height: 'auto' }}
           />
         </div>
       </div>
@@ -163,7 +165,7 @@ const backgroundAttrs = background as astroHTML.JSX.ImgHTMLAttributes
     </div>
 
     <ThemeBtnGroup
-      className="absolute -mt-50 md:-mt-40 xl:-mt-30"
+      class="absolute -mt-50 md:-mt-40 xl:-mt-30"
       primary={{ href: '/docs/overview/intro', title: 'VIEW DOCS', external: true }}
     />
   </div>

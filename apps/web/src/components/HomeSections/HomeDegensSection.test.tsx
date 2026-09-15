@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
-import type { ComponentProps } from 'react'
 
 mock.module('@nl/ui/custom/deferred-section', () => ({
   DeferredSection: ({ label }: { label: string }) => (
@@ -11,8 +10,8 @@ mock.module('@nl/ui/custom/deferred-section', () => ({
 }))
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
-  default: (props: ComponentProps<'img'>) => <img alt="" {...props} />,
-  getOptimizedImageProps: (props: ComponentProps<'img'>) => props,
+  default: (props: Record<string, unknown>) => <img alt="" {...props} />,
+  getOptimizedImageProps: (props: Record<string, unknown>) => props,
 }))
 
 mock.module('@nl/ui/custom/theme-button-group', () => ({
@@ -27,7 +26,7 @@ describe('HomeDegensSection', () => {
   it('preserves responsive labels inside the deferred DEGEN section', async () => {
     const { default: HomeDegensSection } = await import('./HomeDegensSection')
 
-    render(<HomeDegensSection />)
+    render(() => <HomeDegensSection />)
 
     expect(screen.getByText('OWN YOUR AVATAR').className).toContain('responsive-label-mobile')
     expect(screen.getByText('COMMUNITY-GENERATED AVATARS').className).toContain(

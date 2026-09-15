@@ -1,13 +1,13 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import { LazyYouTubeEmbed } from './index'
 
 describe('LazyYouTubeEmbed', () => {
   it('renders an accessible, natively lazy YouTube iframe', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <LazyYouTubeEmbed src="about:blank" title="Example game trailer" className="aspect-video" />
-    )
+    ))
     const iframe = container.querySelector('iframe')
 
     expect(iframe).toBeTruthy()

@@ -1,6 +1,6 @@
-import type { CSSProperties } from 'react'
+import { splitProps, type ComponentProps, type JSX } from 'solid-js'
 
-type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> & {
+type AnimatedImageProps = Omit<ComponentProps<'img'>, 'src' | 'loading'> & {
   /** Source for an alternate image format or deferred animation. */
   animatedSrc?: string
   /** MIME type for animatedSrc. Omit when the browser can infer it. */
@@ -25,49 +25,51 @@ type AnimatedImageProps = Omit<React.ComponentProps<'img'>, 'src' | 'loading'> &
  * as a compatibility fallback. Native markup keeps this shared component safe
  * in both server and client bundles, including API-provided image URLs.
  */
-export function AnimatedImage({
-  animatedMedia,
-  animatedSrc,
-  animatedType,
-  fallbackAnimatedSrc,
-  fallbackAnimatedType,
-  ...props
-}: AnimatedImageProps) {
-  const {
-    decoding,
-    fetchPriority,
-    fill,
-    loading,
-    priority,
-    sizes,
-    style,
-    unoptimized: _unoptimized,
-    ...imageProps
-  } = props
-  const resolvedLoading = priority ? 'eager' : (loading ?? 'lazy')
-  const source = animatedSrc
-  const sourceMedia = animatedMedia
-  const sourceType = animatedType
-  const pictureStyle: CSSProperties | undefined = fill
-    ? { position: 'absolute', inset: 0, display: 'block' }
-    : undefined
-  const imageStyle: CSSProperties | undefined = fill
-    ? { position: 'absolute', inset: 0, width: '100%', height: '100%', ...style }
-    : style
+export function AnimatedImage(props: AnimatedImageProps) {
+  const [local, imageProps] = splitProps(props, [
+    'animatedMedia',
+    'animatedSrc',
+    'animatedType',
+    'fallbackAnimatedSrc',
+    'fallbackAnimatedType',
+    'decoding',
+    'fetchpriority',
+    'fill',
+    'loading',
+    'priority',
+    'sizes',
+    'style',
+    'unoptimized',
+  ])
+  const resolvedLoading = () => (local.priority ? 'eager' : (local.loading ?? 'lazy'))
+  const pictureStyle = (): JSX.CSSProperties | undefined =>
+    local.fill ? { position: 'absolute', inset: '0', display: 'block' } : undefined
+  const imageStyle = (): JSX.CSSProperties | string | undefined =>
+    local.fill
+      ? {
+          position: 'absolute',
+          inset: '0',
+          width: '100%',
+          height: '100%',
+          ...(typeof local.style === 'object' ? local.style : {}),
+        }
+      : local.style
 
   return (
-    <picture style={pictureStyle}>
-      {source ? <source type={sourceType} media={sourceMedia} srcSet={source} /> : null}
-      {fallbackAnimatedSrc ? (
-        <source type={fallbackAnimatedType} srcSet={fallbackAnimatedSrc} />
+    <picture style={pictureStyle()}>
+      {local.animatedSrc ? (
+        <source type={local.animatedType} media={local.animatedMedia} srcset={local.animatedSrc} />
+      ) : null}
+      {local.fallbackAnimatedSrc ? (
+        <source type={local.fallbackAnimatedType} srcset={local.fallbackAnimatedSrc} />
       ) : null}
       <img
         {...imageProps}
-        decoding={decoding ?? 'async'}
-        fetchPriority={fetchPriority ?? (resolvedLoading === 'lazy' ? 'low' : undefined)}
-        loading={resolvedLoading}
-        sizes={sizes}
-        style={imageStyle}
+        decoding={local.decoding ?? 'async'}
+        fetchpriority={local.fetchpriority ?? (resolvedLoading() === 'lazy' ? 'low' : undefined)}
+        loading={resolvedLoading()}
+        sizes={local.sizes}
+        style={imageStyle()}
       />
     </picture>
   )

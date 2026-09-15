@@ -1,4 +1,4 @@
-import { QueryClient } from '@tanstack/react-query'
+import { QueryClient } from '@tanstack/solid-query'
 
 import { getAuditFixtureData, isAuditFixtureEnabled } from '@/audit/fixture'
 

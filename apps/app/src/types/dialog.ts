@@ -1,16 +1,16 @@
-import type { ComponentProps } from 'react'
+import type { ComponentProps, JSX } from 'solid-js'
 
 import type { DialogContent } from '@nl/ui/base/dialog'
 
 export interface DialogProps extends Omit<ComponentProps<typeof DialogContent>, 'children'> {
-  dialogTitle?: React.ReactNode | string
+  dialogTitle?: JSX.Element | string
   dividers?: boolean
-  sx?: React.CSSProperties
-  children?: React.ReactNode
+  sx?: JSX.CSSProperties
+  children?: JSX.Element
   onClose?: () => void
 }
 
 export interface DialogAction {
-  children: React.ReactElement
+  children: JSX.Element
   isOpen?: boolean
 }

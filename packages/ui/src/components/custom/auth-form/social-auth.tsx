@@ -1,6 +1,4 @@
-'use client'
-
-import { useState } from 'react'
+import { createSignal, For } from 'solid-js'
 import { cn } from '@nl/ui/utils'
 import { useProviders, type Provider } from '@nl/ui/hooks/useProviders'
 import { SocialIconButton } from '@nl/ui/custom/social-icon-button'
@@ -20,36 +18,33 @@ export interface SocialAuthProps {
   handleProviderLogin: (provider: Provider) => Promise<void>
 }
 
-export function SocialAuth({
-  disabled = false,
-  enableSocialColors = false,
-  handleProviderLogin,
-}: SocialAuthProps): React.ReactNode {
+export function SocialAuth(props: SocialAuthProps) {
   const providers = useProviders()
-  const [loading, setLoading] = useState<Provider>()
+  const [loading, setLoading] = createSignal<Provider>()
 
   const handleClick = async (provider: Provider) => {
     setLoading(provider)
-    await handleProviderLogin(provider)
+    await props.handleProviderLogin(provider)
     setLoading(undefined)
   }
 
   return (
     <>
-      <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-        <span className="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
+      <div class="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+        <span class="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
       </div>
-      <div className={cn('grid gap-4', gridCols[providers.length])}>
-        {providers.map((provider) => (
-          <SocialIconButton
-            key={provider}
-            disabled={disabled || loading !== undefined}
-            loading={loading === provider}
-            onClick={() => handleClick(provider)}
-            provider={provider}
-            withColor={enableSocialColors}
-          />
-        ))}
+      <div class={cn('grid gap-4', gridCols[providers.length])}>
+        <For each={providers}>
+          {(provider) => (
+            <SocialIconButton
+              disabled={(props.disabled ?? false) || loading() !== undefined}
+              loading={loading() === provider}
+              onClick={() => handleClick(provider)}
+              provider={provider}
+              withColor={props.enableSocialColors ?? false}
+            />
+          )}
+        </For>
       </div>
     </>
   )

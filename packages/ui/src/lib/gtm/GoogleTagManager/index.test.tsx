@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it } from 'bun:test'
 
 import { GOOGLE_TAG_MANAGER_SCRIPT_ID, googleTagManagerScriptUrl } from '../loadGoogleTagManager'
@@ -21,7 +21,7 @@ describe('GoogleTagManager', () => {
     }) as typeof document.head.appendChild
 
     try {
-      render(<GoogleTagManager />)
+      render(() => <GoogleTagManager />)
     } finally {
       document.head.appendChild = appendChild
     }
@@ -40,7 +40,7 @@ describe('GoogleTagManager', () => {
     existing.id = scriptId
     document.head.appendChild(existing)
 
-    render(<GoogleTagManager />)
+    render(() => <GoogleTagManager />)
 
     expect(document.querySelectorAll(`#${scriptId}`)).toHaveLength(1)
     expect((window as Window & { dataLayer?: unknown[] }).dataLayer).toBeUndefined()

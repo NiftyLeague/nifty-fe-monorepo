@@ -1,92 +1,86 @@
-import type { ReactNode } from 'react'
+import type { JSX } from 'solid-js'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import { ExternalIcon } from '@nl/ui/custom/external-icon'
 import { cx } from '@nl/ui/class-names'
 
 export interface ThemeButtonProps {
   href?: string
-  title: ReactNode
+  title: JSX.Element
   responsiveTitle?: { mobile: string; desktop: string }
   className?: string
   disabled?: boolean
   external?: boolean
 }
 
-export function ThemeButton({
-  href,
-  title,
-  responsiveTitle,
-  className = '',
-  disabled = false,
-  external = false,
-  isPrimary = false,
-}: ThemeButtonProps & { isPrimary?: boolean }) {
+export function ThemeButton(props: ThemeButtonProps & { isPrimary?: boolean }) {
   const buttonClassName = cx(
-    isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
+    props.isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
     // The shared button recipe supplies a compact default size. Keep the
     // marketing button scale from theme-btn across responsive breakpoints.
     '!h-[40px] md:!h-[50px] lg:!h-[60px] xl:!h-[70px] 2xl:!h-[80px]',
-    className
+    props.className ?? ''
   )
-  const content = responsiveTitle ? (
-    <>
-      <span className="responsive-label-mobile">{responsiveTitle.mobile}</span>
-      <span className="responsive-label-desktop">{responsiveTitle.desktop}</span>
-    </>
-  ) : (
-    title
-  )
+  const content = () =>
+    props.responsiveTitle ? (
+      <>
+        <span class="responsive-label-mobile">{props.responsiveTitle!.mobile}</span>
+        <span class="responsive-label-desktop">{props.responsiveTitle!.desktop}</span>
+      </>
+    ) : (
+      props.title
+    )
 
-  if (disabled) {
+  if (props.disabled) {
     return (
       <button
         type="button"
         disabled
-        className={buttonVariants({ className: cx(buttonClassName, 'disabled') })}
+        class={buttonVariants({ className: cx(buttonClassName, 'disabled') })}
       >
-        {content}
-        {external && <ExternalIcon />}
+        {content()}
+        {props.external && <ExternalIcon />}
       </button>
     )
   }
 
-  if (!href) return null
+  if (!props.href) return null
 
   const resolvedClassName = buttonVariants({ variant: 'ghost', className: buttonClassName })
 
   return (
     <a
-      href={href}
-      target={external ? '_blank' : undefined}
-      rel={external ? 'noreferrer' : undefined}
-      className={resolvedClassName}
+      href={props.href}
+      target={props.external ? '_blank' : undefined}
+      rel={props.external ? 'noreferrer' : undefined}
+      class={resolvedClassName}
     >
-      {content}
-      {external && <ExternalIcon />}
+      {content()}
+      {props.external && <ExternalIcon />}
       {/* The icon is decorative, so the new-tab behaviour needs its own text. */}
-      {external && <span className="sr-only">(opens in a new tab)</span>}
+      {props.external && <span class="sr-only">(opens in a new tab)</span>}
     </a>
   )
 }
 
 interface ThemeButtonGroupProps {
+  class?: string
   className?: string
   primary: ThemeButtonProps
   secondary?: ThemeButtonProps
 }
 
-export function ThemeButtonGroup({ className, primary, secondary }: ThemeButtonGroupProps) {
+export function ThemeButtonGroup(props: ThemeButtonGroupProps) {
   return (
     <div
-      className={cx(
+      class={cx(
         'w-full flex flex-row flex-wrap justify-center items-center z-10',
         'gap-2 md:gap-3 xl:gap-4',
         'mt-4 xl:mt-6 -mx-2 sm:mx-0',
-        className
+        props.class ?? props.className
       )}
     >
-      <ThemeButton {...primary} isPrimary />
-      {secondary ? <ThemeButton {...secondary} /> : null}
+      <ThemeButton {...props.primary} isPrimary />
+      {props.secondary ? <ThemeButton {...props.secondary} /> : null}
     </div>
   )
 }

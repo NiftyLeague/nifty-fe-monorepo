@@ -1,6 +1,4 @@
-'use client'
-
-import { useCallback, useSyncExternalStore } from 'react'
+import { createSignal, onCleanup, onMount, type Accessor } from 'solid-js'
 
 type UseMediaQueryOptions = { defaultValue?: boolean }
 
@@ -62,18 +60,18 @@ const subscribeToMediaQuery = (query: string, listener: () => void): (() => void
 export const useMediaQuery = (
   query: string,
   { defaultValue = false }: UseMediaQueryOptions = {}
-): boolean => {
-  const getSnapshot = useCallback(() => {
-    if (IS_SERVER) return defaultValue
-    return getMediaQueryEntry(query)?.media.matches ?? defaultValue
-  }, [defaultValue, query])
-  const getServerSnapshot = useCallback(() => defaultValue, [defaultValue])
-  const subscribe = useCallback(
-    (listener: () => void) => subscribeToMediaQuery(query, listener),
-    [query]
+): Accessor<boolean> => {
+  const [matches, setMatches] = createSignal(
+    IS_SERVER ? defaultValue : (getMediaQueryEntry(query)?.media.matches ?? defaultValue)
   )
 
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  onMount(() => {
+    const update = () => setMatches(getMediaQueryEntry(query)?.media.matches ?? defaultValue)
+    update()
+    onCleanup(subscribeToMediaQuery(query, update))
+  })
+
+  return matches
 }
 
 export default useMediaQuery

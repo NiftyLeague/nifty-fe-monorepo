@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import InteractiveCarousel from './InteractiveCarousel'
@@ -43,13 +43,13 @@ beforeEach(() => {
 
 describe('InteractiveCarousel', () => {
   it('provides labeled slides and keyboard controls on mobile', async () => {
-    render(
+    render(() => (
       <InteractiveCarousel isMobileViewOnly ariaLabel="Featured DEGENs">
         <div>One</div>
         <div>Two</div>
         <div>Three</div>
       </InteractiveCarousel>
-    )
+    ))
 
     expect(screen.getByRole('region', { name: 'Featured DEGENs' })).toBeDefined()
     expect(screen.getAllByRole('group', { name: /of 3/ })).toHaveLength(3)

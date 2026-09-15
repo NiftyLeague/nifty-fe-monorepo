@@ -1,7 +1,5 @@
-'use client'
-
-import { useState, useEffect } from 'react'
-import { useSnackbar } from 'notistack'
+import { Show, createEffect, createSignal } from 'solid-js'
+import { toast } from 'solid-sonner'
 
 import { fetchJson } from '../../utils/fetchJson'
 import { parseLinkedWalletResult } from '../../utils/parseData'
@@ -33,30 +31,27 @@ export type AccountDetailsProps = {
   enableLinkWallet?: boolean
 }
 
-export default function AccountDetails({
-  enableAvatars = false,
-  enableLinkProviders = false,
-  enableLinkWallet = false,
-}: AccountDetailsProps) {
-  const user = useUserContext()
-  const { account, isLoggedIn, playFabId: uid, profile, publisherData } = user
-  const { enqueueSnackbar } = useSnackbar()
-  const [loading, setLoading] = useState(true)
-  const [email, setEmail] = useState<Profile['email']>()
-  const [displayName, setDisplayName] = useState<Profile['displayName']>()
-  const [linkedWallets, setLinkedWallets] = useState<string[]>([])
-  const [avatar_url, setAvatarUrl] = useState<Profile['avatar_url']>()
+export default function AccountDetails(props: AccountDetailsProps) {
+  const player = useUserContext()
+  const [loading, setLoading] = createSignal(true)
+  const [email, setEmail] = createSignal<Profile['email']>()
+  const [displayName, setDisplayName] = createSignal<Profile['displayName']>()
+  const [linkedWallets, setLinkedWallets] = createSignal<string[]>([])
+  const [avatarUrl, setAvatarUrl] = createSignal<Profile['avatar_url']>()
   const providers = useProviders()
 
-  useEffect(() => {
+  createEffect(() => {
+    const account = player.userInfo()?.AccountInfo
     if (account && Object.keys(account).length > 0) {
+      const profile = player.userInfo()?.PlayerProfile
+      const publisherData = player.userInfo()?.PublisherData
       setEmail(account.PrivateInfo?.Email)
       setAvatarUrl(profile?.AvatarUrl)
       setDisplayName(publisherData?.DisplayName?.Value)
       setLinkedWallets(parseLinkedWalletResult(publisherData) ?? [])
       setLoading(false)
     }
-  }, [account, profile, publisherData])
+  })
 
   async function updateProfile(profileUpdate: Profile) {
     const {
@@ -66,6 +61,9 @@ export default function AccountDetails({
     } = profileUpdate
     try {
       setLoading(true)
+      const account = player.userInfo()?.AccountInfo
+      const profile = player.userInfo()?.PlayerProfile
+      const publisherData = player.userInfo()?.PublisherData
       if (!account || !profile) throw new Error('No user')
       const body = {} as Profile
 
@@ -84,102 +82,119 @@ export default function AccountDetails({
         body: JSON.stringify(body),
       })
 
-      enqueueSnackbar('Profile updated!', { variant: 'success' })
+      toast.success('Profile updated!')
+      await player.refetchPlayer()
     } catch (error) {
-      enqueueSnackbar('Error updating the data.', { variant: 'error' })
+      toast.error('Error updating the data.')
       console.error(error)
     } finally {
       setLoading(false)
     }
   }
 
-  return isLoggedIn ? (
-    <div className="grid gap-4">
-      {uid && enableAvatars ? (
-        <Avatar
-          uid={uid}
-          url={avatar_url}
-          size={125}
-          onUpload={(url) => {
-            setAvatarUrl(url)
-            updateProfile({ avatar_url: url })
-          }}
-        />
-      ) : null}
+  return (
+    <Show when={player.isLoggedIn()}>
+      <div class="grid gap-4">
+        <Show when={props.enableAvatars ? player.user()?.PlayFabId : undefined}>
+          {(uid) => (
+            <Avatar
+              uid={String(uid())}
+              url={avatarUrl()}
+              size={125}
+              onUpload={(url) => {
+                setAvatarUrl(url)
+                void updateProfile({ avatar_url: url })
+              }}
+            />
+          )}
+        </Show>
 
-      <div className="grid gap-2">
-        <Label htmlFor="email">Email</Label>
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>
-              <Icon name="mail" aria-hidden="true" />
-            </InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput id="email" type="email" value={email ?? ''} disabled />
-        </InputGroup>
-      </div>
+        <div class="grid gap-2">
+          <Label for="email">Email</Label>
+          <InputGroup>
+            <InputGroupAddon>
+              <InputGroupText>
+                <Icon name="mail" aria-hidden="true" />
+              </InputGroupText>
+            </InputGroupAddon>
+            <InputGroupInput id="email" type="email" value={email() ?? ''} disabled />
+          </InputGroup>
+        </div>
 
-      <div className="grid gap-2">
-        <Label htmlFor="display-name">Display Name</Label>
-        <InputGroup>
-          <InputGroupAddon>
-            <InputGroupText>
-              <Icon name="user-pen" aria-hidden="true" />
-            </InputGroupText>
-          </InputGroupAddon>
-          <InputGroupInput
-            id="display-name"
-            type="text"
-            value={displayName ?? ''}
-            disabled={loading}
-            onChange={(e) => setDisplayName(e.target.value)}
-          />
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              size="sm"
-              disabled={loading}
-              className="cursor-pointer disabled:cursor-progress"
-              onClick={() => updateProfile({ displayName })}
-            >
-              {loading ? <Icon name="loader" className="animate-spin" /> : <Icon name="save" />}
-              {loading ? 'Loading' : 'Update'}
-            </InputGroupButton>
-          </InputGroupAddon>
-        </InputGroup>
-      </div>
+        <div class="grid gap-2">
+          <Label for="display-name">Display Name</Label>
+          <InputGroup>
+            <InputGroupAddon>
+              <InputGroupText>
+                <Icon name="user-pen" aria-hidden="true" />
+              </InputGroupText>
+            </InputGroupAddon>
+            <InputGroupInput
+              id="display-name"
+              type="text"
+              value={displayName() ?? ''}
+              disabled={loading()}
+              onInput={(e) => setDisplayName(e.currentTarget.value)}
+            />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                size="sm"
+                disabled={loading()}
+                className="cursor-pointer disabled:cursor-progress"
+                onClick={() => updateProfile({ displayName: displayName() })}
+              >
+                <Show when={loading()} fallback={<Icon name="save" />}>
+                  <Icon name="loader" className="animate-spin" />
+                </Show>
+                <Show when={loading()} fallback="Update">
+                  Loading
+                </Show>
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
 
-      {enableLinkWallet && (
-        <fieldset>
-          <div className="grid gap-2">
-            <legend>Linked Wallet(s)</legend>
-            <div className="grid gap-1">
-              <LinkWalletInput index={1} address={linkedWallets[0] || ''} loading={loading} />
-              {Boolean(linkedWallets[0]) && (
-                <LinkWalletInput index={2} address={linkedWallets[1] || ''} loading={loading} />
-              )}
-              {Boolean(linkedWallets[1]) && (
-                <LinkWalletInput index={3} address={linkedWallets[2] || ''} loading={loading} />
-              )}
+        <Show when={props.enableLinkWallet}>
+          <fieldset>
+            <div class="grid gap-2">
+              <legend>Linked Wallet(s)</legend>
+              <div class="grid gap-1">
+                <LinkWalletInput index={1} address={linkedWallets()[0] || ''} loading={loading()} />
+                <Show when={Boolean(linkedWallets()[0])}>
+                  <LinkWalletInput
+                    index={2}
+                    address={linkedWallets()[1] || ''}
+                    loading={loading()}
+                  />
+                </Show>
+                <Show when={Boolean(linkedWallets()[1])}>
+                  <LinkWalletInput
+                    index={3}
+                    address={linkedWallets()[2] || ''}
+                    loading={loading()}
+                  />
+                </Show>
+              </div>
             </div>
-          </div>
-        </fieldset>
-      )}
+          </fieldset>
+        </Show>
 
-      {enableLinkProviders && (
-        <fieldset>
-          <div className="grid gap-2">
-            <legend>Linked Provider(s)</legend>
-            <LinkedProviders providers={providers} loading={loading} />
-          </div>
-        </fieldset>
-      )}
+        <Show when={props.enableLinkProviders}>
+          <fieldset>
+            <div class="grid gap-2">
+              <legend>Linked Provider(s)</legend>
+              <LinkedProviders providers={providers} loading={loading()} />
+            </div>
+          </fieldset>
+        </Show>
 
-      <Separator orientation="horizontal" />
+        <Separator orientation="horizontal" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
-        <LogoutButton loading={loading} />
-        <DeleteAccountDialog loading={loading} />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
+          <LogoutButton loading={loading()} />
+          <DeleteAccountDialog loading={loading()} />
+        </div>
       </div>
-    </div>
-  ) : null
+    </Show>
+  )
 }

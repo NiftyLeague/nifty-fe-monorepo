@@ -1,9 +1,9 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { act, renderHook } from '@testing-library/react'
+import { QueryClientProvider } from '@tanstack/solid-query'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { describe, expect, it, mock, spyOn } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import { createAppQueryClient, getAuthQueryScope, queryKeys } from '@/query/app-query'
+import type { JSX } from 'solid-js'
 
 mock.module('./useAuth', () => ({ default: () => ({ authToken: 'test-token' }) }))
 
@@ -20,7 +20,7 @@ describe('rent mutation', () => {
     const catalogueKey = queryKeys.publicDegens.byIds(['7'])
     client.setQueryData(passKey, { balance: 1 })
     client.setQueryData(catalogueKey, [{ id: '7' }])
-    const wrapper = ({ children }: PropsWithChildren) => (
+    const wrapper = ({ children }: { children?: JSX.Element }) => (
       <QueryClientProvider client={client}>{children}</QueryClientProvider>
     )
     const { result } = renderHook(() => useRent('7', 0, 100, '', true), { wrapper })
@@ -33,3 +33,5 @@ describe('rent mutation', () => {
     expect(client.getQueryState(catalogueKey)?.isInvalidated).toBe(true)
   })
 })
+
+mock.module('./useAuth', () => ({ default: () => ({ authToken: 'test-token' }) }))

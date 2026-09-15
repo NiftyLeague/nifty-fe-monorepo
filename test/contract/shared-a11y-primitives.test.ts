@@ -81,7 +81,7 @@ describe('shared primitives: markup patterns', () => {
     // mapping and drops aria-expanded from the accessibility tree.
     expect(source).not.toContain('role="button"')
     expect(source).toContain('<summary')
-    expect(source).toContain('aria-controls={id}')
+    expect(source).toContain('aria-controls={props.id}')
     expect(source).toContain('motion-reduce:transition-none')
   })
 
@@ -110,7 +110,7 @@ describe('shared primitives: markup patterns', () => {
   it('forwards the progress value to the primitive that exposes it', () => {
     const source = read(`${UI_COMPONENTS}/base/progress.tsx`)
 
-    expect(source).toContain('value={value}')
+    expect(source).toContain('value={local.value}')
     expect(source).toContain('aria-valuenow')
   })
 
@@ -136,14 +136,14 @@ describe('shared primitives: markup patterns', () => {
     // `asChild` renders the caller's own element, which has no button type.
     for (const file of [`${UI_COMPONENTS}/base/button.tsx`, `${UI_COMPONENTS}/base/tooltip.tsx`]) {
       const source = read(file)
-      expect(source, file).toContain('asChild ? {} : { type: type ?? ')
+      expect(source, file).toContain('props.asChild ? {} : { type: local.type ?? ')
     }
   })
 
   it('announces external actions that open a new tab', () => {
     const source = read(`${UI_COMPONENTS}/custom/theme-button-group/index.tsx`)
 
-    expect(source).toContain("target={external ? '_blank' : undefined}")
+    expect(source).toContain("target={props.external ? '_blank' : undefined}")
     expect(source).toContain('opens in a new tab')
   })
 })

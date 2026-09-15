@@ -10,7 +10,8 @@ describe('shared shadcn component contracts', () => {
 
     expect(source).toContain("from '@nl/ui/base/alert-dialog'")
     expect(source).not.toContain("from '@nl/ui/custom/alert-dialog'")
-    expect(source).toContain('<AlertDialogTrigger asChild>')
+    expect(source).toContain('<AlertDialogTrigger')
+    expect(source).toContain('as={Button}')
     expect(source).toContain('<AlertDialogTitle>Delete Account</AlertDialogTitle>')
     expect(source).toContain('<AlertDialogDescription>')
   })

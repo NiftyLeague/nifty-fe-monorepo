@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
@@ -23,7 +23,7 @@ mock.module('@nl/ui/custom/optimized-image', () => ({
 describe('ResponsiveOnlyImage', () => {
   it('keeps the responsive source and placeholder fallback art-directed', async () => {
     const { DesktopOnlyImage, MobileOnlyImage } = await import('./index')
-    const { container } = render(
+    const { container } = render(() => (
       <>
         <DesktopOnlyImage
           alt="Desktop artwork"
@@ -40,7 +40,7 @@ describe('ResponsiveOnlyImage', () => {
           width={200}
         />
       </>
-    )
+    ))
 
     const sources = [...container.querySelectorAll('source')]
     expect(sources.map((source) => source.getAttribute('media'))).toEqual([

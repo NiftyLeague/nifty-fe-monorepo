@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const state = {
@@ -9,7 +9,7 @@ const state = {
 mock.module('@nl/ui/hooks/useOnScreen', () => ({
   useOnScreen: (_ref: unknown, rootMargin: string) => {
     state.rootMargin = rootMargin
-    return state.nearViewport
+    return () => state.nearViewport
   },
 }))
 
@@ -23,14 +23,14 @@ describe('DeferredYouTubeEmbed', () => {
   })
 
   it('keeps third-party media out of the initial render with an accessible themed shell', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredYouTubeEmbed
         src="about:blank"
         title="Example trailer"
         className="h-[315px] w-full"
-        style={{ display: 'block', width: '100%', height: 380 }}
+        style={{ display: 'block', width: '100%', height: '380px' }}
       />
-    )
+    ))
 
     expect(container.querySelector('iframe')).toBeNull()
     expect(screen.getByRole('status', { name: 'Loading Example trailer' })).toBeTruthy()
@@ -43,13 +43,13 @@ describe('DeferredYouTubeEmbed', () => {
   it('mounts the shared accessible iframe once the video is near the viewport', () => {
     state.nearViewport = true
 
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredYouTubeEmbed
         src="about:blank"
         title="Example trailer"
         className="h-[315px] w-full"
       />
-    )
+    ))
 
     const iframe = container.querySelector('iframe')
     expect(iframe).toBeTruthy()
@@ -61,14 +61,14 @@ describe('DeferredYouTubeEmbed', () => {
   })
 
   it('can render the iframe in the initial shell while keeping native lazy loading', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredYouTubeEmbed
         loadImmediately
         src="about:blank"
         title="Initial shell trailer"
         className="h-[315px] w-full"
       />
-    )
+    ))
 
     const iframe = container.querySelector('iframe')
     expect(iframe).toBeTruthy()

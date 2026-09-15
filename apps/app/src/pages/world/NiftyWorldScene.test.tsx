@@ -1,11 +1,11 @@
-import type { PropsWithChildren } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock } from 'bun:test'
 
 import { NIFTY_WORLD_SCENES } from '@/constants/niftyworld-scenes'
+import type { JSX } from 'solid-js'
 
 mock.module('@/runtime/Link', () => ({
-  default: ({ children, href, ...props }: PropsWithChildren<{ href: string }>) => (
+  default: ({ children, href, ...props }: { href: string } & { children?: JSX.Element }) => (
     <a href={href} {...props}>
       {children}
     </a>
@@ -25,7 +25,7 @@ describe('NiftyWorldScene', () => {
     const { default: NiftyWorldScene } = await import('./NiftyWorldScene')
     const scene = NIFTY_WORLD_SCENES[0]
 
-    render(<NiftyWorldScene scene={scene} />)
+    render(() => <NiftyWorldScene scene={scene} />)
 
     const iframe = screen.getByTitle(`${scene.title} world map`)
     expect(new URL(iframe.getAttribute('src') ?? '').pathname).toBe('/scenes/isla-azul')
@@ -35,3 +35,15 @@ describe('NiftyWorldScene', () => {
     expect(screen.getByRole('button', { name: 'Enter fullscreen' })).toBeTruthy()
   })
 })
+
+mock.module('@/runtime/Link', () => ({
+  default: ({ children, href, ...props }: { href: string } & { children?: JSX.Element }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}))
+
+mock.module('@nl/ui/custom/external-icon', () => ({
+  ExternalIcon: () => null,
+}))

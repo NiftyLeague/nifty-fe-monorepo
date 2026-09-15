@@ -1,49 +1,38 @@
 'use client'
 
-import { useMemo } from 'react'
+import { createMemo, For, Match, Show, Switch, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
-import { CheckCheck, ShieldCheck, UserRoundCheck } from 'lucide-react'
+import { CheckCheck, ShieldCheck, UserRoundCheck } from 'lucide-solid'
 import { cn } from '@nl/ui/utils'
 
 import styles from './RenameStepper.module.css'
 
-const StepIcon = ({ icon, color }: { icon: number; color: string }) => {
-  if (icon === 1) {
-    return <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />
-  }
+const StepIcon = (props: { icon: number; color: string }) => (
+  <Switch>
+    <Match when={props.icon === 1}>
+      <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL" width={30} height={30} />
+    </Match>
+    <Match when={props.icon === 2}>
+      <ShieldCheck aria-hidden={true} color={props.color} size={28} stroke-width={2.5} />
+    </Match>
+    <Match when={props.icon === 3}>
+      <UserRoundCheck aria-hidden={true} color={props.color} size={28} stroke-width={2.5} />
+    </Match>
+    <Match when={props.icon === 4}>
+      <CheckCheck aria-hidden={true} color={props.color} size={28} stroke-width={2.5} />
+    </Match>
+  </Switch>
+)
 
-  const props = {
-    'aria-hidden': true,
-    absoluteStrokeWidth: true,
-    color,
-    size: 28,
-    strokeWidth: 2.5,
-  } as const
-
-  switch (icon) {
-    case 2:
-      return <ShieldCheck {...props} />
-    case 3:
-      return <UserRoundCheck {...props} />
-    case 4:
-      return <CheckCheck {...props} />
-    default:
-      return null
-  }
-}
-
-function ColorlibStepIcon({
-  active,
-  completed,
-  icon,
-}: {
-  active: boolean
-  completed: boolean
-  icon: number
-}) {
+function ColorlibStepIcon(props: { active: boolean; completed: boolean; icon: number }) {
   return (
-    <div className={cn(styles.root, active && styles.active, completed && styles.completed)}>
-      <StepIcon icon={icon} color={active ? 'var(--color-light)' : 'var(--color-purple)'} />
+    <div
+      class={cn(styles.root, props.active && styles.active, props.completed && styles.completed)}
+    >
+      <StepIcon
+        icon={props.icon}
+        color={props.active ? 'var(--color-light)' : 'var(--color-purple)'}
+      />
     </div>
   )
 }
@@ -71,48 +60,52 @@ function getStepContent(step: number) {
   }
 }
 
-function RenameStepper({
-  insufficientAllowance,
-  renameSuccess,
-  insufficientBalance,
-}: {
+function RenameStepper(props: {
   insufficientAllowance: boolean
   renameSuccess: boolean
   insufficientBalance: boolean
-}): React.ReactNode {
+}): JSX.Element {
   const steps = getSteps()
-  const activeStep = useMemo(() => {
-    if (renameSuccess) return 3
-    if (insufficientBalance) return 0
-    return insufficientAllowance ? 1 : 2
-  }, [insufficientAllowance, insufficientBalance, renameSuccess])
+  const activeStep = createMemo(() => {
+    if (props.renameSuccess) return 3
+    if (props.insufficientBalance) return 0
+    return props.insufficientAllowance ? 1 : 2
+  })
 
   return (
     <div>
-      <div className="flex items-start justify-between">
-        {steps.map((label, index) => (
-          <div key={label} className="relative flex flex-1 flex-col items-center gap-2">
-            {index > 0 && <div className={cn(styles.line, styles.alternativeLabel)} />}
-            <ColorlibStepIcon
-              active={activeStep === index}
-              completed={activeStep > index}
-              icon={index + 1}
-            />
-            <div className="text-center text-sm text-foreground">{label}</div>
-          </div>
-        ))}
+      <div class="flex items-start justify-between">
+        <For each={steps}>
+          {(label, index) => (
+            <div class="relative flex flex-1 flex-col items-center gap-2">
+              <Show when={index() > 0}>
+                <div class={cn(styles.line, styles.alternativeLabel)} />
+              </Show>
+              <ColorlibStepIcon
+                active={activeStep() === index()}
+                completed={activeStep() > index()}
+                icon={index() + 1}
+              />
+              <div class="text-center text-sm text-foreground">{label}</div>
+            </div>
+          )}
+        </For>
       </div>
-      <em className="block text-center">
-        {activeStep !== steps.length ? (
+      <em class="block text-center">
+        <Show when={activeStep() !== steps.length}>
           <span
-            className={cn(
+            class={cn(
               styles.styledTypography,
-              activeStep === 0 ? 'text-error' : activeStep === 1 ? 'text-warning' : 'text-success'
+              activeStep() === 0
+                ? 'text-error'
+                : activeStep() === 1
+                  ? 'text-warning'
+                  : 'text-success'
             )}
           >
-            {getStepContent(activeStep)}
+            {getStepContent(activeStep())}
           </span>
-        ) : null}
+        </Show>
       </em>
     </div>
   )

@@ -10,14 +10,14 @@
     "format": "oxfmt .",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
-    "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
-    "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
+    "test": "bun test --conditions=browser --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
+    "test:coverage": "bun test --conditions=browser --isolate --preload ../../test/solid-jsx.ts --preload --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "test:e2e": "bunx playwright test",
     "type-check": "astro check"
   },
   "dependencies": {
-    "@astrojs/react": "6.0.5",
+    "@astrojs/solid-js": "7.0.2",
     "@astrojs/vercel": "11.0.10",
     "@nl/playfab": "workspace:*",
     "@nl/ui": "workspace:*",
@@ -25,9 +25,8 @@
     "@sentry/node": "^10.69.0",
     "astro": "7.3.2",
     "iron-session": "^9.0.1",
-    "lucide-react": "^1.31.0",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
+    "lucide-solid": "^1.46.0",
+    "solid-js": "^1.9.15",
     "web-vitals": "^6.2.1"
   },
   "devDependencies": {
@@ -37,8 +36,6 @@
     "@nl/typescript-config": "workspace:*",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.4.0",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0"
+    "@types/node": "^26.4.0"
   }
 }

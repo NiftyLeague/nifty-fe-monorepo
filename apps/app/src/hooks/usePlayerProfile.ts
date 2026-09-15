@@ -1,7 +1,7 @@
 'use client'
 
 import { MY_PROFILE_API_URL } from '@/constants/url'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/solid-query'
 import type { Profile } from '@/types/account'
 import useAuth from './useAuth'
 import {
@@ -11,20 +11,33 @@ import {
   queryKeys,
 } from '@/query/app-query'
 
-const usePlayerProfile = (): { error?: Error; profile?: Profile; loadingProfile?: boolean } => {
-  const { authToken } = useAuth()
-  const scope = getAuthQueryScope(authToken)
-  const { error, data, isLoading } = useQuery({
-    queryKey: queryKeys.profile.player(scope),
+const usePlayerProfile = (): {
+  readonly error?: Error
+  readonly profile?: Profile
+  readonly loadingProfile?: boolean
+} => {
+  const auth = useAuth()
+  const query = useQuery(() => ({
+    queryKey: queryKeys.profile.player(getAuthQueryScope(auth.authToken)),
     queryFn: ({ signal }) =>
       fetchApiQuery<Profile>(MY_PROFILE_API_URL, {
         signal,
-        init: { headers: { authorizationToken: authToken || '' } },
+        init: { headers: { authorizationToken: auth.authToken || '' } },
       }),
-    enabled: !!authToken,
+    enabled: !!auth.authToken,
     staleTime: AUTHENTICATED_STALE_TIME_MS,
-  })
-  return { error: error ?? undefined, profile: data, loadingProfile: isLoading }
+  }))
+  return {
+    get error() {
+      return (query.error as Error | undefined) ?? undefined
+    },
+    get profile() {
+      return query.data
+    },
+    get loadingProfile() {
+      return query.isLoading
+    },
+  }
 }
 
 export default usePlayerProfile

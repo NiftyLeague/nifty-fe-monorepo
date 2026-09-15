@@ -1,11 +1,9 @@
-import { render } from '@testing-library/react'
-import { createElement, type ComponentProps } from 'react'
+import { render } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/responsive-only-image', () => ({
-  DesktopOnlyImage: ({ alt, ...props }: ComponentProps<'img'>) =>
-    createElement('img', { alt, ...props }),
-  default: ({ alt, ...props }: ComponentProps<'img'>) => createElement('img', { alt, ...props }),
+  DesktopOnlyImage: (props: Record<string, unknown>) => <img {...props} />,
+  default: (props: Record<string, unknown>) => <img {...props} />,
 }))
 
 describe('BouncingNFTL', () => {
@@ -16,7 +14,7 @@ describe('BouncingNFTL', () => {
   })
 
   it('renders only the requested token artwork', () => {
-    const { container } = render(<BouncingNFTL visibleTokens={['token1', 'token3']} />)
+    const { container } = render(() => <BouncingNFTL visibleTokens={['token1', 'token3']} />)
 
     expect(
       [...container.querySelectorAll('img')].map((image) => image.getAttribute('src'))

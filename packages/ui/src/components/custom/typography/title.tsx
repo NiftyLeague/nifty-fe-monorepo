@@ -1,13 +1,18 @@
+import { splitProps, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+
 import { cn } from '@nl/ui/utils'
 
 interface TitleProps {
+  class?: string
   className?: string
+  children?: JSX.Element
   level: 1 | 2 | 3 | 4 | 5 | 6
-  style?: React.CSSProperties
+  style?: JSX.CSSProperties | string
 }
 
-export function Title({ children, className, level, style }: React.PropsWithChildren<TitleProps>) {
-  const CustomTag = `h${level}` as keyof React.JSX.IntrinsicElements
+export function Title(props: TitleProps) {
+  const [local] = splitProps(props, ['class', 'className', 'children', 'level', 'style'])
 
   const levelClasses = {
     1: 'text-4xl font-bold font-header tracking-header',
@@ -18,12 +23,14 @@ export function Title({ children, className, level, style }: React.PropsWithChil
     6: 'text-base font-normal font-subheader tracking-subheader',
   }
 
-  const classes = cn('scroll-m-20 text-foreground text-balance', levelClasses[level], className)
-
   return (
-    <CustomTag className={classes} style={style}>
-      {children}
-    </CustomTag>
+    <Dynamic
+      component={`h${local.level}`}
+      class={cn(levelClasses[local.level], local.class, local.className)}
+      style={local.style}
+    >
+      {local.children}
+    </Dynamic>
   )
 }
 

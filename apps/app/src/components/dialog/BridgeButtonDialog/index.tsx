@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from '@/runtime/dynamic'
-import { useState } from 'react'
+import { createSignal } from 'solid-js'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/dialog'
 import BridgeSuccess from './BridgeSuccess'
@@ -9,7 +9,7 @@ import BridgeSuccess from './BridgeSuccess'
 type BridgeButtonDialogProps = { balance: number; loading: boolean }
 
 const BridgeFormLoading = () => (
-  <div className="py-8 text-center" role="status" aria-live="polite" aria-busy="true">
+  <div class="py-8 text-center" role="status" aria-live="polite" aria-busy="true">
     Loading bridge options
   </div>
 )
@@ -22,7 +22,7 @@ const BridgeForm = dynamic(() => import('./BridgeForm'), {
 const onCloseBridgeDialog = () => {}
 
 const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
-  const [successDialogOpen, setSuccessDialogOpen] = useState(false)
+  const [successDialogOpen, setSuccessDialogOpen] = createSignal(false)
 
   const onBridgeSuccess = () => setSuccessDialogOpen(true)
 
@@ -30,21 +30,21 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
     <>
       <Dialog onClose={onCloseBridgeDialog}>
         <DialogTrigger>
-          <Button variant="default" className="w-full" disabled={loading || balance < 0.5}>
+          <Button variant="default" class="w-full" disabled={loading || balance < 0.5}>
             Bridge
           </Button>
         </DialogTrigger>
         <DialogContent
           aria-labelledby="bridge-nftl-dialog"
-          dialogTitle={<span className="block w-full text-center">Bridge NFTL to Immutable</span>}
+          dialogTitle={<span class="block w-full text-center">Bridge NFTL to Immutable</span>}
         >
-          <div className="text-center">
+          <div class="text-center">
             <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
           </div>
         </DialogContent>
       </Dialog>
       <BridgeSuccess
-        successDialogOpen={successDialogOpen}
+        successDialogOpen={successDialogOpen()}
         setSuccessDialogOpen={setSuccessDialogOpen}
       />
     </>

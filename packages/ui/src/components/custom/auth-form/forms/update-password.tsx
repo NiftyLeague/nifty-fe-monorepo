@@ -1,10 +1,9 @@
-'use client'
+import { createSignal } from 'solid-js'
+import { createForm } from '@modular-forms/solid'
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { zodForm } from './zod-form'
 import { z } from 'zod'
-import { KeyRound, Loader, Save } from 'lucide-react'
+import { KeyRound, Loader, Save } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@nl/ui/base/form'
@@ -15,10 +14,6 @@ import {
   InputGroupPasswordToggle,
   InputGroupText,
 } from '@nl/ui/base/input-group'
-
-export interface UpdatePasswordFormProps {
-  handleUpdatePassword: (values: z.infer<typeof formSchema>) => Promise<void>
-}
 
 const formSchema = z.object({
   old_password: z.string().min(1),
@@ -32,105 +27,105 @@ const formSchema = z.object({
     .regex(/[!@#$%^&*(),.?":{}|<>]/, 'Password must contain at least one special character'),
 })
 
-export function UpdatePasswordForm({ handleUpdatePassword }: UpdatePasswordFormProps) {
-  const [showOldPassword, setShowOldPassword] = useState(false)
-  const [showNewPassword, setShowNewPassword] = useState(false)
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { old_password: '', new_password: '' },
+export interface UpdatePasswordFormProps {
+  handleUpdatePassword: (values: z.infer<typeof formSchema>) => Promise<void>
+}
+
+export function UpdatePasswordForm(props: UpdatePasswordFormProps) {
+  const [showOldPassword, setShowOldPassword] = createSignal(false)
+  const [showNewPassword, setShowNewPassword] = createSignal(false)
+  const [form] = createForm<z.infer<typeof formSchema>>({
+    validate: zodForm(formSchema),
+    initialValues: { old_password: '', new_password: '' },
   })
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    await handleUpdatePassword(values)
-  }
-
-  // `method="post"` keeps a pre-hydration native submit (Enter before React attaches)
+  // `method="post"` keeps a pre-hydration native submit (Enter before Solid attaches)
   // from falling back to GET, which would put typed fields into the URL.
   return (
-    <Form {...form}>
-      <form method="post" onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-        <FormField
-          control={form.control}
-          name="old_password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Old Password</FormLabel>
-              <InputGroup>
-                <InputGroupAddon>
-                  <InputGroupText>
-                    <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <FormControl>
-                  <InputGroupInput
-                    {...field}
-                    type={showOldPassword ? 'text' : 'password'}
-                    autoComplete="current-password"
+    <Form of={form} onSubmit={props.handleUpdatePassword} method="post" class="grid gap-4">
+      <FormField
+        of={form}
+        name="old_password"
+        render={({ field, props: fieldProps }) => (
+          <FormItem>
+            <FormLabel>Old Password</FormLabel>
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>
+                  <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                </InputGroupText>
+              </InputGroupAddon>
+              <FormControl>
+                <InputGroupInput
+                  {...fieldProps}
+                  type={showOldPassword() ? 'text' : 'password'}
+                  value={field.value ?? ''}
+                  autocomplete="current-password"
+                />
+              </FormControl>
+              {field.value ? (
+                <InputGroupAddon align="inline-end">
+                  <InputGroupPasswordToggle
+                    visible={showOldPassword()}
+                    onVisibleChange={setShowOldPassword}
+                    disabled={form.submitting}
                   />
-                </FormControl>
-                {field.value ? (
-                  <InputGroupAddon align="inline-end">
-                    <InputGroupPasswordToggle
-                      visible={showOldPassword}
-                      onVisibleChange={setShowOldPassword}
-                      disabled={form.formState.isSubmitting}
-                    />
-                  </InputGroupAddon>
-                ) : null}
-              </InputGroup>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="new_password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>New Password</FormLabel>
-              <InputGroup>
-                <InputGroupAddon>
-                  <InputGroupText>
-                    <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
-                  </InputGroupText>
                 </InputGroupAddon>
-                <FormControl>
-                  <InputGroupInput
-                    {...field}
-                    type={showNewPassword ? 'text' : 'password'}
-                    autoComplete="new-password"
+              ) : null}
+            </InputGroup>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        of={form}
+        name="new_password"
+        render={({ field, props: fieldProps }) => (
+          <FormItem>
+            <FormLabel>New Password</FormLabel>
+            <InputGroup>
+              <InputGroupAddon>
+                <InputGroupText>
+                  <KeyRound absoluteStrokeWidth size={20} strokeWidth={1.5} aria-hidden="true" />
+                </InputGroupText>
+              </InputGroupAddon>
+              <FormControl>
+                <InputGroupInput
+                  {...fieldProps}
+                  type={showNewPassword() ? 'text' : 'password'}
+                  value={field.value ?? ''}
+                  autocomplete="new-password"
+                />
+              </FormControl>
+              {field.value ? (
+                <InputGroupAddon align="inline-end">
+                  <InputGroupPasswordToggle
+                    visible={showNewPassword()}
+                    onVisibleChange={setShowNewPassword}
+                    disabled={form.submitting}
                   />
-                </FormControl>
-                {field.value ? (
-                  <InputGroupAddon align="inline-end">
-                    <InputGroupPasswordToggle
-                      visible={showNewPassword}
-                      onVisibleChange={setShowNewPassword}
-                      disabled={form.formState.isSubmitting}
-                    />
-                  </InputGroupAddon>
-                ) : null}
-              </InputGroup>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? (
-            <Loader
-              absoluteStrokeWidth
-              className="animate-spin motion-reduce:animate-none"
-              size={20}
-              strokeWidth={1.5}
-            />
-          ) : (
-            <>
-              <Save absoluteStrokeWidth size={20} strokeWidth={1.5} />
-              Update Password
-            </>
-          )}
-        </Button>
-      </form>
+                </InputGroupAddon>
+              ) : null}
+            </InputGroup>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Button type="submit" class="w-full" disabled={form.submitting}>
+        {form.submitting ? (
+          <Loader
+            absoluteStrokeWidth
+            class="animate-spin motion-reduce:animate-none"
+            size={20}
+            strokeWidth={1.5}
+          />
+        ) : (
+          <>
+            <Save absoluteStrokeWidth size={20} strokeWidth={1.5} />
+            Update Password
+          </>
+        )}
+      </Button>
     </Form>
   )
 }
