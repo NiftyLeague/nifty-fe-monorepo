@@ -1,7 +1,7 @@
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
 import BouncingNFTL from '@/components/BouncingNFTL'
-import { DeferredHomeMintOMatic } from '@/components/DeferredHomeMedia'
+import MintOMatic from '@/components/MintOMatic'
 
 export default function HomeTokenSection() {
   return (
@@ -36,7 +36,7 @@ export default function HomeTokenSection() {
         />
       </div>
       <div class="home-nftl-token-art relative w-full md:w-1/2">
-        <DeferredHomeMintOMatic />
+        <MintOMatic />
       </div>
     </section>
   )

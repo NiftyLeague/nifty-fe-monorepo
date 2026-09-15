@@ -7,8 +7,28 @@ import StaticSection from '@/components/sections/StaticSection'
 import { APP_DESCRIPTION, APP_TITLE, buildHead } from '@/runtime/metadata'
 
 export const Route = createFileRoute('/_public/')({
-  head: () =>
-    buildHead({ path: '/', title: APP_TITLE, description: APP_DESCRIPTION, absoluteTitle: true }),
+  head: () => {
+    const head = buildHead({
+      path: '/',
+      title: APP_TITLE,
+      description: APP_DESCRIPTION,
+      absoluteTitle: true,
+    })
+    return {
+      ...head,
+      links: [
+        ...(head.links ?? []),
+        // The first flagship card's poster wins LCP; preloading keeps it ahead
+        // of the module chunk queue.
+        {
+          rel: 'preload',
+          as: 'image',
+          href: '/img/games/smashers/smashers-poster.jpg',
+          fetchpriority: 'high',
+        },
+      ],
+    }
+  },
   component: Home,
 })
 

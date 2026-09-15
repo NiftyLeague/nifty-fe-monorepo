@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import { HeadContent, Scripts, createRootRouteWithContext } from '@tanstack/solid-router'
 import type { JSX } from 'solid-js'
+import { HydrationScript } from 'solid-js/web'
 
 import DeferredExternalScript from '@nl/ui/custom/deferred-external-script'
 import { cx } from '@nl/ui/class-names'
@@ -32,6 +33,7 @@ function RootDocument(props: { children: JSX.Element }) {
   return (
     <html lang="en" class={cx('dark', 'h-full')}>
       <head>
+        <HydrationScript />
         <HeadContent />
       </head>
       <body class="h-full">

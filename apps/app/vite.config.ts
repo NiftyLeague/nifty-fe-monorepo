@@ -24,10 +24,30 @@ export default defineConfig({
   // Resolve the `@/*` alias from tsconfig.json so app imports keep working.
   resolve: {
     tsconfigPaths: true,
-    // No aliases remain. `@nl/ui/custom/optimized-image` resolves to the shared
-    // framework-agnostic component, and the font families come from
-    // @nl/ui/styles/fonts.css; both specifiers used to be redirected to
-    // app-local copies.
+  },
+  environments: {
+    client: {
+      build: {
+        rollupOptions: {
+          output: {
+            // Route-level splitting produces dozens of 1KB chunks; on mobile
+            // profiles (150ms RTT) the request count costs more than the bytes.
+            // Fold tiny shared modules into one chunk so the initial module
+            // graph resolves in a handful of requests instead of ~35.
+            codeSplitting: {
+              groups: [
+                {
+                  name: 'shared',
+                  minShareCount: 2,
+                  maxModuleSize: 32 * 1024,
+                  maxSize: 192 * 1024,
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
   },
   plugins: [
     tailwindcss(),

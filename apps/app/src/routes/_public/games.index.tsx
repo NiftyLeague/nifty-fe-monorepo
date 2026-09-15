@@ -5,6 +5,18 @@ import GameList from '@/pages/games/_GameList'
 import StaticSection from '@/components/sections/StaticSection'
 
 export const Route = createFileRoute('/_public/games/')({
+  head: () => ({
+    // The first flagship card's poster wins LCP; preloading keeps it ahead of
+    // the module chunk queue.
+    links: [
+      {
+        rel: 'preload',
+        as: 'image',
+        href: '/img/games/smashers/smashers-poster.jpg',
+        fetchpriority: 'high',
+      },
+    ],
+  }),
   component: GamesPage,
 })
 

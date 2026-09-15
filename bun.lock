@@ -199,9 +199,6 @@
       "devDependencies": {
         "@types/node": "^26.4.0",
       },
-      "peerDependencies": {
-        "react": "19.3.0",
-      },
     },
     "packages/playfab": {
       "name": "@nl/playfab",

@@ -36,7 +36,8 @@ const MintOMatic = () => {
           alt="NFTL Token Tears"
           width={1470}
           height={1778}
-          loading="lazy"
+          loading="eager"
+          fetchpriority="high"
           decoding="async"
           class="pixelated"
           style={{ width: '100%', height: 'auto' }}
