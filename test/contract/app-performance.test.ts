@@ -395,9 +395,7 @@ describe('app performance contracts', () => {
     expect(heroStart).toBeGreaterThanOrEqual(0)
     expect(muralSource).toBeGreaterThan(heroStart)
     expect(source.slice(heroStart, heroStart + 400)).toContain("loading: 'eager'")
-    expect(source.slice(muralSource, muralSource + 120)).toContain(
-      "srcset={heroCharacters.srcSet}"
-    )
+    expect(source.slice(muralSource, muralSource + 120)).toContain('srcset={heroCharacters.srcSet}')
   })
 
   it('keeps the GLTF viewer off the conflict-merging utility', () => {
