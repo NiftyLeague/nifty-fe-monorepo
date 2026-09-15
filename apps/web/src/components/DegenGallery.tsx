@@ -2,7 +2,7 @@ import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { cx } from '@nl/ui/class-names'
 
 import { NIFTY_DEGENS_ALL } from '@/constants/degens'
-import styles from '@/app/(main)/degens/index.module.css'
+import styles from '@/styles/degens.module.css'
 
 export default function DegenGallery() {
   return (

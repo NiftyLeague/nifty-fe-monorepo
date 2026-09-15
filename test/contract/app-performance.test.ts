@@ -50,7 +50,7 @@ const retiredCustomInput = 'packages/ui/src/components/custom/input/index.tsx'
 // Neither web, smashers, nor docs has a next.config anymore (Astro static /
 // Astro SSR), and the template app was removed.
 const webManifest = 'apps/web/package.json'
-const webHome = 'apps/web/src/app/(main)/page.tsx'
+const webHome = 'apps/web/src/pages/index.astro'
 const incrementalTypecheckConfigs = [
   'apps/api/tsconfig.json',
   // apps/web/tsconfig.json and apps/docs/tsconfig.json are excluded: both extend
@@ -114,8 +114,8 @@ const nonConflictingClassNameSources = [
   'apps/app/src/routes/__root.tsx',
   'apps/app/src/components/providers/PublicNavigation.tsx',
   'apps/smashers/src/components/Header/Navbar/index.tsx',
-  'apps/web/src/app/(main)/compete-and-earn/page.tsx',
-  'apps/web/src/app/(main)/lore/page.tsx',
+  'apps/web/src/pages/compete-and-earn.astro',
+  'apps/web/src/pages/lore.astro',
   'apps/web/src/components/DegenGallery.tsx',
   'apps/web/src/components/GameCard.tsx',
   'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx',
@@ -388,12 +388,14 @@ describe('app performance contracts', () => {
   it('keeps the desktop hero character mural eager and desktop-scoped', () => {
     const source = readFileSync(webHome, 'utf8')
     const heroStart = source.indexOf("src: '/img/hero/characters.webp'")
-    const heroEnd = source.indexOf('</picture>', heroStart)
+    // The desktop scope lives on the mural's <source> in the template, after
+    // the frontmatter candidate list.
+    const muralSource = source.indexOf('<source media="(min-width: 769px)"', heroStart)
 
     expect(heroStart).toBeGreaterThanOrEqual(0)
-    expect(heroEnd).toBeGreaterThan(heroStart)
-    expect(source.slice(heroStart, heroEnd)).toContain("loading: 'eager'")
-    expect(source.slice(heroStart, heroEnd)).toContain('media="(min-width: 769px)"')
+    expect(muralSource).toBeGreaterThan(heroStart)
+    expect(source.slice(heroStart, heroStart + 400)).toContain("loading: 'eager'")
+    expect(source.slice(muralSource, muralSource + 120)).toContain('srcset={heroCharacters.srcSet}')
   })
 
   it('keeps the GLTF viewer off the conflict-merging utility', () => {

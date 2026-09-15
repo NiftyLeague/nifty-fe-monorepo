@@ -1,13 +1,63 @@
 ---
 import Marketing from '@/layouts/Marketing.astro'
-import LegacyPage from '@/app/(main)/team/page'
+import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
+import TeamDesktop from '@/components/TeamDesktop'
 import { DeferredTeamCarousel } from '@/components/DeferredTeamSections'
-import { metadata as routeMetadata } from '@/app/(main)/team/layout'
+
+const metadata = {
+  title: 'Team',
+  description: 'Build a decentralized future with the Nifty DAO',
+  openGraph: {
+    title: 'Nifty League | Team',
+    description: 'Build a decentralized future with the Nifty DAO',
+    images: 'https://niftyleague.com/img/niftyworld/mansion_livingroom_int_03.webp',
+  },
+}
 ---
-<Marketing metadata={routeMetadata} rootClass="team-pg" canonical="/team">
-  <LegacyPage>
-  <Fragment slot="webIsland0">
-<DeferredTeamCarousel client:visible={{ rootMargin: "200px" }} />
-  </Fragment>
-  </LegacyPage>
+<Marketing metadata={metadata} rootClass="team-pg" canonical="/team">
+  <div class="container pt-20">
+    <section class="section relative">
+      <div class="flex flex-col items-center">
+        <h1 class="text-center text-highlight-purple">NIFTY DAO</h1>
+        <div class="mt-5 sm:mt-3 max-w-2xl">
+          <p class="text-center p1">
+            Nifty League is a game studio at the cutting edge of Web3. Our mission is to inspire
+            indie game developers to build a decentralized future with us by establishing a game
+            studio focused on unparalleled quality and player experiences.
+          </p>
+          <br />
+          <p class="text-center p1">
+            We will gradually transfer ownership of Nifty League to our DAO in order to
+            decentralize the platform and encourage others to build with us! Our vision is to
+            power rapid growth and development through community contributions enabling us to
+            build a gaming platform like no other. Simply put, DAOs are the future. We see only
+            one route to becoming the world&apos;s leading gaming platform and that&apos;s by
+            building together. 💜
+          </p>
+        </div>
+
+        <ThemeBtnGroup
+          primary={{ href: '/careers', title: 'JOIN US' }}
+          secondary={{ href: '/roadmap', title: 'VIEW OUR ROADMAP' }}
+        />
+      </div>
+      <div class="purple-bg-orb orb-top-right"></div>
+    </section>
+
+    <section class="section relative">
+      <h2 class="text-center heading-look-4">
+        MEET THE DEGENS WHO MAKE NIFTY LEAGUE POSSIBLE
+      </h2>
+      <div class="desktop">
+        <TeamDesktop />
+      </div>
+      <div
+        class="teams-slider slider px-0 block md:hidden"
+        style={{ alignItems: 'center', maxWidth: '100%', textAlign: 'center', minHeight: 300 }}
+      >
+        <DeferredTeamCarousel client:visible={{ rootMargin: '200px' }} />
+      </div>
+      <div class="purple-bg-orb orb-top-left"></div>
+    </section>
+  </div>
 </Marketing>

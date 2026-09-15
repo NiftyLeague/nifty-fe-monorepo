@@ -18,9 +18,16 @@ describe('Tailwind source scope', () => {
   })
 
   it('scans each consuming app and retains Smashers PlayFab classes', () => {
+    // web holds its marketing utilities in src/pages/*.astro, so its scan must
+    // cover .astro as well; the React-only apps keep the ts/tsx glob.
+    const appGlobs: Record<string, string> = {
+      'apps/app/src/styles/app.css': '@source "../**/*.{ts,tsx}";',
+      'apps/web/src/styles/app.css': '@source "../**/*.{ts,tsx,astro}";',
+      'apps/smashers/src/styles/app.css': '@source "../**/*.{ts,tsx}";',
+    }
     for (const appStyle of appStyles) {
       const source = readFileSync(appStyle, 'utf8')
-      expect(source).toContain('@source "../**/*.{ts,tsx}";')
+      expect(source).toContain(appGlobs[appStyle])
     }
 
     const smashersStyles = readFileSync('apps/smashers/src/styles/app.css', 'utf8')

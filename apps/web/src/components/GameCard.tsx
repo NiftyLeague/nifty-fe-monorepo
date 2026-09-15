@@ -2,7 +2,7 @@ import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { cx } from '@nl/ui/class-names'
 
 import type { NiftyGame } from '@/constants/games'
-import styles from '@/app/(main)/games/index.module.css'
+import styles from '@/styles/games.module.css'
 
 const GAME_ORB_POSITION_CLASSES = [
   'orb-bottom-left',
