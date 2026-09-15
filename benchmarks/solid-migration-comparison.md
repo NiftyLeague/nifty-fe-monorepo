@@ -29,11 +29,22 @@ Raw data: `benchmarks/results/lh-{app}-solid-{baseline,post-migration}-2026-09-1
 | /team | desktop | 90 → 99 | 1464 | 804 | **−660** |
 | /compete-and-earn | mobile | 62 → 76 | 7248 | 6192 | **−1055** |
 
-Regressions (desktop only, media-heavy routes): `/community` 88 → 79
-(1600 → 3272ms), `/compete-and-earn` 81 → 73 (2183 → 6524ms), `/lore` 84 → 77
-(1487 → 3005ms). These routes load large animated artwork; the Solid islands
-changed hydration timing, which moved which resource wins the LCP race. Follow-up:
-audit the deferred media boundaries on those three routes.
+Follow-up fixed (label `solid-post-followups`, same harness): the three
+media-heavy desktop regressions were LCP-discovery failures — the LCP-winning
+resource was lazy or behind a deferred island. Fixes: `priority` on the
+`/community` Earth banner, `fetchpriority="high"` on the `/lore` background,
+and the `/compete-and-earn` Mint-O-Matic hero rendered eagerly instead of
+behind `DeferredSection` (its image was not in the initial document at all).
+
+| Route | Perf before → regression → fixed | LCP before | LCP regressed | LCP fixed |
+| --- | --- | --- | --- | --- |
+| /community desktop | 88 → 79 → 87 | 1600 | 3272 | 2205 |
+| /compete-and-earn desktop | 81 → 73 → 86 | 2183 | 6524 | 2218 |
+| /lore desktop | 84 → 77 → 76 | 1487 | 3005 | 3108 |
+
+`/lore` residual: the 206KB q60 full-viewport background is now
+eager+high+preloaded; the remaining LCP is image transfer time under the
+throttled profile, not a discovery issue.
 
 ### apps/smashers (SSR; only `/` is servable without the Vercel runtime)
 
@@ -57,10 +68,13 @@ server locally, so the post-migration pass covers `/` only.
 | /overview/nifty-dao/nftl/supply | desktop | 84 → 99 | 2791 | 774 | **−2018** |
 
 Regression: `/overview/nfts/nifty-marketplace/comics` mobile CLS 1.14 (perf
-100 → 75 mobile, 86 → 74 desktop). LCP itself improved (855 → 865ms mobile);
-the score drop is layout shift from the below-fold comic grid + mermaid
-rendering. Follow-up: reserve space for the comic thumbnails before their
-lazy variants load.
+100 → 75 mobile, 86 → 74 desktop). Fixed in `solid-post-followups`: the comic
+table's columns auto-resized as lazy thumbnails loaded, and inline `<video>`
+elements had no intrinsic size until metadata arrived. `table-layout: fixed`
+now applies to image grids (`theme.css`) and every docs video carries its
+real `aspect-ratio`. Re-measured: mobile CLS 1.14 → 0.138 (perf 75 → 93),
+desktop CLS → 0.189 (perf 74 → 78). Residual desktop CLS is row-height
+settling from the lazy thumbnails.
 
 ## Client JavaScript (bytes emitted to the static output)
 
@@ -91,10 +105,47 @@ The runtime wins above are the trade. docs and smashers are within noise.
 Now ported to SolidJS: TanStack Start + Solid Router/Query, framework-agnostic
 `@wagmi/core` bindings via `src/runtime/wagmi.ts`, Kobalte via `@nl/ui`. React,
 `react-dom`, `wagmi`, and all React testing packages are removed from the
-package. Typecheck, lint, build, and the full unit suite (320 tests) are green.
+package. Typecheck, lint, build, and the full unit suite (316 tests) are green.
 
-Lighthouse numbers pending a served build: the app builds to a Nitro/`.vercel`
-function output rather than static files, so it needs the server runtime (or a
-deploy preview) before `scripts/lighthouse-benchmark.mjs` can measure it. The
-pre-migration baselines (`lh-app-solid-baseline-*.json`) are recorded for that
-comparison.
+Measured locally against the Nitro preview server (`bun run start` on the
+`.vercel` Build Output; `lh-app-solid-post-followups-2026-09-15.json`). The
+follow-up pass also fixed a critical porting bug: the root document was
+missing `<HydrationScript />`, so `hydrate()` threw on every route and
+islands never hydrated — the reason the first post-migration run looked
+artificially bad on some routes and `errors-in-console` fired everywhere.
+
+| Route | Form | Perf before → after | LCP before | LCP after | Δ |
+| --- | --- | --- | --- | --- | --- |
+| / | mobile | 87 → 79 | 2931 | 3983 | +1052 |
+| /world | mobile | 74 → 73 | 5555 | 5151 | −403 |
+| /games | mobile | 87 → 78 | 2920 | 3997 | +1077 |
+| /games/smashers | mobile | 61 → n/a | 13128 | n/a | — |
+| /games/mt-gawx | mobile | 62 → n/a | 14325 | n/a | — |
+| /degens | mobile | 59 → 67 | 13969 | 7894 | **−6075** |
+| /leaderboards | mobile | 89 → 94 | 2645 | 2306 | −339 |
+| /mint-o-matic | mobile | 85 → 94 | 2652 | 2331 | −322 |
+| /verification | mobile | 59 → 68 | 15868 | 7828 | **−8041** |
+| / | desktop | 56 → 63 | 11980 | 4030 | **−7950** |
+| /world | desktop | 60 → 62 | 4906 | 4471 | −435 |
+| /games | desktop | 56 → 63 | 12042 | 4037 | **−8006** |
+| /games/smashers | desktop | 60 → 75 | 12937 | 2272 | **−10666** |
+| /games/mt-gawx | desktop | 60 → 75 | 14540 | 2275 | **−12265** |
+| /degens | desktop | 56 → 75 | 15133 | 2265 | **−12869** |
+| /leaderboards | desktop | 70 → 75 | 2610 | 2251 | −359 |
+| /mint-o-matic | desktop | 67 → 75 | 2613 | 2251 | −362 |
+| /verification | desktop | 55 → 60 | 15731 | 7614 | **−8117** |
+
+Caveats: local preview lacks `VITE_WALLET_CONNECT_PROJECT_ID`, so the wallet
+provider boundary reports "could not be loaded" on every route (same in the
+baseline run). `/games/smashers` and `/games/mt-gawx` produce NO_LCP on the
+mobile profile — the Unity download+compile keeps the main thread busy past
+Lighthouse's FCP window at 4x CPU; desktop profiles measure them at ~2.3s.
+
+Residual mobile regression: `/` and `/games` LCP ~+1.05s vs baseline. The LCP
+image (46KB flagship poster) is eager+high+preloaded; the delta is bandwidth
+contention with the initial module chunk graph under 1.6Mbps/150ms-RTT
+throttling. A rolldown `codeSplitting` group now folds sub-32KB shared modules
+into bounded shared chunks (≈25 fewer initial requests), which recovered
+~1.3s from the pre-followup 5.2s; the rest is per-request overhead that would
+need deeper bundle consolidation or HTTP/2 server-push-style prioritization
+to close.
