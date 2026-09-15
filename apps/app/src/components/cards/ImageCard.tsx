@@ -1,6 +1,7 @@
 import useImageOnLoad from '@/hooks/useImageOnLoad'
 import { AnimatedImage } from '@nl/ui/custom/animated-image'
 import NativeImage from '@nl/ui/custom/native-image'
+import { Show, type JSX } from 'solid-js'
 
 interface ImageCardProps {
   thumbnail?: string
@@ -10,52 +11,56 @@ interface ImageCardProps {
   ratio: number
 }
 
-const styleImage: { imageWrapper: React.CSSProperties; imageCommon: React.CSSProperties } = {
-  imageWrapper: { height: 0, width: '100%' },
+const styleImage: { imageWrapper: JSX.CSSProperties; imageCommon: JSX.CSSProperties } = {
+  imageWrapper: { height: '0', width: '100%' },
   imageCommon: { position: 'absolute', width: '100%' },
 }
 
-const ImageCard = ({ image, imageWebp, thumbnail, title, ratio }: ImageCardProps) => {
+const ImageCard = (props: ImageCardProps) => {
   const { handleImageOnLoad, css } = useImageOnLoad()
   return (
     <div
-      className="relative"
-      style={{ ...styleImage.imageWrapper, paddingBottom: `${ratio * 100}%` }}
+      class="relative"
+      style={{ ...styleImage.imageWrapper, 'padding-bottom': `${props.ratio * 100}%` }}
     >
-      {thumbnail && (
+      <Show when={props.thumbnail}>
         <NativeImage
           onLoad={handleImageOnLoad}
-          src={thumbnail}
-          alt={`thumbnail-${title}`}
+          src={props.thumbnail!}
+          alt={`thumbnail-${props.title}`}
           loading="lazy"
           decoding="async"
           style={{ ...styleImage.imageCommon, ...css.thumbnail }}
         />
-      )}
-      {image &&
-        (imageWebp ? (
+      </Show>
+      <Show when={props.image}>
+        <Show
+          when={props.imageWebp}
+          fallback={
+            <NativeImage
+              onLoad={handleImageOnLoad}
+              src={props.image!}
+              alt={props.title}
+              loading="lazy"
+              decoding="async"
+              style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
+            />
+          }
+        >
           <AnimatedImage
             onLoad={handleImageOnLoad}
-            src={image}
-            animatedSrc={imageWebp}
+            src={props.image!}
+            animatedSrc={props.imageWebp!}
             animatedType="image/webp"
-            alt={title}
+            alt={props.title}
             fill
             sizes="(max-width: 1023px) 100vw, 345px"
             loading="lazy"
             decoding="async"
             style={{ ...styleImage.imageCommon, ...css.fullSize }}
           />
-        ) : (
-          <NativeImage
-            onLoad={handleImageOnLoad}
-            src={image}
-            alt={title}
-            loading="lazy"
-            decoding="async"
-            style={{ height: '100%', ...styleImage.imageCommon, ...css.fullSize }}
-          />
-        ))}
+        </Show>
+      </Show>
     </div>
   )
 }

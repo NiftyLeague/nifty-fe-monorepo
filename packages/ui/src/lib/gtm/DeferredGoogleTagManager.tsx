@@ -1,34 +1,20 @@
-'use client'
+import { Show, createSignal, onCleanup, onMount } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 
-import { startTransition, useEffect, useState } from 'react'
-
+import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
-interface GoogleTagManagerComponent {
-  default: React.ComponentType
-}
+const loadGtm = () => import('./GoogleTagManager').then((module) => ({ default: module.default }))
 
 /** Loads only the shared GTM client boundary, without Next-only Web Vitals code. */
-export default function DeferredGoogleTagManager(): React.ReactNode {
-  const [GoogleTagManager, setGoogleTagManager] = useState<React.ComponentType | null>(null)
+export default function DeferredGoogleTagManager() {
+  const [activated, setActivated] = createSignal(false)
+  const { Component: GoogleTagManager } = useDeferredComponent(loadGtm, activated)
 
-  useEffect(() => {
-    let cancelled = false
+  onMount(() => {
+    const cleanup = scheduleDeferredActivation({ onActivate: () => setActivated(true) })
+    onCleanup(cleanup)
+  })
 
-    const activate = async () => {
-      const module = (await import('./GoogleTagManager')) as GoogleTagManagerComponent
-      if (!cancelled) {
-        startTransition(() => setGoogleTagManager(() => module.default))
-      }
-    }
-
-    const cleanup = scheduleDeferredActivation({ onActivate: activate })
-
-    return () => {
-      cancelled = true
-      cleanup()
-    }
-  }, [])
-
-  return GoogleTagManager ? <GoogleTagManager /> : null
+  return <Show when={GoogleTagManager()}>{(Gtm) => <Dynamic component={Gtm()} />}</Show>
 }

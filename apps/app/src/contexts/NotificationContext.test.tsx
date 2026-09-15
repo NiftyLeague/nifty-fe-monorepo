@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
+import type { JSX } from 'solid-js'
 import { describe, expect, it } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import {
   NotificationProvider,
@@ -9,7 +9,7 @@ import {
   useSnackbar,
 } from './NotificationContext'
 
-const wrapper = ({ children }: PropsWithChildren) => (
+const wrapper = ({ children }: { children?: JSX.Element }) => (
   <NotificationProvider>{children}</NotificationProvider>
 )
 
@@ -34,7 +34,7 @@ describe('NotificationContext', () => {
       })
     )
 
-    expect(result.current.snackbar).toMatchObject({
+    expect(result.current.snackbar()).toMatchObject({
       open: true,
       message: 'Saved',
       variant: 'alert',
@@ -43,7 +43,7 @@ describe('NotificationContext', () => {
     })
 
     act(() => result.current.closeSnackbar())
-    expect(result.current.snackbar.open).toBe(false)
+    expect(result.current.snackbar().open).toBe(false)
   })
 
   it('fails clearly when consumed outside its provider', () => {

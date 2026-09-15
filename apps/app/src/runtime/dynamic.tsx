@@ -1,19 +1,16 @@
-import { ClientOnly } from '@tanstack/react-router'
-import { Suspense, lazy, type ComponentType, type ReactNode } from 'react'
+import { ClientOnly } from '@tanstack/solid-router'
+import { Suspense, lazy, type Component, type JSX } from 'solid-js'
 
 type DynamicLoader<Props extends object> = () => Promise<
-  ComponentType<Props> | { default: ComponentType<Props> }
+  Component<Props> | { default: Component<Props> }
 >
 
 /**
- * Memo and forwardRef components are exotic objects, not functions, so
- * named-export loaders (`import(...).then((module) => module.Card)`) can
- * resolve to something React accepts as a component type without it being a
- * function. Such values must wrap as the component, never as the module.
+ * Named-export loaders (`import(...).then((module) => module.Card)`) resolve
+ * straight to a component function; those must wrap as `default`, never as
+ * the module.
  */
-const isComponentType = (value: unknown): value is ComponentType<never> =>
-  typeof value === 'function' ||
-  (typeof value === 'object' && value !== null && '$$typeof' in value)
+const isComponent = (value: unknown): value is Component<never> => typeof value === 'function'
 
 interface DynamicOptions {
   /**
@@ -22,7 +19,7 @@ interface DynamicOptions {
    * client-only boundaries this app relies on for wallet and WebGL surfaces.
    */
   ssr?: boolean
-  loading?: () => ReactNode
+  loading?: () => JSX.Element
 }
 
 /**
@@ -36,14 +33,14 @@ interface DynamicOptions {
 export default function dynamic<Props extends object>(
   loader: DynamicLoader<Props>,
   options: DynamicOptions = {}
-): ComponentType<Props> {
+): Component<Props> {
   const { ssr = true, loading } = options
   const fallback = loading?.() ?? null
 
   const LazyComponent = lazy(async () => {
     const loaded = await loader()
-    if (isComponentType(loaded)) return { default: loaded as ComponentType<Props> }
-    return loaded as { default: ComponentType<Props> }
+    if (isComponent(loaded)) return { default: loaded as Component<Props> }
+    return loaded as { default: Component<Props> }
   })
 
   const DynamicComponent = (props: Props) => (

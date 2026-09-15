@@ -1,7 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { X } from 'lucide-react'
+import { createMemo, createSignal, For, Show } from 'solid-js'
+import { onMount } from 'solid-js'
+import { X } from 'lucide-solid'
 
 import * as gtm from '@nl/ui/gtm/events'
 import { EVENTS as GTM_EVENTS } from '@nl/ui/gtm/constants'
@@ -40,75 +41,64 @@ const multipliers: number[] = [2, 3, 2, 3, 4, 2]
 // Should be given from BE later
 const initEquipped: boolean[] = Array.from({ length: 6 }, () => false)
 
-const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) => {
+const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
   const openSnackbar = useOpenSnackbar()
-  const { comicsBalances, loadingComics } = useNFTsBalances()
-  const filteredComics = useMemo(
-    () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
-    [comicsBalances]
-  )
-  const [animationType, setAnimationType] = useState<string>('pose')
-  const [equipped, setEquipped] = useState<boolean[]>(initEquipped)
-  const [pendingEquipped, setPendingEquipped] = useState<boolean[]>(initEquipped)
+  const nfts = useNFTsBalances()
+  const filteredComics = () =>
+    nfts.comicsBalances.filter((comic) => comic.balance && comic.balance > 0)
+  const [animationType, setAnimationType] = createSignal<string>('pose')
+  const [equipped, setEquipped] = createSignal<boolean[]>(initEquipped)
+  const [pendingEquipped, setPendingEquipped] = createSignal<boolean[]>(initEquipped)
   const { animTypeActiveButton, animTypeButton, label, tag, title } = styles
 
-  useEffect(() => {
+  onMount(() => {
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_CLICKED)
-  }, [])
+  })
 
-  const handleEquip = useCallback(
-    (index: number) => {
-      const item = INVENTORIES[index]
-      if (item) {
-        const newEquipped = [...pendingEquipped]
-        // If bat, unequip existing bat.
-        if (index >= 3) {
-          for (let i = 3; i < 6; i++) {
-            newEquipped[i] = false
-          }
-        }
-        newEquipped[index] = true
-        setPendingEquipped(newEquipped)
-        const eventName = getInventoryAnalyticsEventName(item.name)
-        if (eventName) {
-          gtm.sendEvent(eventName)
+  const handleEquip = (index: number) => {
+    const item = INVENTORIES[index]
+    if (item) {
+      const newEquipped = [...pendingEquipped()]
+      // If bat, unequip existing bat.
+      if (index >= 3) {
+        for (let i = 3; i < 6; i++) {
+          newEquipped[i] = false
         }
       }
-    },
-    [pendingEquipped]
-  )
-
-  const handleUnequip = useCallback(
-    (index: number) => {
-      const slot = SLOTS[index]
-      if (slot) {
-        const newEquipped = [...pendingEquipped]
-        if (index >= 3) {
-          for (let i = 3; i < 6; i++) {
-            newEquipped[i] = false
-          }
-        } else {
-          newEquipped[index] = false
-        }
-        setPendingEquipped(newEquipped)
-        const eventName = getSlotAnalyticsEventName(slot.name)
-        if (eventName) {
-          gtm.sendEvent(eventName)
-        }
+      newEquipped[index] = true
+      setPendingEquipped(newEquipped)
+      const eventName = getInventoryAnalyticsEventName(item.name)
+      if (eventName) {
+        gtm.sendEvent(eventName)
       }
-    },
-    [pendingEquipped]
-  )
+    }
+  }
 
-  const stateChanged = useMemo(
-    () => !areValuesEqual(equipped, pendingEquipped),
-    [equipped, pendingEquipped]
-  )
+  const handleUnequip = (index: number) => {
+    const slot = SLOTS[index]
+    if (slot) {
+      const newEquipped = [...pendingEquipped()]
+      if (index >= 3) {
+        for (let i = 3; i < 6; i++) {
+          newEquipped[i] = false
+        }
+      } else {
+        newEquipped[index] = false
+      }
+      setPendingEquipped(newEquipped)
+      const eventName = getSlotAnalyticsEventName(slot.name)
+      if (eventName) {
+        gtm.sendEvent(eventName)
+      }
+    }
+  }
 
-  const handleSave = useCallback(() => {
+  const stateChanged = () => !areValuesEqual(equipped(), pendingEquipped())
+
+  const handleSave = () => {
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_STARTED)
     // Should call proper api here
-    setEquipped(pendingEquipped)
+    setEquipped(pendingEquipped())
     openSnackbar({
       open: true,
       message: 'Settings saved successfuly...',
@@ -117,50 +107,44 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
       close: false,
     })
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_SUCCESS)
-  }, [openSnackbar, pendingEquipped])
+  }
 
-  const getSlotImage = useCallback(
-    (index: number) => {
-      const slot = SLOTS[index]
-      if (slot) {
-        if (index < 3) {
-          return pendingEquipped[index] ? slot.filled : slot.empty
-        }
-        const slicedArr = pendingEquipped.slice(3)
-        const equippedBatIndex = slicedArr.findIndex((item) => !!item)
-        const filledArr = slot.filledArr
-        if (equippedBatIndex >= 0 && filledArr) {
-          return filledArr[equippedBatIndex]
-        } else {
-          return slot.empty
-        }
-      }
-    },
-    [pendingEquipped]
-  )
-
-  const isEquippedSlot = useCallback(
-    (index: number) => {
+  const getSlotImage = (index: number) => {
+    const slot = SLOTS[index]
+    if (slot) {
       if (index < 3) {
-        return pendingEquipped[index]
+        return pendingEquipped()[index] ? slot.filled : slot.empty
       }
-      const slicedArr = pendingEquipped.slice(3)
+      const slicedArr = pendingEquipped().slice(3)
       const equippedBatIndex = slicedArr.findIndex((item) => !!item)
-      return equippedBatIndex >= 0
-    },
-    [pendingEquipped]
-  )
+      const filledArr = slot.filledArr
+      if (equippedBatIndex >= 0 && filledArr) {
+        return filledArr[equippedBatIndex]
+      } else {
+        return slot.empty
+      }
+    }
+  }
 
-  const totalMultiplierApplied = useMemo(() => {
+  const isEquippedSlot = (index: number) => {
+    if (index < 3) {
+      return pendingEquipped()[index]
+    }
+    const slicedArr = pendingEquipped().slice(3)
+    const equippedBatIndex = slicedArr.findIndex((item) => !!item)
+    return equippedBatIndex >= 0
+  }
+
+  const totalMultiplierApplied = createMemo(() => {
     let totalMultipliers = 0
-    pendingEquipped.forEach((status, index) => {
+    pendingEquipped().forEach((status, index) => {
       if (status) totalMultipliers += multipliers[index] ?? 0
     })
     if (totalMultipliers > 0) {
       return `${totalMultipliers}X Earnings Multiplier`
     }
     return 'No Multiplier Applied'
-  }, [pendingEquipped])
+  })
 
   const handleSetPose = () => {
     gtm.sendEvent(GTM_EVENTS.DEGEN_EQUIP_ANIMATION_POSE_CLICKED)
@@ -172,136 +156,151 @@ const EquipDegenContentDialog = ({ degen, name }: EquipDegenContentDialogProps) 
     setAnimationType('rotate')
   }
 
-  if (filteredComics.length === 0) {
-    if (loadingComics) {
-      return (
-        <div className="flex flex-row items-center justify-center h-[200px] mx-auto">
-          <CircularProgress size="xl" />
-        </div>
-      )
-    }
-    return (
-      <div className="flex flex-wrap items-center justify-center h-[200px]">
-        <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
-          <EmptyState message="You don't own any Comics yet." buttonText="Buy a Comic" noBorder />
-        </a>
-      </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col py-2 max-w-[330px] mx-auto gap-2">
-      <div
-        className="flex flex-row items-center justify-center p-2.5 mx-2.5"
-        style={{ backgroundColor: '#262930' }}
-      >
-        <Title level={5} className={title}>
-          {name || `DEGEN #${degen?.id}`}
-        </Title>
-      </div>
-      <div className="flex flex-row mt-[18px]">
-        <div className="flex flex-col items-center">
-          <span className={cn(label, 'text-base mb-4')}>SLOTS</span>
-          <div className="flex flex-col gap-6">
-            {SLOTS.map((slot, index) => (
-              <div key={slot.name} className="relative" style={{ width: 40, height: 40 }}>
-                {getSlotImage(index)}
-                {isEquippedSlot(index) && (
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    aria-label={`Unequip ${slot.name}`}
-                    className={cn(
-                      tag,
-                      'flex h-3 w-3 items-center justify-center border-0 p-0 cursor-pointer'
-                    )}
-                    onClick={() => handleUnequip(index)}
-                  >
-                    <X
-                      aria-hidden="true"
-                      absoluteStrokeWidth
-                      size={12}
-                      strokeWidth={1.5}
-                      className="cursor-pointer"
-                    />
-                  </Button>
+    <Show
+      when={filteredComics().length > 0}
+      fallback={
+        <Show
+          when={!nfts.loadingComics}
+          fallback={
+            <div class="flex flex-row items-center justify-center h-[200px] mx-auto">
+              <CircularProgress size="xl" />
+            </div>
+          }
+        >
+          <div class="flex flex-wrap items-center justify-center h-[200px]">
+            <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+              <EmptyState
+                message="You don't own any Comics yet."
+                buttonText="Buy a Comic"
+                noBorder
+              />
+            </a>
+          </div>
+        </Show>
+      }
+    >
+      <div class="flex flex-col py-2 max-w-[330px] mx-auto gap-2">
+        <div
+          class="flex flex-row items-center justify-center p-2.5 mx-2.5"
+          style={{ 'background-color': '#262930' }}
+        >
+          <Title level={5} class={title}>
+            {props.name || `DEGEN #${props.degen?.id}`}
+          </Title>
+        </div>
+        <div class="flex flex-row mt-[18px]">
+          <div class="flex flex-col items-center">
+            <span class={cn(label, 'text-base mb-4')}>SLOTS</span>
+            <div class="flex flex-col gap-6">
+              <For each={SLOTS}>
+                {(slot, index) => (
+                  <div class="relative" style={{ width: '40px', height: '40px' }}>
+                    {getSlotImage(index())}
+                    <Show when={isEquippedSlot(index())}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label={`Unequip ${slot.name}`}
+                        class={cn(
+                          tag,
+                          'flex h-3 w-3 items-center justify-center border-0 p-0 cursor-pointer'
+                        )}
+                        onClick={() => handleUnequip(index())}
+                      >
+                        <X aria-hidden="true" size={12} stroke-width={1.5} class="cursor-pointer" />
+                      </Button>
+                    </Show>
+                  </div>
                 )}
-              </div>
-            ))}
+              </For>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col mt-[22px] ml-[30px] mr-[12px]">
-          {degen?.id && (
-            <DegenImage
-              sx={{ objectFit: 'cover', width: 183, height: 244, borderRadius: '10px' }}
-              tokenId={degen.id}
-            />
-          )}
-          <div className="flex flex-row mt-[10px] gap-[12px]">
-            <Button
-              variant="default"
-              className={cn(
-                'w-full',
-                animationType === 'pose' ? animTypeActiveButton : animTypeButton
+          <div class="flex flex-col mt-[22px] ml-[30px] mr-[12px]">
+            <Show when={props.degen?.id}>
+              {(id) => (
+                <DegenImage
+                  sx={{
+                    'object-fit': 'cover',
+                    width: '183px',
+                    height: '244px',
+                    'border-radius': '10px',
+                  }}
+                  tokenId={id()}
+                />
               )}
-              onClick={handleSetPose}
-            >
-              POSE
-            </Button>
-            <Button
-              variant="default"
-              className={cn(
-                'w-full',
-                animationType === 'rotate' ? animTypeActiveButton : animTypeButton
-              )}
-              onClick={handleSetRotate}
-            >
-              ROTATE
-            </Button>
-          </div>
-          <span
-            className={cn(label, 'text-base mx-auto font-bold')}
-            style={{ marginTop: 18, marginBottom: 18 }}
-          >
-            {totalMultiplierApplied}
-          </span>
-          <Button
-            variant="default"
-            disabled={!stateChanged}
-            className="mx-auto w-[116px]"
-            onClick={handleSave}
-          >
-            SAVE
-          </Button>
-        </div>
-        <div className="flex flex-col items-center">
-          <span className={cn(label, 'text-base mb-4 text-center')}>INVENTORY</span>
-          <div className="flex flex-col gap-[10px]">
-            {INVENTORIES.map((inventory, index) => (
-              <div
-                key={inventory.name}
-                onClick={() => handleEquip(index)}
-                className="relative"
-                style={{
-                  width: 30,
-                  height: 30,
-                  cursor: pendingEquipped[index] ? 'inherit' : 'pointer',
-                }}
+            </Show>
+            <div class="flex flex-row mt-[10px] gap-[12px]">
+              <Button
+                variant="default"
+                class={cn(
+                  'w-full',
+                  animationType() === 'pose' ? animTypeActiveButton : animTypeButton
+                )}
+                onClick={handleSetPose}
               >
-                {pendingEquipped[index] ? inventory.empty : inventory.filled}
-                {!pendingEquipped[index] && (multipliers[index] ?? 0) >= 2 && (
-                  <div
-                    className={cn(tag, 'flex items-center justify-center')}
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                  >{`${multipliers[index]}x`}</div>
+                POSE
+              </Button>
+              <Button
+                variant="default"
+                class={cn(
+                  'w-full',
+                  animationType() === 'rotate' ? animTypeActiveButton : animTypeButton
                 )}
-              </div>
-            ))}
+                onClick={handleSetRotate}
+              >
+                ROTATE
+              </Button>
+            </div>
+            <span
+              class={cn(label, 'text-base mx-auto font-bold')}
+              style={{ 'margin-top': '18px', 'margin-bottom': '18px' }}
+            >
+              {totalMultiplierApplied()}
+            </span>
+            <Button
+              variant="default"
+              disabled={!stateChanged()}
+              class="mx-auto w-[116px]"
+              onClick={handleSave}
+            >
+              SAVE
+            </Button>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class={cn(label, 'text-base mb-4 text-center')}>INVENTORY</span>
+            <div class="flex flex-col gap-[10px]">
+              <For each={INVENTORIES}>
+                {(inventory, index) => (
+                  <div
+                    onClick={() => handleEquip(index())}
+                    class="relative"
+                    style={{
+                      width: '30px',
+                      height: '30px',
+                      cursor: pendingEquipped()[index()] ? 'inherit' : 'pointer',
+                    }}
+                  >
+                    {pendingEquipped()[index()] ? inventory.empty : inventory.filled}
+                    <Show when={!pendingEquipped()[index()] && (multipliers[index()] ?? 0) >= 2}>
+                      <div
+                        class={cn(tag, 'flex items-center justify-center')}
+                        style={{
+                          display: 'flex',
+                          'align-items': 'center',
+                          'justify-content': 'center',
+                        }}
+                      >{`${multipliers[index()]}x`}</div>
+                    </Show>
+                  </div>
+                )}
+              </For>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Show>
   )
 }
 

@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router'
+import { Outlet, createFileRoute } from '@tanstack/solid-router'
 
 import PublicContentContainer from '@/components/wrapper/PublicContentContainer'
 import { buildHead } from '@/runtime/metadata'

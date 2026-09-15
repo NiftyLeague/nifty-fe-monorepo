@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, spyOn, jest } from 'bun:test'
 import { mock } from 'bun:test'
 import { useCopyToClipboard } from './useCopyToClipboard'
@@ -16,7 +16,7 @@ describe('useCopyToClipboard', () => {
     await act(async () => expect(await result.current[1]('nifty')).toBe(true))
 
     expect(writeText).toHaveBeenCalledWith('nifty')
-    expect(result.current[0]).toBe('nifty')
+    expect(result.current[0]()).toBe('nifty')
   })
 
   it('reports clipboard failures without retaining stale text', async () => {
@@ -28,7 +28,7 @@ describe('useCopyToClipboard', () => {
     const { result } = renderHook(() => useCopyToClipboard())
 
     await act(async () => expect(await result.current[1]('blocked')).toBe(false))
-    expect(result.current[0]).toBeNull()
+    expect(result.current[0]()).toBeNull()
   })
 })
 
@@ -48,10 +48,10 @@ describe('useMediaQuery', () => {
     spyOn(window, 'matchMedia').mockReturnValue(media as never)
     const { result, unmount } = renderHook(() => useMediaQuery('(min-width: 900px)'))
 
-    expect(result.current).toBe(false)
+    expect(result.current()).toBe(false)
     matches = true
     act(() => listener?.())
-    expect(result.current).toBe(true)
+    expect(result.current()).toBe(true)
     unmount()
     expect(media.removeListener).toHaveBeenCalled()
   })
@@ -72,8 +72,8 @@ describe('useMediaQuery', () => {
 
     expect(matchMedia).toHaveBeenCalledTimes(1)
     expect(media.addListener).toHaveBeenCalledTimes(1)
-    expect(first.result.current).toBe(true)
-    expect(second.result.current).toBe(true)
+    expect(first.result.current()).toBe(true)
+    expect(second.result.current()).toBe(true)
 
     first.unmount()
     expect(media.removeListener).not.toHaveBeenCalled()
@@ -97,11 +97,11 @@ describe('useMediaQuery', () => {
 
     expect(matchMedia).toHaveBeenCalledTimes(1)
     expect(media.addEventListener).toHaveBeenCalledWith('change', expect.any(Function))
-    expect(hook.result.current).toBe(false)
+    expect(hook.result.current()).toBe(false)
 
     media.matches = true
     act(() => listener?.())
-    expect(hook.result.current).toBe(true)
+    expect(hook.result.current()).toBe(true)
 
     hook.unmount()
     expect(media.removeEventListener).toHaveBeenCalledWith('change', expect.any(Function))
@@ -122,16 +122,17 @@ describe('useStopwatch', () => {
     )
 
     act(() => result.current.start())
-    expect(result.current.status).toBe(STATUS.RUNNING)
+    expect(result.current.status()).toBe(STATUS.RUNNING)
     act(() => jest.advanceTimersByTime(10))
-    expect(result.current.milliseconds).toBe(10)
+    expect(result.current.milliseconds()).toBe(10)
 
     act(() => result.current.pause())
-    expect(result.current.status).toBe(STATUS.PAUSED)
+    expect(result.current.status()).toBe(STATUS.PAUSED)
     act(() => result.current.restart())
-    expect(result.current.status).toBe(STATUS.RUNNING)
+    expect(result.current.status()).toBe(STATUS.RUNNING)
     act(() => result.current.stop())
-    expect(result.current).toMatchObject({ status: STATUS.STOPPED, milliseconds: 0 })
+    expect(result.current.status()).toBe(STATUS.STOPPED)
+    expect(result.current.milliseconds()).toBe(0)
     expect(
       [onStart, onPause, onRestart, onStop].every((callback) => callback.mock.calls.length === 1)
     ).toBe(true)
@@ -152,21 +153,17 @@ describe('useOrientation', () => {
     matchMedia.mockClear()
     const hook = renderHook(() => useOrientation())
 
-    expect(hook.result.current).toEqual({
-      orientation: 'landscape',
-      isPortrait: false,
-      isLandscape: true,
-    })
+    expect(hook.result.current.orientation()).toBe('landscape')
+    expect(hook.result.current.isPortrait()).toBe(false)
+    expect(hook.result.current.isLandscape()).toBe(true)
     expect(matchMedia).toHaveBeenCalledWith('(orientation: portrait)')
 
     media.matches = true
     act(() => listener?.())
 
-    expect(hook.result.current).toEqual({
-      orientation: 'portrait',
-      isPortrait: true,
-      isLandscape: false,
-    })
+    expect(hook.result.current.orientation()).toBe('portrait')
+    expect(hook.result.current.isPortrait()).toBe(true)
+    expect(hook.result.current.isLandscape()).toBe(false)
 
     hook.unmount()
     expect(media.removeEventListener).toHaveBeenCalledWith('change', expect.any(Function))

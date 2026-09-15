@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import type { Degen } from '@/types/degens'
@@ -7,7 +7,7 @@ let PublicDegenDialog: typeof import('./PublicDegenDialog').default
 
 beforeEach(async () => {
   mock.module('@/components/cards/DegenCard/DegenImage', () => ({
-    default: ({ tokenId, sx }: { tokenId: string | number; sx?: React.CSSProperties }) => (
+    default: ({ tokenId, sx }: { tokenId: string | number; sx?: JSX.CSSProperties }) => (
       <div data-testid="degen-image" style={sx}>
         {tokenId}
       </div>
@@ -29,7 +29,7 @@ describe('PublicDegenDialog', () => {
       traits_string: 'blue, cap',
     } as Degen
 
-    render(<PublicDegenDialog open degen={degen} onClose={onClose} />)
+    render(() => <PublicDegenDialog open degen={degen} onClose={onClose} />)
 
     expect(screen.getByRole('dialog', { name: 'Audit Ape' })).not.toBeNull()
     expect(screen.getByText('blue')).not.toBeNull()
@@ -40,7 +40,7 @@ describe('PublicDegenDialog', () => {
   })
 
   it('maps numeric trait ids to readable trait names and values', () => {
-    render(
+    render(() => (
       <PublicDegenDialog
         open
         degen={{
@@ -50,7 +50,7 @@ describe('PublicDegenDialog', () => {
         }}
         onClose={() => {}}
       />
-    )
+    ))
 
     expect(screen.getByText('Tribe')).not.toBeNull()
     expect(screen.getByText('Ape')).not.toBeNull()

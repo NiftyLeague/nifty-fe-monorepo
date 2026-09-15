@@ -1,5 +1,5 @@
-'use client'
-
+import { splitProps, type JSX } from 'solid-js'
+import { spread } from 'solid-js/web'
 import { type VariantProps } from 'class-variance-authority'
 import { Button, buttonVariants } from '@nl/ui/base/button'
 import NativeImage from '@nl/ui/custom/native-image'
@@ -13,52 +13,55 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@nl/ui/base/dialog'
-import React from 'react'
 
 interface DialogProps {
   cancelText?: string
   cancelVariant?: VariantProps<typeof buttonVariants>['variant']
   confirmText?: string
   confirmVariant?: VariantProps<typeof buttonVariants>['variant']
+  children?: JSX.Element
   defaultOpen?: boolean
-  description: string | React.ReactNode
+  description: string | JSX.Element
   hideDescription?: boolean
   hideTitle?: boolean
-  onCancel?: React.MouseEventHandler<HTMLButtonElement>
-  onConfirm?: React.MouseEventHandler<HTMLButtonElement>
+  onCancel?: (event: MouseEvent) => void
+  onConfirm?: (event: MouseEvent) => void
   onOpenChange?: (open: boolean) => void
   open?: boolean
   showCloseButton?: boolean
-  title: string | React.ReactNode
-  triggerElement?: React.ReactNode
+  title: string | JSX.Element
+  triggerElement?: JSX.Element
 }
 
-export function Dialog({
-  children: content,
-  cancelText = 'Cancel',
-  cancelVariant = 'outline',
-  confirmText = 'Continue',
-  confirmVariant = 'default',
-  defaultOpen,
-  description,
-  hideDescription = false,
-  hideTitle = false,
-  onCancel,
-  onConfirm,
-  onOpenChange,
-  open,
-  showCloseButton = true,
-  title,
-  triggerElement,
-}: React.PropsWithChildren<DialogProps>) {
+export function Dialog(props: DialogProps) {
+  const [local] = splitProps(props, [
+    'children',
+    'description',
+    'hideDescription',
+    'hideTitle',
+    'onConfirm',
+    'showCloseButton',
+    'title',
+    'triggerElement',
+  ])
+  const content = local.children
+
+  // Kobalte has no `asChild` slot: `as` swaps in a component. `triggerElement`
+  // is a rendered DOM element, so its props are applied imperatively.
+  const triggerAs = (triggerProps: Record<string, unknown>) => {
+    const element = local.triggerElement as HTMLElement | undefined
+    if (element) spread(element, triggerProps, false, true)
+    return element
+  }
+
   return (
-    <DialogBase defaultOpen={defaultOpen} open={open} onOpenChange={onOpenChange}>
-      <DialogTrigger asChild>{triggerElement}</DialogTrigger>
-      <DialogContent showCloseButton={showCloseButton}>
+    <DialogBase defaultOpen={props.defaultOpen} open={props.open} onOpenChange={props.onOpenChange}>
+      <DialogTrigger as={triggerAs} />
+      <DialogContent showCloseButton={local.showCloseButton ?? true}>
         <DialogHeader>
           <DialogTitle
-            className={
-              hideTitle
+            class={
+              local.hideTitle
                 ? 'hidden'
                 : 'bg-background grid grid-cols-[40px_1fr_40px] gap-4 items-center text-2xl md:text-3xl'
             }
@@ -70,31 +73,34 @@ export function Dialog({
               height={42}
               loading="eager"
             />
-            {title}
+            {local.title}
           </DialogTitle>
-          <DialogDescription className={hideDescription ? 'hidden' : ''}>
-            {description}
+          <DialogDescription class={local.hideDescription ? 'hidden' : ''}>
+            {local.description}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="max-h-[75vh] overflow-y-auto overflow-x-hidden -m-6 p-6 mt-0 pt-0">
-          <div className="grid grid-cols-1 gap-4 text-center sm:text-left">{content}</div>
+        <div class="max-h-[75vh] overflow-y-auto overflow-x-hidden -m-6 p-6 mt-0 pt-0">
+          <div class="grid grid-cols-1 gap-4 text-center sm:text-left">{content}</div>
         </div>
 
-        {onConfirm && (
+        {local.onConfirm && (
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant={cancelVariant} onClick={onCancel} className="cursor-pointer">
-                {cancelText}
-              </Button>
+            <DialogClose
+              as={Button}
+              variant={props.cancelVariant ?? 'outline'}
+              onClick={props.onCancel}
+              class="cursor-pointer"
+            >
+              {props.cancelText ?? 'Cancel'}
             </DialogClose>
             <Button
               type="submit"
-              variant={confirmVariant}
-              onClick={onConfirm}
-              className="cursor-pointer"
+              variant={props.confirmVariant ?? 'default'}
+              onClick={local.onConfirm}
+              class="cursor-pointer"
             >
-              {confirmText}
+              {props.confirmText ?? 'Continue'}
             </Button>
           </DialogFooter>
         )}

@@ -3,14 +3,15 @@ import { Title } from '@nl/ui/custom/typography'
 import type { GenericCardProps } from '@/types'
 // project imports
 import MainCard from './MainCard'
+import type { JSX } from 'solid-js'
 
 // ============================|| HOVER DATA CARD ||============================ //
 
 interface HoverDataCardProps extends Omit<GenericCardProps, 'title'> {
-  customStyle?: React.CSSProperties
-  actions?: React.ReactNode
+  customStyle?: JSX.CSSProperties
+  actions?: JSX.Element
   isLoading?: boolean
-  title?: string | React.ReactNode
+  title?: string | JSX.Element
 }
 
 const HoverDataCard = ({
@@ -22,32 +23,32 @@ const HoverDataCard = ({
   isLoading,
 }: HoverDataCardProps) => (
   <MainCard sx={customStyle ?? {}}>
-    <div className="flex flex-col items-center justify-between">
-      <div className="w-full">
+    <div class="flex flex-col items-center justify-between">
+      <div class="w-full">
         {isLoading ? (
-          <DeferredSkeleton className="h-5 w-20" />
+          <DeferredSkeleton class="h-5 w-20" />
         ) : (
-          <Title level={4} className="text-center">
+          <Title level={4} class="text-center">
             {title}
           </Title>
         )}
       </div>
-      <div className="w-full">
-        <div className="mt-1.75 mb-0.5 flex flex-row justify-center gap-1">
+      <div class="w-full">
+        <div class="mt-1.75 mb-0.5 flex flex-row justify-center gap-1">
           {isLoading ? (
-            <DeferredSkeleton className="h-5 w-20" />
+            <DeferredSkeleton class="h-5 w-20" />
           ) : (
-            <span className="text-base font-bold">{primary}</span>
+            <span class="text-base font-bold">{primary}</span>
           )}
         </div>
       </div>
       {secondary && (
-        <div className="mb-1.75 w-full">
-          <div className="flex flex-row justify-center gap-1">
+        <div class="mb-1.75 w-full">
+          <div class="flex flex-row justify-center gap-1">
             {isLoading ? (
-              <DeferredSkeleton className="h-5 w-30" />
+              <DeferredSkeleton class="h-5 w-30" />
             ) : (
-              <span className="text-sm text-muted-foreground">{secondary}</span>
+              <span class="text-sm text-muted-foreground">{secondary}</span>
             )}
           </div>
         </div>

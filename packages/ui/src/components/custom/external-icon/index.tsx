@@ -1,22 +1,22 @@
-import type { SVGProps } from 'react'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'
 
-export function ExternalIcon({ className = '', ...props }: SVGProps<SVGSVGElement>) {
+export function ExternalIcon(props: ComponentProps<'svg'> & { className?: string }) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <svg
-      {...props}
+      {...others}
       width={14}
       height={14}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={cx('ml-1 mb-1.5 inline-block shrink-0 cursor-pointer', className)}
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={cx('ml-1 mb-1.5 inline-block shrink-0 cursor-pointer', local.class, local.className)}
       aria-hidden="true"
-      focusable="false"
     >
       <path d="M15 3h6v6" />
       <path d="M10 14 21 3" />

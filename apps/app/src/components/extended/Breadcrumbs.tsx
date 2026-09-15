@@ -1,5 +1,6 @@
 'use client'
 
+import { Show } from 'solid-js'
 import Link from '@/runtime/Link'
 
 import { AppNavIcon } from '@/components/AppNavIcon'
@@ -53,138 +54,114 @@ const findBreadcrumb = (navigation: NavItemTypeObject | undefined, pathname: str
 
 // ==============================|| BREADCRUMBS ||============================== //
 
-const Breadcrumbs = ({
-  card,
-  divider,
-  icon,
-  icons,
-  navigation,
-  pathname = '',
-  rightAlign,
-  separator,
-  title,
-  titleBottom,
-  ...others
-}: BreadCrumbsProps) => {
+const Breadcrumbs = (props: BreadCrumbsProps) => {
+  const pathname = () => props.pathname ?? ''
   const iconStyle = {
-    marginRight: '6px',
-    marginTop: '-2px',
+    'margin-right': '6px',
+    'margin-top': '-2px',
     width: '16px',
     height: '16px',
   }
 
-  const { main, item } = findBreadcrumb(navigation, pathname)
+  const crumbs = () => findBreadcrumb(props.navigation, pathname())
 
   // item separator
-  const separatorIcon = <AppNavIcon name={separator || 'tally-1'} size="sm" />
+  const separatorIcon = () => <AppNavIcon name={props.separator || 'tally-1'} size="sm" />
 
-  let mainContent
-  let itemContent
-  let breadcrumbContent: React.ReactElement = <span />
-
-  // collapse item
-  if (main && main.type === 'collapse') {
-    mainContent = (
-      <Link
-        key="main"
-        href="#"
-        className="flex items-center text-sm font-medium text-foreground no-underline"
-      >
-        {icons && <AppNavIcon name={main.icon ?? 'list-tree'} style={iconStyle} />}
-        {main.title}
-      </Link>
-    )
-  }
-
-  // items
-  if (item && item.type === 'item') {
-    itemContent = (
-      <span
-        key="item"
-        className="flex items-center text-sm font-medium text-muted-foreground"
-        style={{ textDecoration: 'none' }}
-      >
-        {icons && <AppNavIcon name={item.icon ?? 'list-tree'} style={iconStyle} />}
-        {item.title}
-      </span>
-    )
-
-    // main
-    if (item.breadcrumbs !== false) {
-      breadcrumbContent = (
-        <div
-          className={cx(
-            'mb-6',
-            card === false ? 'border-none bg-transparent' : 'border bg-background'
-          )}
-          style={{ marginBottom: card === false ? 0 : gridSpacing * 8 }}
-          {...others}
-        >
-          <div className={cx(card === false ? 'py-2 pr-2 pl-0' : 'p-2')}>
-            <div
-              className={cx(
-                rightAlign
-                  ? 'flex flex-row items-center justify-between'
-                  : 'flex flex-col items-start justify-start'
-              )}
-            >
-              {title && !titleBottom && (
-                <h3 className="font-medium text-foreground" style={{ fontWeight: 500 }}>
-                  {item.title}
-                </h3>
-              )}
-              <nav aria-label="breadcrumb" className="flex items-center">
-                {[
+  return (
+    <Show
+      when={(() => {
+        const { item } = crumbs()
+        return item && item.type === 'item' && item.breadcrumbs !== false ? item : null
+      })()}
+      keyed
+    >
+      {(item) => {
+        const main = crumbs().main
+        return (
+          <div
+            class={cx(
+              'mb-6',
+              props.card === false ? 'border-none bg-transparent' : 'border bg-background'
+            )}
+            style={{ 'margin-bottom': props.card === false ? '0' : `${gridSpacing * 8}px` }}
+          >
+            <div class={cx(props.card === false ? 'py-2 pr-2 pl-0' : 'p-2')}>
+              <div
+                class={cx(
+                  props.rightAlign
+                    ? 'flex flex-row items-center justify-between'
+                    : 'flex flex-col items-start justify-start'
+                )}
+              >
+                <Show when={props.title && !props.titleBottom}>
+                  <h3 class="font-medium text-foreground" style={{ 'font-weight': '500' }}>
+                    {item.title}
+                  </h3>
+                </Show>
+                <nav aria-label="breadcrumb" class="flex items-center">
                   <Link
-                    key="home"
                     href="/"
-                    className="flex items-center text-sm font-medium no-underline"
+                    class="flex items-center text-sm font-medium no-underline"
                     style={{ color: 'inherit' }}
                   >
-                    {icons && <AppNavIcon name="house" color="blue" fill="dim" style={iconStyle} />}
-                    {icon && (
+                    <Show when={props.icons}>
+                      <AppNavIcon name="house" color="blue" fill="dim" style={iconStyle} />
+                    </Show>
+                    <Show when={props.icon}>
                       <AppNavIcon
                         name="house"
                         color="blue"
-                        style={{ ...iconStyle, marginRight: 0 }}
+                        style={{ ...iconStyle, 'margin-right': '0' }}
                       />
+                    </Show>
+                    <Show when={!props.icon}>Dashboard</Show>
+                  </Link>
+                  <Show when={main && main.type === 'collapse' ? main : null} keyed>
+                    {(mainItem) => (
+                      <>
+                        <span class="mx-1.25 flex w-4 items-center">{separatorIcon()}</span>
+                        <Link
+                          href="#"
+                          class="flex items-center text-sm font-medium text-foreground no-underline"
+                        >
+                          <Show when={props.icons}>
+                            <AppNavIcon name={mainItem.icon ?? 'list-tree'} style={iconStyle} />
+                          </Show>
+                          {mainItem.title}
+                        </Link>
+                      </>
                     )}
-                    {!icon && 'Dashboard'}
-                  </Link>,
-                  mainContent,
-                  itemContent,
-                ]
-                  .filter(Boolean)
-                  .flatMap((crumb, index, all) =>
-                    index === all.length - 1
-                      ? [crumb]
-                      : [
-                          crumb,
-                          <span key={`sep-${index}`} className="mx-1.25 flex w-4 items-center">
-                            {separatorIcon}
-                          </span>,
-                        ]
-                  )}
-              </nav>
-              {title && titleBottom && (
-                <h3 className="font-medium text-foreground" style={{ fontWeight: 500 }}>
-                  {item.title}
-                </h3>
-              )}
+                  </Show>
+                  <span class="mx-1.25 flex w-4 items-center">{separatorIcon()}</span>
+                  <span
+                    class="flex items-center text-sm font-medium text-muted-foreground"
+                    style={{ 'text-decoration': 'none' }}
+                  >
+                    <Show when={props.icons}>
+                      <AppNavIcon name={item.icon ?? 'list-tree'} style={iconStyle} />
+                    </Show>
+                    {item.title}
+                  </span>
+                </nav>
+                <Show when={props.title && props.titleBottom}>
+                  <h3 class="font-medium text-foreground" style={{ 'font-weight': '500' }}>
+                    {item.title}
+                  </h3>
+                </Show>
+              </div>
             </div>
+            <Show when={props.card === false && props.divider !== false}>
+              <Separator
+                class="mb-6 bg-[var(--color-purple)] opacity-60"
+                style={{ 'margin-bottom': `${gridSpacing * 8}px` }}
+              />
+            </Show>
           </div>
-          {card === false && divider !== false && (
-            <Separator
-              className="mb-6 bg-[var(--color-purple)] opacity-60"
-              style={{ marginBottom: gridSpacing * 8 }}
-            />
-          )}
-        </div>
-      )
-    }
-  }
-
-  return breadcrumbContent
+        )
+      }}
+    </Show>
+  )
 }
 
 export default Breadcrumbs

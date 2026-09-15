@@ -1,7 +1,8 @@
-import type { ComponentProps } from 'react'
-import type { PropsWithChildren } from 'react'
-import { render, screen } from '@testing-library/react'
+import type { ComponentProps } from 'solid-js'
+
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 describe('flagship game list', () => {
   beforeEach(() => {
@@ -11,7 +12,7 @@ describe('flagship game list', () => {
         href,
         prefetch,
         ...props
-      }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
+      }: { href: string; prefetch?: boolean } & { children?: JSX.Element }) => (
         <a href={href} data-prefetch={String(prefetch)} {...props}>
           {children}
         </a>
@@ -31,7 +32,7 @@ describe('flagship game list', () => {
   it('prioritizes the first game artwork while deferring later cards', async () => {
     const { default: GameList } = await import('./index')
 
-    render(<GameList />)
+    render(() => <GameList />)
 
     const firstCardImage = screen.getByAltText('Nifty Smashers (Beta)')
     const secondCardImage = screen.getByAltText('Party Royale (Early-Alpha)')
@@ -50,7 +51,7 @@ describe('flagship game list', () => {
   it('keeps game cards in the page heading hierarchy', async () => {
     const { default: GameList } = await import('./index')
 
-    render(<GameList />)
+    render(() => <GameList />)
 
     const heading = screen.getByRole('heading', { level: 3, name: 'Nifty Smashers (Beta)' })
 
@@ -65,7 +66,7 @@ describe('flagship game list', () => {
   it('links flagship cards to their primary destinations while preserving store actions', async () => {
     const { default: GameList } = await import('./index')
 
-    render(<GameList />)
+    render(() => <GameList />)
 
     expect(screen.getByRole('link', { name: 'Open Nifty Smashers' }).getAttribute('href')).toBe(
       'https://niftysmashers.com/'

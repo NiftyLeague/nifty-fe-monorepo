@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from '@/runtime/navigation'
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 import { immutableZkEvmTestnet } from 'viem/chains'
 
 import {
@@ -15,23 +15,26 @@ import IMXContext from '@/contexts/IMXContext'
 import NetworkContext from '@/contexts/NetworkContext'
 import NFTsBalanceContext from '@/contexts/NFTsBalanceContext'
 import type { Contracts } from '@/types/web3'
+import type { JSX } from 'solid-js'
 
 const auditComics = COMICS.map((comic, index) => ({ ...comic, balance: index === 0 ? 1 : 0 }))
 const auditItems = ITEMS.map((item, index) => ({ ...item, balance: index === 0 ? 1 : 0 }))
 
-export default function AuditFixtureWalletContextWrapper({
-  children,
-}: PropsWithChildren): React.ReactNode {
+export default function AuditFixtureWalletContextWrapper(props: ParentProps): JSX.Element {
   const pathname = usePathname()
-  const isProtectedSurface = pathname?.startsWith('/dashboard') ?? false
+  const isProtectedSurface = () => pathname()?.startsWith('/dashboard') ?? false
 
   return (
     <AuthTokenContext.Provider
       value={{
-        authToken: isProtectedSurface ? AUDIT_FIXTURE_TOKEN : undefined,
+        get authToken() {
+          return isProtectedSurface() ? AUDIT_FIXTURE_TOKEN : undefined
+        },
         handleConnectWallet: async () => {},
         isConnected: false,
-        isLoggedIn: isProtectedSurface,
+        get isLoggedIn() {
+          return isProtectedSurface()
+        },
       }}
     >
       <IMXContext.Provider
@@ -70,7 +73,7 @@ export default function AuditFixtureWalletContextWrapper({
               refreshItemsBalances: () => {},
             }}
           >
-            {children}
+            {props.children}
           </NFTsBalanceContext.Provider>
         </NetworkContext.Provider>
       </IMXContext.Provider>

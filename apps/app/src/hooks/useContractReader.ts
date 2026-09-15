@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useMemo } from 'react'
+import { createSignal, type Accessor } from 'solid-js'
 import type { Contracts } from '@/types/web3'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
 import { areValuesEqual } from '@/utils/value-equality'
@@ -24,7 +24,7 @@ import useAsyncInterval from './useAsyncInterval'
 */
 
 export default function useContractReader(
-  contracts: Contracts,
+  contracts: Contracts | Accessor<Contracts>,
   contractName: keyof Contracts,
   functionName: string,
   args?: unknown[],
@@ -32,18 +32,19 @@ export default function useContractReader(
   formatter?: (value: unknown) => void,
   refreshKey?: string | number,
   skip: boolean = false
-): unknown {
-  const [value, setValue] = useState()
-  // Memoize args by serialization so a new-but-equivalent args array does not
-  // restart the polling interval. The string is a simple dependency expression.
+): Accessor<unknown> {
+  const [value, setValue] = createSignal<unknown>()
+  const resolveContracts = () => (typeof contracts === 'function' ? contracts() : contracts)
+  // args are compared by serialization so a new-but-equivalent array does not
+  // restart the polling interval.
   const argsKey = JSON.stringify(args)
-  const argsMemoized = useMemo(() => args, [argsKey])
 
-  const readContract = useCallback(async () => {
-    if (!skip && contracts && contracts[contractName]) {
+  const readContract = async () => {
+    const activeContracts = resolveContracts()
+    if (!skip && activeContracts && activeContracts[contractName]) {
       try {
-        let newValue
-        const contract = contracts[contractName] as BaseContract as Contract
+        let newValue: unknown
+        const contract = activeContracts[contractName] as BaseContract as Contract
         if (contract) {
           const fn = contract[functionName] as ContractMethod
           if (fn && args && args.length > 0) {
@@ -53,16 +54,16 @@ export default function useContractReader(
           }
         }
         if (formatter && typeof formatter === 'function') newValue = formatter(newValue)
-        if (!areValuesEqual(newValue, value)) setValue(newValue)
+        if (!areValuesEqual(newValue, value())) setValue(() => newValue)
         return
       } catch (e) {
         console.error('Read Contract Error:', contractName, e)
       }
     }
     return
-  }, [argsMemoized, contractName, contracts, formatter, functionName, refreshKey, skip, value])
+  }
 
-  useAsyncInterval(readContract, pollTime, true, JSON.stringify(args))
+  useAsyncInterval(readContract, pollTime, true, argsKey, refreshKey)
 
   return value
 }

@@ -1,6 +1,6 @@
-import type { CSSProperties } from 'react'
+import { splitProps, type ComponentProps, type JSX } from 'solid-js'
 
-export type NativeImageProps = Omit<React.ComponentProps<'img'>, 'loading'> & {
+export type NativeImageProps = Omit<ComponentProps<'img'>, 'loading'> & {
   fill?: boolean
   loading?: 'eager' | 'lazy'
   priority?: boolean
@@ -12,28 +12,33 @@ export type NativeImageProps = Omit<React.ComponentProps<'img'>, 'loading'> & {
  * It preserves the sizing contract used by next/image without importing its
  * stateful client runtime into the bundle.
  */
-export function NativeImage({
-  fill,
-  fetchPriority,
-  loading,
-  priority,
-  style,
-  unoptimized: _unoptimized,
-  ...props
-}: NativeImageProps) {
-  const resolvedLoading = priority ? 'eager' : (loading ?? 'lazy')
+export function NativeImage(props: NativeImageProps) {
+  const [local, others] = splitProps(props, [
+    'fill',
+    'fetchpriority',
+    'loading',
+    'priority',
+    'style',
+    'unoptimized',
+    'decoding',
+  ])
+  const resolvedLoading = () => (local.priority ? 'eager' : (local.loading ?? 'lazy'))
 
-  const imageStyle: CSSProperties | undefined = fill
-    ? { position: 'absolute', inset: 0, width: '100%', height: '100%', ...style }
-    : style
+  const fillStyle = (): JSX.CSSProperties => ({
+    position: 'absolute',
+    inset: '0',
+    width: '100%',
+    height: '100%',
+    ...(typeof local.style === 'object' ? local.style : {}),
+  })
 
   return (
     <img
-      {...props}
-      decoding={props.decoding ?? 'async'}
-      fetchPriority={fetchPriority ?? (resolvedLoading === 'lazy' ? 'low' : undefined)}
-      loading={resolvedLoading}
-      style={imageStyle}
+      {...others}
+      decoding={local.decoding ?? 'async'}
+      fetchpriority={local.fetchpriority ?? (resolvedLoading() === 'lazy' ? 'low' : undefined)}
+      loading={resolvedLoading()}
+      style={local.fill ? fillStyle() : local.style}
     />
   )
 }

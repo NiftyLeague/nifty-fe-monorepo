@@ -1,5 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { queryOptions } from '@tanstack/react-query'
+import { createFileRoute } from '@tanstack/solid-router'
+import { queryOptions } from '@tanstack/solid-query'
 
 import { queryKeys } from '@/query/app-query'
 import { buildPublicDegensRequestQuery, normalizeDegenSearchState } from '@/url/search-state'

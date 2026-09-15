@@ -1,10 +1,10 @@
 'use client'
 
-import { CSSProperties, useState } from 'react'
+import { createSignal, type JSX } from 'solid-js'
 
 interface ImageStyle {
-  thumbnail: CSSProperties
-  fullSize: CSSProperties
+  thumbnail: JSX.CSSProperties
+  fullSize: JSX.CSSProperties
 }
 
 interface ImageOnLoadType {
@@ -13,7 +13,7 @@ interface ImageOnLoadType {
 }
 
 function useImageOnLoad(): ImageOnLoadType {
-  const [isLoaded, setIsLoaded] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = createSignal<boolean>(false)
 
   // Triggered when full image will be loaded.
   const handleImageOnLoad = () => {
@@ -22,13 +22,17 @@ function useImageOnLoad(): ImageOnLoadType {
 
   const css: ImageStyle = {
     // Thumbnail style.
-    thumbnail: {
-      visibility: isLoaded ? 'hidden' : 'visible',
-      filter: 'blur(8px)',
-      transition: 'visibility 0ms ease-out 500ms',
+    get thumbnail(): JSX.CSSProperties {
+      return {
+        visibility: isLoaded() ? 'hidden' : 'visible',
+        filter: 'blur(8px)',
+        transition: 'visibility 0ms ease-out 500ms',
+      }
     },
     // Full image style.
-    fullSize: { opacity: isLoaded ? 1 : 0, transition: 'opacity 500ms ease-in 0ms' },
+    get fullSize(): JSX.CSSProperties {
+      return { opacity: isLoaded() ? 1 : 0, transition: 'opacity 500ms ease-in 0ms' }
+    },
   }
 
   return { handleImageOnLoad, css }

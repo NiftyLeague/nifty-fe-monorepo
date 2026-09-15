@@ -1,11 +1,11 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import AppBar from './index'
 
 describe('AppBar', () => {
   it('keeps the shared responsive spacing contract', () => {
-    const { container } = render(<AppBar>Shell controls</AppBar>)
+    const { container } = render(() => <AppBar>Shell controls</AppBar>)
 
     const appBar = container.firstElementChild
 

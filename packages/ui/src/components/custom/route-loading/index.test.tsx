@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import RouteLoading from './index'
 
 describe('RouteLoading', () => {
   it('renders a themed, accessible loading boundary', () => {
-    const { container } = render(<RouteLoading label="Loading Nifty League" />)
+    const { container } = render(() => <RouteLoading label="Loading Nifty League" />)
     const status = screen.getByRole('status')
 
     expect(status.getAttribute('aria-live')).toBe('polite')

@@ -1,17 +1,17 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import MobileNavigationDisclosure from './index'
 
 describe('MobileNavigationDisclosure', () => {
   it('renders a native, accessible disclosure', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <MobileNavigationDisclosure id="public-mobile-navigation" label="Toggle navigation">
         <nav aria-label="Primary navigation">
           <a href="/games">Games</a>
         </nav>
       </MobileNavigationDisclosure>
-    )
+    ))
 
     // Queried by element rather than by role: the disclosure keeps its implicit
     // `summary` role so the browser supplies aria-expanded, and this DOM maps

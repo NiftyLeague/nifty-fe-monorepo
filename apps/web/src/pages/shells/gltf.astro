@@ -12,7 +12,7 @@ const leggies = JSON.stringify(LEGGIES)
     <div class={styles.initial__image}>
       <img data-gltf-poster src="/img/degens/nfts/1.webp" alt="Nifty DEGEN" width="584" height="640" loading="eager" fetchpriority="high" />
     </div>
-    <GltfClient client:only="react"><span slot="fallback" class="sr-only">Loading viewer controls…</span></GltfClient>
+    <GltfClient client:only="solid-js"><span slot="fallback" class="sr-only">Loading viewer controls…</span></GltfClient>
   </div>
   <script is:inline define:vars={{ leggies }}>
     (() => {

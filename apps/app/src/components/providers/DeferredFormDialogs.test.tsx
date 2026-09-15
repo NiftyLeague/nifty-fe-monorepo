@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
@@ -13,13 +13,13 @@ mock.module('@nl/ui/custom/deferred-component', () => ({
 describe('deferred dashboard form dialogs', () => {
   it('keeps the rental nickname form unloaded until its dialog opens', async () => {
     const { default: DeferredChangeNicknameDialog } = await import('./DeferredChangeNicknameDialog')
-    const rendered = render(
+    const rendered = render(() => (
       <DeferredChangeNicknameDialog
         open={false}
         rental={{} as RentalDataGrid}
         updateNickname={() => {}}
       />
-    )
+    ))
 
     expect(screen.queryByRole('status')).toBeNull()
 
@@ -38,7 +38,7 @@ describe('deferred dashboard form dialogs', () => {
 
   it('keeps the DEGEN rename form unloaded until its dialog opens', async () => {
     const { default: DeferredRenameDegenDialog } = await import('./DeferredRenameDegenDialog')
-    const rendered = render(<DeferredRenameDegenDialog open={false} />)
+    const rendered = render(() => <DeferredRenameDegenDialog open={false} />)
 
     expect(screen.queryByRole('status')).toBeNull()
 

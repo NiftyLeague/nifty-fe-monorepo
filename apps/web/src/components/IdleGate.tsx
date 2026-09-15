@@ -1,18 +1,10 @@
-'use client'
-
-import { useEffect, useState, type ReactNode } from 'react'
+import { Show, createSignal, onCleanup, onMount, type JSX, type ParentComponent } from 'solid-js'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
 
-export default function IdleGate({
-  children,
-  fallback,
-}: {
-  children: ReactNode
-  fallback: ReactNode
-}) {
-  const [idle, setIdle] = useState(false)
+const IdleGate: ParentComponent<{ fallback?: JSX.Element }> = (props) => {
+  const [idle, setIdle] = createSignal(false)
 
-  useEffect(() => {
+  onMount(() => {
     let release: (() => void) | undefined
     let cap: ReturnType<typeof setTimeout> | undefined
 
@@ -33,12 +25,18 @@ export default function IdleGate({
       cap = setTimeout(schedule, 6000)
     }
 
-    return () => {
+    onCleanup(() => {
       window.removeEventListener('load', schedule)
       if (cap) clearTimeout(cap)
       release?.()
-    }
-  }, [])
+    })
+  })
 
-  return <>{idle ? children : fallback}</>
+  return (
+    <Show when={idle()} fallback={props.fallback}>
+      {props.children}
+    </Show>
+  )
 }
+
+export default IdleGate

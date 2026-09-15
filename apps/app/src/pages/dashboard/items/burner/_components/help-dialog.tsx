@@ -10,12 +10,12 @@ export default function DraggableDialog({ open, setOpen }: DraggableDialogProps)
     <Dialog open={open} onOpenChange={(nextOpen) => !nextOpen && handleClose()}>
       <DialogContent showCloseButton={false}>
         <DialogHeader>
-          <DialogTitle className="cursor-move">HELP</DialogTitle>
+          <DialogTitle class="cursor-move">HELP</DialogTitle>
         </DialogHeader>
-        <div className="text-sm text-muted-foreground">
+        <div class="text-sm text-muted-foreground">
           Welcome to SATOSHI&apos;S COMICS BURNING MACHINE where you can burn your COMICS for
           in-game WEARABLE ITEMS!
-          <ul style={{ lineHeight: 2 }}>
+          <ul style={{ 'line-height': 2 }}>
             <li>
               First, if not already connected, connect your wallet with the CONNECT WALLET button at
               the top left of the machine.

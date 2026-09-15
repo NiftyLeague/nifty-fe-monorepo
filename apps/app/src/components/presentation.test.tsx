@@ -1,7 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it } from 'bun:test'
 import { mock } from 'bun:test'
-import type { ComponentProps } from 'react'
+import type { ComponentProps } from 'solid-js'
 
 let GameCard: typeof import('./cards/GameCard').default
 let MainCard: typeof import('./cards/MainCard').default
@@ -68,7 +68,7 @@ describe('Breadcrumbs', () => {
   }
 
   it('resolves nested routes and renders the full title and icon variants', () => {
-    const { rerender } = render(
+    const { rerender } = render(() => (
       <Breadcrumbs
         navigation={navigation as never}
         pathname="/profile"
@@ -78,7 +78,7 @@ describe('Breadcrumbs', () => {
         title
         separator="chevron-right"
       />
-    )
+    ))
 
     expect(screen.getAllByText('Profile')).toHaveLength(2)
     expect(screen.getByText('Settings')).not.toBeNull()
@@ -115,9 +115,9 @@ describe('Breadcrumbs', () => {
         },
       ],
     }
-    const { container, rerender } = render(
+    const { container, rerender } = render(() => (
       <Breadcrumbs navigation={hiddenNavigation as never} pathname="/hidden" />
-    )
+    ))
     expect(container.querySelector('[aria-label="breadcrumb"]')).toBeNull()
 
     rerender(<Breadcrumbs navigation={navigation as never} pathname="/missing" />)
@@ -127,11 +127,11 @@ describe('Breadcrumbs', () => {
 
 describe('card presentation', () => {
   it('restores the app card spacing contract over shadcn defaults', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <MainCard title="Main" secondary="Action">
         Main body
       </MainCard>
-    )
+    ))
 
     const mainCard = container.querySelector('[data-slot="card"]')
     expect(mainCard?.className).toContain('gap-0')
@@ -145,11 +145,11 @@ describe('card presentation', () => {
   })
 
   it('renders all MainCard content modes in light and dark themes', () => {
-    const { rerender } = render(
+    const { rerender } = render(() => (
       <MainCard title="Main" secondary="Action" boxShadow shadow="custom-shadow">
         Main body
       </MainCard>
-    )
+    ))
     expect(screen.getByText('Main body')).not.toBeNull()
 
     rerender(
@@ -161,12 +161,12 @@ describe('card presentation', () => {
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {
-    render(
+    render(() => (
       <GameCard
         title="Optimized artwork"
         imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
       />
-    )
+    ))
 
     expect(screen.getByRole('img', { name: 'Optimized artwork' }).getAttribute('src')).toBe(
       '/optimized-artwork.webp'
@@ -174,14 +174,14 @@ describe('card presentation', () => {
   })
 
   it('keeps lazy game artwork at low network priority by default', () => {
-    render(<GameCard title="Deferred artwork" image="/deferred-artwork.webp" />)
+    render(() => <GameCard title="Deferred artwork" image="/deferred-artwork.webp" />)
 
     expect(screen.getByAltText('Deferred artwork').getAttribute('loading')).toBe('lazy')
     expect(screen.getByAltText('Deferred artwork').getAttribute('fetchpriority')).toBe('low')
   })
 
   it('supports a full-card scene link with a visible hover cue', () => {
-    render(
+    render(() => (
       <GameCard
         title="Isla Azul"
         description="Explore the island"
@@ -189,7 +189,7 @@ describe('card presentation', () => {
         href="/world/isla-azul"
         prefetch={false}
       />
-    )
+    ))
 
     const sceneLink = screen.getByRole('link', { name: 'Explore Isla Azul' })
 
@@ -207,7 +207,7 @@ describe('card presentation', () => {
   })
 
   it('renders scene artwork full-bleed with the content in a translucent lower overlay', () => {
-    render(
+    render(() => (
       <GameCard
         title="Isla Azul"
         description="Explore the island"
@@ -216,7 +216,7 @@ describe('card presentation', () => {
         overlayContent
         prefetch={false}
       />
-    )
+    ))
 
     const sceneCard = screen.getByRole('link', { name: 'Explore Isla Azul' }).firstElementChild
     const overlay = screen.getByText('Explore the island').parentElement?.parentElement
@@ -233,7 +233,7 @@ describe('card presentation', () => {
   })
 
   it('keeps store badges clickable when a flagship card links externally', () => {
-    render(
+    render(() => (
       <GameCard
         title="Nifty Smashers (Beta)"
         image="/smashers.webp"
@@ -241,7 +241,7 @@ describe('card presentation', () => {
         cardLinkLabel="Open Nifty Smashers"
         actions={<a href="https://niftysmashers.com/ios">App Store badge</a>}
       />
-    )
+    ))
 
     const cardLink = screen.getByRole('link', { name: 'Open Nifty Smashers' })
     const badgeLink = screen.getByRole('link', { name: 'App Store badge' })
@@ -259,12 +259,12 @@ describe('card presentation', () => {
   })
 
   it('accepts server-rendered artwork without changing the card layout contract', () => {
-    render(
+    render(() => (
       <GameCard
         title="Optimized artwork"
         imageContent={<img src="/optimized-artwork.webp" alt="Optimized artwork" />}
       />
-    )
+    ))
 
     expect(screen.getByRole('img', { name: 'Optimized artwork' }).getAttribute('src')).toBe(
       '/optimized-artwork.webp'
@@ -274,7 +274,7 @@ describe('card presentation', () => {
   it('renders game calls to action, expands descriptions, and supports custom content', () => {
     const desktop = mock()
     const web = mock()
-    const { rerender } = render(
+    const { rerender } = render(() => (
       <GameCard
         title="Smashers"
         image="/smashers.png"
@@ -288,7 +288,7 @@ describe('card presentation', () => {
         onPlayOnDesktopClick={desktop}
         onPlayOnWebClick={web}
       />
-    )
+    ))
     const disclosureLabel = screen.getByText('more..')
     const disclosure = disclosureLabel.closest('summary')
     const details = disclosure?.closest('details')

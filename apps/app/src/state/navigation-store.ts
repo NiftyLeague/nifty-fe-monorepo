@@ -1,4 +1,4 @@
-import type { SetStateAction } from 'react'
+import type { SetStateAction } from '@/types'
 import { createStore } from 'zustand/vanilla'
 
 export type NavigationState = {

@@ -1,5 +1,5 @@
-import { createIsomorphicFn } from '@tanstack/react-start'
-import { getRequestHeader } from '@tanstack/react-start/server'
+import { createIsomorphicFn } from '@tanstack/solid-start'
+import { getRequestHeader } from '@tanstack/solid-start/server'
 
 /**
  * The raw `Cookie` request header, read on the server during SSR and from

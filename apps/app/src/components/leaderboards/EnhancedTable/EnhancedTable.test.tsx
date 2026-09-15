@@ -1,5 +1,5 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { render, waitFor } from '@testing-library/react'
+import { QueryClientProvider } from '@tanstack/solid-query'
+import { render, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import { createAppQueryClient } from '@/query/app-query'
@@ -24,12 +24,12 @@ describe('leaderboard table query ownership', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    render(
+    render(() => (
       <QueryClientProvider client={client}>
         <EnhancedTable {...props} />
         <EnhancedTable {...props} />
       </QueryClientProvider>
-    )
+    ))
 
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
   })
@@ -45,11 +45,11 @@ describe('leaderboard table query ownership', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    const { container } = render(
+    const { container } = render(() => (
       <QueryClientProvider client={client}>
         <EnhancedTable {...props} />
       </QueryClientProvider>
-    )
+    ))
 
     expect(container.querySelector('svg#preloader-arcade')).toBeTruthy()
   })

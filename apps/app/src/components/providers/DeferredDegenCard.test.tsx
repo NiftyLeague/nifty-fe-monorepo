@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const observedRootMargins: string[] = []
@@ -23,7 +23,7 @@ describe('DeferredDegenCard', () => {
     const { default: DeferredDegenCard, DEFERRED_DEGEN_CARD_ROOT_MARGIN } =
       await import('./DeferredDegenCard')
 
-    render(<DeferredDegenCard degen={{ id: '1', name: 'Nifty Andy' }} />)
+    render(() => <DeferredDegenCard degen={{ id: '1', name: 'Nifty Andy' }} />)
 
     expect(DEFERRED_DEGEN_CARD_ROOT_MARGIN).toBe('160px')
     expect(observedRootMargins).toEqual(['160px'])

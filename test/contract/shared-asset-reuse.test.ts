@@ -106,7 +106,7 @@ describe('shared icon vocabulary', () => {
   it('keeps the shared nav glyphs inline rather than importing an icon library', () => {
     const source = read('packages/ui/src/components/custom/nav-icon/index.tsx')
 
-    expect(source).not.toContain("from 'lucide-react'")
+    expect(source).not.toContain("from 'lucide-solid'")
     expect(source).toContain('const iconPaths = {')
   })
 
@@ -115,6 +115,6 @@ describe('shared icon vocabulary', () => {
     // performance contract in app-performance.test.ts pins the same rule.
     const source = read('apps/app/src/components/AppNavIcon.tsx')
 
-    expect(source).toContain("from 'lucide-react'")
+    expect(source).toContain("from 'lucide-solid'")
   })
 })

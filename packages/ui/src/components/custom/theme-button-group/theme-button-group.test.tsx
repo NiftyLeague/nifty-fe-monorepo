@@ -1,16 +1,16 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it } from 'bun:test'
 
 import ThemeButtonGroup from './index'
 
 describe('ThemeButtonGroup', () => {
   it('renders linked CTAs through the shared shadcn button recipe', () => {
-    render(
+    render(() => (
       <ThemeButtonGroup
         primary={{ href: '/games', title: 'Play now' }}
         secondary={{ href: 'https://niftysmashers.com', title: 'Smashers', external: true }}
       />
-    )
+    ))
 
     expect(screen.getByRole('link', { name: 'Play now' }).getAttribute('href')).toBe('/games')
     expect(screen.getByRole('link', { name: /Smashers/ }).getAttribute('target')).toBe('_blank')
@@ -18,7 +18,7 @@ describe('ThemeButtonGroup', () => {
   })
 
   it('renders unavailable CTAs as disabled buttons instead of empty links', () => {
-    render(<ThemeButtonGroup primary={{ title: 'Coming soon', disabled: true }} />)
+    render(() => <ThemeButtonGroup primary={{ title: 'Coming soon', disabled: true }} />)
 
     const button = screen.getByRole('button', { name: 'Coming soon' })
     expect(button.hasAttribute('disabled')).toBe(true)

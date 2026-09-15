@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/solid-router'
 
 import { getNiftyWorldGame } from '@/constants/niftyworld-games'
 import NiftyWorldGame from '@/pages/games/NiftyWorldGame'
@@ -19,9 +19,9 @@ export const Route = createFileRoute('/_public/games/$game')({
 })
 
 function NiftyWorldGameRoute() {
-  const game = getNiftyWorldGame(Route.useParams().game)
+  const game = getNiftyWorldGame(Route.useParams()().game)
 
   if (!game) return null
 
-  return <NiftyWorldGame key={game.id} game={game} />
+  return <NiftyWorldGame game={game} />
 }

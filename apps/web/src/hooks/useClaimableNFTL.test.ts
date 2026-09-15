@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, mock, spyOn } from 'bun:test'
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook, waitFor } from '@nl/ui/test-utils'
 
 import useClaimableNFTL, { readAccumulatedNFTL } from './useClaimableNFTL'
 
@@ -55,12 +55,12 @@ describe('useClaimableNFTL', () => {
 
     const { result } = renderHook(() => useClaimableNFTL(7))
 
-    expect(result.current.loading).toBe(true)
-    expect(result.current.balance).toBe(0)
+    expect(result.current.loading()).toBe(true)
+    expect(result.current.balance()).toBe(0)
 
     resolveFetch!(new Response(JSON.stringify({ result: '0x0de0b6b3a7640000' }), { status: 200 }))
-    await waitFor(() => expect(result.current.loading).toBe(false))
-    expect(result.current.balance).toBe(1)
+    await waitFor(() => expect(result.current.loading()).toBe(false))
+    expect(result.current.balance()).toBe(1)
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 
@@ -70,8 +70,8 @@ describe('useClaimableNFTL', () => {
 
     const { result } = renderHook(() => useClaimableNFTL(1))
 
-    await waitFor(() => expect(result.current.loading).toBe(false))
-    expect(result.current.balance).toBe(0)
+    await waitFor(() => expect(result.current.loading()).toBe(false))
+    expect(result.current.balance()).toBe(0)
     expect(consoleError).toHaveBeenCalled()
   })
 
@@ -80,8 +80,8 @@ describe('useClaimableNFTL', () => {
 
     const { result } = renderHook(() => useClaimableNFTL(Number.NaN))
 
-    expect(result.current.loading).toBe(false)
-    expect(result.current.balance).toBe(0)
+    expect(result.current.loading()).toBe(false)
+    expect(result.current.balance()).toBe(0)
     expect(fetchMock).not.toHaveBeenCalled()
   })
 })

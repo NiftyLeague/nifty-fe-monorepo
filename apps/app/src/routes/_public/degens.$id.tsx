@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/solid-router'
 
 import { LEGGIES } from '@/constants/degens'
 import { DEGEN_IMAGE_ORIGIN, degenShareMeta } from '@/runtime/metadata'

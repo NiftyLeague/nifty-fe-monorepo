@@ -1,6 +1,6 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
-import { useState } from 'react'
+import { createSignal } from 'solid-js'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 import { Alert, AlertDescription, AlertTitle } from '@nl/ui/base/alert'
 import {
@@ -72,13 +72,13 @@ import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip'
 
 const ConcurrentDialogs = () => {
-  const [outerOpen, setOuterOpen] = useState(true)
-  const [innerOpen, setInnerOpen] = useState(true)
+  const [outerOpen, setOuterOpen] = createSignal(true)
+  const [innerOpen, setInnerOpen] = createSignal(true)
 
   return (
     <>
-      <Dialog open={outerOpen} onOpenChange={setOuterOpen} />
-      <Dialog open={innerOpen} onOpenChange={setInnerOpen} />
+      <Dialog open={outerOpen()} onOpenChange={setOuterOpen} />
+      <Dialog open={innerOpen()} onOpenChange={setInnerOpen} />
       <button type="button" onClick={() => setInnerOpen(false)}>
         Close inner
       </button>
@@ -91,7 +91,7 @@ const ConcurrentDialogs = () => {
 
 describe('base visual primitives', () => {
   it('renders semantic content and style variants', () => {
-    render(
+    render(() => (
       <>
         <Alert variant="destructive">
           <AlertTitle>Danger</AlertTitle>
@@ -147,7 +147,7 @@ describe('base visual primitives', () => {
           </TableBody>
         </Table>
       </>
-    )
+    ))
 
     expect(screen.getByRole('alert')?.textContent).toContain('Danger')
     expect(screen.getByRole('button', { name: 'Save' })).not.toBeNull()
@@ -157,12 +157,13 @@ describe('base visual primitives', () => {
     expect(screen.getByRole('progressbar', { name: 'progress' })).not.toBeNull()
     expect(screen.getByText('Scrollable content')).not.toBeNull()
     expect(document.querySelector('[data-slot="scroll-area-viewport"]')).not.toBeNull()
-    expect(document.querySelector('[data-slot="scroll-area-scrollbar"]')).not.toBeNull()
+    // ScrollBar is a no-op: the platform scrollbar is used instead of a custom
+    // overlay bar.
     expect(screen.getByRole('table', { name: 'sample table' })).not.toBeNull()
   })
 
   it('renders pagination navigation and active states', () => {
-    render(
+    render(() => (
       <Pagination>
         <PaginationContent>
           <PaginationItem>
@@ -184,7 +185,7 @@ describe('base visual primitives', () => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-    )
+    ))
 
     expect(screen.getByRole('navigation', { name: 'pagination' })).not.toBeNull()
     expect(screen.getByRole('link', { name: '1' })?.getAttribute('aria-current')).toBe('page')
@@ -194,7 +195,7 @@ describe('base visual primitives', () => {
 
 describe('base controlled primitives', () => {
   it('renders disclosure, selection, tab, and toggle controls', () => {
-    render(
+    render(() => (
       <>
         <Accordion type="single" defaultValue="details">
           <AccordionItem value="details">
@@ -225,13 +226,13 @@ describe('base controlled primitives', () => {
           </ToggleGroupItem>
         </ToggleGroup>
       </>
-    )
+    ))
 
     expect(screen.getByText('Expanded details')).toBeTruthy()
-    expect(screen.getByRole('checkbox', { name: 'Accept' })?.getAttribute('data-state')).toBe(
-      'checked'
+    expect((screen.getByRole('checkbox', { name: 'Accept' }) as HTMLInputElement)?.checked).toBe(
+      true
     )
-    expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-state')).toBe('active')
+    expect(screen.getByRole('tab', { name: 'First' })?.getAttribute('data-selected')).not.toBeNull()
     expect(screen.getByText('First panel')).toBeTruthy()
   })
 })
@@ -239,7 +240,7 @@ describe('base controlled primitives', () => {
 describe('base overlay primitives', () => {
   it('opens and closes dialogs while forwarding state callbacks', () => {
     const onOpenChange = mock()
-    render(
+    render(() => (
       <Dialog onOpenChange={onOpenChange}>
         <DialogTrigger>Open dialog</DialogTrigger>
         <DialogContent>
@@ -252,7 +253,7 @@ describe('base overlay primitives', () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    )
+    ))
 
     fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }))
     expect(screen.getByRole('dialog')?.textContent).toContain('Dialog title')
@@ -262,7 +263,7 @@ describe('base overlay primitives', () => {
   })
 
   it('keeps document scrolling locked until every open dialog closes', () => {
-    render(<ConcurrentDialogs />)
+    render(() => <ConcurrentDialogs />)
     expect(document.documentElement.style.overflow).toBe('hidden')
 
     fireEvent.click(screen.getByRole('button', { name: 'Close inner' }))
@@ -273,7 +274,7 @@ describe('base overlay primitives', () => {
   })
 
   it('renders alert-dialog, sheet sides, and tooltip composition', () => {
-    const { rerender } = render(
+    const { rerender } = render(() => (
       <AlertDialog open>
         <AlertDialogTrigger>Open alert</AlertDialogTrigger>
         <AlertDialogContent>
@@ -287,7 +288,7 @@ describe('base overlay primitives', () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    )
+    ))
     expect(screen.getByRole('alertdialog')?.textContent).toContain('Confirm')
 
     rerender(

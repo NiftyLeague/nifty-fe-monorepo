@@ -1,8 +1,72 @@
 import { describe, expect, it } from 'bun:test'
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { mock } from 'bun:test'
-import { useQueryStates } from 'nuqs'
-import { withNuqsTestingAdapter } from 'nuqs/adapters/testing'
+import { createSignal, type Accessor, type JSX } from 'solid-js'
+import { useQueryStates } from '@/url/nuqs-solid'
+
+type UrlUpdate = {
+  searchParams: URLSearchParams
+  options: { history: 'push' | 'replace' }
+}
+
+interface TestingAdapter {
+  search: Accessor<Record<string, string | string[] | undefined>>
+  setSearch: (next: Record<string, string | string[] | undefined>) => void
+  onUrlUpdate?: (event: UrlUpdate) => void
+}
+
+// The hook calls useSearch/useNavigate inside the wrapper's render scope, so
+// the adapter registers itself and the router mocks capture it at call time.
+let activeAdapter: TestingAdapter | undefined
+
+mock.module('@tanstack/solid-router', () => ({
+  useSearch: () => {
+    const adapter = activeAdapter
+    return () => adapter?.search() ?? {}
+  },
+  useNavigate: () => {
+    const adapter = activeAdapter
+    return async (args: {
+      search: Record<string, string | string[] | undefined>
+      replace?: boolean
+    }) => {
+      if (!adapter) return
+      adapter.setSearch(args.search)
+      const searchParams = new URLSearchParams()
+      for (const [key, value] of Object.entries(args.search)) {
+        if (value === undefined) continue
+        searchParams.set(key, Array.isArray(value) ? value.join(',') : String(value))
+      }
+      adapter.onUrlUpdate?.({
+        searchParams,
+        options: { history: args.replace ? 'replace' : 'push' },
+      })
+    }
+  },
+}))
+
+const parseSearchParams = (input = ''): Record<string, string | string[]> => {
+  const out: Record<string, string | string[]> = {}
+  const params = new URLSearchParams(input)
+  for (const [key, value] of params) {
+    const existing = out[key]
+    if (existing === undefined) out[key] = value
+    else if (Array.isArray(existing)) existing.push(value)
+    else out[key] = [existing, value]
+  }
+  return out
+}
+
+function withNuqsTestingAdapter(options: {
+  searchParams?: string
+  onUrlUpdate?: (event: UrlUpdate) => void
+}) {
+  return function TestingAdapterWrapper(props: { children?: JSX.Element }) {
+    const [search, setSearch] = createSignal(parseSearchParams(options.searchParams))
+    activeAdapter = { search, setSearch, onUrlUpdate: options.onUrlUpdate }
+    return props.children
+  }
+}
 
 import {
   normalizeDegenSearchState,

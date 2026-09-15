@@ -1,88 +1,114 @@
-import * as React from 'react'
+import { splitProps, type ComponentProps, type JSX } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 
-function Table({ className, ...props }: React.ComponentProps<'table'>) {
+type TableProps = ComponentProps<'table'> & { className?: string }
+type TableSectionProps<T extends keyof JSX.IntrinsicElements> = ComponentProps<T> & {
+  className?: string
+}
+
+function Table(props: TableProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
-    <div data-slot="table-container" className="relative w-full overflow-auto">
+    <div data-slot="table-container" class="relative w-full overflow-auto">
       <table
         data-slot="table"
-        className={cn('w-full caption-bottom text-sm', className)}
-        {...props}
+        class={cn('w-full caption-bottom text-sm', local.class, local.className)}
+        {...others}
       />
     </div>
   )
 }
 
-function TableHeader({ className, ...props }: React.ComponentProps<'thead'>) {
-  return <thead data-slot="table-header" className={cn('[&_tr]:border-b', className)} {...props} />
+function TableHeader(props: TableSectionProps<'thead'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
+  return (
+    <thead
+      data-slot="table-header"
+      class={cn('[&_tr]:border-b', local.class, local.className)}
+      {...others}
+    />
+  )
 }
 
-function TableBody({ className, ...props }: React.ComponentProps<'tbody'>) {
+function TableBody(props: TableSectionProps<'tbody'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <tbody
       data-slot="table-body"
-      className={cn('[&_tr:last-child]:border-0', className)}
-      {...props}
+      class={cn('[&_tr:last-child]:border-0', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function TableFooter({ className, ...props }: React.ComponentProps<'tfoot'>) {
+function TableFooter(props: TableSectionProps<'tfoot'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <tfoot
       data-slot="table-footer"
-      className={cn('bg-muted/50 border-t font-medium [&>tr]:last:border-b-0', className)}
-      {...props}
+      class={cn(
+        'bg-muted/50 border-t font-medium [&>tr]:last:border-b-0',
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }
 
-function TableRow({ className, ...props }: React.ComponentProps<'tr'>) {
+function TableRow(props: TableSectionProps<'tr'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <tr
       data-slot="table-row"
-      className={cn(
+      class={cn(
         'hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function TableHead({ className, ...props }: React.ComponentProps<'th'>) {
+function TableHead(props: TableSectionProps<'th'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <th
       data-slot="table-head"
-      className={cn(
+      class={cn(
         'text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function TableCell({ className, ...props }: React.ComponentProps<'td'>) {
+function TableCell(props: TableSectionProps<'td'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <td
       data-slot="table-cell"
-      className={cn(
+      class={cn(
         'p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-0.5',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function TableCaption({ className, ...props }: React.ComponentProps<'caption'>) {
+function TableCaption(props: TableSectionProps<'caption'>) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <caption
       data-slot="table-caption"
-      className={cn('text-muted-foreground mt-4 text-sm', className)}
-      {...props}
+      class={cn('text-muted-foreground mt-4 text-sm', local.class, local.className)}
+      {...others}
     />
   )
 }

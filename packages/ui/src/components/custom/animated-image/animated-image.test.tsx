@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
 
 describe('AnimatedImage', () => {
@@ -9,7 +9,7 @@ describe('AnimatedImage', () => {
   })
 
   it('keeps a native fallback alongside the optimized animated source', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <AnimatedImage
         src="/img/items/full/1.gif"
         animatedSrc="/img/items/full/1.webp"
@@ -20,7 +20,7 @@ describe('AnimatedImage', () => {
         loading="lazy"
         unoptimized
       />
-    )
+    ))
     const picture = container.querySelector('picture')
 
     expect(picture?.querySelector('source')?.getAttribute('type')).toBe('image/webp')
@@ -33,7 +33,7 @@ describe('AnimatedImage', () => {
   })
 
   it('preserves an explicit fetch priority for important animated media', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <AnimatedImage
         src="/img/items/full/1.gif"
         animatedSrc="/img/items/full/1.webp"
@@ -42,16 +42,16 @@ describe('AnimatedImage', () => {
         width={98}
         height={98}
         loading="lazy"
-        fetchPriority="high"
+        fetchpriority="high"
         unoptimized
       />
-    )
+    ))
 
     expect(container.querySelector('img')?.getAttribute('fetchpriority')).toBe('high')
   })
 
   it('supports deferred media sources that are not WebP', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <AnimatedImage
         src="/img/roadmap/wen-roadmap.webp"
         animatedSrc="/img/games/wen.gif"
@@ -61,7 +61,7 @@ describe('AnimatedImage', () => {
         height={120}
         loading="lazy"
       />
-    )
+    ))
 
     const source = container.querySelector('source')
 
@@ -73,7 +73,7 @@ describe('AnimatedImage', () => {
   })
 
   it('renders a compatibility source after the preferred animated format', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <AnimatedImage
         src="/img/items/thumbnail/1.webp"
         animatedSrc="/img/items/full/1.webp"
@@ -86,7 +86,7 @@ describe('AnimatedImage', () => {
         loading="lazy"
         unoptimized
       />
-    )
+    ))
     const sources = [...(container.querySelector('picture')?.querySelectorAll('source') ?? [])]
 
     expect(sources).toHaveLength(2)
@@ -98,9 +98,9 @@ describe('AnimatedImage', () => {
   })
 
   it('positions the picture wrapper when using fill sizing', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
-    )
+    ))
     const picture = container.querySelector('picture')
 
     expect(picture?.style.position).toBe('absolute')
@@ -110,9 +110,9 @@ describe('AnimatedImage', () => {
   })
 
   it('positions the picture wrapper when using fill sizing', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
-    )
+    ))
     const picture = container.querySelector('picture')
 
     expect(picture?.style.position).toBe('absolute')

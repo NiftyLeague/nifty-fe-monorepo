@@ -1,5 +1,5 @@
-import type { ComponentProps } from 'react'
-import { render, screen } from '@testing-library/react'
+import type { ComponentProps } from 'solid-js'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import type { DashboardDegen } from '@/types/degens'
@@ -31,11 +31,11 @@ const baseDegen = {
 
 describe('DegenInternalImage', () => {
   it('uses the shared viewport video for animated legendary avatars', () => {
-    render(
+    render(() => (
       <DegenInternalImage
         degen={{ ...baseDegen, background: 'legendary', url: '/media/legendary.mp4' }}
       />
-    )
+    ))
 
     const video = screen.getByTestId('viewport-video')
     expect(video.getAttribute('src')).toBe('/media/legendary.mp4')
@@ -45,7 +45,7 @@ describe('DegenInternalImage', () => {
   })
 
   it('keeps non-animated profile media lazy', () => {
-    render(<DegenInternalImage degen={{ ...baseDegen, url: '/media/avatar.webp' }} />)
+    render(() => <DegenInternalImage degen={{ ...baseDegen, url: '/media/avatar.webp' }} />)
 
     const image = screen.getByRole('img', { name: 'Nifty Andy' })
     expect(image.getAttribute('src')).toBe('/media/avatar.webp')
@@ -53,3 +53,9 @@ describe('DegenInternalImage', () => {
     expect(image.getAttribute('fetchpriority')).toBe('low')
   })
 })
+
+mock.module('@nl/ui/custom/viewport-video', () => ({
+  ViewportVideo: (props: ComponentProps<'video'>) => (
+    <video data-testid="viewport-video" {...props} />
+  ),
+}))

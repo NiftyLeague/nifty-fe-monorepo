@@ -18,24 +18,24 @@ export default function OverviewCommunity() {
   })
 
   return (
-    <section className="section relative w-full">
+    <section class="section relative w-full">
       <picture>
-        <source media="(max-width: 767px)" srcSet={mobileBackground.srcSet} />
+        <source media="(max-width: 767px)" srcset={mobileBackground.srcSet} />
         <img
           {...desktopBackground}
           alt="DGEN Network background"
-          className="pixelated"
-          style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+          class="pixelated"
+          style={{ width: '100%', height: 'auto', 'object-fit': 'cover' }}
         />
       </picture>
-      <div className="dark-gradient-overlay" />
-      <div className="w-full h-auto absolute top-0 text-center flex items-center flex-col mt-40 md:mt-10 lg:mt-20">
-        <h2 className="mt-4">Stay in the loop</h2>
-        <p className="my-3 px-4 text-center">
+      <div class="dark-gradient-overlay" />
+      <div class="w-full h-auto absolute top-0 text-center flex items-center flex-col mt-40 md:mt-10 lg:mt-20">
+        <h2 class="mt-4">Stay in the loop</h2>
+        <p class="my-3 px-4 text-center">
           Meet our community and stay up to date with our roadmap or team updates
         </p>
         <ThemeBtnGroup
-          className="mt-2 xl:mt-2"
+          class="mt-2 xl:mt-2"
           primary={{
             href: 'https://discord.gg/niftyleague',
             title: 'JOIN DISCORD',

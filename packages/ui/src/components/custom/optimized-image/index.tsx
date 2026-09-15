@@ -1,5 +1,4 @@
-import { preload as preloadImage } from 'react-dom'
-import type { ComponentProps } from 'react'
+import type { ComponentProps } from 'solid-js'
 import {
   imageAttributes,
   stripUndefinedAttributes,
@@ -98,17 +97,39 @@ export function getOptimizedImageProps(
   ) as ComponentProps<'img'> & { src: string }
 }
 
+const preloadedHrefs = new Set<string>()
+
+/**
+ * Solid replacement for React DOM's `preload()`: emits one
+ * `<link rel="preload" as="image">` per resolved source.
+ */
+function preloadImage(
+  href: string,
+  options: { fetchPriority?: string; imageSrcSet?: string; imageSizes?: string }
+) {
+  if (typeof document === 'undefined' || preloadedHrefs.has(href)) return
+  preloadedHrefs.add(href)
+
+  const link = document.createElement('link')
+  link.rel = 'preload'
+  link.as = 'image'
+  link.href = href
+  if (options.fetchPriority) link.setAttribute('fetchpriority', options.fetchPriority)
+  if (options.imageSrcSet) link.setAttribute('imagesrcset', options.imageSrcSet)
+  if (options.imageSizes) link.setAttribute('imagesizes', options.imageSizes)
+  document.head.appendChild(link)
+}
+
 /**
  * Renders a native `<img>`. Above-the-fold artwork (`priority` / `preload`)
  * also emits a matching `<link rel="preload">` so the browser starts the
- * request before React resolves the element.
+ * request before the framework resolves the element.
  */
 export function OptimizedImage(props: OptimizedImageProps) {
   const imageProps = getOptimizedImageProps(props)
 
   if ((props.priority || props.preload) && typeof imageProps.src === 'string') {
     preloadImage(imageProps.src, {
-      as: 'image',
       fetchPriority: 'high',
       ...(imageProps.srcSet
         ? { imageSrcSet: imageProps.srcSet, imageSizes: imageProps.sizes }

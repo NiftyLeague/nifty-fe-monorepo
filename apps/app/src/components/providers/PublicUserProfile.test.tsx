@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import type { JSX } from 'solid-js'
 
 let isDesktopViewport = false
 
@@ -10,7 +11,7 @@ mock.module('@/runtime/dynamic', () => ({
 }))
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
-  useMediaQuery: () => isDesktopViewport,
+  useMediaQuery: () => () => isDesktopViewport,
 }))
 
 mock.module('@/contexts/WalletModal', () => ({
@@ -18,7 +19,7 @@ mock.module('@/contexts/WalletModal', () => ({
 }))
 
 mock.module('@/contexts/WalletAuthProvidersBoundary', () => ({
-  default: ({ children, enabled }: React.PropsWithChildren<{ enabled?: boolean }>) =>
+  default: ({ children, enabled }: { enabled?: boolean; children?: JSX.Element }) =>
     enabled ? <div data-testid="wallet-auth-boundary">{children}</div> : null,
 }))
 
@@ -30,12 +31,12 @@ describe('PublicUserProfile', () => {
   it('activates only the mobile profile slot on compact screens', async () => {
     const { default: PublicUserProfile } = await import('./PublicUserProfile')
 
-    render(
+    render(() => (
       <>
         <PublicUserProfile placement="mobile" />
         <PublicUserProfile placement="desktop" />
       </>
-    )
+    ))
 
     expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
     expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)
@@ -52,12 +53,12 @@ describe('PublicUserProfile', () => {
     isDesktopViewport = true
     const { default: PublicUserProfile } = await import('./PublicUserProfile')
 
-    render(
+    render(() => (
       <>
         <PublicUserProfile placement="mobile" />
         <PublicUserProfile placement="desktop" />
       </>
-    )
+    ))
 
     expect(document.querySelectorAll('[data-public-signed-out-profile]')).toHaveLength(1)
     expect(screen.queryAllByTestId('wallet-auth-boundary')).toHaveLength(0)

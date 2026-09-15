@@ -1,10 +1,10 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import { AuthStatusProvider, useAuthStatus } from './AuthStatusContext'
+import type { JSX } from 'solid-js'
 
-const wrapper = ({ children }: PropsWithChildren) => (
+const wrapper = ({ children }: { children?: JSX.Element }) => (
   <AuthStatusProvider>{children}</AuthStatusProvider>
 )
 

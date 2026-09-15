@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import type { Degen } from '@/types/degens'
@@ -28,7 +28,7 @@ const publicDegen = {
 
 describe('DegenCard', () => {
   it('renders the public card without wallet or auth providers', () => {
-    render(<DegenCard degen={publicDegen} />)
+    render(() => <DegenCard degen={publicDegen} />)
 
     expect(screen.getByRole('heading', { name: 'Nifty Andy' })).not.toBeNull()
     expect(screen.getByRole('button', { name: 'Details' })).not.toBeNull()
@@ -36,7 +36,7 @@ describe('DegenCard', () => {
   })
 
   it('keeps the marketplace identifier as a native external link', () => {
-    render(<DegenCard degen={publicDegen} />)
+    render(() => <DegenCard degen={publicDegen} />)
 
     const marketplaceLink = screen.getByRole('link', { name: '#1' })
     expect(marketplaceLink.tagName).toBe('A')
@@ -45,7 +45,7 @@ describe('DegenCard', () => {
   })
 
   it('forwards deferred animation only to public media when requested', () => {
-    render(<DegenCard degen={publicDegen} deferAnimatedMedia />)
+    render(() => <DegenCard degen={publicDegen} deferAnimatedMedia />)
 
     expect(screen.getByTestId('degen-image').getAttribute('data-defer-animation')).toBe('true')
   })

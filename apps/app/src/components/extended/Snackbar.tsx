@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { createEffect } from 'solid-js'
 
-import { toast } from 'sonner'
-import type { ExternalToast } from 'sonner'
+import { toast } from 'solid-sonner'
+import type { ExternalToast } from 'solid-sonner'
 
 import { useCloseSnackbar, useSnackbar } from '@/contexts/NotificationContext'
 import type { SnackbarOrigin } from '@/types/snackbar'
@@ -31,9 +31,10 @@ export const getSnackbarTransitionClass = (transition: string) =>
 const Snackbar = () => {
   const snackbar = useSnackbar()
   const closeSnackbar = useCloseSnackbar()
-  const { actionButton, alert, anchorOrigin, close, message, open, transition, variant } = snackbar
 
-  useEffect(() => {
+  createEffect(() => {
+    const { actionButton, alert, anchorOrigin, close, message, open, transition, variant } =
+      snackbar()
     if (!open) return
 
     const type =
@@ -45,14 +46,14 @@ const Snackbar = () => {
     const options: ExternalToast = {
       action:
         actionButton || variant !== 'alert' ? { label: 'UNDO', onClick: closeSnackbar } : undefined,
-      className: getSnackbarTransitionClass(transition),
+      class: getSnackbarTransitionClass(transition),
       closeButton: close !== false,
       duration: 6000,
       position: getSnackbarPosition(anchorOrigin),
     }
 
     if (variant === 'alert' && alert.variant === 'outlined') {
-      options.className = `${options.className} border border-current bg-background`
+      options.class = `${options.class} border border-current bg-background`
     }
     switch (type) {
       case 'success':
@@ -66,18 +67,7 @@ const Snackbar = () => {
     }
 
     closeSnackbar()
-  }, [
-    actionButton,
-    alert.color,
-    alert.variant,
-    anchorOrigin,
-    close,
-    closeSnackbar,
-    message,
-    open,
-    transition,
-    variant,
-  ])
+  })
 
   return null
 }

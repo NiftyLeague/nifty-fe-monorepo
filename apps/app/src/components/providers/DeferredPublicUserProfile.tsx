@@ -1,5 +1,7 @@
 'use client'
 
+import { Show } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
@@ -16,53 +18,51 @@ const loadPublicUserProfile = () => import('./PublicUserProfile')
 function ProfileProviderLoading() {
   return (
     <div
-      className="flex flex-col items-center rounded-lg bg-muted p-4"
+      class="flex flex-col items-center rounded-lg bg-muted p-4"
       role="status"
       aria-live="polite"
       aria-busy="true"
       aria-label="Loading profile and login controls"
     >
-      <DeferredSkeleton className="size-20 rounded-full" />
-      <DeferredSkeleton className="my-2 h-5 w-32" />
-      <DeferredSkeleton className="h-9 w-full rounded-md" />
+      <DeferredSkeleton class="size-20 rounded-full" />
+      <DeferredSkeleton class="my-2 h-5 w-32" />
+      <DeferredSkeleton class="h-9 w-full rounded-md" />
     </div>
   )
 }
 
 function ProfileProviderError({ retry }: { retry: () => void }) {
   return (
-    <div
-      className="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center"
-      role="alert"
-    >
-      <p className="text-sm">Sign-in is temporarily unavailable.</p>
-      <button type="button" className={DEFERRED_RETRY_BUTTON_CLASS} onClick={retry}>
+    <div class="flex flex-col items-center gap-3 rounded-lg bg-muted p-4 text-center" role="alert">
+      <p class="text-sm">Sign-in is temporarily unavailable.</p>
+      <button type="button" class={DEFERRED_RETRY_BUTTON_CLASS} onClick={retry}>
         Retry
       </button>
     </div>
   )
 }
 
-export default function DeferredPublicUserProfile({ placement }: PublicUserProfileProps) {
+export default function DeferredPublicUserProfile(props: PublicUserProfileProps) {
   const isDesktop = useMediaQuery(desktopNavigationMediaQuery)
-  const isVisiblePlacement = placement === 'desktop' ? isDesktop : !isDesktop
+  const isVisiblePlacement = () => (props.placement === 'desktop' ? isDesktop() : !isDesktop())
   const {
     Component: PublicUserProfile,
     hasError,
     retry,
   } = useDeferredComponent<PublicUserProfileProps>(loadPublicUserProfile, isVisiblePlacement)
 
-  if (isVisiblePlacement && PublicUserProfile) {
-    return <PublicUserProfile placement={placement} />
-  }
-
   return (
-    <div data-public-user-profile data-placement={placement}>
-      {isVisiblePlacement && hasError ? (
-        <ProfileProviderError retry={retry} />
-      ) : (
-        <ProfileProviderLoading />
-      )}
-    </div>
+    <Show
+      when={isVisiblePlacement() && PublicUserProfile()}
+      fallback={
+        <div data-public-user-profile data-placement={props.placement}>
+          <Show when={isVisiblePlacement() && hasError()} fallback={<ProfileProviderLoading />}>
+            <ProfileProviderError retry={retry} />
+          </Show>
+        </div>
+      }
+    >
+      {(Loaded) => <Dynamic component={Loaded()} placement={props.placement} />}
+    </Show>
   )
 }

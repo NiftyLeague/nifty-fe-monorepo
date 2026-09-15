@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import type { DashboardDegen } from '@/types/degens'
 
 mock.module('@/components/cards/DegenCard/DegenImage', () => ({
-  default: ({ tokenId, sx }: { tokenId: string | number; sx?: React.CSSProperties }) => (
+  default: ({ tokenId, sx }: { tokenId: string | number; sx?: JSX.CSSProperties }) => (
     <div data-testid={`degen-image-${tokenId}`} style={sx} />
   ),
 }))
@@ -13,12 +13,12 @@ const { default: ViewTraitsContentDialog } = await import('./ViewTraitsContentDi
 
 describe('ViewTraitsContentDialog', () => {
   it('renders readable labels for contract bigint trait values', () => {
-    render(
+    render(() => (
       <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits={{ tribe: 1n, mouth: 263n, rightItem: 991n, empty: 0n }}
       />
-    )
+    ))
 
     expect(screen.getByText('Nifty Andy')).not.toBeNull()
     expect(screen.getByText('Tribe')).not.toBeNull()
@@ -32,7 +32,7 @@ describe('ViewTraitsContentDialog', () => {
   })
 
   it('maps the complete contract tuple to readable labels', () => {
-    render(
+    render(() => (
       <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits={{
@@ -61,7 +61,7 @@ describe('ViewTraitsContentDialog', () => {
           property: 0n,
         }}
       />
-    )
+    ))
 
     expect(screen.getByText('Skin Color')).not.toBeNull()
     expect(screen.getByText('White')).not.toBeNull()
@@ -74,12 +74,12 @@ describe('ViewTraitsContentDialog', () => {
   })
 
   it('maps the dashboard fallback string to readable labels', () => {
-    render(
+    render(() => (
       <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits="1,17,73,104,110,0,263,0,0,0,0,0,685,0,717,0,0,821,824,865,894,991"
       />
-    )
+    ))
 
     expect(screen.getByText('Tribe')).not.toBeNull()
     expect(screen.getByText('Ape')).not.toBeNull()
@@ -100,13 +100,13 @@ describe('ViewTraitsContentDialog', () => {
       )
     )
 
-    render(
+    render(() => (
       <ViewTraitsContentDialog
         degen={{ id: '1' } as DashboardDegen}
         displayName="Nifty Andy"
         traits={traits}
       />
-    )
+    ))
 
     expect(screen.getByText('Tribe')).not.toBeNull()
     expect(screen.getByText('Ape')).not.toBeNull()
@@ -132,7 +132,7 @@ describe('ViewTraitsContentDialog', () => {
   })
 
   it('maps the raw contract tuple without exposing numeric ids', () => {
-    render(
+    render(() => (
       <ViewTraitsContentDialog
         displayName="Nifty Andy"
         traits={[
@@ -160,7 +160,7 @@ describe('ViewTraitsContentDialog', () => {
           991n,
         ]}
       />
-    )
+    ))
 
     expect(screen.getByText('Tribe')).not.toBeNull()
     expect(screen.getByText('Ape')).not.toBeNull()

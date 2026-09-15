@@ -1,4 +1,4 @@
-import { Outlet, createFileRoute } from '@tanstack/react-router'
+import { Outlet, createFileRoute } from '@tanstack/solid-router'
 
 import AuthGuard from '@/utils/route-guard/AuthGuard'
 import PrivateRoutesBoundary from '@/components/providers/PrivateRoutesBoundary'

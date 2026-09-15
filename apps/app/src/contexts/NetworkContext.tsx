@@ -1,13 +1,13 @@
 'use client'
 
-import { createContext } from 'react'
+import { createContext } from 'solid-js'
 
 import type { Provider } from '@/hooks/useEthersProvider'
 import type { Signer } from '@/hooks/useEthersSigner'
 import type { Tx } from '@/types/notify'
 import type { Contracts } from '@/types/web3'
 
-interface NetworkContextValue {
+export interface NetworkContextValue {
   address?: `0x${string}`
   isConnected: boolean
   publicProvider?: Provider

@@ -9,7 +9,7 @@ import type {
   JsonRpcProvider,
 } from 'ethers'
 import type { Abi } from 'viem'
-import type { Config } from 'wagmi'
+import type { Config } from '@wagmi/core'
 
 import type { BalanceManagerDistributor } from '@/types/typechain/src/contracts/imx/BalanceManagerDistributor'
 import type { NFTL } from '@/types/typechain/src/contracts/imx/NFTL'

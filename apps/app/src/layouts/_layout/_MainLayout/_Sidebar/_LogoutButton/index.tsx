@@ -1,31 +1,31 @@
-import { useAccount, useDisconnect } from 'wagmi'
+import { Show } from 'solid-js'
+import { useAccount, useDisconnect } from '@/runtime/wagmi'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
+import type { JSX } from 'solid-js'
 
 interface LogoutButtonProps {
-  sx?: React.CSSProperties
+  sx?: JSX.CSSProperties
 }
 
-const LogoutButton: React.FC<
-  React.PropsWithChildren<React.PropsWithChildren<LogoutButtonProps>>
-> = ({ sx }) => {
-  const { isConnected } = useAccount()
-  const { isLoggedIn } = useAuth()
+const LogoutButton = (props: LogoutButtonProps) => {
+  const account = useAccount()
+  const auth = useAuth()
   const { disconnect } = useDisconnect()
-  if (isConnected) {
-    return (
+
+  return (
+    <Show when={account.isConnected}>
       <button
         type="button"
         data-slot="button"
-        style={sx}
-        className={buttonVariants({ variant: 'outline', className: 'cursor-pointer' })}
-        onClick={() => disconnect()}
+        style={props.sx}
+        class={buttonVariants({ variant: 'outline', className: 'cursor-pointer' })}
+        onClick={() => disconnect(undefined)}
       >
-        {isLoggedIn ? 'Log Out' : 'Disconnect Wallet'}
+        {auth.isLoggedIn ? 'Log Out' : 'Disconnect Wallet'}
       </button>
-    )
-  }
-  return null
+    </Show>
+  )
 }
 
 export default LogoutButton

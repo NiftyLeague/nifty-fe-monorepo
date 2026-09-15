@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
-import { useQueryStates } from 'nuqs'
-import { ChevronDown, ChevronUp, Pencil } from 'lucide-react'
+import { createEffect, createMemo, createSignal, For, Show, type JSX } from 'solid-js'
+import { useQueryStates } from '@/url/nuqs-solid'
+import { ChevronDown, ChevronUp, Pencil } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@nl/ui/base/dialog'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
@@ -38,7 +38,7 @@ interface TableColumn {
   width?: number
   minWidth?: number
   sortable?: boolean
-  renderCell?: (params: RenderCellParams) => React.ReactNode
+  renderCell?: (params: RenderCellParams) => JSX.Element
 }
 
 type ColumnVisibilityModel = Record<string, boolean>
@@ -56,97 +56,89 @@ interface Props {
   updateRentalName: (name: string, id: string) => void
 }
 
-const MyRentalsDataGrid = ({
-  rows,
-  loading,
-  category,
-  onTerminateRental,
-  updateRentalName,
-}: Props): React.ReactNode => {
-  const [selectedRowForEditing, setSelectedRowForEditing] = useState<RentalDataGrid>(
+const MyRentalsDataGrid = (props: Props): JSX.Element => {
+  const [selectedRowForEditing, setSelectedRowForEditing] = createSignal<RentalDataGrid>(
     {} as RentalDataGrid
   )
-  const [isNicknameModalOpen, setIsNicknameModalOpen] = useState(false)
-  const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = useState(false)
-  const [isDegenModalOpen, setIsDegenModalOpen] = useState<boolean>(false)
-  const [selectedDegen, setSelectedDegen] = useState<Degen | undefined>(undefined)
-  const [isRentDialog, setIsRentDialog] = useState<boolean>(false)
+  const [isNicknameModalOpen, setIsNicknameModalOpen] = createSignal(false)
+  const [isTerminateRentalModalOpen, setIsTerminateRentalModalOpen] = createSignal(false)
+  const [isDegenModalOpen, setIsDegenModalOpen] = createSignal<boolean>(false)
+  const [selectedDegen, setSelectedDegen] = createSignal<Degen | undefined>(undefined)
+  const [isRentDialog, setIsRentDialog] = createSignal<boolean>(false)
   const [tableState, setTableState] = useQueryStates(rentalSearchParsers, {
     history: 'push',
     shallow: true,
   })
-  const sort = useMemo<SortState | null>(
-    () => (tableState.sort ? { field: tableState.sort, direction: tableState.direction } : null),
-    [tableState.direction, tableState.sort]
+  const sort = createMemo<SortState | null>(() =>
+    tableState.sort ? { field: tableState.sort, direction: tableState.direction } : null
   )
-  const pageSize = Number(tableState.pageSize)
-  const page = normalizePage(tableState.page) - 1
+  const pageSize = () => Number(tableState.pageSize)
+  const page = () => normalizePage(tableState.page) - 1
   const [columnVisibilityModel] = useLocalStorage<ColumnVisibilityModel>(
     RENTAL_COLUMN_VISIBILITY,
     {}
   )
 
-  const { profile } = usePlayerProfile()
-  const rentals = useMemo(
-    () => transformRentals(rows, profile?.id || ''),
-    [rows, profile?.id, category]
-  )
+  const playerProfile = usePlayerProfile()
+  const rentals = createMemo(() => transformRentals(props.rows, playerProfile.profile?.id || ''))
 
-  const filteredRows = useMemo(() => {
-    switch (category) {
+  const filteredRows = createMemo(() => {
+    switch (props.category) {
       case 'direct-rental':
-        return rentals.filter((rental) => rental.category === 'direct-rental')
+        return rentals().filter((rental) => rental.category === 'direct-rental')
       case 'owned-sponsorship':
-        return rentals.filter((rental) => rental.category === 'owned-sponsorship')
+        return rentals().filter((rental) => rental.category === 'owned-sponsorship')
       case 'non-owned-sponsorship':
-        return rentals.filter((rental) => rental.category === 'non-owned-sponsorship')
+        return rentals().filter((rental) => rental.category === 'non-owned-sponsorship')
       case 'recruited':
-        return rentals.filter((rental) => rental.category === 'recruited')
+        return rentals().filter((rental) => rental.category === 'recruited')
       case 'direct-renter':
-        return rentals.filter((rental) => rental.category === 'direct-renter')
+        return rentals().filter((rental) => rental.category === 'direct-renter')
       case 'terminated':
-        return rentals.filter((rental) => rental.action)
+        return rentals().filter((rental) => rental.action)
       case 'all':
       default:
-        return rentals
+        return rentals()
     }
-  }, [rentals, category])
+  })
 
-  const sortedRows = useMemo(() => {
-    if (!sort) {
-      return filteredRows
+  const sortedRows = createMemo(() => {
+    const activeSort = sort()
+    if (!activeSort) {
+      return filteredRows()
     }
 
-    return filteredRows.toSorted((a, b) => {
-      const aValue = a[sort.field as keyof RentalDataGrid] as number
-      const bValue = b[sort.field as keyof RentalDataGrid] as number
+    return filteredRows().toSorted((a, b) => {
+      const aValue = a[activeSort.field as keyof RentalDataGrid] as number
+      const bValue = b[activeSort.field as keyof RentalDataGrid] as number
 
-      if (sort.direction === 'asc') {
+      if (activeSort.direction === 'asc') {
         return aValue > bValue ? 1 : -1
       }
 
       return aValue > bValue ? -1 : 1
     })
-  }, [filteredRows, sort])
+  })
 
   const handleOpenNickname = (params: RenderCellParams) => {
-    setSelectedRowForEditing(params.row)
+    setSelectedRowForEditing(() => params.row)
     setIsNicknameModalOpen(true)
   }
 
   const handleUpdateNickname = (name: string, rentalId: string) => {
-    updateRentalName(name, rentalId)
+    props.updateRentalName(name, rentalId)
     setIsNicknameModalOpen(false)
   }
 
   const handleOpenTerminateRental = (params: RenderCellParams) => {
-    setSelectedRowForEditing(params.row)
+    setSelectedRowForEditing(() => params.row)
     setIsTerminateRentalModalOpen(true)
   }
 
   const handleConfirmTerminateRental = () => {
-    if (selectedRowForEditing) {
-      onTerminateRental(selectedRowForEditing.rentalId)
+    const row = selectedRowForEditing()
+    if (row) {
+      props.onTerminateRental(row.rentalId)
       setIsTerminateRentalModalOpen(false)
     }
   }
@@ -158,9 +150,10 @@ const MyRentalsDataGrid = ({
   }
 
   const handleSortClick = (field: string) => {
-    if (!sort || sort.field !== field) {
+    const activeSort = sort()
+    if (!activeSort || activeSort.field !== field) {
       void setTableState({ sort: field, direction: 'asc', page: 1 })
-    } else if (sort.direction === 'asc') {
+    } else if (activeSort.direction === 'asc') {
       void setTableState({ direction: 'desc', page: 1 })
     } else {
       void setTableState({ sort: null, direction: null, page: 1 })
@@ -174,36 +167,34 @@ const MyRentalsDataGrid = ({
   }
 
   const handlePrevPage = () => {
-    void setTableState({ page: Math.max(1, page) })
+    void setTableState({ page: Math.max(1, page()) })
   }
 
   const handleNextPage = () => {
-    void setTableState({ page: Math.min(pageCount, page + 2) })
+    void setTableState({ page: Math.min(pageCount(), page() + 2) })
   }
 
-  const commonColumnProp = { minWidth: 100 }
-
-  const columns: TableColumn[] = useMemo(() => {
+  const columns = createMemo<TableColumn[]>(() => {
     const results: TableColumn[] = [
       {
         field: 'action',
         headerName: 'Actions',
         width: 130,
-        ...commonColumnProp,
+        minWidth: 100,
         renderCell: (params: RenderCellParams) => (
-          <>
-            {['direct-rental', 'non-owned-sponsorship', 'owned-sponsorship'].includes(
+          <Show
+            when={['direct-rental', 'non-owned-sponsorship', 'owned-sponsorship'].includes(
               params.row.category
-            ) && (
-              <Button
-                onClick={() => handleOpenTerminateRental(params)}
-                variant="outline"
-                disabled={Boolean(params.value)}
-              >
-                {params.value ? 'Terminated' : 'Terminate'}
-              </Button>
             )}
-          </>
+          >
+            <Button
+              onClick={() => handleOpenTerminateRental(params)}
+              variant="outline"
+              disabled={Boolean(params.value)}
+            >
+              {params.value ? 'Terminated' : 'Terminate'}
+            </Button>
+          </Show>
         ),
       },
       {
@@ -211,8 +202,8 @@ const MyRentalsDataGrid = ({
         headerName: 'Player',
         width: 120,
         renderCell: (params: RenderCellParams) => (
-          <div className="flex flex-row items-center gap-2">
-            <span className="text-base">{params.value as React.ReactNode}</span>
+          <div class="flex flex-row items-center gap-2">
+            <span class="text-base">{params.value as JSX.Element}</span>
           </div>
         ),
       },
@@ -222,19 +213,19 @@ const MyRentalsDataGrid = ({
         width: 150,
         renderCell: (params: RenderCellParams) => {
           return (
-            <div className="flex flex-row items-center gap-2">
-              <span className="text-base">{params.value as React.ReactNode}</span>
-              {(params.row as { isEditable?: boolean }).isEditable && (
+            <div class="flex flex-row items-center gap-2">
+              <span class="text-base">{params.value as JSX.Element}</span>
+              <Show when={(params.row as { isEditable?: boolean }).isEditable}>
                 <Button
                   variant="ghost"
                   size="icon"
                   aria-label="Edit player nickname"
                   onClick={() => handleOpenNickname(params)}
-                  className="hidden cursor-pointer group-hover:block"
+                  class="hidden cursor-pointer group-hover:block"
                 >
-                  <Pencil aria-hidden="true" absoluteStrokeWidth size={20} strokeWidth={1.5} />
+                  <Pencil aria-hidden="true" size={20} stroke-width={1.5} />
                 </Button>
-              )}
+              </Show>
             </div>
           )
         },
@@ -246,10 +237,10 @@ const MyRentalsDataGrid = ({
         renderCell: (params: RenderCellParams) => (
           <button
             type="button"
-            className="cursor-pointer text-foreground underline decoration-foreground"
+            class="cursor-pointer text-foreground underline decoration-foreground"
             onClick={() => handleClickDegenId(params)}
           >
-            #{params.value as React.ReactNode}
+            #{params.value as JSX.Element}
           </button>
         ),
       },
@@ -260,7 +251,7 @@ const MyRentalsDataGrid = ({
         headerName: 'Earning Cap',
         width: 150,
         renderCell: (params: RenderCellParams) => (
-          <span className="text-base">
+          <span class="text-base">
             {formatNumberToDisplay(params.row.totalEarnings)} /{' '}
             {formatNumberToDisplay(params.value as number)}
           </span>
@@ -269,228 +260,227 @@ const MyRentalsDataGrid = ({
       {
         field: 'rentalRenewsIn',
         headerName: 'Rental Renews In',
-        ...commonColumnProp,
+        minWidth: 100,
         width: 150,
         renderCell: (params: RenderCellParams) => (
-          <span className="text-warning">
+          <span class="text-warning">
             <Countdown date={new Date((params.value as number) * 1000)} />
           </span>
         ),
       },
-      { field: 'multiplier', headerName: 'Multiplier', width: 150, ...commonColumnProp },
+      { field: 'multiplier', headerName: 'Multiplier', width: 150, minWidth: 100 },
       { field: 'matches', headerName: 'Matches' },
       { field: 'wins', headerName: 'Wins' },
       {
         field: 'winRate',
         headerName: 'Win Rate',
-        ...commonColumnProp,
+        minWidth: 100,
         renderCell: (params: RenderCellParams) => (
           <span>{formatNumberToDisplay(params.value as number)}%</span>
         ),
       },
-      { field: 'weeklyFee', headerName: 'Weekly Fee', ...commonColumnProp },
+      { field: 'weeklyFee', headerName: 'Weekly Fee', minWidth: 100 },
       {
         field: 'dailyFee',
         headerName: 'Current Daily Fee',
         width: 150,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'dailyFeesToDate',
         headerName: 'Daily Fees To Date',
         width: 150,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'costs',
         headerName: 'Rental Fee Costs',
         width: 150,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'rentalFeeEarning',
         headerName: 'Rental Fees Earned',
         width: 150,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'profits',
         headerName: 'Gross Gameplay Earnings',
         width: 180,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'netGameEarning',
         headerName: 'Net Gameplay Earnings',
         width: 200,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'netEarning',
         headerName: 'Net Earnings',
         width: 150,
         renderCell: (params: RenderCellParams) => formatNumberToDisplay(params.value as number),
-        ...commonColumnProp,
+        minWidth: 100,
       },
       {
         field: 'roi',
         headerName: 'ROI %',
-        ...commonColumnProp,
+        minWidth: 100,
         renderCell: (params: RenderCellParams) => {
           const value = params.value as number
           const colorClass =
             value === 0 ? 'text-foreground' : value > 0 ? 'text-success' : 'text-error'
-          return <span className={colorClass}>{formatNumberToDisplay(value)}%</span>
+          return <span class={colorClass}>{formatNumberToDisplay(value)}%</span>
         },
       },
     ]
 
-    if (category === 'direct-renter') {
+    if (props.category === 'direct-renter') {
       return results.filter((result) => result.field !== 'action')
     }
 
     return results
-  }, [category])
+  })
 
-  const visibleColumns = useMemo(
-    () =>
-      columnVisibilityModel
-        ? columns.filter((col) => columnVisibilityModel[col.field] !== false)
-        : columns,
-    [columns, columnVisibilityModel]
+  const visibleColumns = createMemo(() => {
+    const visibility = columnVisibilityModel()
+    return visibility ? columns().filter((col) => visibility[col.field] !== false) : columns()
+  })
+
+  const paginatedRows = createMemo(() =>
+    sortedRows().slice(page() * pageSize(), (page() + 1) * pageSize())
   )
 
-  const paginatedRows = useMemo(
-    () => sortedRows.slice(page * pageSize, (page + 1) * pageSize),
-    [sortedRows, page, pageSize]
-  )
+  const pageCount = () => Math.max(1, Math.ceil(sortedRows().length / pageSize()))
 
-  const pageCount = Math.max(1, Math.ceil(sortedRows.length / pageSize))
-
-  useEffect(() => {
-    const normalizedPage = Math.min(page + 1, pageCount)
+  createEffect(() => {
+    const normalizedPage = Math.min(page() + 1, pageCount())
     if (tableState.page !== normalizedPage) {
       void setTableState({ page: normalizedPage }, { history: 'replace' })
     }
-  }, [page, pageCount, setTableState, tableState.page])
-
-  if (loading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <CircularProgress size="lg" />
-      </div>
-    )
-  }
+  })
 
   return (
-    <>
-      <div className="flex h-full flex-col">
-        <div className="flex-1 overflow-auto rounded-lg border bg-background">
-          <Table aria-label="rentals data table" className="border-collapse">
-            <TableHeader className="sticky top-0 z-10 bg-background">
-              <TableRow className="border-0 hover:bg-transparent">
-                {visibleColumns.map((column) => (
-                  <TableHead
-                    key={column.field}
-                    aria-sort={
-                      sort?.field === column.field
-                        ? sort.direction === 'asc'
-                          ? 'ascending'
-                          : 'descending'
-                        : 'none'
-                    }
-                    style={{ minWidth: column.width }}
-                    className="px-4 py-3 text-left font-medium text-muted-foreground"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => handleSortClick(column.field)}
-                      className="flex items-center gap-1 text-left font-medium text-muted-foreground"
+    <Show
+      when={!props.loading}
+      fallback={
+        <div class="flex h-full items-center justify-center">
+          <CircularProgress size="lg" />
+        </div>
+      }
+    >
+      <div class="flex h-full flex-col">
+        <div class="flex-1 overflow-auto rounded-lg border bg-background">
+          <Table aria-label="rentals data table" class="border-collapse">
+            <TableHeader class="sticky top-0 z-10 bg-background">
+              <TableRow class="border-0 hover:bg-transparent">
+                <For each={visibleColumns()}>
+                  {(column) => (
+                    <TableHead
+                      aria-sort={
+                        sort()?.field === column.field
+                          ? sort()?.direction === 'asc'
+                            ? 'ascending'
+                            : 'descending'
+                          : 'none'
+                      }
+                      style={{ 'min-width': `${column.width ?? 100}px` }}
+                      class="px-4 py-3 text-left font-medium text-muted-foreground"
                     >
-                      {column.headerName || column.field}
-                      {sort?.field === column.field &&
-                        (sort.direction === 'asc' ? (
-                          <ChevronUp
-                            aria-hidden="true"
-                            absoluteStrokeWidth
-                            size={18}
-                            strokeWidth={1.5}
-                          />
-                        ) : (
-                          <ChevronDown
-                            aria-hidden="true"
-                            absoluteStrokeWidth
-                            size={18}
-                            strokeWidth={1.5}
-                          />
-                        ))}
-                    </button>
-                  </TableHead>
-                ))}
+                      <button
+                        type="button"
+                        onClick={() => handleSortClick(column.field)}
+                        class="flex items-center gap-1 text-left font-medium text-muted-foreground"
+                      >
+                        {column.headerName || column.field}
+                        <Show when={sort()?.field === column.field}>
+                          <Show
+                            when={sort()?.direction === 'asc'}
+                            fallback={
+                              <ChevronDown aria-hidden="true" size={18} stroke-width={1.5} />
+                            }
+                          >
+                            <ChevronUp aria-hidden="true" size={18} stroke-width={1.5} />
+                          </Show>
+                        </Show>
+                      </button>
+                    </TableHead>
+                  )}
+                </For>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedRows.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={visibleColumns.length} className="px-4 py-3">
-                    <span className="text-muted-foreground">No rentals found</span>
-                  </TableCell>
-                </TableRow>
-              ) : (
-                paginatedRows.map((row) => (
-                  <TableRow key={row.id || ''} className="group hover:bg-accent/50">
-                    {visibleColumns.map((column) => (
-                      <TableCell
-                        key={column.field}
-                        style={{ minWidth: column.width }}
-                        className="px-4 py-3 align-top"
-                      >
-                        {column.renderCell
-                          ? column.renderCell({
-                              value: row[column.field as keyof RentalDataGrid],
-                              row,
-                              field: column.field,
-                              id: row.id,
-                            })
-                          : String(row[column.field as keyof RentalDataGrid] ?? '')}
-                      </TableCell>
-                    ))}
+              <Show
+                when={sortedRows().length > 0}
+                fallback={
+                  <TableRow>
+                    <TableCell colSpan={visibleColumns().length} class="px-4 py-3">
+                      <span class="text-muted-foreground">No rentals found</span>
+                    </TableCell>
                   </TableRow>
-                ))
-              )}
+                }
+              >
+                <For each={paginatedRows()}>
+                  {(row) => (
+                    <TableRow class="group hover:bg-accent/50">
+                      <For each={visibleColumns()}>
+                        {(column) => (
+                          <TableCell
+                            style={{ 'min-width': `${column.width ?? 100}px` }}
+                            class="px-4 py-3 align-top"
+                          >
+                            {column.renderCell
+                              ? column.renderCell({
+                                  value: row[column.field as keyof RentalDataGrid],
+                                  row,
+                                  field: column.field,
+                                  id: row.id,
+                                })
+                              : String(row[column.field as keyof RentalDataGrid] ?? '')}
+                          </TableCell>
+                        )}
+                      </For>
+                    </TableRow>
+                  )}
+                </For>
+              </Show>
             </TableBody>
           </Table>
         </div>
-        <div className="flex items-center justify-between border-t px-4 py-3">
-          <div className="flex items-center gap-2">
-            <Select value={String(pageSize)} onValueChange={handlePageSizeChange}>
-              <SelectTrigger aria-label="Rows per page" className="w-[70px]">
-                <SelectValue />
+        <div class="flex items-center justify-between border-t px-4 py-3">
+          <div class="flex items-center gap-2">
+            <Select<number>
+              options={PAGE_SIZE_OPTIONS}
+              optionValue={(option) => String(option)}
+              optionTextValue={(option) => String(option)}
+              value={pageSize()}
+              onValueChange={(value) => handlePageSizeChange(String(value))}
+              itemComponent={(itemProps) => (
+                <SelectItem item={itemProps.item}>{itemProps.item.rawValue}</SelectItem>
+              )}
+            >
+              <SelectTrigger aria-label="Rows per page" class="w-[70px]">
+                <SelectValue<number> />
               </SelectTrigger>
-              <SelectContent>
-                {PAGE_SIZE_OPTIONS.map((opt) => (
-                  <SelectItem key={opt} value={String(opt)}>
-                    {opt}
-                  </SelectItem>
-                ))}
-              </SelectContent>
+              <SelectContent />
             </Select>
-            <span className="text-sm text-muted-foreground">Rows per page</span>
+            <span class="text-sm text-muted-foreground">Rows per page</span>
           </div>
           <PaginationControls
-            hasNext={page < pageCount - 1 && sortedRows.length > 0}
-            hasPrev={page > 0}
+            hasNext={page() < pageCount() - 1 && sortedRows().length > 0}
+            hasPrev={page() > 0}
             onClickNext={handleNextPage}
             onClickPrev={handlePrevPage}
             pageLabel={
-              <span className="text-sm">
-                Page {page + 1} of {pageCount}
+              <span class="text-sm">
+                Page {page() + 1} of {pageCount()}
               </span>
             }
             buttonClassName="h-8 w-8 p-0"
@@ -500,37 +490,37 @@ const MyRentalsDataGrid = ({
 
       {/* Nickname Degen Dialog */}
       <Dialog
-        open={isNicknameModalOpen}
+        open={isNicknameModalOpen()}
         onOpenChange={(open) => !open && setIsNicknameModalOpen(false)}
       >
         <DialogContent
           showCloseButton={false}
-          className="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
+          class="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
         >
           <DeferredChangeNicknameDialog
-            open={isNicknameModalOpen}
+            open={isNicknameModalOpen()}
             updateNickname={handleUpdateNickname}
-            rental={selectedRowForEditing}
+            rental={selectedRowForEditing()}
           />
         </DialogContent>
       </Dialog>
 
       {/* Terminate Rental Dialog */}
       <Dialog
-        open={isTerminateRentalModalOpen}
+        open={isTerminateRentalModalOpen()}
         onOpenChange={(open) => !open && setIsTerminateRentalModalOpen(false)}
       >
         <DialogContent showCloseButton={false}>
           <DialogHeader>
-            <DialogTitle className="text-center text-xl">
+            <DialogTitle class="text-center text-xl">
               Are you sure you want to terminate this rental?
             </DialogTitle>
           </DialogHeader>
-          <div className="flex flex-col items-center gap-2">
-            <Button onClick={handleConfirmTerminateRental} variant="default" className="w-full">
+          <div class="flex flex-col items-center gap-2">
+            <Button onClick={handleConfirmTerminateRental} variant="default" class="w-full">
               Terminate Rental
             </Button>
-            <Button onClick={() => setIsTerminateRentalModalOpen(false)} className="w-full">
+            <Button onClick={() => setIsTerminateRentalModalOpen(false)} class="w-full">
               Cancel
             </Button>
           </div>
@@ -538,16 +528,16 @@ const MyRentalsDataGrid = ({
       </Dialog>
 
       {/* Degen Traits Dialog */}
-      {isDegenModalOpen && (
+      <Show when={isDegenModalOpen()}>
         <DeferredDegenDialog
           open
-          degen={selectedDegen}
-          isRent={isRentDialog}
+          degen={selectedDegen()}
+          isRent={isRentDialog()}
           setIsRent={setIsRentDialog}
           onClose={() => setIsDegenModalOpen(false)}
         />
-      )}
-    </>
+      </Show>
+    </Show>
   )
 }
 

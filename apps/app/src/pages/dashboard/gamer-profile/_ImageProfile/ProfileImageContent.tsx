@@ -1,7 +1,7 @@
 'use client'
 
-import { useContext, useMemo, useState } from 'react'
-import { toast } from 'sonner'
+import { useContext, createMemo, createSignal, For, Show, type Accessor, type JSX } from 'solid-js'
+import { toast } from 'solid-sonner'
 
 import { Title } from '@nl/ui/custom/typography'
 import { DialogContext } from '@/components/dialog'
@@ -25,7 +25,7 @@ export type ProfileImageContentProps = {
 type ProfileImagePickerProps = {
   onSearch: (currentValue: string) => void
   onChangeAvatar: (degenId: string) => void
-  degensInternal: DashboardDegen[]
+  degensInternal: Accessor<DashboardDegen[]>
   avatarFee?: number
 }
 
@@ -36,23 +36,18 @@ const renderDegenImage = (degen: DashboardDegen) => {
   return <DegenImage tokenId={degen?.id} />
 }
 
-const ProfileImagePicker = ({
-  onSearch,
-  onChangeAvatar,
-  degensInternal,
-  avatarFee,
-}: ProfileImagePickerProps) => {
+const ProfileImagePicker = (props: ProfileImagePickerProps) => {
   const [, setIsOpen] = useContext(DialogContext)
-  const { authToken } = useAuth()
+  const auth = useAuth()
 
   const handleSelectedDegen = async (degen: DashboardDegen) => {
-    if (!degen?.id || !authToken) {
+    if (!degen?.id || !auth.authToken) {
       return
     }
 
     try {
       const response = await fetch(UPDATE_PROFILE_AVATAR_API, {
-        headers: { authorizationToken: authToken },
+        headers: { authorizationToken: auth.authToken },
         method: 'POST',
         body: JSON.stringify({ avatar: degen?.id }),
       })
@@ -62,72 +57,67 @@ const ProfileImagePicker = ({
         return
       }
       toast.success('Update Profile Avatar Successful!')
-      onChangeAvatar(degen?.id)
+      props.onChangeAvatar(degen?.id)
       setIsOpen(false)
     } catch (error) {
       toast.error(`Can not update the profile avatar: ${error}`)
     }
   }
 
-  const renderDegens = () => {
-    if (degensInternal.length > 0) {
-      return degensInternal.map((degen) => (
-        <div
-          key={degen?.id}
-          className="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-[1.3]"
-          onClick={() => handleSelectedDegen(degen)}
-        >
-          {renderDegenImage(degen)}
-        </div>
-      ))
-    }
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <EmptyState message="No DEGENs found." />
-      </div>
-    )
-  }
-
   return (
     <SectionSlider
-      isSlider={degensInternal.length > 0}
+      isSlider={props.degensInternal().length > 0}
       sliderSettingsOverride={settings}
       firstSection
       title={
-        <div className="flex flex-1 flex-col gap-2">
+        <div class="flex flex-1 flex-col gap-2">
           <Title level={2}>Choose a new profile degen</Title>
           <Title level={5}>
-            There is a {avatarFee} NFTL fee for changing your gamer profile avatar
+            There is a {props.avatarFee} NFTL fee for changing your gamer profile avatar
           </Title>
         </div>
       }
       actions={
-        <SearchRental placeholder="Search degen by token # or name" handleSearch={onSearch} />
+        <SearchRental placeholder="Search degen by token # or name" handleSearch={props.onSearch} />
       }
     >
-      {renderDegens()}
+      <Show
+        when={props.degensInternal().length > 0}
+        fallback={
+          <div class="flex flex-col items-center justify-center">
+            <EmptyState message="No DEGENs found." />
+          </div>
+        }
+      >
+        <For each={props.degensInternal()}>
+          {(degen) => (
+            <div
+              class="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-[1.3]"
+              onClick={() => void handleSelectedDegen(degen)}
+            >
+              {renderDegenImage(degen)}
+            </div>
+          )}
+        </For>
+      </Show>
     </SectionSlider>
   )
 }
 
-export default function ProfileImageContent({
-  degens,
-  onChangeAvatar,
-  avatarFee,
-}: ProfileImageContentProps): React.ReactNode {
-  const [searchValue, setSearchValue] = useState('')
+export default function ProfileImageContent(props: ProfileImageContentProps): JSX.Element {
+  const [searchValue, setSearchValue] = createSignal('')
 
-  const degensInternal = useMemo(() => {
-    if (!degens) return []
-    return filterBySearch(degens, searchValue, (degen) => [degen?.id, degen?.name])
-  }, [degens, searchValue])
+  const degensInternal = createMemo(() => {
+    if (!props.degens) return []
+    return filterBySearch(props.degens, searchValue(), (degen) => [degen?.id, degen?.name])
+  })
 
   return (
     <ProfileImagePicker
       onSearch={setSearchValue}
-      onChangeAvatar={onChangeAvatar}
+      onChangeAvatar={props.onChangeAvatar}
       degensInternal={degensInternal}
-      avatarFee={avatarFee}
+      avatarFee={props.avatarFee}
     />
   )
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 import TokensBalanceContext from '@/contexts/TokensBalanceContext'
 
 const useTokensBalances = () => {

@@ -2,6 +2,7 @@
 
 import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
+import type { JSX } from 'solid-js'
 
 interface Props {
   handleSearch: (currentValue: string) => void
@@ -9,10 +10,10 @@ interface Props {
   value?: string
 }
 
-const SearchRental = ({ handleSearch, placeholder, value }: Props): React.ReactNode => {
+const SearchRental = ({ handleSearch, placeholder, value }: Props): JSX.Element => {
   return (
-    <div className="grid gap-2">
-      <Label className="sr-only" htmlFor="search-renters">
+    <div class="grid gap-2">
+      <Label class="sr-only" htmlFor="search-renters">
         Search renter by name
       </Label>
       <Input
@@ -20,7 +21,7 @@ const SearchRental = ({ handleSearch, placeholder, value }: Props): React.ReactN
         aria-label="Search renter by name"
         placeholder={placeholder || 'Search renter by name'}
         name="search"
-        className="min-w-[480px]"
+        class="min-w-[480px]"
         value={value}
         onChange={(event) => handleSearch(event.target.value)}
       />

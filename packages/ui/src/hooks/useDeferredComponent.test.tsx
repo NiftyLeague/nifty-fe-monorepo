@@ -1,4 +1,4 @@
-import { act, renderHook, waitFor } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 import { useDeferredComponent } from './useDeferredComponent'
@@ -14,8 +14,8 @@ describe('useDeferredComponent', () => {
     const load = mock(async () => ({ default: Preview }))
     const { result } = renderHook(() => useDeferredComponent<PreviewProps>(load))
 
-    expect(result.current.Component).toBeNull()
-    await waitFor(() => expect(result.current.Component).toBe(Preview))
+    expect(result.current.Component()).toBeNull()
+    await waitFor(() => expect(result.current.Component()).toBe(Preview))
     expect(load).toHaveBeenCalledTimes(1)
   })
 
@@ -23,8 +23,8 @@ describe('useDeferredComponent', () => {
     const load = mock(async () => ({ default: Preview }))
     const { result } = renderHook(() => useDeferredComponent<PreviewProps>(load, false))
 
-    expect(result.current.Component).toBeNull()
-    expect(result.current.hasError).toBe(false)
+    expect(result.current.Component()).toBeNull()
+    expect(result.current.hasError()).toBe(false)
     expect(load).not.toHaveBeenCalled()
   })
 
@@ -34,8 +34,8 @@ describe('useDeferredComponent', () => {
     const second = renderHook(() => useDeferredComponent<PreviewProps>(load))
 
     await waitFor(() => {
-      expect(first.result.current.Component).toBe(Preview)
-      expect(second.result.current.Component).toBe(Preview)
+      expect(first.result.current.Component()).toBe(Preview)
+      expect(second.result.current.Component()).toBe(Preview)
     })
     expect(load).toHaveBeenCalledTimes(1)
 
@@ -51,9 +51,9 @@ describe('useDeferredComponent', () => {
 
     const { result } = renderHook(() => useDeferredComponent<PreviewProps>(load))
 
-    await waitFor(() => expect(result.current.hasError).toBe(true))
+    await waitFor(() => expect(result.current.hasError()).toBe(true))
     await act(async () => result.current.retry())
-    await waitFor(() => expect(result.current.Component).toBe(Preview))
+    await waitFor(() => expect(result.current.Component()).toBe(Preview))
     expect(load).toHaveBeenCalledTimes(2)
   })
 })

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { createSignal, For, Show, type JSX } from 'solid-js'
 import { Separator } from '@nl/ui/base/separator'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
@@ -19,20 +19,20 @@ import WearableSubItemCard from '@/components/cards/WearableSubItemCard'
 import ItemDetail from '@/components/cards/ItemDetail'
 import ViewItemDialog from '@/components/dialog/ViewItemDialog'
 
-const DashboardComicsPageContent = (): React.ReactNode => {
-  const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
-  const [selectedItem, setSelectedItem] = useState<Item | null>(null)
-  const [selectedSubIndex, setSelectedSubIndex] = useState<number>(-1)
-  const { comicsBalances, loadingComics, itemsBalances, loadingItems } = useNFTsBalances()
+const DashboardComicsPageContent = (): JSX.Element => {
+  const [selectedComic, setSelectedComic] = createSignal<Comic | null>(null)
+  const [selectedItem, setSelectedItem] = createSignal<Item | null>(null)
+  const [selectedSubIndex, setSelectedSubIndex] = createSignal<number>(-1)
+  const nfts = useNFTsBalances()
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
 
   const handleViewComic = (comic: Comic) => {
-    setSelectedComic(comic)
+    setSelectedComic(() => comic)
   }
 
   const handleViewItem = (item: Item) => {
     removeSubItemSelection()
-    setSelectedItem(item)
+    setSelectedItem(() => item)
   }
 
   const handleViewSubItem = (index: number) => {
@@ -60,156 +60,181 @@ const DashboardComicsPageContent = (): React.ReactNode => {
     removeItemSelection()
   }
 
-  const renderComics = useMemo(() => {
-    if (comicsBalances.length === 0 && loadingComics) {
-      return Array.from({ length: 6 }, (_, index) => (
-        <div key={`comic-placeholder-${index}`}>
-          <ComicPlaceholder />
-        </div>
-      ))
-    } else if (comicsBalances.length > 0) {
-      return comicsBalances.map((comic) => (
-        <div key={comic.id}>
-          <ComicCard
-            data={comic}
-            onViewComic={() => handleViewComic(comic)}
-            isSelected={comic.id === selectedComic?.id}
-          />
-        </div>
-      ))
+  const renderComics = () => {
+    if (nfts.comicsBalances.length === 0 && nfts.loadingComics) {
+      return (
+        <For each={Array.from({ length: 6 })}>
+          {() => (
+            <div>
+              <ComicPlaceholder />
+            </div>
+          )}
+        </For>
+      )
+    } else if (nfts.comicsBalances.length > 0) {
+      return (
+        <For each={nfts.comicsBalances}>
+          {(comic) => (
+            <div>
+              <ComicCard
+                data={comic}
+                onViewComic={() => handleViewComic(comic)}
+                isSelected={comic.id === selectedComic()?.id}
+              />
+            </div>
+          )}
+        </For>
+      )
     }
     return null
-  }, [comicsBalances, loadingComics, selectedComic])
+  }
 
-  const renderItems = useMemo(() => {
-    if (itemsBalances.length === 0 && loadingItems) {
-      return Array.from({ length: 6 }, (_, index) => (
-        <div key={`item-placeholder-${index}`}>
-          <ComicPlaceholder />
-        </div>
-      ))
-    } else if (itemsBalances.length > 0) {
-      return itemsBalances
-        .filter(
-          (item) =>
-            !selectedItem?.balance || selectedItem?.balance <= 1 || item.id !== selectedItem?.id
-        )
-        .map((item) => (
-          <div key={item.id}>
-            <WearableItemCard
+  const renderItems = () => {
+    if (nfts.itemsBalances.length === 0 && nfts.loadingItems) {
+      return (
+        <For each={Array.from({ length: 6 })}>
+          {() => (
+            <div>
+              <ComicPlaceholder />
+            </div>
+          )}
+        </For>
+      )
+    } else if (nfts.itemsBalances.length > 0) {
+      return (
+        <For
+          each={nfts.itemsBalances.filter(
+            (item) =>
+              !selectedItem()?.balance ||
+              (selectedItem()?.balance ?? 0) <= 1 ||
+              item.id !== selectedItem()?.id
+          )}
+        >
+          {(item) => (
+            <div>
+              <WearableItemCard
+                data={item}
+                onViewItem={() => handleViewItem(item)}
+                isSelected={item.id === selectedItem()?.id}
+              />
+            </div>
+          )}
+        </For>
+      )
+    }
+    return null
+  }
+
+  const renderSubItems = () => {
+    const item = selectedItem()
+    if (!item?.balance || item.balance <= 1) return null
+    return (
+      <For each={Array.from(Array(item.balance).keys())}>
+        {(itemIndex) => (
+          <div>
+            <WearableSubItemCard
               data={item}
-              onViewItem={() => handleViewItem(item)}
-              isSelected={item.id === selectedItem?.id}
+              itemIndex={itemIndex}
+              onViewItem={() => handleViewSubItem(itemIndex)}
+              isSelected={itemIndex === selectedSubIndex()}
+              sx={{ height: '100%', 'justify-content': 'center' }}
             />
           </div>
-        ))
-    }
-    return null
-  }, [itemsBalances, loadingItems, selectedItem])
-
-  const renderSubItems = useMemo(() => {
-    if (!selectedItem?.balance || selectedItem?.balance <= 1) return null
-    return Array.from(Array(selectedItem?.balance).keys()).map((itemIndex) => (
-      <div key={`WearableSubItem-${itemIndex}`}>
-        <WearableSubItemCard
-          data={selectedItem}
-          itemIndex={itemIndex}
-          onViewItem={() => handleViewSubItem(itemIndex)}
-          isSelected={itemIndex === selectedSubIndex}
-          sx={{ height: '100%', justifyContent: 'center' }}
-        />
-      </div>
-    ))
-  }, [selectedItem, selectedSubIndex])
+        )}
+      </For>
+    )
+  }
 
   return (
     <>
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-row gap-10">
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-row gap-10">
           <SectionSlider firstSection title="My Comics" isSlider={false}>
             <div>
               <div
                 onClick={removeComicSelection}
-                className="flex flex-wrap gap-4 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 py-6 justify-between sm:justify-normal"
+                class="flex flex-wrap gap-4 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 py-6 justify-between sm:justify-normal"
               >
-                {renderComics}
-                {comicsBalances.length > 0 && (
+                {renderComics()}
+                <Show when={nfts.comicsBalances.length > 0}>
                   <div>
                     <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
                       <BuyCard
                         onBuy={() => {}}
-                        isNew={!comicsBalances.some((comic) => comic.balance && comic.balance > 0)}
+                        isNew={
+                          !nfts.comicsBalances.some((comic) => comic.balance && comic.balance > 0)
+                        }
                       />
                     </a>
                   </div>
-                )}
+                </Show>
               </div>
             </div>
           </SectionSlider>
-          {!isSmallScreen && (
-            <div className="mt-15">
-              <ComicDetail data={selectedComic} />
+          <Show when={!isSmallScreen()}>
+            <div class="mt-15">
+              <ComicDetail data={selectedComic()} />
             </div>
-          )}
+          </Show>
         </div>
-        <div className="flex flex-row gap-10">
+        <div class="flex flex-row gap-10">
           <SectionSlider firstSection title="My Items" isSlider={false}>
             <div>
               <div
                 onClick={removeItemSelection}
-                className="flex flex-col gap-6 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
+                class="flex flex-col gap-6 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
               >
-                {selectedItem?.balance && selectedItem?.balance > 1 && (
-                  <div className="flex flex-col gap-8">
-                    <div className="flex flex-col gap-4 md:flex-row md:gap-20">
-                      <WearableItemCard data={selectedItem} />
-                      <div className="flex flex-wrap gap-5">{renderSubItems}</div>
+                <Show when={selectedItem()?.balance && (selectedItem()?.balance ?? 0) > 1}>
+                  <div class="flex flex-col gap-8">
+                    <div class="flex flex-col gap-4 md:flex-row md:gap-20">
+                      <WearableItemCard data={selectedItem() as Item} />
+                      <div class="flex flex-wrap gap-5">{renderSubItems()}</div>
                     </div>
-                    <Separator className="bg-[#363636] opacity-60" />
+                    <Separator class="bg-[#363636] opacity-60" />
                   </div>
-                )}
-                <div className="flex flex-wrap gap-4 justify-between sm:justify-normal">
-                  {renderItems}
-                  {itemsBalances.length > 0 && (
+                </Show>
+                <div class="flex flex-wrap gap-4 justify-between sm:justify-normal">
+                  {renderItems()}
+                  <Show when={nfts.itemsBalances.length > 0}>
                     <div>
                       <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
                         <BuyCard
                           onBuy={() => {}}
-                          isNew={!itemsBalances.some((it) => it.balance && it.balance > 0)}
+                          isNew={!nfts.itemsBalances.some((it) => it.balance && it.balance > 0)}
                         />
                       </a>
                     </div>
-                  )}
+                  </Show>
                 </div>
               </div>
             </div>
           </SectionSlider>
-          {!isSmallScreen && (
-            <div className="mt-15">
-              <ItemDetail data={selectedItem} subIndex={selectedSubIndex} />
+          <Show when={!isSmallScreen()}>
+            <div class="mt-15">
+              <ItemDetail data={selectedItem()} subIndex={selectedSubIndex()} />
             </div>
-          )}
+          </Show>
         </div>
       </div>
-      {isSmallScreen && (
+      <Show when={isSmallScreen()}>
         <ViewComicDialog
-          comic={selectedComic}
-          open={Boolean(selectedComic)}
+          comic={selectedComic()}
+          open={Boolean(selectedComic())}
           onClose={handleCloseComicDialog}
         />
-      )}
-      {isSmallScreen && (
+      </Show>
+      <Show when={isSmallScreen()}>
         <ViewItemDialog
-          item={selectedItem}
-          subIndex={selectedSubIndex}
+          item={selectedItem()}
+          subIndex={selectedSubIndex()}
           open={
-            Boolean(selectedItem) &&
-            !!selectedItem?.balance &&
-            (selectedItem?.balance === 1 || selectedSubIndex >= 0)
+            Boolean(selectedItem()) &&
+            !!selectedItem()?.balance &&
+            (selectedItem()?.balance === 1 || selectedSubIndex() >= 0)
           }
           onClose={handleCloseItemDialog}
         />
-      )}
+      </Show>
     </>
   )
 }

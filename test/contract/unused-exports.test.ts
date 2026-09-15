@@ -16,8 +16,12 @@ const REDUNDANT_EXPORTS = {
   'apps/api/src/imx/client.ts': ['ImxMintResult', 'ImxMintV2Params', 'ImxUser', 'MetadataProperty'],
   'apps/api/src/utils/request-json.ts': ['JsonRequestError', 'JsonRequestOptions'],
   'apps/app/src/constants/unity-builds.ts': ['UnityConfigWithMeta'],
+  'apps/app/src/contexts/AuthStatusContext.tsx': ['AuthStatusContextValue'],
+  'apps/app/src/contexts/GamerProfileContext.tsx': ['GamerProfileContextType'],
   'apps/app/src/contexts/NavigationContext.tsx': ['useNavigation'],
+  'apps/app/src/contexts/NFTsBalanceContext.tsx': ['NFTsBalanceContextValue'],
   'apps/app/src/contexts/NotificationContext.tsx': ['useNotification'],
+  'apps/app/src/contexts/TokensBalanceContext.tsx': ['TokensBalanceContextValue'],
   'apps/app/src/hooks/merkleDistributor/useUserUnclaimedAmount.ts': ['ClaimResult'],
   // The app's OptimizedImage implementation is wired through the vite alias
   // (`@nl/ui/custom/optimized-image` -> src/runtime/Image.tsx), which the
@@ -40,6 +44,9 @@ const REDUNDANT_EXPORTS = {
     'RouteMetadata',
     'formatTitle',
   ],
+  'apps/app/src/runtime/unity.tsx': ['UnityContext'],
+  'apps/app/src/runtime/wagmi.ts': ['UseAccountReturn', 'UseReadContractParameters'],
+  'apps/app/src/types/graph.ts': ['Owner'],
   'apps/app/src/url/search-schema.ts': ['RawSearch'],
   'apps/app/src/url/search-state.ts': ['LeaderboardGameKey'],
   'apps/app/src/utils/degen-traits.ts': ['DegenTraitEntry'],
@@ -84,6 +91,7 @@ const REDUNDANT_EXPORTS = {
   'packages/playfab/src/components/AccountDetails/LinkedProviders.tsx': ['Props'],
   'packages/playfab/src/components/AccountDetails/index.tsx': ['AccountDetailsProps'],
   'packages/playfab/src/components/PlayFabAuthForm/index.tsx': ['PlayFabAuthFormProps'],
+  'packages/playfab/src/components/UserContextProvider/index.tsx': ['UserContextValue'],
   'packages/playfab/src/constants.ts': ['ProfileConstraints'],
   'packages/playfab/src/sdk/index.ts': ['default', 'playfab'],
   'packages/playfab/src/types.ts': [
@@ -119,6 +127,7 @@ const REDUNDANT_EXPORTS = {
   'packages/ui/src/lib/degen-tribes.ts': ['DegenTribe'],
   'packages/ui/src/lib/gtm/dataLayer.ts': ['GoogleTagManagerEvent'],
   'packages/ui/src/lib/image-attributes.ts': ['ImageAttributeInput'],
+  'packages/ui/src/lib/theme.tsx': ['Theme'],
 }
 
 describe('type-aware export check', () => {

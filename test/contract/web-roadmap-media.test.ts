@@ -51,7 +51,7 @@ describe('web roadmap animated media policy', () => {
     const roadmapSource = readFileSync(roadmapCard, 'utf8')
 
     expect(roadmapSource).toContain('@nl/ui/custom/animated-image')
-    expect(roadmapSource).toContain("from 'lucide-react'")
+    expect(roadmapSource).toContain("from 'lucide-solid'")
     expect(roadmapSource).not.toContain("from '@nl/ui/base/icon'")
     const constants = readFileSync(roadmapConstants, 'utf8')
     for (const { source: sourcePath } of roadmapMedia) {

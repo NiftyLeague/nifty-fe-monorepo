@@ -7,8 +7,9 @@ import { formatNumberToDisplay } from '@nl/ui/number-format'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 import useClaimNFTL from '@/hooks/writeContracts/useClaimNFTL'
 import useNetworkContext from '@/hooks/useNetworkContext'
+import type { JSX } from 'solid-js'
 
-const DegenBalance = (): React.ReactNode => {
+const DegenBalance = (): JSX.Element => {
   const { isConnected } = useNetworkContext()
   const { balance, claimCallback, loading } = useClaimNFTL()
 
@@ -17,7 +18,7 @@ const DegenBalance = (): React.ReactNode => {
       title="DEGEN Balance"
       primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
       customStyle={{
-        backgroundColor: 'var(--color-card)',
+        'background-color': 'var(--color-card)',
         border: 'var(--border-default)',
         position: 'relative',
       }}
@@ -29,12 +30,12 @@ const DegenBalance = (): React.ReactNode => {
             variant="ghost"
             size="icon"
             disabled
-            className="absolute -top-4 -right-4 cursor-pointer"
+            class="absolute -top-4 -right-4 cursor-pointer"
           >
             <NativeImage src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
           </Button>
           <Button
-            className="w-full"
+            class="w-full"
             variant="default"
             disabled={!(balance > 0.0 && isConnected)}
             onClick={claimCallback}

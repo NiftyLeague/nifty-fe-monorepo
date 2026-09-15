@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config'
-import react from '@astrojs/react'
+import solid from '@astrojs/solid-js'
 import vercel from '@astrojs/vercel'
 import tailwind from '@tailwindcss/vite'
 import { INLINE_STYLESHEETS, appLocal, bundleSsrGraph, sourceAlias } from '@nl/astro-config'
@@ -41,7 +41,7 @@ export default defineConfig({
   image: {
     service: { entrypoint: './src/runtime/vercel-image-service.ts', config: vercelImageConfig },
   },
-  integrations: [react()],
+  integrations: [solid()],
   build: { inlineStylesheets: INLINE_STYLESHEETS },
   vite: {
     plugins: [tailwind()],

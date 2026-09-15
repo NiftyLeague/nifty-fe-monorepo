@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 import ComicCard from '@/components/cards/ComicCard'
@@ -12,17 +12,16 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import ComicPlaceholder from '@/components/cards/Skeleton/ComicPlaceholder'
 import { COMICS_PURCHASE_URL } from '@/constants/url'
 
-const MyComics = (): React.ReactNode => {
-  const [selectedComic, setSelectedComic] = useState<Comic | null>(null)
+const MyComics = (): JSX.Element => {
+  const [selectedComic, setSelectedComic] = createSignal<Comic | null>(null)
   const router = useRouter()
-  const { comicsBalances, loadingComics } = useNFTsBalances()
-  const filteredComics = useMemo(
-    () => comicsBalances.filter((comic) => comic.balance && comic.balance > 0),
-    [comicsBalances]
+  const nfts = useNFTsBalances()
+  const filteredComics = createMemo(() =>
+    nfts.comicsBalances.filter((comic) => comic.balance && comic.balance > 0)
   )
 
   const handleViewComic = (comic: Comic) => {
-    setSelectedComic(comic)
+    setSelectedComic(() => comic)
   }
 
   const handleCloseDialog = () => {
@@ -43,7 +42,7 @@ const MyComics = (): React.ReactNode => {
   return (
     <>
       <SectionSlider
-        isSlider={filteredComics.length > 0}
+        isSlider={filteredComics().length > 0}
         firstSection
         title="My Comics"
         variant="h3"
@@ -54,30 +53,40 @@ const MyComics = (): React.ReactNode => {
           </Button>
         }
       >
-        {loadingComics ? (
-          <div className="px-1">
-            <ComicPlaceholder />
-          </div>
-        ) : filteredComics.length ? (
-          filteredComics.map((comic) => (
-            <div key={comic.wearableName} className="px-1">
-              <ComicCard data={comic} onViewComic={() => handleViewComic(comic)} />
+        <Show
+          when={!nfts.loadingComics}
+          fallback={
+            <div class="px-1">
+              <ComicPlaceholder />
             </div>
-          ))
-        ) : (
-          <div className="flex items-center justify-center">
-            <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
-              <EmptyState
-                message="No Comics found. Please check your address or go purchase some if you have not done so already!"
-                buttonText="Buy Comics"
-              />
-            </a>
-          </div>
-        )}
+          }
+        >
+          <Show
+            when={filteredComics().length}
+            fallback={
+              <div class="flex items-center justify-center">
+                <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+                  <EmptyState
+                    message="No Comics found. Please check your address or go purchase some if you have not done so already!"
+                    buttonText="Buy Comics"
+                  />
+                </a>
+              </div>
+            }
+          >
+            <For each={filteredComics()}>
+              {(comic) => (
+                <div class="px-1">
+                  <ComicCard data={comic} onViewComic={() => handleViewComic(comic)} />
+                </div>
+              )}
+            </For>
+          </Show>
+        </Show>
       </SectionSlider>
       <ViewComicDialog
-        comic={selectedComic}
-        open={Boolean(selectedComic)}
+        comic={selectedComic()}
+        open={Boolean(selectedComic())}
         onClose={handleCloseDialog}
       />
     </>

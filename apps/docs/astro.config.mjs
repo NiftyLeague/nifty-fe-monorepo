@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
-import react from '@astrojs/react'
+import solid from '@astrojs/solid-js'
 import {
   ASSETS_PUBLIC_DIR,
   INLINE_STYLESHEETS,
@@ -78,7 +78,7 @@ export default defineConfig({
       },
       sidebar,
     }),
-    react(),
+    solid(),
   ],
   vite: {
     build: {

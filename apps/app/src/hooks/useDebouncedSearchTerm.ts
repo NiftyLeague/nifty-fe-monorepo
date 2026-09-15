@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { createEffect, createSignal, onCleanup, type Accessor, type JSX } from 'solid-js'
 
 /**
  * Decouples typing from the URL-owned search term.
@@ -12,40 +12,33 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  * what re-syncs it right after the debounce commits.
  */
 export function useDebouncedSearchTerm(
-  committed: string,
+  committed: string | Accessor<string>,
   commit: (searchTerm: string | null) => void,
   delayMs = 300
-): [string, React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>] {
-  const [draft, setDraft] = useState(committed)
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const commitRef = useRef(commit)
-  commitRef.current = commit
+): [Accessor<string>, JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event>] {
+  const committedValue = () => (typeof committed === 'function' ? committed() : committed)
+  const [draft, setDraft] = createSignal(committedValue())
+  let timer: ReturnType<typeof setTimeout> | null = null
 
-  useEffect(() => {
-    setDraft(committed)
-  }, [committed])
+  createEffect(() => {
+    setDraft(committedValue())
+  })
 
-  useEffect(
-    () => () => {
-      if (timer.current) clearTimeout(timer.current)
-    },
-    []
-  )
+  onCleanup(() => {
+    if (timer) clearTimeout(timer)
+  })
 
-  const handleChange = useCallback<
-    React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
-  >(
-    (event) => {
-      const value = event.target.value
-      setDraft(value)
-      if (timer.current) clearTimeout(timer.current)
-      timer.current = setTimeout(() => {
-        timer.current = null
-        commitRef.current(value || null)
-      }, delayMs)
-    },
-    [delayMs]
-  )
+  const handleChange: JSX.EventHandlerUnion<HTMLInputElement | HTMLTextAreaElement, Event> = (
+    event
+  ) => {
+    const value = (event.target as HTMLInputElement | HTMLTextAreaElement).value
+    setDraft(value)
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      timer = null
+      commit(value || null)
+    }, delayMs)
+  }
 
   return [draft, handleChange]
 }

@@ -1,4 +1,5 @@
-import { startTransition, useEffect, useState } from 'react'
+import { createSignal, onCleanup, onMount, type Component, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 
 import { productionTelemetryEnabled } from '@nl/ui/gtm/telemetry-gate'
 import { scheduleDeferredActivation } from '@nl/ui/lib/deferred-activation'
@@ -9,12 +10,12 @@ import { IS_PRODUCTION, TELEMETRY } from '@/runtime/env'
  * deferred GTM boundary while keeping the Web Vitals reporter app-local (the
  * shared reporter is built on a framework web-vitals hook).
  */
-export default function DeferredAnalytics(): React.ReactNode {
-  const [GoogleTagManager, setGoogleTagManager] = useState<React.ComponentType | null>(null)
+export default function DeferredAnalytics(): JSX.Element {
+  const [GoogleTagManager, setGoogleTagManager] = createSignal<Component | null>(null)
   // The shared analytics gate enables production deploys and honors VITE_TELEMETRY opt-out.
   const enabled = productionTelemetryEnabled(IS_PRODUCTION, TELEMETRY)
 
-  useEffect(() => {
+  onMount(() => {
     if (!enabled) return
     let cancelled = false
 
@@ -29,17 +30,17 @@ export default function DeferredAnalytics(): React.ReactNode {
       ])
 
       if (!cancelled) {
-        startTransition(() => setGoogleTagManager(() => gtmModule.default))
+        setGoogleTagManager(() => gtmModule.default)
       }
     }
 
     const cleanup = scheduleDeferredActivation({ onActivate: activate })
 
-    return () => {
+    onCleanup(() => {
       cancelled = true
       cleanup()
-    }
-  }, [])
+    })
+  })
 
-  return GoogleTagManager ? <GoogleTagManager /> : null
+  return <Dynamic component={GoogleTagManager() ?? undefined} />
 }

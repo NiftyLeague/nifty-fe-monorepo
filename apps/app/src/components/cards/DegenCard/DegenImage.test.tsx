@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import { LEGGIES } from '@/constants/degens'
@@ -32,7 +32,7 @@ afterEach(() => {
 
 describe('DegenImage', () => {
   it('keeps animated cards on a static poster until deferred activation', () => {
-    const { container } = render(<DegenImage tokenId={150} deferAnimation />)
+    const { container } = render(() => <DegenImage tokenId={150} deferAnimation />)
     const image = container.querySelector('[data-deferred-animated-image]')
 
     expect(image?.getAttribute('data-poster-src')).toBe('/img/degens/nfts/150.webp')
@@ -40,7 +40,7 @@ describe('DegenImage', () => {
   })
 
   it('preserves direct GIF rendering for dashboard and detail callers', () => {
-    const { container } = render(<DegenImage tokenId={150} />)
+    const { container } = render(() => <DegenImage tokenId={150} />)
 
     expect(container.querySelector('[data-native-image]')?.getAttribute('data-src')).toBe(
       '/img/degens/nfts/150.gif'

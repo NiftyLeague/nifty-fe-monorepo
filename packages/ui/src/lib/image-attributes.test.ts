@@ -41,15 +41,15 @@ describe('imageAttributes', () => {
     for (const flag of ['priority', 'preload'] as const) {
       expect(imageAttributes({ src: '/img/hero.webp', [flag]: true })).toMatchObject({
         loading: 'eager',
-        fetchPriority: 'high',
+        fetchpriority: 'high',
       })
     }
   })
 
   it('marks lazy artwork as low priority and leaves other cases unset', () => {
-    expect(imageAttributes({ src: '/img/hero.webp' }).fetchPriority).toBe('low')
+    expect(imageAttributes({ src: '/img/hero.webp' }).fetchpriority).toBe('low')
     expect(
-      imageAttributes({ src: '/img/hero.webp', loading: 'eager' }).fetchPriority
+      imageAttributes({ src: '/img/hero.webp', loading: 'eager' }).fetchpriority
     ).toBeUndefined()
   })
 
@@ -58,10 +58,10 @@ describe('imageAttributes', () => {
       src: '/img/hero.webp',
       decoding: 'sync',
       loading: 'eager',
-      fetchPriority: 'auto',
+      fetchpriority: 'auto',
     })
 
-    expect(props).toMatchObject({ decoding: 'sync', loading: 'eager', fetchPriority: 'auto' })
+    expect(props).toMatchObject({ decoding: 'sync', loading: 'eager', fetchpriority: 'auto' })
   })
 
   it('adopts the intrinsic size from an object source', () => {

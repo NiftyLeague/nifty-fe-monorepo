@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const navigationState = {
@@ -11,8 +11,8 @@ let Header: typeof import('./index').default
 
 beforeEach(async () => {
   mock.module('@/contexts/NavigationContext', () => ({
-    useDrawerOpen: () => navigationState.drawerOpen,
-    useIsDesktopNavigation: () => navigationState.isDesktopNavigation,
+    useDrawerOpen: () => () => navigationState.drawerOpen,
+    useIsDesktopNavigation: () => () => navigationState.isDesktopNavigation,
     useToggleDrawer: () => navigationState.toggleDrawer,
   }))
   mock.module('@/layouts/_layout/_MainLayout/_LogoSection', () => ({
@@ -30,7 +30,7 @@ afterEach(() => {
 
 describe('private app header', () => {
   it('connects the sidebar toggle to the navigation landmark', () => {
-    render(<Header />)
+    render(() => <Header />)
 
     const toggle = screen.getByRole('button', { name: 'toggle sidebar' })
 

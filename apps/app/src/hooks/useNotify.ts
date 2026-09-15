@@ -1,5 +1,5 @@
 'use client'
-import { useCallback } from 'react'
+import type { Accessor } from 'solid-js'
 import type { API, InitOptions } from 'bnc-notify'
 import type { JsonRpcSigner } from 'ethers'
 
@@ -39,39 +39,38 @@ const initializeNotify = async (darkMode: boolean): Promise<API | null> => {
   return Notify(options)
 }
 
-export default function useNotify(signer?: JsonRpcSigner, darkMode = true): Tx {
-  return useCallback(
-    async (tx, callback) => {
-      if (typeof signer !== 'undefined') {
-        try {
-          const notify = await initializeNotify(darkMode)
-          const result = await sendTransaction(signer, tx)
-          if (callback) callbacks[result.hash] = callback
+export default function useNotify(
+  signer?: Accessor<JsonRpcSigner | undefined>,
+  darkMode = true
+): Tx {
+  return async (tx, callback) => {
+    const activeSigner = signer?.()
+    if (typeof activeSigner === 'undefined') return null
 
-          // if it is a valid Notify.js network, use that, if not, just send a default notification
-          if (notify && VALID_NOTIFY_NETWORKS.includes(TARGET_NETWORK.chainId)) {
-            const { emitter } = notify.hash(result.hash)
-            emitter.on('all', (transaction) => ({
-              onclick: () =>
-                transaction.hash &&
-                typeof window !== 'undefined' &&
-                window.open(ETHERSCAN_TX_URL + transaction.hash),
-            }))
-          } else {
-            await handleLocalNotify(signer, result, callback)
-          }
+    try {
+      const notify = await initializeNotify(darkMode)
+      const result = await sendTransaction(activeSigner, tx)
+      if (callback) callbacks[result.hash] = callback
 
-          if (typeof result.wait === 'function') await result.wait()
-
-          return result
-        } catch (e) {
-          handleError(e as NotifyError)
-          return null
-        }
+      // if it is a valid Notify.js network, use that, if not, just send a default notification
+      if (notify && VALID_NOTIFY_NETWORKS.includes(TARGET_NETWORK.chainId)) {
+        const { emitter } = notify.hash(result.hash)
+        emitter.on('all', (transaction) => ({
+          onclick: () =>
+            transaction.hash &&
+            typeof window !== 'undefined' &&
+            window.open(ETHERSCAN_TX_URL + transaction.hash),
+        }))
       } else {
-        return null
+        await handleLocalNotify(activeSigner, result, callback)
       }
-    },
-    [signer, darkMode]
-  )
+
+      if (typeof result.wait === 'function') await result.wait()
+
+      return result
+    } catch (e) {
+      handleError(e as NotifyError)
+      return null
+    }
+  }
 }

@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/solid-query'
 
 import { PROFILE_FAV_DEGENS_API } from '@/constants/url'
 import { profileFavoritesQueryOptions } from '@/hooks/useGamerProfile/useProfileFavDegens'
@@ -32,49 +31,57 @@ const selectFavorites = (data?: { favorites: string }): string[] =>
   data ? parseFavorites(data.favorites) : EMPTY_FAVORITES
 
 export default function useFavoriteDegens() {
-  const { authToken } = useAuth()
-  const scope = getAuthQueryScope(authToken)
+  const auth = useAuth()
+  const scope = () => getAuthQueryScope(auth.authToken)
   const queryClient = useQueryClient()
 
   // The profile-favorites query cache is the only favorites owner; the
   // derived list updates wherever the cache updates.
-  const { data: favDegens = EMPTY_FAVORITES } = useQuery({
-    ...profileFavoritesQueryOptions(authToken),
+  const favoritesQuery = useQuery(() => ({
+    ...profileFavoritesQueryOptions(auth.authToken),
     select: selectFavorites,
-  })
+  }))
 
-  const mutation = useMutation({
-    mutationFn: (favorites: string[]) => saveFavoriteDegens(favorites, authToken),
-    onMutate: async (favorites) => {
-      await queryClient.cancelQueries({ queryKey: queryKeys.profile.favorites(scope) })
+  const mutation = useMutation(() => ({
+    mutationFn: (favorites: string[]) => saveFavoriteDegens(favorites, auth.authToken),
+    onMutate: async (favorites: string[]) => {
+      await queryClient.cancelQueries({ queryKey: queryKeys.profile.favorites(scope()) })
       const previous = queryClient.getQueryData<{ favorites: string }>(
-        queryKeys.profile.favorites(scope)
+        queryKeys.profile.favorites(scope())
       )
-      queryClient.setQueryData(queryKeys.profile.favorites(scope), {
+      queryClient.setQueryData(queryKeys.profile.favorites(scope()), {
         favorites: favorites.toString(),
       })
       return { previous }
     },
-    onError: (_error, _favorites, context) => {
+    onError: (
+      _error: unknown,
+      _favorites: string[],
+      context: { previous?: { favorites: string } } | undefined
+    ) => {
       if (context) {
-        queryClient.setQueryData(queryKeys.profile.favorites(scope), context.previous)
+        queryClient.setQueryData(queryKeys.profile.favorites(scope()), context.previous)
       }
     },
-    onSuccess: (favorites) => {
-      queryClient.setQueryData(queryKeys.profile.favorites(scope), {
+    onSuccess: (favorites: string[]) => {
+      queryClient.setQueryData(queryKeys.profile.favorites(scope()), {
         favorites: favorites.toString(),
       })
     },
-  })
+  }))
 
-  const toggleFavorite = useCallback(
-    (degenId: string) => mutation.mutateAsync(toggleValue(favDegens.filter(Boolean), degenId)),
-    [favDegens, mutation.mutateAsync]
-  )
+  const toggleFavorite = (degenId: string) =>
+    mutation.mutateAsync(
+      toggleValue((favoritesQuery.data ?? EMPTY_FAVORITES).filter(Boolean), degenId)
+    )
 
   return {
-    favDegens,
-    isUpdatingFavorites: mutation.isPending,
+    get favDegens() {
+      return favoritesQuery.data ?? EMPTY_FAVORITES
+    },
+    get isUpdatingFavorites() {
+      return mutation.isPending
+    },
     toggleFavorite,
   }
 }

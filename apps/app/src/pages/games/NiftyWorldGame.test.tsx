@@ -1,8 +1,8 @@
-import type { PropsWithChildren } from 'react'
-import { act, fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, jest, mock } from 'bun:test'
 
 import { NIFTY_WORLD_GAMES, getNiftyWorldGameUrl } from '@/constants/niftyworld-games'
+import type { JSX } from 'solid-js'
 
 mock.module('@/runtime/Link', () => ({
   default: ({
@@ -10,7 +10,7 @@ mock.module('@/runtime/Link', () => ({
     href,
     prefetch: _prefetch,
     ...props
-  }: PropsWithChildren<{ href: string; prefetch?: boolean }>) => (
+  }: { href: string; prefetch?: boolean } & { children?: JSX.Element }) => (
     <a href={href} {...props}>
       {children}
     </a>
@@ -30,7 +30,7 @@ describe('NiftyWorldGame', () => {
   it('embeds the selected Nifty World game with an explicit embed contract', async () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const iframe = screen.getByTitle(`${game.title} mini game`)
     const iframeUrl = new URL(iframe.getAttribute('src') ?? '')
 
@@ -55,7 +55,7 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
 
     expect(screen.getByRole('status', { name: `Loading ${game.title}` })).toBeTruthy()
 
@@ -70,7 +70,7 @@ describe('NiftyWorldGame', () => {
     const originalClassName = document.documentElement.className
     document.documentElement.classList.add('dark')
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
 
     const iframe = screen.getByTitle(`${game.title} mini game`)
     const focusSpy = jest.spyOn(iframe, 'focus')
@@ -97,7 +97,7 @@ describe('NiftyWorldGame', () => {
     const originalClassName = document.documentElement.className
     document.documentElement.classList.add('dark')
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
 
     const iframe = screen.getByTitle(`${game.title} mini game`)
     const postMessage = jest.fn()
@@ -129,7 +129,7 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const initialUrl = new URL(
       screen.getByTitle(`${game.title} mini game`).getAttribute('src') ?? ''
     )
@@ -147,7 +147,7 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const iframe = screen.getByTitle(`${game.title} mini game`)
 
     act(() => jest.advanceTimersByTime(10_000))
@@ -160,14 +160,31 @@ describe('NiftyWorldGame', () => {
     const { default: NiftyWorldGame } = await import('./NiftyWorldGame')
     const game = NIFTY_WORLD_GAMES[0]
 
-    const firstRender = render(<NiftyWorldGame game={game} />)
+    const firstRender = render(() => <NiftyWorldGame game={game} />)
     const firstUrl = screen.getByTitle(`${game.title} mini game`).getAttribute('src')
     firstRender.unmount()
 
-    render(<NiftyWorldGame game={game} />)
+    render(() => <NiftyWorldGame game={game} />)
     const secondUrl = screen.getByTitle(`${game.title} mini game`).getAttribute('src')
 
     expect(firstUrl).not.toBe(secondUrl)
     expect(new URL(secondUrl ?? '').searchParams.get('visit')).toBeTruthy()
   })
 })
+
+mock.module('@/runtime/Link', () => ({
+  default: ({
+    children,
+    href,
+    prefetch: _prefetch,
+    ...props
+  }: { href: string; prefetch?: boolean } & { children?: JSX.Element }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}))
+
+mock.module('@nl/ui/custom/external-icon', () => ({
+  ExternalIcon: () => null,
+}))

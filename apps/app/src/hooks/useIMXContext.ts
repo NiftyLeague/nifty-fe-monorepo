@@ -1,11 +1,11 @@
 'use client'
 
-import { useContext } from 'react'
+import { useContext } from 'solid-js'
 
 // IMX Provider
-import IMXContext from '@/contexts/IMXContext'
+import IMXContext, { type IMXContextValue } from '@/contexts/IMXContext'
 
-const useIMXContext = (): React.ContextType<typeof IMXContext> => {
+const useIMXContext = (): IMXContextValue => {
   const context = useContext(IMXContext)
 
   if (!context) throw new Error('context must be use inside provider')

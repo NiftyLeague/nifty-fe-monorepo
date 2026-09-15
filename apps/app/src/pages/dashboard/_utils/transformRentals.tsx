@@ -1,7 +1,7 @@
 import type { Rentals } from '@/types/rentals'
 import { capitalize } from '@/utils/string'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import { RentalDataGrid } from '@/types/rentalDataGrid'
+import type { RentalDataGrid } from '@/types/rentalDataGrid'
 import { formatTime } from '@/utils/dateTime'
 
 export const transformRentals = (rows: Rentals[], userId: string): RentalDataGrid[] =>
@@ -101,9 +101,7 @@ export const transformRentals = (rows: Rentals[], userId: string): RentalDataGri
         playerAddress: accounts?.player?.address,
         playerNickname: isDirectRenter
           ? 'Myself'
-          : (accounts?.player?.address &&
-              nicknames?.length &&
-              nicknames[accounts.player.address]) ||
+          : (accounts?.player?.address && nicknames() && nicknames()?.[accounts.player.address]) ||
             'No nickname',
         rentalName: name_cased,
         category,

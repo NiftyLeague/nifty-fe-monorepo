@@ -1,5 +1,10 @@
 [test]
-preload = ["./test/happy-dom-setup.ts", "./test/preload.ts", "./test/setup.ts"]
+preload = [
+  "./test/happy-dom-setup.ts",
+  "./test/solid-jsx.ts",
+  "./test/preload.ts",
+  "./test/setup.ts",
+]
 exclude = [
   "dist/**",
   "node_modules/**",

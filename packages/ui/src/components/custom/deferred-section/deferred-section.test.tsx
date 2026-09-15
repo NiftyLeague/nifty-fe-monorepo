@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 const useOnScreen = mock(() => false)
@@ -12,9 +12,9 @@ describe('DeferredSection', () => {
   })
 
   it('keeps an accessible, themed loading state before content is near the viewport', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredSection label="Game details" load={async () => ({ default: () => null })} />
-    )
+    ))
 
     expect(screen.getByRole('status', { name: 'Loading Game details' })).toBeTruthy()
     expect(container.firstElementChild?.getAttribute('aria-busy')).toBe('true')
@@ -24,14 +24,14 @@ describe('DeferredSection', () => {
   })
 
   it('supports a transparent loading state for layout-preserving sections', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <DeferredSection
         label="Marketing section"
         load={async () => ({ default: () => null })}
         minHeightClassName="min-h-96"
         loadingMode="minimal"
       />
-    )
+    ))
 
     expect(screen.getByRole('status', { name: 'Loading Marketing section' })).toBeTruthy()
     expect(container.querySelector('.deferred-section-minimal')?.className).toContain('min-h-96')

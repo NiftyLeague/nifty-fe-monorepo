@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { onMount } from 'solid-js'
 
 function syncSidebarState(details: HTMLDetailsElement) {
   const shell = details.closest<HTMLElement>('[data-public-navigation]')
@@ -8,34 +8,34 @@ function syncSidebarState(details: HTMLDetailsElement) {
 }
 
 export default function PublicDesktopNavigationToggle() {
-  const detailsRef = useRef<HTMLDetailsElement>(null)
+  let detailsRef: HTMLDetailsElement | undefined
 
-  useEffect(() => {
-    if (detailsRef.current) syncSidebarState(detailsRef.current)
-  }, [])
+  onMount(() => {
+    if (detailsRef) syncSidebarState(detailsRef)
+  })
 
   return (
     <details
-      ref={detailsRef}
+      ref={(el) => (detailsRef = el)}
       id="public-desktop-navigation-toggle"
       open
-      className="hidden lg:block"
+      class="hidden lg:block"
       onToggle={(event) => syncSidebarState(event.currentTarget)}
     >
       <summary
         aria-controls="public-desktop-navigation"
-        className="flex h-[34px] w-[34px] cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
+        class="flex h-[34px] w-[34px] cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
       >
-        <span aria-hidden="true" className="flex size-6 flex-col justify-center gap-1.5">
-          <span className="h-0.5 w-full rounded-full bg-current" />
-          <span className="h-0.5 w-full rounded-full bg-current" />
-          <span className="h-0.5 w-full rounded-full bg-current" />
+        <span aria-hidden="true" class="flex size-6 flex-col justify-center gap-1.5">
+          <span class="h-0.5 w-full rounded-full bg-current" />
+          <span class="h-0.5 w-full rounded-full bg-current" />
+          <span class="h-0.5 w-full rounded-full bg-current" />
         </span>
         {/* The name comes from this text rather than an `aria-label`, so the
             visible control and its name cannot drift apart, and the summary keeps
             its implicit disclosure role: `role="button"` would replace the
             browser's mapping and take aria-expanded with it. */}
-        <span className="sr-only">Toggle sidebar</span>
+        <span class="sr-only">Toggle sidebar</span>
       </summary>
     </details>
   )

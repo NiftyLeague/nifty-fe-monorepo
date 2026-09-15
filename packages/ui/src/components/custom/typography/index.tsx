@@ -1,32 +1,33 @@
+import { splitProps, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
+
 import { cn } from '@nl/ui/utils'
 
 import { Link } from './link'
 import { Text } from './text'
 import { Title } from './title'
 
-interface TypographyProps<T extends React.ElementType> {
-  children?: React.ReactNode
+interface TypographyProps {
+  children?: JSX.Element
+  class?: string
   className?: string
-  style?: React.CSSProperties
-  tag?: T
+  style?: JSX.CSSProperties | string
+  tag?: string
+  [key: string]: unknown
 }
 
-function Typography<T extends React.ElementType>({
-  children,
-  className,
-  tag,
-  ...rest
-}: TypographyProps<T> & React.ComponentPropsWithoutRef<T>) {
-  const CustomTag = tag || 'div'
+function Typography(props: TypographyProps) {
+  const [local, others] = splitProps(props, ['children', 'class', 'className', 'tag'])
   const classes = cn(
     'text-foreground text-base font-default font-normal tracking-default',
-    className
+    local.class,
+    local.className
   )
 
   return (
-    <CustomTag className={classes} style={rest.style} {...rest}>
-      {children}
-    </CustomTag>
+    <Dynamic component={local.tag || 'div'} class={classes} {...others}>
+      {local.children}
+    </Dynamic>
   )
 }
 

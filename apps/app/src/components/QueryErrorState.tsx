@@ -10,7 +10,7 @@ export default function QueryErrorState({ error, onRetry, className }: QueryErro
   return (
     <div
       role="alert"
-      className={className ?? 'flex min-h-48 items-center justify-center gap-3 text-error'}
+      class={className ?? 'flex min-h-48 items-center justify-center gap-3 text-error'}
     >
       <span>{error.message}</span>
       <Button type="button" variant="outline" onClick={onRetry}>

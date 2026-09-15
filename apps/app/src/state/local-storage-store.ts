@@ -1,5 +1,5 @@
 import { createStore, type StoreApi } from 'zustand/vanilla'
-import type { SetStateAction } from 'react'
+import type { SetStateAction } from '@/types'
 
 import { safeJSONParse } from '@/utils/json'
 import { areValuesEqual } from '@/utils/value-equality'

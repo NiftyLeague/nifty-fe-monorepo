@@ -1,73 +1,90 @@
-import * as React from 'react'
+import { splitProps, type ComponentProps } from 'solid-js'
 
 import { cn } from '@nl/ui/utils'
 
-function Card({ className, ...props }: React.ComponentProps<'div'>) {
+type DivProps = ComponentProps<'div'> & { className?: string }
+
+function Card(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="card"
-      className={cn(
+      class={cn(
         'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function CardHeader(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="card-header"
-      className={cn(
+      class={cn(
         '@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6',
-        className
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function CardTitle({ className, ...props }: React.ComponentProps<'div'>) {
+function CardTitle(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="card-title"
-      className={cn('leading-none font-semibold', className)}
-      {...props}
+      class={cn('leading-none font-semibold', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function CardDescription({ className, ...props }: React.ComponentProps<'div'>) {
+function CardDescription(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="card-description"
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
+      class={cn('text-muted-foreground text-sm', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function CardAction({ className, ...props }: React.ComponentProps<'div'>) {
+function CardAction(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="card-action"
-      className={cn('col-start-2 row-span-2 row-start-1 self-start justify-self-end', className)}
-      {...props}
+      class={cn(
+        'col-start-2 row-span-2 row-start-1 self-start justify-self-end',
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }
 
-function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div data-slot="card-content" className={cn('px-6', className)} {...props} />
+function CardContent(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
+  return (
+    <div data-slot="card-content" class={cn('px-6', local.class, local.className)} {...others} />
+  )
 }
 
-function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function CardFooter(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="card-footer"
-      className={cn('flex items-center px-6 [.border-t]:pt-6', className)}
-      {...props}
+      class={cn('flex items-center px-6 [.border-t]:pt-6', local.class, local.className)}
+      {...others}
     />
   )
 }

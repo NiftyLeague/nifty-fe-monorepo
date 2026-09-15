@@ -1,11 +1,11 @@
-import { render } from '@testing-library/react'
+import { render } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/custom/parallax-wrapper', () => ({
-  ParallaxWrapper: ({ children }: React.PropsWithChildren) => <>{children}</>,
+  ParallaxWrapper: ({ children }: { children?: import('solid-js').JSX.Element }) => <>{children}</>,
 }))
 mock.module('@nl/ui/custom/optimized-image', () => ({
-  default: ({ src, ...props }: React.ComponentProps<'img'>) => (
+  default: ({ src, ...props }: import('solid-js').ComponentProps<'img'>) => (
     <img {...props} src={src} srcSet={`/_next/image?url=${encodeURIComponent(src ?? '')}`} />
   ),
 }))
@@ -19,11 +19,11 @@ describe('ConsoleGame', () => {
   })
 
   it('defers the backdrop image while the video remains viewport-aware', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <ConsoleGame src="/video/example.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
-    )
+    ))
     const image = container.querySelector('img')
     const video = container.querySelector('video')
 
@@ -55,69 +55,68 @@ describe('ConsoleGame', () => {
   })
 
   it('allows the deferred wrapper to own the shared gradient overlay', () => {
-    const { container } = render(
+    const { container } = render(() => (
       <ConsoleGame renderGradientOverlay={false} src="/video/example.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
-    )
+    ))
 
     expect(container.querySelector('.dark-gradient-overlay')).toBeNull()
   })
 
   it('uses the parent visibility state to pause outside the viewport', () => {
-    const { container, rerender } = render(
+    const { container, rerender } = render(() => (
       <ConsoleGame isNearViewport={false} src="/video/example.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
-    )
-    const video = container.querySelector('video')
+    ))
+    expect(container.querySelector('video')?.getAttribute('preload')).toBe('none')
+    expect(container.querySelector('video')?.hasAttribute('autoplay')).toBe(false)
+    expect(container.querySelector('video source')).toBeNull()
 
-    expect(video?.getAttribute('preload')).toBe('none')
-    expect(video?.hasAttribute('autoplay')).toBe(false)
-    expect(video?.querySelector('source')).toBeNull()
-
+    // Solid replaces the subtree on rerender; re-query the video element.
     rerender(
       <ConsoleGame isNearViewport src="/video/example.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
     )
+    const video = container.querySelector('video')
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
     expect(video?.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
   })
 
   it('uses the parent visibility state to pause outside the viewport', () => {
-    const { container, rerender } = render(
+    const { container, rerender } = render(() => (
       <ConsoleGame isNearViewport={false} src="/video/example.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
-    )
-    const video = container.querySelector('video')
+    ))
+    expect(container.querySelector('video')?.getAttribute('preload')).toBe('none')
+    expect(container.querySelector('video')?.hasAttribute('autoplay')).toBe(false)
+    expect(container.querySelector('video source')).toBeNull()
 
-    expect(video?.getAttribute('preload')).toBe('none')
-    expect(video?.hasAttribute('autoplay')).toBe(false)
-    expect(video?.querySelector('source')).toBeNull()
-
+    // Solid replaces the subtree on rerender; re-query the video element.
     rerender(
       <ConsoleGame isNearViewport src="/video/example.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
     )
+    const video = container.querySelector('video')
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
     expect(video?.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
   })
 
   it('uses the parent visibility state to pause outside the viewport', () => {
-    const { container, rerender } = render(
+    const { container, rerender } = render(() => (
       <ConsoleGame isNearViewport={false} src="/video/example.mp4" />
-    )
-    const video = container.querySelector('video')
-
-    expect(video?.getAttribute('preload')).toBe('none')
-    expect(video?.hasAttribute('autoplay')).toBe(false)
+    ))
+    expect(container.querySelector('video')?.getAttribute('preload')).toBe('none')
+    expect(container.querySelector('video')?.hasAttribute('autoplay')).toBe(false)
 
     rerender(<ConsoleGame isNearViewport src="/video/example.mp4" />)
+    const video = container.querySelector('video')
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
   })

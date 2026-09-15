@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/solid-router'
 
 import { getNiftyWorldScene } from '@/constants/niftyworld-scenes'
 import NiftyWorldScene from '@/pages/world/NiftyWorldScene'
@@ -19,9 +19,9 @@ export const Route = createFileRoute('/_public/world/$scene')({
 })
 
 function NiftyWorldSceneRoute() {
-  const scene = getNiftyWorldScene(Route.useParams().scene)
+  const scene = getNiftyWorldScene(Route.useParams()().scene)
 
   if (!scene) return null
 
-  return <NiftyWorldScene key={scene.id} scene={scene} />
+  return <NiftyWorldScene scene={scene} />
 }

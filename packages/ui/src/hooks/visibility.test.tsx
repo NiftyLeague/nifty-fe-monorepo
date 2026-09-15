@@ -1,7 +1,8 @@
 const stubGlobal = (name, value) => {
   Object.defineProperty(globalThis, name, { value, configurable: true, writable: true })
 }
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
+import { createSignal } from 'solid-js'
 import { beforeEach, describe, expect, it, spyOn } from 'bun:test'
 import { mock } from 'bun:test'
 import { useOnScreen } from './useOnScreen'
@@ -40,7 +41,7 @@ describe('useOnScreen', () => {
 
   it('observes the referenced element, updates visibility, and cleans up', () => {
     const element = document.createElement('div')
-    const ref = { current: element }
+    const ref = () => element
     const { result, unmount } = renderHook(() => useOnScreen(ref, '20px'))
 
     expect(observe).toHaveBeenCalledWith(element)
@@ -50,14 +51,14 @@ describe('useOnScreen', () => {
         {} as never
       )
     )
-    expect(result.current).toBe(true)
+    expect(result.current()).toBe(true)
     unmount()
     expect(unobserve).toHaveBeenCalledWith(element)
   })
 
   it('ignores duplicate visibility entries', () => {
     const element = document.createElement('div')
-    const ref = { current: element }
+    const ref = () => element
     let renderCount = 0
     const { result } = renderHook(() => {
       renderCount += 1
@@ -70,8 +71,8 @@ describe('useOnScreen', () => {
         {} as never
       )
     )
-    expect(result.current).toBe(true)
-    expect(renderCount).toBe(2)
+    expect(result.current()).toBe(true)
+    expect(renderCount).toBe(1)
 
     act(() =>
       intersectionCallback(
@@ -80,13 +81,13 @@ describe('useOnScreen', () => {
       )
     )
 
-    expect(result.current).toBe(true)
-    expect(renderCount).toBe(2)
+    expect(result.current()).toBe(true)
+    expect(renderCount).toBe(1)
   })
 
   it('can stop observing after the first intersection', () => {
     const element = document.createElement('div')
-    const ref = { current: element }
+    const ref = () => element
     const { result } = renderHook(() => useOnScreen(ref, '20px', { once: true }))
 
     act(() =>
@@ -96,7 +97,7 @@ describe('useOnScreen', () => {
       )
     )
 
-    expect(result.current).toBe(true)
+    expect(result.current()).toBe(true)
     expect(unobserve).toHaveBeenCalledWith(element)
 
     act(() =>
@@ -105,11 +106,11 @@ describe('useOnScreen', () => {
         {} as never
       )
     )
-    expect(result.current).toBe(true)
+    expect(result.current()).toBe(true)
   })
 
   it('stays false when no element is mounted', () => {
-    expect(renderHook(() => useOnScreen({ current: null })).result.current).toBe(false)
+    expect(renderHook(() => useOnScreen(() => null)).result.current()).toBe(false)
     expect(observe).not.toHaveBeenCalled()
   })
 
@@ -121,9 +122,9 @@ describe('useOnScreen', () => {
     })
 
     try {
-      const { result } = renderHook(() => useOnScreen({ current: document.createElement('div') }))
+      const { result } = renderHook(() => useOnScreen(() => document.createElement('div')))
 
-      expect(result.current).toBe(true)
+      expect(result.current()).toBe(true)
     } finally {
       Object.defineProperty(globalThis, 'IntersectionObserver', {
         configurable: true,
@@ -134,17 +135,15 @@ describe('useOnScreen', () => {
 
   it('does not observe while visibility updates are disabled', () => {
     const element = document.createElement('div')
-    const ref = { current: element }
+    const ref = () => element
 
-    const { result, rerender } = renderHook(
-      ({ enabled }) => useOnScreen(ref, '20px', { enabled }),
-      { initialProps: { enabled: false } }
-    )
+    const [enabled, setEnabled] = createSignal(false)
+    const { result } = renderHook(() => useOnScreen(ref, '20px', { enabled }))
 
-    expect(result.current).toBe(false)
+    expect(result.current()).toBe(false)
     expect(observe).not.toHaveBeenCalled()
 
-    rerender({ enabled: true })
+    act(() => setEnabled(true))
     expect(observe).toHaveBeenCalledWith(element)
   })
 
@@ -163,8 +162,8 @@ describe('useOnScreen', () => {
 
     const firstElement = document.createElement('div')
     const secondElement = document.createElement('div')
-    renderHook(() => useOnScreen({ current: firstElement }, '10px'))
-    renderHook(() => useOnScreen({ current: secondElement }, '10px'))
+    renderHook(() => useOnScreen(() => firstElement, '10px'))
+    renderHook(() => useOnScreen(() => secondElement, '10px'))
 
     expect(constructorCalls).toHaveBeenCalledTimes(1)
     expect(observe).toHaveBeenCalledWith(firstElement)
@@ -184,8 +183,8 @@ describe('useOnScreen', () => {
       }
     )
 
-    renderHook(() => useOnScreen({ current: document.createElement('div') }, '40px'))
-    renderHook(() => useOnScreen({ current: document.createElement('div') }, '50px'))
+    renderHook(() => useOnScreen(() => document.createElement('div'), '40px'))
+    renderHook(() => useOnScreen(() => document.createElement('div'), '50px'))
 
     expect(constructorCalls).toHaveBeenCalledTimes(2)
   })
@@ -204,8 +203,8 @@ describe('useOnScreen', () => {
 
     const firstElement = document.createElement('div')
     const secondElement = document.createElement('div')
-    const first = renderHook(() => useOnScreen({ current: firstElement }, '70px'))
-    const second = renderHook(() => useOnScreen({ current: secondElement }, '70px'))
+    const first = renderHook(() => useOnScreen(() => firstElement, '70px'))
+    const second = renderHook(() => useOnScreen(() => secondElement, '70px'))
 
     first.unmount()
     expect(unobserve).toHaveBeenCalledWith(firstElement)
@@ -216,7 +215,7 @@ describe('useOnScreen', () => {
         {} as never
       )
     )
-    expect(second.result.current).toBe(true)
+    expect(second.result.current()).toBe(true)
   })
 
   it('disconnects a shared observer after its last consumer unmounts', () => {
@@ -230,7 +229,7 @@ describe('useOnScreen', () => {
       }
     )
 
-    const hook = renderHook(() => useOnScreen({ current: document.createElement('div') }, '80px'))
+    const hook = renderHook(() => useOnScreen(() => document.createElement('div'), '80px'))
     hook.unmount()
 
     expect(disconnect).toHaveBeenCalledTimes(1)
@@ -270,7 +269,7 @@ describe('useParallax', () => {
     spyOn(window, 'removeEventListener')
     const element = elementWithTop(100)
     const { unmount } = renderHook(() =>
-      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'strong' })
+      useParallax(() => element, { enabled: true, direction: 'down', intensity: 'strong' })
     )
     markIntersecting(element)
 
@@ -287,7 +286,7 @@ describe('useParallax', () => {
   it('supports horizontal movement and falls back to the element itself', () => {
     const element = elementWithTop(50, false)
     renderHook(() =>
-      useParallax({ current: element }, { enabled: true, direction: 'right', intensity: 'lite' })
+      useParallax(() => element, { enabled: true, direction: 'right', intensity: 'lite' })
     )
     markIntersecting(element)
 
@@ -298,7 +297,7 @@ describe('useParallax', () => {
     const element = elementWithTop(100)
     const getElementsByClassName = spyOn(element, 'getElementsByClassName')
     const { unmount } = renderHook(() =>
-      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
+      useParallax(() => element, { enabled: true, direction: 'down', intensity: 'normal' })
     )
 
     markIntersecting(element)
@@ -337,16 +336,10 @@ describe('useParallax', () => {
       const firstElement = elementWithTop(100)
       const secondElement = elementWithTop(200)
       const first = renderHook(() =>
-        useParallax(
-          { current: firstElement },
-          { enabled: true, direction: 'down', intensity: 'normal' }
-        )
+        useParallax(() => firstElement, { enabled: true, direction: 'down', intensity: 'normal' })
       )
       const second = renderHook(() =>
-        useParallax(
-          { current: secondElement },
-          { enabled: true, direction: 'up', intensity: 'normal' }
-        )
+        useParallax(() => secondElement, { enabled: true, direction: 'up', intensity: 'normal' })
       )
       markIntersecting(firstElement)
       markIntersecting(secondElement)
@@ -388,7 +381,7 @@ describe('useParallax', () => {
     const removeEventListener = spyOn(window, 'removeEventListener')
     const element = elementWithTop(100)
     renderHook(() =>
-      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
+      useParallax(() => element, { enabled: true, direction: 'down', intensity: 'normal' })
     )
 
     expect(addEventListener).not.toHaveBeenCalledWith('scroll', expect.any(Function), {
@@ -407,13 +400,14 @@ describe('useParallax', () => {
   it('does nothing while disabled or before the ref is mounted', () => {
     const addEventListener = spyOn(window, 'addEventListener')
     renderHook(() =>
-      useParallax({ current: null }, { enabled: true, direction: 'up', intensity: 'normal' })
+      useParallax(() => null, { enabled: true, direction: 'up', intensity: 'normal' })
     )
     renderHook(() =>
-      useParallax(
-        { current: elementWithTop(10) },
-        { enabled: false, direction: 'left', intensity: 'extreme' }
-      )
+      useParallax(() => elementWithTop(10), {
+        enabled: false,
+        direction: 'left',
+        intensity: 'extreme',
+      })
     )
 
     expect(addEventListener).not.toHaveBeenCalledWith(
@@ -438,7 +432,7 @@ describe('useParallax', () => {
     const element = elementWithTop(100)
 
     renderHook(() =>
-      useParallax({ current: element }, { enabled: true, direction: 'down', intensity: 'normal' })
+      useParallax(() => element, { enabled: true, direction: 'down', intensity: 'normal' })
     )
 
     expect(element.firstElementChild?.getAttribute('style')).toBeNull()

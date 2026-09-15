@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import ComicsBurnerRouteBoundary from '@/pages/dashboard/items/burner/ComicsBurnerRouteBoundary'
 import { buildHead } from '@/runtime/metadata'

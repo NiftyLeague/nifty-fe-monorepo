@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('./roadmapCard', () => ({
@@ -14,7 +14,7 @@ describe('RoadmapTimelineCards', () => {
   it('renders the deferred catalog directly with alternating sides', async () => {
     const RoadmapTimelineCards = (await import('./RoadmapTimelineCards')).default
 
-    render(<RoadmapTimelineCards />)
+    render(() => <RoadmapTimelineCards />)
 
     const cards = screen.getAllByTestId('roadmap-card')
     expect(cards.length).toBeGreaterThan(1)

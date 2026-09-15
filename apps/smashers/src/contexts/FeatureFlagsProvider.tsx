@@ -1,6 +1,4 @@
-'use client'
-
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, type JSX } from 'solid-js'
 
 const DEFAULT_FLAGS = {
   enableAccountCreation: false,
@@ -19,7 +17,7 @@ const DEFAULT_FLAGS = {
 export type FlagSet = { [camelCasedKey: string]: boolean }
 
 /**
- * The sdk context stored in the Provider state and passed to consumers.
+ * The sdk context stored in the Provider and passed to consumers.
  */
 export type ProviderConfig = { flags: FlagSet }
 
@@ -62,16 +60,10 @@ export function parseFlags(
   }
 }
 
-function useProcessFlagsFromEnv() {
-  const [flags] = useState<FlagSet>(() => parseFlags(process.env.PUBLIC_FEATURE_FLAGS))
+export function FeatureFlagProvider(props: { children: JSX.Element }) {
+  const flags = parseFlags(process.env.PUBLIC_FEATURE_FLAGS)
 
-  return { flags }
-}
-
-type ConfigProviderProps = { children: ReactNode }
-
-export function FeatureFlagProvider({ children }: ConfigProviderProps) {
-  const { flags } = useProcessFlagsFromEnv()
-
-  return <FeatureFlagContext.Provider value={{ flags }}>{children}</FeatureFlagContext.Provider>
+  return (
+    <FeatureFlagContext.Provider value={{ flags }}>{props.children}</FeatureFlagContext.Provider>
+  )
 }

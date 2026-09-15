@@ -1,13 +1,13 @@
-'use client'
-
-import { useContext } from 'react'
-import { FeatureFlagContext, FlagSet, ProviderConfig } from '@/contexts/FeatureFlagsProvider'
+import { useContext } from 'solid-js'
+import {
+  FeatureFlagContext,
+  type FlagSet,
+  type ProviderConfig,
+} from '@/contexts/FeatureFlagsProvider'
 
 /**
- * `useFlags` is a custom hook which returns all feature flags. It uses the `useContext` primitive
- * to access the context set in environment vars
- *
- * @return All the feature flags configured
+ * `useFlags` returns all feature flags. It reads the context populated from
+ * environment vars by the FeatureFlagProvider.
  */
 const useFlags = <T extends FlagSet = FlagSet>(): T => {
   const { flags } = useContext<ProviderConfig>(FeatureFlagContext)

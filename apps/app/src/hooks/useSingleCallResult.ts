@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { createSignal, createEffect } from 'solid-js'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
 import type { Contracts } from '@/types/web3'
 
@@ -11,9 +11,9 @@ export default function useSingleCallResult(
   formatter: ((arg0: unknown) => void) | null,
   skip: boolean
 ): unknown {
-  const [value, setValue] = useState<unknown>()
+  const [value, setValue] = createSignal<unknown>()
 
-  useEffect(() => {
+  createEffect(() => {
     const callContract = async (contract: Contract) => {
       try {
         let newValue: unknown

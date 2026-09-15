@@ -1,14 +1,12 @@
-'use client'
-
-import { startTransition, useEffect, useRef, useState, type RefObject } from 'react'
+import { createEffect, createSignal, onCleanup, type Accessor } from 'solid-js'
 
 type VisibilityCallback = (isIntersecting: boolean) => void
 
 type UseOnScreenOptions = {
   /** Keep the element visible after its first intersection. */
   once?: boolean
-  /** Skip observing until the consumer needs visibility updates. */
-  enabled?: boolean
+  /** Skip observing until the consumer needs visibility updates. Reactive accessors let callers gate on viewport signals. */
+  enabled?: boolean | Accessor<boolean>
 }
 
 type SharedObserver = {
@@ -77,51 +75,39 @@ const subscribeToVisibility = (
 }
 
 export function useOnScreen<T extends Element = HTMLDivElement>(
-  ref: RefObject<T | null>,
+  ref: () => T | null | undefined,
   rootMargin: string = '0px',
   { once = false, enabled = true }: UseOnScreenOptions = {}
-): boolean {
-  // State and setter for storing whether element is visible
-  const [isIntersecting, setIntersecting] = useState<boolean>(false)
-  const isIntersectingRef = useRef(false)
-  useEffect(() => {
-    if (!enabled) {
-      if (isIntersectingRef.current) {
-        isIntersectingRef.current = false
-        setIntersecting(false)
-      }
+): Accessor<boolean> {
+  const [isIntersecting, setIntersecting] = createSignal(false)
+  const isEnabled = () =>
+    typeof enabled === 'function' ? (enabled as Accessor<boolean>)() : enabled
+
+  createEffect(() => {
+    if (!isEnabled()) {
+      setIntersecting(false)
       return
     }
 
-    const element = ref.current
+    const element = ref()
     if (!element) return
 
     if (typeof IntersectionObserver === 'undefined') {
-      if (!isIntersectingRef.current) {
-        isIntersectingRef.current = true
-        setIntersecting(true)
-      }
+      setIntersecting(true)
       return
     }
 
-    let unsubscribe: () => void = () => undefined
+    let unsubscribe: (() => void) | undefined
     const handleVisibilityChange: VisibilityCallback = (visible) => {
-      if (isIntersectingRef.current === visible) return
-
-      isIntersectingRef.current = visible
-      // Visibility changes can mount expensive deferred sections while the
-      // user is actively scrolling. Keep the observer callback cheap and let
-      // React yield to input before rendering the newly visible subtree.
-      startTransition(() => setIntersecting(visible))
-      if (once && visible) unsubscribe()
+      if (isIntersecting() === visible) return
+      setIntersecting(visible)
+      if (once && visible) unsubscribe?.()
     }
 
     unsubscribe = subscribeToVisibility(element, rootMargin, handleVisibilityChange)
-    return () => {
-      unsubscribe()
-    }
-    // ref is intentionally excluded: callbacks must not re-subscribe on re-renders
-  }, [enabled, once, rootMargin])
+    onCleanup(() => unsubscribe?.())
+  })
+
   return isIntersecting
 }
 

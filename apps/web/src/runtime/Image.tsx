@@ -1,9 +1,8 @@
-import { preload as preloadImage } from 'react-dom'
-import type { ComponentProps } from 'react'
+import type { JSX } from 'solid-js'
 import { imageProps } from './image-props.mjs'
 
 type Source = string | { src: string; width?: number; height?: number }
-export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> {
+export interface OptimizedImageProps {
   src: Source
   priority?: boolean
   preload?: boolean
@@ -12,25 +11,45 @@ export interface OptimizedImageProps extends Omit<ComponentProps<'img'>, 'src'> 
   quality?: number
   placeholder?: 'blur' | 'empty'
   blurDataURL?: string
+  alt?: string
+  class?: string
+  className?: string
+  sizes?: string
+  loading?: 'eager' | 'lazy'
+  decoding?: 'async' | 'sync' | 'auto'
+  fetchpriority?: 'high' | 'low' | 'auto'
+  width?: number | string
+  height?: number | string
+  style?: JSX.CSSProperties | string
 }
 
 export function getOptimizedImageProps(
   props: OptimizedImageProps
-): ComponentProps<'img'> & { src: string } {
+): Record<string, unknown> & { src: string } {
   const manifest = typeof WEB_IMAGE_MANIFEST === 'undefined' ? {} : WEB_IMAGE_MANIFEST
-  return imageProps(props, manifest) as ComponentProps<'img'> & { src: string }
+  return imageProps(props, manifest) as Record<string, unknown> & { src: string }
 }
 
+/**
+ * High-priority artwork is preloaded through a `<link rel="preload">` injected
+ * on mount. The React version used `react-dom/preload`, which emitted the link
+ * during SSR; Astro's Solid islands render statically, so the hint is attached
+ * as soon as the island hydrates instead.
+ */
 export default function OptimizedImage(props: OptimizedImageProps) {
   const result = getOptimizedImageProps(props)
-  if (props.priority || props.preload) {
-    preloadImage(result.src, {
-      as: 'image',
-      fetchPriority: 'high',
-      imageSrcSet: result.srcSet,
-      imageSizes: result.sizes,
-    })
+
+  if ((props.priority || props.preload) && typeof document !== 'undefined') {
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'image'
+    link.setAttribute('fetchpriority', 'high')
+    if (result.srcSet) link.setAttribute('imagesrcset', String(result.srcSet))
+    if (result.sizes) link.setAttribute('imagesizes', String(result.sizes))
+    link.href = result.src
+    document.head.append(link)
   }
+
   return <img {...result} />
 }
 export { OptimizedImage }

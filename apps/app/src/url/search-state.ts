@@ -61,7 +61,9 @@ export type LeaderboardGameKey = (typeof leaderboardGames)[number]
 
 const uniqueNonEmpty = (values: string[]) => [...new Set(values.filter(Boolean))]
 
-export const normalizeDegenSearchState = (state: Partial<DegenSearchState>): DegenSearchState => ({
+export const normalizeDegenSearchState = (state: {
+  [K in keyof DegenSearchState]?: DegenSearchState[K] | null
+}): DegenSearchState => ({
   ...state,
   page: Number.isInteger(state.page) && (state.page ?? 0) > 0 ? (state.page as number) : 1,
   sort: state.sort && sortValues.includes(state.sort) ? state.sort : 'idUp',

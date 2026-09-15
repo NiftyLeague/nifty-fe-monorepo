@@ -478,7 +478,7 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).toContain('ssr: false')
     expect(usesSharedLoadingSkeleton(routeBoundarySource)).toBe(true)
     expect(clientPageSource).toContain("'use client'")
-    expect(clientPageSource).toContain("from 'lucide-react'")
+    expect(clientPageSource).toContain("from 'lucide-solid'")
     expect(clientPageSource).toContain('useQueryStates')
     expect(clientPageSource).not.toContain('useSearchParams')
     expect(clientPageSource).not.toContain('useRouter')
@@ -487,7 +487,7 @@ describe('public degen loading contract', () => {
     expect(routeBoundarySource).toContain('Loading degens')
     expect(clientPageSource).not.toContain("from '@nl/ui/base/icon'")
     expect(topNavSource).toContain("import('./DegensTopNavControls')")
-    expect(topNavControlsSource).toContain("from 'lucide-react'")
+    expect(topNavControlsSource).toContain("from 'lucide-solid'")
     expect(topNavSource).not.toContain("from '@nl/ui/base/icon'")
   })
 
@@ -512,7 +512,7 @@ describe('GLTF viewer loading contract', () => {
     const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
     expect(shellSource).not.toContain("'use client'")
-    expect(shellSource).toContain('client:only="react"')
+    expect(shellSource).toContain('client:only="solid-js"')
     expect(shellSource).toContain('styles.viewer__shell')
     expect(shellSource).toContain('styles.initial__image')
     expect(runtimeSource).toContain("from '@nl/ui/custom/optimized-image'")
@@ -532,13 +532,13 @@ describe('GLTF viewer loading contract', () => {
     expect(clientSource).toContain('image__surface')
     expect(clientSource).toContain("const loadModelView = () => import('./ModelView')")
     expect(clientSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
-    expect(clientSource).toContain('ssr: false')
+    expect(clientSource).toContain('useDeferredComponent(loadModelView')
     expect(modelViewSource).toContain(
       "import '@google/model-viewer/dist/model-viewer-module.min.js'"
     )
     expect(modelViewSource).not.toContain("import '@google/model-viewer'")
-    expect(modelViewSource).toContain('modelViewerRef')
-    expect(modelViewSource).toContain("model.setAttribute('src', MODEL_SRC)")
+    expect(modelViewSource).toContain('modelViewerEl')
+    expect(modelViewSource).toContain("model.setAttribute('src', MODEL_SRC())")
   })
 
   it('keeps embedded viewer controls loadable in sandboxed frames', () => {
@@ -562,7 +562,7 @@ describe('GLTF viewer loading contract', () => {
     expect(shellSource.slice(posterStart, posterEnd)).toContain('loading="eager"')
     expect(shellSource.slice(posterStart, posterEnd)).toContain('fetchpriority="high"')
 
-    expect(runtimeSource).toContain('className={styles.sprite__wrapper}')
+    expect(runtimeSource).toContain('class={styles.sprite__wrapper}')
     expect(runtimeSource).toContain('fill\n            sizes="100vw"')
     const logoStart = runtimeSource.indexOf('alt="Nifty League Logo"')
     const logoEnd = runtimeSource.indexOf('src="/img/logos/NL/wordmark.webp"')
@@ -797,15 +797,17 @@ describe('Smashers public shell contract', () => {
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
     expect(actionButtonsSource).toContain("from '@nl/ui/base/button-variants'")
     expect(actionButtonsSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
-    expect(actionButtonsSource).toContain('className={buttonVariants()}')
+    expect(actionButtonsSource).toContain('class={buttonVariants()}')
     expect(actionButtonsSource).toContain('<button')
     expect(actionButtonsSource).not.toContain("from '@nl/ui/base/button'")
     expect(actionButtonsSource).toContain("import('@/components/PlayDialog')")
     expect(actionButtonsSource).toContain("import('@/components/TrailerDialog')")
     expect(actionButtonsSource).toContain("import('@/components/CreditsDialog')")
-    expect(actionButtonsSource).toContain('useDeferredComponent(action.load, open)')
+    expect(actionButtonsSource).toContain(
+      'useDeferredComponent(props.action.load, () => props.open)'
+    )
     expect(actionButtonsSource).not.toContain('loadedModals')
-    expect(actionButtonsSource).toContain('aria-busy={isLoading}')
+    expect(actionButtonsSource).toContain('aria-busy={props.open && !hasError()}')
   })
 
   it('mounts the PlayFab auth providers only on authenticated routes', () => {
@@ -866,7 +868,7 @@ describe('Smashers public shell contract', () => {
   it('keeps the shared back control out of the full icon registry graph', () => {
     const source = readFileSync(join(process.cwd(), smashersBackButton), 'utf8')
 
-    expect(source).toContain("from 'lucide-react'")
+    expect(source).toContain("from 'lucide-solid'")
     expect(source).not.toContain("from '@nl/ui/base/icon'")
   })
 })
@@ -897,7 +899,7 @@ describe('shared auth icon loading contract', () => {
     for (const file of sharedAuthIconSources) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain("from 'lucide-react'")
+      expect(source).toContain("from 'lucide-solid'")
       expect(source).not.toContain("from '@nl/ui/base/icon'")
     }
   })
@@ -959,7 +961,7 @@ describe('dashboard dialog loading contract', () => {
     const source = readFileSync(join(process.cwd(), deferredDegenDialog), 'utf8')
 
     expect(source).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(source).toContain('enabled={open}')
+    expect(source).toContain('enabled={open()}')
     expect(source).toContain("import('@/components/dialog/DegenDialog')")
     expect(source).not.toContain("from 'next/dynamic'")
   })
@@ -968,7 +970,7 @@ describe('dashboard dialog loading contract', () => {
     const source = readFileSync(join(process.cwd(), deferredRenameDegenDialog), 'utf8')
 
     expect(source).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(source).toContain('enabled={open}')
+    expect(source).toContain('enabled={open()}')
     expect(source).toContain("import('@/pages/dashboard/degens/_dialogs/RenameDegenDialogContent')")
     expect(source).toContain('DeferredDialogLoading')
     expect(source).not.toContain("from 'next/dynamic'")
@@ -979,7 +981,7 @@ describe('dashboard dialog loading contract', () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
       expect(source).toContain('DeferredRenameDegenDialog')
-      expect(source).toContain('open={isRenameDegenModalOpen}')
+      expect(source).toContain('open={isRenameDegenModalOpen()}')
       expect(source).not.toContain(
         "from '@/pages/dashboard/degens/_dialogs/RenameDegenDialogContent'"
       )
@@ -1015,11 +1017,11 @@ describe('dashboard dialog loading contract', () => {
     const source = readFileSync(join(process.cwd(), deferredNicknameDialogConsumer), 'utf8')
 
     expect(wrapper).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(wrapper).toContain('enabled={open}')
+    expect(wrapper).toContain('enabled={open()}')
     expect(wrapper).toContain("import('@/pages/dashboard/rentals/ChangeNicknameDialog')")
     expect(wrapper).not.toContain("from 'next/dynamic'")
     expect(source).toContain('DeferredChangeNicknameDialog')
-    expect(source).toContain('open={isNicknameModalOpen}')
+    expect(source).toContain('open={isNicknameModalOpen()}')
     expect(source).not.toContain("from './ChangeNicknameDialog'")
   })
 
@@ -1027,7 +1029,7 @@ describe('dashboard dialog loading contract', () => {
     const source = readFileSync(join(process.cwd(), profileNameDialog), 'utf8')
 
     expect(source).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(source).toContain('enabled={open}')
+    expect(source).toContain('enabled={open()}')
     expect(source).toContain("import('./ChangeProfileNameForm')")
     expect(source).toContain('DeferredDialogLoading')
     expect(source).not.toContain("from './ChangeProfileNameForm'")
@@ -1038,7 +1040,7 @@ describe('dashboard dialog loading contract', () => {
     const contentSource = readFileSync(join(process.cwd(), profileImageContent), 'utf8')
 
     expect(dialogSource).toContain("from '@nl/ui/custom/deferred-component'")
-    expect(dialogSource).toContain('enabled={open}')
+    expect(dialogSource).toContain('enabled={open()}')
     expect(dialogSource).toContain("import('./ProfileImageContent')")
     expect(dialogSource).toContain('DeferredDialogLoading')
     expect(dialogSource).not.toContain("from '@/components/sections/SectionSlider'")
@@ -1277,7 +1279,7 @@ describe('public app shell contract', () => {
     expect(deferredProfileSource).toContain('isVisiblePlacement')
     expect(navigationSource).toContain('<DeferredPublicUserProfile placement="mobile" />')
     expect(navigationSource).toContain('<DeferredPublicUserProfile placement="desktop" />')
-    expect(navigationSource).toContain('{children}')
+    expect(navigationSource).toContain('{props.children}')
     expect(navigationSource).not.toContain('PublicMainContent')
     expect(
       existsSync(join(process.cwd(), 'apps/app/src/components/providers/PublicMainContent.tsx'))
@@ -1294,7 +1296,7 @@ describe('public app shell contract', () => {
     expect(linksSource).not.toContain("'use client'")
     expect(linksSource).not.toContain("from '@nl/ui/base/icon'")
     expect(linksSource).toContain("from '@nl/ui/custom/nav-icon'")
-    expect(linksSource).not.toContain("from 'lucide-react'")
+    expect(linksSource).not.toContain("from 'lucide-solid'")
     expect(linksSource).not.toContain("from 'next/link'")
     expect(linksSource).toContain("from '@/runtime/Link'")
     expect(linksSource).toContain("from '@/runtime/navigation'")
@@ -1317,7 +1319,7 @@ describe('public app shell contract', () => {
     expect(sharedMobileSource).not.toContain("'use client'")
     expect(sharedMobileSource).toContain('<details')
     expect(sharedMobileSource).toContain('<summary')
-    expect(sharedMobileSource).toContain('aria-controls={id}')
+    expect(sharedMobileSource).toContain('aria-controls={props.id}')
     expect(sharedMobileSource).toContain('group-open:rotate-45')
   })
 })
@@ -1326,7 +1328,7 @@ describe('deferred sidebar content contract', () => {
   it('does not mount hidden drawer content before the drawer opens', () => {
     const source = readFileSync(join(process.cwd(), collapsibleSidebarLayout), 'utf8')
 
-    expect(source).toContain('{isDrawerOpen ? renderDrawer() : null}')
+    expect(source).toContain('{isDrawerOpen() ? props.renderDrawer() : null}')
   })
 })
 describe('verification route shell contract', () => {
@@ -1484,7 +1486,7 @@ describe('private provider loading contract', () => {
     expect(providerSource).toContain("import('./Web3ModalConfig')")
     expect(providerSource).toContain('Promise.all')
     expect(runtimeSource).not.toContain("import('./Web3ModalConfig')")
-    expect(runtimeSource).toContain('WagmiProvider')
+    expect(runtimeSource).toContain("from '@wagmi/core'")
     expect(providerSource).not.toContain('createAppKit')
     expect(providerSource).not.toContain('@reown/appkit/react')
     expect(providerSource).not.toContain('@/constants/contracts')
@@ -1500,9 +1502,9 @@ describe('private provider loading contract', () => {
     expect(authSource).not.toContain('useEffect')
     expect(authSource).not.toContain('useState')
     expect(authSource).toContain("import('./AuthTokenProviderRuntime')")
-    expect(authRuntimeSource).toContain("from 'wagmi'")
+    expect(authRuntimeSource).toContain("from '@/runtime/wagmi'")
     expect(authRuntimeSource).toContain('openWalletModal')
-    expect(modalSource).toContain("import('@reown/appkit/react')")
+    expect(modalSource).toContain("import('@reown/appkit')")
     expect(modalSource).toContain("import('@/constants/contracts')")
     expect(modalSource).not.toContain("import('viem/chains')")
     expect(modalSource).toContain("import('./Web3ModalConfig')")
@@ -1731,7 +1733,7 @@ describe('private app bar contract', () => {
     const appBarStyles = readFileSync(join(process.cwd(), sharedAppBarStyles), 'utf8')
 
     expect(source).toContain("from '@nl/ui/custom/app-bar'")
-    expect(source).toContain('<AppBar>{header}</AppBar>')
+    expect(source).toContain('<AppBar>{props.header}</AppBar>')
     expect(appBarSource).toContain("import styles from './app-bar.module.css'")
     expect(appBarStyles).toContain('min-height: 56px')
     expect(appBarStyles).toContain('padding: 8px 16px')
@@ -1761,7 +1763,7 @@ describe('gamer profile loading contract', () => {
     expect(clientSource).toContain('aria-busy="true"')
     expect(clientSource).not.toContain("from 'wagmi'")
     expect(clientSource).not.toContain("from '@/hooks/balances/useNFTsBalances'")
-    expect(contentSource).toContain("from 'wagmi'")
+    expect(contentSource).toContain("from '@/runtime/wagmi'")
     expect(contentSource).toContain("from '@/hooks/balances/useNFTsBalances'")
     expect(contentSource).not.toContain('defaultValue')
     expect(contentSource).toContain('GamerProfileProvider')
@@ -1786,9 +1788,9 @@ describe('dashboard rentals loading contract', () => {
     expect(clientSource).toContain('aria-live="polite"')
     expect(clientSource).toContain('aria-busy="true"')
     expect(clientSource).not.toContain("from './MyRentalsDataGrid'")
-    expect(clientSource).not.toContain("from '@tanstack/react-query'")
+    expect(clientSource).not.toContain("from '@tanstack/solid-query'")
     expect(contentSource).toContain("from './MyRentalsDataGrid'")
-    expect(contentSource).toContain("from '@tanstack/react-query'")
+    expect(contentSource).toContain("from '@tanstack/solid-query'")
     expect(contentSource).toContain('My Rentals')
   })
 })
@@ -1931,13 +1933,13 @@ describe('shared console game loading contract', () => {
     expect(consoleGameSource).not.toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(consoleGameSource).toContain('isNearViewport?: boolean')
     expect(consoleGameSource).toContain(
-      '{isNearViewport ? <source src={src} type="video/mp4" /> : null}'
+      '{nearViewport() ? <source src={props.src} type="video/mp4" /> : null}'
     )
-    expect(consoleGameSource).toContain('children: ReactNode')
-    expect(deferredSource).toContain('isNearViewport={isNearViewport && videoActivated}')
+    expect(consoleGameSource).toContain('children: JSX.Element')
+    expect(deferredSource).toContain('isNearViewport={isNearViewport() && videoActivated()}')
     expect(deferredSource).toContain('scheduleDeferredActivation')
-    expect(deferredSource).toContain('children: ReactNode')
-    expect(deferredSource).toContain('<div className="dark-gradient-overlay" />')
+    expect(deferredSource).toContain('children: JSX.Element')
+    expect(deferredSource).toContain('<div class="dark-gradient-overlay" />')
     expect(deferredSource).toContain('renderGradientOverlay={false}')
     expect(deferredSource).not.toContain("from '../console-game/backdrop'")
     expect(deferredSource).not.toContain("from '@nl/ui/custom/optimized-image'")
@@ -2031,7 +2033,12 @@ describe('shared below-fold loading contract', () => {
     // DeferredHomeMedia keeps owning the genuinely lazy home media islands.
     expect(deferredSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(deferredSource).toContain("import('@/components/CommunityDegenCarousel')")
-    expect(deferredSource).toContain("import('@/components/MintOMatic')")
+    expect(
+      readFileSync(
+        join(process.cwd(), 'apps/web/src/components/HomeSections/HomeTokenSection.tsx'),
+        'utf8'
+      )
+    ).toContain("from '@/components/MintOMatic'")
     expect(homeSectionSources).toContain("from '@nl/ui/custom/optimized-image'")
     expect(homeSectionSources).toContain("from '@nl/ui/custom/theme-button-group'")
     expect(homeSectionSources).toContain('home-v3')
@@ -2112,7 +2119,7 @@ describe('web public navigation contract', () => {
     expect(sharedNavbarScrollStateSource).toContain('window.scrollY > 80')
     expect(sharedNavbarScrollStateSource).toContain('nextIsScrolled === isScrolled')
     expect(sharedNavbarScrollStateSource).toContain('data-target')
-    expect(sharedNavbarScrollStateSource).toContain('dangerouslySetInnerHTML')
+    expect(sharedNavbarScrollStateSource).toContain('innerHTML={')
     expect(sharedNavbarSource).not.toContain("import ActiveNavLink from './ActiveNavLink'")
     expect(sharedNavbarSource).toContain('function DesktopNavLink')
     expect(sharedNavbarScrollFrameSource).toContain('navbar-scroll-frame')
@@ -2146,11 +2153,11 @@ describe('web public navigation contract', () => {
     expect(sharedMobileSource).toContain('<summary')
     // The name comes from visually-hidden text rather than an aria-label, and the
     // summary keeps its implicit role so the browser exposes aria-expanded.
-    expect(sharedMobileSource).toContain('<span className="sr-only">{label}</span>')
+    expect(sharedMobileSource).toContain('<span class="sr-only">{props.label}</span>')
     // The opening tag must carry no explicit role: `role="button"` on a summary
     // replaces the browser's disclosure mapping and drops aria-expanded.
     expect(sharedMobileSource.replace(/\/\*[\s\S]*?\*\//g, '')).toMatch(
-      /<summary\s+aria-controls=\{id\}/
+      /<summary\s+aria-controls=\{props\.id\}/
     )
     const sharedUtilityStyles = readFileSync(
       join(process.cwd(), 'packages/ui/src/styles/04_tailwind.utilities.css'),
@@ -2686,18 +2693,18 @@ describe('public route dependency contract', () => {
     expect(shell).toContain("from './ViewportVideoBoundary'")
     expect(shell).toContain("from './constants'")
     expect(constants).toContain("DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN = '0px 0px -25% 0px'")
-    expect(boundary).toContain('lazy<ComponentType<ViewportVideoEnhancerProps>>(')
-    expect(boundary).toContain('rootMargin = DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN')
+    expect(boundary).toContain('useDeferredComponent<ViewportVideoEnhancerProps>(')
+    expect(boundary).toContain('local.rootMargin ?? DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN')
     expect(boundary).toContain(
-      "preload={shouldRenderMedia && isNearViewport ? 'metadata' : 'none'}"
+      "preload={shouldRenderMedia() && isNearViewport() ? 'metadata' : 'none'}"
     )
     expect(boundary).toContain(
-      'const shouldRenderMedia = hasEnteredViewport || (isNearViewport && !deferLoad)'
+      'const shouldRenderMedia = () => hasEnteredViewport() || (isNearViewport() && !deferLoad())'
     )
     expect(enhancer).not.toContain("from '@nl/ui/hooks/useOnScreen'")
     expect(enhancer).toContain('isNearViewport: boolean')
     expect(enhancer).toContain("from '@nl/ui/hooks/useMediaQuery'")
-    expect(enhancer).toContain("video.preload = shouldLoad ? 'metadata' : 'none'")
+    expect(enhancer).toContain("video.preload = shouldLoad() ? 'metadata' : 'none'")
   })
 
   it('keeps marketing game cards accessible and uniquely identified', () => {
@@ -2828,7 +2835,7 @@ describe('public route dependency contract', () => {
     expect(source).not.toContain("from '@nl/ui/base/button'")
     expect(source).not.toContain('aria-disabled={disabled}')
     expect(source).not.toContain("href={href || ''}")
-    expect(source).toContain('if (!href) return null')
+    expect(source).toContain('if (!props.href) return null')
     expect(source).not.toContain("href={href ?? '#'}")
   })
 
@@ -2877,7 +2884,7 @@ describe('public route dependency contract', () => {
     )
 
     expect(card).not.toContain("from './DegenDashboardActions'")
-    expect(card).toContain('dashboardActions?: React.ReactNode')
+    expect(card).toContain('dashboardActions?: JSX.Element')
     expect(dashboardCard).toContain("import('./DegenDashboardActions')")
   })
 })

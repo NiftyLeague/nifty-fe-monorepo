@@ -57,11 +57,6 @@ export const NAVBAR_SCROLL_STATE_SCRIPT = `(() => {
   })
 })()`
 
-export default function NavbarScrollState({ targetId }: NavbarScrollStateProps) {
-  return (
-    <script
-      data-target={targetId}
-      dangerouslySetInnerHTML={{ __html: NAVBAR_SCROLL_STATE_SCRIPT }}
-    />
-  )
+export default function NavbarScrollState(props: NavbarScrollStateProps) {
+  return <script data-target={props.targetId} innerHTML={NAVBAR_SCROLL_STATE_SCRIPT} />
 }

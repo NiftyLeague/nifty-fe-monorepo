@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react'
+import { act, render, screen } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, mock } from 'bun:test'
 
 mock.module('./GoogleTagManager', () => ({
@@ -11,7 +11,7 @@ describe('DeferredGoogleTagManager', () => {
   afterEach(() => mock.restore())
 
   it('keeps the GTM chunk out of the initial render until activation', async () => {
-    const rendered = render(<DeferredGoogleTagManager />)
+    const rendered = render(() => <DeferredGoogleTagManager />)
 
     expect(screen.queryByTestId('gtm-loaded')).toBeNull()
 

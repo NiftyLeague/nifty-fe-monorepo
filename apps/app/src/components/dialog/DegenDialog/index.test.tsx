@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
 import { DEGEN_CONTRACT } from '@/constants/contracts'
@@ -7,33 +7,28 @@ import type { DashboardDegen } from '@/types/degens'
 mock.module('@/runtime/dynamic', () => ({
   default:
     () =>
-    ({
-      displayName,
-      traits,
-    }: {
+    (props: {
       displayName?: string
       traits?: string | readonly bigint[] | Record<string, bigint>
     }) => (
       <div data-testid="degen-dialog-content">
-        {displayName}{' '}
-        {typeof traits === 'string'
-          ? traits
-          : Array.isArray(traits)
-            ? traits[0]?.toString()
-            : traits?.tribe?.toString()}
+        {props.displayName}{' '}
+        {typeof props.traits === 'string'
+          ? props.traits
+          : Array.isArray(props.traits)
+            ? props.traits[0]?.toString()
+            : props.traits?.tribe?.toString()}
       </div>
     ),
 }))
 
 mock.module('@nl/ui/base/dialog', () => ({
-  Dialog: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  DialogContent: ({ children }: { children: React.ReactNode }) => (
-    <div role="dialog">{children}</div>
-  ),
+  Dialog: ({ children }: { children: JSX.Element }) => <div>{children}</div>,
+  DialogContent: ({ children }: { children: JSX.Element }) => <div role="dialog">{children}</div>,
 }))
 
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
-  useMediaQuery: () => false,
+  useMediaQuery: () => () => false,
 }))
 
 const getName = mock(async () => 'Chain Name')
@@ -68,13 +63,13 @@ describe('DegenDialog', () => {
   it('loads contract traits without blocking on a redundant metadata request', async () => {
     const { default: DegenDialog } = await import('./index')
 
-    render(
+    render(() => (
       <DegenDialog
         open
         degen={{ id: '1', name: 'Fallback Name' } as DashboardDegen}
         setIsRent={() => undefined}
       />
-    )
+    ))
 
     expect(await screen.findByText('Chain Name 1')).not.toBeNull()
     expect(getName).toHaveBeenCalledWith('1')
@@ -88,7 +83,7 @@ describe('DegenDialog', () => {
 
     const { default: DegenDialog } = await import('./index')
 
-    render(
+    render(() => (
       <DegenDialog
         open
         degen={
@@ -100,7 +95,7 @@ describe('DegenDialog', () => {
         }
         setIsRent={() => undefined}
       />
-    )
+    ))
 
     expect(await screen.findByText('Fallback Name 1,17,0,0,0,0,263')).not.toBeNull()
   })

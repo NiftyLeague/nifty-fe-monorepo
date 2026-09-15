@@ -1,39 +1,33 @@
-'use client'
-
-import { useEffect, type RefObject } from 'react'
+import { createEffect } from 'solid-js'
 
 import useMediaQuery from '@nl/ui/hooks/useMediaQuery'
 
 export interface ViewportVideoEnhancerProps {
   isNearViewport: boolean
   playOnViewport: boolean
-  videoRef: RefObject<HTMLVideoElement | null>
+  videoRef: () => HTMLVideoElement | undefined
 }
 
-export default function ViewportVideoEnhancer({
-  isNearViewport,
-  playOnViewport,
-  videoRef,
-}: ViewportVideoEnhancerProps): null {
+export default function ViewportVideoEnhancer(props: ViewportVideoEnhancerProps): null {
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
-  const shouldLoad = isNearViewport
-  const shouldPlay = playOnViewport && isNearViewport && !prefersReducedMotion
+  const shouldLoad = () => props.isNearViewport
+  const shouldPlay = () => props.playOnViewport && props.isNearViewport && !prefersReducedMotion()
 
-  useEffect(() => {
-    const video = videoRef.current
+  createEffect(() => {
+    const video = props.videoRef()
     if (!video) return
 
-    video.autoplay = shouldPlay
-    video.preload = shouldLoad ? 'metadata' : 'none'
+    video.autoplay = shouldPlay()
+    video.preload = shouldLoad() ? 'metadata' : 'none'
 
-    if (!shouldPlay) {
+    if (!shouldPlay()) {
       video.pause?.()
       return
     }
 
     const playPromise = video.play?.()
     playPromise?.catch(() => undefined)
-  }, [shouldLoad, shouldPlay, videoRef])
+  })
 
   return null
 }

@@ -1,6 +1,6 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
-import { QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/solid-query'
 
 import { createAppQueryClient } from '@/query/app-query'
 
@@ -15,7 +15,7 @@ beforeEach(() => {
   fetchScores.mockClear()
   mock.module('@/utils/leaderboard', () => ({ fetchScores }))
   mock.module('./CustomModal', () => ({
-    default: ({ child }: { child: React.ReactNode }) => <>{child}</>,
+    default: ({ child }: { child: JSX.Element }) => <>{child}</>,
   }))
 })
 
@@ -36,11 +36,11 @@ describe('leaderboard rank dialog data', () => {
     }
 
     const client = createAppQueryClient()
-    const { rerender } = render(
+    const { rerender } = render(() => (
       <QueryClientProvider client={client}>
         <TopModal {...baseProps} />
       </QueryClientProvider>
-    )
+    ))
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
 
     expect(fetchCalls[0]?.slice(0, 5)).toEqual(['nifty_smashers', 'score', 'all_time', 10, 2])
@@ -67,12 +67,12 @@ describe('leaderboard rank dialog data', () => {
       selectedTimeFilter: 'all_time',
     }
 
-    render(
+    render(() => (
       <QueryClientProvider client={client}>
         <TopModal {...props} />
         <TopModal {...props} />
       </QueryClientProvider>
-    )
+    ))
     await waitFor(() => expect(fetchScores).toHaveBeenCalledTimes(1))
   })
 })

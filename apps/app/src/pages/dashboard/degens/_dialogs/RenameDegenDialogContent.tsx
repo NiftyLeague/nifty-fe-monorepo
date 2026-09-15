@@ -1,8 +1,8 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { createSignal, Show, type JSX } from 'solid-js'
 import { parseEther } from 'ethers'
-import { AlertCircle } from 'lucide-react'
+import { AlertCircle } from 'lucide-solid'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 import { DialogContent } from '@nl/ui/base/dialog'
@@ -35,16 +35,16 @@ interface Props {
   onSuccess?: () => void
 }
 
-const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode => {
-  const { tx, writeContracts } = useNetworkContext()
-  const { tokensBalances } = useTokensBalances()
-  const [input, setInput] = useState('')
-  const [error, setError] = useState('')
-  const { allowance, refetch: refetchAllowance } = useNFTLAllowance(DEGEN_CONTRACT_ADDRESS)
-  const [isLoadingRename, setLoadingRename] = useState(false)
-  const [renameSuccess, setRenameSuccess] = useState(false)
-  const insufficientAllowance = allowance < 1000
-  const insufficientBalance = tokensBalances.NFTL.eth < 1000
+const RenameDegenDialogContent = (props: Props): JSX.Element => {
+  const network = useNetworkContext()
+  const tokens = useTokensBalances()
+  const [input, setInput] = createSignal('')
+  const [error, setError] = createSignal('')
+  const nftlAllowance = useNFTLAllowance(DEGEN_CONTRACT_ADDRESS)
+  const [isLoadingRename, setLoadingRename] = createSignal(false)
+  const [renameSuccess, setRenameSuccess] = createSignal(false)
+  const insufficientAllowance = () => nftlAllowance.allowance < 1000
+  const insufficientBalance = () => tokens.tokensBalances.NFTL.eth < 1000
 
   const validateName = (value: string) => {
     setInput(value)
@@ -52,32 +52,32 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
     setError(errorMsg)
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    validateName(value)
+  const handleChange = (event: InputEvent & { currentTarget: HTMLInputElement }) => {
+    validateName(event.currentTarget.value)
   }
 
-  const handleRename = useCallback(async () => {
+  const handleRename = async () => {
     setLoadingRename(true)
-    if (insufficientBalance) {
+    const writeContracts = network.writeContracts
+    if (insufficientBalance()) {
       setError('Failed to charge the rental rename fee')
     } else if (
-      !error &&
+      !error() &&
       writeContracts &&
       writeContracts[DEGEN_CONTRACT] &&
       writeContracts[NFTL_CONTRACT]
     ) {
-      if (DEBUG) console.log('Rename NFT to:', input)
+      if (DEBUG) console.log('Rename NFT to:', input())
       const degenContract = writeContracts[DEGEN_CONTRACT]
       const nftl = writeContracts[NFTL_CONTRACT]
-      if (insufficientAllowance) {
+      if (insufficientAllowance()) {
         if (DEBUG) console.log('Current allowance too low')
         const DEGENAddress = await degenContract.getAddress()
-        await tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')))
-        refetchAllowance()
+        await network.tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')))
+        nftlAllowance.refetch()
       }
-      const args = [parseInt(degen?.id || '', 10), input]
-      const result = await submitTxWithGasEstimate(tx, degenContract, 'changeName', args)
+      const args = [parseInt(props.degen?.id || '', 10), input()]
+      const result = await submitTxWithGasEstimate(network.tx, degenContract, 'changeName', args)
       if (result) {
         setRenameSuccess(true)
         gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {
@@ -85,93 +85,84 @@ const RenameDegenDialogContent = ({ degen, onSuccess }: Props): React.ReactNode 
           value: 1000,
           item_name: 'DEGEN Rename Fee',
         })
-        onSuccess?.()
+        props.onSuccess?.()
       }
     }
     setLoadingRename(false)
-  }, [
-    degen,
-    error,
-    input,
-    insufficientAllowance,
-    insufficientBalance,
-    onSuccess,
-    refetchAllowance,
-    tx,
-    writeContracts,
-  ])
+  }
 
   return (
-    <DialogContent
-      showCloseButton={false}
-      className="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]"
-    >
-      <div className="flex flex-col gap-4">
-        <Title level={4} className="text-center">
+    <DialogContent showCloseButton={false} class="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]">
+      <div class="flex flex-col gap-4">
+        <Title level={4} class="text-center">
           Rename DEGEN
         </Title>
-        <div className="flex flex-col items-center gap-1">
+        <div class="flex flex-col items-center gap-1">
           <NativeImage
-            src={`/img/degens/nfts/${degen?.id}.${degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
+            src={`/img/degens/nfts/${props.degen?.id}.${props.degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
             alt="degen"
             width={240}
             height={240}
-            unoptimized={degen?.background === 'Legendary'}
+            unoptimized={props.degen?.background === 'Legendary'}
             style={{
-              aspectRatio: '1/1',
+              'aspect-ratio': '1/1',
               width: '240px',
               margin: '0 auto',
-              objectFit: 'cover',
+              'object-fit': 'cover',
               display: 'block',
             }}
           />
-          <p className="text-center text-xs text-muted-foreground">Owned by {degen?.owner}</p>
+          <p class="text-center text-xs text-muted-foreground">Owned by {props.degen?.owner}</p>
         </div>
-        <div className="grid gap-2">
-          <Label htmlFor="new-degen-name" className={error ? 'text-destructive' : undefined}>
+        <div class="grid gap-2">
+          <Label for="new-degen-name" class={error() ? 'text-destructive' : undefined}>
             Enter new degen name
           </Label>
-          <div className="relative">
+          <div class="relative">
             <Input
               id="new-degen-name"
               name="new-degen-name"
-              value={input}
-              aria-invalid={!!error}
-              className={error ? 'pr-10' : undefined}
-              disabled={isLoadingRename}
-              onChange={handleChange}
+              value={input()}
+              aria-invalid={!!error()}
+              class={error() ? 'pr-10' : undefined}
+              disabled={isLoadingRename()}
+              onInput={handleChange}
             />
-            {error && (
-              <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
+            <Show when={error()}>
+              <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-destructive">
                 <AlertCircle aria-hidden="true" size={18} />
               </span>
-            )}
+            </Show>
           </div>
         </div>
-        {error && <span className="text-xs text-error">{error}</span>}
+        <Show when={error()}>
+          <span class="text-xs text-error">{error()}</span>
+        </Show>
         <RenameStepper
-          insufficientAllowance={insufficientAllowance}
-          renameSuccess={renameSuccess}
-          insufficientBalance={insufficientBalance}
+          insufficientAllowance={insufficientAllowance()}
+          renameSuccess={renameSuccess()}
+          insufficientBalance={insufficientBalance()}
         />
-        <div className="flex justify-between">
+        <div class="flex justify-between">
           <Title level={4}>Renaming Fee</Title>
           <span>1,000 NFTL</span>
         </div>
         <Button
           variant="default"
-          className="w-full"
-          disabled={!input || Boolean(error) || insufficientBalance || isLoadingRename}
-          onClick={handleRename}
+          class="w-full"
+          disabled={!input() || Boolean(error()) || insufficientBalance() || isLoadingRename()}
+          onClick={() => void handleRename()}
         >
-          {!input
+          {!input()
             ? 'Please enter a name above!'
-            : insufficientBalance
+            : insufficientBalance()
               ? 'You need 1,000 NFTL on Ethereum to rename'
-              : insufficientAllowance
+              : insufficientAllowance()
                 ? 'Approve contract to spend NFTL'
                 : 'Rename'}
-          {isLoadingRename && <CircularProgress size="sm" />}
+          <Show when={isLoadingRename()}>
+            <CircularProgress size="sm" />
+          </Show>
         </Button>
       </div>
     </DialogContent>

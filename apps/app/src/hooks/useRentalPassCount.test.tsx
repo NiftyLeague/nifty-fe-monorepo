@@ -1,9 +1,9 @@
-import { QueryClientProvider } from '@tanstack/react-query'
-import { renderHook, waitFor } from '@testing-library/react'
+import { QueryClientProvider } from '@tanstack/solid-query'
+import { renderHook, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock, spyOn } from 'bun:test'
-import type { PropsWithChildren } from 'react'
 
 import { createAppQueryClient } from '@/query/app-query'
+import type { JSX } from 'solid-js'
 
 mock.module('./useAuth', () => ({ default: () => ({ authToken: 'test-token' }) }))
 
@@ -15,7 +15,7 @@ describe('rental pass query', () => {
       new Response(JSON.stringify({ balance: 3 }), { status: 200 })
     )
     const client = createAppQueryClient()
-    const wrapper = ({ children }: PropsWithChildren) => (
+    const wrapper = ({ children }: { children?: JSX.Element }) => (
       <QueryClientProvider client={client}>{children}</QueryClientProvider>
     )
 
@@ -24,8 +24,10 @@ describe('rental pass query', () => {
       { wrapper }
     )
 
-    await waitFor(() => expect(result.current.first[2]).toBe(3))
-    expect(result.current.second[2]).toBe(3)
+    await waitFor(() => expect(result.current.first[2]()).toBe(3))
+    expect(result.current.second[2]()).toBe(3)
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 })
+
+mock.module('./useAuth', () => ({ default: () => ({ authToken: 'test-token' }) }))

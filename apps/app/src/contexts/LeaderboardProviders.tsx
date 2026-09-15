@@ -1,6 +1,6 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
 import WalletAuthProviders from '@/contexts/WalletAuthProviders'
@@ -17,17 +17,17 @@ const DeferredAuditFixtureContextWrapper = dynamic(
  * The archived leaderboard only needs wallet authentication. Keep dashboard
  * network, Immutable, NFT, and token-balance clients out of this public route.
  */
-export default function LeaderboardProviders({ children }: PropsWithChildren) {
+export default function LeaderboardProviders(props: ParentProps) {
   const auditFixtureEnabled = AUDIT_FIXTURE
   const cookies = getRequestCookieHeader()
 
   if (!auditFixtureEnabled) {
-    return <WalletAuthProviders cookies={cookies}>{children}</WalletAuthProviders>
+    return <WalletAuthProviders cookies={cookies}>{props.children}</WalletAuthProviders>
   }
 
   return (
     <WalletStorageProviders cookies={cookies}>
-      <DeferredAuditFixtureContextWrapper>{children}</DeferredAuditFixtureContextWrapper>
+      <DeferredAuditFixtureContextWrapper>{props.children}</DeferredAuditFixtureContextWrapper>
     </WalletStorageProviders>
   )
 }

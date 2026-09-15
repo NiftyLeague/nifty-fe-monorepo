@@ -1,7 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useAccount, useReadContract } from 'wagmi'
+import { useAccount, useReadContract } from '@/runtime/wagmi'
 import type { AddressLike, BigNumberish } from 'ethers'
 import type { Comic } from '@/types/marketplace'
 
@@ -24,44 +23,43 @@ import type { UseReadContractParams } from '@/types/web3'
 const COMICS_IDS = [1, 2, 3, 4, 5, 6]
 
 type ComicsBalancesState = {
-  balances: Comic[]
-  error: Error | null
-  loading: boolean
+  readonly balances: Comic[]
+  readonly error: Error | null
+  readonly loading: boolean
   refetch: () => void
 }
 
 type BalanceOfBatch = { args: [AddressLike[], BigNumberish[]]; result: bigint[] }
 
 export default function useComicsBalances(): ComicsBalancesState {
-  const { isLoggedIn } = useAuth()
-  const { address, isConnected } = useAccount()
-  const { imxChainId } = useIMXContext()
+  const auth = useAuth()
+  const account = useAccount()
+  const imx = useIMXContext()
 
-  const marketplaceContract = getDeployedContract(imxChainId, MARKETPLACE_CONTRACT)
-  const ownerArr = useMemo(() => Array(COMICS_IDS.length).fill(address) as AddressLike[], [address])
+  const marketplaceContract = () => getDeployedContract(imx.imxChainId, MARKETPLACE_CONTRACT)
 
-  const { data, error, isLoading, refetch } = useReadContract<
-    UseReadContractParams<BalanceOfBatch>['abi'],
-    UseReadContractParams<BalanceOfBatch>['functionName'],
-    UseReadContractParams<BalanceOfBatch>['args'],
-    UseReadContractParams<BalanceOfBatch>['config'],
-    UseReadContractParams<BalanceOfBatch>['result']
-  >({
-    address: marketplaceContract?.address,
-    abi: marketplaceContract?.abi,
-    chainId: imxChainId,
+  const contract = useReadContract(() => ({
+    address: marketplaceContract()?.address as `0x${string}`,
+    abi: marketplaceContract()?.abi as never,
+    chainId: imx.imxChainId,
     functionName: 'balanceOfBatch',
-    args: [ownerArr, COMICS_IDS],
-    query: { staleTime: 10_000, enabled: isConnected && isLoggedIn },
-  })
+    args: [Array(COMICS_IDS.length).fill(account.address) as AddressLike[], COMICS_IDS],
+    query: { staleTime: 10_000, enabled: account.isConnected && auth.isLoggedIn },
+  }))
 
-  const balances = useMemo(
-    () =>
-      data
+  return {
+    get balances() {
+      const data = contract.data as UseReadContractParams<BalanceOfBatch>['result'] | undefined
+      return data
         ? data.map((c: bigint, i: number) => ({ ...(COMICS[i] as Comic), balance: Number(c) }))
-        : [],
-    [data]
-  )
-
-  return { balances, error, loading: isLoading, refetch }
+        : []
+    },
+    get error() {
+      return contract.error
+    },
+    get loading() {
+      return contract.isLoading
+    },
+    refetch: () => void contract.refetch(),
+  }
 }

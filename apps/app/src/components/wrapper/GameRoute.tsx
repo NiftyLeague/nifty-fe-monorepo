@@ -1,8 +1,8 @@
 'use client'
 
-import type { PropsWithChildren } from 'react'
+import type { ParentProps } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
-import type { UnityConfig } from 'react-unity-webgl'
+import type { UnityConfig } from '@/runtime/unity'
 
 import RouteLoading from '@nl/ui/custom/route-loading'
 
@@ -13,15 +13,15 @@ const GameWithAuth = dynamic(() => import('./GameWithAuth'), {
   loading: () => <RouteLoading label="Loading game" />,
 })
 
-interface GameRouteProps extends PropsWithChildren {
+interface GameRouteProps extends ParentProps {
   unityConfig: UnityConfig
 }
 
-export default function GameRoute({ children, unityConfig }: GameRouteProps) {
+export default function GameRoute(props: GameRouteProps) {
   return (
     <WalletRouteProvider>
-      {children}
-      <GameWithAuth unityConfig={unityConfig} />
+      {props.children}
+      <GameWithAuth unityConfig={props.unityConfig} />
     </WalletRouteProvider>
   )
 }

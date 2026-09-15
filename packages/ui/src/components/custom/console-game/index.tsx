@@ -1,6 +1,4 @@
-'use client'
-
-import { memo, useRef, useState, useCallback, useEffect, type ReactNode } from 'react'
+import { createEffect, createSignal, type JSX } from 'solid-js'
 import { Button } from '@nl/ui/base/button'
 import { cx } from '@nl/ui/class-names'
 import NativeImage from '@nl/ui/custom/native-image'
@@ -10,78 +8,75 @@ import { CONSOLE_ARTWORK_DIMENSIONS } from './backdrop'
 import styles from './index.module.css'
 
 export interface ConsoleGameProps {
-  children: ReactNode
+  children: JSX.Element
   isNearViewport?: boolean
   renderGradientOverlay?: boolean
   src: string
 }
 
-export const ConsoleGame = memo(function ConsoleGame({
-  children,
-  isNearViewport = true,
-  renderGradientOverlay = true,
-  src,
-}: ConsoleGameProps) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
+export function ConsoleGame(props: ConsoleGameProps) {
+  let videoEl: HTMLVideoElement | undefined
+  const [isPlaying, setIsPlaying] = createSignal(false)
 
-  const togglePlay = useCallback(() => {
-    if (!videoRef.current) return
+  const togglePlay = () => {
+    if (!videoEl) return
 
-    if (videoRef.current.paused) {
-      videoRef.current.play().catch((error) => {
+    if (videoEl.paused) {
+      videoEl.play().catch((error) => {
         console.error('Play failed:', error)
       })
     } else {
-      videoRef.current.pause()
+      videoEl.pause()
     }
-  }, [])
+  }
 
-  const handlePlay = useCallback(() => setIsPlaying(true), [])
-  const handlePause = useCallback(() => setIsPlaying(false), [])
+  const handlePlay = () => setIsPlaying(true)
+  const handlePause = () => setIsPlaying(false)
 
-  useEffect(() => {
-    const video = videoRef.current
+  const nearViewport = () => props.isNearViewport ?? true
+
+  createEffect(() => {
+    const video = videoEl
     if (!video) return
 
-    if (isNearViewport) {
+    if (nearViewport()) {
       void video.play().catch(() => undefined)
     } else {
       video.pause()
     }
-  }, [isNearViewport])
+  })
 
   return (
-    <div className="relative overflow-hidden">
+    <div class="relative overflow-hidden">
       <div
-        style={{ position: 'relative', display: 'flex', flexGrow: 1 }}
-        className="md:animation-hidden"
+        style={{ position: 'relative', display: 'flex', 'flex-grow': '1' }}
+        class="md:animation-hidden"
       >
-        {children}
+        {props.children}
         <video
-          ref={videoRef}
+          ref={(el) => (videoEl = el)}
           id="console-video"
           width="100%"
           height="100%"
           muted
-          autoPlay={isNearViewport}
+          autoplay={nearViewport()}
           loop
-          playsInline
-          preload={isNearViewport ? 'metadata' : 'none'}
-          className={styles.game_video}
+          playsinline
+          preload={nearViewport() ? 'metadata' : 'none'}
+          class={styles.game_video}
           onPlay={handlePlay}
           onPause={handlePause}
           onEnded={handlePause}
         >
-          {isNearViewport ? <source src={src} type="video/mp4" /> : null}
+          {nearViewport() ? <source src={props.src} type="video/mp4" /> : null}
         </video>
         <Button
           type="button"
           onClick={togglePlay}
           variant="ghost"
           size="icon"
-          aria-label={isPlaying ? 'Pause video' : 'Play video'}
-          className={cx(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
+          aria-label={isPlaying() ? 'Pause video' : 'Play video'}
+          class={cx(styles.bonk_note, 'h-auto w-auto rounded-none p-0 hover:bg-transparent')}
         >
           {/*
             Decorative: the wrapping Button already carries the accessible name
@@ -92,51 +87,51 @@ export const ConsoleGame = memo(function ConsoleGame({
           */}
           <NativeImage
             alt=""
-            className="pixelated"
+            class="pixelated"
             width={CONSOLE_ARTWORK_DIMENSIONS.width}
             height={CONSOLE_ARTWORK_DIMENSIONS.height}
             src="/img/console-game/bonk.webp"
             loading="lazy"
             decoding="async"
-            style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+            style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
           />
         </Button>
       </div>
-      <div className={styles.gaming_controller}>
+      <div class={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
-          <div className="animate-hover transition-fade">
+          <div class="animate-hover transition-fade">
             <NativeImage
               alt=""
-              className="pixelated"
+              class="pixelated"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
               src="/img/console-game/gaming_controller_left.webp"
               loading="lazy"
               decoding="async"
-              style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+              style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
             />
           </div>
         </ParallaxWrapper>
       </div>
-      <div className={styles.gaming_controller}>
+      <div class={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
-          <div className="animate-hover transition-fade">
+          <div class="animate-hover transition-fade">
             <NativeImage
               alt=""
-              className="pixelated"
+              class="pixelated"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
               src="/img/console-game/gaming_controller_right.webp"
               loading="lazy"
               decoding="async"
-              style={{ width: '100%', height: 'auto', objectFit: 'contain' }}
+              style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
             />
           </div>
         </ParallaxWrapper>
       </div>
-      {renderGradientOverlay ? <div className="dark-gradient-overlay" /> : null}
+      {(props.renderGradientOverlay ?? true) ? <div class="dark-gradient-overlay" /> : null}
     </div>
   )
-})
+}
 
 export default ConsoleGame

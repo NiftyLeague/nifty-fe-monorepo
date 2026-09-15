@@ -13,7 +13,7 @@ const AppleBadge = ({ disabled = false }) => (
     height={40}
     style={{
       width: '91%',
-      maxWidth: '100%',
+      'max-width': '100%',
       height: 'auto',
       display: 'flex',
       margin: 'auto',
@@ -28,7 +28,7 @@ const GoogleBadge = ({ disabled = false }) => (
     alt="Get it on Google Play"
     width={564}
     height={169}
-    style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
+    style={{ width: '100%', 'max-width': '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
   />
 )
 
@@ -38,7 +38,7 @@ const SteamBadge = ({ disabled = false }) => (
     alt="Steam Store Badge"
     width={564}
     height={168}
-    style={{ width: '100%', maxWidth: '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
+    style={{ width: '100%', 'max-width': '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
   />
 )
 
@@ -60,16 +60,16 @@ const GameArtwork = ({
     sizes={GAME_CARD_IMAGE_SIZES}
     quality={60}
     loading={loading}
-    fetchPriority={fetchPriority}
-    className="object-cover"
+    fetchpriority={fetchPriority}
+    class="object-cover"
   />
 )
 
 type StoreButtonsProps = { android?: string; ios?: string; steam?: string }
 
 const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
-  <div className="grid grid-cols-12 gap-4" style={{ width: '100%' }}>
-    <div className="col-span-4">
+  <div class="grid grid-cols-12 gap-4" style={{ width: '100%' }}>
+    <div class="col-span-4">
       {android ? (
         <a href={android} target="_blank" rel="noreferrer">
           <GoogleBadge />
@@ -78,7 +78,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
         <GoogleBadge disabled />
       )}
     </div>
-    <div className="col-span-4">
+    <div class="col-span-4">
       {ios ? (
         <a href={ios} target="_blank" rel="noreferrer">
           <AppleBadge />
@@ -87,7 +87,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
         <AppleBadge disabled />
       )}
     </div>
-    <div className="col-span-4">
+    <div class="col-span-4">
       {steam ? (
         <a href={steam} target="_blank" rel="noreferrer">
           <SteamBadge />
@@ -101,7 +101,7 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
 
 const FlagshipGameList = () => (
   <>
-    <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
+    <div class={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Nifty Smashers (Beta)"
         externalHref="https://niftysmashers.com/"
@@ -126,7 +126,7 @@ const FlagshipGameList = () => (
         }
       />
     </div>
-    <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
+    <div class={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Party Royale (Early-Alpha)"
         externalHref="https://testflight.apple.com/join/VXxbaZrw"
@@ -143,7 +143,7 @@ const FlagshipGameList = () => (
         actions={<StoreButtons ios="https://testflight.apple.com/join/VXxbaZrw" />}
       />
     </div>
-    <div className={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
+    <div class={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
         title="Smashers Origins (Beta)"
         externalHref="https://store.steampowered.com/app/4297830/Nifty_Smashers_Origins/"

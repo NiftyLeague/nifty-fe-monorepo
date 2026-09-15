@@ -1,11 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
-import type { ComponentProps } from 'react'
 
 import { NIFTY_WORLD_APP_URL } from '@/constants/links'
 
 mock.module('@nl/ui/custom/optimized-image', () => ({
-  default: (props: ComponentProps<'img'>) => <img {...props} />,
+  default: (props: Record<string, unknown>) => <img {...props} />,
 }))
 
 mock.module('@nl/ui/custom/theme-button-group', () => ({
@@ -29,7 +28,7 @@ describe('HomeV3Games', () => {
   it('keeps the Smashers and Nifty World destinations accessible', async () => {
     const { default: HomeV3Games } = await import('./HomeV3Games')
 
-    render(<HomeV3Games />)
+    render(() => <HomeV3Games />)
 
     expect(screen.getByRole('heading', { name: 'OUR GAMES' })).toBeTruthy()
     expect(screen.getByRole('link', { name: /Explore Nifty Smashers/ }).getAttribute('href')).toBe(

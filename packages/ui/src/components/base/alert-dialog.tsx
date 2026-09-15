@@ -1,128 +1,143 @@
-'use client'
-
-import * as React from 'react'
-import * as AlertDialogPrimitive from 'radix-ui/alert-dialog'
+import * as AlertDialogPrimitive from '@kobalte/core/alert-dialog'
+import { splitProps, type ComponentProps } from 'solid-js'
 import { type VariantProps } from 'class-variance-authority'
 import { buttonVariants } from '@nl/ui/base/button'
-import { cn } from '@nl/ui/utils'
+import { cn, closeButtonAriaLabel } from '@nl/ui/utils'
 
-function AlertDialog({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Root>) {
+function AlertDialog(props: ComponentProps<typeof AlertDialogPrimitive.Root>) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
 }
 
-function AlertDialogTrigger({
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
+function AlertDialogTrigger(props: ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
   return <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
 }
 
-function AlertDialogPortal({ ...props }: React.ComponentProps<typeof AlertDialogPrimitive.Portal>) {
+function AlertDialogPortal(props: ComponentProps<typeof AlertDialogPrimitive.Portal>) {
   return <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
 }
 
-function AlertDialogOverlay({
-  className,
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Overlay>) {
+function AlertDialogOverlay(
+  props: ComponentProps<typeof AlertDialogPrimitive.Overlay> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <AlertDialogPrimitive.Overlay
       data-slot="alert-dialog-overlay"
-      className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50',
-        className
+      class={cn(
+        'data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 fixed inset-0 z-50 bg-black/50',
+        local.class,
+        local.className
       )}
-      {...props}
+      {...others}
     />
   )
 }
 
-function AlertDialogContent({
-  className,
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Content>) {
+function AlertDialogContent(
+  props: ComponentProps<typeof AlertDialogPrimitive.Content> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
       <AlertDialogPrimitive.Content
         data-slot="alert-dialog-content"
-        className={cn(
-          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg',
-          className
+        class={cn(
+          'bg-background data-expanded:animate-in data-closed:animate-out data-closed:fade-out-0 data-expanded:fade-in-0 data-closed:zoom-out-95 data-expanded:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg',
+          local.class,
+          local.className
         )}
-        {...props}
+        {...others}
       />
     </AlertDialogPortal>
   )
 }
 
-function AlertDialogHeader({ className, ...props }: React.ComponentProps<'div'>) {
+type DivProps = import('solid-js').ComponentProps<'div'> & { className?: string }
+
+function AlertDialogHeader(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="alert-dialog-header"
-      className={cn('flex flex-col gap-2 text-center sm:text-left', className)}
-      {...props}
+      class={cn('flex flex-col gap-2 text-center sm:text-left', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function AlertDialogFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function AlertDialogFooter(props: DivProps) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <div
       data-slot="alert-dialog-footer"
-      className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
-      {...props}
+      class={cn(
+        'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }
 
-function AlertDialogTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Title>) {
+function AlertDialogTitle(
+  props: ComponentProps<typeof AlertDialogPrimitive.Title> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
-      className={cn('text-lg font-semibold', className)}
-      {...props}
+      class={cn('text-lg font-semibold', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function AlertDialogDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Description>) {
+function AlertDialogDescription(
+  props: ComponentProps<typeof AlertDialogPrimitive.Description> & { className?: string }
+) {
+  const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <AlertDialogPrimitive.Description
       data-slot="alert-dialog-description"
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
+      class={cn('text-muted-foreground text-sm', local.class, local.className)}
+      {...others}
     />
   )
 }
 
-function AlertDialogAction({
-  className,
-  variant = 'default',
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Action> & VariantProps<typeof buttonVariants>) {
+// Kobalte has no separate Action/Cancel primitives — both close the dialog, so
+// they wrap CloseButton with the corresponding button variants.
+type CloseButtonProps = ComponentProps<typeof AlertDialogPrimitive.CloseButton> &
+  VariantProps<typeof buttonVariants> & { className?: string }
+
+function AlertDialogAction(props: CloseButtonProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'variant'])
   return (
-    <AlertDialogPrimitive.Action
-      className={cn(buttonVariants({ variant }), className)}
-      {...props}
+    <AlertDialogPrimitive.CloseButton
+      class={cn(
+        buttonVariants({ variant: local.variant ?? 'default' }),
+        local.class,
+        local.className
+      )}
+      {...others}
+      aria-label={closeButtonAriaLabel(props)}
     />
   )
 }
 
-function AlertDialogCancel({
-  className,
-  variant = 'outline',
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Cancel> & VariantProps<typeof buttonVariants>) {
+function AlertDialogCancel(props: CloseButtonProps) {
+  const [local, others] = splitProps(props, ['class', 'className', 'variant'])
   return (
-    <AlertDialogPrimitive.Cancel
-      className={cn(buttonVariants({ variant }), className)}
-      {...props}
+    <AlertDialogPrimitive.CloseButton
+      class={cn(
+        buttonVariants({ variant: local.variant ?? 'outline' }),
+        local.class,
+        local.className
+      )}
+      {...others}
+      aria-label={closeButtonAriaLabel(props)}
     />
   )
 }

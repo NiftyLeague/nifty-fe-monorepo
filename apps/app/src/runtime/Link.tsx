@@ -1,10 +1,10 @@
-import { Link as RouterLink } from '@tanstack/react-router'
-import type { AnchorHTMLAttributes, ReactNode } from 'react'
+import { Link as RouterLink } from '@tanstack/solid-router'
+import { splitProps, type JSX } from 'solid-js'
 
-type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement>
+type AnchorProps = JSX.AnchorHTMLAttributes<HTMLAnchorElement>
 
 interface LinkProps extends Omit<AnchorProps, 'href'> {
-  children?: ReactNode
+  children?: JSX.Element
   href: string
   /** Kept for existing call sites; `false` disables route preloading. */
   prefetch?: boolean
@@ -24,28 +24,34 @@ const splitHref = (href: string) => {
  * navigation to the TanStack Router. In-page anchors, external URLs, and
  * `mailto:`/`tel:` style links stay plain anchors.
  */
-export default function Link({ children, href, prefetch, ...props }: LinkProps) {
-  if (!href || href.startsWith('#') || EXTERNAL_HREF.test(href)) {
-    return (
-      <a href={href} {...props}>
-        {children}
-      </a>
-    )
-  }
+export default function Link(props: LinkProps) {
+  const [local, rest] = splitProps(props, ['children', 'href', 'prefetch'])
+  const href = () => local.href ?? ''
 
-  const { hash, pathname, search } = splitHref(href)
+  const isPlainAnchor = () => !local.href || href().startsWith('#') || EXTERNAL_HREF.test(href())
+
+  const parts = () => splitHref(href())
 
   return (
-    <RouterLink
-      // `to` is generated per-route and cannot be narrowed here, so the parsed
-      // pathname is asserted once at this boundary instead of at every caller.
-      to={pathname as never}
-      search={search as never}
-      hash={hash || undefined}
-      preload={prefetch === false ? false : undefined}
-      {...props}
-    >
-      {children}
-    </RouterLink>
+    <>
+      {isPlainAnchor() ? (
+        <a href={local.href} {...rest}>
+          {local.children}
+        </a>
+      ) : (
+        <RouterLink
+          // `to` is generated per-route and cannot be narrowed here, so the
+          // parsed pathname is asserted once at this boundary instead of at
+          // every caller.
+          to={parts().pathname as never}
+          search={parts().search as never}
+          hash={parts().hash || undefined}
+          preload={local.prefetch === false ? false : undefined}
+          {...rest}
+        >
+          {local.children}
+        </RouterLink>
+      )}
+    </>
   )
 }

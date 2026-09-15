@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@nl/ui/test-utils'
 import { afterEach, describe, expect, it, spyOn } from 'bun:test'
 
 import { useDocumentVisibility } from './useDocumentVisibility'
@@ -22,8 +22,8 @@ describe('useDocumentVisibility', () => {
     const first = renderHook(() => useDocumentVisibility())
     const second = renderHook(() => useDocumentVisibility())
 
-    expect(first.result.current).toBe(true)
-    expect(second.result.current).toBe(true)
+    expect(first.result.current()).toBe(true)
+    expect(second.result.current()).toBe(true)
     expect(
       addEventListener.mock.calls.filter(([type]) => type === 'visibilitychange')
     ).toHaveLength(1)
@@ -31,8 +31,8 @@ describe('useDocumentVisibility', () => {
     setDocumentHidden(true)
     act(() => document.dispatchEvent(new Event('visibilitychange')))
 
-    expect(first.result.current).toBe(false)
-    expect(second.result.current).toBe(false)
+    expect(first.result.current()).toBe(false)
+    expect(second.result.current()).toBe(false)
 
     first.unmount()
     expect(removeEventListener).not.toHaveBeenCalledWith('visibilitychange', expect.any(Function))

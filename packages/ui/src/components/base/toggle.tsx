@@ -1,23 +1,35 @@
-'use client'
-
-import * as React from 'react'
-import * as TogglePrimitive from 'radix-ui/toggle'
+import { ToggleButton as TogglePrimitive } from '@kobalte/core/toggle-button'
+import { splitProps, type ComponentProps } from 'solid-js'
 import { type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@nl/ui/utils'
 import { toggleVariants } from '@nl/ui/base/toggle-variants'
 
-function Toggle({
-  className,
-  variant,
-  size,
-  ...props
-}: React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleVariants>) {
+type ToggleProps = ComponentProps<typeof TogglePrimitive> &
+  VariantProps<typeof toggleVariants> & {
+    className?: string
+    /** Radix-era alias for Kobalte's `onChange`. */
+    onPressedChange?: (pressed: boolean) => void
+  }
+
+function Toggle(props: ToggleProps) {
+  const [local, others] = splitProps(props, [
+    'class',
+    'className',
+    'variant',
+    'size',
+    'onPressedChange',
+  ])
   return (
-    <TogglePrimitive.Root
+    <TogglePrimitive
       data-slot="toggle"
-      className={cn(toggleVariants({ variant, size, className }))}
-      {...props}
+      onChange={local.onPressedChange}
+      class={cn(
+        toggleVariants({ variant: local.variant, size: local.size }),
+        local.class,
+        local.className
+      )}
+      {...others}
     />
   )
 }

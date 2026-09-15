@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/solid-router'
 
 import GameRoute from '@/components/wrapper/GameRoute'
 import { smashersBuild } from '@/constants/unity-builds'
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_public/games/smashers')({
 function SmashersGame() {
   return (
     <GameRoute unityConfig={smashersBuild.config}>
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ 'margin-bottom': '20px' }}>
         <strong>
           Note: This is a deprecated version of Nifty Smashers. If you&apos;re looking for our
           latest mobile game please visit{' '}

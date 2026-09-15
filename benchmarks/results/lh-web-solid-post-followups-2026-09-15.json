@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "app": "web",
+  "generatedAt": "2026-09-15T15:19:45.203Z",
+  "gitRevision": "0862d4120f930f45949fc8864ec01461d680a841",
+  "label": "solid-post-followups",
+  "runs": 3,
+  "profile": {
+    "browser": "Chrome headless (chrome-launcher)",
+    "throttling": "devtools CDP (mobile: rtt 150ms / 1.6Mbps / 4x cpu; desktop: rtt 40ms / 10Mbps / 1x)",
+    "forms": [
+      "desktop"
+    ],
+    "runsPerRoute": 3,
+    "confidence": "synthetic lab data; not a substitute for field RUM"
+  },
+  "results": [
+    {
+      "route": "/community",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 87,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2204.633,
+        "minimum": 2176.876,
+        "maximum": 2208.001
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.0001147021639994505,
+        "minimum": 0.0001147021639994505,
+        "maximum": 0.0001147021639994505
+      },
+      "fcpMs": {
+        "median": 831.028,
+        "minimum": 816.776,
+        "maximum": 845.281
+      },
+      "siMs": {
+        "median": 1288,
+        "minimum": 1266,
+        "maximum": 1301
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.2 s)",
+        "speed-index (1.3 s)",
+        "interactive (3.3 s)",
+        "cache-insight (Est savings of 270 KiB)",
+        "network-dependency-tree-insight",
+        "interactive (3.4 s)"
+      ]
+    },
+    {
+      "route": "/compete-and-earn",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 86,
+        "accessibility": 95,
+        "best-practices": 96,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 2217.708,
+        "minimum": 2199.044,
+        "maximum": 2236.772
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 90.7940000000001
+      },
+      "cls": {
+        "median": 0.02377944009903065,
+        "minimum": 0.02377944009903065,
+        "maximum": 0.02377944009903065
+      },
+      "fcpMs": {
+        "median": 828.007,
+        "minimum": 827.641,
+        "maximum": 834.053
+      },
+      "siMs": {
+        "median": 1571,
+        "minimum": 1500,
+        "maximum": 1585
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (2.2 s)",
+        "speed-index (1.6 s)",
+        "total-blocking-time (90 ms)",
+        "max-potential-fid (140 ms)",
+        "interactive (3.3 s)",
+        "aria-allowed-attr",
+        "inspector-issues",
+        "cache-insight (Est savings of 498 KiB)",
+        "font-display-insight (Est savings of 80 ms)",
+        "image-delivery-insight (Est savings of 223 KiB)",
+        "network-dependency-tree-insight",
+        "font-display-insight (Est savings of 60 ms)",
+        "speed-index (1.5 s)"
+      ]
+    },
+    {
+      "route": "/lore",
+      "formFactor": "desktop",
+      "scores": {
+        "performance": 76,
+        "accessibility": 100,
+        "best-practices": 96,
+        "seo": 100
+      },
+      "lcpMs": {
+        "median": 3107.854,
+        "minimum": 3098.111,
+        "maximum": 3157.822
+      },
+      "inpMs": {
+        "median": null,
+        "minimum": null,
+        "maximum": null
+      },
+      "tbtMs": {
+        "median": 0,
+        "minimum": 0,
+        "maximum": 0
+      },
+      "cls": {
+        "median": 0.00043753724660083925,
+        "minimum": 0.00043753724660083925,
+        "maximum": 0.00043753724660083925
+      },
+      "fcpMs": {
+        "median": 831.947,
+        "minimum": 829.645,
+        "maximum": 835.252
+      },
+      "siMs": {
+        "median": 2577,
+        "minimum": 2567,
+        "maximum": 2613
+      },
+      "diagnostics": [
+        "first-contentful-paint (0.8 s)",
+        "largest-contentful-paint (3.1 s)",
+        "speed-index (2.6 s)",
+        "interactive (3.0 s)",
+        "image-aspect-ratio",
+        "cache-insight (Est savings of 343 KiB)",
+        "image-delivery-insight (Est savings of 54 KiB)",
+        "lcp-breakdown-insight",
+        "network-dependency-tree-insight",
+        "interactive (2.9 s)",
+        "largest-contentful-paint (3.2 s)"
+      ]
+    }
+  ]
+}

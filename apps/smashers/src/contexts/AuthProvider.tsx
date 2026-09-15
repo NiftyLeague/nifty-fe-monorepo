@@ -1,6 +1,4 @@
-'use client'
-
-import type { PropsWithChildren } from 'react'
+import type { ParentComponent } from 'solid-js'
 import { UserContextProvider } from '@nl/playfab/components/UserContextProvider'
 
 /**
@@ -8,8 +6,8 @@ import { UserContextProvider } from '@nl/playfab/components/UserContextProvider'
  * this is gone: the OAuth session is now linked to the PlayFab account
  * server-side in the callback route, so the client never holds a provider token.
  */
-export function AuthProvider({ children }: PropsWithChildren) {
-  return <UserContextProvider>{children}</UserContextProvider>
-}
+export const AuthProvider: ParentComponent = (props) => (
+  <UserContextProvider>{props.children}</UserContextProvider>
+)
 
 export default AuthProvider

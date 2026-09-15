@@ -1,9 +1,9 @@
 'use client'
 
-import { useCallback, type Dispatch, type SetStateAction } from 'react'
-import { useStore } from 'zustand'
+import type { Accessor } from 'solid-js'
 
 import { getLocalStorageStore } from '@/state/local-storage-store'
+import { useStore } from '@/state/use-store'
 
 // ==============================|| Local Storage Hook ||============================== //
 
@@ -15,20 +15,21 @@ import { getLocalStorageStore } from '@/state/local-storage-store'
 export default function useLocalStorage<T>(
   key: string,
   initialValue: T
-): [T | undefined, Dispatch<SetStateAction<T | undefined>>, () => void] {
+): [
+  Accessor<T | undefined>,
+  (v: T | undefined | ((prev: T | undefined) => T | undefined)) => void,
+  () => void,
+] {
   const store = getLocalStorageStore(key, initialValue)
   const storedValue = useStore(store, (state) => state.value)
 
-  const setStoredValue = useCallback<Dispatch<SetStateAction<T | undefined>>>(
-    (next) => {
-      store.set(next)
-    },
-    [store]
-  )
+  const setStoredValue = (next: T | undefined | ((prev: T | undefined) => T | undefined)) => {
+    store.set(next)
+  }
 
-  const clearStoredValue = useCallback(() => {
+  const clearStoredValue = () => {
     store.clear()
-  }, [store])
+  }
 
   return [storedValue, setStoredValue, clearStoredValue]
 }

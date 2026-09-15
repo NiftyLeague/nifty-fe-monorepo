@@ -1,7 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useRef } from 'react'
-import { useAccount } from 'wagmi'
+import { createEffect } from 'solid-js'
+import { useAccount } from '@/runtime/wagmi'
 
 import { ADDRESS_VERIFICATION } from '@/constants/auth-urls'
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
@@ -9,24 +9,22 @@ import { useAuthToken } from '@/hooks/useAuthStorage'
 import { clearAllAuth } from '@/state/auth-storage'
 
 const useCheckAuth = () => {
-  const { address } = useAccount()
-  const { isLoggedIn, setIsLoggedIn } = useAuthStatus()
+  const account = useAccount()
+  const auth = useAuthStatus()
   const authToken = useAuthToken()
-  const cache = useRef({ address, authToken, verified: false })
-  const firstRenderRef = useRef(true)
+  const cache = { address: account.address, authToken: authToken(), verified: false }
+  let firstRender = true
 
-  const checkAddress = useCallback(async () => {
-    if (authToken && address) {
-      if (
-        cache.current.verified &&
-        authToken === cache.current.authToken &&
-        address == cache.current.address
-      ) {
+  const checkAddress = async () => {
+    const address = account.address
+    const token = authToken()
+    if (token && address) {
+      if (cache.verified && token === cache.authToken && address == cache.address) {
         return true
       }
 
       const result = await fetch(ADDRESS_VERIFICATION, {
-        headers: { authorizationToken: authToken },
+        headers: { authorizationToken: token },
       })
         .then((res) => {
           if (res.status === 404) return null
@@ -34,35 +32,41 @@ const useCheckAuth = () => {
         })
         .catch(() => null)
       if (result && result.slice(1, -1) === address.toLowerCase()) {
-        cache.current = { address, authToken, verified: true }
+        cache.address = address
+        cache.authToken = token
+        cache.verified = true
         return true
       }
-      cache.current.verified = false
+      cache.verified = false
       return false
     }
-    cache.current.verified = false
+    cache.verified = false
     return false
-  }, [address, authToken])
+  }
 
-  const verify = useCallback(async () => {
+  const verify = async () => {
     const addressVerified = await checkAddress()
     if (addressVerified) {
-      setIsLoggedIn(true)
+      auth.setIsLoggedIn(true)
     } else {
-      setIsLoggedIn(false)
+      auth.setIsLoggedIn(false)
       clearAllAuth()
     }
-  }, [checkAddress, clearAllAuth, setIsLoggedIn])
+  }
 
-  useEffect(() => {
-    if (firstRenderRef.current) {
-      firstRenderRef.current = false
+  createEffect(() => {
+    const address = account.address
+    const token = authToken()
+    const loggedIn = auth.isLoggedIn
+
+    if (firstRender) {
+      firstRender = false
       return
     }
 
-    if (isLoggedIn && (!authToken || !address)) setIsLoggedIn(false)
-    else if (authToken && address) void verify()
-  }, [address, authToken, isLoggedIn, setIsLoggedIn, verify])
+    if (loggedIn && (!token || !address)) auth.setIsLoggedIn(false)
+    else if (token && address) void verify()
+  })
 
   return { checkAddress, verify }
 }

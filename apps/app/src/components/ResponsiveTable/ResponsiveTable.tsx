@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Component } from 'solid-js'
 import DataList from './DataList'
 import DataTable from './DataTable'
 
@@ -11,7 +11,12 @@ type ResponsiveTableProps = {
   data: Row[]
   excludePrimaryFromDetails?: boolean
   noContentText?: string
-  onPaginationModelChange: Dispatch<SetStateAction<{ pageSize: number; page: number }>>
+  onPaginationModelChange: (
+    updater: (model: { pageSize: number; page: number }) => {
+      pageSize: number
+      page: number
+    }
+  ) => void
   onSelectionChange?: (selected: { rowIds: (string | number)[] }) => void
   paginationModel: { pageSize: number; page: number }
   rowsClassArray?: string[]
@@ -22,58 +27,43 @@ type ResponsiveTableProps = {
 /**
  * Responsive read-only leaderboard table and accessible expandable mobile list.
  */
-const ResponsiveTable: React.FC<ResponsiveTableProps> = ({
-  checkboxSelection,
-  columns,
-  count,
-  data,
-  excludePrimaryFromDetails,
-  noContentText,
-  onPaginationModelChange,
-  onSelectionChange,
-  paginationModel,
-  rowsClassArray,
-  serverPaginated,
-  showPagination,
-}) => {
-  const handleChangePage = (event: React.MouseEvent | null, page: number) => {
-    onPaginationModelChange((model) => ({ page, pageSize: model.pageSize }))
+const ResponsiveTable: Component<ResponsiveTableProps> = (props) => {
+  const handleChangePage = (_event: MouseEvent | null, page: number) => {
+    props.onPaginationModelChange((model) => ({ page, pageSize: model.pageSize }))
   }
 
   const handleSelectionChange = (selected: { rowIds: (string | number)[] }) => {
-    if (onSelectionChange) {
-      onSelectionChange(selected)
-    }
+    props.onSelectionChange?.(selected)
   }
 
   return (
     <div>
       {/* DESKTOP BIG TABLE */}
-      <div className="hidden lg:block">
+      <div class="hidden lg:block">
         <DataTable
-          columns={columns}
-          data={data}
-          noContentText={noContentText}
-          paginationModel={paginationModel}
+          columns={props.columns}
+          data={props.data}
+          noContentText={props.noContentText}
+          paginationModel={props.paginationModel}
         />
       </div>
 
       {/* MOBILE EXPANDABLE LIST OF CARDS */}
-      <div className="lg:hidden">
+      <div class="lg:hidden">
         <DataList
-          checkboxSelection={checkboxSelection}
-          columns={columns}
-          count={count}
-          data={data}
-          excludePrimaryFromDetails={excludePrimaryFromDetails}
-          noContentText={noContentText}
+          checkboxSelection={props.checkboxSelection}
+          columns={props.columns}
+          count={props.count}
+          data={props.data}
+          excludePrimaryFromDetails={props.excludePrimaryFromDetails}
+          noContentText={props.noContentText}
           onChangePage={handleChangePage}
           onSelectionChange={handleSelectionChange}
-          page={paginationModel.page}
-          rowsClassArray={rowsClassArray}
-          rowsPerPage={paginationModel.pageSize}
-          serverPaginated={serverPaginated}
-          showPagination={showPagination}
+          page={props.paginationModel.page}
+          rowsClassArray={props.rowsClassArray}
+          rowsPerPage={props.paginationModel.pageSize}
+          serverPaginated={props.serverPaginated}
+          showPagination={props.showPagination}
         />
       </div>
     </div>

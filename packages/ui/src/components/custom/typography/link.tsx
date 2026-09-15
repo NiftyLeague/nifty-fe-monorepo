@@ -1,47 +1,54 @@
+import { splitProps, type JSX } from 'solid-js'
+
 import { cn } from '@nl/ui/utils'
 
 interface LinkProps {
+  class?: string
   className?: string
+  children?: JSX.Element
   disabled?: boolean
   href: string
-  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void
-  style?: React.CSSProperties
+  onClick?: (event: MouseEvent & { currentTarget: HTMLAnchorElement }) => void
+  style?: JSX.CSSProperties | string
   target?: '_blank' | '_self' | '_parent' | '_top' | 'framename'
 }
 
-export function Link({
-  children,
-  className,
-  disabled,
-  href,
-  onClick,
-  style,
-  target,
-}: React.PropsWithChildren<LinkProps>) {
+export function Link(props: LinkProps) {
+  const [local] = splitProps(props, [
+    'children',
+    'class',
+    'className',
+    'disabled',
+    'href',
+    'onClick',
+    'style',
+    'target',
+  ])
   const classes = cn(
     'cursor-pointer text-base text-blue no-underline hover:underline',
-    { 'text-muted-foreground cursor-not-allowed': disabled },
-    className
+    { 'text-muted-foreground cursor-not-allowed': local.disabled },
+    local.class,
+    local.className
   )
 
-  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (disabled) {
+  const handleClick = (event: MouseEvent & { currentTarget: HTMLAnchorElement }) => {
+    if (local.disabled) {
       event.preventDefault()
       return
     }
-    onClick?.(event)
+    local.onClick?.(event)
   }
 
   return (
     <a
       onClick={handleClick}
-      className={classes}
-      href={!disabled ? href : undefined}
-      target={target}
+      class={classes}
+      href={!local.disabled ? local.href : undefined}
+      target={local.target}
       rel="noopener noreferrer"
-      style={style}
+      style={local.style}
     >
-      {children}
+      {local.children}
     </a>
   )
 }

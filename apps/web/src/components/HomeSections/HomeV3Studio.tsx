@@ -23,37 +23,37 @@ export default function HomeV3Studio() {
   return (
     <section
       aria-labelledby="home-v3-studio-heading"
-      className="home-v3 home-v3-studio"
+      class="home-v3 home-v3-studio"
       data-home-section="studio"
       id="studio"
     >
-      <div className="home-v3-studio-backdrop" aria-hidden="true">
+      <div class="home-v3-studio-backdrop" aria-hidden="true">
         <OptimizedImage
           src="/img/backgrounds/banner-dark.webp"
           alt=""
           width={2000}
           height={1000}
           loading="lazy"
-          className="home-v3-studio-scene"
+          class="home-v3-studio-scene"
         />
       </div>
-      <div className="home-v3-studio-shade" aria-hidden="true" />
+      <div class="home-v3-studio-shade" aria-hidden="true" />
 
-      <div className="home-v3-wide home-v3-studio-content">
-        <div className="home-v3-studio-copy">
-          <p className="home-v3-eyebrow">THE STUDIO</p>
-          <h2 id="home-v3-studio-heading" className="home-v3-large-heading">
+      <div class="home-v3-wide home-v3-studio-content">
+        <div class="home-v3-studio-copy">
+          <p class="home-v3-eyebrow">THE STUDIO</p>
+          <h2 id="home-v3-studio-heading" class="home-v3-large-heading">
             BY GAMERS.
             <br />
-            <span className="home-v3-accent-text">FOR GAMERS.</span>
+            <span class="home-v3-accent-text">FOR GAMERS.</span>
           </h2>
-          <p className="home-v3-readable">
+          <p class="home-v3-readable">
             We make games with personality, shaped by the people who play them.
           </p>
 
-          <div className="home-v3-principles">
+          <div class="home-v3-principles">
             {PRINCIPLES.map(({ description, number, title }) => (
-              <div key={number}>
+              <div>
                 <span aria-hidden="true">{number}</span>
                 <div>
                   <h3>{title}</h3>
@@ -64,7 +64,7 @@ export default function HomeV3Studio() {
           </div>
 
           <ThemeButtonGroup
-            className="home-v3-buttons"
+            class="home-v3-buttons"
             primary={{
               href: 'https://github.com/NiftyLeague',
               title: 'EXPLORE THE CODE',
