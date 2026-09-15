@@ -25,39 +25,41 @@ async function importFirstAvailable(...relativePaths: string[]): Promise<ModuleE
   throw new Error(`Unable to load a shared test runtime from: ${relativePaths.join(', ')}`)
 }
 
-const rootReactModule = await importFirstAvailable(
-  '../node_modules/react/index.js',
-  '../node_modules/.bun/node_modules/react/index.js'
+// `browser.import` (used by the test commands' --conditions=browser) resolves
+// to dist/*.js while plain resolution can hit dist/*.cjs — cover both.
+const solidEntrypoints = ['dist/solid.js', 'dist/solid.cjs']
+const solidWebEntrypoints = ['web/dist/web.js', 'web/dist/web.cjs']
+
+const rootSolid = await importFirstAvailable(
+  ...solidEntrypoints.flatMap((entry) => [
+    `../node_modules/solid-js/${entry}`,
+    `../node_modules/.bun/node_modules/solid-js/${entry}`,
+  ])
 )
-const rootReact = (rootReactModule.default ?? rootReactModule) as ModuleExports
-const rootReactDom = await importFirstAvailable(
-  '../node_modules/react-dom/index.js',
-  '../node_modules/.bun/node_modules/react-dom/index.js'
-)
-const rootReactDomClient = await importFirstAvailable(
-  '../node_modules/react-dom/client.js',
-  '../node_modules/.bun/node_modules/react-dom/client.js'
+const rootSolidWeb = await importFirstAvailable(
+  ...solidWebEntrypoints.flatMap((entry) => [
+    `../node_modules/solid-js/${entry}`,
+    `../node_modules/.bun/node_modules/solid-js/${entry}`,
+  ])
 )
 
-// Bun preserves workspace-local React module IDs even when they resolve to the
-// same installed version. Target those IDs directly so shared Testing Library
-// helpers and workspace hooks use one React dispatcher in isolated tests.
+// Bun preserves workspace-local solid-js module IDs even when they resolve to
+// the same installed version. Target those IDs directly so shared Testing
+// Library helpers and workspace hooks share one reactive owner in isolated
+// tests (split instances break context and cleanup across the boundary).
 for (const workspace of ['apps/app', 'apps/web', 'packages/ui']) {
-  const workspaceReact = resolve(import.meta.dir, `../${workspace}/node_modules/react/index.js`)
-  mock.module(workspaceReact, () => ({ ...rootReact, default: rootReact }))
-
-  const workspaceReactDom = resolve(
-    import.meta.dir,
-    `../${workspace}/node_modules/react-dom/index.js`
-  )
-  mock.module(workspaceReactDom, () => ({ ...rootReactDom, default: rootReactDom }))
-
-  const workspaceReactDomClient = resolve(
-    import.meta.dir,
-    `../${workspace}/node_modules/react-dom/client.js`
-  )
-  mock.module(workspaceReactDomClient, () => ({
-    ...rootReactDomClient,
-    default: rootReactDomClient,
-  }))
+  for (const entry of solidEntrypoints) {
+    const workspaceSolid = resolve(
+      import.meta.dir,
+      `../${workspace}/node_modules/solid-js/${entry}`
+    )
+    mock.module(workspaceSolid, () => ({ ...rootSolid, default: rootSolid }))
+  }
+  for (const entry of solidWebEntrypoints) {
+    const workspaceSolidWeb = resolve(
+      import.meta.dir,
+      `../${workspace}/node_modules/solid-js/${entry}`
+    )
+    mock.module(workspaceSolidWeb, () => ({ ...rootSolidWeb, default: rootSolidWeb }))
+  }
 }
