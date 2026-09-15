@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'bun:test'
 import BN from 'bn.js'
 
-import {
-  deserializeSignature,
-  importRecoveryParam,
-  serializeEthSignature,
-} from './sign'
+import { deserializeSignature, importRecoveryParam, serializeEthSignature } from './sign'
 
 describe('serializeEthSignature', () => {
   it('serializes a complete signature with recovery param', () => {
