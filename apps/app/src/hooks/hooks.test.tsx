@@ -1,7 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
 
-const contractReader = mock()
 const noopCallbackResolver = () => undefined
 
 const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') }
@@ -9,7 +8,6 @@ const interval = { clear: mock(async () => undefined), set: mock(() => 'interval
 let useLocalStorage: typeof import('./useLocalStorage').default
 
 beforeEach(async () => {
-  mock.module('./useContractReader', () => ({ default: contractReader }))
   mock.module('set-interval-async/dynamic', () => ({
     clearIntervalAsync: interval.clear,
     setIntervalAsync: interval.set,
@@ -105,19 +103,5 @@ describe('useAsyncInterval', () => {
     })
 
     expect(interval.set).not.toHaveBeenCalled()
-  })
-})
-
-describe('useRemovedTraits', () => {
-  it('returns contract results and falls back to an empty list', async () => {
-    const { default: useRemovedTraits } = await import('./useRemovedTraits')
-    contractReader.mockReturnValueOnce([3, 7])
-    const readContracts = {} as Parameters<typeof useRemovedTraits>[0]
-    const { result, rerender } = renderHook(() => useRemovedTraits(readContracts))
-
-    expect(result.current).toEqual([3, 7])
-    contractReader.mockReturnValueOnce(undefined)
-    rerender()
-    expect(result.current).toEqual([])
   })
 })

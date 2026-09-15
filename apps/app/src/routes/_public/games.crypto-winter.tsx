@@ -1,14 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
-
-import GameRoute from '@/components/wrapper/GameRoute'
-import { cryptoWinterBuild } from '@/constants/unity-builds'
-import { buildHead } from '@/runtime/metadata'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_public/games/crypto-winter')({
-  head: () => buildHead({ path: '/games/crypto-winter', title: 'Crypto Winter' }),
-  component: CryptoWinterGame,
+  beforeLoad: () => {
+    throw redirect({ href: '/games/degen-dodge', replace: true })
+  },
 })
-
-function CryptoWinterGame() {
-  return <GameRoute unityConfig={cryptoWinterBuild.config} arcadeTokenRequired />
-}

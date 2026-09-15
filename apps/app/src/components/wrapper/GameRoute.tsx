@@ -14,15 +14,14 @@ const GameWithAuth = dynamic(() => import('./GameWithAuth'), {
 })
 
 interface GameRouteProps extends PropsWithChildren {
-  arcadeTokenRequired?: boolean
   unityConfig: UnityConfig
 }
 
-export default function GameRoute({ arcadeTokenRequired, children, unityConfig }: GameRouteProps) {
+export default function GameRoute({ children, unityConfig }: GameRouteProps) {
   return (
-    <WalletRouteProvider loadWalletFeatures={arcadeTokenRequired}>
+    <WalletRouteProvider>
       {children}
-      <GameWithAuth unityConfig={unityConfig} arcadeTokenRequired={arcadeTokenRequired} />
+      <GameWithAuth unityConfig={unityConfig} />
     </WalletRouteProvider>
   )
 }
