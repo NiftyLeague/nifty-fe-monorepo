@@ -1,4 +1,4 @@
-import { type JSX } from 'solid-js'
+import { mergeProps, splitProps, type JSX } from 'solid-js'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import { useOnScreen } from '@nl/ui/hooks/useOnScreen'
@@ -16,10 +16,9 @@ export const DEFERRED_DEGEN_CARD_ROOT_MARGIN = '160px'
 // unchanged at runtime.
 const loadDegenCard = () => import('@/components/cards/DegenCard')
 
-function DeferredDegenCardInner<T extends PublicDegen>({
-  size = 'normal',
-  ...props
-}: DegenCardProps<T>) {
+function DeferredDegenCardInner<T extends PublicDegen>(props: DegenCardProps<T>) {
+  const [local, rest] = splitProps(props, ['size'])
+  const size = () => local.size ?? 'normal'
   let cardRef: HTMLDivElement | undefined
   const isNearViewport = useOnScreen(() => cardRef, DEFERRED_DEGEN_CARD_ROOT_MARGIN, {
     once: true,
@@ -28,12 +27,16 @@ function DeferredDegenCardInner<T extends PublicDegen>({
   return (
     <div ref={(el) => (cardRef = el)}>
       <DeferredComponent
-        disabledFallback={<SkeletonDegenPlaceholder size={size} />}
+        disabledFallback={<SkeletonDegenPlaceholder size={size()} />}
         enabled={isNearViewport()}
         label="DEGEN card"
         load={loadDegenCard}
-        loadingFallback={<SkeletonDegenPlaceholder size={size} />}
-        props={{ size, ...props } as DegenCardProps<PublicDegen>}
+        loadingFallback={<SkeletonDegenPlaceholder size={size()} />}
+        props={mergeProps(rest as DegenCardProps<PublicDegen>, {
+          get size() {
+            return size()
+          },
+        })}
       />
     </div>
   )

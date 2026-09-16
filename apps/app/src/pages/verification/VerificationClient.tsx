@@ -14,9 +14,14 @@ export default function VerificationClient(): JSX.Element {
   const [msgSent, setMsgSent] = createSignal(false)
 
   createEffect(() => {
+    // Capture URL params before the connect await: reads after an await are
+    // untracked and this effect's re-run intent is the pre-await values.
+    const currentNonce = nonce()
+    const currentToken = token()
+
     const signMsg = async () => {
       if (!auth.isConnected) await auth.handleConnectWallet()
-      if (auth.isConnected && nonce() && token()) {
+      if (auth.isConnected && currentNonce && currentToken) {
         void sign.signMessage()
         setMsgSent(true)
       }

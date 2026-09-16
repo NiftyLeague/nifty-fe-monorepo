@@ -1,4 +1,4 @@
-import { createContext, createEffect, type JSX } from 'solid-js'
+import { createContext, createEffect, on, type JSX } from 'solid-js'
 
 import useArcadeBalance from '@/hooks/balances/useArcadeBalance'
 import useAuth from '@/hooks/useAuth'
@@ -37,7 +37,6 @@ const TokensBalanceContext = createContext<TokensBalanceContextValue>(CONTEXT_IN
 
 export const TokensBalanceProvider = (props: { children?: JSX.Element }): JSX.Element => {
   const nfts = useNFTsBalances()
-  let firstRender = true
   const auth = useAuth()
 
   // Load user DEGEN's NFTL claimable balance
@@ -47,18 +46,20 @@ export const TokensBalanceProvider = (props: { children?: JSX.Element }): JSX.El
   // Load user off-chain Arcade Token (AT) balance
   const arcade = useArcadeBalance()
 
-  // Refetch on login state change, avoiding initial render
-  createEffect(() => {
-    const loggedIn = auth.isLoggedIn
-    if (firstRender) {
-      firstRender = false
-      return
-    }
-    if (!loggedIn) return
-    claimable.refetch()
-    nftl.refetch()
-    arcade.refetch()
-  })
+  // Refetch on login state change, skipping the initial run (mount-time
+  // fetches happen in the queries themselves).
+  createEffect(
+    on(
+      () => auth.isLoggedIn,
+      (loggedIn) => {
+        if (!loggedIn) return
+        claimable.refetch()
+        nftl.refetch()
+        arcade.refetch()
+      },
+      { defer: true }
+    )
+  )
 
   const value: TokensBalanceContextValue = {
     get loadingArcadeBal() {
