@@ -26,8 +26,8 @@ describe('authed query options', () => {
 
   const mockRestoreFetch = () => {
     globalThis.fetch = fetchMock as typeof fetch
-    fetchMock.mockImplementation(async () =>
-      new Response(JSON.stringify({ name: 'Probe' }), { status: 200 })
+    fetchMock.mockImplementation(
+      async () => new Response(JSON.stringify({ name: 'Probe' }), { status: 200 })
     )
   }
 

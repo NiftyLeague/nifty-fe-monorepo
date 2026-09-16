@@ -35,9 +35,7 @@ const DashboardRentalPage = (): JSX.Element => {
   const category = () => searchState.category as RentalType
   const terminalRental = useTeminateRental()
 
-  const rentalsQuery = useQuery(() =>
-    rentalsQueryOptions(auth.authToken, category())
-  )
+  const rentalsQuery = useQuery(() => rentalsQueryOptions(auth.authToken, category()))
 
   const rentals = createMemo(() => {
     const data = rentalsQuery.data

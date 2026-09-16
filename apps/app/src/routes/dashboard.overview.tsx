@@ -1,7 +1,11 @@
 import { createFileRoute } from '@tanstack/solid-router'
 
 import DashboardOverviewRouteBoundary from '@/pages/dashboard/overview/DashboardOverviewRouteBoundary'
-import { arcadeBalanceQueryOptions, authedToken, gamerProfileQueryOptions } from '@/query/authed-options'
+import {
+  arcadeBalanceQueryOptions,
+  authedToken,
+  gamerProfileQueryOptions,
+} from '@/query/authed-options'
 import { profileFavoritesQueryOptions } from '@/hooks/useGamerProfile/useProfileFavDegens'
 import { buildHead } from '@/runtime/metadata'
 
