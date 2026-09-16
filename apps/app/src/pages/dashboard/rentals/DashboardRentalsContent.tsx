@@ -4,28 +4,15 @@ import { useQueryStates } from '@/url/nuqs-solid'
 import { toast } from 'solid-sonner'
 import MyRentalsDataGrid from './MyRentalsDataGrid'
 
-import {
-  ALL_RENTAL_API_URL,
-  ALL_RENTAL_API_URL_INACTIVE,
-  MY_RENTAL_API_URL,
-  MY_RENTAL_API_URL_INACTIVE,
-  RENTED_FROM_ME_API_URL,
-} from '@/constants/url'
 import type { Rentals, RentalType } from '@/types/rentals'
 import SearchRental from './SearchRental'
 
 import { Label } from '@nl/ui/base/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
-import { getUniqueListBy } from '@/utils/array'
 import { filterBySearch } from '@/utils/search'
 import useTeminateRental from '@/hooks/useTeminateRental'
 import useAuth from '@/hooks/useAuth'
-import {
-  AUTHENTICATED_STALE_TIME_MS,
-  fetchApiQuery,
-  getAuthQueryScope,
-  queryKeys,
-} from '@/query/app-query'
+import { rentalsQueryOptions } from '@/query/authed-options'
 import { rentalSearchParsers } from '@/url/search-state'
 
 const CATEGORY_OPTIONS: { value: RentalType | 'full-history'; label: string }[] = [
@@ -48,49 +35,7 @@ const DashboardRentalPage = (): JSX.Element => {
   const category = () => searchState.category as RentalType
   const terminalRental = useTeminateRental()
 
-  const getFetchUrl = (): string[] => {
-    switch (category()) {
-      case 'all':
-        return [
-          ALL_RENTAL_API_URL,
-          ALL_RENTAL_API_URL_INACTIVE,
-          RENTED_FROM_ME_API_URL,
-          MY_RENTAL_API_URL,
-          MY_RENTAL_API_URL_INACTIVE,
-        ]
-      case 'owned-sponsorship':
-      case 'non-owned-sponsorship':
-        return [ALL_RENTAL_API_URL, ALL_RENTAL_API_URL_INACTIVE]
-      case 'direct-rental':
-      case 'recruited':
-        return [MY_RENTAL_API_URL, MY_RENTAL_API_URL_INACTIVE]
-      case 'direct-renter':
-        return [RENTED_FROM_ME_API_URL]
-      default:
-        return [ALL_RENTAL_API_URL, ALL_RENTAL_API_URL_INACTIVE]
-    }
-  }
-
-  const fetchRentals = async (signal: AbortSignal): Promise<Rentals[]> => {
-    const urls = getFetchUrl()
-    const rentalArrays = await Promise.all(
-      urls.map((url) =>
-        fetchApiQuery<Rentals[]>(url, {
-          signal,
-          init: { method: 'GET', headers: { authorizationToken: auth.authToken || '' } },
-        })
-      )
-    )
-    const totalRentals = rentalArrays.reduce((flattened, arr) => [...flattened, ...arr])
-    return getUniqueListBy(totalRentals as Rentals[], 'id')
-  }
-
-  const rentalsQuery = useQuery(() => ({
-    queryKey: queryKeys.rentals(getAuthQueryScope(auth.authToken), category()),
-    queryFn: ({ signal }) => fetchRentals(signal),
-    enabled: !!auth.authToken,
-    staleTime: AUTHENTICATED_STALE_TIME_MS,
-  }))
+  const rentalsQuery = useQuery(() => rentalsQueryOptions(auth.authToken, category()))
 
   const rentals = createMemo(() => {
     const data = rentalsQuery.data

@@ -1,12 +1,6 @@
 import { useQuery } from '@tanstack/solid-query'
-import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
 import useAuth from '@/hooks/useAuth'
-import {
-  AUTHENTICATED_STALE_TIME_MS,
-  fetchApiQuery,
-  getAuthQueryScope,
-  queryKeys,
-} from '@/query/app-query'
+import { arcadeBalanceQueryOptions } from '@/query/authed-options'
 
 /*
   ~ What it does? ~
@@ -18,14 +12,6 @@ import {
   const { balance, error, loading, refetch } = useArcadeBalance();
 */
 
-interface ArcadeBalanceInfo {
-  updated_at: number
-  balance_used: number
-  balance: number
-  user_id: string
-  item_id: string
-}
-
 interface ArcadeBalanceState {
   readonly balance: number
   readonly error: Error | null
@@ -36,14 +22,8 @@ interface ArcadeBalanceState {
 export default function useArcadeBalance(): ArcadeBalanceState {
   const auth = useAuth()
   const query = useQuery(() => ({
-    queryKey: queryKeys.account.arcadeBalance(getAuthQueryScope(auth.authToken)),
-    queryFn: ({ signal }) =>
-      fetchApiQuery<ArcadeBalanceInfo>(GET_ARCADE_TOKEN_BALANCE_API, {
-        signal,
-        init: { headers: { authorizationToken: auth.authToken || '' } },
-      }),
+    ...arcadeBalanceQueryOptions(auth.authToken),
     enabled: !!auth.authToken && auth.isLoggedIn,
-    staleTime: AUTHENTICATED_STALE_TIME_MS,
   }))
 
   return {
