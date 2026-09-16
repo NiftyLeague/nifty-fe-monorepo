@@ -9,9 +9,10 @@ export function Preloader(props: {
   progress: number
   label?: string
 }): JSX.Element {
-  const loadingPercentage = () =>
-    Math.round(props.progress <= 1 ? props.progress * 100 : props.progress)
-  const [percent, setPercent] = createSignal<number>(loadingPercentage())
+  // Derived value — no signal or sync effect. The previous version kept a
+  // `percent` signal mirrored from this accessor plus an interval that could
+  // only ever set the signal to its current value.
+  const percent = () => Math.round(props.progress <= 1 ? props.progress * 100 : props.progress)
   const { milliseconds, start, stop } = useStopwatch({ interval: 100 })
 
   const device = useUserAgent()
@@ -28,17 +29,6 @@ export function Preloader(props: {
     // Signal writes inside effects are synchronous in Solid — no need to
     // defer through setTimeout the way React setState-in-render required.
     if (isMobile && !showWarning() && milliseconds() > 1200) setShowWarning(true)
-  })
-
-  createEffect(() => {
-    if (loadingPercentage() !== 90) {
-      setPercent(loadingPercentage())
-      return
-    }
-    const id = setInterval(() => {
-      setPercent((p) => Math.round(p < 80 ? p + 10 : 90))
-    }, 100)
-    onCleanup(() => clearInterval(id))
   })
 
   return (
