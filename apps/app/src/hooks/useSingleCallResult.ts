@@ -1,4 +1,4 @@
-import { createSignal, createEffect, type Accessor } from 'solid-js'
+import { createSignal, createEffect, onCleanup, type Accessor } from 'solid-js'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
 import type { Contracts } from '@/types/web3'
 
@@ -42,9 +42,11 @@ export default function useSingleCallResult(
       }
     }
     void callContract()
-    return () => {
+    // onCleanup runs before each re-run and on dispose — the React-style
+    // `return () => ...` cleanup form is silently ignored by createEffect.
+    onCleanup(() => {
       cancelled = true
-    }
+    })
   })
 
   return value

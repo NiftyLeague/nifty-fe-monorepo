@@ -1,5 +1,6 @@
 import { act, renderHook } from '@nl/ui/test-utils'
-import { beforeEach, describe, expect, it, spyOn } from 'bun:test'
+import { createComputed, createRoot } from 'solid-js'
+import { beforeEach, describe, expect, it } from 'bun:test'
 
 import { createLocalStorageStore, getLocalStorageStore } from '@/state/local-storage-store'
 import useLocalStorage from '@/hooks/useLocalStorage'
@@ -17,27 +18,27 @@ describe('local-storage store', () => {
     window.localStorage.setItem(key, JSON.stringify(['1', '2']))
 
     const store = createLocalStorageStore<string[]>(key, [])
-    expect(store.getState().value).toEqual(['1', '2'])
+    expect(store.value()).toEqual(['1', '2'])
 
     store.set(['1', '2', '3'])
     expect(window.localStorage.getItem(key)).toBe(JSON.stringify(['1', '2', '3']))
-    expect(store.getState().value).toEqual(['1', '2', '3'])
+    expect(store.value()).toEqual(['1', '2', '3'])
   })
 
   it('falls back to the initial value when the key is absent', () => {
     const store = createLocalStorageStore<string>(nextKey('absent'), 'fallback')
-    expect(store.getState().value).toBe('fallback')
+    expect(store.value()).toBe('fallback')
     expect(window.localStorage.getItem(store.key)).toBeNull()
   })
 
   it('keeps safeJSONParse semantics for stored payloads', () => {
     const rawKey = nextKey('raw')
     window.localStorage.setItem(rawKey, 'not-json{')
-    expect(createLocalStorageStore(rawKey, 'x').getState().value).toBe('not-json{')
+    expect(createLocalStorageStore(rawKey, 'x').value()).toBe('not-json{')
 
     const nullKey = nextKey('null')
     window.localStorage.setItem(nullKey, 'null')
-    expect(createLocalStorageStore<string | null>(nullKey, 'x').getState().value).toBeNull()
+    expect(createLocalStorageStore<string | null>(nullKey, 'x').value()).toBeNull()
   })
 
   it('supports updater functions against the current value', () => {
@@ -47,7 +48,7 @@ describe('local-storage store', () => {
 
     store.set((previous) => ({ count: (previous?.count ?? 0) + 1 }))
 
-    expect(store.getState().value).toEqual({ count: 2 })
+    expect(store.value()).toEqual({ count: 2 })
     expect(window.localStorage.getItem(key)).toBe(JSON.stringify({ count: 2 }))
   })
 
@@ -59,26 +60,31 @@ describe('local-storage store', () => {
 
     store.set(undefined)
     expect(window.localStorage.getItem(key)).toBeNull()
-    expect(store.getState().value).toBeUndefined()
+    expect(store.value()).toBeUndefined()
 
     store.set('again')
     store.clear()
     expect(window.localStorage.getItem(key)).toBeNull()
-    expect(store.getState().value).toBeUndefined()
+    expect(store.value()).toBeUndefined()
   })
 
   it('does not move the value reference for deep-equal writes', () => {
     const store = createLocalStorageStore<string[]>(nextKey('stable'), [])
     store.set(['7'])
-    const reference = store.getState().value
+    const reference = store.value()
 
-    const listener = spyOn({ listener: () => {} }, 'listener')
-    const unsubscribe = store.subscribe(listener)
-    store.set(['7'])
-    unsubscribe()
+    let runs = 0
+    createRoot((dispose) => {
+      createComputed(() => {
+        runs += 1
+        store.value()
+      })
+      store.set(['7'])
+      expect(runs).toBe(1)
+      dispose()
+    })
 
-    expect(listener).not.toHaveBeenCalled()
-    expect(store.getState().value).toBe(reference)
+    expect(store.value()).toBe(reference)
     expect(window.localStorage.getItem(store.key)).toBe(JSON.stringify(['7']))
   })
 
@@ -89,7 +95,7 @@ describe('local-storage store', () => {
 
     expect(first).toBe(second)
     first.set(['1'])
-    expect(second.getState().value).toEqual(['1'])
+    expect(second.value()).toEqual(['1'])
   })
 
   it('syncs from other tabs through storage events', () => {
@@ -100,11 +106,11 @@ describe('local-storage store', () => {
     window.localStorage.setItem(key, JSON.stringify(['1', '2']))
     window.dispatchEvent(new StorageEvent('storage', { key }))
 
-    expect(store.getState().value).toEqual(['1', '2'])
+    expect(store.value()).toEqual(['1', '2'])
 
     window.localStorage.removeItem(key)
     window.dispatchEvent(new StorageEvent('storage', { key }))
-    expect(store.getState().value).toBeUndefined()
+    expect(store.value()).toBeUndefined()
   })
 
   it('keeps the hook and raw subscribers on the same store', () => {

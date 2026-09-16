@@ -25,10 +25,9 @@ export function Preloader(props: {
   })
 
   createEffect(() => {
-    if (isMobile && !showWarning() && milliseconds() > 1200) {
-      const id = setTimeout(() => setShowWarning(true), 0)
-      onCleanup(() => clearTimeout(id))
-    }
+    // Signal writes inside effects are synchronous in Solid — no need to
+    // defer through setTimeout the way React setState-in-render required.
+    if (isMobile && !showWarning() && milliseconds() > 1200) setShowWarning(true)
   })
 
   createEffect(() => {

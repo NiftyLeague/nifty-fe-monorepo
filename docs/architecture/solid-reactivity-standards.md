@@ -78,11 +78,34 @@ reach for arrays.
 ## Cleanup and subscriptions
 
 - Wrap listeners/timers in `onCleanup` inside the owning effect or component.
+- **Never return a cleanup function from `createEffect`.** React's
+  `useEffect(() => { ...; return () => cleanup })` does not translate: a
+  `createEffect` return value is passed as `prev` to the next run, not called
+  on cleanup, so the cleanup is dead code. Two production bugs shipped this
+  way (`useSingleCallResult` raced stale contract reads, `DeferredSentry`
+  could not cancel its idle callback). Always write `onCleanup(() => ...)`.
 - When an effect spawns async work, guard it with a cancellation flag so a
   re-run does not race a stale result into a signal (`useSingleCallResult`
   shows the pattern).
 - `createResource` and TanStack Query are the default fetch paths; do not
   hand-roll fetch-in-effect unless the work is not resource-shaped.
+
+## State ownership: no external store libraries
+
+React-era store libraries are gone. `zustand` was removed in favor of plain
+Solid primitives:
+
+- Per-key persisted state (localStorage) lives in
+  `apps/app/src/state/local-storage-store.ts`: one `createSignal` per key in a
+  module registry, with cross-tab `storage` sync and deep-equal write guards.
+- Shared UI stores (navigation drawer, snackbar) use
+  `solid-js/store` `createStore` inside a context provider; components select
+  through `createMemo`, and actions are stable methods on the store object.
+- Do not reintroduce `zustand`, Redux, or any subscribe/snapshot store — the
+  subscription bridge adds a whole-object recompute per write and hides
+  Solid's fine-grained updates.
+- Inside store setters that may be called from effects, read signals through
+  `untrack` so the write cannot subscribe the caller's scope.
 
 ## Passing reactive inputs into non-Solid APIs
 
