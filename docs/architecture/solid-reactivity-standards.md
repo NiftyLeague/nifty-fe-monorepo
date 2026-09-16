@@ -123,3 +123,56 @@ snapshot to a helper that re-uses it later.
 `@/runtime/dynamic` are the canonical code-splitting tools for client-only
 features. Pass `props={{ ... }}` objects — the boundary spreads them through
 `<Dynamic>` so getters stay live.
+
+## App-global state lives in module singletons, not provider instances
+
+Solid components do not remount to reconcile a tree, so a context provider
+adds indirection without adding value when the state is app-global. Nested
+provider stacks (private shell, leaderboard rank boundary, wallet-auth
+boundaries) previously each owned their own auth signal mirroring the same
+localStorage key — a logout in one subtree left the others stale.
+
+- The logged-in flag lives in `apps/app/src/state/auth-store.ts` (one signal,
+  one persistence effect). `useAuthStatus()` reads it from anywhere; there is
+  no provider and no "outside provider" error.
+- Wallet account state lives in `apps/app/src/runtime/wagmi.ts`: one module
+  `watchAccount` subscription feeds one signal; every `useAccount()` call
+  returns the same getter-backed object. Reads before the wallet chunk loads
+  observe the disconnected defaults instead of throwing.
+- Keep per-subtree contexts only for state with a real subtree lifetime
+  (a dialog's open state, a form's scope).
+
+## Contract reads go through the shared query cache
+
+`useReadContract`, `useEnsName`, and `useEnsAvatar` (`@/runtime/wagmi`) are
+backed by TanStack Query keyed on `{chainId, address, functionName, args}`.
+Identical reads across components, provider stacks, and route remounts issue
+one RPC and honor `staleTime` (balances pass 10s). `isLoading` is true only
+for the initial fetch; background refetches keep stale values visible. Do not
+revert these to bare `createResource` — resources have no shared cache, which
+is why every provider remount used to re-fire `balanceOfBatch` RPCs.
+
+## Preloading policy
+
+- The router runs `defaultPreload: 'intent'`. Internal links (`@/runtime/Link`)
+  deliberately pass no `preload` prop, so hovering a nav link warms its route
+  chunks and its loader queries. Do not add `preload={false}` to persistent
+  navigation; that was a Next.js-era setting and it disabled loader prefetch.
+- Routes with server-fetchable data keep a `loader` that awaits
+  `ensureQueryData` (see `/degens`), and the page component must stay
+  SSR-enabled (`dynamic(...)` without `ssr: false`) so the dehydrated payload
+  renders into the streamed HTML. Reach for `ssr: false` only when the surface
+  truly cannot render on the server (WebGL, wallet-dependent UI).
+- Fetch size / request shape may derive from URL state and static breakpoints,
+  never from post-mount UI state (drawer open, etc.) — a server prefetch
+  cannot know it, and a mismatch silently doubles the fetch.
+
+## Deferred boundary props must stay getter-backed
+
+A plain object spread freezes values at setup (`props={{ ...props, open: open()
+}}`). Inside `DeferredComponent`/`<Dynamic>` boundaries, hand the props object
+real getters so late-arriving values stay live:
+
+```tsx
+props={mergeProps(props, { get open() { return open() } })}
+```
