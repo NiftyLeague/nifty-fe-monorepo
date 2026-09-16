@@ -125,7 +125,7 @@ describe('submitTxWithGasEstimate', () => {
     const contractFn = mock().mockResolvedValue({ hash: '0x6' })
     const contract = { changeName: Object.assign(contractFn, { estimateGas }) } as never
 
-    const result = await submitTxWithGasEstimate(
+    await submitTxWithGasEstimate(
       () => Promise.resolve({ hash: '0x6' } as never),
       contract,
       'changeName',
@@ -141,7 +141,7 @@ describe('submitTxWithGasEstimate', () => {
     const estimateGas = mock().mockRejectedValue(new Error('cannot estimate'))
     const contract = { changeName: Object.assign(mock(), { estimateGas }) } as never
 
-    const result = await submitTxWithGasEstimate(
+    const returned = await submitTxWithGasEstimate(
       () => Promise.resolve({} as never),
       contract,
       'changeName',
@@ -149,7 +149,7 @@ describe('submitTxWithGasEstimate', () => {
       {}
     )
 
-    expect(result).toBeNull()
+    expect(returned).toBeNull()
     expect(toastError).toHaveBeenCalled()
   })
 })
