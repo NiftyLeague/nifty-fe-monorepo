@@ -9,9 +9,10 @@ export function RootErrorBoundary(props: { error: unknown; reset: () => void }) 
   createEffect(() => {
     // The router hands the thrown value through as `unknown`; only report the
     // ones that are actual Errors so the Sentry payload stays structured.
-    if (props.error instanceof Error) {
+    const error = props.error
+    if (error instanceof Error) {
       void import('@/runtime/sentry').then(({ captureException }) =>
-        captureException(props.error, sentryOptions)
+        captureException(error, sentryOptions)
       )
     }
   })

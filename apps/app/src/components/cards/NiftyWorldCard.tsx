@@ -22,7 +22,6 @@ export default function NiftyWorldCard(props: NiftyWorldCardProps) {
         hoverActionLabel={props.hoverActionLabel ?? 'Explore map'}
         autoHeight
         overlayContent
-        prefetch={false}
       />
     </div>
   )

@@ -21,7 +21,6 @@ interface DegensFilterProps {
 const DegensFilter = (props: DegensFilterProps): JSX.Element => {
   const [queryState, setQueryState] = useQueryStates(degenSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const state = createMemo(() => normalizeDegenSearchState(queryState))
   const isParamsEmpty = () =>

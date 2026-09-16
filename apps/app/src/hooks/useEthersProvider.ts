@@ -21,13 +21,31 @@ function clientToProvider(client: Client<Transport, Chain>): Provider {
   return new JsonRpcProvider(transport.url, network)
 }
 
+/**
+ * Providers are keyed to the client object's identity: wallet and chain
+ * switches produce a new client (and a fresh provider), while remounts of
+ * consuming components reuse the existing instance instead of rebuilding
+ * the transport and dropping in-flight provider state.
+ */
+let cachedClient: Client<Transport, Chain> | undefined
+let cachedProvider: Provider | undefined
+
 /** Action to convert a viem Client to an ethers.js Provider. */
 export default function useEthersProvider({ chainId }: { chainId?: number } = {}): Accessor<
   Provider | undefined
 > {
   const client = useClient({ chainId })
   return createMemo(() => {
-    const active = client()
-    return active ? clientToProvider(active as Client<Transport, Chain>) : undefined
+    const active = client() as Client<Transport, Chain> | undefined
+    if (!active) {
+      cachedClient = undefined
+      cachedProvider = undefined
+      return undefined
+    }
+    if (active !== cachedClient) {
+      cachedClient = active
+      cachedProvider = clientToProvider(active)
+    }
+    return cachedProvider
   })
 }

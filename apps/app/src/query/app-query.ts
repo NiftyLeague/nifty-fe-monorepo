@@ -20,6 +20,35 @@ const shouldRetryQuery = (failureCount: number, error: Error) => {
   return failureCount < 1
 }
 
+/**
+ * The router owns the client (one per request on the server, one per session
+ * in the browser); auth-storage binds it here so logout flows can purge the
+ * shared cache without prop-drilling a client reference.
+ */
+let boundQueryClient: QueryClient | undefined
+
+export const bindQueryClient = (queryClient: QueryClient): void => {
+  boundQueryClient = queryClient
+}
+
+/** Cache roots whose entries are user-scoped and must not survive logout. */
+const AUTHENTICATED_QUERY_ROOTS = [
+  'profile',
+  'account',
+  'rentals',
+  'merkle-claim',
+  'owner',
+  'product',
+  'leaderboards',
+] as const
+
+export const purgeAuthenticatedQueries = (): void => {
+  if (!boundQueryClient || typeof document === 'undefined') return
+  for (const root of AUTHENTICATED_QUERY_ROOTS) {
+    boundQueryClient.removeQueries({ queryKey: [root] })
+  }
+}
+
 export const createAppQueryClient = () =>
   new QueryClient({
     defaultOptions: {

@@ -65,7 +65,6 @@ const DashboardDegensPageContent = (): JSX.Element => {
   const [isRentDialog, setIsRentDialog] = createSignal<boolean>(false)
   const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const searchState = createMemo(() => normalizeDegenSearchState(rawSearchState))
   const layoutMode = () => searchState().layout

@@ -55,7 +55,7 @@ describe('NiftyWorldCard', () => {
     const card = screen.getByText('Degen Dodge')
     expect(card.getAttribute('data-auto-height')).toBe('true')
     expect(card.getAttribute('data-overlay-content')).toBe('true')
-    expect(card.getAttribute('data-prefetch')).toBe('false')
+    expect(card.getAttribute('data-prefetch')).toBe('undefined')
     expect(card.getAttribute('data-href')).toBe('/games/degen-dodge')
     expect(card.getAttribute('data-hover-action-label')).toBe('Explore map')
   })

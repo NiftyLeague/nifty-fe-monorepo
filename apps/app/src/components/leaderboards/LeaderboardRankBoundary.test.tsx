@@ -1,6 +1,8 @@
 import { render, screen } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
+import { setIsLoggedIn } from '@/state/auth-store'
+
 const dynamicLoaders: Array<() => Promise<unknown>> = []
 
 mock.module('@/runtime/dynamic', () => ({
@@ -17,10 +19,10 @@ describe('LeaderboardRankBoundary', () => {
   beforeEach(() => {
     dynamicLoaders.length = 0
     window.localStorage.clear()
+    setIsLoggedIn(false)
   })
 
   it('does not load wallet rank controls for signed-out visitors', async () => {
-    window.localStorage.setItem('nifty-auth-status', 'false')
     const { default: LeaderboardRankBoundary } = await import('./LeaderboardRankBoundary')
 
     render(() => (
@@ -36,9 +38,9 @@ describe('LeaderboardRankBoundary', () => {
   })
 
   it('loads wallet rank controls only for signed-in visitors', async () => {
-    window.localStorage.setItem('nifty-auth-status', 'true')
     const { default: LeaderboardRankBoundary } = await import('./LeaderboardRankBoundary')
 
+    setIsLoggedIn(true)
     render(() => (
       <LeaderboardRankBoundary
         selectedGame="nifty_smashers"

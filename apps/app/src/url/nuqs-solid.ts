@@ -32,8 +32,6 @@ type HistoryMode = 'push' | 'replace'
 
 interface QueryStatesOptions {
   history?: HistoryMode
-  /** Accepted for call-site compatibility; router search updates are always reactive. */
-  shallow?: boolean
 }
 
 export function useQueryStates<P extends Parsers>(

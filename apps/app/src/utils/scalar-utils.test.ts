@@ -1,16 +1,10 @@
 import { describe, expect, it } from 'bun:test'
-import { areEqualArrays, getUniqueListBy } from './array'
+import { getUniqueListBy } from './array'
 import { capitalize } from './string'
 import { safeJSONParse } from './json'
 import callAll from './callAll'
 
 describe('array utils', () => {
-  it('areEqualArrays compares by JSON shape', () => {
-    expect(areEqualArrays([1, 2, 3], [1, 2, 3])).toBe(true)
-    expect(areEqualArrays([1, 2], [1, 2, 3])).toBe(false)
-    expect(areEqualArrays([{ a: 1 }], [{ a: 1 }])).toBe(true)
-  })
-
   it('getUniqueListBy dedupes by key', () => {
     const out = getUniqueListBy<{ id: number; name: string }>(
       [

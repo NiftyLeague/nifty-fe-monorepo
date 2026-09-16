@@ -53,12 +53,7 @@ const UserProfile = () => {
         <span class="whitespace-nowrap">{displayName()}</span>
       </div>
       <ConnectWrapper fullWidth>
-        <Link
-          href="/dashboard"
-          prefetch={false}
-          data-slot="button"
-          class={buttonVariants({ className: 'w-full' })}
-        >
+        <Link href="/dashboard" data-slot="button" class={buttonVariants({ className: 'w-full' })}>
           Open dashboard
         </Link>
       </ConnectWrapper>

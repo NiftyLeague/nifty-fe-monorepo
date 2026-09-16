@@ -43,7 +43,6 @@ const DashboardRentalPage = (): JSX.Element => {
   const auth = useAuth()
   const [searchState, setSearchState] = useQueryStates(rentalSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const searchTerm = () => searchState.search
   const category = () => searchState.category as RentalType
@@ -166,8 +165,10 @@ const DashboardRentalPage = (): JSX.Element => {
         </div>
       </div>
       <div class="h-[calc(100vh-208px)]">
+        {/* Initial load only: background refetches (reconnect, post-terminate)
+            keep showing the current rows instead of blanking the grid. */}
         <MyRentalsDataGrid
-          loading={rentalsQuery.isLoading || rentalsQuery.isFetching}
+          loading={rentalsQuery.isLoading}
           rows={rentals()}
           category={category()}
           onTerminateRental={terminateRentalById}

@@ -187,14 +187,13 @@ describe('card presentation', () => {
         description="Explore the island"
         image="/isla-azul.webp"
         href="/world/isla-azul"
-        prefetch={false}
       />
     ))
 
     const sceneLink = screen.getByRole('link', { name: 'Explore Isla Azul' })
 
     expect(sceneLink.getAttribute('href')).toBe('/world/isla-azul')
-    expect(sceneLink.getAttribute('data-prefetch')).toBe('false')
+    expect(sceneLink.getAttribute('data-prefetch')).toBe('undefined')
     expect(screen.getByText('Explore map')).not.toBeNull()
     expect(screen.queryByRole('button', { name: /Play on/ })).toBeNull()
 
@@ -214,7 +213,6 @@ describe('card presentation', () => {
         image="/isla-azul.webp"
         href="/world/isla-azul"
         overlayContent
-        prefetch={false}
       />
     ))
 

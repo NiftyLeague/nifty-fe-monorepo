@@ -1,3 +1,5 @@
+import { mergeProps } from 'solid-js'
+
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 
 import type { RentalDataGrid } from '@/types/rentalDataGrid'
@@ -19,7 +21,11 @@ export default function DeferredChangeNicknameDialog(props: DeferredChangeNickna
       label="Rental nickname form"
       load={loadChangeNicknameDialog}
       loadingFallback={<DeferredDialogLoading label="Loading nickname form" />}
-      props={{ ...props, open: open() }}
+      props={mergeProps(props, {
+        get open() {
+          return open()
+        },
+      })}
     />
   )
 }

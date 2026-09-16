@@ -21,6 +21,8 @@
     "./degen-tribes": "./src/lib/degen-tribes.ts",
     "./lib/deferred-activation": "./src/lib/deferred-activation.ts",
     "./lib/deferred-boundary": "./src/lib/deferred-boundary.ts",
+    "./lib/fonts/assets/*": "./src/lib/fonts/assets/*",
+    "./lib/fonts/*": "./src/lib/fonts/*",
     "./lib/image-attributes": "./src/lib/image-attributes.ts",
     "./utils": "./src/lib/utils.ts",
     "./test-utils": "./src/test-utils.tsx",

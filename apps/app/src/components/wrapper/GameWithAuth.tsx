@@ -119,6 +119,7 @@ const Game = (props: GameProps) => {
       window.removeEventListener('StartAuthentication', startAuthentication as EventListener)
       window.removeEventListener('GetConfiguration', getConfiguration as EventListener)
       document.removeEventListener('mousemove', enableGameInteraction)
+      window.unityInstance = null
     })
   })
 

@@ -17,9 +17,7 @@ const MyStats = (props: { profile?: Profile }): JSX.Element => {
           actions={
             <div class="flex flex-row gap-4">
               <Button asChild variant="outline">
-                <Link href="/dashboard/gamer-profile" prefetch={false}>
-                  View All Stats
-                </Link>
+                <Link href="/dashboard/gamer-profile">View All Stats</Link>
               </Button>
             </div>
           }

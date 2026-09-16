@@ -1,7 +1,7 @@
 import { createSignal, onCleanup } from 'solid-js'
 import type { TransactionResponse } from 'ethers'
-import type { MetamaskError } from '@/types/notify'
-import { handleError } from '@/utils/bnc-notify'
+import { handleError } from '@/utils/transactions'
+import type { NotifyError } from '@/types/notify'
 
 import { NFTL_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants/index'
@@ -55,7 +55,7 @@ export default function useClaimNFTL(): {
       setLoading(false)
       return res
     } catch (error) {
-      handleError(error as MetamaskError)
+      handleError(error as NotifyError)
       setLoading(false)
       return null
     }

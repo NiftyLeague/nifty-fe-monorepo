@@ -3,19 +3,13 @@ import { createFileRoute } from '@tanstack/solid-router'
 import DeferredWeb3GameList from '@/pages/games/DeferredWeb3GameList'
 import GameList from '@/pages/games/_GameList'
 import StaticSection from '@/components/sections/StaticSection'
+import { buildImagePreloadLink } from '@/runtime/image-preloads'
 
 export const Route = createFileRoute('/_public/games/')({
   head: () => ({
     // The first flagship card's poster wins LCP; preloading keeps it ahead of
     // the module chunk queue.
-    links: [
-      {
-        rel: 'preload',
-        as: 'image',
-        href: '/img/games/smashers/smashers-poster.jpg',
-        fetchpriority: 'high',
-      },
-    ],
+    links: [buildImagePreloadLink('/img/games/smashers/smashers-poster.jpg')],
   }),
   component: GamesPage,
 })

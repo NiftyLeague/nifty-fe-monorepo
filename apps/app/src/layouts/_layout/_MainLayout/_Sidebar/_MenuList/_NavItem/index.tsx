@@ -82,7 +82,6 @@ const NavItem = (props: NavItemProps) => {
   return (
     <Link
       href={props.item.url!}
-      prefetch={false}
       target={itemTarget()}
       class={linkClass()}
       style={styleVars}

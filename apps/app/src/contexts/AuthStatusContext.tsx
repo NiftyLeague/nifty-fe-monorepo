@@ -1,52 +1,25 @@
-import { createContext, useContext, createEffect, createSignal, type JSX } from 'solid-js'
-
-import { safeJSONParse } from '@/utils/json'
+import {
+  isLoggedIn as authIsLoggedIn,
+  setIsLoggedIn as setAuthIsLoggedIn,
+} from '@/state/auth-store'
 
 export type AuthStatusContextValue = {
   readonly isLoggedIn: boolean
   setIsLoggedIn: (isLoggedIn: boolean) => void
 }
 
-const AUTH_STATUS_KEY = 'nifty-auth-status'
-const AuthStatusContext = createContext<AuthStatusContextValue | null>(null)
-
-const readInitialStatus = (): boolean => {
-  if (typeof window === 'undefined') return false
-
-  try {
-    const current = safeJSONParse(window.localStorage.getItem(AUTH_STATUS_KEY))
-    if (typeof current === 'boolean') return current
-
-    const legacy = safeJSONParse(window.localStorage.getItem('persist')) as {
-      account?: { isLoggedIn?: unknown }
-    } | null
-    return legacy?.account?.isLoggedIn === true
-  } catch {
-    return false
-  }
+const AUTH_STATUS: AuthStatusContextValue = {
+  get isLoggedIn() {
+    return authIsLoggedIn()
+  },
+  setIsLoggedIn: setAuthIsLoggedIn,
 }
 
-export function AuthStatusProvider(props: { children?: JSX.Element }) {
-  const [isLoggedIn, setIsLoggedIn] = createSignal(readInitialStatus())
-
-  createEffect(() => {
-    window.localStorage.setItem(AUTH_STATUS_KEY, JSON.stringify(isLoggedIn()))
-  })
-
-  const value: AuthStatusContextValue = {
-    get isLoggedIn() {
-      return isLoggedIn()
-    },
-    setIsLoggedIn,
-  }
-
-  return <AuthStatusContext.Provider value={value}>{props.children}</AuthStatusContext.Provider>
-}
-
-export function useAuthStatus() {
-  const context = useContext(AuthStatusContext)
-
-  if (!context) throw new Error('useAuthStatus must be used inside AuthStatusProvider')
-
-  return context
+/**
+ * The logged-in flag lives in the module singleton (`@/state/auth-store`), so
+ * every consumer — regardless of which provider stack it renders under —
+ * reads and writes one source of truth. No provider is required anymore.
+ */
+export function useAuthStatus(): AuthStatusContextValue {
+  return AUTH_STATUS
 }

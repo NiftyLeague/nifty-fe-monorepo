@@ -2,7 +2,7 @@ import { createRouter } from '@tanstack/solid-router'
 import { setupRouterSsrQueryIntegration } from '@tanstack/solid-router-ssr-query'
 import type { QueryClient } from '@tanstack/solid-query'
 
-import { createAppQueryClient } from '@/query/app-query'
+import { bindQueryClient, createAppQueryClient } from '@/query/app-query'
 
 import { routeTree } from './routeTree.gen'
 
@@ -17,6 +17,7 @@ export interface RouterContext {
  */
 export function getRouter() {
   const queryClient = createAppQueryClient()
+  bindQueryClient(queryClient)
 
   const router = createRouter({
     routeTree,

@@ -1,4 +1,4 @@
-import { createEffect } from 'solid-js'
+import { createEffect, untrack } from 'solid-js'
 
 import { toast } from 'solid-sonner'
 import type { ExternalToast } from 'solid-sonner'
@@ -66,7 +66,9 @@ const Snackbar = () => {
         toast(message, options)
     }
 
-    closeSnackbar()
+    // Closing writes `open` back to the store this effect tracks; untrack it
+    // so the write does not schedule a pointless second run.
+    untrack(closeSnackbar)
   })
 
   return null

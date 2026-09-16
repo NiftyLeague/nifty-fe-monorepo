@@ -1,4 +1,4 @@
-import { createEffect, type JSX } from 'solid-js'
+import { createEffect, Show, type JSX } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 
 import { cx } from '@nl/ui/class-names'
@@ -42,6 +42,8 @@ function AppShellContent(props: AppShellProps) {
   const isDesktopNavigation = useIsDesktopNavigation()
   const setDrawerOpen = useSetDrawerOpen()
 
+  // Reset to the breakpoint default when the navigation mode flips (desktop
+  // sidebar ↔ mobile sheet). User toggles persist until the next crossing.
   createEffect(() => {
     setDrawerOpen(isDesktopNavigation())
   })
@@ -89,11 +91,18 @@ const AppMainContent = (props: AppMainContentProps) => {
     </>
   )
 
-  if (props.isNoFilterPage) return content
-
+  // Reactive branch: the shell stays mounted across child-route navigation,
+  // so a setup-time early return would pin the first route's wrapper forever.
   return (
-    <ScrollArea class="h-full" viewportClassName="py-5 md:py-10">
-      <div class="container">{content}</div>
-    </ScrollArea>
+    <Show
+      when={props.isNoFilterPage}
+      fallback={
+        <ScrollArea class="h-full" viewportClassName="py-5 md:py-10">
+          <div class="container">{content}</div>
+        </ScrollArea>
+      }
+    >
+      {content}
+    </Show>
   )
 }

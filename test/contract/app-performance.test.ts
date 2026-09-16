@@ -835,7 +835,10 @@ describe('app performance contracts', () => {
     const pageSource = readFileSync(allDegensPage, 'utf8')
 
     expect(pageSource).toContain("from '@/components/pagination/PaginationControls'")
-    expect(pageSource).toContain("from '@nl/ui/base/pagination'")
+    // The shared PaginationEllipsis renders a bare <li>, which has no list
+    // parent inside the div-rooted PaginationControls (axe: listitem); the
+    // page renders a local ellipsis span instead.
+    expect(pageSource).toContain('data-slot="pagination-ellipsis"')
     expect(pageSource).toContain("aria-current={p === currentPage() ? 'page' : undefined}")
 
     for (const file of appCarouselSettingsSources) {

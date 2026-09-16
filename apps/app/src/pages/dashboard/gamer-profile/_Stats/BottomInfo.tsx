@@ -44,9 +44,7 @@ const BottomInfo = (props: BottomInfoProps): JSX.Element => {
               </div>
               <LeftInfo data={props.nifty_smashers} />
               <Button variant="secondary" asChild>
-                <Link href="/leaderboards?game=nifty_smashers" prefetch={false}>
-                  View Leaderboards
-                </Link>
+                <Link href="/leaderboards?game=nifty_smashers">View Leaderboards</Link>
               </Button>
             </div>
           }
@@ -74,9 +72,7 @@ const BottomInfo = (props: BottomInfoProps): JSX.Element => {
               </div>
               <MiniGameContent data={props.wen_game} />
               <Button variant="secondary" asChild>
-                <Link href="/leaderboards?game=wen_game" prefetch={false}>
-                  View Leaderboards
-                </Link>
+                <Link href="/leaderboards?game=wen_game">View Leaderboards</Link>
               </Button>
             </div>
           }
@@ -104,9 +100,7 @@ const BottomInfo = (props: BottomInfoProps): JSX.Element => {
               </div>
               <MiniGameContent data={props.crypto_winter} />
               <Button variant="secondary" asChild>
-                <Link href="/leaderboards?game=crypto_winter" prefetch={false}>
-                  View Leaderboards
-                </Link>
+                <Link href="/leaderboards?game=crypto_winter">View Leaderboards</Link>
               </Button>
             </div>
           }

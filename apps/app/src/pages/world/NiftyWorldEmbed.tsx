@@ -151,7 +151,6 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
                 under the 4.5:1 axe bar on the outline surface. */}
           <Link
             href={props.backHref}
-            prefetch={false}
             class={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
           >
             <ArrowLeft aria-hidden="true" />

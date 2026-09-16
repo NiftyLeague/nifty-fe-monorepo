@@ -1,4 +1,4 @@
-import { createEffect, createMemo } from 'solid-js'
+import { createEffect, createMemo, on } from 'solid-js'
 
 import { useOwnerSearch } from '@/hooks/useGraphQL'
 import useAuth from '@/hooks/useAuth'
@@ -14,7 +14,6 @@ interface DegenOwnershipState {
 }
 
 export default function useDegenOwnership(): DegenOwnershipState {
-  let firstRender = true
   const auth = useAuth()
   const ownerQuery = useOwnerSearch()
 
@@ -30,15 +29,16 @@ export default function useDegenOwnership(): DegenOwnershipState {
     degensBalances().map((degen) => parseInt(degen.id, 10))
   )
 
-  createEffect(() => {
-    const loggedIn = auth.isLoggedIn
-    if (firstRender) {
-      firstRender = false
-      return
-    }
-    if (!loggedIn) return
-    void ownerQuery.refetch()
-  })
+  createEffect(
+    on(
+      () => auth.isLoggedIn,
+      (loggedIn) => {
+        if (!loggedIn) return
+        void ownerQuery.refetch()
+      },
+      { defer: true }
+    )
+  )
 
   return {
     get degenCount() {

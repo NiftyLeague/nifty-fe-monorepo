@@ -9,6 +9,7 @@ import { buildHead } from '@/runtime/metadata'
 import DegenRoute from '@/pages/degens/DegenRoute'
 
 const DEGENS_PAGE_SIZE = 12
+const LIST_VIEW_PAGE_SIZE = 18
 
 export const Route = createFileRoute('/_public/degens/')({
   head: () => buildHead({ path: '/degens', title: 'DEGENs' }),
@@ -17,15 +18,26 @@ export const Route = createFileRoute('/_public/degens/')({
   loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => {
     const searchState = normalizeDegenSearchState(parseDegenSearch(deps))
-    const requestQuery = buildPublicDegensRequestQuery(searchState, DEGENS_PAGE_SIZE)
+    // Mirror AllDegensPage's pageSize formula: grid (the default) always
+    // fetches 12; list view fetches 18 on wide screens. The viewport is not
+    // known server-side, so the non-primary size is warmed without blocking
+    // the server render — the client then finds its exact query already
+    // cached whichever viewport it hydrates at.
+    const primaryPageSize = searchState.layout === 'gridOn' ? LIST_VIEW_PAGE_SIZE : DEGENS_PAGE_SIZE
+    const secondaryPageSize =
+      primaryPageSize === DEGENS_PAGE_SIZE ? LIST_VIEW_PAGE_SIZE : DEGENS_PAGE_SIZE
 
-    // Prefetch on the server so the first paint already has the DEGEN grid.
-    await context.queryClient.ensureQueryData(
+    const queryFor = (pageSize: number) =>
       queryOptions({
-        queryKey: queryKeys.publicDegens.list(requestQuery),
-        queryFn: () => getPublicDegenPageWire(new URLSearchParams(requestQuery)),
+        queryKey: queryKeys.publicDegens.list(buildPublicDegensRequestQuery(searchState, pageSize)),
+        queryFn: () =>
+          getPublicDegenPageWire(
+            new URLSearchParams(buildPublicDegensRequestQuery(searchState, pageSize))
+          ),
       })
-    )
+
+    await context.queryClient.ensureQueryData(queryFor(primaryPageSize))
+    void context.queryClient.prefetchQuery(queryFor(secondaryPageSize))
   },
   component: DegensPage,
 })

@@ -4,37 +4,39 @@ import type {
   BaseContract,
   ContractMethod,
   JsonRpcSigner,
+  TransactionReceipt,
   TransactionRequest,
   TransactionResponse,
 } from 'ethers'
-import { serializeError } from 'eth-rpc-errors'
 
 import { Contracts } from '@/types/web3'
-import type { NotifyCallback, NotifyError, Tx, EthersTransaction } from '@/types/notify'
+import type { EthersTransaction, NotifyCallback, NotifyError, Tx } from '@/types/notify'
 import { DEBUG } from '@/constants/index'
 import { TARGET_NETWORK } from '@/constants/networks'
 import { calculateGasMargin, loadGasPrice } from '@/utils/gas'
 
-// Wrapper around BlockNative's wonderful Notify.js
-// https://docs.blocknative.com/notify
+const ETHERSCAN_TX_URL = `${TARGET_NETWORK.blockExplorer}/tx/`
+
+/**
+ * Extract a human-readable message from wallet/RPC rejection errors. Covers
+ * the shapes ethers v6 and MetaMask-family wallets throw (nested `error`,
+ * `shortMessage`, `reason`) without a serialization dependency.
+ */
+const extractErrorMessage = (e: NotifyError): string => {
+  const err = e as {
+    message?: string
+    shortMessage?: string
+    reason?: string
+    code?: string | number
+    error?: { message?: string }
+  }
+  if (err.code === 'ACTION_REJECTED' || err.code === 4001) return 'Transaction rejected'
+  return err.error?.message || err.shortMessage || err.message || err.reason || 'Unknown error'
+}
 
 export const handleError = (e: NotifyError): void => {
   console.error('Transaction Error', e)
-  // Accounts for Metamask and default signer on all networks
-  let message: string
-  if (e.message) {
-    message = e.message
-  } else {
-    const serialized = serializeError(e)
-    message = serialized.message
-  }
-
-  // BlockNative's Notify.js will throw errors if the WebSocket disconnects. Not important to display.
-  if (message === 'There was a WebSocket error' || message.includes('Configuration with scope')) {
-    return
-  }
-
-  toast.error(`Transaction Error: ${message}`)
+  toast.error(`Transaction Error: ${extractErrorMessage(e)}`)
 }
 
 export const submitTxWithGasEstimate = async (
@@ -89,21 +91,46 @@ export const sendTransaction = async (
   return result
 }
 
-export const handleLocalNotify = async (
+/**
+ * Toast the transaction through its lifecycle and resolve the receipt.
+ * Replaces the BlockNative Notify.js mempool watcher: same user-visible
+ * states (sent → confirmed/reverted) with a plain provider receipt wait.
+ */
+export const notifyTransactionOutcome = async (
   signer: JsonRpcSigner,
   result: TransactionResponse,
   callback?: NotifyCallback
-) => {
-  const networkName = TARGET_NETWORK.label
-  toast.info(`${networkName} Transaction Sent: ${result.hash}`, { position: 'bottom-right' })
-  await result.wait()
-  toast.success(`${networkName} Transaction Successful: ${result.hash}`, {
+): Promise<void> => {
+  const explorerUrl = result.hash ? `${ETHERSCAN_TX_URL}${result.hash}` : undefined
+  toast.info(`${TARGET_NETWORK.label} Transaction Sent: ${result.hash}`, {
+    position: 'bottom-right',
+    action: explorerUrl
+      ? {
+          label: 'View',
+          onClick: () => {
+            if (typeof window !== 'undefined') window.open(explorerUrl)
+          },
+        }
+      : undefined,
+  })
+
+  let receipt: TransactionReceipt | null = null
+  try {
+    receipt = await result.wait()
+  } catch (e) {
+    handleError(e as NotifyError)
+    return
+  }
+
+  if (receipt?.status === 0) {
+    toast.error(`${TARGET_NETWORK.label} Transaction Failed: ${result.hash}`, {
+      position: 'bottom-right',
+    })
+    return
+  }
+
+  toast.success(`${TARGET_NETWORK.label} Transaction Successful: ${result.hash}`, {
     position: 'bottom-right',
   })
-  // on most networks BlockNative will update a transaction handler,
-  // but locally we will set an interval to listen...
-  if (callback) {
-    const currentTransactionReceipt = await signer.provider.getTransactionReceipt(result.hash)
-    callback(currentTransactionReceipt)
-  }
+  if (callback) callback(receipt ?? (await signer.provider.getTransactionReceipt(result.hash)))
 }

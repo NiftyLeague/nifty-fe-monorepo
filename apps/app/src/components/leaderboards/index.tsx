@@ -24,7 +24,6 @@ const EnhancedTable = dynamic(() => import('./EnhancedTable/EnhancedTable'), {
 export default function LeaderBoards(): JSX.Element {
   const [searchState, setSearchState] = useQueryStates(leaderboardSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const selectedGame = () => searchState.game
   const page = () => Math.max(1, searchState.page)

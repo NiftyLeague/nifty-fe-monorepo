@@ -1,8 +1,8 @@
 import { formatEther, parseEther, type TransactionResponse } from 'ethers'
-import { handleError } from '@/utils/bnc-notify'
+import { handleError } from '@/utils/transactions'
+import type { NotifyError } from '@/types/notify'
 import useIMXContext from '@/hooks/useIMXContext'
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
-import type { MetamaskError } from '@/types/notify'
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants'
 import useUserClaimData from './useUserClaimData'
@@ -42,7 +42,7 @@ export default function useClaimCallback(): {
 
       return txRes ? txRes : null
     } catch (error) {
-      handleError(error as MetamaskError)
+      handleError(error as NotifyError)
       return null
     }
   }

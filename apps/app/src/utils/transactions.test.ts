@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, it, spyOn } from 'bun:test'
-import { mock } from 'bun:test'
+import { beforeEach, describe, expect, it, mock } from 'bun:test'
+
 const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSuccess } = {
   calculateGasMarginMock: mock(() => 123n),
   loadGasPriceMock: mock().mockResolvedValue(25n),
@@ -8,146 +8,148 @@ const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSu
   toastSuccess: mock(),
 }
 
-let handleError: typeof import('./bnc-notify').handleError
-let handleLocalNotify: typeof import('./bnc-notify').handleLocalNotify
-let sendTransaction: typeof import('./bnc-notify').sendTransaction
-let submitTxWithGasEstimate: typeof import('./bnc-notify').submitTxWithGasEstimate
+let handleError: typeof import('./transactions').handleError
+let notifyTransactionOutcome: typeof import('./transactions').notifyTransactionOutcome
+let sendTransaction: typeof import('./transactions').sendTransaction
+let submitTxWithGasEstimate: typeof import('./transactions').submitTxWithGasEstimate
 
 beforeEach(() => {
+  toastError.mockClear()
+  toastInfo.mockClear()
+  toastSuccess.mockClear()
   mock.module('solid-sonner', () => ({
     toast: { error: toastError, info: toastInfo, success: toastSuccess },
   }))
-  mock.module('eth-rpc-errors', () => ({
-    serializeError: (error: unknown) => ({ message: `serialized: ${String(error)}` }),
-  }))
   mock.module('@/constants/index', () => ({ DEBUG: false }))
   mock.module('@/constants/networks', () => ({
-    TARGET_NETWORK: { label: 'Local', gasPrice: undefined },
+    TARGET_NETWORK: {
+      label: 'Local',
+      gasPrice: undefined,
+      blockExplorer: 'https://example.com',
+    },
   }))
   mock.module('@/utils/gas', () => ({
     calculateGasMargin: calculateGasMarginMock,
     loadGasPrice: loadGasPriceMock,
   }))
-  return import('./bnc-notify').then((module) => {
-    handleError = module.handleError
-    handleLocalNotify = module.handleLocalNotify
-    sendTransaction = module.sendTransaction
-    submitTxWithGasEstimate = module.submitTxWithGasEstimate
-  })
 })
 
-beforeEach(() => {
-  mock.clearAllMocks()
-  spyOn(console, 'error').mockImplementation(() => undefined)
-})
+const loadModule = async () => {
+  const module = await import('./transactions')
+  handleError = module.handleError
+  notifyTransactionOutcome = module.notifyTransactionOutcome
+  sendTransaction = module.sendTransaction
+  submitTxWithGasEstimate = module.submitTxWithGasEstimate
+}
+
+const signer = () => ({ provider: { getTransactionReceipt: mock() } }) as never
 
 describe('handleError', () => {
-  it('uses direct and serialized error messages', () => {
-    handleError({ message: 'rejected' })
-    handleError({ code: -1 } as never)
+  beforeEach(loadModule)
 
-    expect(toastError).toHaveBeenCalledTimes(2)
-    expect(toastError.mock.calls[0]?.[0]).toBe('Transaction Error: rejected')
-    expect(toastError.mock.calls[1]?.[0]).toContain('serialized:')
-  })
-
-  it.each<string>(['There was a WebSocket error', 'Configuration with scope local failed'])(
-    'suppresses non-actionable transport errors: %s',
-    (message) => {
-      handleError({ message })
-      expect(toastError).not.toHaveBeenCalled()
-    }
-  )
-})
-
-describe('submitTxWithGasEstimate', () => {
-  it('estimates gas, applies the margin, and submits the contract result', async () => {
-    const contractFn = Object.assign(mock().mockReturnValue('contract-call'), {
-      estimateGas: mock().mockResolvedValue(100n),
-    })
-    const tx = mock().mockResolvedValue({ hash: '0xsubmitted' })
-    const callback = mock()
-
-    await expect(
-      submitTxWithGasEstimate(
-        tx,
-        { mint: contractFn } as never,
-        'mint',
-        [7],
-        { value: 2n },
-        80n,
-        callback
-      )
-    ).resolves.toEqual({ hash: '0xsubmitted' })
-    expect(calculateGasMarginMock).toHaveBeenCalledWith(100n, 80n)
-    expect(contractFn).toHaveBeenCalledWith(7, { value: 2n, gasLimit: 123n })
-    expect(tx).toHaveBeenCalledWith('contract-call', callback)
-  })
-
-  it('reports estimate failures and validates the requested method', async () => {
-    const contractFn = Object.assign(mock(), {
-      estimateGas: mock().mockRejectedValue({ error: { message: 'estimate failed' } }),
-    })
-
-    await expect(
-      submitTxWithGasEstimate(mock(), { mint: contractFn } as never, 'mint', [])
-    ).resolves.toBeNull()
-    expect(toastError.mock.calls[0]?.[0]).toContain('estimate failed')
-    await expect(submitTxWithGasEstimate(mock(), {} as never, 'missing', [])).rejects.toThrow(
-      'Function missing is not available'
+  it('toasts user rejections, nested RPC messages, and fallbacks', () => {
+    handleError({ code: 'ACTION_REJECTED' } as never)
+    expect(toastError).toHaveBeenCalledWith(
+      expect.stringContaining('Transaction Error: Transaction rejected')
     )
 
-    const withoutEstimate = mock()
-    await expect(
-      submitTxWithGasEstimate(mock(), { mint: withoutEstimate } as never, 'mint', [])
-    ).rejects.toThrow('Function Estimate Gas is not available on mint')
+    handleError({ error: { message: 'insufficient funds' } } as never)
+    expect(toastError).toHaveBeenLastCalledWith(
+      expect.stringContaining('Transaction Error: insufficient funds')
+    )
+
+    handleError({} as never)
+    expect(toastError).toHaveBeenLastCalledWith(expect.stringContaining('Unknown error'))
   })
 })
 
 describe('sendTransaction', () => {
-  it('awaits an already-created transaction', async () => {
-    const result = { hash: '0xpromise' }
-    await expect(sendTransaction({} as never, Promise.resolve(result) as never)).resolves.toBe(
-      result
-    )
+  beforeEach(loadModule)
+
+  it('awaits promise-shaped transactions untouched', async () => {
+    const response = { hash: '0x1' }
+    const result = await sendTransaction({} as never, Promise.resolve(response as never))
+    expect(result).toBe(response)
   })
 
-  it('fills default gas fields before asking the signer to send', async () => {
-    const result = { hash: '0xsent' }
-    const sendTransactionMock = mock().mockResolvedValue(result)
+  it('fills gas defaults for request-shaped transactions', async () => {
+    const sendMock = mock().mockResolvedValue({ hash: '0x2' })
+    const fakeSigner = { sendTransaction: sendMock } as never
 
-    await expect(
-      sendTransaction({ sendTransaction: sendTransactionMock } as never, { to: '0xabc' } as never)
-    ).resolves.toBe(result)
-    expect(loadGasPriceMock).toHaveBeenCalled()
-    expect(sendTransactionMock).toHaveBeenCalledWith(
-      expect.objectContaining({ to: '0xabc', gasPrice: 25n, gasLimit: '0x01d4c0' })
-    )
+    await sendTransaction(fakeSigner, { to: '0xabc' } as never)
+
+    expect(sendMock).toHaveBeenCalledWith({ to: '0xabc', gasPrice: 25n, gasLimit: '0x01d4c0' })
   })
 })
 
-describe('handleLocalNotify', () => {
-  it('waits for confirmation, emits notifications, and calls back with the receipt', async () => {
-    const receipt = { status: 1 }
-    const callback = mock()
-    const result = { hash: '0xconfirmed', wait: mock().mockResolvedValue(receipt) }
-    const signer = { provider: { getTransactionReceipt: mock().mockResolvedValue(receipt) } }
+describe('notifyTransactionOutcome', () => {
+  beforeEach(loadModule)
 
-    await handleLocalNotify(signer as never, result as never, callback)
+  it('toasts sent and successful states and resolves the receipt callback', async () => {
+    const receipt = { status: 1, hash: '0x3' }
+    const result = { hash: '0x3', wait: mock().mockResolvedValue(receipt) }
 
-    expect(result.wait).toHaveBeenCalled()
-    expect(toastInfo).toHaveBeenCalled()
-    expect(toastSuccess).toHaveBeenCalled()
-    expect(callback).toHaveBeenCalledWith(receipt)
+    await notifyTransactionOutcome(signer(), result as never)
+
+    expect(toastInfo).toHaveBeenCalledTimes(1)
+    expect(toastSuccess).toHaveBeenCalledTimes(1)
+    expect(toastError).not.toHaveBeenCalled()
   })
 
-  it('does not request a receipt when no callback is supplied', async () => {
-    const getTransactionReceipt = mock()
-    await handleLocalNotify(
-      { provider: { getTransactionReceipt } } as never,
-      { hash: '0xconfirmed', wait: mock().mockResolvedValue(undefined) } as never
+  it('toasts failure without a success toast when the receipt reverts', async () => {
+    const receipt = { status: 0, hash: '0x4' }
+    const result = { hash: '0x4', wait: mock().mockResolvedValue(receipt) }
+
+    await notifyTransactionOutcome(signer(), result as never)
+
+    expect(toastSuccess).not.toHaveBeenCalled()
+    expect(toastError).toHaveBeenCalledTimes(1)
+  })
+
+  it('hands the receipt to the provided callback', async () => {
+    const receipt = { status: 1, hash: '0x5' }
+    const result = { hash: '0x5', wait: mock().mockResolvedValue(receipt) }
+    const callback = mock()
+
+    await notifyTransactionOutcome(signer(), result as never, callback)
+
+    expect(callback).toHaveBeenCalledWith(receipt)
+  })
+})
+
+describe('submitTxWithGasEstimate', () => {
+  beforeEach(loadModule)
+
+  it('applies the marginated gas estimate to the contract call', async () => {
+    const estimateGas = mock().mockResolvedValue(100n)
+    const contractFn = mock().mockResolvedValue({ hash: '0x6' })
+    const contract = { changeName: Object.assign(contractFn, { estimateGas }) } as never
+
+    await submitTxWithGasEstimate(
+      () => Promise.resolve({ hash: '0x6' } as never),
+      contract,
+      'changeName',
+      ['arg'],
+      {},
+      undefined
+    )
+    expect(estimateGas).toHaveBeenCalledWith('arg', {})
+    expect(contractFn).toHaveBeenCalledWith('arg', { gasLimit: 123n })
+  })
+
+  it('returns null instead of throwing when estimation reverts', async () => {
+    const estimateGas = mock().mockRejectedValue(new Error('cannot estimate'))
+    const contract = { changeName: Object.assign(mock(), { estimateGas }) } as never
+
+    const returned = await submitTxWithGasEstimate(
+      () => Promise.resolve({} as never),
+      contract,
+      'changeName',
+      [],
+      {}
     )
 
-    expect(getTransactionReceipt).not.toHaveBeenCalled()
+    expect(returned).toBeNull()
+    expect(toastError).toHaveBeenCalled()
   })
 })
