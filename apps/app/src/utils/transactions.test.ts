@@ -121,7 +121,6 @@ describe('submitTxWithGasEstimate', () => {
   beforeEach(loadModule)
 
   it('applies the marginated gas estimate to the contract call', async () => {
-    const txArg = { custom: true }
     const estimateGas = mock().mockResolvedValue(100n)
     const contractFn = mock().mockResolvedValue({ hash: '0x6' })
     const contract = { changeName: Object.assign(contractFn, { estimateGas }) } as never

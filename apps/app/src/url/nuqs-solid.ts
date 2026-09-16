@@ -30,7 +30,7 @@ type SetValues<P extends Parsers> = Partial<{ [K in keyof P]: ValuesOf<P>[K] | n
 
 type HistoryMode = 'push' | 'replace'
 
-export interface QueryStatesOptions {
+interface QueryStatesOptions {
   history?: HistoryMode
 }
 

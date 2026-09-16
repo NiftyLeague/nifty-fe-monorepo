@@ -84,7 +84,7 @@ const accountListeners = new Set<AccountListener>()
  * they run once per account change with the previous snapshot, so edge
  * detection needs no latch lets or effects.
  */
-export function subscribeAccountTransition(listener: AccountListener): () => void {
+function subscribeAccountTransition(listener: AccountListener): () => void {
   accountListeners.add(listener)
   return () => accountListeners.delete(listener)
 }

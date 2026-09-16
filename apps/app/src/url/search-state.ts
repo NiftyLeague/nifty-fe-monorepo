@@ -57,7 +57,6 @@ export const rentalSearchParsers = {
 }
 
 export type DegenSearchState = inferParserType<typeof degenSearchParsers>
-export type LeaderboardGameKey = (typeof leaderboardGames)[number]
 
 const uniqueNonEmpty = (values: string[]) => [...new Set(values.filter(Boolean))]
 

@@ -1380,7 +1380,8 @@ describe('private provider loading contract', () => {
   it('replaces the tiny Redux store with scoped shared contexts', () => {
     const source = readFileSync(join(process.cwd(), privateShell), 'utf8')
 
-    expect(source).toContain('AuthStatusProvider')
+    // AuthStatusProvider became a module singleton (state/auth-store); the
+    // shell keeps only the providers with real subtree lifetime.
     expect(source).toContain('NotificationProvider')
     expect(source).not.toContain('ReduxProvider')
     expect(existsSync(join(process.cwd(), 'apps/app/src/store/ReduxProvider.tsx'))).toBe(false)
