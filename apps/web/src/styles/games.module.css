@@ -57,6 +57,19 @@
   color: var(--color-highlight-purple);
 }
 
+/*
+ * The headline row is its own size container so the tag hides when the row is
+ * too narrow for title + tag. That happens on medium screens, where the copy
+ * column is roughly half the card and the title is `nowrap`.
+ *
+ * 29.5rem is measured against the widest pair ("NIFTY SMASHERS" + "MOBILE / PC"
+ * needs ~470px) at the fluid root font of this breakpoint range (18px), so the
+ * tag only disappears when a visible one could actually overflow.
+ */
+.headlineRow {
+  container-type: inline-size;
+}
+
 .tagGame {
   padding: 8px 30px;
   border: var(--border-default);
@@ -64,6 +77,12 @@
   color: var(--color-muted-foreground);
   font-size: 0.75rem;
   white-space: nowrap;
+}
+
+@container (max-width: 29.5rem) {
+  .tagGame {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
