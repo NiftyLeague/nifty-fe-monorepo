@@ -1,25 +1,25 @@
+import { createStore } from 'solid-js/store'
 import type { SetStateAction } from '@/types'
-import { createStore } from 'zustand/vanilla'
 
 export type NavigationState = {
   drawerOpen: boolean
-  setDrawerOpen: (next: SetStateAction<boolean>) => void
-  toggleDrawer: () => void
-  reset: () => void
 }
 
 export type NavigationStore = ReturnType<typeof createNavigationStore>
 
-const initialNavigationState = { drawerOpen: false }
+const initialNavigationState: NavigationState = { drawerOpen: false }
 
-export const createNavigationStore = (initialState: Partial<typeof initialNavigationState> = {}) =>
-  createStore<NavigationState>()((set) => ({
+export const createNavigationStore = (initialState: Partial<NavigationState> = {}) => {
+  const [state, setState] = createStore<NavigationState>({
     ...initialNavigationState,
     ...initialState,
-    setDrawerOpen: (next) =>
-      set((state) => ({
-        drawerOpen: typeof next === 'function' ? next(state.drawerOpen) : next,
-      })),
-    toggleDrawer: () => set((state) => ({ drawerOpen: !state.drawerOpen })),
-    reset: () => set(initialNavigationState),
-  }))
+  })
+
+  return {
+    state,
+    setDrawerOpen: (next: SetStateAction<boolean>) =>
+      setState('drawerOpen', (previous) => (typeof next === 'function' ? next(previous) : next)),
+    toggleDrawer: () => setState('drawerOpen', (previous) => !previous),
+    reset: () => setState({ ...initialNavigationState }),
+  }
+}

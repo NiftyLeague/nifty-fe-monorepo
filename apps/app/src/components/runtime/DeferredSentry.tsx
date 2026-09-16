@@ -1,4 +1,4 @@
-import { createEffect } from 'solid-js'
+import { createEffect, onCleanup } from 'solid-js'
 
 import type { SentryInitOptions } from '@/runtime/sentry'
 
@@ -32,11 +32,11 @@ export default function DeferredSentry(props: DeferredSentryProps) {
         ? window.requestIdleCallback(initialize, { timeout: 2000 })
         : globalThis.setTimeout(initialize, 0)
 
-    return () => {
+    onCleanup(() => {
       cancelled = true
       if ('cancelIdleCallback' in window) window.cancelIdleCallback(idleId as number)
       else globalThis.clearTimeout(idleId as number)
-    }
+    })
   })
 
   return null

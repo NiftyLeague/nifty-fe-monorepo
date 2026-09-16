@@ -107,7 +107,10 @@ describe('M1 state and data ownership', () => {
   it('keeps direct dependencies and request-local SSR hydration explicit', () => {
     const manifest = JSON.parse(read('apps/app/package.json'))
     expect(manifest.dependencies.nuqs).toBeTruthy()
-    expect(manifest.dependencies.zustand).toBeTruthy()
+    // The per-key stores are plain signals and the nav/notification stores are
+    // solid-js/store createStore — no external store library is a dependency.
+    expect(manifest.dependencies.zustand).toBeUndefined()
+    expect(manifest.dependencies['set-interval-async']).toBeUndefined()
 
     const rootLayout = read('apps/app/src/routes/__root.tsx')
     const degensLayout = read('apps/app/src/routes/_public/degens.tsx')

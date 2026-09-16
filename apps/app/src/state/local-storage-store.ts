@@ -1,18 +1,21 @@
-import { createStore, type StoreApi } from 'zustand/vanilla'
+import { createSignal, untrack, type Accessor } from 'solid-js'
 import type { SetStateAction } from '@/types'
 
 import { safeJSONParse } from '@/utils/json'
 import { areValuesEqual } from '@/utils/value-equality'
 
 /**
- * One reactive owner per local-storage key. Values are parsed once per raw
- * change, so every subscriber of a key observes the same stable reference and
- * writes are the only thing that can move it. This replaces the per-component
- * useState mirrors that previously re-parsed and re-compared storage on every
- * change, and it keeps cross-tab `storage` events in sync.
+ * One reactive owner per local-storage key, backed by a single signal. Values
+ * are parsed once per raw change, so every subscriber of a key observes the
+ * same stable reference and writes are the only thing that can move it. This
+ * replaces the per-component useState mirrors that previously re-parsed and
+ * re-compared storage on every change, and it keeps cross-tab `storage`
+ * events in sync.
  */
-type LocalStorageStore<T> = StoreApi<{ value: T | undefined }> & {
+export type LocalStorageStore<T> = {
   readonly key: string
+  /** Reactive accessor for the current value. */
+  readonly value: Accessor<T | undefined>
   set: (next: SetStateAction<T | undefined>) => void
   clear: () => void
   sync: () => void
@@ -32,52 +35,53 @@ const readStoredValue = <T>(key: string, initialValue: T): T | undefined => {
 const registry = new Map<string, LocalStorageStore<never>>()
 
 export const createLocalStorageStore = <T>(key: string, initialValue: T): LocalStorageStore<T> => {
-  const store = createStore<{ value: T | undefined }>()(() => ({
-    value: readStoredValue(key, initialValue),
-  }))
+  const [value, setValue] = createSignal<T | undefined>(readStoredValue(key, initialValue))
 
-  const persist = (value: T | undefined) => {
+  const persist = (nextValue: T | undefined) => {
     if (typeof window === 'undefined') return
     try {
-      if (value === undefined) window.localStorage.removeItem(key)
-      else window.localStorage.setItem(key, JSON.stringify(value))
+      if (nextValue === undefined) window.localStorage.removeItem(key)
+      else window.localStorage.setItem(key, JSON.stringify(nextValue))
     } catch (error) {
       console.error(error)
     }
   }
 
-  const localStorageStore: LocalStorageStore<T> = Object.assign(store, {
+  const store: LocalStorageStore<T> = {
     key,
+    value,
     set: (next: SetStateAction<T | undefined>) => {
-      const previous = store.getState().value
-      const value =
+      // Reads are untracked so `set` stays safe to call inside effects — it
+      // must not subscribe the caller's scope to the key it is writing.
+      const previous = untrack(value)
+      const nextValue =
         typeof next === 'function'
           ? (next as (previous: T | undefined) => T | undefined)(previous)
           : next
       // Deep-equal writes keep the previous reference so subscribers never
       // re-render for a no-op set, matching the old effect's write guard.
-      if (areValuesEqual(value, previous)) return
-      persist(value)
-      store.setState({ value })
+      if (areValuesEqual(nextValue, previous)) return
+      persist(nextValue)
+      setValue(() => nextValue)
     },
     clear: () => {
       persist(undefined)
-      store.setState({ value: undefined })
+      setValue(() => undefined)
     },
     sync: () => {
       if (typeof window === 'undefined') return
       try {
         const item = window.localStorage.getItem(key)
         // Cross-tab removals read as absent, not as the initial fallback.
-        const value = item ? (safeJSONParse(item) as T) : undefined
-        if (!areValuesEqual(value, store.getState().value)) store.setState({ value })
+        const nextValue = item ? (safeJSONParse(item) as T) : undefined
+        if (!areValuesEqual(nextValue, untrack(value))) setValue(() => nextValue)
       } catch (error) {
         console.error(error)
       }
     },
-  })
-  registry.set(key, localStorageStore as unknown as LocalStorageStore<never>)
-  return localStorageStore
+  }
+  registry.set(key, store as unknown as LocalStorageStore<never>)
+  return store
 }
 
 export const getLocalStorageStore = <T>(key: string, initialValue: T): LocalStorageStore<T> =>

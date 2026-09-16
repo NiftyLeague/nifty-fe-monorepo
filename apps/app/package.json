@@ -34,12 +34,10 @@
     "ethers": "^6.17.0",
     "lucide-solid": "^1.46.0",
     "nuqs": "^2.10.1",
-    "set-interval-async": "^3.0.3",
     "solid-js": "^1.9.15",
     "solid-sonner": "^0.3.2",
     "viem": "^2.55.19",
-    "web-vitals": "^6.2.1",
-    "zustand": "^5.0.15"
+    "web-vitals": "^6.2.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",

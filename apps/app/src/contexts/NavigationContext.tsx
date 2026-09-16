@@ -1,9 +1,8 @@
-import { createContext, useContext, type Accessor, type JSX } from 'solid-js'
+import { createContext, createMemo, useContext, type Accessor, type JSX } from 'solid-js'
 
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import { desktopNavigationMediaQuery } from '@/layouts/_layout/navigation-breakpoints'
-import { useStore } from '@/state/use-store'
 
 import {
   createNavigationStore,
@@ -27,11 +26,12 @@ function useNavigationStore(): NavigationStore {
 }
 
 export function useNavigation<T>(selector: (state: NavigationState) => T): Accessor<T> {
-  return useStore(useNavigationStore(), selector)
+  const store = useNavigationStore()
+  return createMemo(() => selector(store.state))
 }
 
 export const useDrawerOpen = () => useNavigation((state) => state.drawerOpen)
-// Store actions are stable references; they do not need a subscription.
-export const useSetDrawerOpen = () => useNavigationStore().getState().setDrawerOpen
-export const useToggleDrawer = () => useNavigationStore().getState().toggleDrawer
+// Store actions are stable references; they do not need reactivity.
+export const useSetDrawerOpen = () => useNavigationStore().setDrawerOpen
+export const useToggleDrawer = () => useNavigationStore().toggleDrawer
 export const useIsDesktopNavigation = () => useMediaQuery(desktopNavigationMediaQuery)
