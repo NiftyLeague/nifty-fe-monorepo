@@ -2,7 +2,7 @@ import { imageProps } from './image-props.mjs'
 
 declare const APP_IMAGE_MANIFEST: Record<string, { hash: string; width: number; height: number }>
 
-export interface ImagePreloadLink {
+interface ImagePreloadLink {
   rel: 'preload'
   as: 'image'
   href: string
@@ -11,7 +11,7 @@ export interface ImagePreloadLink {
   imagesizes?: string
 }
 
-export interface ImagePreloadOptions {
+interface ImagePreloadOptions {
   /** Rendered width of the image in px; drives the manifest variant choice. */
   width?: number
   sizes?: string
