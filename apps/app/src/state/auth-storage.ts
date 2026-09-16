@@ -3,6 +3,7 @@ import type { SetStateAction } from '@/types'
 import type { AgreementAccepted, AUTH_Token, Nonce, USER_ID, UUID_Token } from '@/types/auth'
 import { createNonce, createUUID } from '@/utils/auth'
 import { getLocalStorageStore } from '@/state/local-storage-store'
+import { purgeAuthenticatedQueries } from '@/query/app-query'
 
 /**
  * Per-key reactive owners for the auth/identity fields that previously lived
@@ -34,6 +35,10 @@ export const setAgreementAccepted = (next: SetStateAction<AgreementAccepted>): v
 }
 
 export const clearAllAuth = () => {
+  // Token/scope-keyed cache entries must not survive a logout — otherwise the
+  // previous session's profile, balance, and rental data stay readable until
+  // garbage collection.
+  purgeAuthenticatedQueries()
   authTokenStore.clear()
   // The user id has never had a writer; logout only clears it.
   userIdStore.clear()
