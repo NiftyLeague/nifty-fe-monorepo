@@ -75,10 +75,32 @@ const [account, setAccount] = createSignal<GetAccountReturnType>(DISCONNECTED_AC
 
 let stopWatchingAccount: (() => void) | undefined
 
+type AccountListener = (next: GetAccountReturnType, prev: GetAccountReturnType) => void
+
+const accountListeners = new Set<AccountListener>()
+
+/**
+ * Subscribe to connect/disconnect transitions. Listeners are event handlers:
+ * they run once per account change with the previous snapshot, so edge
+ * detection needs no latch lets or effects.
+ */
+export function subscribeAccountTransition(listener: AccountListener): () => void {
+  accountListeners.add(listener)
+  return () => accountListeners.delete(listener)
+}
+
+/** Component-scoped transition subscription (auto-disposed on cleanup). */
+export function useAccountTransition(listener: AccountListener): void {
+  onCleanup(subscribeAccountTransition(listener))
+}
+
 function startAccountWatcher() {
   if (stopWatchingAccount || !wagmiConfig) return
   stopWatchingAccount = watchAccount(wagmiConfig, {
-    onChange: (next) => setAccount(() => next),
+    onChange: (next, prev) => {
+      setAccount(() => next)
+      for (const listener of accountListeners) listener(next, prev)
+    },
   })
 }
 
