@@ -30,10 +30,8 @@ type SetValues<P extends Parsers> = Partial<{ [K in keyof P]: ValuesOf<P>[K] | n
 
 type HistoryMode = 'push' | 'replace'
 
-interface QueryStatesOptions {
+export interface QueryStatesOptions {
   history?: HistoryMode
-  /** Accepted for call-site compatibility; router search updates are always reactive. */
-  shallow?: boolean
 }
 
 export function useQueryStates<P extends Parsers>(

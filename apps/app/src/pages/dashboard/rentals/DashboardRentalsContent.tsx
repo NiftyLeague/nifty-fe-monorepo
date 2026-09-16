@@ -43,7 +43,6 @@ const DashboardRentalPage = (): JSX.Element => {
   const auth = useAuth()
   const [searchState, setSearchState] = useQueryStates(rentalSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const searchTerm = () => searchState.search
   const category = () => searchState.category as RentalType
