@@ -2,7 +2,7 @@ import { Show } from 'solid-js'
 
 import dynamic from '@/runtime/dynamic'
 
-import { AuthStatusProvider, useAuthStatus } from '@/contexts/AuthStatusContext'
+import { useAuthStatus } from '@/contexts/AuthStatusContext'
 
 import type { LeaderboardRankActionProps } from './LeaderboardRankAction'
 
@@ -15,9 +15,5 @@ function AuthenticatedRankAction(props: LeaderboardRankActionProps) {
 }
 
 export default function LeaderboardRankBoundary(props: LeaderboardRankActionProps) {
-  return (
-    <AuthStatusProvider>
-      <AuthenticatedRankAction {...props} />
-    </AuthStatusProvider>
-  )
+  return <AuthenticatedRankAction {...props} />
 }

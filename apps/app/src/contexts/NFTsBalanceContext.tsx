@@ -1,4 +1,4 @@
-import { createContext, createEffect, type JSX } from 'solid-js'
+import { createContext, createEffect, on, type JSX } from 'solid-js'
 import type { Character } from '@/types/graph'
 import type { Comic, Item } from '@/types/marketplace'
 
@@ -40,7 +40,6 @@ const CONTEXT_INITIAL_STATE: NFTsBalanceContextValue = {
 const NFTsBalanceContext = createContext<NFTsBalanceContextValue>(CONTEXT_INITIAL_STATE)
 
 export const NFTsBalanceProvider = (props: { children?: JSX.Element }): JSX.Element => {
-  let firstRender = true
   const auth = useAuth()
   const degenOwnership = useDegenOwnership()
 
@@ -50,16 +49,17 @@ export const NFTsBalanceProvider = (props: { children?: JSX.Element }): JSX.Elem
 
   // Refetch marketplace balances on login state change. DEGEN ownership has
   // the same lifecycle in its smaller, reusable ownership hook.
-  createEffect(() => {
-    const loggedIn = auth.isLoggedIn
-    if (firstRender) {
-      firstRender = false
-      return
-    }
-    if (!loggedIn) return
-    comics.refetch()
-    items.refetch()
-  })
+  createEffect(
+    on(
+      () => auth.isLoggedIn,
+      (loggedIn) => {
+        if (!loggedIn) return
+        comics.refetch()
+        items.refetch()
+      },
+      { defer: true }
+    )
+  )
 
   const value: NFTsBalanceContextValue = {
     get comicsBalances() {

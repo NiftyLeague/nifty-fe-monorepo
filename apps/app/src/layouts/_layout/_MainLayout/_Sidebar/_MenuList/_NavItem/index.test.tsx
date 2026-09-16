@@ -30,13 +30,13 @@ describe('private navigation item', () => {
     NavItem = (await import('./index')).default
   })
 
-  it('disables automatic prefetching for persistent sidebar links', () => {
+  it('leaves sidebar preloading to the router intent default', () => {
     const item: NavItemType = { type: 'item', title: 'Dashboard', url: '/dashboard' }
 
     render(() => <NavItem item={item} level={0} />)
 
     expect(screen.getByRole('link', { name: 'Dashboard' }).getAttribute('data-prefetch')).toBe(
-      'false'
+      'undefined'
     )
   })
 })

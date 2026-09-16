@@ -16,11 +16,28 @@ function clientToSigner(client: Client<Transport, Chain, Account>): Signer {
   return signer
 }
 
+/**
+ * Signers are keyed to the connector client's identity: a fresh BrowserProvider
+ * + JsonRpcSigner pair is only built when the wallet/chain actually changes,
+ * not on every consuming mount.
+ */
+let cachedConnectorClient: Client<Transport, Chain, Account> | undefined
+let cachedSigner: JsonRpcSigner | undefined
+
 /** Hook to convert a viem Wallet Client to an ethers.js Signer. */
 export default function useEthersSigner({ chainId }: { chainId?: number } = {}): Accessor<Signer> {
   const connectorClient = useConnectorClient(() => ({ chainId }))
   return createMemo(() => {
-    const client = connectorClient.data
-    return client ? clientToSigner(client as Client<Transport, Chain, Account>) : undefined
+    const client = connectorClient.data as Client<Transport, Chain, Account> | undefined
+    if (!client) {
+      cachedConnectorClient = undefined
+      cachedSigner = undefined
+      return undefined
+    }
+    if (client !== cachedConnectorClient) {
+      cachedConnectorClient = client
+      cachedSigner = clientToSigner(client)
+    }
+    return cachedSigner
   })
 }

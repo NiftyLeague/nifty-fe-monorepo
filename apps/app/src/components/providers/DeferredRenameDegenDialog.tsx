@@ -1,3 +1,5 @@
+import { mergeProps } from 'solid-js'
+
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import type { DashboardDegen } from '@/types/degens'
 
@@ -20,7 +22,11 @@ export default function DeferredRenameDegenDialog(props: DeferredRenameDegenDial
       label="DEGEN rename form"
       load={loadRenameDegenDialog}
       loadingFallback={<DeferredDialogLoading label="Loading rename form" />}
-      props={{ ...props, open: open() }}
+      props={mergeProps(props, {
+        get open() {
+          return open()
+        },
+      })}
     />
   )
 }

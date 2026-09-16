@@ -52,7 +52,6 @@ const REDUNDANT_EXPORTS = {
   // through parser object types rather than importing the interface directly.
   'apps/app/src/url/parsers.ts': ['UrlParserWithDefault'],
   'apps/app/src/url/search-schema.ts': ['RawSearch'],
-  'apps/app/src/url/search-state.ts': ['LeaderboardGameKey'],
   'apps/app/src/utils/degen-traits.ts': ['DegenTraitEntry'],
   'apps/app/src/utils/pagination.ts': ['PageItem'],
   'apps/app/src/utils/public-degens.ts': ['PublicDegenWire'],

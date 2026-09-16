@@ -1,5 +1,5 @@
-import { createEffect, type JSX } from 'solid-js'
-import { useAccount } from '@/runtime/wagmi'
+import { type JSX } from 'solid-js'
+import { useAccount, useAccountTransition } from '@/runtime/wagmi'
 
 import type { AuthTokenContextType } from '@/types/auth'
 import AuthTokenContext from '@/contexts/AuthTokenContext'
@@ -16,7 +16,6 @@ export default function AuthTokenProviderRuntime(props: { children?: JSX.Element
   const { signMessage } = useSignAuthMsg()
   const authToken = useAuthToken()
   let msgSent = false
-  let wasConnected = account.isConnected
 
   const signMsg = async () => {
     const initialized = await checkAddress()
@@ -33,13 +32,10 @@ export default function AuthTokenProviderRuntime(props: { children?: JSX.Element
     await signMsg()
   }
 
-  createEffect(() => {
-    const connected = account.isConnected
-    const loggedIn = auth.isLoggedIn
-    const previouslyConnected = wasConnected
-    wasConnected = connected
-
-    if (!previouslyConnected && connected && !loggedIn && !msgSent) {
+  // Event-driven: the transition fires once per connect edge with the prior
+  // snapshot, so no manual latch bookkeeping runs on unrelated re-renders.
+  useAccountTransition((next, prev) => {
+    if (!prev.isConnected && next.isConnected && !auth.isLoggedIn && !msgSent) {
       if (DEBUG) console.log('CONNECT_SUCCESS')
       msgSent = true
       void signMsg()

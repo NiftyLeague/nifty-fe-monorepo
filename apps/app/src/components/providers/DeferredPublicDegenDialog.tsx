@@ -1,3 +1,5 @@
+import { mergeProps } from 'solid-js'
+
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import type { PublicDegen } from '@/types/degens'
 import DeferredDialogLoading from './DeferredDialogLoading'
@@ -18,7 +20,11 @@ export default function DeferredPublicDegenDialog(props: PublicDegenDialogProps)
       label="DEGEN details"
       load={loadPublicDegenDialog}
       loadingFallback={<DeferredDialogLoading label="Loading degen details" />}
-      props={{ ...props, open: open() }}
+      props={mergeProps(props, {
+        get open() {
+          return open()
+        },
+      })}
     />
   )
 }

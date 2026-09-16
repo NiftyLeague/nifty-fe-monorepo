@@ -1,31 +1,23 @@
-import type { TransactionResponse, TransactionRequest, TransactionReceipt } from 'ethers'
-import type {
-  EthereumTransactionLog,
-  EthereumTransactionData,
-  SDKError,
-  NotificationObject,
-} from 'bnc-sdk'
-import type { EthereumRpcError, EthereumProviderError } from 'eth-rpc-errors'
+import type { TransactionReceipt, TransactionRequest, TransactionResponse } from 'ethers'
 
 type Deferrable<T> = { [K in keyof T]: T[K] | Promise<T[K]> }
 
-declare type TransactionData = EthereumTransactionData
-declare type TransactionEventLog = EthereumTransactionLog
-
-type NotifyTransaction = TransactionData | TransactionEventLog | TransactionReceipt
-export interface TransactionEvent {
-  emitterResult: void | boolean | NotificationObject
-  transaction: NotifyTransaction
-}
-
 export type EthersTransaction = Promise<TransactionResponse> | Deferrable<TransactionRequest>
 
-export type NotifyCallback = (res: NotifyTransaction | null) => void
+export type NotifyCallback = (res: TransactionReceipt | null) => void
 
 export type Tx = (
   tx: EthersTransaction,
   callback?: NotifyCallback
 ) => Promise<TransactionResponse | null>
 
-export type MetamaskError = EthereumRpcError<unknown> | EthereumProviderError<unknown>
-export type NotifyError = SDKError | MetamaskError | Error | ErrorEvent
+/** The error shapes wallets, RPC providers, and ethers throw at us. */
+export type NotifyError =
+  | Error
+  | {
+      code?: string | number
+      message?: string
+      shortMessage?: string
+      reason?: string
+      error?: { message?: string }
+    }

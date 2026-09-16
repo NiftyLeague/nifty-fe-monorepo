@@ -1,6 +1,5 @@
 import type { JSX } from 'solid-js'
 
-import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import WalletStorageProviders from '@/contexts/WalletStorageProviders'
 
@@ -17,9 +16,7 @@ const WalletAuthProviders = (props: WalletAuthProvidersProps) => (
     errorFallback={props.errorFallback}
     loadingFallback={props.loadingFallback}
   >
-    <AuthStatusProvider>
-      <AuthTokenProvider>{props.children}</AuthTokenProvider>
-    </AuthStatusProvider>
+    <AuthTokenProvider>{props.children}</AuthTokenProvider>
   </WalletStorageProviders>
 )
 

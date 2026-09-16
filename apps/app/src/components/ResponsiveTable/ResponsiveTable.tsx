@@ -1,7 +1,9 @@
-import type { Component } from 'solid-js'
+import { Show, createMemo, type Component } from 'solid-js'
+
+import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
+
 import DataList from './DataList'
 import DataTable from './DataTable'
-
 import type { CustomColDef, Row } from './types'
 
 type ResponsiveTableProps = {
@@ -26,8 +28,14 @@ type ResponsiveTableProps = {
 
 /**
  * Responsive read-only leaderboard table and accessible expandable mobile list.
+ *
+ * Only the active breakpoint variant is created: Solid has no virtual DOM to
+ * hide the other tree behind `hidden` classes, so mounting both would build
+ * every row twice (50 rows × N columns of real DOM per table).
  */
 const ResponsiveTable: Component<ResponsiveTableProps> = (props) => {
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
+
   const handleChangePage = (_event: MouseEvent | null, page: number) => {
     props.onPaginationModelChange((model) => ({ page, pageSize: model.pageSize }))
   }
@@ -36,20 +44,19 @@ const ResponsiveTable: Component<ResponsiveTableProps> = (props) => {
     props.onSelectionChange?.(selected)
   }
 
-  return (
-    <div>
-      {/* DESKTOP BIG TABLE */}
-      <div class="hidden lg:block">
-        <DataTable
-          columns={props.columns}
-          data={props.data}
-          noContentText={props.noContentText}
-          paginationModel={props.paginationModel}
-        />
-      </div>
+  const desktopTable = createMemo(() => (
+    <DataTable
+      columns={props.columns}
+      data={props.data}
+      noContentText={props.noContentText}
+      paginationModel={props.paginationModel}
+    />
+  ))
 
-      {/* MOBILE EXPANDABLE LIST OF CARDS */}
-      <div class="lg:hidden">
+  return (
+    <Show
+      when={isDesktop()}
+      fallback={
         <DataList
           checkboxSelection={props.checkboxSelection}
           columns={props.columns}
@@ -65,8 +72,10 @@ const ResponsiveTable: Component<ResponsiveTableProps> = (props) => {
           serverPaginated={props.serverPaginated}
           showPagination={props.showPagination}
         />
-      </div>
-    </div>
+      }
+    >
+      {desktopTable()}
+    </Show>
   )
 }
 

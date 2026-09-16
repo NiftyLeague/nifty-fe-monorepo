@@ -13,9 +13,7 @@ interface ChangeProfileNameDialogProps {
 
 const loadChangeProfileNameForm = () => import('./ChangeProfileNameForm')
 
-function DeferredChangeProfileNameForm({
-  handleUpdateNewName,
-}: ChangeProfileNameDialogProps): JSX.Element {
+function DeferredChangeProfileNameForm(props: ChangeProfileNameDialogProps): JSX.Element {
   const [open] = useContext(DialogContext)
 
   return (
@@ -24,14 +22,16 @@ function DeferredChangeProfileNameForm({
       label="profile name form"
       load={loadChangeProfileNameForm}
       loadingFallback={<DeferredDialogLoading label="Loading profile name form" />}
-      props={{ updateNewName: handleUpdateNewName }}
+      props={{
+        get updateNewName() {
+          return props.handleUpdateNewName
+        },
+      }}
     />
   )
 }
 
-const ChangeProfileNameDialog = ({
-  handleUpdateNewName,
-}: ChangeProfileNameDialogProps): JSX.Element => {
+const ChangeProfileNameDialog = (props: ChangeProfileNameDialogProps): JSX.Element => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -40,7 +40,7 @@ const ChangeProfileNameDialog = ({
         </Button>
       </DialogTrigger>
       <DialogContent dialogTitle="Update your username" class="w-75">
-        <DeferredChangeProfileNameForm handleUpdateNewName={handleUpdateNewName} />
+        <DeferredChangeProfileNameForm handleUpdateNewName={props.handleUpdateNewName} />
       </DialogContent>
     </Dialog>
   )

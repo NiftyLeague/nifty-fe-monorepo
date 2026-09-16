@@ -1,39 +1,41 @@
 import { act, renderHook } from '@nl/ui/test-utils'
 import { beforeEach, describe, expect, it } from 'bun:test'
 
-import { AuthStatusProvider, useAuthStatus } from './AuthStatusContext'
-import type { JSX } from 'solid-js'
+import { readInitialAuthStatus } from '@/state/auth-store'
+import { useAuthStatus } from './AuthStatusContext'
 
-const wrapper = ({ children }: { children?: JSX.Element }) => (
-  <AuthStatusProvider>{children}</AuthStatusProvider>
-)
-
-describe('AuthStatusContext', () => {
+describe('useAuthStatus', () => {
   beforeEach(() => {
     window.localStorage.clear()
+    // Reset the module singleton so tests start from a logged-out state.
+    act(() => useAuthStatus().setIsLoggedIn(false))
   })
 
-  it('shares and persists the authenticated state', () => {
-    const { result } = renderHook(() => useAuthStatus(), { wrapper })
+  it('shares and persists the authenticated state across consumers', () => {
+    const first = renderHook(() => useAuthStatus())
+    const second = renderHook(() => useAuthStatus())
 
-    expect(result.current.isLoggedIn).toBe(false)
-    act(() => result.current.setIsLoggedIn(true))
+    expect(first.result.current.isLoggedIn).toBe(false)
 
-    expect(result.current.isLoggedIn).toBe(true)
+    act(() => first.result.current.setIsLoggedIn(true))
+
+    expect(second.result.current.isLoggedIn).toBe(true)
     expect(window.localStorage.getItem('nifty-auth-status')).toBe('true')
   })
 
   it('migrates the persisted account flag from the removed store', () => {
+    // The singleton's persistence effect rewrites the current key on reset,
+    // so drop it to simulate a pre-key storage state.
+    window.localStorage.removeItem('nifty-auth-status')
     window.localStorage.setItem('persist', JSON.stringify({ account: { isLoggedIn: true } }))
 
-    const { result } = renderHook(() => useAuthStatus(), { wrapper })
-
-    expect(result.current.isLoggedIn).toBe(true)
+    expect(readInitialAuthStatus()).toBe(true)
   })
 
-  it('fails clearly when consumed outside its provider', () => {
-    expect(() => renderHook(() => useAuthStatus())).toThrow(
-      'useAuthStatus must be used inside AuthStatusProvider'
-    )
+  it('prefers the current flag over the legacy migration key', () => {
+    window.localStorage.setItem('nifty-auth-status', 'false')
+    window.localStorage.setItem('persist', JSON.stringify({ account: { isLoggedIn: true } }))
+
+    expect(readInitialAuthStatus()).toBe(false)
   })
 })

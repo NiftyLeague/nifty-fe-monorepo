@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-solid'
 import { useQueryStates } from '@/url/nuqs-solid'
 
 import { Button } from '@nl/ui/base/button'
-import { PaginationEllipsis } from '@nl/ui/base/pagination'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
@@ -40,7 +39,6 @@ const AllDegensPage = (): JSX.Element => {
   const [isDegenModalOpen, setIsDegenModalOpen] = createSignal(false)
   const [rawSearchState, setSearchState] = useQueryStates(degenSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const searchState = createMemo(() => normalizeDegenSearchState(rawSearchState))
   const layoutMode = () => searchState().layout
@@ -48,8 +46,11 @@ const AllDegensPage = (): JSX.Element => {
   const isMobile = useMediaQuery('(max-width:640px)')
   const isSmallScreen = useMediaQuery('(max-width:1280px)')
   const isGridView = () => layoutMode() === 'gridView'
-  const pageSize = () =>
-    !isSmallScreen() && !isGridView() && !isDrawerOpen() ? 18 : DEGENS_PER_PAGE
+  // Layout + viewport only. Fetch size must not depend on the filter drawer:
+  // the drawer opens after mount on desktop, and a drawer-derived page size
+  // would refetch the whole grid the moment the user toggles it. The route
+  // loader mirrors this formula for its server prefetch.
+  const pageSize = () => (isGridView() || isSmallScreen() ? DEGENS_PER_PAGE : 18)
 
   const requestQuery = createMemo(() => buildPublicDegensRequestQuery(searchState(), pageSize()))
 
@@ -163,7 +164,15 @@ const AllDegensPage = (): JSX.Element => {
           <For each={pageItems()}>
             {(p) =>
               p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-                <PaginationEllipsis />
+                // Local ellipsis: the shared PaginationEllipsis renders a bare
+                // <li>, which has no list parent inside these controls.
+                <span
+                  data-slot="pagination-ellipsis"
+                  class="flex size-9 items-center justify-center"
+                  aria-hidden="true"
+                >
+                  …
+                </span>
               ) : (
                 <Button
                   type="button"

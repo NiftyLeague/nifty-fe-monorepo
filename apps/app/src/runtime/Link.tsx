@@ -6,8 +6,6 @@ type AnchorProps = JSX.AnchorHTMLAttributes<HTMLAnchorElement>
 interface LinkProps extends Omit<AnchorProps, 'href'> {
   children?: JSX.Element
   href: string
-  /** Kept for existing call sites; `false` disables route preloading. */
-  prefetch?: boolean
 }
 
 const EXTERNAL_HREF = /^[a-z][a-z0-9+.-]*:|^\/\//
@@ -23,9 +21,12 @@ const splitHref = (href: string) => {
  * Anchor that keeps the `href`-based API while delegating internal
  * navigation to the TanStack Router. In-page anchors, external URLs, and
  * `mailto:`/`tel:` style links stay plain anchors.
+ *
+ * Preloading follows the router's `defaultPreload: 'intent'`: internal
+ * links warm their route chunks (and route-loader queries) on hover/focus.
  */
 export default function Link(props: LinkProps) {
-  const [local, rest] = splitProps(props, ['children', 'href', 'prefetch'])
+  const [local, rest] = splitProps(props, ['children', 'href'])
   const href = () => local.href ?? ''
 
   const isPlainAnchor = () => !local.href || href().startsWith('#') || EXTERNAL_HREF.test(href())
@@ -46,7 +47,6 @@ export default function Link(props: LinkProps) {
           to={parts().pathname as never}
           search={parts().search as never}
           hash={parts().hash || undefined}
-          preload={local.prefetch === false ? false : undefined}
           {...rest}
         >
           {local.children}

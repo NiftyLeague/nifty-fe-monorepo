@@ -3,7 +3,6 @@ import type { ParentProps } from 'solid-js'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import MainLayout from '@/layouts/_layout/_MainLayout'
-import { AuthStatusProvider } from '@/contexts/AuthStatusContext'
 import { AuthTokenProvider } from '@/contexts/AuthTokenContext'
 import { FeatureFlagProvider } from '@/contexts/FeatureFlagsContext'
 import { NotificationProvider } from '@/contexts/NotificationContext'
@@ -35,26 +34,24 @@ interface PrivateRoutesShellProps extends ParentProps {
 
 export default function PrivateRoutesShell(props: PrivateRoutesShellProps) {
   return (
-    <AuthStatusProvider>
-      <PrivateRoutesAuthGate loading={<PrivateRoutesContentLoading />}>
-        <WalletStorageProviders
-          cookies={props.cookies}
-          loadingFallback={
-            <MainLayout walletReady={false}>
-              <PrivateRoutesContentLoading />
-            </MainLayout>
-          }
-        >
-          <NotificationProvider>
-            <AuthTokenProvider>
-              <FeatureFlagProvider>
-                <MainLayout>{props.children}</MainLayout>
-                <DeferredNotifications />
-              </FeatureFlagProvider>
-            </AuthTokenProvider>
-          </NotificationProvider>
-        </WalletStorageProviders>
-      </PrivateRoutesAuthGate>
-    </AuthStatusProvider>
+    <PrivateRoutesAuthGate loading={<PrivateRoutesContentLoading />}>
+      <WalletStorageProviders
+        cookies={props.cookies}
+        loadingFallback={
+          <MainLayout walletReady={false}>
+            <PrivateRoutesContentLoading />
+          </MainLayout>
+        }
+      >
+        <NotificationProvider>
+          <AuthTokenProvider>
+            <FeatureFlagProvider>
+              <MainLayout>{props.children}</MainLayout>
+              <DeferredNotifications />
+            </FeatureFlagProvider>
+          </AuthTokenProvider>
+        </NotificationProvider>
+      </WalletStorageProviders>
+    </PrivateRoutesAuthGate>
   )
 }

@@ -165,7 +165,6 @@ interface GameCardProps {
   overlayContent?: boolean
   onPlayOnDesktopClick?: JSX.EventHandler<HTMLButtonElement, MouseEvent>
   onPlayOnWebClick?: JSX.EventHandler<HTMLButtonElement, MouseEvent>
-  prefetch?: boolean
   required?: string
   showMore?: boolean
   title?: string
@@ -269,7 +268,6 @@ const GameCard = (props: GameCardProps & { children?: JSX.Element }) => {
       {(href) => (
         <Link
           href={href}
-          prefetch={props.prefetch}
           aria-label={props.title ? `Explore ${props.title}` : undefined}
           class="group block h-full rounded-md outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
