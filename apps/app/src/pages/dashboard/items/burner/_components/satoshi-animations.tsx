@@ -1,22 +1,21 @@
 import SatoshiFrame from './satoshi-frame'
 import SatoshiBurnAnim from './satoshi-burn-animations'
+import { Show } from 'solid-js'
 import type { JSX } from 'solid-js'
 
 const SatoshiAnimations = (props: { burning: boolean; children?: JSX.Element }) => {
-  const { burning } = props
   return (
-    <>
-      {burning ? (
-        <SatoshiBurnAnim />
-      ) : (
-        <SatoshiFrame frames={['/img/comics/burner/idleanim.gif']} />
-      )}
-    </>
+    <Show
+      when={props.burning}
+      fallback={<SatoshiFrame frames={['/img/comics/burner/idleanim.gif']} />}
+    >
+      <SatoshiBurnAnim />
+    </Show>
   )
 }
 
-const SatoshiAnimationsWithContext = ({ burning = false }) => {
-  return <SatoshiAnimations burning={burning} />
+const SatoshiAnimationsWithContext = (props: { burning?: boolean }) => {
+  return <SatoshiAnimations burning={props.burning ?? false} />
 }
 
 SatoshiAnimations.displayName = 'SatoshiAnimations'

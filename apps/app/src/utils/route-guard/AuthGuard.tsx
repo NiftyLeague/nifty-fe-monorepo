@@ -10,16 +10,16 @@ import { AUDIT_FIXTURE } from '@/runtime/env'
  * Authentication guard for routes
  * @param {PropTypes.node} children children element/node
  */
-const AuthGuard = ({ children }: GuardProps) => {
+const AuthGuard = (props: GuardProps) => {
   const router = useRouter()
-  const { isLoggedIn } = useAuth()
+  const auth = useAuth()
   const auditFixtureEnabled = AUDIT_FIXTURE
 
   createEffect(() => {
-    if (!auditFixtureEnabled && !isLoggedIn) router.replace('/')
-  }, [auditFixtureEnabled, isLoggedIn, router])
+    if (!auditFixtureEnabled && !auth.isLoggedIn) router.replace('/')
+  })
 
-  return children
+  return props.children
 }
 
 export default AuthGuard

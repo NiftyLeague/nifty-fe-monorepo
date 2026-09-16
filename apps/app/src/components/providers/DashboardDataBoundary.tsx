@@ -7,15 +7,12 @@ const loadNFTDataProviders = () => import('@/contexts/NFTDataProviders')
 
 type DashboardDataBoundaryProps = ParentProps<{ includeTokens?: boolean }>
 
-export default function DashboardDataBoundary({
-  children,
-  includeTokens = true,
-}: DashboardDataBoundaryProps) {
+export default function DashboardDataBoundary(props: DashboardDataBoundaryProps) {
   return (
     <DeferredComponent
       label="Dashboard data"
-      load={includeTokens ? loadWalletFeatureProviders : loadNFTDataProviders}
-      props={{ children }}
+      load={(props.includeTokens ?? true) ? loadWalletFeatureProviders : loadNFTDataProviders}
+      props={{ children: props.children }}
     />
   )
 }

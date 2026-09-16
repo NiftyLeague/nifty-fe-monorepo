@@ -6,14 +6,14 @@ type QueryErrorStateProps = {
   className?: string
 }
 
-export default function QueryErrorState({ error, onRetry, className }: QueryErrorStateProps) {
+export default function QueryErrorState(props: QueryErrorStateProps) {
   return (
     <div
       role="alert"
-      class={className ?? 'flex min-h-48 items-center justify-center gap-3 text-error'}
+      class={props.className ?? 'flex min-h-48 items-center justify-center gap-3 text-error'}
     >
-      <span>{error.message}</span>
-      <Button type="button" variant="outline" onClick={onRetry}>
+      <span>{props.error.message}</span>
+      <Button type="button" variant="outline" onClick={props.onRetry}>
         Retry
       </Button>
     </div>

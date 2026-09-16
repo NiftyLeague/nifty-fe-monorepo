@@ -8,7 +8,7 @@ interface Props {
   value?: string
 }
 
-const SearchRental = ({ handleSearch, placeholder, value }: Props): JSX.Element => {
+const SearchRental = (props: Props): JSX.Element => {
   return (
     <div class="grid gap-2">
       <Label class="sr-only" htmlFor="search-renters">
@@ -17,11 +17,11 @@ const SearchRental = ({ handleSearch, placeholder, value }: Props): JSX.Element 
       <Input
         id="search-renters"
         aria-label="Search renter by name"
-        placeholder={placeholder || 'Search renter by name'}
+        placeholder={props.placeholder || 'Search renter by name'}
         name="search"
         class="min-w-120"
-        value={value}
-        onChange={(event) => handleSearch(event.target.value)}
+        value={props.value}
+        onChange={(event) => props.handleSearch(event.target.value)}
       />
     </div>
   )
