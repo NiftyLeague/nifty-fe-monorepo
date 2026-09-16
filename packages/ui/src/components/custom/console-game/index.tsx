@@ -110,7 +110,7 @@ export function ConsoleGame(props: ConsoleGameProps) {
       </div>
       <div class={styles.gaming_controller}>
         <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
-          <div class="animate-hover transition-fade">
+          <div class="animate-hover-offset transition-fade">
             <NativeImage
               alt=""
               class="pixelated w-full h-auto object-contain"
