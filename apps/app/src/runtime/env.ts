@@ -41,7 +41,6 @@ export const NETWORK = optional(import.meta.env.VITE_NETWORK, 'mainnet')
 /** Wallet and RPC configuration. */
 export const WALLET_CONNECT_PROJECT_ID = optional(import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID)
 export const INFURA_PROJECT_ID = optional(import.meta.env.VITE_INFURA_PROJECT_ID)
-export const BLOCKNATIVE_DAPPID = optional(import.meta.env.VITE_BLOCKNATIVE_DAPPID)
 
 /** Subgraph credentials. */
 export const GRAPH_API_KEY = optional(import.meta.env.VITE_GRAPH_API_KEY)

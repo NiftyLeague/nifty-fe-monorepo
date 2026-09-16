@@ -65,7 +65,6 @@ const MyRentalsDataGrid = (props: Props): JSX.Element => {
   const [isRentDialog, setIsRentDialog] = createSignal<boolean>(false)
   const [tableState, setTableState] = useQueryStates(rentalSearchParsers, {
     history: 'push',
-    shallow: true,
   })
   const sort = createMemo<SortState | null>(() =>
     tableState.sort ? { field: tableState.sort, direction: tableState.direction } : null

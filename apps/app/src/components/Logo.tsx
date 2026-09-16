@@ -5,7 +5,7 @@ import NativeImage from '@nl/ui/custom/native-image'
 
 const Logo = () => {
   return (
-    <RouterLink href="/" prefetch={false}>
+    <RouterLink href="/">
       <NativeImage src="/img/logos/NL/purple-filled.webp" alt="NiftyLogo" width="32" height="31" />
     </RouterLink>
   )
