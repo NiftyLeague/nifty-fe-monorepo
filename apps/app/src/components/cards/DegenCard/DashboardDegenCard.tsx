@@ -8,28 +8,40 @@ import DegenCard, { type DegenCardProps } from './index'
 
 const DegenDashboardActions = dynamic(() => import('./DegenDashboardActions'), { ssr: false })
 
-function withDashboardActions<T extends PublicDegen>(props: DegenCardProps<T>) {
-  const { degen, favs = [], size = 'normal', onClickFavorite } = props
-
-  return {
-    ...props,
-    dashboardActions: (
-      <DegenDashboardActions
-        tokenId={degen.id}
-        fav={favs.includes(degen.id)}
-        size={size}
-        onClickFavorite={onClickFavorite ? () => onClickFavorite(degen) : undefined}
-      />
-    ),
-  }
-}
-
 function DashboardDegenCardInner<T extends PublicDegen>(props: DegenCardProps<T>) {
-  return <DegenCard {...withDashboardActions(props)} />
+  return (
+    <DegenCard
+      {...props}
+      dashboardActions={
+        <DegenDashboardActions
+          tokenId={props.degen.id}
+          fav={(props.favs ?? []).includes(props.degen.id)}
+          size={props.size ?? 'normal'}
+          onClickFavorite={
+            props.onClickFavorite ? () => props.onClickFavorite?.(props.degen) : undefined
+          }
+        />
+      }
+    />
+  )
 }
 
 function DashboardDegenCardInViewInner<T extends PublicDegen>(props: DegenCardProps<T>) {
-  return <DeferredDegenCard {...withDashboardActions(props)} />
+  return (
+    <DeferredDegenCard
+      {...props}
+      dashboardActions={
+        <DegenDashboardActions
+          tokenId={props.degen.id}
+          fav={(props.favs ?? []).includes(props.degen.id)}
+          size={props.size ?? 'normal'}
+          onClickFavorite={
+            props.onClickFavorite ? () => props.onClickFavorite?.(props.degen) : undefined
+          }
+        />
+      }
+    />
+  )
 }
 
 // Memoized so unchanged grids skip re-rendering when the page around them

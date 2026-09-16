@@ -15,20 +15,17 @@ type BridgeSuccessProps = {
   setSuccessDialogOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const BridgeSuccess = ({
-  successDialogOpen,
-  setSuccessDialogOpen,
-}: BridgeSuccessProps): JSX.Element => {
-  const { address } = useNetworkContext()
+const BridgeSuccess = (props: BridgeSuccessProps): JSX.Element => {
+  const network = useNetworkContext()
   const { refreshNFTLBalance } = useTokensBalances()
 
   const handleClose = () => {
     refreshNFTLBalance()
-    setSuccessDialogOpen(false)
+    props.setSuccessDialogOpen(false)
   }
 
   return (
-    <Dialog open={successDialogOpen} onOpenChange={(open) => !open && handleClose()}>
+    <Dialog open={props.successDialogOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent showCloseButton={false}>
         <DialogTitle class="relative text-center text-xl">
           Success!
@@ -57,7 +54,7 @@ const BridgeSuccess = ({
             <br />
             You can check your bridge transactions here:{' '}
             <a
-              href={AXELAR_TRANSACTIONS_URL(address as `0x${string}`)}
+              href={AXELAR_TRANSACTIONS_URL(network.address as `0x${string}`)}
               target="_blank"
               rel="noreferrer"
               class="font-extrabold text-blue"

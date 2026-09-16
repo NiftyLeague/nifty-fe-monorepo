@@ -29,42 +29,33 @@ export interface DegenCardProps<T extends PublicDegen = PublicDegen> {
   dashboardActions?: JSX.Element
 }
 
-function DegenCardInner<T extends PublicDegen>({
-  degen,
-  isDashboardDegen = false,
-  isSelectableDegen = false,
-  isSelected = false,
-  isSelectionDisabled = false,
-  deferAnimatedMedia = false,
-  size = 'normal',
-  onClickClaim,
-  onClickDetail,
-  onClickEditName,
-  onClickSelect,
-  dashboardActions,
-}: DegenCardProps<T> & { children?: JSX.Element }) {
-  const { id, name } = degen
-
-  const buttonFontSizeClass = size === 'small' ? 'text-xs' : 'text-sm'
+function DegenCardInner<T extends PublicDegen>(
+  props: DegenCardProps<T> & { children?: JSX.Element }
+) {
+  const buttonFontSizeClass = props.size === 'small' ? 'text-xs' : 'text-sm'
 
   return (
     <Card class="h-full w-full gap-0 border py-0 pb-2">
-      {id && (
-        <DegenImage tokenId={id} deferAnimation={deferAnimatedMedia} class="w-full max-w-full" />
+      {props.degen.id && (
+        <DegenImage
+          tokenId={props.degen.id}
+          deferAnimation={props.deferAnimatedMedia ?? false}
+          class="w-full max-w-full"
+        />
       )}
       <CardContent class="px-2 py-2">
         <div class="group flex flex-row justify-between gap-2">
           <div class="flex">
-            <Title level={size === 'small' ? 6 : 5} class="truncate-text-1">
-              {name || '[No Name]'}
+            <Title level={props.size === 'small' ? 6 : 5} class="truncate-text-1">
+              {props.degen.name || '[No Name]'}
             </Title>
-            {isDashboardDegen && (
+            {props.isDashboardDegen && (
               <Button
                 type="button"
                 variant="ghost"
                 size="icon"
                 aria-label="Edit degen name"
-                onClick={() => onClickEditName?.(degen)}
+                onClick={() => props.onClickEditName?.(props.degen)}
                 class="ml-1 hidden size-6 cursor-pointer p-0 group-hover:inline-flex"
               >
                 <Pencil aria-hidden="true" absoluteStrokeWidth size={18} stroke-width={1.5} />
@@ -72,45 +63,45 @@ function DegenCardInner<T extends PublicDegen>({
             )}
           </div>
           <a
-            href={id ? DEGEN_PURCHASE_URL(id) : '#'}
+            href={props.degen.id ? DEGEN_PURCHASE_URL(props.degen.id) : '#'}
             target="_blank"
             rel="nofollow"
             class={`text-muted-foreground ${buttonFontSizeClass}`}
           >
-            {`#${id}`}
+            {`#${props.degen.id}`}
           </a>
         </div>
       </CardContent>
       <div class="flex flex-row justify-between gap-2 px-2">
-        {isSelectableDegen ? (
+        {props.isSelectableDegen ? (
           <Button
-            variant={isSelected ? 'default' : 'outline'}
-            class={size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
-            onClick={() => onClickSelect?.(degen)}
-            disabled={isSelectionDisabled && !isSelected}
+            variant={props.isSelected ? 'default' : 'outline'}
+            class={props.size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
+            onClick={() => props.onClickSelect?.(props.degen)}
+            disabled={props.isSelectionDisabled && !props.isSelected}
           >
-            {isSelected ? 'Selected' : 'Select'}
+            {props.isSelected ? 'Selected' : 'Select'}
           </Button>
         ) : (
           <Button
             variant="outline"
-            class={size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
-            onClick={() => onClickDetail?.(degen)}
+            class={props.size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
+            onClick={() => props.onClickDetail?.(props.degen)}
           >
             Details
           </Button>
         )}
-        {isDashboardDegen && (
+        {props.isDashboardDegen && (
           <Button
-            onClick={() => onClickClaim?.(degen)}
+            onClick={() => props.onClickClaim?.(props.degen)}
             variant="default"
-            class={size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
+            class={props.size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
           >
             Claim
           </Button>
         )}
       </div>
-      {dashboardActions}
+      {props.dashboardActions}
     </Card>
   )
 }

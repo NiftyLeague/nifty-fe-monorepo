@@ -9,16 +9,9 @@ export default function useAsyncInterval(
   leading = true,
   ...refreshKeys: RefreshKey[]
 ): void {
-  // Always invoke the latest callback so interval ticks never close over
-  // stale values.
-  let savedCallback = callback
-  createEffect(() => {
-    savedCallback = callback
-  })
-
   createEffect(() => {
     const tick = async () => {
-      await savedCallback?.()
+      await callback()
     }
 
     let stopped = false
@@ -39,6 +32,6 @@ export default function useAsyncInterval(
 
   createEffect(() => {
     const keys = refreshKeys.map((key) => (typeof key === 'function' ? key() : key))
-    if (keys.some((key) => key !== undefined && key !== '')) void savedCallback?.()
+    if (keys.some((key) => key !== undefined && key !== '')) void callback()
   })
 }

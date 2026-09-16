@@ -35,36 +35,31 @@ const SteamBadge = () => (
   />
 )
 
-const GameArtwork = ({
-  src,
-  title,
-  loading = 'lazy',
-  fetchPriority,
-}: {
+const GameArtwork = (props: {
   src: string
   title: string
   loading?: 'eager' | 'lazy'
   fetchPriority?: 'auto' | 'high' | 'low'
 }) => (
   <OptimizedImage
-    src={src}
-    alt={title}
+    src={props.src}
+    alt={props.title}
     fill
     sizes={GAME_CARD_IMAGE_SIZES}
     quality={60}
-    loading={loading}
-    fetchpriority={fetchPriority}
+    loading={props.loading ?? 'lazy'}
+    fetchpriority={props.fetchPriority}
     class="object-cover"
   />
 )
 
 type StoreButtonsProps = { android?: string; ios?: string; steam?: string }
 
-const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
+const StoreButtons = (props: StoreButtonsProps) => (
   <div class="grid w-full grid-cols-12 gap-4">
     <div class="col-span-4">
-      {android ? (
-        <a href={android} target="_blank" rel="noreferrer">
+      {props.android ? (
+        <a href={props.android} target="_blank" rel="noreferrer">
           <GoogleBadge />
         </a>
       ) : (
@@ -74,8 +69,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       )}
     </div>
     <div class="col-span-4">
-      {ios ? (
-        <a href={ios} target="_blank" rel="noreferrer">
+      {props.ios ? (
+        <a href={props.ios} target="_blank" rel="noreferrer">
           <AppleBadge />
         </a>
       ) : (
@@ -85,8 +80,8 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
       )}
     </div>
     <div class="col-span-4">
-      {steam ? (
-        <a href={steam} target="_blank" rel="noreferrer">
+      {props.steam ? (
+        <a href={props.steam} target="_blank" rel="noreferrer">
           <SteamBadge />
         </a>
       ) : (

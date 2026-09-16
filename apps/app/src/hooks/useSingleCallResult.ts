@@ -1,37 +1,51 @@
-import { createSignal, createEffect } from 'solid-js'
+import { createSignal, createEffect, type Accessor } from 'solid-js'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
 import type { Contracts } from '@/types/web3'
 
+type MaybeAccessor<T> = T | Accessor<T>
+const resolve = <T>(value: MaybeAccessor<T>): T =>
+  typeof value === 'function' ? (value as Accessor<T>)() : value
+
 export default function useSingleCallResult(
-  contracts: Contracts,
+  contracts: MaybeAccessor<Contracts | undefined>,
   contractName: keyof Contracts,
   functionName: string,
-  args: unknown[],
+  args: MaybeAccessor<unknown[]>,
   formatter: ((arg0: unknown) => void) | null,
-  skip: boolean
-): unknown {
+  skip: MaybeAccessor<boolean>
+): Accessor<unknown> {
   const [value, setValue] = createSignal<unknown>()
 
   createEffect(() => {
-    const callContract = async (contract: Contract) => {
+    const resolvedContracts = resolve(contracts)
+    const resolvedArgs = resolve(args)
+    const resolvedSkip = resolve(skip)
+    const contract = resolvedContracts?.[contractName] as BaseContract as Contract | undefined
+
+    if (!contract || resolvedSkip) return
+
+    let cancelled = false
+    const callContract = async () => {
       try {
         let newValue: unknown
-        if (args && args.length > 0) {
-          newValue = await (contract[functionName] as ContractMethod)(...args)
+        if (resolvedArgs && resolvedArgs.length > 0) {
+          newValue = await (contract[functionName] as ContractMethod)(...resolvedArgs)
         } else {
           newValue = await (contract[functionName] as ContractMethod)()
         }
         if (formatter && typeof formatter === 'function') {
           newValue = formatter(newValue)
         }
-        setValue(newValue)
+        if (!cancelled) setValue(() => newValue)
       } catch (e) {
         console.error(e)
       }
     }
-    if (contracts && contracts[contractName] && !skip)
-      void callContract(contracts[contractName] as BaseContract as Contract)
-  }, [args, contractName, contracts, formatter, functionName, skip])
+    void callContract()
+    return () => {
+      cancelled = true
+    }
+  })
 
   return value
 }

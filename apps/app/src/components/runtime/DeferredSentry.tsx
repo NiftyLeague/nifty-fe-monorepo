@@ -12,15 +12,15 @@ interface DeferredSentryProps {
  * Mirrors the shared deferred Sentry boundary without its framework-only
  * client module.
  */
-export default function DeferredSentry({ enabled, options }: DeferredSentryProps) {
+export default function DeferredSentry(props: DeferredSentryProps) {
   createEffect(() => {
-    if (!enabled) return
+    if (!props.enabled) return
 
     let cancelled = false
     const initialize = () => {
       void import('@/runtime/sentry')
         .then(({ initializeSentry }) => {
-          if (!cancelled) return initializeSentry(options)
+          if (!cancelled) return initializeSentry(props.options)
         })
         .catch(() => {
           /* Monitoring is not on the rendering critical path. */
@@ -37,7 +37,7 @@ export default function DeferredSentry({ enabled, options }: DeferredSentryProps
       if ('cancelIdleCallback' in window) window.cancelIdleCallback(idleId as number)
       else globalThis.clearTimeout(idleId as number)
     }
-  }, [enabled, options])
+  })
 
   return null
 }

@@ -7,7 +7,7 @@ import AddNFTLToMetamask from '@/layouts/_layout/_MainLayout/_Header/AddNFTLToMe
 import type { JSX } from 'solid-js'
 
 const TitleSection = (): JSX.Element => {
-  const { loadingNFTLBal, tokensBalances } = useTokensBalances()
+  const tokens = useTokensBalances()
   return (
     <SectionTitle
       firstSection
@@ -15,12 +15,14 @@ const TitleSection = (): JSX.Element => {
       actions={
         <div class="flex flex-wrap items-center justify-end gap-4">
           <AddNFTLToMetamask />
-          {loadingNFTLBal ? (
+          {tokens.loadingNFTLBal ? (
             <DeferredSkeleton class="h-10 w-30 rounded" />
           ) : (
             <span class="text-base font-bold">
               NFTL in Wallet:{' '}
-              {formatNumberToDisplay(tokensBalances.NFTL.eth + tokensBalances.NFTL.imx)}
+              {formatNumberToDisplay(
+                tokens.tokensBalances.NFTL.eth + tokens.tokensBalances.NFTL.imx
+              )}
             </span>
           )}
         </div>

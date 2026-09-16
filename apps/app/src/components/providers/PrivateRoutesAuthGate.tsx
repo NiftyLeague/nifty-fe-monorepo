@@ -1,4 +1,4 @@
-import { createEffect, type JSX } from 'solid-js'
+import { createEffect, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 
 import { useAuthStatus } from '@/contexts/AuthStatusContext'
@@ -16,18 +16,19 @@ interface PrivateRoutesAuthGateProps {
   loading: JSX.Element
 }
 
-export default function PrivateRoutesAuthGate({
-  children,
-  loading,
-}: PrivateRoutesAuthGateProps): JSX.Element {
+export default function PrivateRoutesAuthGate(props: PrivateRoutesAuthGateProps): JSX.Element {
   const router = useRouter()
-  const { isLoggedIn } = useAuthStatus()
+  const auth = useAuthStatus()
   const auditFixtureEnabled = AUDIT_FIXTURE
-  const shouldLoadWallet = shouldLoadPrivateRoutesWallet(isLoggedIn, auditFixtureEnabled)
+  const shouldLoadWallet = () => shouldLoadPrivateRoutesWallet(auth.isLoggedIn, auditFixtureEnabled)
 
   createEffect(() => {
-    if (!shouldLoadWallet) router.replace('/')
-  }, [router, shouldLoadWallet])
+    if (!shouldLoadWallet()) router.replace('/')
+  })
 
-  return shouldLoadWallet ? children : loading
+  return (
+    <Show when={shouldLoadWallet()} fallback={props.loading}>
+      {props.children}
+    </Show>
+  )
 }

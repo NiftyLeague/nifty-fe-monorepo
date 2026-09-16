@@ -8,15 +8,15 @@ import useNetworkContext from '@/hooks/useNetworkContext'
 import type { JSX } from 'solid-js'
 
 const DegenBalance = (): JSX.Element => {
-  const { isConnected } = useNetworkContext()
-  const { balance, claimCallback, loading } = useClaimNFTL()
+  const network = useNetworkContext()
+  const claim = useClaimNFTL()
 
   return (
     <HoverDataCard
       title="DEGEN Balance"
-      primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
+      primary={`${claim.balance ? formatNumberToDisplay(claim.balance) : '0.00'} NFTL`}
       secondary="Available to Claim"
-      isLoading={loading}
+      isLoading={claim.loading}
       actions={
         <>
           <Button
@@ -30,8 +30,8 @@ const DegenBalance = (): JSX.Element => {
           <Button
             class="w-full"
             variant="default"
-            disabled={!(balance > 0.0 && isConnected)}
-            onClick={claimCallback}
+            disabled={!(claim.balance > 0.0 && network.isConnected)}
+            onClick={claim.claimCallback}
           >
             Claim NFTL
           </Button>

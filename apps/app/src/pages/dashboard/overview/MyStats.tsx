@@ -5,9 +5,9 @@ import { useGamerProfile } from '@/hooks/useGamerProfile'
 import GamerProfileContext from '@/contexts/GamerProfileContext'
 import LeftInfo from '../gamer-profile/_Stats/LeftInfo'
 import type { Profile } from '@/types/account'
-import type { JSX } from 'solid-js'
+import { Show, type JSX } from 'solid-js'
 
-const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
+const MyStats = (props: { profile?: Profile }): JSX.Element => {
   return (
     <div class="grid h-full grid-cols-12 gap-4">
       <div class="col-span-12">
@@ -29,7 +29,7 @@ const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
       </div>
       <div class="col-span-12 h-full">
         <div class="flex flex-row gap-10">
-          <LeftInfo data={profile?.stats?.total} />
+          <LeftInfo data={props.profile?.stats?.total} />
         </div>
       </div>
     </div>
@@ -37,19 +37,23 @@ const MyStats = ({ profile }: { profile?: Profile }): JSX.Element => {
 }
 
 const MyStatsContext = () => {
-  const { profile, error, loadingProfile } = useGamerProfile()
-  return !error && (profile || loadingProfile) ? (
-    <GamerProfileContext.Provider
-      value={{
-        isLoadingProfile: loadingProfile,
-        isLoadingDegens: false,
-        isLoadingComics: false,
-        isLoadingItems: false,
-      }}
-    >
-      <MyStats profile={profile} />
-    </GamerProfileContext.Provider>
-  ) : null
+  const gamerProfile = useGamerProfile()
+  return (
+    <Show when={!gamerProfile.error && (gamerProfile.profile || gamerProfile.loadingProfile)}>
+      <GamerProfileContext.Provider
+        value={{
+          get isLoadingProfile() {
+            return gamerProfile.loadingProfile
+          },
+          isLoadingDegens: false,
+          isLoadingComics: false,
+          isLoadingItems: false,
+        }}
+      >
+        <MyStats profile={gamerProfile.profile} />
+      </GamerProfileContext.Provider>
+    </Show>
+  )
 }
 
 export default MyStatsContext

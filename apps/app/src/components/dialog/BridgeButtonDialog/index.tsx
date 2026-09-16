@@ -19,7 +19,7 @@ const BridgeForm = dynamic(() => import('./BridgeForm'), {
 
 const onCloseBridgeDialog = () => {}
 
-const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
+const BridgeButtonDialog = (props: BridgeButtonDialogProps) => {
   const [successDialogOpen, setSuccessDialogOpen] = createSignal(false)
 
   const onBridgeSuccess = () => setSuccessDialogOpen(true)
@@ -28,7 +28,7 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
     <>
       <Dialog onClose={onCloseBridgeDialog}>
         <DialogTrigger>
-          <Button variant="default" class="w-full" disabled={loading || balance < 0.5}>
+          <Button variant="default" class="w-full" disabled={props.loading || props.balance < 0.5}>
             Bridge
           </Button>
         </DialogTrigger>
@@ -37,7 +37,7 @@ const BridgeButtonDialog = ({ balance, loading }: BridgeButtonDialogProps) => {
           dialogTitle={<span class="block w-full text-center">Bridge NFTL to Immutable</span>}
         >
           <div class="text-center">
-            <BridgeForm balance={balance} onBridgeSuccess={onBridgeSuccess} />
+            <BridgeForm balance={props.balance} onBridgeSuccess={onBridgeSuccess} />
           </div>
         </DialogContent>
       </Dialog>

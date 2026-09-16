@@ -1,16 +1,10 @@
 import { createEffect, onCleanup } from 'solid-js'
 
 function useInterval(callback: () => void, delay: number | null) {
-  let savedCallback = callback
-
-  createEffect(() => {
-    savedCallback = callback
-  })
-
   createEffect(() => {
     if (delay == null) return
 
-    const id = setInterval(() => savedCallback(), delay)
+    const id = setInterval(() => callback(), delay)
 
     onCleanup(() => clearInterval(id))
   })

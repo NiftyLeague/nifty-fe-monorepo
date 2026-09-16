@@ -1511,7 +1511,8 @@ describe('private provider loading contract', () => {
     expect(source).toContain(
       "const loadNFTDataProviders = () => import('@/contexts/NFTDataProviders')"
     )
-    expect(source).toContain('includeTokens ? loadWalletFeatureProviders : loadNFTDataProviders')
+    expect(source).toContain('props.includeTokens ?? true')
+    expect(source).toContain('? loadWalletFeatureProviders : loadNFTDataProviders')
     expect(source).toContain("from '@nl/ui/custom/deferred-component'")
     expect(sharedSource).toContain('role="status"')
     expect(sharedSource).toContain('role="alert"')

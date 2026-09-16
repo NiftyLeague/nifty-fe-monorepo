@@ -5,16 +5,16 @@ interface NiftyWorldGameProps {
   game: NiftyWorldGame
 }
 
-export default function NiftyWorldGame({ game }: NiftyWorldGameProps) {
+export default function NiftyWorldGame(props: NiftyWorldGameProps) {
   return (
     <NiftyWorldEmbed
-      title={game.title}
+      title={props.game.title}
       eyebrow="Nifty League mini game"
       backHref="/games"
       backLabel="Back to games"
-      frameTitle={`${game.title} mini game`}
-      canonicalUrl={getNiftyWorldGameUrl(game)}
-      getEmbedUrl={(attempt, visitId) => getNiftyWorldGameUrl(game, true, attempt, visitId)}
+      frameTitle={`${props.game.title} mini game`}
+      canonicalUrl={getNiftyWorldGameUrl(props.game)}
+      getEmbedUrl={(attempt, visitId) => getNiftyWorldGameUrl(props.game, true, attempt, visitId)}
     />
   )
 }

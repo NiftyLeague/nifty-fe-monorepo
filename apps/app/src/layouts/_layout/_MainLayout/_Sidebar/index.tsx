@@ -29,23 +29,24 @@ const UserProfile = dynamic(() => import('./_UserProfile'), {
 const LogoutButton = dynamic(() => import('./_LogoutButton'), { ssr: false })
 
 function SidebarReadyContent() {
-  const { isLoggedIn } = useAuth()
+  const auth = useAuth()
 
   return (
     <>
       <UserProfile />
-      <MenuList isLoggedIn={isLoggedIn} />
+      <MenuList isLoggedIn={auth.isLoggedIn} />
     </>
   )
 }
 
 // ==============================|| SIDEBAR DRAWER ||============================== //
 
-const Sidebar = ({ walletReady = true }: { walletReady?: boolean }) => {
+const Sidebar = (props: { walletReady?: boolean }) => {
+  const walletReady = () => props.walletReady ?? true
   return (
-    <SidebarFrame footer={walletReady ? <LogoutButton class="mb-3 w-17/20" /> : undefined}>
-      {walletReady ? <SidebarReadyContent /> : <UserProfileLoading />}
-      {!walletReady && <MenuList />}
+    <SidebarFrame footer={walletReady() ? <LogoutButton class="mb-3 w-17/20" /> : undefined}>
+      {walletReady() ? <SidebarReadyContent /> : <UserProfileLoading />}
+      {!walletReady() && <MenuList />}
     </SidebarFrame>
   )
 }

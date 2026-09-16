@@ -24,10 +24,12 @@ const UserProfile = () => {
     chainId: 1,
     query: { enabled: account.isConnected && !!ensName.data },
   }))
-  const { profile } = useGamerProfile()
+  const gamerProfile = useGamerProfile()
 
-  const username = () => (auth.isLoggedIn && profile ? profile.name_cased : undefined)
-  const avatar = () => (auth.isLoggedIn && profile ? profile.avatar : undefined)
+  const username = () =>
+    auth.isLoggedIn && gamerProfile.profile ? gamerProfile.profile.name_cased : undefined
+  const avatar = () =>
+    auth.isLoggedIn && gamerProfile.profile ? gamerProfile.profile.avatar : undefined
 
   const displayName = createMemo(() => {
     const address = account.address

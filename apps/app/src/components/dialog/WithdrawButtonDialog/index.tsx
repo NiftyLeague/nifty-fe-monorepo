@@ -10,7 +10,7 @@ import WithdrawSuccess from './WithdrawSuccess'
 
 type WithdrawButtonDialogProps = { balance: number; loading: boolean }
 
-const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) => {
+const WithdrawButtonDialog = (props: WithdrawButtonDialogProps) => {
   const { switchChain } = useSwitchChain()
   const [successDialogOpen, setSuccessDialogOpen] = createSignal(false)
 
@@ -25,10 +25,14 @@ const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) =
       <Dialog onClose={onCloseWithdrawDialog}>
         <DialogTrigger>
           <div class="relative w-full">
-            <Button variant="default" class="w-full" disabled={loading || balance === 0}>
+            <Button
+              variant="default"
+              class="w-full"
+              disabled={props.loading || props.balance === 0}
+            >
               Withdraw
             </Button>
-            {!loading && balance !== 0 && (
+            {!props.loading && props.balance !== 0 && (
               <Badge
                 variant="destructive"
                 aria-hidden="true"
@@ -42,7 +46,7 @@ const WithdrawButtonDialog = ({ balance, loading }: WithdrawButtonDialogProps) =
           dialogTitle={<span class="block w-full text-center">Withdraw Earnings</span>}
         >
           <div class="text-center">
-            <WithdrawForm balance={balance} onWithdrawSuccess={onWithdrawSuccess} />
+            <WithdrawForm balance={props.balance} onWithdrawSuccess={onWithdrawSuccess} />
           </div>
         </DialogContent>
       </Dialog>

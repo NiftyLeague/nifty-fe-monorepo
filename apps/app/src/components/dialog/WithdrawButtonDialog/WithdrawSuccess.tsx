@@ -12,19 +12,16 @@ type WithdrawSuccessProps = {
   setSuccessDialogOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const WithdrawSuccess = ({
-  successDialogOpen,
-  setSuccessDialogOpen,
-}: WithdrawSuccessProps): JSX.Element => {
+const WithdrawSuccess = (props: WithdrawSuccessProps): JSX.Element => {
   const { refreshNFTLBalance } = useTokensBalances()
 
   const handleClose = () => {
     refreshNFTLBalance()
-    setSuccessDialogOpen(false)
+    props.setSuccessDialogOpen(false)
   }
 
   return (
-    <Dialog open={successDialogOpen} onOpenChange={(open) => !open && handleClose()}>
+    <Dialog open={props.successDialogOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent showCloseButton={false}>
         <DialogTitle class="relative text-center text-xl">
           Success!

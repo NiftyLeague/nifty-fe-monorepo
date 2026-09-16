@@ -10,15 +10,17 @@ import useUserClaimData from './useUserClaimData'
 export default function useClaimCallback(): {
   claimCallback: () => Promise<TransactionResponse | null>
 } {
-  const { imxContracts, imxSigner } = useIMXContext()
+  const imx = useIMXContext()
   const isConnectedToIMX = useConnectedToIMXCheck()
-  const distributorContract = imxContracts[BALANCE_MANAGER_CONTRACT]
   // get claim data for this account
-  const { claimData } = useUserClaimData()
+  const userClaimData = useUserClaimData()
 
   const claimCallback = async () => {
+    const claimData = userClaimData.claimData
+    const imxSigner = imx.imxSigner
+    const distributorContract = imx.imxContracts?.[BALANCE_MANAGER_CONTRACT]
     try {
-      if (!claimData || !imxSigner?.address || !distributorContract || !isConnectedToIMX)
+      if (!claimData || !imxSigner?.address || !distributorContract || !isConnectedToIMX())
         return null
 
       const contractWithSigner = distributorContract.connect(imxSigner)

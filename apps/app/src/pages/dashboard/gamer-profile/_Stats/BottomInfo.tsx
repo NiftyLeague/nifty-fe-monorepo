@@ -17,8 +17,8 @@ interface BottomInfoProps {
   crypto_winter: ProfileMiniGame | undefined
 }
 
-const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps): JSX.Element => {
-  const { isLoadingProfile } = useGamerProfileContext()
+const BottomInfo = (props: BottomInfoProps): JSX.Element => {
+  const gamerProfile = useGamerProfileContext()
 
   return (
     <div class="grid grid-cols-12 gap-4">
@@ -27,22 +27,22 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           image="/img/games/smashers/nifty-smashers-poster.webp"
           contents={
             <div class="flex flex-col gap-4 p-4">
-              {nifty_smashers && <ProgressGamer size="sm" data={nifty_smashers} />}
+              {props.nifty_smashers && <ProgressGamer size="sm" data={props.nifty_smashers} />}
               <div class="flex flex-row items-center justify-between">
                 <Title level={3}>2D Smashers</Title>
                 <Title level={4}>
-                  {isLoadingProfile ? (
+                  {gamerProfile.isLoadingProfile ? (
                     <DeferredSkeleton
                       class="inline-block h-(--skel-h) w-3/20 rounded"
                       style={{ '--skel-h': '19.76px' }}
                     />
                   ) : (
-                    `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next || 0}`
+                    `${Math.round(props.nifty_smashers?.xp || 0)}/${props.nifty_smashers?.rank_xp_next || 0}`
                   )}
                   <span class="ml-1 text-muted-foreground">XP</span>
                 </Title>
               </div>
-              <LeftInfo data={nifty_smashers} />
+              <LeftInfo data={props.nifty_smashers} />
               <Button variant="secondary" asChild>
                 <Link href="/leaderboards?game=nifty_smashers" prefetch={false}>
                   View Leaderboards
@@ -57,22 +57,22 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           image="/img/games/wen-poster.webp"
           contents={
             <div class="flex flex-1 flex-col justify-between gap-4 p-4">
-              {wen_game && <ProgressGamer size="sm" data={wen_game} />}
+              {props.wen_game && <ProgressGamer size="sm" data={props.wen_game} />}
               <div class="flex flex-row items-center justify-between">
                 <Title level={3}>WEN Game</Title>
                 <Title level={4}>
-                  {isLoadingProfile ? (
+                  {gamerProfile.isLoadingProfile ? (
                     <DeferredSkeleton
                       class="inline-block h-(--skel-h) w-3/20 rounded"
                       style={{ '--skel-h': '19.76px' }}
                     />
                   ) : (
-                    `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next || 0}`
+                    `${Math.round(props.wen_game?.xp || 0)}/${props.wen_game?.rank_xp_next || 0}`
                   )}
                   <span class="ml-1 text-muted-foreground">XP</span>
                 </Title>
               </div>
-              <MiniGameContent data={wen_game} />
+              <MiniGameContent data={props.wen_game} />
               <Button variant="secondary" asChild>
                 <Link href="/leaderboards?game=wen_game" prefetch={false}>
                   View Leaderboards
@@ -87,22 +87,22 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
           image="/img/games/crypto-winter.webp"
           contents={
             <div class="flex flex-1 flex-col justify-between gap-4 p-4">
-              <ProgressGamer size="sm" data={crypto_winter} />
+              <ProgressGamer size="sm" data={props.crypto_winter} />
               <div class="flex flex-row items-center justify-between">
                 <Title level={3}>CRYPTO WINTER</Title>
                 <Title level={4}>
-                  {isLoadingProfile ? (
+                  {gamerProfile.isLoadingProfile ? (
                     <DeferredSkeleton
                       class="inline-block h-(--skel-h) w-3/20 rounded"
                       style={{ '--skel-h': '19.76px' }}
                     />
                   ) : (
-                    `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next || 0}`
+                    `${Math.round(props.crypto_winter?.xp || 0)}/${props.crypto_winter?.rank_xp_next || 0}`
                   )}
                   <span class="ml-1 text-muted-foreground">XP</span>
                 </Title>
               </div>
-              <MiniGameContent data={crypto_winter} />
+              <MiniGameContent data={props.crypto_winter} />
               <Button variant="secondary" asChild>
                 <Link href="/leaderboards?game=crypto_winter" prefetch={false}>
                   View Leaderboards

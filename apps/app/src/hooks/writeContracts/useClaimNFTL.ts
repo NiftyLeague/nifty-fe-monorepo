@@ -1,4 +1,4 @@
-import { createSignal } from 'solid-js'
+import { createSignal, onCleanup } from 'solid-js'
 import type { TransactionResponse } from 'ethers'
 import type { MetamaskError } from '@/types/notify'
 import { handleError } from '@/utils/bnc-notify'
@@ -20,6 +20,8 @@ export default function useClaimNFTL(): {
 
   const [mockAccrued, setMockAccrued] = createSignal<number | null>(null)
   const [loading, setLoading] = createSignal(false)
+  let refetchTimer: ReturnType<typeof setTimeout> | undefined
+  onCleanup(() => clearTimeout(refetchTimer))
 
   const balance = () => mockAccrued() ?? tokens.totalAccruedNFTL
 
@@ -41,7 +43,7 @@ export default function useClaimNFTL(): {
     const txRes = await network.tx(nftl.claim(nfts.degenTokenIndices))
     if (txRes) {
       setMockAccrued(0)
-      setTimeout(tokens.refreshClaimableNFTL, 5000)
+      refetchTimer = setTimeout(tokens.refreshClaimableNFTL, 5000)
     }
     return txRes
   }

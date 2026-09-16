@@ -13,39 +13,39 @@ interface HoverDataCardProps extends Omit<GenericCardProps, 'title'> {
   title?: string | JSX.Element
 }
 
-const HoverDataCard = ({ title, primary, secondary, actions, isLoading }: HoverDataCardProps) => (
+const HoverDataCard = (props: HoverDataCardProps) => (
   <MainCard className="relative">
     <div class="flex flex-col items-center justify-between">
       <div class="w-full">
-        {isLoading ? (
+        {props.isLoading ? (
           <DeferredSkeleton class="h-5 w-20" />
         ) : (
           <Title level={4} class="text-center">
-            {title}
+            {props.title}
           </Title>
         )}
       </div>
       <div class="w-full">
         <div class="mt-1.75 mb-0.5 flex flex-row justify-center gap-1">
-          {isLoading ? (
+          {props.isLoading ? (
             <DeferredSkeleton class="h-5 w-20" />
           ) : (
-            <span class="text-base font-bold">{primary}</span>
+            <span class="text-base font-bold">{props.primary}</span>
           )}
         </div>
       </div>
-      {secondary && (
+      {props.secondary && (
         <div class="mb-1.75 w-full">
           <div class="flex flex-row justify-center gap-1">
-            {isLoading ? (
+            {props.isLoading ? (
               <DeferredSkeleton class="h-5 w-30" />
             ) : (
-              <span class="text-sm text-muted-foreground">{secondary}</span>
+              <span class="text-sm text-muted-foreground">{props.secondary}</span>
             )}
           </div>
         </div>
       )}
-      {actions}
+      {props.actions}
     </div>
   </MainCard>
 )

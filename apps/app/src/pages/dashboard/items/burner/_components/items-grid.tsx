@@ -6,13 +6,13 @@ import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 
 import styles from './items-grid.module.css'
 
-export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
-  const { loadingItems } = useNFTsBalances()
+export default function ItemsGrid(props: { itemCounts: number[] }) {
+  const nfts = useNFTsBalances()
   const citadelKey = ITEMS[6]
 
   if (!citadelKey) return null
 
-  return loadingItems ? (
+  return nfts.loadingItems ? (
     <DeferredSkeleton class="absolute left-0 right-0 top-237.5 mx-auto h-100.75 w-78.75 rounded-none" />
   ) : (
     <div class="absolute left-0 right-0 top-237.5 mx-auto w-78.75">
@@ -46,7 +46,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
               <div class={styles.titleWrap}>
                 <div class={styles.title}>
                   <span>{name}</span>
-                  <span>x{itemCounts[item.id - 1]}</span>
+                  <span>x{props.itemCounts[item.id - 1]}</span>
                 </div>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
         />
         <div class={`${styles.title} w-35/100 mx-auto`}>
           <span>CITADEL KEY</span>
-          <span>x{itemCounts[6]}</span>
+          <span>x{props.itemCounts[6]}</span>
         </div>
       </div>
     </div>

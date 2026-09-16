@@ -23,9 +23,8 @@ interface ModalProps {
   open: boolean
 }
 const CustomModal = (props: ModalProps): JSX.Element | null => {
-  const { child, flag, onOpenChange, open } = props
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={props.open} onOpenChange={props.onOpenChange}>
       <DialogContent showCloseButton={false} class={styles.styledModal}>
         <DialogTitle class="sr-only">Your leaderboard rank</DialogTitle>
         <DialogDescription class="sr-only">
@@ -35,9 +34,9 @@ const CustomModal = (props: ModalProps): JSX.Element | null => {
         <div class={styles.backdrop} />
         <div
           class="relative mx-auto w-168.75 h-225 pt-4 px-8 pb-6 border-2 border-background bg-(--scrim) bg-(--modal-bg) bg-contain bg-center bg-no-repeat max-sm:!h-(--lb-modal-h) max-sm:!w-(--lb-modal-w) max-sm:!bg-cover"
-          style={{ '--modal-bg': `url(${backgroundImage(flag)})` }}
+          style={{ '--modal-bg': `url(${backgroundImage(props.flag)})` }}
         >
-          {child}
+          {props.child}
         </div>
       </DialogContent>
     </Dialog>

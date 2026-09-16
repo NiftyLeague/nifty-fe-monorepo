@@ -11,30 +11,29 @@ interface Props {
   length?: number
 }
 
-const FilterAccordion = ({
-  summary,
-  children,
-  expanded = true,
-  length = 0,
-}: Props): JSX.Element => {
+const FilterAccordion = (props: Props): JSX.Element => {
   return (
-    <Accordion type="single" collapsible defaultValue={expanded ? 'item' : undefined}>
+    <Accordion
+      type="single"
+      collapsible
+      defaultValue={(props.expanded ?? true) ? 'item' : undefined}
+    >
       <AccordionItem value="item" class="w-full border-0 bg-transparent">
         <AccordionTrigger class="min-h-9 px-3.5 py-0 hover:no-underline">
           <div class="flex w-full items-center justify-between">
-            {summary}
-            {length > 0 && (
+            {props.summary}
+            {(props.length ?? 0) > 0 && (
               <span
                 class="mr-1 text-(--fs-10) text-(--badge-lavender)"
                 style={{ '--fs-10': '10px' }}
               >
-                {length}
+                {props.length}
               </span>
             )}
           </div>
         </AccordionTrigger>
         <AccordionContent class={cn('filter-content-gutter', styles.filterContent)}>
-          {children}
+          {props.children}
         </AccordionContent>
       </AccordionItem>
     </Accordion>
