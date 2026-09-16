@@ -25,11 +25,11 @@ beforeEach(async () => {
 })
 
 describe('Logo', () => {
-  it('does not prefetch the home route from the persistent app shell', () => {
+  it('defers home-route preloading to the router intent default', () => {
     render(() => <Logo />)
 
     const logoLink = screen.getByRole('link', { name: 'NiftyLogo' })
     expect(logoLink.getAttribute('href')).toBe('/')
-    expect(logoLink.getAttribute('data-prefetch')).toBe('false')
+    expect(logoLink.getAttribute('data-prefetch')).toBe('undefined')
   })
 })
