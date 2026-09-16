@@ -1068,7 +1068,11 @@ describe('NFT-only route provider contract', () => {
     it(`keeps dashboard token balances out of ${file}`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).toContain('<PublicContentContainer flush>')
+      // The mint screen renders the shared NiftyWorldEmbed like the game and
+      // world screens, so it must use the shared padded container - a flush
+      // variant here was what let its padding drift apart.
+      expect(source).toContain('<PublicContentContainer>')
+      expect(source).not.toContain('flush')
       expect(source).not.toContain('DeferredMintProviders')
       expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
       expect(source).not.toContain("from '@/contexts/AuditFixtureContextWrapper'")
