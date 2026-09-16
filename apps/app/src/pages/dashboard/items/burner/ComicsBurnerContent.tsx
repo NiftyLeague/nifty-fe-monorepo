@@ -1,4 +1,4 @@
-import { createEffect, createSignal, createMemo } from 'solid-js'
+import { createEffect, createSignal, createMemo, onCleanup } from 'solid-js'
 import { type AddressLike } from 'ethers'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
@@ -28,6 +28,8 @@ const ComicsBurnerContent = () => {
   const [burnCount, setBurnCount] = createSignal<number[]>([0, 0, 0, 0, 0, 0])
   const [burning, setBurning] = createSignal(false)
   const [refreshKey, setRefreshKey] = createSignal(0)
+  let refreshTimer: ReturnType<typeof setTimeout> | undefined
+  onCleanup(() => clearTimeout(refreshTimer))
   const burnDisabled = () =>
     burning() || selectedComics().length < 1 || burnCount().every((c) => !c)
 
@@ -82,7 +84,7 @@ const ComicsBurnerContent = () => {
       setSelectedComics([])
       nfts.refreshItemsBalances()
       setBurnCount([0, 0, 0, 0, 0, 0])
-      setTimeout(() => setRefreshKey((key) => key + 1), 5000)
+      refreshTimer = setTimeout(() => setRefreshKey((key) => key + 1), 5000)
     }
   }
 

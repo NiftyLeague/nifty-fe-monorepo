@@ -6,9 +6,9 @@ interface DegenPlaceholderProps {
   size?: 'normal' | 'small'
 }
 
-const DegenPlaceholder = ({ size = 'normal' }: DegenPlaceholderProps) => (
+const DegenPlaceholder = (props: DegenPlaceholderProps) => (
   <MainCard content={false} boxShadow={false} border={false}>
-    <DeferredSkeleton class={size === 'small' ? 'h-50' : 'h-80'} />
+    <DeferredSkeleton class={props.size === 'small' ? 'h-50' : 'h-80'} />
     <CardContent class="px-4 pt-1 pb-0">
       <div class="mb-1 flex flex-row justify-between gap-2">
         <DeferredSkeleton class="h-8 w-25" />

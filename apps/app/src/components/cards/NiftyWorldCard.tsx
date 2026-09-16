@@ -11,21 +11,15 @@ interface NiftyWorldCardProps {
 }
 
 /** Shared full-bleed card treatment for Nifty World scenes and mini games. */
-export default function NiftyWorldCard({
-  description,
-  href,
-  hoverActionLabel = 'Explore map',
-  image,
-  title,
-}: NiftyWorldCardProps) {
+export default function NiftyWorldCard(props: NiftyWorldCardProps) {
   return (
     <div class={`${styles.gridItem} col-span-12 md:col-span-6 xl:col-span-4`}>
       <GameCard
-        title={title}
-        description={description}
-        image={image}
-        href={href}
-        hoverActionLabel={hoverActionLabel}
+        title={props.title}
+        description={props.description}
+        image={props.image}
+        href={props.href}
+        hoverActionLabel={props.hoverActionLabel ?? 'Explore map'}
         autoHeight
         overlayContent
         prefetch={false}

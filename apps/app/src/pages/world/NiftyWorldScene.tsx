@@ -5,16 +5,16 @@ interface NiftyWorldSceneProps {
   scene: NiftyWorldScene
 }
 
-export default function NiftyWorldScene({ scene }: NiftyWorldSceneProps) {
+export default function NiftyWorldScene(props: NiftyWorldSceneProps) {
   return (
     <NiftyWorldEmbed
-      title={scene.title}
+      title={props.scene.title}
       eyebrow="Nifty World"
       backHref="/world"
       backLabel="Back to maps"
-      frameTitle={`${scene.title} world map`}
-      canonicalUrl={getNiftyWorldSceneUrl(scene)}
-      getEmbedUrl={(attempt, visitId) => getNiftyWorldSceneUrl(scene, true, attempt, visitId)}
+      frameTitle={`${props.scene.title} world map`}
+      canonicalUrl={getNiftyWorldSceneUrl(props.scene)}
+      getEmbedUrl={(attempt, visitId) => getNiftyWorldSceneUrl(props.scene, true, attempt, visitId)}
     />
   )
 }

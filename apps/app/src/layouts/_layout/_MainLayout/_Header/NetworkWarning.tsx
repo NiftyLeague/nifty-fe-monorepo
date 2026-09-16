@@ -6,27 +6,28 @@ import { buttonVariants } from '@nl/ui/base/button-variants'
 import { TARGET_NETWORK } from '@/constants/networks'
 
 export default function NetworkWarning() {
-  const { address, chain } = useAccount()
+  const account = useAccount()
   const { switchChain } = useSwitchChain()
-  const isConnectedToIMX = chain?.id === immutableZkEvm.id || chain?.id === immutableZkEvmTestnet.id
+  const isConnectedToIMX = () =>
+    account.chain?.id === immutableZkEvm.id || account.chain?.id === immutableZkEvmTestnet.id
 
-  if (!address || TARGET_NETWORK.chainId === chain?.id) return null
+  if (!account.address || TARGET_NETWORK.chainId === account.chain?.id) return null
 
   return (
     <div
       class={`absolute z-1 ${
-        isConnectedToIMX
+        isConnectedToIMX()
           ? 'bg-success-dark/[80%] flex h-15 w-full items-center justify-center'
           : 'bg-error/[80%] flex h-15 w-full items-center justify-center'
       }`}
     >
-      {isConnectedToIMX ? (
+      {isConnectedToIMX() ? (
         <Info aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={2.5} />
       ) : (
         <TriangleAlert aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={2.5} />
       )}
       <span aria-live="polite" class="px-2 text-xl font-semibold">
-        {isConnectedToIMX
+        {isConnectedToIMX()
           ? `You're connected to Immutable zkEVM! Switch back to ${TARGET_NETWORK.label}`
           : `Please switch to ${TARGET_NETWORK.label}`}
       </span>

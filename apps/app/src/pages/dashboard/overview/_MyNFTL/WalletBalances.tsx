@@ -9,15 +9,15 @@ import { GOVERNANCE_PORTAL_URL, SNAPSHOT_PORTAL_URL } from '@/constants/url'
 import type { JSX } from 'solid-js'
 
 const WalletBalances = (): JSX.Element => {
-  const { loadingNFTLBal, tokensBalances } = useTokensBalances()
+  const tokens = useTokensBalances()
 
   return (
     <>
       <div class="col-span-12 sm:col-span-6">
         <HoverDataCard
           title="IMX Wallet"
-          primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
-          isLoading={loadingNFTLBal}
+          primary={`${formatNumberToDisplay(tokens.tokensBalances.NFTL.imx)} NFTL`}
+          isLoading={tokens.loadingNFTLBal}
           secondary="Available to Use"
           actions={
             <>
@@ -63,9 +63,9 @@ const WalletBalances = (): JSX.Element => {
       <div class="col-span-12 sm:col-span-6">
         <HoverDataCard
           title="ETH Wallet"
-          primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
+          primary={`${formatNumberToDisplay(tokens.tokensBalances.NFTL.eth)} NFTL`}
           secondary="Available to Bridge"
-          isLoading={loadingNFTLBal}
+          isLoading={tokens.loadingNFTLBal}
           actions={
             <>
               <Button
@@ -76,7 +76,10 @@ const WalletBalances = (): JSX.Element => {
               >
                 <NativeImage src="/icons/eth.svg" alt="Ethereum" width={22} height={22} />
               </Button>
-              <BridgeButtonDialog balance={tokensBalances.NFTL.eth} loading={loadingNFTLBal} />
+              <BridgeButtonDialog
+                balance={tokens.tokensBalances.NFTL.eth}
+                loading={tokens.loadingNFTLBal}
+              />
             </>
           }
         />

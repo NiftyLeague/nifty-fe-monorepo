@@ -7,19 +7,19 @@ import { PublicItems, PrivateItems } from '@/constants/menu-items'
 const PUBLIC_NAV_ITEMS = PublicItems.items
 const AUTHENTICATED_NAV_ITEMS = [...PublicItems.items, ...PrivateItems.items]
 
-const MenuList = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
-  const lastItems = isLoggedIn ? AUTHENTICATED_NAV_ITEMS : PUBLIC_NAV_ITEMS
-
-  const navItems = lastItems.map((item) => {
-    switch (item.type) {
-      case 'group':
-        return <NavGroup item={item} />
-      default:
-        return <h6 class="text-center text-error">Menu Items Error</h6>
-    }
-  })
-
-  return <>{navItems}</>
+const MenuList = (props: { isLoggedIn?: boolean }) => {
+  return (
+    <>
+      {(props.isLoggedIn ? AUTHENTICATED_NAV_ITEMS : PUBLIC_NAV_ITEMS).map((item) => {
+        switch (item.type) {
+          case 'group':
+            return <NavGroup item={item} />
+          default:
+            return <h6 class="text-center text-error">Menu Items Error</h6>
+        }
+      })}
+    </>
+  )
 }
 
 export default MenuList
