@@ -136,7 +136,7 @@ const AllDegensPage = (): JSX.Element => {
           fallback={
             <div class="col-span-12">
               <QueryErrorState
-                error={degensQuery.error as Error}
+                error={degensQuery.error}
                 onRetry={() => void degensQuery.refetch()}
               />
             </div>
