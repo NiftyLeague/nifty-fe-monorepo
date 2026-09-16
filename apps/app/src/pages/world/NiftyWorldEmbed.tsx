@@ -32,13 +32,13 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
   const [experienceShell, setExperienceShell] = createSignal<HTMLDivElement>()
   const [frame, setFrame] = createSignal<HTMLIFrameElement>()
   const [isFullscreen, setIsFullscreen] = createSignal(false)
-  const [isHydrated, setIsHydrated] = createSignal(false)
+  // A null visit id also gates the iframe to the client: it is only assigned
+  // in onMount, so SSR never renders the frame tag.
   const [embedVisitId, setEmbedVisitId] = createSignal<string | null>(null)
   const [frameState, setFrameState] = createSignal<FrameState>('loading')
   const [loadAttempt, setLoadAttempt] = createSignal(0)
 
   onMount(() => {
-    setIsHydrated(true)
     setEmbedVisitId(createEmbedVisitId())
   })
 
@@ -48,7 +48,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
   })
 
   createEffect(() => {
-    if (!isHydrated() || frameState() !== 'loading') return
+    if (!embedVisitId() || frameState() !== 'loading') return
 
     const timeoutId = window.setTimeout(() => {
       if (loadAttempt() === 0) {
@@ -210,7 +210,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
             </Button>
           </div>
         </Show>
-        <Show when={isHydrated() && embedVisitId()} keyed>
+        <Show when={embedVisitId()} keyed>
           {(visitId) => (
             <iframe
               ref={setFrame}

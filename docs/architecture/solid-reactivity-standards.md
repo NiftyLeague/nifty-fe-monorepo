@@ -106,6 +106,9 @@ Solid primitives:
   Solid's fine-grained updates.
 - Inside store setters that may be called from effects, read signals through
   `untrack` so the write cannot subscribe the caller's scope.
+- URL state uses the local typed parsers in `apps/app/src/url/parsers.ts`
+  (nuqs-compatible semantics) through the `useQueryStates` adapter — `nuqs`
+  itself is a React-coupled package and must not come back as a dependency.
 
 ## Passing reactive inputs into non-Solid APIs
 

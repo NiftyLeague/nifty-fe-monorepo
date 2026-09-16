@@ -185,16 +185,11 @@ describe('Preloader', () => {
     expect(screen.getByText('67%')).toBeTruthy()
   })
 
-  it('handles progress = 90 by stalling with interval (uses fake timers)', () => {
+  it('renders progress = 90 as a derived percent (uses fake timers)', () => {
     jest.useFakeTimers()
     render(() => <Preloader ready={false} progress={90} />)
-    // loadingPercentage = Math.round(90) = 90, so effect 3 fires setInterval
-    // The initial percent is set to 90 via useState(loadingPercentage),
-    // but the interval effect starts at 0 and increments by 10 each tick
     act(() => jest.advanceTimersByTime(200))
-    // After 2 ticks (200ms), percent should be ~20
-    const percentText = screen.getByText(/%/)
-    expect(percentText.textContent).toBeTruthy()
+    expect(screen.getByText('90%')).toBeTruthy()
     jest.useRealTimers()
   })
 })

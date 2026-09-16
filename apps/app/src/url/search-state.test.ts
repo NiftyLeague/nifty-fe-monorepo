@@ -147,6 +147,41 @@ describe('typed URL state', () => {
     expect(onUrlUpdate.mock.calls[0]?.[0]?.options.history).toBe('push')
   })
 
+  it('serializes separator-joined array params exactly as the parser reads them', async () => {
+    const onUrlUpdate = mock()
+    const { result } = renderHook(() => useQueryStates(degenSearchParsers), {
+      wrapper: withNuqsTestingAdapter({ searchParams: '?tribes=Ape', onUrlUpdate }),
+    })
+
+    expect(result.current[0].tribes).toEqual(['Ape'])
+
+    await act(async () => {
+      await result.current[1]({ tribes: ['Ape', 'Cat'] })
+    })
+    // The '-' separator must be used or the value parses back as ['Ape,Cat'].
+    expect(onUrlUpdate.mock.calls[0]?.[0]?.searchParams.get('tribes')).toBe('Ape-Cat')
+
+    await act(async () => {
+      await result.current[1]({ tribes: null })
+    })
+    // Resetting to the default clears the param to the serialized empty list.
+    expect(onUrlUpdate.mock.calls[1]?.[0]?.searchParams.get('tribes')).toBe('')
+  })
+
+  it('treats undefined update values as no-ops', async () => {
+    const onUrlUpdate = mock()
+    const { result } = renderHook(() => useQueryStates(degenSearchParsers), {
+      wrapper: withNuqsTestingAdapter({ searchParams: '?sort=idDown', onUrlUpdate }),
+    })
+
+    await act(async () => {
+      await result.current[1]({ sort: undefined, page: 4 })
+    })
+    const update = onUrlUpdate.mock.calls[0]?.[0]?.searchParams
+    expect(update?.get('sort')).toBe('idDown')
+    expect(update?.get('page')).toBe('4')
+  })
+
   it('hydrates shareable layout and table pagination state', () => {
     const degen = renderHook(() => useQueryStates(degenSearchParsers), {
       wrapper: withNuqsTestingAdapter({ searchParams: '?layout=gridOn' }),

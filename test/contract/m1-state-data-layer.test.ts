@@ -106,7 +106,9 @@ describe('M1 state and data ownership', () => {
 
   it('keeps direct dependencies and request-local SSR hydration explicit', () => {
     const manifest = JSON.parse(read('apps/app/package.json'))
-    expect(manifest.dependencies.nuqs).toBeTruthy()
+    // URL state is owned by the local typed parsers in src/url/parsers.ts
+    // (nuqs-compatible semantics); no React-ecosystem package is a dependency.
+    expect(manifest.dependencies.nuqs).toBeUndefined()
     // The per-key stores are plain signals and the nav/notification stores are
     // solid-js/store createStore — no external store library is a dependency.
     expect(manifest.dependencies.zustand).toBeUndefined()
