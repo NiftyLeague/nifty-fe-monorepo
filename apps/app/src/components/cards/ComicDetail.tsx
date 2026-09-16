@@ -10,18 +10,10 @@ const ComicDetail = (props: ComicDetailProps): JSX.Element => {
   return (
     <Show
       when={props.data}
-      fallback={
-        <div
-          class="min-w-[345px] rounded-[5px] border border-[#363636]"
-          style={{ height: '375px' }}
-        />
-      }
+      fallback={<div class="min-w-86.25 h-93.75 rounded-sm border border-(--card-border)" />}
     >
       {(data) => (
-        <div
-          class="relative mx-auto min-w-[345px] overflow-hidden rounded-[5px]"
-          style={{ height: '350px' }}
-        >
+        <div class="relative mx-auto min-w-86.25 h-87.5 overflow-hidden rounded-sm">
           <ImageCard
             image={data().image}
             thumbnail={data().thumbnail}

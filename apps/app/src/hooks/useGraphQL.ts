@@ -1,5 +1,3 @@
-'use client'
-
 import { useQuery } from '@tanstack/solid-query'
 import { useAccount } from '@/runtime/wagmi'
 

@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import type { GuardProps } from '@/types'

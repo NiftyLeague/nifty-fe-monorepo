@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext } from 'solid-js'
 import { FlagSet, ProviderConfig, FeatureFlagContext } from '@/contexts/FeatureFlagsContext'
 

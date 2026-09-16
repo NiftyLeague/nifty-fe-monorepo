@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, Show, type JSX } from 'solid-js'
 import { useAccount } from '@/runtime/wagmi'
 
@@ -124,7 +122,7 @@ const GamerProfileContent = (): JSX.Element => {
         title="Player Stats by Web3 Game"
         isSlider={false}
         sliderSettingsOverride={sliderSettingsOverride}
-        styles={{ root: { width: '100%' } }}
+        class="w-full"
       >
         <BottomInfo
           nifty_smashers={gamerProfile.profile?.stats?.nifty_smashers}

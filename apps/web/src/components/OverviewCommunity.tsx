@@ -24,8 +24,7 @@ export default function OverviewCommunity() {
         <img
           {...desktopBackground}
           alt="DGEN Network background"
-          class="pixelated"
-          style={{ width: '100%', height: 'auto', 'object-fit': 'cover' }}
+          class="pixelated w-full h-auto object-cover"
         />
       </picture>
       <div class="dark-gradient-overlay" />

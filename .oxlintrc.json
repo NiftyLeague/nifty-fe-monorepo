@@ -1,8 +1,242 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "jsPlugins": ["@shadcn/lint", "./tools/oxlint/nifty-ui.mjs"],
   "categories": {
     "correctness": "error",
-    "suspicious": "warn"
+    "suspicious": "error"
+  },
+  "settings": {
+    "shadcn": {
+      "componentImports": ["^@nl/ui/(base|custom)/"],
+      "note": "Design system lives in packages/ui. Primitives are Solid + @kobalte/core, exposed as @nl/ui/base/* \u2014 see packages/ui/README.md before restyling or hand-rolling one."
+    }
+  },
+  "rules": {
+    "shadcn/no-raw-colors": "error",
+    "nifty-ui/require-kobalte": "error",
+    "shadcn/no-arbitrary-values": [
+      "error",
+      {
+        "allow": [
+          "aspect-*",
+          "grid-cols-*",
+          "grid-rows-*",
+          "w-[calc*",
+          "h-[calc*",
+          "min-w-[calc*",
+          "min-h-[calc*",
+          "max-w-[calc*",
+          "max-h-[calc*",
+          "size-[calc*",
+          "top-[calc*",
+          "left-[calc*",
+          "right-[calc*",
+          "bottom-[calc*",
+          "inset-[calc*",
+          "max-w-[90%]",
+          "min-h-[75vh]",
+          "min-h-[95vh]",
+          "max-h-[75vh]",
+          "mt-[5vh]",
+          "min-h-[300px]",
+          "min-h-[70rem]",
+          "min-h-[22rem]",
+          "translate-y-[calc*",
+          "rounded-[inherit]",
+          "rounded-[4px]",
+          "rounded-[calc*",
+          "z-[1201]",
+          "z-[1200]",
+          "transition-[color,box-shadow]",
+          "animate-[custom-bounce_3s_ease-in-out_infinite]",
+          "animate-[wings_12s_ease-in-out_infinite]",
+          "animate-[wings_15s_ease-in-out_infinite]",
+          "top-[56px]",
+          "max-w-[500px]",
+          "!h-[40px]",
+          "md:!h-[50px]",
+          "lg:!h-[60px]",
+          "xl:!h-[70px]",
+          "2xl:!h-[80px]"
+        ]
+      }
+    ],
+    "shadcn/no-unknown-classes": [
+      "error",
+      {
+        "allow": [
+          "pixelated",
+          "dark-gradient-overlay",
+          "navbar-scroll-frame",
+          "purple-bg-orb",
+          "orb-*",
+          "deferred-section",
+          "deferred-section-minimal",
+          "responsive-label-mobile",
+          "responsive-label-desktop",
+          "home-v3-*",
+          "home-static-section",
+          "home-nftl-token-section",
+          "home-nftl-token-art",
+          "home-nftl-token-image",
+          "home-nftl-token-bottom-image",
+          "home-nftl-ecosystem-section",
+          "section-heading",
+          "section-title",
+          "section-description",
+          "scrolling-nftl-token",
+          "sliding-nfts",
+          "parallax-child",
+          "tracking-default",
+          "tracking-header",
+          "tracking-subheader",
+          "tracking-special",
+          "tracking-btn",
+          "home-v3",
+          "modal-table",
+          "header",
+          "row",
+          "cell",
+          "index",
+          "first",
+          "end",
+          "body",
+          "game-canvas",
+          "filter-content-gutter"
+        ]
+      }
+    ],
+    "shadcn/require-static-classes": "error",
+    "shadcn/no-inline-styles": "error",
+    "shadcn/no-restyle": [
+      "error",
+      {
+        "allow": [
+          "layout",
+          "color",
+          "motion",
+          "pixelated",
+          "home-v3-*",
+          "home-static-*",
+          "home-nftl-*"
+        ],
+        "contracts": [
+          {
+            "pattern": "^Accordion",
+            "allow": ["layout", "color", "spacing"]
+          },
+          {
+            "pattern": "^ToggleGroup",
+            "allow": ["layout", "color", "spacing"]
+          },
+          {
+            "pattern": "^NativeImage",
+            "allow": [
+              "color",
+              "effects",
+              "h-*",
+              "inset-*",
+              "layout",
+              "max-w-*",
+              "objects-*",
+              "pixelated",
+              "shape",
+              "top-*",
+              "w-*"
+            ]
+          },
+          {
+            "pattern": "^Table",
+            "allow": ["layout", "color", "spacing", "typography", "shape"]
+          },
+          {
+            "pattern": "^Dialog",
+            "allow": ["color", "layout", "shape", "spacing", "typography"]
+          },
+          {
+            "pattern": "^Sheet",
+            "allow": ["color", "effects", "layout", "shape", "spacing"]
+          },
+          {
+            "pattern": "^Input",
+            "allow": ["layout", "color", "spacing", "shape", "h-*", "w-*"]
+          },
+          {
+            "pattern": "^Card",
+            "allow": ["layout", "color", "spacing"]
+          },
+          {
+            "pattern": "^Skeleton",
+            "allow": ["layout", "color", "shape", "h-*", "w-*"]
+          },
+          {
+            "pattern": "^DeferredSkeleton",
+            "allow": ["layout", "color", "shape", "h-*", "w-*"]
+          },
+          {
+            "pattern": "^Button",
+            "allow": [
+              "color",
+              "cursor-*",
+              "h-*",
+              "layout",
+              "normal-case",
+              "p-1",
+              "size-*",
+              "text-sm",
+              "text-xs",
+              "w-*",
+              "z-*"
+            ]
+          },
+          {
+            "pattern": "^Icon",
+            "allow": ["layout", "color", "motion", "size-*"]
+          },
+          {
+            "pattern": "^Title",
+            "allow": ["layout", "color", "typography"]
+          },
+          {
+            "pattern": "^Text",
+            "allow": ["layout", "color", "typography"]
+          },
+          {
+            "pattern": "^Separator",
+            "allow": ["layout", "color", "spacing", "effects"]
+          },
+          {
+            "pattern": "^ScrollArea",
+            "allow": ["layout", "color", "spacing", "shape"]
+          },
+          {
+            "pattern": "^IconButton",
+            "allow": [
+              "layout",
+              "color",
+              "motion",
+              "h-*",
+              "w-*",
+              "size-*",
+              "z-*",
+              "cursor-*",
+              "p-1",
+              "text-xs",
+              "text-sm"
+            ]
+          },
+          {
+            "pattern": "^Label",
+            "allow": ["layout", "color", "typography"]
+          }
+        ],
+        "message": {
+          "spacing": "Use the component's size prop or spacing utilities for placement around it; the component owns its own padding.",
+          "shape": "Shape (radius, border width) belongs to the component. Extend its variants in packages/ui instead.",
+          "default": "Restyling this @nl/ui component from the outside is not allowed. Extend its variants in packages/ui or use layout utilities (margin, width) for placement."
+        }
+      }
+    ]
   },
   "ignorePatterns": [
     "node_modules/**",
@@ -23,13 +257,97 @@
     ".pi/**",
     "**/.output/**",
     "**/.app-images/**",
-    "**/public/scripts/stats.js"
+    "**/public/scripts/stats.js",
+    "assets/scripts/stats.js"
   ],
   "overrides": [
     {
-      "files": ["packages/playfab/src/**/*.ts"],
+      "files": ["packages/playfab/src/**"],
       "rules": {
-        "triple-slash-reference": "off"
+        "triple-slash-reference": "off",
+        "shadcn/no-raw-colors": "off",
+        "shadcn/no-unknown-classes": "off"
+      }
+    },
+    {
+      "files": ["**/*.{ts,js,mjs,cjs,mts,cts}"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/no-raw-colors": "off",
+        "shadcn/no-arbitrary-values": "off",
+        "shadcn/no-unknown-classes": "off",
+        "shadcn/require-static-classes": "off",
+        "shadcn/no-inline-styles": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.{ts,tsx}", "**/*.spec.{ts,tsx}", "**/test-utils.{ts,tsx}"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/no-raw-colors": "off",
+        "shadcn/no-arbitrary-values": "off",
+        "shadcn/no-unknown-classes": "off",
+        "shadcn/require-static-classes": "off",
+        "shadcn/no-inline-styles": "off"
+      }
+    },
+    {
+      "files": ["packages/ui/src/components/**"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/require-static-classes": "off",
+        "shadcn/no-inline-styles": "off"
+      }
+    },
+    {
+      "files": ["packages/ui/src/components/custom/global-error/**"],
+      "rules": {
+        "shadcn/no-raw-colors": "off"
+      }
+    },
+    {
+      "files": [
+        "apps/web/src/runtime/GltfClient.tsx",
+        "apps/web/src/app/\\(special-routes\\)/gltf/\\[tokenId\\]/components/DegenViews.tsx",
+        "apps/web/src/components/GameCard.tsx"
+      ],
+      "rules": {
+        "shadcn/require-static-classes": "off"
+      }
+    },
+    {
+      "files": ["packages/playfab/src/components/DisplayField.tsx"],
+      "rules": {
+        "shadcn/require-static-classes": "off"
+      }
+    },
+    {
+      "files": ["apps/app/src/components/**"],
+      "rules": {
+        "shadcn/no-restyle": "off",
+        "shadcn/require-static-classes": "off"
+      }
+    },
+    {
+      "files": [
+        "apps/app/src/layouts/_layout/_MainLayout/_Sidebar/MobileSidebarSheet.tsx",
+        "apps/app/src/layouts/_layout/_MainLayout/_Sidebar/SidebarFrame.tsx",
+        "apps/app/src/components/dialog/DialogContent.tsx"
+      ],
+      "rules": {
+        "shadcn/no-inline-styles": "off"
+      }
+    },
+    {
+      "files": ["apps/app/src/components/leaderboards/TopModal.tsx"],
+      "rules": {
+        "shadcn/no-unknown-classes": "off"
+      }
+    },
+    {
+      "files": ["apps/app/src/components/cards/DegenCard/DegenImage.tsx"],
+      "rules": {
+        "shadcn/no-inline-styles": "off"
       }
     }
   ]

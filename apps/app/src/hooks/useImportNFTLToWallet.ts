@@ -1,5 +1,3 @@
-'use client'
-
 import { watchAsset } from '@wagmi/core'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { useWagmiConfig } from '@/runtime/wagmi'

@@ -6,7 +6,7 @@ export default function NiftyWorldProperties() {
   return (
     <section class="section relative">
       <div class="purple-bg-orb orb-top-left" />
-      <div class="mb-3 mb-md-5">
+      <div class="mb-3">
         <h2 class="text-center heading-look-3 text-highlight-purple">
           PROPERTY TYPES FOR EVERYONE
         </h2>
@@ -26,7 +26,7 @@ export default function NiftyWorldProperties() {
                   width={500}
                   height={283}
                   sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                  style={{ width: '100%', height: 'auto', 'max-width': '100%' }}
+                  class="w-full h-auto max-w-full"
                 />
               </div>
             </div>

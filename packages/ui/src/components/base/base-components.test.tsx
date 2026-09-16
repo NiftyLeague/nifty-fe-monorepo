@@ -43,10 +43,9 @@ import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
 import {
   Pagination,
-  PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
+  PaginationItems,
   PaginationNext,
   PaginationPrevious,
 } from '@nl/ui/base/pagination'
@@ -124,7 +123,7 @@ describe('base visual primitives', () => {
           <CardFooter>Footer</CardFooter>
         </Card>
         <Label htmlFor="name">Name</Label>
-        <Input id="name" defaultValue="Degen" />
+        <Input id="name" value="Degen" />
         <Icon name="circle" color="success" fill="purple" size="lg" aria-label="status icon" />
         <Icon name={'missing' as never} size={31} aria-label="fallback icon" />
         <Progress value={35} aria-label="progress" />
@@ -164,32 +163,23 @@ describe('base visual primitives', () => {
 
   it('renders pagination navigation and active states', () => {
     render(() => (
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="/0" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="/1" isActive>
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="/2">2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="/2" />
-          </PaginationItem>
-        </PaginationContent>
+      <Pagination
+        count={3}
+        defaultPage={1}
+        itemComponent={(itemProps) => (
+          <PaginationItem page={itemProps.page}>{itemProps.page}</PaginationItem>
+        )}
+        ellipsisComponent={() => <PaginationEllipsis />}
+      >
+        <PaginationPrevious aria-label="Go to previous page" />
+        <PaginationItems />
+        <PaginationNext aria-label="Go to next page" />
       </Pagination>
     ))
 
-    expect(screen.getByRole('navigation', { name: 'pagination' })).not.toBeNull()
-    expect(screen.getByRole('link', { name: '1' })?.getAttribute('aria-current')).toBe('page')
-    expect(screen.getByLabelText('Go to next page')?.getAttribute('href')).toBe('/2')
+    expect(screen.getByRole('navigation')).not.toBeNull()
+    expect(screen.getByRole('button', { name: '1' })?.getAttribute('aria-current')).toBe('page')
+    expect(screen.getByLabelText('Go to next page')).not.toBeNull()
   })
 })
 

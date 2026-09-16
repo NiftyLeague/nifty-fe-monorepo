@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, onCleanup, type Accessor, type JSX } from 'solid-js'
 
 /**

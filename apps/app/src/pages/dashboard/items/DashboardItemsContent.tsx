@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, For, Show, type JSX } from 'solid-js'
 import { Separator } from '@nl/ui/base/separator'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
@@ -137,7 +135,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
               itemIndex={itemIndex}
               onViewItem={() => handleViewSubItem(itemIndex)}
               isSelected={itemIndex === selectedSubIndex()}
-              sx={{ height: '100%', 'justify-content': 'center' }}
+              class="h-full justify-center"
             />
           </div>
         )}
@@ -153,7 +151,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
             <div>
               <div
                 onClick={removeComicSelection}
-                class="flex flex-wrap gap-4 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 py-6 justify-between sm:justify-normal"
+                class="flex flex-wrap gap-4 min-h-93.75 w-full border border-border rounded-md bg-muted px-4 py-6 justify-between sm:justify-normal"
               >
                 {renderComics()}
                 <Show when={nfts.comicsBalances.length > 0}>
@@ -182,7 +180,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
             <div>
               <div
                 onClick={removeItemSelection}
-                class="flex flex-col gap-6 min-h-[375px] w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
+                class="flex flex-col gap-6 min-h-93.75 w-full border border-border rounded-md bg-muted px-4 pt-8 pb-4"
               >
                 <Show when={selectedItem()?.balance && (selectedItem()?.balance ?? 0) > 1}>
                   <div class="flex flex-col gap-8">
@@ -190,7 +188,7 @@ const DashboardComicsPageContent = (): JSX.Element => {
                       <WearableItemCard data={selectedItem() as Item} />
                       <div class="flex flex-wrap gap-5">{renderSubItems()}</div>
                     </div>
-                    <Separator class="bg-[#363636] opacity-60" />
+                    <Separator class="bg-(--scrim) opacity-60" />
                   </div>
                 </Show>
                 <div class="flex flex-wrap gap-4 justify-between sm:justify-normal">

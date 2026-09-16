@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, onCleanup, onMount, type Accessor } from 'solid-js'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { type Chain, immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'

@@ -24,7 +24,7 @@ const ViewItemDialog = (props: ViewItemDialogProps): JSX.Element => {
           'p-0',
           fullScreen()
             ? 'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
-            : 'max-w-[900px] md:max-w-[900px] lg:max-w-[900px]'
+            : 'max-w-225 md:max-w-225 lg:max-w-225'
         )}
       >
         <div class="flex justify-center p-6">

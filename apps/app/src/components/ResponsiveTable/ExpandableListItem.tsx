@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, Show, type JSX } from 'solid-js'
 import { Checkbox } from '@nl/ui/base/checkbox'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
@@ -52,7 +50,7 @@ const ExpandableListItem = (props: ExpandableListItemProps) => {
             <AccordionTrigger
               class={cn(
                 'min-w-0 p-0 text-sm font-medium text-foreground hover:no-underline',
-                '[&>svg]:size-6 [&>svg]:text-foreground [&>svg]:stroke-[1.5]'
+                '[&>svg]:size-6 [&>svg]:text-foreground [&>svg]:stroke-(--icon-stroke)'
               )}
             >
               <span class="flex w-full items-center">{props.summary}</span>

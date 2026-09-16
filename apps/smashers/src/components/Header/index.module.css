@@ -47,7 +47,10 @@
   max-height: 100dvh;
 }
 
-.wordmark {
+/* The wordmark is the only direct <img> child of the hero content (the action
+ * buttons nest their icons inside <button> elements), so a child selector
+ * styles it identically without the element carrying a class. */
+.heroContent > img {
   width: 400px;
   max-width: 70vw;
   height: auto;
@@ -56,7 +59,7 @@
 }
 
 @media only screen and (max-width: 576px) {
-  .wordmark {
+  .heroContent > img {
     margin-top: 55px;
   }
 }

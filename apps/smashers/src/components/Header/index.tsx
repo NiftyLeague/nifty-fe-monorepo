@@ -38,7 +38,6 @@ const Header = ({
         <OptimizedImage
           src={HERO_WORDMARK.src}
           alt="Wordmark Logo"
-          class={styles.wordmark}
           width={824}
           height={572}
           priority

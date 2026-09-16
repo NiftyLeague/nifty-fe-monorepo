@@ -18,22 +18,24 @@ const MachineButton = ({
   width: number
 }) => {
   return (
-    <Button
-      disabled={disabled}
-      name={name}
-      onClick={onClick}
-      variant="ghost"
+    <div
+      aria-hidden="true"
+      class="absolute top-(--mb-top) left-(--mb-left) right-0 mx-auto w-(--mb-w) h-(--mb-h)"
       style={{
-        height,
-        left,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        position: 'absolute',
-        right: 0,
-        top,
-        width,
+        '--mb-top': `${top}px`,
+        '--mb-left': `${left}px`,
+        '--mb-w': `${width}px`,
+        '--mb-h': `${height}px`,
       }}
-    />
+    >
+      <Button
+        disabled={disabled}
+        name={name}
+        onClick={onClick}
+        variant="ghost"
+        class="w-full h-full"
+      />
+    </div>
   )
 }
 

@@ -32,15 +32,7 @@ export default function ModelView(props: { source: SRC; tokenId: string }) {
   return (
     <div class={styles.model__wrapper}>
       {props.source === SRC.MODEL && loading() ? (
-        <div
-          style={{
-            'min-height': '100vh',
-            width: '100%',
-            position: 'absolute',
-            display: 'flex',
-            'z-index': 2,
-          }}
-        >
+        <div class="absolute z-2 flex min-h-screen w-full">
           <CircularProgress size={75} color="light" class="m-auto" />
         </div>
       ) : null}
@@ -49,11 +41,7 @@ export default function ModelView(props: { source: SRC; tokenId: string }) {
         // https://modelviewer.dev/docs/index.html#loading-attributes
         id="model-viewer"
         alt="Nifty League DEGEN 3D model"
-        style={
-          props.source === SRC.MODEL
-            ? { 'min-height': '100vh', width: '100%' }
-            : { display: 'none' }
-        }
+        class={props.source === SRC.MODEL ? 'min-h-screen w-full' : 'hidden'}
         src={MODEL_SRC()}
         loading="lazy"
         exposure="0.72"

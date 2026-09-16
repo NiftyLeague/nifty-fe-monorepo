@@ -1,4 +1,5 @@
 import { Show, type Component, type JSX } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
@@ -22,7 +23,7 @@ export default function withVerification<P extends object>(Wrapped: Component<P>
     const auth = useAuth()
     return (
       <Show when={auth.isLoggedIn} fallback={<ProfileVerification />}>
-        <Wrapped {...props} />
+        <Dynamic component={Wrapped} {...props} />
       </Show>
     )
   }

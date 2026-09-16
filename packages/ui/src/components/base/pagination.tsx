@@ -1,23 +1,33 @@
-import { splitProps, type ComponentProps } from 'solid-js'
+import type { ComponentProps, ValidComponent } from 'solid-js'
+import { splitProps } from 'solid-js'
 import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from 'lucide-solid'
+import * as PaginationPrimitive from '@kobalte/core/pagination'
 
 import { cn } from '@nl/ui/utils'
-import { buttonVariants } from '@nl/ui/base/button'
+import { buttonVariants } from '@nl/ui/base/button-variants'
 
-function Pagination(props: ComponentProps<'nav'> & { className?: string }) {
-  const [local, others] = splitProps(props, ['class', 'className'])
+type PaginationProps<T extends ValidComponent = 'nav'> = ComponentProps<
+  typeof PaginationPrimitive.Root<T>
+> & {
+  className?: string
+}
+
+function Pagination<T extends ValidComponent = 'nav'>(props: PaginationProps<T>) {
+  const [local, others] = splitProps(props as PaginationProps, ['class', 'className'])
   return (
-    <nav
-      role="navigation"
-      aria-label="pagination"
+    <PaginationPrimitive.Root
       data-slot="pagination"
-      class={cn('mx-auto flex w-full justify-center', local.class, local.className)}
-      {...others}
+      class={cn('mx-auto flex w-full items-center justify-center', local.class, local.className)}
+      {...(others as ComponentProps<typeof PaginationPrimitive.Root>)}
     />
   )
 }
 
-function PaginationContent(props: ComponentProps<'ul'> & { className?: string }) {
+type PaginationContentProps = ComponentProps<'ul'> & {
+  className?: string
+}
+
+function PaginationContent(props: PaginationContentProps) {
   const [local, others] = splitProps(props, ['class', 'className'])
   return (
     <ul
@@ -28,86 +38,112 @@ function PaginationContent(props: ComponentProps<'ul'> & { className?: string })
   )
 }
 
-function PaginationItem(props: ComponentProps<'li'> & { className?: string }) {
-  const [local, others] = splitProps(props, ['class', 'className'])
-  return <li data-slot="pagination-item" class={cn(local.class, local.className)} {...others} />
-}
+/*
+ * The current page mirrors the `outline` Button variant through `data-current`
+ * selectors so the item stays a single static class string (Kobalte owns the
+ * attribute, we own the styling).
+ */
+const pageItemClass = cn(
+  buttonVariants({ variant: 'ghost', size: 'icon' }),
+  'cursor-pointer data-current:border data-current:bg-background data-current:shadow-xs dark:data-current:border-input dark:data-current:bg-input/30 hover:bg-accent hover:text-accent-foreground dark:hover:bg-input/50'
+)
 
-type PaginationLinkProps = ComponentProps<'a'> & {
+type PaginationItemProps = ComponentProps<typeof PaginationPrimitive.Item> & {
   className?: string
-  isActive?: boolean
-  size?: 'default' | 'sm' | 'lg' | 'icon' | null
 }
 
-function PaginationLink(props: PaginationLinkProps) {
-  const [local, others] = splitProps(props, ['class', 'className', 'isActive', 'size'])
+function PaginationItem(props: PaginationItemProps) {
+  const [local, others] = splitProps(props as PaginationItemProps, ['class', 'className'])
   return (
-    <a
-      aria-current={local.isActive ? 'page' : undefined}
-      data-slot="pagination-link"
-      data-active={local.isActive}
-      class={cn(
-        buttonVariants({
-          variant: local.isActive ? 'outline' : 'ghost',
-          size: local.size ?? 'icon',
-        }),
-        local.class,
-        local.className
-      )}
-      {...others}
+    <PaginationPrimitive.Item
+      data-slot="pagination-item"
+      class={cn(pageItemClass, local.class, local.className)}
+      {...(others as ComponentProps<typeof PaginationPrimitive.Item>)}
     />
   )
 }
 
-function PaginationPrevious(props: PaginationLinkProps) {
-  const [local, others] = splitProps(props, ['class', 'className'])
+function PaginationPrevious(props: ComponentProps<typeof PaginationPrimitive.Previous>) {
+  const [local, others] = splitProps(props, ['class', 'className', 'children'])
   return (
-    <PaginationLink
-      aria-label="Go to previous page"
-      size="default"
-      class={cn('gap-1 px-2.5 sm:pl-2.5', local.class, local.className)}
-      {...others}
+    <PaginationPrimitive.Previous
+      data-slot="pagination-previous"
+      class={cn(
+        buttonVariants({ variant: 'ghost', size: 'default' }),
+        'gap-1 px-2.5 sm:pl-2.5 cursor-pointer',
+        local.class,
+        local.className
+      )}
+      {...(others as ComponentProps<typeof PaginationPrimitive.Previous>)}
     >
       <ChevronLeftIcon />
-      <span class="hidden sm:block">Previous</span>
-    </PaginationLink>
+      {local.children ?? <span class="hidden sm:block">Previous</span>}
+    </PaginationPrimitive.Previous>
   )
 }
 
-function PaginationNext(props: PaginationLinkProps) {
-  const [local, others] = splitProps(props, ['class', 'className'])
+function PaginationNext(props: ComponentProps<typeof PaginationPrimitive.Next>) {
+  const [local, others] = splitProps(props, ['class', 'className', 'children'])
   return (
-    <PaginationLink
-      aria-label="Go to next page"
-      size="default"
-      class={cn('gap-1 px-2.5 sm:pr-2.5', local.class, local.className)}
-      {...others}
+    <PaginationPrimitive.Next
+      data-slot="pagination-next"
+      class={cn(
+        buttonVariants({ variant: 'ghost', size: 'default' }),
+        'gap-1 px-2.5 sm:pr-2.5 cursor-pointer',
+        local.class,
+        local.className
+      )}
+      {...(others as ComponentProps<typeof PaginationPrimitive.Next>)}
     >
-      <span class="hidden sm:block">Next</span>
+      {local.children ?? <span class="hidden sm:block">Next</span>}
       <ChevronRightIcon />
-    </PaginationLink>
+    </PaginationPrimitive.Next>
   )
 }
 
-function PaginationEllipsis(props: ComponentProps<'span'> & { className?: string }) {
-  const [local, others] = splitProps(props, ['class', 'className'])
+type PaginationEllipsisProps = ComponentProps<typeof PaginationPrimitive.Ellipsis> & {
+  className?: string
+}
+
+function PaginationEllipsis(props: PaginationEllipsisProps) {
+  const [local, others] = splitProps(props as PaginationEllipsisProps, [
+    'class',
+    'className',
+    'children',
+  ])
   return (
-    <span
-      aria-hidden
+    <PaginationPrimitive.Ellipsis
       data-slot="pagination-ellipsis"
       class={cn('flex size-9 items-center justify-center', local.class, local.className)}
-      {...others}
+      {...(others as ComponentProps<typeof PaginationPrimitive.Ellipsis>)}
     >
-      <MoreHorizontalIcon class="size-4" />
-      <span class="sr-only">More pages</span>
-    </span>
+      {local.children ?? (
+        <>
+          <MoreHorizontalIcon class="size-4" />
+          <span class="sr-only">More pages</span>
+        </>
+      )}
+    </PaginationPrimitive.Ellipsis>
+  )
+}
+
+type PaginationItemsProps = {
+  className?: string
+}
+
+function PaginationItems(props: PaginationItemsProps) {
+  const [local] = splitProps(props, ['className'])
+  return (
+    <PaginationContent class={local.className}>
+      <PaginationPrimitive.Items />
+    </PaginationContent>
   )
 }
 
 export {
   Pagination,
   PaginationContent,
-  PaginationLink,
+  PaginationItems,
   PaginationItem,
   PaginationPrevious,
   PaginationNext,

@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, For, Match, Show, Switch, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { CheckCheck, ShieldCheck, UserRoundCheck } from 'lucide-solid'

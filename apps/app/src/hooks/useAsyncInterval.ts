@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, onCleanup, type Accessor } from 'solid-js'
 import { setIntervalAsync, clearIntervalAsync } from 'set-interval-async/dynamic'
 

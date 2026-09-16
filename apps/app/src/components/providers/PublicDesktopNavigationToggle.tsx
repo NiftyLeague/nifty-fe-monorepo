@@ -1,5 +1,3 @@
-'use client'
-
 import { onMount } from 'solid-js'
 
 function syncSidebarState(details: HTMLDetailsElement) {
@@ -24,7 +22,7 @@ export default function PublicDesktopNavigationToggle() {
     >
       <summary
         aria-controls="public-desktop-navigation"
-        class="flex h-[34px] w-[34px] cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
+        class="flex h-8.5 w-8.5 cursor-pointer list-none items-center justify-center overflow-hidden rounded-md bg-muted text-blue outline-none transition-colors duration-200 hover:bg-purple hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&::-webkit-details-marker]:hidden"
       >
         <span aria-hidden="true" class="flex size-6 flex-col justify-center gap-1.5">
           <span class="h-0.5 w-full rounded-full bg-current" />

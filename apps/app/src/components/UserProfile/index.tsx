@@ -1,5 +1,3 @@
-'use client'
-
 import Link from '@/runtime/Link'
 import { createMemo } from 'solid-js'
 import { UserRound } from 'lucide-solid'
@@ -42,10 +40,7 @@ const UserProfile = () => {
   })
 
   return (
-    <div
-      class="flex flex-col items-center rounded-lg p-4"
-      style={{ background: 'var(--color-muted)', border: 'var(--border-default)' }}
-    >
+    <div class="flex flex-col items-center rounded-lg border border-border bg-muted p-4">
       <Avatar class="size-20">
         <AvatarImage alt="avatar" src={ensAvatar.data || avatar()?.url} />
         <AvatarFallback>
@@ -53,7 +48,7 @@ const UserProfile = () => {
         </AvatarFallback>
       </Avatar>
       <div class="my-2 flex flex-col items-center">
-        <span style={{ 'white-space': 'nowrap' }}>{displayName()}</span>
+        <span class="whitespace-nowrap">{displayName()}</span>
       </div>
       <ConnectWrapper fullWidth>
         <Link

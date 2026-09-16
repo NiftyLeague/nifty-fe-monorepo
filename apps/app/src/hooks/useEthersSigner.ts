@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, type Accessor } from 'solid-js'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import type { Account, Chain, Client, Transport } from 'viem'

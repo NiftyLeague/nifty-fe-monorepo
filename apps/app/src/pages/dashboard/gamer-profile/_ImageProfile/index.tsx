@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
@@ -27,7 +25,7 @@ const ImageProfile = (props: ImageProfileProps): JSX.Element => {
 
   const renderImage = () => {
     if (profile.isLoadingDegens) {
-      return <DeferredSkeleton class="h-[320px] w-full rounded" />
+      return <DeferredSkeleton class="h-80 w-full rounded" />
     }
     if (!degenSelected()) {
       return (
@@ -36,16 +34,15 @@ const ImageProfile = (props: ImageProfileProps): JSX.Element => {
           alt="no avatar"
           width={730}
           height={800}
-          class="mx-auto max-w-[500px] object-cover"
-          style={{ width: '100%', height: 'auto' }}
+          class="mx-auto w-full max-w-125 h-auto object-cover"
         />
       )
     }
-    return <DegenImage tokenId={degenSelected()!} sx={{ 'max-width': '500px' }} />
+    return <DegenImage tokenId={degenSelected()!} class="max-w-125" />
   }
 
   return (
-    <div class="relative [&_img]:rounded-[var(--radius-default)]">
+    <div class="relative [&_img]:rounded-(--radius-default)">
       {renderImage()}
       <Show when={props.degens && props.degens.length > 0}>
         <DeferredProfileImageDialog

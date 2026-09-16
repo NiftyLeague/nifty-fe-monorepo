@@ -1,5 +1,3 @@
-'use client'
-
 import NativeImage from '@nl/ui/custom/native-image'
 import { useContext, createSignal, For, Show, type JSX } from 'solid-js'
 import { parseEther } from 'ethers'
@@ -32,7 +30,7 @@ const AMOUNT_SELECTS: number[] = [25, 50, 75, 100]
 const AmountInput = (props: JSX.InputHTMLAttributes<HTMLInputElement>) => (
   <input
     {...props}
-    class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+    class="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm text-foreground shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
   />
 )
 
@@ -176,12 +174,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
           <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}
           <br />
           If you need your funds immediately use the{' '}
-          <a
-            href={IMX_SQUID_BRIDGE_URL}
-            target="_blank"
-            rel="noreferrer"
-            style={{ 'font-weight': '800' }}
-          >
+          <a href={IMX_SQUID_BRIDGE_URL} target="_blank" rel="noreferrer" class="font-extrabold">
             Squid Bridge
           </a>{' '}
           instead.
@@ -194,7 +187,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
         <ToggleGroup
           size="lg"
           value={String(amountSelected())}
-          class="bg-[var(--color-blue)]"
+          class="bg-blue"
           onValueChange={handleSelectAmount}
         >
           <For each={AMOUNT_SELECTS}>
@@ -252,11 +245,10 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
           size="lg"
           type="submit"
           variant="default"
-          class="w-full"
+          class="w-full normal-case"
           disabled={
             !isCheckedTerm() || bridgeAmount() === 0 || nftlAllowance.allowance >= bridgeAmount()
           }
-          style={{ 'text-transform': 'none' }}
         >
           Increase allowance to allow the bridge to transfer your NFTL
           <Show when={nftlAllowance.loading || allowPending()}>
@@ -270,11 +262,10 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
           size="lg"
           type="submit"
           variant="default"
-          class="w-full"
+          class="w-full normal-case"
           disabled={
             !isCheckedTerm() || bridgeAmount() === 0 || nftlAllowance.allowance < bridgeAmount()
           }
-          style={{ 'text-transform': 'none' }}
         >
           Bridge {bridgeAmount() !== 0 ? formatNumberToDisplay(Number(bridgeAmount())) : ''} NFTL to
           Immutable zkEVM

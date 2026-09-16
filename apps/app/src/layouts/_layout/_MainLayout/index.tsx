@@ -1,5 +1,3 @@
-'use client'
-
 // third party
 import dynamic from '@/runtime/dynamic'
 

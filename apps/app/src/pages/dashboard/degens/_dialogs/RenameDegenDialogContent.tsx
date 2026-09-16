@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, Show, type JSX } from 'solid-js'
 import { parseEther } from 'ethers'
 import { AlertCircle } from 'lucide-solid'
@@ -92,7 +90,7 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
   }
 
   return (
-    <DialogContent showCloseButton={false} class="max-w-[500px] md:max-w-[500px] lg:max-w-[500px]">
+    <DialogContent showCloseButton={false} class="max-w-125 md:max-w-125 lg:max-w-125">
       <div class="flex flex-col gap-4">
         <Title level={4} class="text-center">
           Rename DEGEN
@@ -104,13 +102,7 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
             width={240}
             height={240}
             unoptimized={props.degen?.background === 'Legendary'}
-            style={{
-              'aspect-ratio': '1/1',
-              width: '240px',
-              margin: '0 auto',
-              'object-fit': 'cover',
-              display: 'block',
-            }}
+            class="mx-auto block aspect-square w-60 object-cover"
           />
           <p class="text-center text-xs text-muted-foreground">Owned by {props.degen?.owner}</p>
         </div>

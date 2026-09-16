@@ -1,4 +1,3 @@
-'use client'
 import { createMemo, For, Show, type JSX } from 'solid-js'
 import { cn } from '@nl/ui/utils'
 
@@ -18,10 +17,7 @@ export default function RentStepper(props: {
 
   return (
     <div>
-      <div
-        class="flex items-start"
-        style={{ 'background-color': 'transparent', 'margin-bottom': '10px' }}
-      >
+      <div class="flex items-start bg-transparent mb-2.5">
         <For each={steps}>
           {(label, index) => {
             const isActive = () => index() === activeStep()
@@ -45,7 +41,6 @@ export default function RentStepper(props: {
                       styles.alternativeLabel,
                       connectorDone() && (isCompleted() ? styles.completed : styles.active)
                     )}
-                    style={{ flex: '1 1 0%' }}
                   >
                     <div class={styles.line} />
                   </div>

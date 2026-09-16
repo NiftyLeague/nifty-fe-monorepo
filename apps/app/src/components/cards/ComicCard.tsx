@@ -1,29 +1,29 @@
-import { For, Show, type JSX } from 'solid-js'
-import type { SxProps } from '@/types'
+import { For, Show } from 'solid-js'
+import type { JSX } from 'solid-js'
 import type { Comic } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 import useComicDimension from '@/hooks/useComicDimension'
+import { cn } from '@nl/ui/utils'
 
 interface ComicCardProps {
   data: Comic
-  sx?: SxProps
   isSelected?: boolean
   onViewComic?: () => void
 }
 
 interface ComicCardPaneProps {
   data: Comic
-  sx?: SxProps
   width: number
   height: number
+  class?: string
 }
 
 const ComicCardPane = (props: ComicCardPaneProps) => {
   return (
-    <div style={props.sx as JSX.CSSProperties | undefined}>
+    <div class={props.class}>
       <div
-        class="relative overflow-hidden rounded-[5px]"
-        style={{ width: `${props.width}px`, height: `${props.height}px` }}
+        class="relative overflow-hidden rounded-sm w-(--pane-w) h-(--pane-h)"
+        style={{ '--pane-w': `${props.width}px`, '--pane-h': `${props.height}px` }}
       >
         <ImageCard
           image={props.data.image}
@@ -35,6 +35,11 @@ const ComicCardPane = (props: ComicCardPaneProps) => {
     </div>
   )
 }
+
+// Stacked panes: z-index 2/1/0, offset 0/8/16px down and 8/16/24px right.
+const STACK_Z = ['z-2', 'z-1', 'z-0'] as const
+const STACK_TOP = ['top-0', 'top-2', 'top-4'] as const
+const STACK_LEFT = ['left-2', 'left-4', 'left-6'] as const
 
 const ComicCard = (props: ComicCardProps): JSX.Element => {
   const dimensions = useComicDimension()
@@ -49,27 +54,23 @@ const ComicCard = (props: ComicCardProps): JSX.Element => {
       when={props.data.balance}
       fallback={
         <div
-          class="rounded-[5px] border border-[#363636]"
-          style={{ width: `${dimensions.width}px`, height: `${dimensions.height}px` }}
+          class="rounded-sm border border-(--card-border) w-(--dim-w) h-(--dim-h)"
+          style={{ '--dim-w': `${dimensions.width}px`, '--dim-h': `${dimensions.height}px` }}
         />
       }
     >
       <div
         onClick={handleViewComic}
-        class="relative cursor-pointer"
-        style={{
-          'border-radius': 'var(--radius-default)',
-          outline: props.isSelected ? '3px solid var(--color-purple)' : 'none',
-        }}
+        class={`relative cursor-pointer rounded-(--radius-default) ${props.isSelected ? 'outline-3 outline-purple' : 'outline-none'}`}
       >
         <Show
           when={props.data.balance === 1}
           fallback={
             <div
-              class="relative"
+              class="relative w-(--stack-w) h-(--stack-h)"
               style={{
-                width: `${dimensions.width + 24}px`,
-                height: `${dimensions.height + 16}px`,
+                '--stack-w': `${dimensions.width + 24}px`,
+                '--stack-h': `${dimensions.height + 16}px`,
               }}
             >
               <For each={[0, 1, 2]}>
@@ -78,26 +79,12 @@ const ComicCard = (props: ComicCardProps): JSX.Element => {
                     data={props.data}
                     width={dimensions.width}
                     height={dimensions.height}
-                    sx={{
-                      position: 'absolute',
-                      'z-index': `${2 - item}`,
-                      top: `${item * 8}px`,
-                      left: `${(item + 1) * 8}px`,
-                    }}
+                    class={cn('absolute', STACK_Z[item], STACK_TOP[item], STACK_LEFT[item])}
                   />
                 )}
               </For>
-              <div
-                class="absolute bottom-0 left-0 flex items-center justify-center"
-                style={{
-                  width: '38px',
-                  height: '35px',
-                  background: '#8F4BF4',
-                  'border-radius': 'var(--radius-default)',
-                  'z-index': '3',
-                }}
-              >
-                <span class="text-[20px] font-bold text-foreground">{props.data.balance}</span>
+              <div class="absolute bottom-0 left-0 flex w-9.5 h-8.75 items-center justify-center bg-(--count-purple) rounded-(--radius-default) z-3">
+                <span class="text-xl font-bold text-foreground">{props.data.balance}</span>
               </div>
             </div>
           }

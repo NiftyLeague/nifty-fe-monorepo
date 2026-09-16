@@ -3,9 +3,8 @@ import { X } from 'lucide-solid'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { ScrollArea } from '@nl/ui/base/scroll-area'
 import { IconButton } from '@nl/ui/base/icon-button'
+import { cn } from '@nl/ui/utils'
 import { desktopNavigationMediaQuery } from '@/layouts/_layout/navigation-breakpoints'
-
-const appHeaderHeight = 60
 
 interface Props {
   drawerWidth?: number
@@ -39,26 +38,23 @@ const CollapsibleSidebarLayout = (props: Props): JSX.Element => {
       <Show when={isMobileDrawer()}>
         <div
           aria-hidden="true"
-          class="fixed inset-0 z-[1090] bg-black/50"
+          class="fixed inset-0 z-1090 bg-black/50"
           onClick={handleDrawerOpen}
         />
       </Show>
 
       {/* Filter drawer */}
       <div
-        class="shrink-0 rounded-md border-none"
+        class={cn(
+          'w-(--drawer-w) fixed bg-sidebar box-border rounded-(--radius-default)',
+          matchDownLG()
+            ? 'top-15 left-4 h-[calc(100vh-60px)] ml-0'
+            : 'top-auto left-auto h-auto ml-4',
+          isDrawerOpen() ? 'z-(--drawer-z) visible' : 'z-(--drawer-z) invisible'
+        )}
         style={{
-          width: `min(${drawerWidth()}px, calc(100vw - 32px))`,
-          'background-color': 'var(--color-sidebar)',
-          position: 'fixed',
-          top: matchDownLG() ? `${appHeaderHeight}px` : 'auto',
-          left: matchDownLG() ? '16px' : 'auto',
-          height: matchDownLG() ? `calc(100vh - ${appHeaderHeight}px)` : 'auto',
-          'margin-left': matchDownLG() ? '0' : '16px',
-          'z-index': isDrawerOpen() ? '1100' : '-1',
-          visibility: isDrawerOpen() ? 'visible' : 'hidden',
-          'border-radius': 'var(--radius-default)',
-          'box-sizing': 'border-box',
+          '--drawer-w': `min(${drawerWidth()}px, calc(100vw - 32px))`,
+          '--drawer-z': isDrawerOpen() ? '1100' : '-1',
         }}
       >
         {/* Close button for mobile */}
@@ -68,44 +64,38 @@ const CollapsibleSidebarLayout = (props: Props): JSX.Element => {
             aria-label="Close filters"
             variant="ghost"
             size="icon"
-            class="absolute right-3 top-3 z-[1101] size-8 cursor-pointer rounded-md p-1 text-muted-foreground hover:bg-foreground/10"
+            class="absolute right-3 top-3 z-1101 size-8 cursor-pointer p-1 text-muted-foreground hover:bg-foreground/10"
             onClick={handleDrawerOpen}
           >
             <X aria-hidden="true" size={20} stroke-width={1.5} />
           </IconButton>
         </Show>
-        <ScrollArea
-          style={{
-            height: matchDownLG()
-              ? `calc(100vh - ${appHeaderHeight}px)`
-              : `calc(100vh - ${appHeaderHeight + 100}px)`,
-          }}
-          viewportClassName={matchDownLG() ? 'px-4 pt-11 pb-5' : 'px-4 py-5'}
-        >
-          {isDrawerOpen() ? props.renderDrawer() : null}
-        </ScrollArea>
+        <div class={matchDownLG() ? 'h-full' : 'h-[calc(100vh-160px)]'}>
+          <ScrollArea class="h-full w-full">
+            <div class={matchDownLG() ? 'px-4 pt-11 pb-5' : 'px-4 py-5'}>
+              {isDrawerOpen() ? props.renderDrawer() : null}
+            </div>
+          </ScrollArea>
+        </div>
       </div>
 
       {/* Main grid */}
       <div
-        class="flex-grow min-w-0"
+        class={cn(
+          'flex-grow min-w-0 transition-(--margin-trans) duration-200',
+          isDrawerOpen() && !matchDownLG()
+            ? 'ml-(--main-ml) pl-6 ease-out'
+            : 'ml-(--main-ml) pl-0 ease-(--drawer-ease)'
+        )}
         style={{
-          'padding-left': isDrawerOpen() && !matchDownLG() ? '24px' : '0',
-          'margin-left': isDrawerOpen() && !matchDownLG() ? `${drawerWidth()}px` : '0',
-          transition: `margin 200ms cubic-bezier(${isDrawerOpen() ? '0, 0, 0.2, 1' : '0.4, 0, 0.6, 1'}) 0ms`,
+          '--main-ml': isDrawerOpen() && !matchDownLG() ? `${drawerWidth()}px` : '0px',
         }}
       >
-        <ScrollArea
-          style={{
-            height: `calc(100vh - ${appHeaderHeight + 100}px)`,
-            'border-radius': '10px',
-            'background-color': 'var(--color-sidebar)',
-            'margin-right': '24px',
-          }}
-          viewportClassName={matchDownLG() ? 'px-4 py-2.5' : 'px-6 py-4'}
-        >
-          {props.renderMain()}
-        </ScrollArea>
+        <div class="mr-6 h-[calc(100vh-160px)] overflow-hidden rounded-lg bg-sidebar">
+          <ScrollArea class="h-full w-full">
+            <div class={matchDownLG() ? 'px-4 py-2.5' : 'px-6 py-4'}>{props.renderMain()}</div>
+          </ScrollArea>
+        </div>
       </div>
     </div>
   )

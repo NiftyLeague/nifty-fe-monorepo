@@ -1,5 +1,3 @@
-'use client'
-
 import { keepPreviousData, useQuery } from '@tanstack/solid-query'
 import type { Accessor } from 'solid-js'
 

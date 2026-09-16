@@ -1,5 +1,3 @@
-'use client'
-
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 
 import type { DegenDialogProps } from '@/components/dialog/DegenDialog'

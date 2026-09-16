@@ -1,4 +1,5 @@
 import { splitProps, type ComponentProps } from 'solid-js'
+import { Alert as AlertPrimitive } from '@kobalte/core/alert'
 import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '@nl/ui/utils'
@@ -23,9 +24,8 @@ type AlertProps = ComponentProps<'div'> &
 function Alert(props: AlertProps) {
   const [local, others] = splitProps(props, ['class', 'className', 'variant'])
   return (
-    <div
+    <AlertPrimitive
       data-slot="alert"
-      role="alert"
       class={cn(alertVariants({ variant: local.variant }), local.class, local.className)}
       {...others}
     />

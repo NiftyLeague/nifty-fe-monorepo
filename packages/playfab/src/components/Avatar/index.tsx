@@ -47,28 +47,25 @@ export default function Avatar(props: {
   }
 
   return (
-    <div class="w-full grid justify-items-center gap-2">
+    <div
+      class="w-full grid justify-items-center gap-2"
+      style={{ '--avatar-size': `${props.size}px` }}
+    >
       <Show
         when={props.url}
-        fallback={
-          <div
-            class="bg-background border rounded-full"
-            style={{ height: `${props.size}px`, width: `${props.size}px` }}
-          />
-        }
+        fallback={<div class="bg-background border rounded-full size-(--avatar-size)" />}
       >
         {(url) => (
           <NativeImage
             src={url()}
             alt="Avatar"
-            class="rounded-full"
+            class="rounded-full size-(--avatar-size)"
             height={props.size}
             width={props.size}
-            style={{ width: `${props.size}px`, height: `${props.size}px` }}
           />
         )}
       </Show>
-      <div style={{ width: `${props.size}px` }}>
+      <div class="w-(--avatar-size)">
         <Button disabled={uploading()} class="w-full" onClick={handleButtonClick}>
           <Show
             when={uploading()}
@@ -85,7 +82,7 @@ export default function Avatar(props: {
         </Button>
         <Input
           ref={(el: HTMLInputElement) => (fileInputEl = el)}
-          style={{ visibility: 'hidden', position: 'absolute' }}
+          class="invisible absolute"
           type="file"
           id="upload-hidden-input"
           accept="image/*"

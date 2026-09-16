@@ -1,5 +1,3 @@
-'use client'
-
 import { useAccount, useSwitchChain } from '@/runtime/wagmi'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 import { Info, TriangleAlert } from 'lucide-solid'
@@ -16,12 +14,11 @@ export default function NetworkWarning() {
 
   return (
     <div
-      class={
+      class={`absolute z-1 ${
         isConnectedToIMX
-          ? 'bg-success-dark/[80%] flex h-[60px] w-full items-center justify-center'
-          : 'bg-error/[80%] flex h-[60px] w-full items-center justify-center'
-      }
-      style={{ 'z-index': 1, position: 'absolute' }}
+          ? 'bg-success-dark/[80%] flex h-15 w-full items-center justify-center'
+          : 'bg-error/[80%] flex h-15 w-full items-center justify-center'
+      }`}
     >
       {isConnectedToIMX ? (
         <Info aria-hidden="true" absoluteStrokeWidth size={24} strokeWidth={2.5} />

@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect } from 'solid-js'
 import { formatEther } from 'ethers'
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts'

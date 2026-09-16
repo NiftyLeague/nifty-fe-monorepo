@@ -1,5 +1,3 @@
-'use client'
-
 import { lazy, Show, Suspense, type JSX, type ParentProps } from 'solid-js'
 
 import { ScrollArea } from '@nl/ui/base/scroll-area'
@@ -22,6 +20,14 @@ interface SidebarFrameProps extends ParentProps {
   footer?: JSX.Element
 }
 
+const logo = () => (
+  <div class="block lg:hidden">
+    <div class="mx-auto flex p-2">
+      <LogoSection />
+    </div>
+  </div>
+)
+
 function SidebarFrame(props: SidebarFrameProps) {
   const drawerOpen = useDrawerOpen()
   const isDesktopNavigation = useIsDesktopNavigation()
@@ -29,14 +35,6 @@ function SidebarFrame(props: SidebarFrameProps) {
   const isCompactScreen = () => !isDesktopNavigation()
   const appHeaderHeight = () =>
     isCompactScreen() ? compactAppHeaderHeight : desktopAppHeaderHeight
-
-  const logo = () => (
-    <div class="block lg:hidden">
-      <div class="mx-auto flex p-2">
-        <LogoSection />
-      </div>
-    </div>
-  )
 
   const drawer = () => (
     <ScrollArea
@@ -56,7 +54,7 @@ function SidebarFrame(props: SidebarFrameProps) {
     <nav
       aria-label="Primary navigation"
       data-state={drawerOpen() ? 'open' : 'closed'}
-      class={cx('shrink-0', isCompactScreen() ? 'w-0' : 'w-[260px]')}
+      class={cx('shrink-0', isCompactScreen() ? 'w-0' : 'w-65')}
     >
       <Show when={isCompactScreen() && drawerOpen()}>
         <Suspense fallback={null}>
@@ -74,13 +72,13 @@ function SidebarFrame(props: SidebarFrameProps) {
         <aside
           id="app-primary-navigation"
           class={cx(
-            'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200',
+            'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200 w-(--aside-w) top-(--app-top)',
             drawerOpen()
               ? 'pointer-events-auto translate-x-0'
               : 'pointer-events-none -translate-x-full'
           )}
           aria-hidden={!drawerOpen()}
-          style={{ width: `${appDrawerWidth}px`, top: `${appHeaderHeight()}px` }}
+          style={{ '--aside-w': `${appDrawerWidth}px`, '--app-top': `${appHeaderHeight()}px` }}
         >
           <Show when={drawerOpen()}>
             {logo()}

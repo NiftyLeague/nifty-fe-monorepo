@@ -1,5 +1,3 @@
-'use client'
-
 import { formatEther } from 'ethers'
 import { useReadContract } from '@/runtime/wagmi'
 import type { Abi } from 'viem'

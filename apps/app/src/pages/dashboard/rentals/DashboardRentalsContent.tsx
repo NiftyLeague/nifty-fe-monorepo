@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, type JSX } from 'solid-js'
 import { useQuery } from '@tanstack/solid-query'
 import { useQueryStates } from '@/url/nuqs-solid'
@@ -142,7 +140,7 @@ const DashboardRentalPage = (): JSX.Element => {
         <span class="text-2xl font-bold">My Rentals</span>
         {/* Header form */}
         <div class="flex flex-wrap items-center gap-2">
-          <div class="min-w-[200px]">
+          <div class="min-w-50">
             <Label for="category" class="mb-1 block text-xs text-muted-foreground">
               Category
             </Label>

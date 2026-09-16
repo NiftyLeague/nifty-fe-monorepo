@@ -1,5 +1,3 @@
-'use client'
-
 import { useAccount, useReadContract } from '@/runtime/wagmi'
 import type { AddressLike, BigNumberish } from 'ethers'
 import type { Comic } from '@/types/marketplace'

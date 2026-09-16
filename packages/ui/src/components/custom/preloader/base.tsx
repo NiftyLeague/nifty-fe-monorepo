@@ -68,9 +68,9 @@ export function PreloaderBase(props: PreloaderProps) {
 
       {props.percent ? (
         <>
-          <div class="flex justify-center items-center ml-[50px] mt-[8px]">
-            <Progress value={props.percent} class="w-[160px]" />
-            <div class="text-foreground text-sm min-w-[50px] ml-[10px]">{`${Math.round(props.percent)}%`}</div>
+          <div class="flex justify-center items-center ml-12.5 mt-2">
+            <Progress value={props.percent} class="w-40" />
+            <div class="text-foreground text-sm min-w-12.5 ml-2.5">{`${Math.round(props.percent)}%`}</div>
           </div>
           <div class="text-warning mt-2">
             {props.showWarning ? 'For the best experience try us out on desktop!' : ''}

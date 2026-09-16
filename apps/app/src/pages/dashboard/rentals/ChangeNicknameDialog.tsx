@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, Show, type JSX } from 'solid-js'
 import { AlertCircle } from 'lucide-solid'
 import { toast } from 'solid-sonner'

@@ -1,5 +1,3 @@
-'use client'
-
 import { For, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 
@@ -22,6 +20,9 @@ interface TableModalProps {
   myRank?: number
 }
 
+/** Font-size token for dense header cells, injected as a CSS custom property. */
+const TABLE_STYLE_VARS = { '--fs-10': '10px' } as const
+
 const TableModal = (props: TableModalProps): JSX.Element | null => {
   const offset = () => (props.myRank && props.myRank >= 3 ? props.myRank - 3 : 0)
   const query = useLeaderboardScores(
@@ -34,9 +35,7 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
   )
   const data = () => query.data?.data as DataType[] | undefined
 
-  const getTextStyleForRank = (rank: number) => {
-    return rank === props.myRank ? { color: '#E49C8E' } : {}
-  }
+  const isMyRank = (rank: number) => rank === props.myRank
 
   // shorten user id letters
   const handleShareOnTwitter = () => {
@@ -54,7 +53,7 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
   }
 
   return (
-    <div class={styles.tableRoot}>
+    <div class={styles.tableRoot} style={TABLE_STYLE_VARS}>
       <Show when={query.isPending && props.myRank}>
         <div class={styles.loadingBox} role="status" aria-label="Loading leaderboard">
           <CircularProgress />
@@ -75,53 +74,41 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
             <TableHead class="cell index" scope="col">
               <code>RANK</code>
             </TableHead>
-            <TableHead class="cell ellipsis" scope="col">
+            <TableHead class="cell" scope="col">
               <code>USERNAME</code>
             </TableHead>
             <Show when={props.flag === 'win_rate'}>
-              <TableHead class="cell ellipsis" scope="col">
+              <TableHead class="cell" scope="col">
                 <code>WIN RATE</code>
               </TableHead>
             </Show>
             <Show when={props.flag === 'earnings'}>
-              <TableHead
-                class="cell ellipsis"
-                scope="col"
-                style={{ 'font-size': '10px', 'text-align': 'center' }}
-              >
+              <TableHead class="cell text-center text-(--fs-10)" scope="col">
                 <code>TOTAL NFTL EARNED</code>
               </TableHead>
             </Show>
             <Show when={props.selectedGame === 'nifty_smashers'}>
-              <TableHead
-                class="cell ellipsis"
-                scope="col"
-                style={{ 'font-size': '10px', 'text-align': 'center' }}
-              >
+              <TableHead class="cell text-center text-(--fs-10)" scope="col">
                 <code>MATCHES PLAYED</code>
               </TableHead>
             </Show>
             <Show when={props.flag === 'earnings'}>
-              <TableHead
-                class="cell ellipsis"
-                scope="col"
-                style={{ 'font-size': '10px', 'text-align': 'center' }}
-              >
+              <TableHead class="cell text-center text-(--fs-10)" scope="col">
                 <code>AVG,NFTL / MATCH</code>
               </TableHead>
             </Show>
             <Show when={props.flag !== 'win_rate' && props.selectedGame === 'nifty_smashers'}>
-              <TableHead class="cell ellipsis" scope="col">
+              <TableHead class="cell" scope="col">
                 <code>KILLS</code>
               </TableHead>
             </Show>
             <Show when={props.flag === 'score'}>
-              <TableHead class="cell ellipsis" scope="col">
+              <TableHead class="cell" scope="col">
                 <code>HIGH SCORE</code>
               </TableHead>
             </Show>
             <Show when={props.flag === 'burnings'}>
-              <TableHead class="cell ellipsis" scope="col">
+              <TableHead class="cell" scope="col">
                 <code>NFTL BURNED</code>
               </TableHead>
             </Show>
@@ -131,8 +118,12 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
           <For each={data()}>
             {(i) => (
               <TableRow class="row first border-0 hover:bg-transparent">
-                <TableCell class="cell index" style={{ color: '#9ba5bf' }}>
-                  <span class={styles.rankBody} style={getTextStyleForRank(i.rank)}>
+                <TableCell class="cell index text-(--rank-index)">
+                  <span
+                    class={
+                      isMyRank(i.rank) ? `${styles.rankBody} text-(--rank-mine)` : styles.rankBody
+                    }
+                  >
                     {i.rank}
                   </span>
                   <Show when={i.rank === 1}>
@@ -143,12 +134,7 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
                   </Show>
                 </TableCell>
                 <TableCell
-                  style={{
-                    ...getTextStyleForRank(i.rank),
-                    'font-size': '14px',
-                    background: '',
-                  }}
-                  class="cell ellipsis"
+                  class={isMyRank(i.rank) ? 'cell text-sm text-(--rank-mine)' : 'cell text-sm'}
                 >
                   {i.user_id}
                   <Show when={i.rank === 1}>
@@ -159,10 +145,10 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
                   </Show>
                 </TableCell>
                 <Show when={props.flag === 'win_rate'}>
-                  <TableCell class="cell ellipsis">{i.stats.win_rate}</TableCell>
+                  <TableCell class="cell">{i.stats.win_rate}</TableCell>
                 </Show>
                 <Show when={props.flag === 'earnings'}>
-                  <TableCell class="cell ellipsis end">
+                  <TableCell class="cell end">
                     {i.stats.earnings}
                     <Show when={i.rank === 1 && props.flag === 'earnings'}>
                       <div class={styles.lineTopBox} />
@@ -174,12 +160,9 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
                 </Show>
                 <Show when={props.selectedGame === 'nifty_smashers'}>
                   <TableCell
-                    style={{
-                      ...getTextStyleForRank(i.rank),
-                      'font-size': '14px',
-                      background: '',
-                    }}
-                    class="cell ellipsis end"
+                    class={
+                      isMyRank(i.rank) ? 'cell text-sm text-(--rank-mine) end' : 'cell text-sm end'
+                    }
                   >
                     {i.stats.matches}
                     <Show when={i.rank === 1 && props.flag === 'earnings'}>
@@ -191,7 +174,7 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
                   </TableCell>
                 </Show>
                 <Show when={props.flag === 'earnings'}>
-                  <TableCell class="cell ellipsis end">
+                  <TableCell class="cell end">
                     {i.stats['avg_NFTL/match']}
                     <Show when={i.rank === 1}>
                       <div class={styles.lineTopBox} />
@@ -202,12 +185,13 @@ const TableModal = (props: TableModalProps): JSX.Element | null => {
                   </TableCell>
                 </Show>
                 <Show when={props.flag !== 'win_rate' && props.selectedGame === 'nifty_smashers'}>
-                  <TableCell class="cell ellipsis end">{i.stats.kills}</TableCell>
+                  <TableCell class="cell end">{i.stats.kills}</TableCell>
                 </Show>
                 <Show when={props.selectedGame !== 'nifty_smashers'}>
                   <TableCell
-                    style={{ ...getTextStyleForRank(i.rank), 'font-size': '14px' }}
-                    class="cell ellipsis end"
+                    class={
+                      isMyRank(i.rank) ? 'cell text-sm text-(--rank-mine) end' : 'cell text-sm end'
+                    }
                   >
                     {i.score}
                   </TableCell>

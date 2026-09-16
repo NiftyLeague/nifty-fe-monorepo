@@ -1,5 +1,3 @@
-'use client'
-
 import RoadmapCard, { getRoadmapCardSide } from './roadmapCard'
 import { ROADMAP_CARDS } from './constants'
 

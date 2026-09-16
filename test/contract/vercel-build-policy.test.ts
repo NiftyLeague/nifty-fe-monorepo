@@ -14,6 +14,25 @@ const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
 const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
 
+/* module scope: the reader captures nothing from the enclosing test scope */
+const readStripComments = (path: string) =>
+  readFileSync(join(process.cwd(), path), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
+/* Pure parser over the `_headers` file; no test-scope captures. */
+const parseHeadersFile = (file: string) => {
+  const entries: Record<string, Record<string, string>> = {}
+  let path: string | undefined
+  for (const line of file.split('\n')) {
+    if (!line.trim()) continue
+    if (!line.startsWith(' ')) path = line.trim()
+    else {
+      entries[path!] ??= {}
+      const [key, value] = line.trim().split(': ')
+      entries[path!][key] = value
+    }
+  }
+  return entries
+}
+
 describe('Vercel build cost policy', () => {
   for (const projectRoot of projectRoots) {
     it(`limits ${projectRoot} automatic deployments to release branches`, () => {
@@ -105,12 +124,10 @@ describe('response header sources', () => {
     'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
     'Strict-Transport-Security': 'max-age=31536000',
   }
-  const read = (path: string) =>
-    readFileSync(join(process.cwd(), path), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
 
   type HeaderBlock = { source: string; headers: { key: string; value: string }[] }
   const vercelHeaders = (path: string) => {
-    const config = JSON.parse(read(path)) as { headers?: HeaderBlock[] }
+    const config = JSON.parse(readStripComments(path)) as { headers?: HeaderBlock[] }
     return Object.fromEntries(
       (config.headers ?? []).map((block) => [
         // vercel.json path-to-regexp syntax to the `_headers` wildcard syntax.
@@ -119,27 +136,13 @@ describe('response header sources', () => {
       ])
     )
   }
-  const parseHeadersFile = (file: string) => {
-    const entries: Record<string, Record<string, string>> = {}
-    let path: string | undefined
-    for (const line of file.split('\n')) {
-      if (!line.trim()) continue
-      if (!line.startsWith(' ')) path = line.trim()
-      else {
-        entries[path!] ??= {}
-        const [key, value] = line.trim().split(': ')
-        entries[path!][key] = value
-      }
-    }
-    return entries
-  }
 
   it('keeps the app response headers in vercel.json and nowhere else', () => {
     // On this Build Output API deploy Vercel applies vercel.json `headers`: live
     // `/assets/*` responses carry the vercel.json-only Access-Control-Allow-Origin,
     // which the Nitro output never emitted. Its duplicate of the four security
     // headers was the second source that could drift, so it is gone.
-    const viteConfig = read('apps/app/vite.config.ts')
+    const viteConfig = readStripComments('apps/app/vite.config.ts')
     for (const key of Object.keys(securityHeaders)) expect(viteConfig).not.toContain(key)
 
     const applied = vercelHeaders('apps/app/vercel.json')['/*']
@@ -156,7 +159,7 @@ describe('response header sources', () => {
     for (const [source, headers] of Object.entries(vercel)) {
       expect(fileHeaders[source]).toEqual(headers)
     }
-    expect(Object.keys(fileHeaders).sort()).toEqual(Object.keys(vercel).sort())
+    expect(Object.keys(fileHeaders).toSorted()).toEqual(Object.keys(vercel).toSorted())
 
     const applied = vercel['/*']
     expect(applied).toEqual(securityHeaders)

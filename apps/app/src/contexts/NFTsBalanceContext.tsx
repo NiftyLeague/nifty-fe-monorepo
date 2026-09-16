@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext, createEffect, type JSX } from 'solid-js'
 import type { Character } from '@/types/graph'
 import type { Comic, Item } from '@/types/marketplace'

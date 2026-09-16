@@ -1,5 +1,3 @@
-'use client'
-
 import { Dialog } from '@nl/ui/custom/dialog'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Text } from '@nl/ui/custom/typography'
@@ -25,7 +23,7 @@ const PlayContent = () => (
           width={234}
           height={70}
           priority
-          style={{ width: '100%', 'max-width': '100%', height: 'auto' }}
+          class="h-auto w-full max-w-full"
         />
       </a>
       <a
@@ -40,7 +38,8 @@ const PlayContent = () => (
           width={215}
           height={72}
           priority
-          style={{ width: '92%', 'max-width': '100%', height: 'auto' }}
+          class="h-auto w-(--apple-badge-w) max-w-full"
+          style={{ '--apple-badge-w': '92%' }}
         />
       </a>
       <a
@@ -55,7 +54,7 @@ const PlayContent = () => (
           width={234}
           height={69}
           priority
-          style={{ width: '100%', 'max-width': '100%', height: 'auto' }}
+          class="h-auto w-full max-w-full"
         />
       </a>
     </div>
@@ -81,7 +80,7 @@ const PlayDialog = (props: { open?: boolean; onOpenChange?: (open: boolean) => v
             alt="Game Icon"
             width={22}
             height={22}
-            style={{ 'max-width': '100%', height: 'auto' }}
+            class="h-auto max-w-full"
           />
           Play
         </button>

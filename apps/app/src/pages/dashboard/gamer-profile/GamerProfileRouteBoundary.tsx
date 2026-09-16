@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from '@/runtime/dynamic'
 
 import RouteLoading from '@nl/ui/custom/route-loading'

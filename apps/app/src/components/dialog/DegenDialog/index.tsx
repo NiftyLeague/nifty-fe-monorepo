@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, onCleanup, Show, type JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
@@ -148,7 +146,7 @@ const DegenDialog = (props: DegenDialogProps) => {
           styles.customDialog,
           props.isRent && styles.customDialogRent,
           props.isEquip && styles.customDialogEquip,
-          props.isClaim ? '!max-w-fit' : props.isRent ? '!max-w-[444px]' : '!max-w-[900px]',
+          props.isClaim ? '!max-w-fit' : props.isRent ? '!max-w-111' : '!max-w-225',
           fullScreen() &&
             'top-0 left-0 h-screen w-screen max-h-screen !max-w-none translate-x-0 translate-y-0 rounded-none'
         )}

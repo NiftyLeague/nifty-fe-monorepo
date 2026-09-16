@@ -1,5 +1,3 @@
-'use client'
-
 import { DeferredSection } from '@nl/ui/custom/deferred-section'
 
 const loadCareersJobs = () => import('@/components/CareersJobs')
@@ -9,7 +7,7 @@ export function DeferredCareersJobs() {
     <DeferredSection
       label="job openings"
       load={loadCareersJobs}
-      minHeightClassName="min-h-[30rem]"
+      minHeightClassName="min-h-120"
       rootMargin="480px"
     />
   )
