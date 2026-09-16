@@ -86,6 +86,14 @@
     animation: hover 4s ease infinite;
   }
 
+  /* The right console-game controller floats on the same curve half a second
+   * behind the left one, so the two artwork layers read as separate objects
+   * instead of moving as a single image. */
+  .animate-hover-offset {
+    animation: hover 4s ease infinite;
+    animation-delay: 0.5s;
+  }
+
   @keyframes hover {
     0%,
     50%,
@@ -141,6 +149,7 @@
   .animate-zoom-out,
   .animate-zoom-out-large,
   .animate-hover,
+  .animate-hover-offset,
   .transition-fade,
   .transition-fade-slow,
   .transition-vertical-fade,
