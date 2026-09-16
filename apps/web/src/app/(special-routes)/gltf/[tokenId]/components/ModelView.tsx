@@ -11,7 +11,7 @@ import styles from '../gltf.module.css'
 export default function ModelView(props: { source: SRC; tokenId: string }) {
   let modelViewerEl: HTMLElement | undefined
   const [loading, setLoading] = createSignal(true)
-  const MODEL_SRC = () => `${DEGEN_3D_MODEL_URL}/${props.tokenId}/${props.tokenId}.gltf`
+  const MODEL_SRC = () => `${DEGEN_3D_MODEL_URL}/${props.tokenId}.glb`
 
   const handleProgress = (event: Event) => {
     const progress = (event as CustomEvent<{ totalProgress?: number }>).detail?.totalProgress || 0

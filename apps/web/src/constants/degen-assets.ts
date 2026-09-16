@@ -1,7 +1,8 @@
 const DEGEN_CDN_BASE_URL = 'https://cdn.niftyleague.com'
 export const DEGEN_BASE_SPRITE_URL = `${DEGEN_CDN_BASE_URL}/degens/gifs/retro`
-// 3D models are not migrated to R2 yet; they still live on the legacy S3 bucket.
-export const DEGEN_3D_MODEL_URL = 'https://nifty-league.s3.amazonaws.com/assets/gltfs/v2'
+// 3D models live on R2 as single-file GLBs (Draco geometry, AVIF box art,
+// lossless PNG traits) under the CDN — one request per degen.
+export const DEGEN_3D_MODEL_URL = `${DEGEN_CDN_BASE_URL}/degens/boxed`
 export const DEGEN_COLLECTION_URL = 'https://opensea.io/collection/niftydegen'
 
 export const LEGGIES = [
