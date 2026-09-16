@@ -1,4 +1,4 @@
-import { Show, createSignal, type JSX } from 'solid-js'
+import { Show, createEffect, createSignal, type JSX } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
@@ -39,6 +39,13 @@ export default function DegenViews(props: DegenViewsProps) {
   const [source, setSource] = createSignal<SRC>(SRC.IMAGE)
   const [color, setColor] = createSignal<Color>('purple')
   const tokenNumber = Number(props.tokenId)
+  // The static poster doubles as the 2D view; keep it mounted so toggling back
+  // does not refetch it, but hide it while the 3D model is active.
+  createEffect(() => {
+    document
+      .querySelector('[data-gltf-poster]')
+      ?.parentElement?.toggleAttribute('hidden', source() === SRC.MODEL)
+  })
   const { Component: ModelView } = useDeferredComponent(loadModelView, () => source() === SRC.MODEL)
   const { Component: ModelActions } = useDeferredComponent(
     loadModelActions,
