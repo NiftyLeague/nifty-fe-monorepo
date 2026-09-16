@@ -1,3 +1,4 @@
+import { useRouter } from '@tanstack/solid-router'
 import { createSignal, onCleanup, onMount, type Component, type JSX } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
@@ -14,6 +15,8 @@ export default function DeferredAnalytics(): JSX.Element {
   const [GoogleTagManager, setGoogleTagManager] = createSignal<Component | null>(null)
   // The shared analytics gate enables production deploys and honors VITE_TELEMETRY opt-out.
   const enabled = productionTelemetryEnabled(IS_PRODUCTION, TELEMETRY)
+  const router = useRouter()
+  let stopRouteTiming: (() => void) | undefined
 
   onMount(() => {
     if (!enabled) return
@@ -24,6 +27,13 @@ export default function DeferredAnalytics(): JSX.Element {
         import('@nl/ui/gtm/deferred-manager'),
         import('@/runtime/web-vitals')
           .then(({ startWebVitalsReporting }) => startWebVitalsReporting())
+          .catch(() => {
+            /* Analytics must never block the page. */
+          }),
+        import('@/runtime/route-timing')
+          .then(({ startRouteTransitionReporting }) => {
+            if (!cancelled) stopRouteTiming = startRouteTransitionReporting(router)
+          })
           .catch(() => {
             /* Analytics must never block the page. */
           }),
@@ -38,6 +48,7 @@ export default function DeferredAnalytics(): JSX.Element {
 
     onCleanup(() => {
       cancelled = true
+      stopRouteTiming?.()
       cleanup()
     })
   })
