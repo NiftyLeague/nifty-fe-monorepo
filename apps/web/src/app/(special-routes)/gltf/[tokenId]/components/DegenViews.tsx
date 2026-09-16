@@ -2,6 +2,7 @@ import { Show, createEffect, createSignal, type JSX } from 'solid-js'
 
 import { cx } from '@nl/ui/class-names'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
+import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
 import TokenMenuBoundary from './TokenMenuBoundary'
 import { SRC, type Color } from '@/types/gltf'
@@ -67,7 +68,8 @@ export default function DegenViews(props: DegenViewsProps) {
           when={ModelView()}
           fallback={
             <div class={styles.model__wrapper} role="status" aria-live="polite">
-              Loading 3D viewer…
+              <CircularProgress size={75} color="light" class="m-auto" />
+              <span class="sr-only">Loading 3D viewer…</span>
             </div>
           }
         >
