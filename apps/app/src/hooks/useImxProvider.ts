@@ -15,10 +15,23 @@ const loadPassport = () => {
   return passportModulePromise
 }
 
+/**
+ * The Passport EVM provider is session-scoped, so it is connected once and
+ * reused across every IMX-consuming mount instead of re-running
+ * `connectEvm` (which re-enters the SDK) per provider stack.
+ */
+let cachedPassportProvider: BrowserProvider | undefined
+
+const resetPassportProvider = (): void => {
+  cachedPassportProvider = undefined
+}
+
 async function clientToProvider(): Promise<BrowserProvider> {
+  if (cachedPassportProvider) return cachedPassportProvider
   const { default: passport } = await loadPassport()
   const passportProvider = await passport.connectEvm()
-  return new BrowserProvider(passportProvider)
+  cachedPassportProvider = new BrowserProvider(passportProvider)
+  return cachedPassportProvider
 }
 
 async function getPassportSigner(): Promise<JsonRpcSigner> {
@@ -44,6 +57,7 @@ export function useImxProvider(): Accessor<BrowserProvider | undefined> {
 
   createEffect(() => {
     if (!account.isConnected) {
+      resetPassportProvider()
       setProvider(undefined)
       return
     }

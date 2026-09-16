@@ -70,10 +70,28 @@ function loadContracts(providerOrSigner: ProviderOrSigner, chainId: Config['chai
   return {} as Contracts
 }
 
+/**
+ * Every contract in the deployments roster is instantiated against the given
+ * provider/signer; caching the roster per provider/signer identity keeps the
+ * dozens of contract instances alive across route and provider remounts and
+ * lets the garbage collector reclaim them only when the signer changes.
+ */
+let cachedProviderOrSigner: ProviderOrSigner
+let cachedContracts: Contracts
+let contractsInitialized = false
+
 /** Action to load all necessary Nifty League or external contracts */
 export default function useContractLoader(
   providerOrSigner: Accessor<ProviderOrSigner>,
   { chainId }: Config
 ): Accessor<Contracts> {
-  return createMemo(() => loadContracts(providerOrSigner(), chainId))
+  return createMemo(() => {
+    const active = providerOrSigner()
+    if (!contractsInitialized || active !== cachedProviderOrSigner) {
+      cachedProviderOrSigner = active
+      cachedContracts = loadContracts(active, chainId)
+      contractsInitialized = true
+    }
+    return cachedContracts
+  })
 }
