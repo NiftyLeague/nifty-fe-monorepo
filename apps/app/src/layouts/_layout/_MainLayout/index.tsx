@@ -11,17 +11,15 @@ const NetworkWarning = dynamic(() => import('./_Header/NetworkWarning'), { ssr: 
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-const MainLayout = ({
-  children,
-  walletReady = true,
-}: { walletReady?: boolean } & { children?: JSX.Element }) => {
+const MainLayout = (props: { walletReady?: boolean } & { children?: JSX.Element }) => {
+  const walletReady = () => props.walletReady ?? true
   return (
     <AppShell
       header={<Header />}
-      sidebar={<Sidebar walletReady={walletReady} />}
-      networkWarning={walletReady ? <NetworkWarning /> : undefined}
+      sidebar={<Sidebar walletReady={walletReady()} />}
+      networkWarning={walletReady() ? <NetworkWarning /> : undefined}
     >
-      {children}
+      {props.children}
     </AppShell>
   )
 }

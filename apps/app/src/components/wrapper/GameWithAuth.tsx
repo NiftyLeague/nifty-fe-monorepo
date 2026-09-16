@@ -154,7 +154,7 @@ const GameWithAuth = withVerification((props: GameProps) => {
   const { isOpera, browserName } = useUserAgent()
   return (
     <Show
-      when={!isOpera}
+      when={!isOpera()}
       fallback={<h2 class="mt-8 text-center">{browserName} Browser Not Supported</h2>}
     >
       <ErrorBoundary>

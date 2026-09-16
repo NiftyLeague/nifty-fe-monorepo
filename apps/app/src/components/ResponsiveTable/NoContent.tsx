@@ -1,10 +1,10 @@
 /**
  * Used for default text if no content found for table/list
  */
-const NoContent = ({ text }: { text?: string }) => {
+const NoContent = (props: { text?: string }) => {
   return (
     <div class="flex justify-center p-5">
-      <span>{text || 'No Content'}</span>
+      <span>{props.text || 'No Content'}</span>
     </div>
   )
 }

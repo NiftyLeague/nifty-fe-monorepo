@@ -5,10 +5,10 @@ import useImportNFTLToWallet from '@/hooks/useImportNFTLToWallet'
 import type { JSX } from 'solid-js'
 
 const AddNFTLToMetamask = (): JSX.Element | null => {
-  const { isConnected } = useNetworkContext()
+  const network = useNetworkContext()
   const { handleImportNFTLToWallet } = useImportNFTLToWallet()
 
-  return isConnected ? (
+  return network.isConnected ? (
     <Button onClick={handleImportNFTLToWallet} variant="outline" class="cursor-pointer">
       <span class="flex items-center">
         <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL logo" width={20} height={20} />

@@ -25,11 +25,7 @@ function DeferredProfileImageContent(props: ProfileImageContentProps): JSX.Eleme
   )
 }
 
-const ProfileImageDialog = ({
-  degens,
-  onChangeAvatar,
-  avatarFee,
-}: ProfileImageContentProps): JSX.Element => {
+const ProfileImageDialog = (props: ProfileImageContentProps): JSX.Element => {
   return (
     <Dialog>
       <DialogTrigger>
@@ -44,9 +40,9 @@ const ProfileImageDialog = ({
       </DialogTrigger>
       <DialogContent class="max-w-250">
         <DeferredProfileImageContent
-          degens={degens}
-          onChangeAvatar={onChangeAvatar}
-          avatarFee={avatarFee}
+          degens={props.degens}
+          onChangeAvatar={props.onChangeAvatar}
+          avatarFee={props.avatarFee}
         />
       </DialogContent>
     </Dialog>

@@ -9,15 +9,9 @@ interface MobileSidebarSheetProps {
   open: boolean
 }
 
-export default function MobileSidebarSheet({
-  appHeaderHeight,
-  drawer,
-  logo,
-  onOpenChange,
-  open,
-}: MobileSidebarSheetProps) {
+export default function MobileSidebarSheet(props: MobileSidebarSheetProps) {
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={props.open} onOpenChange={props.onOpenChange}>
       <SheetContent
         id="app-primary-navigation"
         side="left"
@@ -25,14 +19,14 @@ export default function MobileSidebarSheet({
         closeLabel="Close sidebar"
         closeClassName="top-2 right-2 z-20 h-8 w-8 opacity-100 hover:opacity-100"
         overlayClassName="bg-black/50"
-        overlayStyle={{ top: `${appHeaderHeight}px` }}
+        overlayStyle={{ top: `${props.appHeaderHeight}px` }}
         class="w-65 max-w-65 gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
-        style={{ top: `${appHeaderHeight}px`, bottom: 0, height: 'auto' }}
+        style={{ top: `${props.appHeaderHeight}px`, bottom: 0, height: 'auto' }}
       >
         <SheetTitle class="sr-only">Primary navigation</SheetTitle>
         <SheetDescription class="sr-only">Navigate through the private app</SheetDescription>
-        {logo}
-        {drawer}
+        {props.logo}
+        {props.drawer}
       </SheetContent>
     </Sheet>
   )

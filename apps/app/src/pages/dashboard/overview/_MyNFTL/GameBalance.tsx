@@ -7,13 +7,13 @@ import WithdrawButtonDialog from '@/components/dialog/WithdrawButtonDialog'
 import HoverDataCard from '@/components/cards/HoverDataCard'
 
 const GameBalance = () => {
-  const { nftlUnclaimed, loading } = useUserUnclaimedAmount()
+  const unclaimed = useUserUnclaimedAmount()
 
   return (
     <HoverDataCard
       title="Game Balance"
-      primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
-      isLoading={loading}
+      primary={`${formatNumberToDisplay(unclaimed.nftlUnclaimed)} NFTL`}
+      isLoading={unclaimed.loading}
       secondary="Available to Withdraw"
       actions={
         <>
@@ -30,7 +30,7 @@ const GameBalance = () => {
               height={22}
             />
           </Button>
-          <WithdrawButtonDialog balance={nftlUnclaimed} loading={loading} />
+          <WithdrawButtonDialog balance={unclaimed.nftlUnclaimed} loading={unclaimed.loading} />
         </>
       }
     />
