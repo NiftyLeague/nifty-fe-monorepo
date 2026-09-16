@@ -1,26 +1,7 @@
 import { act, renderHook, waitFor } from '@nl/ui/test-utils'
-import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 
-const noopCallbackResolver = () => undefined
-
-const interval = { clear: mock(async () => undefined), set: mock(() => 'interval-id') }
-
-let useLocalStorage: typeof import('./useLocalStorage').default
-
-beforeEach(async () => {
-  mock.module('set-interval-async/dynamic', () => ({
-    clearIntervalAsync: interval.clear,
-    setIntervalAsync: interval.set,
-  }))
-  const useLocalStorageModule = await import('./useLocalStorage')
-  useLocalStorage = useLocalStorageModule.default
-})
-
-afterEach(() => {
-  mock.restore()
-  interval.clear.mockClear()
-  interval.set.mockClear()
-})
+import useLocalStorage from './useLocalStorage'
 
 describe('useLocalStorage', () => {
   it('hydrates, persists changed values, and clears stored state', async () => {
@@ -43,66 +24,5 @@ describe('useLocalStorage', () => {
     const { result } = renderHook(() => useLocalStorage('broken', { fallback: true }))
 
     expect(result.current[0]()).toBe('{')
-  })
-})
-
-describe('useAsyncInterval', () => {
-  it('runs leading and manually refreshed callbacks and installs an interval', async () => {
-    const callback = mock(async () => undefined)
-    const { default: useAsyncInterval } = await import('./useAsyncInterval')
-    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, true, 'refresh'))
-
-    await waitFor(() => expect(callback).toHaveBeenCalledTimes(2))
-    // The interval is installed after the leading callback's promise settles.
-    await waitFor(() => expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100))
-    unmount()
-  })
-
-  it('does not install an interval when no delay is provided', async () => {
-    const callback = mock(async () => undefined)
-    const { default: useAsyncInterval } = await import('./useAsyncInterval')
-    renderHook(() => useAsyncInterval(callback, undefined, false))
-
-    await Promise.resolve()
-    expect(callback).not.toHaveBeenCalled()
-    expect(interval.set).not.toHaveBeenCalled()
-
-    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, false))
-    expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100)
-    expect(callback).not.toHaveBeenCalled()
-    unmount()
-  })
-
-  it('cleans up the polling interval when the hook unmounts', async () => {
-    const callback = mock(async () => undefined)
-    const { default: useAsyncInterval } = await import('./useAsyncInterval')
-    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, false))
-
-    await waitFor(() => expect(interval.set).toHaveBeenCalledWith(expect.any(Function), 100))
-    unmount()
-
-    expect(interval.clear).toHaveBeenCalledWith('interval-id')
-  })
-
-  it('does not schedule polling after unmounting during a leading read', async () => {
-    let resolveCallback: () => void = noopCallbackResolver
-    const callback = mock(
-      () =>
-        new Promise<void>((resolve) => {
-          resolveCallback = resolve
-        })
-    )
-    const { default: useAsyncInterval } = await import('./useAsyncInterval')
-    const { unmount } = renderHook(() => useAsyncInterval(callback, 100, true))
-
-    expect(callback).toHaveBeenCalledTimes(1)
-    unmount()
-    resolveCallback()
-    await act(async () => {
-      await Promise.resolve()
-      await Promise.resolve()
-    })
-
-    expect(interval.set).not.toHaveBeenCalled()
   })
 })

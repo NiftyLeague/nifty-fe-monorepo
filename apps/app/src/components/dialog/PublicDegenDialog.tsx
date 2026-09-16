@@ -1,3 +1,4 @@
+import { For } from 'solid-js'
 import { Button } from '@nl/ui/base/button'
 import {
   Dialog,
@@ -51,12 +52,14 @@ export default function PublicDegenDialog(props: PublicDegenDialogProps) {
               <h2 class="text-xl font-semibold">Degen Traits</h2>
               {traits().length ? (
                 <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {traits().map((trait) => (
-                    <li class="flex min-w-0 flex-col rounded-md border px-3 py-2 text-center text-sm">
-                      {trait.name && <span class="font-semibold">{trait.name}</span>}
-                      <span class="break-words">{trait.value}</span>
-                    </li>
-                  ))}
+                  <For each={traits()}>
+                    {(trait) => (
+                      <li class="flex min-w-0 flex-col rounded-md border px-3 py-2 text-center text-sm">
+                        {trait.name && <span class="font-semibold">{trait.name}</span>}
+                        <span class="break-words">{trait.value}</span>
+                      </li>
+                    )}
+                  </For>
                 </ul>
               ) : (
                 <p class="mt-6 text-sm text-muted-foreground">Trait data unavailable.</p>

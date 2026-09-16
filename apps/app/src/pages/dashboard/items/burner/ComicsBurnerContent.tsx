@@ -43,6 +43,16 @@ const ComicsBurnerContent = () => {
   createEffect(() => {
     const writeContracts = network.writeContracts
     const address = network.address
+    if (
+      !writeContracts ||
+      !writeContracts[COMICS_BURNER_CONTRACT] ||
+      !writeContracts[MARKETPLACE_CONTRACT] ||
+      !address
+    ) {
+      return
+    }
+
+    let cancelled = false
     const getAllowance = async () => {
       const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
       const burnContractAddress = await burnContract.getAddress()
@@ -51,16 +61,12 @@ const ComicsBurnerContent = () => {
         address as AddressLike,
         burnContractAddress
       )) as boolean
-      setIsApprovedForAll(approved)
+      if (!cancelled) setIsApprovedForAll(approved)
     }
-    if (
-      writeContracts &&
-      writeContracts[COMICS_BURNER_CONTRACT] &&
-      writeContracts[MARKETPLACE_CONTRACT] &&
-      address
-    ) {
-      void getAllowance()
-    }
+    void getAllowance()
+    onCleanup(() => {
+      cancelled = true
+    })
   })
 
   const handleSetApproval = async () => {

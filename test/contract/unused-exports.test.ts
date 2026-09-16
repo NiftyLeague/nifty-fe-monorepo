@@ -46,6 +46,7 @@ const REDUNDANT_EXPORTS = {
   ],
   'apps/app/src/runtime/unity.tsx': ['UnityContext'],
   'apps/app/src/runtime/wagmi.ts': ['UseAccountReturn', 'UseReadContractParameters'],
+  'apps/app/src/state/local-storage-store.ts': ['LocalStorageStore'],
   'apps/app/src/types/graph.ts': ['Owner'],
   'apps/app/src/url/search-schema.ts': ['RawSearch'],
   'apps/app/src/url/search-state.ts': ['LeaderboardGameKey'],

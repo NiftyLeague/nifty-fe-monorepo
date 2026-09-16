@@ -8,16 +8,16 @@ describe('navigation store', () => {
     const first = createNavigationStore()
     const second = createNavigationStore({ drawerOpen: true })
 
-    first.getState().toggleDrawer()
-    expect(first.getState().drawerOpen).toBe(true)
-    expect(second.getState().drawerOpen).toBe(true)
+    first.toggleDrawer()
+    expect(first.state.drawerOpen).toBe(true)
+    expect(second.state.drawerOpen).toBe(true)
 
-    first.getState().setDrawerOpen(false)
-    expect(first.getState().drawerOpen).toBe(false)
-    expect(second.getState().drawerOpen).toBe(true)
+    first.setDrawerOpen(false)
+    expect(first.state.drawerOpen).toBe(false)
+    expect(second.state.drawerOpen).toBe(true)
 
-    first.getState().reset()
-    expect(first.getState().drawerOpen).toBe(false)
+    first.reset()
+    expect(first.state.drawerOpen).toBe(false)
   })
 })
 
@@ -26,7 +26,7 @@ describe('notification store', () => {
     const first = createNotificationStore()
     const second = createNotificationStore()
 
-    first.getState().openSnackbar({
+    first.openSnackbar({
       open: true,
       message: 'Saved',
       variant: 'alert',
@@ -34,18 +34,18 @@ describe('notification store', () => {
       close: false,
     })
 
-    expect(first.getState().snackbar).toMatchObject({
+    expect(first.state.snackbar).toMatchObject({
       open: true,
       message: 'Saved',
       variant: 'alert',
       alert: { color: 'success', variant: 'filled' },
       close: false,
     })
-    expect(second.getState().snackbar).toEqual(initialSnackbar)
+    expect(second.state.snackbar).toEqual(initialSnackbar)
 
-    first.getState().closeSnackbar()
-    expect(first.getState().snackbar.open).toBe(false)
-    first.getState().reset()
-    expect(first.getState().snackbar).toEqual(initialSnackbar)
+    first.closeSnackbar()
+    expect(first.state.snackbar.open).toBe(false)
+    first.reset()
+    expect(first.state.snackbar).toEqual(initialSnackbar)
   })
 })

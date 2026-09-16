@@ -1,6 +1,5 @@
-import { createContext, useContext, type Accessor, type JSX } from 'solid-js'
+import { createContext, createMemo, useContext, type Accessor, type JSX } from 'solid-js'
 
-import { useStore } from '@/state/use-store'
 import {
   createNotificationStore,
   type NotificationState,
@@ -26,11 +25,12 @@ function useNotificationStore(): NotificationStore {
 }
 
 export function useNotification<T>(selector: (state: NotificationState) => T): Accessor<T> {
-  return useStore(useNotificationStore(), selector)
+  const store = useNotificationStore()
+  return createMemo(() => selector(store.state))
 }
 
 export const useSnackbar = () => useNotification((state) => state.snackbar)
-// Store actions are stable references; they do not need a subscription.
+// Store actions are stable references; they do not need reactivity.
 export const useOpenSnackbar = (): ((input: SnackbarInput) => void) =>
-  useNotificationStore().getState().openSnackbar
-export const useCloseSnackbar = () => useNotificationStore().getState().closeSnackbar
+  useNotificationStore().openSnackbar
+export const useCloseSnackbar = () => useNotificationStore().closeSnackbar

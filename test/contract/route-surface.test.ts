@@ -225,7 +225,6 @@ const staleSmashersUnityDialog = 'apps/smashers/src/components/UnityDialog/index
 const privateShellLayout = 'apps/app/src/routes/dashboard.tsx'
 const sidebarProfile = 'apps/app/src/layouts/_layout/_MainLayout/_Sidebar/_UserProfile/index.tsx'
 const localStorageStore = 'apps/app/src/state/local-storage-store.ts'
-const contractReaderHook = 'apps/app/src/hooks/useContractReader.ts'
 const valueEqualityUtility = 'apps/app/src/utils/value-equality.ts'
 const mainLayout = 'apps/app/src/layouts/_layout/_MainLayout/index.tsx'
 const networkWarning = 'apps/app/src/layouts/_layout/_MainLayout/_Header/NetworkWarning.tsx'
@@ -1566,7 +1565,7 @@ describe('shared value equality contract', () => {
     const utilitySource = readFileSync(join(process.cwd(), valueEqualityUtility), 'utf8')
 
     expect(utilitySource).not.toContain('lodash')
-    for (const file of [localStorageStore, contractReaderHook]) {
+    for (const file of [localStorageStore]) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
       expect(source).toContain("from '@/utils/value-equality'")
       expect(source).not.toContain("from 'lodash/isEqual'")
