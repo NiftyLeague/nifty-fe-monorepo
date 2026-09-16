@@ -1,4 +1,4 @@
-import { createEffect } from 'solid-js'
+import { createEffect, onCleanup } from 'solid-js'
 import { useAccount } from '@/runtime/wagmi'
 
 import { ADDRESS_VERIFICATION } from '@/constants/auth-urls'
@@ -62,8 +62,26 @@ const useCheckAuth = () => {
       return
     }
 
-    if (loggedIn && (!token || !address)) auth.setIsLoggedIn(false)
-    else if (token && address) void verify()
+    if (loggedIn && (!token || !address)) {
+      auth.setIsLoggedIn(false)
+      return
+    }
+    if (!token || !address) return
+
+    let cancelled = false
+    onCleanup(() => {
+      cancelled = true
+    })
+    void (async () => {
+      const verified = await checkAddress()
+      if (cancelled) return
+      if (verified) {
+        auth.setIsLoggedIn(true)
+      } else {
+        auth.setIsLoggedIn(false)
+        clearAllAuth()
+      }
+    })()
   })
 
   return { checkAddress, verify }

@@ -4,7 +4,7 @@ import {
   parseAsString,
   parseAsStringLiteral,
   type inferParserType,
-} from 'nuqs/server'
+} from '@/url/parsers'
 import type { DegenFilter } from '@/types/degenFilter'
 
 const sortValues = ['idUp', 'idDown'] as const

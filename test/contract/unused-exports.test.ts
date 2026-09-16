@@ -48,6 +48,9 @@ const REDUNDANT_EXPORTS = {
   'apps/app/src/runtime/wagmi.ts': ['UseAccountReturn', 'UseReadContractParameters'],
   'apps/app/src/state/local-storage-store.ts': ['LocalStorageStore'],
   'apps/app/src/types/graph.ts': ['Owner'],
+  // `UrlParserWithDefault` is the `withDefault` return type; consumers reach it
+  // through parser object types rather than importing the interface directly.
+  'apps/app/src/url/parsers.ts': ['UrlParserWithDefault'],
   'apps/app/src/url/search-schema.ts': ['RawSearch'],
   'apps/app/src/url/search-state.ts': ['LeaderboardGameKey'],
   'apps/app/src/utils/degen-traits.ts': ['DegenTraitEntry'],

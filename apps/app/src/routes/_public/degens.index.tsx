@@ -12,7 +12,7 @@ const DEGENS_PAGE_SIZE = 12
 
 export const Route = createFileRoute('/_public/degens/')({
   head: () => buildHead({ path: '/degens', title: 'DEGENs' }),
-  // Pass the params through untouched; nuqs owns URL state for this route.
+  // Pass the params through untouched; the typed parsers own URL state here.
   validateSearch: acceptSearch,
   loaderDeps: ({ search }) => search,
   loader: async ({ context, deps }) => {
