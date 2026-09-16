@@ -80,11 +80,6 @@ export const normalizeDegenSearchState = (state: {
   layout: state.layout && layoutModes.includes(state.layout) ? state.layout : 'gridView',
 })
 
-export const normalizeLeaderboardGame = (value: string | null): LeaderboardGameKey =>
-  leaderboardGames.includes(value as LeaderboardGameKey)
-    ? (value as LeaderboardGameKey)
-    : 'nifty_smashers'
-
 export const normalizePage = (page: number): number =>
   Number.isInteger(page) && page > 0 ? page : 1
 

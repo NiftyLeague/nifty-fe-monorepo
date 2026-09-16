@@ -70,7 +70,6 @@ function withNuqsTestingAdapter(options: {
 
 import {
   normalizeDegenSearchState,
-  normalizeLeaderboardGame,
   toDegenFilter,
   degenSearchParsers,
   leaderboardSearchParsers,
@@ -88,11 +87,6 @@ describe('typed URL state', () => {
         tribes: ['ape', '', 'ape'],
       } as DegenSearchState)
     ).toMatchObject({ page: 1, sort: 'idUp', searchTerm: 'ape', tribes: ['ape'] })
-  })
-
-  it('accepts only supported leaderboard games', () => {
-    expect(normalizeLeaderboardGame('nifty_smashers')).toBe('nifty_smashers')
-    expect(normalizeLeaderboardGame('not-a-game')).toBe('nifty_smashers')
   })
 
   it('derives the complete DEGEN filter without a component-state mirror', () => {

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, spyOn } from 'bun:test'
 import { mock } from 'bun:test'
-import { areEqualArrays, getUniqueListBy } from './array'
+import { getUniqueListBy } from './array'
 import callAll from './callAll'
 import { formatDateTime, formatTime, secondsToHours } from './dateTime'
 import { errorMsgHandler } from './errorHandlers'
@@ -17,9 +17,7 @@ beforeEach(async () => {
 })
 
 describe('array helpers', () => {
-  it('compares values and preserves the last object for each unique key', () => {
-    expect(areEqualArrays([1, { value: 2 }], [1, { value: 2 }])).toBe(true)
-    expect(areEqualArrays([1, 2], [2, 1])).toBe(false)
+  it('preserves the last object for each unique key', () => {
     expect(
       getUniqueListBy<{ id: number; name: string }>(
         [
