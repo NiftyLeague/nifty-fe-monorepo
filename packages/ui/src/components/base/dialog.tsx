@@ -1,56 +1,27 @@
 import * as DialogPrimitive from '@kobalte/core/dialog'
-import { createEffect, onCleanup, splitProps, type ComponentProps } from 'solid-js'
+import { splitProps, type ComponentProps } from 'solid-js'
 import { XIcon } from 'lucide-solid'
 
 import { cn, closeButtonAriaLabel } from '@nl/ui/utils'
 
-const openDialogLocks = new Set<symbol>()
-let previousHtmlOverflow = ''
-
-function lockDialogScroll(lockId: symbol) {
-  if (openDialogLocks.has(lockId)) return
-
-  if (openDialogLocks.size === 0) {
-    const htmlElement = document.documentElement
-    previousHtmlOverflow = htmlElement.style.overflow
-    htmlElement.style.overflow = 'hidden'
-  }
-
-  openDialogLocks.add(lockId)
-}
-
-function unlockDialogScroll(lockId: symbol) {
-  if (!openDialogLocks.delete(lockId) || openDialogLocks.size > 0) return
-
-  document.documentElement.style.overflow = previousHtmlOverflow
-  previousHtmlOverflow = ''
-}
+/*
+ * Scroll locking is owned by Kobalte's DialogContent (`createPreventScroll`),
+ * which reference-counts concurrent dialogs and restores the pre-dialog value
+ * on unmount. A second, hand-rolled lock here poisons Kobalte's saved original
+ * ('hidden' instead of '') and its later restore re-locks the page after every
+ * close, so this wrapper must not touch documentElement styles.
+ */
 
 type DialogProps = ComponentProps<typeof DialogPrimitive.Root>
 
 function Dialog(props: DialogProps) {
-  const [local, others] = splitProps(props, ['open', 'defaultOpen', 'onOpenChange'])
-  const lockId = Symbol()
-
-  const syncLock = (open: boolean) => (open ? lockDialogScroll(lockId) : unlockDialogScroll(lockId))
-
-  createEffect(() => {
-    if (local.open !== undefined) syncLock(local.open)
-    else if (local.defaultOpen) lockDialogScroll(lockId)
-  })
-  onCleanup(() => unlockDialogScroll(lockId))
-
-  const handleOpenState = (open: boolean) => {
-    syncLock(open)
-    local.onOpenChange?.(open)
-  }
+  const [local, others] = splitProps(props, ['open', 'defaultOpen'])
 
   return (
     <DialogPrimitive.Root
       data-slot="dialog"
       open={local.open}
       defaultOpen={local.defaultOpen}
-      onOpenChange={handleOpenState}
       {...others}
     />
   )

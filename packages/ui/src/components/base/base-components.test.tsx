@@ -1,6 +1,5 @@
-import { fireEvent, render, screen } from '@nl/ui/test-utils'
+import { fireEvent, render, screen, waitFor } from '@nl/ui/test-utils'
 import { describe, expect, it, mock } from 'bun:test'
-import { createSignal } from 'solid-js'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 import { Alert, AlertDescription, AlertTitle } from '@nl/ui/base/alert'
 import {
@@ -69,24 +68,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@nl/ui/base/tabs'
 import { Toggle } from '@nl/ui/base/toggle'
 import { ToggleGroup, ToggleGroupItem } from '@nl/ui/base/toggle-group'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@nl/ui/base/tooltip'
-
-const ConcurrentDialogs = () => {
-  const [outerOpen, setOuterOpen] = createSignal(true)
-  const [innerOpen, setInnerOpen] = createSignal(true)
-
-  return (
-    <>
-      <Dialog open={outerOpen()} onOpenChange={setOuterOpen} />
-      <Dialog open={innerOpen()} onOpenChange={setInnerOpen} />
-      <button type="button" onClick={() => setInnerOpen(false)}>
-        Close inner
-      </button>
-      <button type="button" onClick={() => setOuterOpen(false)}>
-        Close outer
-      </button>
-    </>
-  )
-}
 
 describe('base visual primitives', () => {
   it('renders semantic content and style variants', () => {
@@ -227,6 +208,8 @@ describe('base controlled primitives', () => {
   })
 })
 
+const htmlStyle = () => document.documentElement.getAttribute('style') ?? ''
+
 describe('base overlay primitives', () => {
   it('opens and closes dialogs while forwarding state callbacks', () => {
     const onOpenChange = mock()
@@ -247,20 +230,43 @@ describe('base overlay primitives', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }))
     expect(screen.getByRole('dialog')?.textContent).toContain('Dialog title')
-    expect(document.documentElement.style.overflow).toBe('hidden')
+    expect(document.documentElement.getAttribute('style') ?? '').toContain('overflow: hidden')
     fireEvent.click(screen.getByRole('button', { name: 'Done' }))
     expect(onOpenChange).toHaveBeenLastCalledWith(false)
   })
 
-  it('keeps document scrolling locked until every open dialog closes', () => {
-    render(() => <ConcurrentDialogs />)
-    expect(document.documentElement.style.overflow).toBe('hidden')
+  it('keeps document scrolling locked until every open dialog is gone', async () => {
+    // Locking is owned by Kobalte's dialog content and reference-counted across
+    // concurrent dialogs: unmounting one must not release the lock early, and
+    // the last one must restore the original document styles.
+    const view = render(() => (
+      <>
+        <Dialog open>
+          <DialogContent>
+            <DialogTitle>Outer dialog</DialogTitle>
+          </DialogContent>
+        </Dialog>
+        <Dialog open>
+          <DialogContent>
+            <DialogTitle>Inner dialog</DialogTitle>
+          </DialogContent>
+        </Dialog>
+      </>
+    ))
+    await waitFor(() => expect(htmlStyle()).toContain('overflow: hidden'))
 
-    fireEvent.click(screen.getByRole('button', { name: 'Close inner' }))
-    expect(document.documentElement.style.overflow).toBe('hidden')
+    view.rerender(() => (
+      <Dialog open>
+        <DialogContent>
+          <DialogTitle>Outer dialog</DialogTitle>
+        </DialogContent>
+      </Dialog>
+    ))
+    await waitFor(() => expect(screen.queryByText('Inner dialog')).toBeNull())
+    expect(htmlStyle()).toContain('overflow: hidden')
 
-    fireEvent.click(screen.getByRole('button', { name: 'Close outer' }))
-    expect(document.documentElement.style.overflow).toBe('')
+    view.rerender(() => <div />)
+    await waitFor(() => expect(htmlStyle()).not.toContain('overflow: hidden'))
   })
 
   it('renders alert-dialog, sheet sides, and tooltip composition', () => {
