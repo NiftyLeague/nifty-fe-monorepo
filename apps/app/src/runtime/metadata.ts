@@ -126,11 +126,9 @@ export const buildHead = (metadata: RouteMetadata): RouteHeadContent => ({
   links: metadata.path ? [{ rel: 'canonical', href: `${APP_ORIGIN}${metadata.path}` }] : undefined,
 })
 
-export const DEGEN_IMAGE_ORIGIN = APP_ORIGIN
-
 /**
- * Share tags for a single DEGEN deep link. The token id resolves to a `.gif`
- * for the animated legendaries and a `.webp` otherwise.
+ * Share tags for a single DEGEN deep link. The token id resolves to the
+ * card-size WebP on the CDN (animated for legendaries and Hydras).
  */
 export function degenShareMeta(tokenId: string, imageUrl: string): MetaTag[] {
   const title = `NL DEGEN #${tokenId}`

@@ -41,8 +41,8 @@ const MOCK_DEGEN_METADATA = {
 }
 
 const mockPipeRequest = mock((url: string, res: any) => {
-  const tokenId = url.match(/(\d+)\.(json|png|gif)$/)?.[1] ?? '1'
-  const ext = url.match(/(\d+)\.(json|png|gif)$/)?.[2] ?? 'json'
+  const tokenId = url.match(/(\d+)\.(json|png|gif|webp)$/)?.[1] ?? '1'
+  const ext = url.match(/(\d+)\.(json|png|gif|webp)$/)?.[2] ?? 'json'
   if (ext === 'json') {
     // Metadata route — return the matching marketplace item when the URL
     // points at the marketplace bucket, otherwise generic degen metadata.
@@ -58,7 +58,10 @@ const mockPipeRequest = mock((url: string, res: any) => {
     }
   } else {
     // Image route — return a tiny valid payload with the expected type.
-    res.setHeader('content-type', ext === 'gif' ? 'image/gif' : 'image/png')
+    res.setHeader(
+      'content-type',
+      ext === 'webp' ? 'image/webp' : ext === 'gif' ? 'image/gif' : 'image/png'
+    )
     res.send(Buffer.from('mock-image'))
   }
 })
@@ -224,7 +227,7 @@ describe('API Endpoints', () => {
     it('GET /:network/degen/image/:token_id — returns image with correct content-type', async () => {
       const response = await request(app).get(`/${network}/degen/image/${tokenId}`)
       expect(response.status).toBe(200)
-      expect(response.header['content-type']).toMatch(/image\/(png|gif)/)
+      expect(response.header['content-type']).toMatch(/image\/webp/)
     })
 
     it('GET /:network/degen/:token_id/background — returns background value', async () => {

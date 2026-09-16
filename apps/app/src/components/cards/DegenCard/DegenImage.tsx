@@ -1,6 +1,7 @@
 import DeferredAnimatedImage from '@nl/ui/custom/deferred-animated-image'
 import NativeImage from '@nl/ui/custom/native-image'
 import { cn } from '@nl/ui/utils'
+import { CDN_BASE_URL } from '@/constants/api'
 import { LEGGIES } from '@/constants/degens'
 
 const handleImageError = (e: Event) => {
@@ -16,11 +17,15 @@ const DegenImage = (props: {
   loading?: 'eager' | 'lazy'
   deferAnimation?: boolean
 }) => {
-  const imageURL = () => `/img/degens/nfts/${props.tokenId}`
+  // All degen imagery is WebP on the CDN: static for most tokens, animated
+  // for legendaries and Hydras. `sm` is the tiny pixel thumb, `md` the
+  // card-size render, `lg` the full-resolution poster.
+  const imageURL = () => `${CDN_BASE_URL}/degens/images/bg/md/${props.tokenId}.webp`
+  const posterURL = () => `${CDN_BASE_URL}/degens/images/bg/sm/${props.tokenId}.webp`
 
-  const isAnimated = () => LEGGIES.includes(Number(props.tokenId))
-  const poster = () => `${imageURL()}.webp`
-  const image = () => (isAnimated() ? `${imageURL()}.gif` : poster())
+  const isAnimated = () =>
+    LEGGIES.includes(Number(props.tokenId)) ||
+    (Number(props.tokenId) >= 9901 && Number(props.tokenId) <= 10000)
 
   const alt = () => `Degen #${props.tokenId}`
   const loading = () => props.loading ?? 'lazy'
@@ -36,9 +41,9 @@ const DegenImage = (props: {
         loading={loading()}
         decoding="async"
         onError={handleImageError}
-        src={poster()}
-        animatedSrc={image()}
-        animatedType="image/gif"
+        src={posterURL()}
+        animatedSrc={imageURL()}
+        animatedType="image/webp"
         deferAnimation
         activationDelay={1000}
         containerClassName="block"
@@ -55,7 +60,7 @@ const DegenImage = (props: {
       loading={loading()}
       decoding="async"
       onError={handleImageError}
-      src={image()}
+      src={imageURL()}
       unoptimized={isAnimated()}
     />
   )
