@@ -1,70 +1,29 @@
 import type { Accessor } from 'solid-js'
-import type { API, InitOptions } from 'bnc-notify'
 import type { JsonRpcSigner } from 'ethers'
 
-import { handleError, handleLocalNotify, sendTransaction } from '@/utils/bnc-notify'
-import type { NotifyCallback, NotifyError, Tx, TransactionEvent } from '@/types/notify'
-import { VALID_NOTIFY_NETWORKS, TARGET_NETWORK } from '@/constants/networks'
+import { handleError, notifyTransactionOutcome, sendTransaction } from '@/utils/transactions'
+import type { NotifyError, Tx } from '@/types/notify'
 import { DEBUG } from '@/constants/index'
-import { BLOCKNATIVE_DAPPID } from '@/runtime/env'
 
-const ETHERSCAN_TX_URL = `${TARGET_NETWORK.blockExplorer}/tx/`
-
-// Wrapper around BlockNative's wonderful Notify.js
-// https://docs.blocknative.com/notify
-
-const callbacks: { [hash: string]: NotifyCallback } = {}
-
-const initializeNotify = async (darkMode: boolean): Promise<API | null> => {
-  if (!navigator.onLine) return null
-
-  const { default: Notify } = await import('bnc-notify')
-  const options: InitOptions = {
-    dappId: BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
-    system: 'ethereum',
-    networkId: TARGET_NETWORK.chainId,
-    darkMode,
-    transactionHandler: (txInformation) => {
-      const txData = (txInformation as TransactionEvent).transaction
-      if (DEBUG) console.log(`HANDLE TX ${txData.status?.toString().toUpperCase()}`, txInformation)
-      const possibleFunction = txData.hash && callbacks[txData.hash]
-      if (typeof possibleFunction === 'function') possibleFunction(txData)
-    },
-    onerror: (e: NotifyError) => {
-      handleError(e)
-    },
-  }
-
-  return Notify(options)
-}
-
+/**
+ * Send a transaction and toast its lifecycle (sent → confirmed/reverted)
+ * with an explorer link. Replaces the BlockNative Notify.js client: the same
+ * user-visible states now come from the provider receipt wait, with no
+ * third-party websocket, dappId, or mempool subscription.
+ */
 export default function useNotify(
   signer?: Accessor<JsonRpcSigner | undefined>,
-  darkMode = true
+  _darkMode = true
 ): Tx {
   return async (tx, callback) => {
     const activeSigner = signer?.()
     if (typeof activeSigner === 'undefined') return null
 
     try {
-      const notify = await initializeNotify(darkMode)
       const result = await sendTransaction(activeSigner, tx)
-      if (callback) callbacks[result.hash] = callback
 
-      // if it is a valid Notify.js network, use that, if not, just send a default notification
-      if (notify && VALID_NOTIFY_NETWORKS.includes(TARGET_NETWORK.chainId)) {
-        const { emitter } = notify.hash(result.hash)
-        emitter.on('all', (transaction) => ({
-          onclick: () =>
-            transaction.hash &&
-            typeof window !== 'undefined' &&
-            window.open(ETHERSCAN_TX_URL + transaction.hash),
-        }))
-      } else {
-        await handleLocalNotify(activeSigner, result, callback)
-      }
-
-      if (typeof result.wait === 'function') await result.wait()
+      if (DEBUG) console.log('NOTIFY TX', result.hash)
+      await notifyTransactionOutcome(activeSigner, result, callback)
 
       return result
     } catch (e) {
