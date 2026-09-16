@@ -10,7 +10,7 @@ export const Route = createFileRoute('/_public/mint-o-matic')({
 
 function MintOMaticLayout() {
   return (
-    <PublicContentContainer flush>
+    <PublicContentContainer>
       <Outlet />
     </PublicContentContainer>
   )

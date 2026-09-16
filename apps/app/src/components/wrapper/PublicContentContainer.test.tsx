@@ -4,17 +4,17 @@ import { describe, expect, it } from 'bun:test'
 import PublicContentContainer from './PublicContentContainer'
 
 describe('PublicContentContainer', () => {
-  it('can flush route content to the full public main surface', () => {
+  it('wraps public route content in the shared padded shell', () => {
     render(() => (
-      <PublicContentContainer flush>
+      <PublicContentContainer>
         <span>Mint content</span>
       </PublicContentContainer>
     ))
 
     const container = screen.getByText('Mint content').parentElement
-    expect(container?.className).toContain('p-0')
-    expect(container?.className).toContain('h-full')
-    expect(container?.className).not.toContain('py-5')
-    expect(container?.className).not.toContain('md:py-10')
+    expect(container?.className).toContain('container')
+    expect(container?.className).toContain('py-5')
+    expect(container?.className).toContain('md:py-10')
+    expect(container?.className).not.toContain('p-0')
   })
 })
