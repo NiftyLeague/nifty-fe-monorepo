@@ -1,5 +1,10 @@
 const DEGEN_CDN_BASE_URL = 'https://cdn.niftyleague.com'
 export const DEGEN_BASE_SPRITE_URL = `${DEGEN_CDN_BASE_URL}/degens/gifs/retro`
+// 2D stills on R2 in three sizes; md (584x640) is the OpenSea-tuned size.
+// Leggy degens ship as animated WebP at the same path.
+export const DEGEN_2D_IMAGE_URL = `${DEGEN_CDN_BASE_URL}/degens/images/bg/md`
+// One-off site artwork (team, specials, marketing) mirrored to R2 under site/.
+export const DEGEN_SITE_ASSETS_URL = `${DEGEN_CDN_BASE_URL}/degens/site`
 // 3D models live on R2 as single-file GLBs (Draco geometry, AVIF box art,
 // lossless PNG traits) under the CDN — one request per degen.
 export const DEGEN_3D_MODEL_URL = `${DEGEN_CDN_BASE_URL}/degens/boxed`

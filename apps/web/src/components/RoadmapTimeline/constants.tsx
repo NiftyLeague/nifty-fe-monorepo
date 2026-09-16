@@ -387,7 +387,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 17th, 2023',
-    image: { height: 384, src: '/img/degens/hydra.webp', style: { top: '-160px' }, width: 384 },
+    image: {
+      height: 384,
+      src: 'https://cdn.niftyleague.com/degens/site/hydra.webp',
+      style: { top: '-160px' },
+      width: 384,
+    },
     title: 'The Hatching',
     body: (
       <>

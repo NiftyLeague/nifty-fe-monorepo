@@ -28,7 +28,7 @@ export default function HomeV3Community() {
         />
         <div class="home-v3-community-cast">
           <OptimizedImage
-            src="/img/degens/community-characters.webp"
+            src="https://cdn.niftyleague.com/degens/site/community-characters.webp"
             alt="Community DEGENs"
             width={596}
             height={194}

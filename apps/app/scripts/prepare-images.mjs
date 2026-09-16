@@ -27,8 +27,8 @@ async function files(directory) {
 }
 
 // The static `/img/...` references in app and shared-UI source. API-driven
-// sources (`/img/degens/nfts/<id>.webp` and friends) never appear as string
-// literals, so they stay on the original files by design — 10k NFT images
+// degen sources (cdn.niftyleague.com URLs) never appear as local string
+// literals, so they stay on the CDN by design — 10k NFT images
 // cannot be enumerated at build time.
 const references = new Set()
 for (const root of [join(app, 'src'), resolve(app, '../../packages/ui/src')]) {

@@ -15,7 +15,7 @@ export default function HomeDegensSection() {
           <OptimizedImage
             class="pixelated w-full h-auto max-w-(--degens-overlay-max-w) md:max-w-(--degens-overlay-max-w-md) lg:max-w-175 xl:max-w-200"
             style={{ '--degens-overlay-max-w': '90vw', '--degens-overlay-max-w-md': '80%' }}
-            src="/img/degens/nifty-ape.webp"
+            src="https://cdn.niftyleague.com/degens/site/nifty-ape.webp"
             width={856}
             height={842}
             loading="lazy"

@@ -40,7 +40,7 @@ export default function HomeV3Games() {
           </a>
           <div class="home-v3-floating-mascot" aria-hidden="true">
             <OptimizedImage
-              src="/img/degens/specials/cat.gif"
+              src="https://cdn.niftyleague.com/degens/site/specials/cat.gif"
               alt=""
               width={512}
               height={512}

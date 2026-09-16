@@ -30,7 +30,7 @@ const ImageProfile = (props: ImageProfileProps): JSX.Element => {
     if (!degenSelected()) {
       return (
         <NativeImage
-          src="/img/degens/unavailable-image.webp"
+          src="https://cdn.niftyleague.com/degens/site/unavailable-image.webp"
           alt="no avatar"
           width={730}
           height={800}

@@ -1,5 +1,5 @@
 import { routeRequest } from './routes.mjs'
-import LEGGIES from '../.web-images/leggies.json'
+import { DEGEN_2D_IMAGE_URL } from '../src/constants/degen-assets'
 
 interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> }
@@ -71,8 +71,8 @@ export default {
         response.headers.set('X-Robots-Tag', 'noindex, nofollow')
         return request.method === 'HEAD' ? new Response(null, response) : response
       }
-      const extension = LEGGIES.includes(Number(plan.tokenId)) ? 'gif' : 'webp'
-      const poster = `/img/degens/nfts/${plan.tokenId}.${extension}`
+      // Animated WebP at this path already covers the leggy degens.
+      const poster = `${DEGEN_2D_IMAGE_URL}/${plan.tokenId}.webp`
       response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=3600')
       // Token ID is validated as digits and written through attribute APIs, not
       // interpolated into executable JS or Astro's serialized hydration props.
