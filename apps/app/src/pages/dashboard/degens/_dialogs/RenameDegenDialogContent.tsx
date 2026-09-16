@@ -13,6 +13,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useNFTLAllowance from '@/hooks/useNFTLAllowance'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
+import { CDN_BASE_URL } from '@/constants/api'
 import { getErrorForName } from '@/utils/name'
 import { submitTxWithGasEstimate } from '@/utils/bnc-notify'
 import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts'
@@ -97,11 +98,11 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
         </Title>
         <div class="flex flex-col items-center gap-1">
           <NativeImage
-            src={`/img/degens/nfts/${props.degen?.id}.${props.degen?.background === 'Legendary' ? 'gif' : 'webp'}`}
+            src={`${CDN_BASE_URL}/degens/images/bg/md/${props.degen?.id}.webp`}
             alt="degen"
             width={240}
             height={240}
-            unoptimized={props.degen?.background === 'Legendary'}
+            unoptimized
             class="mx-auto block aspect-square w-60 object-cover"
           />
           <p class="text-center text-xs text-muted-foreground">Owned by {props.degen?.owner}</p>
