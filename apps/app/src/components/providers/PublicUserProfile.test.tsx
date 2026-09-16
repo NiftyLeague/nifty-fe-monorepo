@@ -16,6 +16,7 @@ mock.module('@nl/ui/hooks/useMediaQuery', () => ({
 
 mock.module('@/contexts/WalletModal', () => ({
   openWalletModal: async () => undefined,
+  preloadWalletModal: () => undefined,
 }))
 
 mock.module('@/contexts/WalletAuthProvidersBoundary', () => ({

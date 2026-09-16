@@ -58,12 +58,24 @@ async function createWalletModal() {
   })
 }
 
-export async function openWalletModal() {
+function ensureWalletModal() {
   walletModalPromise ??= createWalletModal().catch((error) => {
     walletModalPromise = undefined
     throw error
   })
+  return walletModalPromise
+}
 
-  const walletModal = await walletModalPromise
+/**
+ * Start loading the AppKit/wagmi chunk graph before the user clicks — wired
+ * to pointerenter/focus on the connect triggers so the multi-MB modal code is
+ * already in flight (or resolved) by the time `openWalletModal` runs.
+ */
+export function preloadWalletModal() {
+  void ensureWalletModal().catch(() => undefined)
+}
+
+export async function openWalletModal() {
+  const walletModal = await ensureWalletModal()
   return walletModal.open()
 }

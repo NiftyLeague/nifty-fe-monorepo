@@ -10,6 +10,12 @@ interface ConnectWrapperProps extends JSX.ButtonHTMLAttributes<HTMLButtonElement
   buttonText?: string
 }
 
+// Warm the wallet modal chunk on intent so the multi-MB AppKit graph is in
+// flight before the click, matching the router's 'intent' preload model.
+const preloadWalletModal = () => {
+  void import('@/contexts/WalletModal').then((modal) => modal.preloadWalletModal())
+}
+
 const ConnectWrapper = (props: ConnectWrapperProps) => {
   const [local, otherProps] = splitProps(props, [
     'children',
@@ -33,6 +39,8 @@ const ConnectWrapper = (props: ConnectWrapperProps) => {
             className: local.fullWidth ? 'w-full' : undefined,
           })}
           onClick={() => void auth.handleConnectWallet()}
+          onPointerEnter={preloadWalletModal}
+          onFocus={preloadWalletModal}
           {...otherProps}
         >
           {auth.isConnected

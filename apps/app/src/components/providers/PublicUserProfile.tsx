@@ -46,7 +46,13 @@ function ProfileProviderError(props: { retry: () => void }) {
   )
 }
 
-function SignedOutProfile(props: { onConnect: () => void }) {
+// Warm the wallet modal chunk on pointer intent so the deferred AppKit graph
+// is in flight before the click.
+const preloadWalletModal = () => {
+  void import('@/contexts/WalletModal').then((modal) => modal.preloadWalletModal())
+}
+
+function SignedOutProfile(props: { onConnect: () => void; onConnectIntent?: () => void }) {
   return (
     <div
       data-public-signed-out-profile
@@ -60,7 +66,13 @@ function SignedOutProfile(props: { onConnect: () => void }) {
       <div class="my-2 flex flex-col items-center">
         <span>Login to view dashboards</span>
       </div>
-      <Button type="button" class="w-full" onClick={props.onConnect}>
+      <Button
+        type="button"
+        class="w-full"
+        onClick={props.onConnect}
+        onPointerEnter={props.onConnectIntent}
+        onFocus={props.onConnectIntent}
+      >
         Connect Account
       </Button>
     </div>
@@ -102,7 +114,10 @@ export default function PublicUserProfile(props: PublicUserProfileProps) {
             </WalletAuthProvidersBoundary>
           </Match>
           <Match when={true}>
-            <SignedOutProfile onConnect={handleConnectWallet} />
+            <SignedOutProfile
+              onConnect={handleConnectWallet}
+              onConnectIntent={preloadWalletModal}
+            />
           </Match>
         </Switch>
       </Show>
