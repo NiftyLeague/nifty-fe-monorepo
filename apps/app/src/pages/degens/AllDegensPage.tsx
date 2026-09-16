@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-solid'
 import { useQueryStates } from '@/url/nuqs-solid'
 
 import { Button } from '@nl/ui/base/button'
-import { PaginationEllipsis } from '@nl/ui/base/pagination'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 
 import SkeletonDegenPlaceholder from '@/components/cards/Skeleton/DegenPlaceholder'
@@ -166,7 +165,15 @@ const AllDegensPage = (): JSX.Element => {
           <For each={pageItems()}>
             {(p) =>
               p === 'ellipsis-start' || p === 'ellipsis-end' ? (
-                <PaginationEllipsis />
+                // Local ellipsis: the shared PaginationEllipsis renders a bare
+                // <li>, which has no list parent inside these controls.
+                <span
+                  data-slot="pagination-ellipsis"
+                  class="flex size-9 items-center justify-center"
+                  aria-hidden="true"
+                >
+                  …
+                </span>
               ) : (
                 <Button
                   type="button"
