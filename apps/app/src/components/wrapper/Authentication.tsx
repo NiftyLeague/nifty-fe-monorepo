@@ -3,6 +3,10 @@ import { Dynamic } from 'solid-js/web'
 import { Button } from '@nl/ui/base/button'
 import useAuth from '@/hooks/useAuth'
 
+const preloadWalletModal = () => {
+  void import('@/contexts/WalletModal').then((modal) => modal.preloadWalletModal())
+}
+
 const ProfileVerification = (): JSX.Element => {
   const auth = useAuth()
 
@@ -11,7 +15,12 @@ const ProfileVerification = (): JSX.Element => {
       <p class="mb-2">
         {auth.isConnected ? 'Please sign message to log in' : 'Please connect your wallet'}
       </p>
-      <Button variant="default" onClick={auth.handleConnectWallet}>
+      <Button
+        variant="default"
+        onClick={auth.handleConnectWallet}
+        onPointerEnter={preloadWalletModal}
+        onFocus={preloadWalletModal}
+      >
         {auth.isConnected ? 'Log In' : 'Connect Wallet'}
       </Button>
     </div>
