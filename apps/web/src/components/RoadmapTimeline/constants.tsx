@@ -308,7 +308,6 @@ export const ROADMAP_CARDS = [
               src="/img/comics/thumbnail/1.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
-              style={{ width: '100%', height: 'auto' }}
               class="w-full h-auto"
             />
           </div>
@@ -319,7 +318,6 @@ export const ROADMAP_CARDS = [
               src="/img/comics/thumbnail/2.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
-              style={{ width: '100%', height: 'auto' }}
               class="w-full h-auto"
             />
           </div>
@@ -330,7 +328,6 @@ export const ROADMAP_CARDS = [
               src="/img/comics/thumbnail/3.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
-              style={{ width: '100%', height: 'auto' }}
               class="w-full h-auto"
             />
           </div>
@@ -341,7 +338,6 @@ export const ROADMAP_CARDS = [
               src="/img/comics/thumbnail/4.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
-              style={{ width: '100%', height: 'auto' }}
               class="w-full h-auto"
             />
           </div>
@@ -352,7 +348,6 @@ export const ROADMAP_CARDS = [
               src="/img/comics/thumbnail/5.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
-              style={{ width: '100%', height: 'auto' }}
               class="w-full h-auto"
             />
           </div>
@@ -363,7 +358,6 @@ export const ROADMAP_CARDS = [
               src="/img/comics/thumbnail/6.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
-              style={{ width: '100%', height: 'auto' }}
               class="w-full h-auto"
             />
           </div>

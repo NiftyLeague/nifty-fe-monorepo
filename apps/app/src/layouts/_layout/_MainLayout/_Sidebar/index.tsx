@@ -8,8 +8,7 @@ import SidebarFrame from './SidebarFrame'
 function UserProfileLoading() {
   return (
     <div
-      class="mb-4 flex flex-col items-center rounded-lg bg-muted p-4"
-      style={{ border: 'var(--border-default)' }}
+      class="mb-4 flex flex-col items-center rounded-lg border border-border bg-muted p-4"
       role="status"
       aria-live="polite"
       aria-busy="true"
@@ -44,11 +43,7 @@ function SidebarReadyContent() {
 
 const Sidebar = ({ walletReady = true }: { walletReady?: boolean }) => {
   return (
-    <SidebarFrame
-      footer={
-        walletReady ? <LogoutButton sx={{ 'margin-bottom': '12px', width: '85%' }} /> : undefined
-      }
-    >
+    <SidebarFrame footer={walletReady ? <LogoutButton class="mb-3 w-17/20" /> : undefined}>
       {walletReady ? <SidebarReadyContent /> : <UserProfileLoading />}
       {!walletReady && <MenuList />}
     </SidebarFrame>

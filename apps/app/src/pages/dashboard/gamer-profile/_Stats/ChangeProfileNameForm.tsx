@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, Show, useContext, type JSX } from 'solid-js'
 import { AlertCircle } from 'lucide-solid'
 import { toast } from 'solid-sonner'
@@ -78,7 +76,12 @@ const ChangeProfileNameForm = (props: ChangeProfileNameFormProps): JSX.Element =
       <div class="flex flex-col gap-4">
         <Show
           when={!renameFee.loadingFee}
-          fallback={<DeferredSkeleton class="h-[18.67px] w-full rounded" />}
+          fallback={
+            <DeferredSkeleton
+              class="h-(--skel-h) w-full rounded"
+              style={{ '--skel-h': '18.67px' }}
+            />
+          }
         >
           <Show when={renameFee.fee}>
             {(fee) => (

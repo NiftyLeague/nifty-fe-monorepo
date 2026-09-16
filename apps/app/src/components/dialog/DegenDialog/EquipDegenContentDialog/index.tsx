@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, createSignal, For, Show } from 'solid-js'
 import { onMount } from 'solid-js'
 import { X } from 'lucide-solid'
@@ -163,12 +161,12 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
         <Show
           when={!nfts.loadingComics}
           fallback={
-            <div class="flex flex-row items-center justify-center h-[200px] mx-auto">
+            <div class="flex flex-row items-center justify-center h-50 mx-auto">
               <CircularProgress size="xl" />
             </div>
           }
         >
-          <div class="flex flex-wrap items-center justify-center h-[200px]">
+          <div class="flex flex-wrap items-center justify-center h-50">
             <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
               <EmptyState
                 message="You don't own any Comics yet."
@@ -180,22 +178,19 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
         </Show>
       }
     >
-      <div class="flex flex-col py-2 max-w-[330px] mx-auto gap-2">
-        <div
-          class="flex flex-row items-center justify-center p-2.5 mx-2.5"
-          style={{ 'background-color': '#262930' }}
-        >
+      <div class="flex flex-col py-2 max-w-82.5 mx-auto gap-2">
+        <div class="flex flex-row items-center justify-center p-2.5 mx-2.5 bg-(--panel)">
           <Title level={5} class={title}>
             {props.name || `DEGEN #${props.degen?.id}`}
           </Title>
         </div>
-        <div class="flex flex-row mt-[18px]">
+        <div class="flex flex-row mt-4.5">
           <div class="flex flex-col items-center">
             <span class={cn(label, 'text-base mb-4')}>SLOTS</span>
             <div class="flex flex-col gap-6">
               <For each={SLOTS}>
                 {(slot, index) => (
-                  <div class="relative" style={{ width: '40px', height: '40px' }}>
+                  <div class="relative w-10 h-10">
                     {getSlotImage(index())}
                     <Show when={isEquippedSlot(index())}>
                       <Button
@@ -217,21 +212,11 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
               </For>
             </div>
           </div>
-          <div class="flex flex-col mt-[22px] ml-[30px] mr-[12px]">
+          <div class="flex flex-col mt-5.5 ml-7.5 mr-3">
             <Show when={props.degen?.id}>
-              {(id) => (
-                <DegenImage
-                  sx={{
-                    'object-fit': 'cover',
-                    width: '183px',
-                    height: '244px',
-                    'border-radius': '10px',
-                  }}
-                  tokenId={id()}
-                />
-              )}
+              {(id) => <DegenImage class="w-45.75 h-61 rounded-lg" tokenId={id()} />}
             </Show>
-            <div class="flex flex-row mt-[10px] gap-[12px]">
+            <div class="flex flex-row mt-2.5 gap-3">
               <Button
                 variant="default"
                 class={cn(
@@ -253,16 +238,13 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
                 ROTATE
               </Button>
             </div>
-            <span
-              class={cn(label, 'text-base mx-auto font-bold')}
-              style={{ 'margin-top': '18px', 'margin-bottom': '18px' }}
-            >
+            <span class={cn(label, 'text-base mx-auto font-bold my-4.5')}>
               {totalMultiplierApplied()}
             </span>
             <Button
               variant="default"
               disabled={!stateChanged()}
-              class="mx-auto w-[116px]"
+              class="mx-auto w-29"
               onClick={handleSave}
             >
               SAVE
@@ -270,27 +252,17 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
           </div>
           <div class="flex flex-col items-center">
             <span class={cn(label, 'text-base mb-4 text-center')}>INVENTORY</span>
-            <div class="flex flex-col gap-[10px]">
+            <div class="flex flex-col gap-2.5">
               <For each={INVENTORIES}>
                 {(inventory, index) => (
                   <div
                     onClick={() => handleEquip(index())}
-                    class="relative"
-                    style={{
-                      width: '30px',
-                      height: '30px',
-                      cursor: pendingEquipped()[index()] ? 'inherit' : 'pointer',
-                    }}
+                    class={`relative w-7.5 h-7.5 ${pendingEquipped()[index()] ? '' : 'cursor-pointer'}`}
                   >
                     {pendingEquipped()[index()] ? inventory.empty : inventory.filled}
                     <Show when={!pendingEquipped()[index()] && (multipliers[index()] ?? 0) >= 2}>
                       <div
                         class={cn(tag, 'flex items-center justify-center')}
-                        style={{
-                          display: 'flex',
-                          'align-items': 'center',
-                          'justify-content': 'center',
-                        }}
                       >{`${multipliers[index()]}x`}</div>
                     </Show>
                   </div>

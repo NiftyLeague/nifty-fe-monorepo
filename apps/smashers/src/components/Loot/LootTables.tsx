@@ -67,26 +67,19 @@ export default function LootTables({ data = DROP_TABLES as CrateData }: LootTabl
             </ScrollableTable>
 
             {/* Section heading at outline level 3 (the crate name is the h2).
-                The level-6 utilities reproduce the original visual size, so the
-                outline is correct without changing the look. */}
-            <Typography.Title
-              level={3}
-              class="mt-4 mb-2 text-base font-normal font-subheader tracking-subheader"
-            >
+                Rendered as a plain h3 with the exact classes the level-3 Title
+                resolves to after overrides (the level-6 visual size), so the
+                outline is correct without restyling the @nl/ui component. */}
+            <h3 class="mt-4 mb-2 text-base font-normal font-subheader tracking-wide">
               Bonus Item Odds:{' '}
-              <span
-                style={{
-                  background: 'var(--gradient-brand)',
-                  'font-family': 'inherit',
-                  'font-size': 'inherit',
-                  'font-weight': 'inherit',
-                  '-webkit-background-clip': 'text',
-                  '-webkit-text-fill-color': 'transparent',
-                }}
-              >
+              {/* Gradient text via utilities: identical to `background:
+                  var(--gradient-brand)` (90deg == to right, 0%/100% stops,
+                  default sRGB interpolation) with background-clip:text and a
+                  transparent fill. */}
+              <span class="bg-linear-to-r/srgb from-purple to-blue bg-clip-text text-transparent">
                 {crate.BonusItemOdds}
               </span>
-            </Typography.Title>
+            </h3>
 
             {crate.CurrencyMinMax && Object.keys(crate.CurrencyMinMax).length > 0 && (
               <>

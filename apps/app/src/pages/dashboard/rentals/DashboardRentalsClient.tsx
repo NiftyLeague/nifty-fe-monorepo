@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from '@/runtime/dynamic'
 
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
@@ -9,7 +7,7 @@ const DashboardRentalsPageContent = dynamic(() => import('./DashboardRentalsCont
   ssr: false,
   loading: () => (
     <div
-      class="flex min-h-[36rem] flex-col gap-6 rounded-md border border-border bg-muted p-6"
+      class="flex min-h-144 flex-col gap-6 rounded-md border border-border bg-muted p-6"
       role="status"
       aria-live="polite"
       aria-busy="true"

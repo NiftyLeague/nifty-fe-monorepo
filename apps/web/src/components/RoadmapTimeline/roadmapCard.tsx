@@ -24,7 +24,7 @@ interface RoadmapCardProps {
     posterSrc?: string
     width: number
     height: number
-    style: { top: string; right?: string }
+    style: { top: string; right?: string; padding?: string }
   }
   side?: RoadmapCardSide
   title: string | JSX.Element
@@ -75,7 +75,16 @@ const RoadmapCard = ({
     )}
 
     {image && (
-      <div class={styles.timeline_content_img} style={image.style}>
+      <div
+        class={styles.timeline_content_img}
+        style={{
+          // Consumed by the .timeline_content_img var() declarations in
+          // index.module.css; keeps per-card offsets out of inline styles.
+          '--roadmap-img-top': image.style.top,
+          '--roadmap-img-right': image.style.right,
+          '--roadmap-img-pad': image.style.padding,
+        }}
+      >
         {image.src.endsWith('.gif') && image.posterSrc ? (
           <DeferredAnimatedImage
             src={image.posterSrc}
@@ -85,7 +94,7 @@ const RoadmapCard = ({
             width={image.width}
             height={image.height}
             sizes="200px"
-            style={{ width: '100%', height: 'auto' }}
+            class="w-full h-auto"
           />
         ) : image.src.endsWith('.gif') || image.posterSrc ? (
           <AnimatedImage
@@ -97,7 +106,7 @@ const RoadmapCard = ({
             width={image.width}
             height={image.height}
             sizes="200px"
-            style={{ width: '100%', height: 'auto' }}
+            class="w-full h-auto"
           />
         ) : (
           <OptimizedImage
@@ -108,7 +117,7 @@ const RoadmapCard = ({
             sizes="200px"
             loading="lazy"
             fetchpriority="low"
-            style={{ width: '100%', height: 'auto' }}
+            class="w-full h-auto"
           />
         )}
       </div>
@@ -116,7 +125,7 @@ const RoadmapCard = ({
 
     <div class={styles.cd_timeline_content}>
       <div class={styles.timeline_content_body}>
-        <h3 class="[word-spacing:-10px] heading-look-5 text-highlight-purple">{title}</h3>
+        <h3 class="roadmap-heading-word-spacing heading-look-5 text-highlight-purple">{title}</h3>
         {(completed || cancelled) && (
           <div class={styles.timeline_content_info}>
             <span class={styles.timeline_content_info_title}>
@@ -138,7 +147,7 @@ const RoadmapCard = ({
           width={200}
           height={200}
           sizes="(min-width: 1170px) 250px, (min-width: 1000px) 200px, (min-width: 850px) 175px, 125px"
-          style={{ width: '100%', height: 'auto' }}
+          class="w-full h-auto"
         />
       </div>
     ) : null}

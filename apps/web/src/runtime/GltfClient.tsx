@@ -28,7 +28,8 @@ export default function GltfClient() {
           alt="Nifty League Logo"
           width={200}
           height={70}
-          style={{ 'max-width': '24vw', height: 'auto' }}
+          class="h-auto max-w-(--gltf-logo-max-w)"
+          style={{ '--gltf-logo-max-w': '24vw' }}
           src="/img/logos/NL/wordmark.webp"
         />
       }

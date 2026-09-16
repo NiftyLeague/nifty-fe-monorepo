@@ -1,5 +1,3 @@
-'use client'
-
 import { RENTAL_PASS_INVENTORY_URL } from '@/constants/url'
 import { useQuery } from '@tanstack/solid-query'
 import { errorMsgHandler } from '@/utils/errorHandlers'

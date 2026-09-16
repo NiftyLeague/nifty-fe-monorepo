@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'

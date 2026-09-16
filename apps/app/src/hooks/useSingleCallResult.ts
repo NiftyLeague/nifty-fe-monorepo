@@ -1,4 +1,3 @@
-'use client'
 import { createSignal, createEffect } from 'solid-js'
 import type { BaseContract, Contract, ContractMethod } from 'ethers'
 import type { Contracts } from '@/types/web3'

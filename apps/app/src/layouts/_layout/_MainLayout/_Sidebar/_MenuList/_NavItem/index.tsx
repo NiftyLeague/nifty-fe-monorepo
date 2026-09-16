@@ -30,7 +30,10 @@ const NavItem = (props: NavItemProps) => {
 
   const inner = (
     <>
-      <span class="my-auto" style={{ 'min-width': `${!props.item?.icon ? 18 : 36}px` }}>
+      <span
+        class="my-auto min-w-(--nav-icon-w)"
+        style={{ '--nav-icon-w': `${!props.item?.icon ? 18 : 36}px` }}
+      >
         <AppNavIcon name={props.item?.icon ?? 'dot'} size="lg" />
       </span>
       <span class="flex-1">
@@ -51,16 +54,15 @@ const NavItem = (props: NavItemProps) => {
     </>
   )
 
+  const styleVars = {
+    '--lvl-pl': `${props.level * 24}px`,
+    '--lvl-py': `${props.level > 1 ? 8 : 10}px`,
+  }
   const linkClass = () =>
     cx(
-      'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 py-2 text-left transition-colors hover:border-purple hover:bg-muted',
+      'mb-0.5 flex items-start gap-2 rounded-md border border-transparent bg-transparent px-2 pt-(--lvl-py) pb-(--lvl-py) pl-(--lvl-pl) text-left transition-colors hover:border-purple hover:bg-muted',
       isSelected() && 'border-purple bg-muted'
     )
-  const style = {
-    'padding-left': `${props.level * 24}px`,
-    'padding-top': `${props.level > 1 ? 8 : 10}px`,
-    'padding-bottom': `${props.level > 1 ? 8 : 10}px`,
-  }
 
   if (props.item?.external) {
     return (
@@ -69,7 +71,7 @@ const NavItem = (props: NavItemProps) => {
         target={itemTarget()}
         rel="noopener noreferrer"
         class={linkClass()}
-        style={style}
+        style={styleVars}
         onClick={itemHandler}
       >
         {inner}
@@ -83,7 +85,7 @@ const NavItem = (props: NavItemProps) => {
       prefetch={false}
       target={itemTarget()}
       class={linkClass()}
-      style={style}
+      style={styleVars}
       onClick={itemHandler}
     >
       {inner}

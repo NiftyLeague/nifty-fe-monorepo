@@ -1,5 +1,3 @@
-'use client'
-
 import { useAccount, useReadContract } from '@/runtime/wagmi'
 import { formatEther } from 'ethers'
 import type { AddressLike } from 'ethers'

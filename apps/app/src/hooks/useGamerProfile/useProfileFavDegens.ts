@@ -1,5 +1,3 @@
-'use client'
-
 import { PROFILE_FAV_DEGENS_API } from '@/constants/auth-urls'
 import { useQuery } from '@tanstack/solid-query'
 import useAuth from '@/hooks/useAuth'

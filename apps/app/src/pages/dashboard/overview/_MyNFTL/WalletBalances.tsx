@@ -1,5 +1,3 @@
-'use client'
-
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 
@@ -20,11 +18,6 @@ const WalletBalances = (): JSX.Element => {
           title="IMX Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.imx)} NFTL`}
           isLoading={loadingNFTLBal}
-          customStyle={{
-            'background-color': 'var(--color-card)',
-            border: 'var(--border-default)',
-            position: 'relative',
-          }}
           secondary="Available to Use"
           actions={
             <>
@@ -46,7 +39,7 @@ const WalletBalances = (): JSX.Element => {
                   href={SNAPSHOT_PORTAL_URL}
                   target="_blank"
                   rel="noreferrer"
-                  style={{ width: '48%' }}
+                  class="inline-block w-12/25"
                 >
                   <Button class="w-full text-foreground" variant="outline">
                     Snapshot
@@ -56,7 +49,7 @@ const WalletBalances = (): JSX.Element => {
                   href={GOVERNANCE_PORTAL_URL}
                   target="_blank"
                   rel="noreferrer"
-                  style={{ width: '48%' }}
+                  class="inline-block w-12/25"
                 >
                   <Button class="w-full" variant="default">
                     Tally
@@ -71,11 +64,6 @@ const WalletBalances = (): JSX.Element => {
         <HoverDataCard
           title="ETH Wallet"
           primary={`${formatNumberToDisplay(tokensBalances.NFTL.eth)} NFTL`}
-          customStyle={{
-            'background-color': 'var(--color-card)',
-            border: 'var(--border-default)',
-            position: 'relative',
-          }}
           secondary="Available to Bridge"
           isLoading={loadingNFTLBal}
           actions={

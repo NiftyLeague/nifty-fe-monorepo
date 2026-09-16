@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext, type JSX } from 'solid-js'
 
 import { FEATURE_FLAGS } from '@/runtime/env'

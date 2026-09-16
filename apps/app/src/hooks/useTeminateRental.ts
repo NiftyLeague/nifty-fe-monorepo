@@ -1,5 +1,3 @@
-'use client'
-
 import { TERMINATE_RENTAL_API_URL } from '@/constants/url'
 import { useMutation, useQueryClient } from '@tanstack/solid-query'
 import { queryKeys } from '@/query/app-query'

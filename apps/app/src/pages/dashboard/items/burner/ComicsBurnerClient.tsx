@@ -1,5 +1,3 @@
-'use client'
-
 import { For } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
@@ -12,7 +10,7 @@ const ComicsBurnerContent = dynamic(() => import('./ComicsBurnerContent'), {
   ssr: false,
   loading: () => (
     <div
-      class="flex min-h-[40rem] flex-col gap-4 rounded-md border border-border bg-muted p-6"
+      class="flex min-h-160 flex-col gap-4 rounded-md border border-border bg-muted p-6"
       role="status"
       aria-live="polite"
       aria-busy="true"

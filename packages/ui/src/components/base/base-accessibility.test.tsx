@@ -20,9 +20,9 @@ import { Input } from '@nl/ui/base/input'
 import { Label } from '@nl/ui/base/label'
 import {
   Pagination,
-  PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
+  PaginationItems,
   PaginationNext,
   PaginationPrevious,
 } from '@nl/ui/base/pagination'
@@ -100,27 +100,24 @@ describe('base primitives: names and semantics', () => {
 
   it('marks the current page in pagination and names the step controls', () => {
     render(() => (
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="?page=1" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="?page=1" isActive>
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="?page=3" />
-          </PaginationItem>
-        </PaginationContent>
+      <Pagination
+        count={3}
+        defaultPage={1}
+        itemComponent={(itemProps) => (
+          <PaginationItem page={itemProps.page}>{itemProps.page}</PaginationItem>
+        )}
+        ellipsisComponent={() => <PaginationEllipsis />}
+      >
+        <PaginationPrevious aria-label="Go to previous page" />
+        <PaginationItems />
+        <PaginationNext aria-label="Go to next page" />
       </Pagination>
     ))
 
-    expect(screen.getByRole('navigation').getAttribute('aria-label')).toBeTruthy()
-    expect(screen.getByRole('link', { name: /previous/i })).toBeTruthy()
-    expect(screen.getByRole('link', { name: /next/i })).toBeTruthy()
-    expect(screen.getByRole('link', { current: 'page' }).textContent).toBe('1')
+    expect(screen.getByRole('navigation')).toBeTruthy()
+    expect(screen.getByRole('button', { name: /previous/i })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /next/i })).toBeTruthy()
+    expect(screen.getByRole('button', { current: 'page' }).textContent).toBe('1')
   })
 
   it('gives the table its header and cell relationships', () => {

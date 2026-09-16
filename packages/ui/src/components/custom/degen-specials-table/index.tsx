@@ -22,7 +22,7 @@ export function DegenSpecialsTable() {
         <Separator
           orientation="vertical"
           aria-hidden="true"
-          class="absolute top-0 bottom-0 left-1/2 h-full w-[2px] my-0 mx-0 md:left-1/3"
+          class="absolute top-0 bottom-0 left-1/2 h-full w-0.5 my-0 mx-0 md:left-1/3"
         />
         <For each={DEGEN_SPECIALS}>
           {({ name, description, specialName, gif, image }: DegenSpecial) => (
@@ -39,7 +39,7 @@ export function DegenSpecialsTable() {
                       height={image.height}
                       loading="lazy"
                       decoding="async"
-                      class="mx-auto h-auto w-[30%] sm:w-auto sm:max-w-[90px] lg:max-w-[120px]"
+                      class="mx-auto h-auto w-3/10 sm:w-auto sm:max-w-22.5 lg:max-w-30"
                     />
                   </div>
                   <h5 class="mt-2 text-center">{name}</h5>

@@ -1,5 +1,3 @@
-'use client'
-
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
 import { formatNumberToDisplay } from '@nl/ui/number-format'
@@ -18,7 +16,7 @@ const TitleSection = (): JSX.Element => {
         <div class="flex flex-wrap items-center justify-end gap-4">
           <AddNFTLToMetamask />
           {loadingNFTLBal ? (
-            <DeferredSkeleton class="h-10 w-[120px] rounded" />
+            <DeferredSkeleton class="h-10 w-30 rounded" />
           ) : (
             <span class="text-base font-bold">
               NFTL in Wallet:{' '}

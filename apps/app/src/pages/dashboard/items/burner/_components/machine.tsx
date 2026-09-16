@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, Show, type JSX } from 'solid-js'
 import useInterval from '@/hooks/useInterval'
 import useIMXContext from '@/hooks/useIMXContext'

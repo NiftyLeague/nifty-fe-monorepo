@@ -1,4 +1,3 @@
-'use client'
 import { createEffect, createMemo, For, Show, type JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { useQueryStates } from '@/url/nuqs-solid'
@@ -79,7 +78,7 @@ export default function LeaderBoards(): JSX.Element {
   return (
     <div class="mx-auto">
       <div class="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center">
-        <div class="min-w-[164px]">
+        <div class="min-w-41">
           <Select<LeaderboardGame>
             options={LEADERBOARD_GAME_LIST}
             optionValue="key"
@@ -97,7 +96,7 @@ export default function LeaderBoards(): JSX.Element {
           </Select>
         </div>
         <Show when={selectedGame() === 'nifty_smashers'}>
-          <div class="min-w-[120px]">
+          <div class="min-w-30">
             <Select<TableType>
               options={NiftySmashersTables}
               optionValue="key"

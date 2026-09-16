@@ -1,31 +1,29 @@
 import { For, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
-import type { SxProps } from '@/types'
+import { cn } from '@nl/ui/utils'
 import type { Item } from '@/types/marketplace'
 import ImageCard from '@/components/cards/ImageCard'
 
 interface WearableItemCardProps {
   data: Item
-  sx?: SxProps
   isSelected?: boolean
   onViewItem?: () => void
 }
 
 interface WearableItemCardPaneProps {
   data: Item
-  sx?: SxProps
   width: number
   height: number
+  class?: string
 }
 
 const WearableItemCardPane = (props: WearableItemCardPaneProps) => {
   return (
     <div
-      class="relative overflow-hidden rounded-[10px]"
+      class={cn('relative overflow-hidden rounded-lg w-(--pane-w) h-(--pane-h)', props.class)}
       style={{
-        width: `${props.width}px`,
-        height: `${props.height}px`,
-        ...(props.sx as JSX.CSSProperties | undefined),
+        '--pane-w': `${props.width}px`,
+        '--pane-h': `${props.height}px`,
       }}
     >
       <div class="relative">
@@ -43,6 +41,10 @@ const WearableItemCardPane = (props: WearableItemCardPaneProps) => {
 
 const CARD_WIDTH = 106
 const CARD_HEIGHT = 106
+// Stacked panes: z-index 2/1/0, offset 0/8/16px down and 8/16/24px right.
+const STACK_Z = ['z-2', 'z-1', 'z-0'] as const
+const STACK_TOP = ['top-0', 'top-2', 'top-4'] as const
+const STACK_LEFT = ['left-2', 'left-4', 'left-6'] as const
 
 const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Element }) => {
   const handleViewItem = (e: MouseEvent) => {
@@ -54,14 +56,8 @@ const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Elemen
     <Show
       when={props.data.balance}
       fallback={
-        <div
-          class="flex items-center justify-center"
-          style={{ width: `${CARD_WIDTH + 24}px`, height: `${CARD_HEIGHT + 24}px` }}
-        >
-          <div
-            class="flex items-center justify-center rounded-[10px] border border-[#363636]"
-            style={{ width: `${CARD_WIDTH}px`, height: `${CARD_HEIGHT}px` }}
-          >
+        <div class="flex w-32.5 h-32.5 items-center justify-center">
+          <div class="flex w-26.5 h-26.5 items-center justify-center rounded-lg border border-(--card-border)">
             <NativeImage
               src={props.data.empty as string}
               alt={props.data.title}
@@ -75,14 +71,11 @@ const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Elemen
     >
       <div class="relative">
         <Show when={props.data.isNew}>
-          <span class="absolute w-full text-center" style={{ color: '#E3B210', top: '-16px' }}>
-            New!
-          </span>
+          <span class="absolute -top-4 w-full text-center text-(--accent-gold)">New!</span>
         </Show>
         <div
           onClick={handleViewItem}
-          class="relative flex cursor-pointer items-center justify-center rounded-[10px]"
-          style={{ width: `${CARD_WIDTH + 24}px`, height: `${CARD_HEIGHT + 24}px` }}
+          class="relative flex w-32.5 h-32.5 cursor-pointer items-center justify-center rounded-lg"
         >
           <Show
             when={props.data.balance === 1}
@@ -94,26 +87,17 @@ const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Elemen
                       data={props.data}
                       width={CARD_WIDTH}
                       height={CARD_HEIGHT}
-                      sx={{
-                        position: 'absolute',
-                        'z-index': `${2 - item}`,
-                        top: `${item * 8}px`,
-                        left: `${(item + 1) * 8}px`,
-                        border: 'var(--border-default)',
-                      }}
+                      class={cn(
+                        'absolute border border-border',
+                        STACK_Z[item],
+                        STACK_TOP[item],
+                        STACK_LEFT[item]
+                      )}
                     />
                   )}
                 </For>
-                <div
-                  class="absolute bottom-0 left-0 flex items-center justify-center rounded-[10px]"
-                  style={{
-                    width: '38px',
-                    height: '35px',
-                    background: '#8F4BF4',
-                    'z-index': '3',
-                  }}
-                >
-                  <span class="text-[20px] font-bold text-foreground">{props.data.balance}</span>
+                <div class="absolute bottom-0 left-0 flex w-9.5 h-8.75 items-center justify-center rounded-lg bg-(--count-purple) z-3">
+                  <span class="text-xl font-bold text-foreground">{props.data.balance}</span>
                 </div>
               </>
             }
@@ -122,7 +106,7 @@ const WearableItemCard = (props: WearableItemCardProps & { children?: JSX.Elemen
               data={props.data}
               width={CARD_WIDTH}
               height={CARD_HEIGHT}
-              sx={{ outline: props.isSelected ? '3px solid var(--color-purple)' : 'none' }}
+              class={props.isSelected ? 'outline-3 outline-purple' : 'outline-none'}
             />
           </Show>
         </div>

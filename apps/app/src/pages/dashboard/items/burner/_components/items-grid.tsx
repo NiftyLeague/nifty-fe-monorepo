@@ -13,9 +13,9 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
   if (!citadelKey) return null
 
   return loadingItems ? (
-    <DeferredSkeleton class="absolute left-0 right-0 top-[950px] mx-auto h-[403px] w-[315px] rounded-none" />
+    <DeferredSkeleton class="absolute left-0 right-0 top-237.5 mx-auto h-100.75 w-78.75 rounded-none" />
   ) : (
-    <div class="absolute left-0 right-0 top-[950px] mx-auto w-[315px]">
+    <div class="absolute left-0 right-0 top-237.5 mx-auto w-78.75">
       <div>ITEMS I OWN</div>
       <div class="grid grid-cols-3 gap-x-2.5">
         {ITEMS.slice(0, 6).map((item) => {
@@ -40,7 +40,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
                 loading="lazy"
                 width={98}
                 height={98}
-                style={{ width: '100%', height: 'auto' }}
+                class="w-full h-auto"
                 unoptimized
               />
               <div class={styles.titleWrap}>
@@ -53,7 +53,7 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
           )
         })}
       </div>
-      <div style={{ 'text-align': 'center' }}>
+      <div class="text-center">
         <DeferredAnimatedImage
           src={citadelKey.thumbnail ?? citadelKey.image}
           animatedSrc={citadelKey.imageWebp}
@@ -67,9 +67,9 @@ export default function ItemsGrid({ itemCounts }: { itemCounts: number[] }) {
           loading="lazy"
           width={98}
           height={98}
-          style={{ width: '31%', height: 'auto' }}
+          class="w-31/100 h-auto"
         />
-        <div class={styles.title} style={{ width: '35%', margin: 'auto' }}>
+        <div class={`${styles.title} w-35/100 mx-auto`}>
           <span>CITADEL KEY</span>
           <span>x{itemCounts[6]}</span>
         </div>

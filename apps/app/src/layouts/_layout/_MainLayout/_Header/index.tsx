@@ -24,10 +24,7 @@ const Header = () => {
     <div class="flex w-full flex-row items-center justify-between">
       {/* logo & toggler button */}
       <div
-        class="flex items-center"
-        style={{
-          width: isCompactScreen() ? 'auto' : drawerOpen() ? '228px' : '80px',
-        }}
+        class={`flex items-center ${isCompactScreen() ? 'w-auto' : drawerOpen() ? 'w-57' : 'w-20'}`}
       >
         <div class="hidden flex-grow lg:block">
           <LogoSection />
@@ -39,7 +36,7 @@ const Header = () => {
             variant: 'ghost',
             size: 'icon',
             className:
-              'h-[34px] w-[34px] cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground',
+              'h-8.5 w-8.5 cursor-pointer overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground',
           })}
           onClick={toggleDrawer}
           aria-label="toggle sidebar"

@@ -1,5 +1,3 @@
-'use client'
-
 import { useQuery } from '@tanstack/solid-query'
 import { GET_ARCADE_TOKEN_BALANCE_API } from '@/constants/url'
 import useAuth from '@/hooks/useAuth'

@@ -23,7 +23,14 @@ const FilterAccordion = ({
         <AccordionTrigger class="min-h-9 px-3.5 py-0 hover:no-underline">
           <div class="flex w-full items-center justify-between">
             {summary}
-            {length > 0 && <span class="mr-1 text-[10px] text-[#D7DCFF]">{length}</span>}
+            {length > 0 && (
+              <span
+                class="mr-1 text-(--fs-10) text-(--badge-lavender)"
+                style={{ '--fs-10': '10px' }}
+              >
+                {length}
+              </span>
+            )}
           </div>
         </AccordionTrigger>
         <AccordionContent class={cn('filter-content-gutter', styles.filterContent)}>

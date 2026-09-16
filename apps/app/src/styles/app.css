@@ -12,4 +12,39 @@
   --root-font-size: 16px;
 
   --custom-max-width: var(--container-7xl); /* 1280px */
+
+  /* Leaderboard table (TopModal) accents */
+  --rank-mine: #e49c8e;
+  --rank-index: #9ba5bf;
+
+  /* Legacy card/media accents kept as tokens so classes can reference them via CSS-var utilities */
+  --card-border: #363636;
+  --ink-muted: #363636;
+  --thumb-border: #5d5f74;
+  --scrim: #181425;
+  --badge-lavender: #d7dcff;
+  --accent-gold: #e3b210;
+  --count-purple: #8f4bf4;
+  --panel: #262930;
+  --ink-dim: #535659;
+  --balance-ok: #007b60;
+  --balance-bad: #b51424;
+  --press-fill: rgba(88, 32, 214, 0.2);
+  --card-shadow-blue: 0 2px 14px 0 rgb(33 150 243 / 0.1);
+  --card-shadow-dark: 0 2px 14px 0 rgb(32 40 45 / 0.08);
+  --game-card-shadow: 0 18px 45px -24px rgb(124 58 237 / 0.9);
+  --gc-blur: 2px;
+  --gc-transition: border-color, box-shadow;
+  --lb-modal-h: 120vw;
+  --lb-modal-w: 90vw;
+
+  /* CollapsibleSidebarLayout drawer/main-grid motion */
+  --margin-trans: margin;
+  --drawer-ease: cubic-bezier(0.4, 0, 0.6, 1);
+
+  --icon-stroke: 1.5;
+
+  /* ImageCard fade-in transitions */
+  --img-trans-visibility: visibility;
+  --img-trans-opacity: opacity;
 }

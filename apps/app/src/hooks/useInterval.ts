@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, onCleanup } from 'solid-js'
 
 function useInterval(callback: () => void, delay: number | null) {

@@ -8,7 +8,6 @@ import { GAME_CARD_IMAGE_SIZES } from '@nl/ui/image-sizes'
 import { cx } from '@nl/ui/class-names'
 
 import Link from '@/runtime/Link'
-import type { SxProps } from '@/types'
 
 interface GameDescriptionDisclosureProps {
   description?: string
@@ -20,10 +19,7 @@ const GameDescriptionDisclosure = (props: GameDescriptionDisclosureProps) => (
       <span class="group-open:hidden">more..</span>
       <span class="hidden group-open:inline">less</span>
     </summary>
-    <p
-      class="order-1 max-h-[42px] overflow-y-clip text-sm text-muted-foreground group-open:max-h-none"
-      style={{ 'white-space': 'pre-wrap' }}
-    >
+    <p class="order-1 max-h-10.5 overflow-y-clip whitespace-pre-wrap text-sm text-muted-foreground group-open:max-h-none">
       {props.description}
     </p>
   </details>
@@ -53,7 +49,9 @@ const CardGameContent = (props: CardGameContentProps) => {
     <div
       class={cx(
         'flex grow flex-col justify-between',
-        overlay() ? 'absolute inset-x-0 bottom-0 z-10 bg-black/65 backdrop-blur-[2px]' : 'bg-card'
+        overlay()
+          ? 'absolute inset-x-0 bottom-0 z-10 bg-black/65 backdrop-blur-(--gc-blur)'
+          : 'bg-card'
       )}
     >
       <CardContent
@@ -97,13 +95,10 @@ const CardGameContent = (props: CardGameContentProps) => {
             <p
               class={cx(
                 'text-sm text-muted-foreground',
-                overlay() ? 'truncate text-white/75' : undefined
-              )}
-              style={
                 overlay()
-                  ? { 'white-space': 'nowrap' }
-                  : { 'white-space': 'pre-wrap', 'max-height': '42px', 'overflow-y': 'clip' }
-              }
+                  ? 'truncate text-white/75'
+                  : 'whitespace-pre-wrap max-h-10.5 overflow-y-clip'
+              )}
             >
               {props.description}
             </p>
@@ -173,7 +168,6 @@ interface GameCardProps {
   prefetch?: boolean
   required?: string
   showMore?: boolean
-  sx?: SxProps
   title?: string
 }
 
@@ -192,11 +186,10 @@ const GameCard = (props: GameCardProps & { children?: JSX.Element }) => {
       class={cx(
         'flex w-full flex-col gap-0 overflow-hidden border py-0',
         cardLink() &&
-          'transition-[border-color,box-shadow] duration-200 hover:border-purple/70 hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-hover:border-purple/70 group-hover:shadow-[0_18px_45px_-24px_rgb(124_58_237/0.9)] group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
+          'transition-(--gc-transition) duration-200 hover:border-purple/70 hover:shadow-(--game-card-shadow) group-hover:border-purple/70 group-hover:shadow-(--game-card-shadow) group-focus-visible:border-purple group-focus-visible:ring-2 group-focus-visible:ring-purple/60',
         hasExternalCardLink() && 'relative group',
         overlayContent() ? 'relative aspect-[16/10]' : autoHeight() ? 'h-auto' : 'h-full'
       )}
-      style={props.sx as JSX.CSSProperties | undefined}
     >
       <Show when={props.externalHref}>
         {(href) => (
@@ -213,15 +206,11 @@ const GameCard = (props: GameCardProps & { children?: JSX.Element }) => {
       </Show>
       <div class={cx(hasExternalCardLink() && 'relative z-10 pointer-events-none')}>
         <div
-          class={cx('overflow-hidden', overlayContent() ? 'absolute inset-0' : 'relative')}
-          style={
-            overlayContent()
-              ? undefined
-              : {
-                  width: '100%',
-                  'padding-top': '56.25%' /* 16:9 Aspect Ratio */,
-                }
-          }
+          class={cx(
+            'overflow-hidden',
+            overlayContent() ? 'absolute inset-0' : 'relative w-full pt-(--ratio-16-9)'
+          )}
+          style={overlayContent() ? undefined : { '--ratio-16-9': '56.25%' }}
         >
           {props.imageContent ?? (
             <Show when={props.image}>

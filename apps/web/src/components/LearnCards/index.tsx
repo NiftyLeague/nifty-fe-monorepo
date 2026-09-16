@@ -36,7 +36,7 @@ const LearnCard = ({
             height={310}
             {...(eager ? { loading: 'eager' as const } : {})}
             sizes="(min-width: 640px) 50vw, 100vw"
-            style={{ 'object-fit': 'cover', width: '100%', height: 'auto' }}
+            class="object-cover w-full h-auto"
           />
         </div>
       </div>

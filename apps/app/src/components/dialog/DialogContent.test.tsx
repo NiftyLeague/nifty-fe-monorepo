@@ -12,9 +12,8 @@ describe('application DialogContent wrapper', () => {
         </DialogTrigger>
         <DialogContent
           aria-label="Audit dialog"
-          class="max-w-[900px]"
+          class="max-w-225 min-h-75"
           dialogTitle="Dialog title"
-          sx={{ minHeight: '300px' }}
         >
           Dialog body
         </DialogContent>
@@ -24,8 +23,8 @@ describe('application DialogContent wrapper', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Open dialog' }))
     const dialog = screen.getByRole('dialog', { name: 'Dialog title' })
     expect(dialog.getAttribute('aria-label')).toBe('Audit dialog')
-    expect(dialog.className).toContain('max-w-[900px]')
-    expect(dialog.style.minHeight).toBe('300px')
+    expect(dialog.className).toContain('max-w-225')
+    expect(dialog.className).toContain('min-h-75')
     expect(dialog.textContent).toContain('Dialog body')
   })
 })

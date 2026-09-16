@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext } from 'solid-js'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'
@@ -41,7 +39,7 @@ const ChangeProfileNameDialog = ({
           <Pencil aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />
         </Button>
       </DialogTrigger>
-      <DialogContent dialogTitle="Update your username" sx={{ width: '300px' }}>
+      <DialogContent dialogTitle="Update your username" class="w-75">
         <DeferredChangeProfileNameForm handleUpdateNewName={handleUpdateNewName} />
       </DialogContent>
     </Dialog>

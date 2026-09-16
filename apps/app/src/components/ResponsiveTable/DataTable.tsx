@@ -1,5 +1,3 @@
-'use client'
-
 import { For, Show } from 'solid-js'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@nl/ui/base/table'
 
@@ -18,13 +16,10 @@ interface DataTableProps {
 export default function DataTable(props: DataTableProps) {
   return (
     <div
-      style={{
-        height: `${52 * (props.paginationModel.pageSize + 1) + 86}px`,
-        width: '100%',
-      }}
-      class="h-full w-full overflow-hidden"
+      class="h-(--table-h) w-full overflow-hidden"
+      style={{ '--table-h': `${52 * (props.paginationModel.pageSize + 1) + 86}px` }}
     >
-      <div class="h-full max-h-[750px] overflow-auto rounded-lg border bg-background">
+      <div class="h-full max-h-187.5 overflow-auto rounded-lg border bg-background">
         <Table aria-label="data table" class="border-collapse">
           <TableHeader class="sticky top-0 z-10 bg-background">
             <TableRow class="border-0 hover:bg-transparent">
@@ -32,8 +27,8 @@ export default function DataTable(props: DataTableProps) {
                 {(column) => (
                   <TableHead
                     align={column.align || 'left'}
-                    style={{ 'min-width': `${column.width}px` }}
-                    class="px-4 py-3 font-medium text-muted-foreground"
+                    class="min-w-(--col-min-w) px-4 py-3 font-medium text-muted-foreground"
+                    style={{ '--col-min-w': `${column.width}px` }}
                   >
                     {column.headerName || column.field}
                   </TableHead>

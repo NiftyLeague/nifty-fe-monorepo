@@ -57,7 +57,7 @@ export const twitter = () => (
     aria-hidden="true"
     data-prefix="fab"
     data-icon="twitter"
-    class="svg-inline--fa fa-twitter fa-w-16"
+
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
@@ -75,7 +75,7 @@ export const apple = () => (
     aria-hidden="true"
     data-prefix="fab"
     data-icon="apple"
-    class="svg-inline--fa fa-apple fa-w-16"
+
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
@@ -93,7 +93,7 @@ export const github = () => (
     aria-hidden="true"
     data-prefix="fab"
     data-icon="github"
-    class="svg-inline--fa fa-github fa-w-16"
+
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 496 512"
@@ -111,7 +111,7 @@ export const gitlab = () => (
     aria-hidden="true"
     data-prefix="fab"
     data-icon="gitlab"
-    class="svg-inline--fa fa-gitlab fa-w-16"
+
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
@@ -128,7 +128,7 @@ export const bitbucket = () => (
     aria-hidden="true"
     data-prefix="fab"
     data-icon="bitbucket"
-    class="svg-inline--fa fa-bitbucket fa-w-16"
+
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
@@ -225,7 +225,7 @@ export const twitch = () => (
     aria-hidden="true"
     data-prefix="fab"
     data-icon="twitch"
-    class="svg-inline--fa fa-twitch fa-w-16"
+
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"

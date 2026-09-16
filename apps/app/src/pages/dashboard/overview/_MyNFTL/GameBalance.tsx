@@ -1,5 +1,3 @@
-'use client'
-
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 
@@ -16,11 +14,6 @@ const GameBalance = () => {
       title="Game Balance"
       primary={`${formatNumberToDisplay(nftlUnclaimed)} NFTL`}
       isLoading={loading}
-      customStyle={{
-        'background-color': 'var(--color-card)',
-        border: 'var(--border-default)',
-        position: 'relative',
-      }}
       secondary="Available to Withdraw"
       actions={
         <>

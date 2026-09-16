@@ -1,5 +1,3 @@
-'use client'
-
 import { EVENTS, EVENT_CATEGORIES } from './constants'
 import { pushToDataLayer } from './dataLayer'
 import type { CustomEventNames } from './constants'

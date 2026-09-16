@@ -1,5 +1,3 @@
-'use client'
-
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@nl/ui/base/accordion'
 
 import { FAQS } from '@/constants/faq'

@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext, createSignal, Show, type JSX } from 'solid-js'
 import type { TransactionResponse } from 'ethers'
 import { useSwitchChain } from '@/runtime/wagmi'
@@ -77,9 +75,8 @@ const WithdrawForm = (props: WithdrawFormProps): JSX.Element => {
         </Title>
 
         <p class="text-base">
-          You have until{' '}
-          <span style={{ 'font-weight': 600, opacity: 0.7 }}>{formatDateTime(1767240000)}</span> to
-          withdraw.
+          You have until <span class="font-semibold opacity-70">{formatDateTime(1767240000)}</span>{' '}
+          to withdraw.
         </p>
 
         <Alert class="border-blue/40 bg-blue/10 text-blue">

@@ -1,5 +1,3 @@
-'use client'
-
 import { Show } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'

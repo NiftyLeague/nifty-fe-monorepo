@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from '@/runtime/dynamic'
 import NativeImage from '@nl/ui/custom/native-image'
 import { createSignal, Show, type JSX } from 'solid-js'
@@ -89,18 +87,14 @@ const LeaderboardRankAction = (props: LeaderboardRankActionProps): JSX.Element |
           type="button"
           onClick={() => void handleCheckYourRank()}
           class="mb-4 flex cursor-pointer justify-end border-0 bg-transparent p-0 text-left lg:absolute lg:right-0 lg:mb-0 lg:translate-y-1/2"
-          style={{ 'z-index': 1000 }}
         >
-          <span
-            class="flex items-center justify-end text-base font-subheader font-bold text-[var(--color-purple)] underline"
-            style={{ 'line-height': '24px' }}
-          >
+          <span class="flex items-center justify-end text-base leading-6 font-subheader font-bold text-purple underline">
             <NativeImage
               src="/icons/rank_icon.svg"
               alt="Rank Icon"
               width={25}
               height={20}
-              style={{ 'margin-right': '4px' }}
+              class="mr-1"
             />
             RANK
           </span>

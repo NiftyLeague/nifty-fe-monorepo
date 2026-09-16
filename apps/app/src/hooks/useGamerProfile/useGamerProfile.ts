@@ -1,5 +1,3 @@
-'use client'
-
 import { GET_GAMER_PROFILE_API } from '@/constants/api'
 import { useQuery } from '@tanstack/solid-query'
 import useAuth from '@/hooks/useAuth'

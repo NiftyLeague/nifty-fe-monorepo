@@ -1,5 +1,3 @@
-'use client'
-
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
 
 const COMMON_MSG = 'Download Nifty Smashers Beta on mobile or PC!'

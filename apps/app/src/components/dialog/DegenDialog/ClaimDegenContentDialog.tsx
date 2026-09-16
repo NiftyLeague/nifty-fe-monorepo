@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
 import { createMemo } from 'solid-js'

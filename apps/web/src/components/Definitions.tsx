@@ -2,13 +2,13 @@ import type { JSX } from 'solid-js'
 const Definitions = (): JSX.Element => (
   <>
     <h2 class="my-3 md:my-5 heading-look-5">Interpretation and Definitions</h2>
-    <h3 class="my-3 my-md-5 heading-look-3">Interpretation</h3>
+    <h3 class="my-3 heading-look-3">Interpretation</h3>
     <p>
       The words of which the initial letter is capitalized have meanings defined under the following
       conditions. The following definitions shall have the same meaning regardless of whether they
       appear in singular or in plural.
     </p>
-    <h3 class="my-3 my-md-5 heading-look-3">Definitions</h3>
+    <h3 class="my-3 heading-look-3">Definitions</h3>
     <p>For the purposes of these Terms and Conditions:</p>
     <ul>
       <li>

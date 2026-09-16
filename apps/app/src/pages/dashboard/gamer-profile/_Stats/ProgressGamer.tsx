@@ -19,15 +19,14 @@ const ProgressGamer = ({ data, size = 'md' }: ProgressGamerProps): JSX.Element =
     <div class="relative">
       <Progress
         value={data ? (data?.xp / data?.rank_xp_next) * 100 : 0}
-        class={cn('w-full', isMd ? 'h-[25px]' : 'h-[14px]')}
-        style={{
-          transform: 'translateZ(0)',
-          backgroundColor: 'var(--color-muted-foreground)',
-        }}
+        class={cn('w-full translate-z-0 bg-muted-foreground', isMd ? 'h-6.25' : 'h-3.5')}
       />
       <span
-        class="absolute -right-1.5 top-0 bottom-0 z-[1] m-auto flex items-center justify-center rounded-full bg-[var(--color-purple)] font-bold"
-        style={{ width: badgeSize, height: badgeSize, 'font-size': badgeFontSize }}
+        class="absolute -right-1.5 top-0 bottom-0 z-1 m-auto flex w-(--badge-size) h-(--badge-size) items-center justify-center rounded-full bg-purple text-(--badge-fs) font-bold"
+        style={{
+          '--badge-size': badgeSize,
+          '--badge-fs': badgeFontSize,
+        }}
       >
         {rank}
       </span>

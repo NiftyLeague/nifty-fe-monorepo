@@ -5,8 +5,8 @@ const ComicPlaceholder = () => {
   const { width, height } = useComicDimension()
   return (
     <DeferredSkeleton
-      class="rounded-[var(--radius-default)]"
-      style={{ width: `${width}px`, height: `${height}px` }}
+      class="w-(--dim-w) h-(--dim-h) rounded-(--radius-default)"
+      style={{ '--dim-w': `${width}px`, '--dim-h': `${height}px` }}
     />
   )
 }

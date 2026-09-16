@@ -18,7 +18,7 @@ export function RootErrorBoundary({ error, reset }: { error: unknown; reset: () 
 
   return (
     <html class="dark" lang="en">
-      <body style={{ 'background-color': '#09090b', color: '#fafafa', margin: 0 }}>
+      <body class="m-0 bg-base-950 text-base-50">
         <GlobalErrorPage onRetry={reset} />
       </body>
     </html>

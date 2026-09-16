@@ -26,20 +26,12 @@ const ItemDetail = (props: ItemDetailProps): JSX.Element => {
           : null
       }
       keyed
-      fallback={
-        <div
-          class="min-w-[345px] rounded-[5px] border border-[#363636]"
-          style={{ height: '375px' }}
-        />
-      }
+      fallback={<div class="min-w-86.25 h-93.75 rounded-sm border border-(--card-border)" />}
     >
       {(data) => (
-        <div
-          class="flex min-w-full flex-col items-center justify-center rounded-[5px] border-0 lg:min-w-[345px] lg:border lg:border-[#363636]"
-          style={{ width: '345px', height: '375px' }}
-        >
-          <div class="relative" style={{ width: '225px', height: '226px' }}>
-            <div class="relative overflow-hidden" style={{ 'border-radius': '10px 10px 0 0' }}>
+        <div class="flex min-w-full w-86.25 h-93.75 flex-col items-center justify-center rounded-sm border-0 lg:min-w-86.25 lg:border lg:border-(--card-border)">
+          <div class="relative w-56.25 h-56.5">
+            <div class="relative overflow-hidden rounded-t-lg">
               <ImageCard
                 image={data.image}
                 imageWebp={data.imageWebp}
@@ -49,48 +41,28 @@ const ItemDetail = (props: ItemDetailProps): JSX.Element => {
               />
             </div>
             <Show when={data.multiplier && data.multiplier >= 2}>
-              <div
-                class="absolute flex items-center justify-center rounded-full"
-                style={{
-                  width: '50px',
-                  height: '50px',
-                  background: 'var(--color-purple)',
-                  top: '-12px',
-                  right: '-28px',
-                }}
-              >
-                <span class="text-[20px] font-bold text-foreground">{`${data.multiplier}x`}</span>
+              <div class="absolute flex w-12.5 h-12.5 items-center justify-center rounded-full bg-purple -top-3 -right-7">
+                <span class="text-xl font-bold text-foreground">{`${data.multiplier}x`}</span>
               </div>
             </Show>
           </div>
           <Show when={enableEquip}>
-            <div class="flex w-[225px] flex-col gap-3 rounded-b-[var(--radius-default)] border border-[#5D5F74] border-t-0 p-1 pb-3">
-              <Button
-                variant="default"
-                class="w-full font-bold"
-                style={{ height: '28px' }}
-                onClick={handleEquip}
-              >
+            <div class="flex w-56.25 flex-col gap-3 rounded-b-(--radius-default) border border-(--thumb-border) border-t-0 p-1 pb-3">
+              <Button variant="default" class="w-full h-7 font-bold" onClick={handleEquip}>
                 {data.equipped ? 'Unequip' : 'Equip on a DEGEN'}
               </Button>
               <div class="flex flex-row items-center justify-between">
-                <span class="text-xs font-semibold" style={{ color: '#363636' }}>
-                  Equipped:
-                </span>
+                <span class="text-xs font-semibold text-(--ink-muted)">Equipped:</span>
                 <span
-                  class="text-xs font-medium text-purple"
-                  style={{ 'text-decoration-line': data.equipped ? 'underline' : 'none' }}
+                  class={`text-xs font-medium text-purple ${data.equipped ? 'underline' : 'no-underline'}`}
                 >
                   {data.equipped ? 'DEGEN #1152' : '-'}
                 </span>
               </div>
               <div class="flex flex-row items-center justify-between">
-                <span class="text-xs font-semibold" style={{ color: '#363636' }}>
-                  Rental:
-                </span>
+                <span class="text-xs font-semibold text-(--ink-muted)">Rental:</span>
                 <span
-                  class="text-xs font-medium text-purple"
-                  style={{ 'text-decoration-line': data.equipped ? 'underline' : 'none' }}
+                  class={`text-xs font-medium text-purple ${data.equipped ? 'underline' : 'no-underline'}`}
                 >
                   {data.equipped ? '28 days left' : '-'}
                 </span>

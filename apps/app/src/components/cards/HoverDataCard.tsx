@@ -8,21 +8,13 @@ import type { JSX } from 'solid-js'
 // ============================|| HOVER DATA CARD ||============================ //
 
 interface HoverDataCardProps extends Omit<GenericCardProps, 'title'> {
-  customStyle?: JSX.CSSProperties
   actions?: JSX.Element
   isLoading?: boolean
   title?: string | JSX.Element
 }
 
-const HoverDataCard = ({
-  title,
-  primary,
-  secondary,
-  customStyle,
-  actions,
-  isLoading,
-}: HoverDataCardProps) => (
-  <MainCard sx={customStyle ?? {}}>
+const HoverDataCard = ({ title, primary, secondary, actions, isLoading }: HoverDataCardProps) => (
+  <MainCard className="relative">
     <div class="flex flex-col items-center justify-between">
       <div class="w-full">
         {isLoading ? (

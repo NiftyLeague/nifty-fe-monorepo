@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@nl/ui/base/button'
 import {
   Dialog,
@@ -24,7 +22,7 @@ export default function PublicDegenDialog(props: PublicDegenDialogProps) {
 
   return (
     <Dialog open={props.open} onOpenChange={(isOpen) => !isOpen && props.onClose()}>
-      <DialogContent class="w-[calc(100%-2rem)] !max-w-[900px] overflow-x-hidden">
+      <DialogContent class="w-[calc(100%-2rem)] !max-w-225 overflow-x-hidden">
         <div class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
           <div class="flex min-w-0 flex-col items-center gap-4">
             {props.degen?.id && <DegenModalMedia tokenId={props.degen.id} />}

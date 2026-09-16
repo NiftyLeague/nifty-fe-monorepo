@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext, createEffect, type JSX } from 'solid-js'
 
 import useArcadeBalance from '@/hooks/balances/useArcadeBalance'

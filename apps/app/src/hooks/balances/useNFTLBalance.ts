@@ -1,5 +1,3 @@
-'use client'
-
 import { useAccount, useReadContract } from '@/runtime/wagmi'
 import { formatUnits } from 'viem'
 import {

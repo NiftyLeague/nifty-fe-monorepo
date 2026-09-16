@@ -4,8 +4,8 @@ import { describe, expect, it, mock } from 'bun:test'
 import type { DashboardDegen } from '@/types/degens'
 
 mock.module('@/components/cards/DegenCard/DegenImage', () => ({
-  default: ({ tokenId, sx }: { tokenId: string | number; sx?: JSX.CSSProperties }) => (
-    <div data-testid={`degen-image-${tokenId}`} style={sx} />
+  default: ({ tokenId, class: className }: { tokenId: string | number; class?: string }) => (
+    <div data-testid={`degen-image-${tokenId}`} class={className} />
   ),
 }))
 
@@ -118,12 +118,9 @@ describe('ViewTraitsContentDialog', () => {
     expect(screen.queryByText('991')).toBeNull()
 
     const image = screen.getByTestId('degen-image-1')
-    expect(image.style.width).toBe('100%')
-    expect(image.style.maxWidth).toBe('100%')
-    expect(image.style.height).toBe('100%')
-    expect(image.style.maxHeight).toBe('100%')
-    expect(image.style.objectFit).toBe('contain')
-    expect(image.parentElement?.className).toContain('max-w-[500px]')
+    expect(image.className).toContain('object-contain')
+    expect(image.className).toContain('size-full')
+    expect(image.parentElement?.className).toContain('max-w-125')
     expect(image.parentElement?.className).toContain('aspect-[584/640]')
 
     const traitGrid = screen.getByTestId('degen-trait-grid')
