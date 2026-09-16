@@ -3,18 +3,16 @@ import { splitProps, type ComponentProps, type JSX } from 'solid-js'
 
 import { cn, closeButtonAriaLabel } from '@nl/ui/utils'
 
+/*
+ * Scroll locking (and scrollbar compensation) is owned by Kobalte's
+ * DialogContent; sheets must not set documentElement/body styles themselves —
+ * see the note in dialog.tsx for the re-lock bug that causes.
+ */
+
 type SheetProps = ComponentProps<typeof SheetPrimitive.Root>
 
 function Sheet(props: SheetProps) {
-  const [local, others] = splitProps(props, ['onOpenChange'])
-  const handleOpenState = (open: boolean) => {
-    const htmlElement = document.querySelector('html') as HTMLElement
-    htmlElement.style.overflow = open ? 'hidden' : ''
-    document.body.style.paddingRight = open ? 'var(--scrollbar-width, 0)' : ''
-    local.onOpenChange?.(open)
-  }
-
-  return <SheetPrimitive.Root data-slot="sheet" onOpenChange={handleOpenState} {...others} />
+  return <SheetPrimitive.Root data-slot="sheet" {...props} />
 }
 
 function SheetTrigger(props: ComponentProps<typeof SheetPrimitive.Trigger>) {
