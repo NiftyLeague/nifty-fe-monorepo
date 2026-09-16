@@ -26,13 +26,6 @@ interface CustomEventWithCallback<T> extends CustomEvent {
   detail: { callback: (data: T) => void }
 }
 
-const getConfiguration = (e: CustomEventWithCallback<string>) => {
-  const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
-  const version = SUBGRAPH_VERSION
-  if (DEBUG) console.log(`${networkName},${version ?? ''}`)
-  setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
-}
-
 const enableGameInteraction = () => {
   if (setCanvasInteraction('game-canvas', true)) {
     // The canvas remains interactive after activation. Remove the global
@@ -57,6 +50,8 @@ const Game = (props: GameProps) => {
   const authMsg = () => `true,${account.address || '0x0'},Vitalik,${auth.authToken}`
   let authCallback: ((authMsg: string) => void) | null = null
   const [unityError, setUnityError] = createSignal<Error | null>(null)
+  let configTimer: ReturnType<typeof setTimeout> | undefined
+  onCleanup(() => clearTimeout(configTimer))
 
   const unity = useUnityContext(props.unityConfig)
   const {
@@ -85,6 +80,13 @@ const Game = (props: GameProps) => {
     if (DEBUG) console.log('Authenticating:', authMsg())
     e.detail.callback(authMsg())
     authCallback = e.detail.callback
+  }
+
+  const getConfiguration = (e: CustomEventWithCallback<string>) => {
+    const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
+    const version = SUBGRAPH_VERSION
+    if (DEBUG) console.log(`${networkName},${version ?? ''}`)
+    configTimer = setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
   }
 
   const handleError = (error: unknown) => {

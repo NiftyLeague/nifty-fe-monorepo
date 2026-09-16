@@ -26,5 +26,9 @@ export default function PrivateRoutesAuthGate(props: PrivateRoutesAuthGateProps)
     if (!shouldLoadWallet()) router.replace('/')
   })
 
-  return <Show when={shouldLoadWallet()} fallback={props.loading}>{props.children}</Show>
+  return (
+    <Show when={shouldLoadWallet()} fallback={props.loading}>
+      {props.children}
+    </Show>
+  )
 }

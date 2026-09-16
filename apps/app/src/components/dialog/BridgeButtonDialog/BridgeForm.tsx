@@ -1,5 +1,5 @@
 import NativeImage from '@nl/ui/custom/native-image'
-import { useContext, createSignal, For, Show, type JSX } from 'solid-js'
+import { useContext, createSignal, onCleanup, For, Show, type JSX } from 'solid-js'
 import { parseEther } from 'ethers'
 
 import { Alert } from '@nl/ui/base/alert'
@@ -52,6 +52,8 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
   const [bridgeAmount, setBridgeAmount] = createSignal<number>(0)
   const [openTOS, setOpenTOS] = createSignal<boolean>(false)
   const [allowPending, setAllowPending] = createSignal<boolean>(false)
+  let pendingTimer: ReturnType<typeof setTimeout> | undefined
+  onCleanup(() => clearTimeout(pendingTimer))
   const [bridgePending, setBridgePending] = createSignal<boolean>(false)
   const nftlAllowance = useNFTLAllowance(INTERCHAIN_TOKEN_SERVICE_ADDRESS)
 
@@ -99,7 +101,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
     if (nftlAllowance.allowance < bridgeAmount()) {
       setAllowPending(true)
       await handleIncreaseAllowance()
-      setTimeout(() => setAllowPending(false), 500)
+      pendingTimer = setTimeout(() => setAllowPending(false), 500)
       return
     }
     // Handle bridge NFTL to Immutable

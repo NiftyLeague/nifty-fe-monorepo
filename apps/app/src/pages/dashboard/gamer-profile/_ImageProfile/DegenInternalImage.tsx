@@ -20,7 +20,12 @@ const DegenInternalImage = (props: { degen: DashboardDegen }) => {
 
   // Profile media is API-provided and may come from a host that is not known at build time.
   return (
-    <NativeImage src={props.degen?.url} alt={alt()} class="block h-80 object-cover" loading="lazy" />
+    <NativeImage
+      src={props.degen?.url}
+      alt={alt()}
+      class="block h-80 object-cover"
+      loading="lazy"
+    />
   )
 }
 export default DegenInternalImage

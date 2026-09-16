@@ -17,7 +17,12 @@ const Item = (props: ItemProps): JSX.Element => (
     {(props.isLoading ?? true) ? (
       <DeferredSkeleton class="h-(--skel-h) w-3/20 rounded" style={{ '--skel-h': '18.67px' }} />
     ) : (
-      <span class={cn('text-base font-bold', props.isDisable ? 'text-muted-foreground' : 'text-warning')}>
+      <span
+        class={cn(
+          'text-base font-bold',
+          props.isDisable ? 'text-muted-foreground' : 'text-warning'
+        )}
+      >
         {props.value}
       </span>
     )}

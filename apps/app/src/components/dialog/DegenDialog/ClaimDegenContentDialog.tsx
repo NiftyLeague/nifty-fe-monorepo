@@ -1,6 +1,6 @@
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'
-import { createMemo } from 'solid-js'
+import { createMemo, onCleanup } from 'solid-js'
 import type { DashboardDegen } from '@/types/degens'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
@@ -18,11 +18,13 @@ const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
   const tokenId = () => props.degen?.id ?? ''
   const degenTokenIndices = createMemo(() => [parseInt(tokenId(), 10)])
   const claimable = useClaimableNFTL(degenTokenIndices)
+  let refetchTimer: ReturnType<typeof setTimeout> | undefined
+  onCleanup(() => clearTimeout(refetchTimer))
 
   const handleClaimNFTL = async (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
     if (DEBUG) console.log('Claim', degenTokenIndices(), claimable.balance)
     await network.tx(network.writeContracts[NFTL_CONTRACT].claim(degenTokenIndices()))
-    setTimeout(() => claimable.refetch(), 5000)
+    refetchTimer = setTimeout(() => claimable.refetch(), 5000)
     props.onClose?.(event)
   }
 
