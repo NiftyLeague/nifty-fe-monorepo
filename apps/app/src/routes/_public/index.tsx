@@ -5,6 +5,7 @@ import DeferredWeb3GameList from '@/pages/games/DeferredWeb3GameList'
 import PublicContentContainer from '@/components/wrapper/PublicContentContainer'
 import StaticSection from '@/components/sections/StaticSection'
 import { APP_DESCRIPTION, APP_TITLE, buildHead } from '@/runtime/metadata'
+import { buildImagePreloadLink } from '@/runtime/image-preloads'
 
 export const Route = createFileRoute('/_public/')({
   head: () => {
@@ -20,12 +21,7 @@ export const Route = createFileRoute('/_public/')({
         ...(head.links ?? []),
         // The first flagship card's poster wins LCP; preloading keeps it ahead
         // of the module chunk queue.
-        {
-          rel: 'preload',
-          as: 'image',
-          href: '/img/games/smashers/smashers-poster.jpg',
-          fetchpriority: 'high',
-        },
+        buildImagePreloadLink('/img/games/smashers/smashers-poster.jpg'),
       ],
     }
   },
