@@ -41,7 +41,7 @@ export default function GameCard({
       data-game-name={name}
     >
       <div class={cx(styles.copy, 'w-full', !compact && 'md:w-7/12 pr-0 md:pr-5')}>
-        <div class="flex flex-row items-center justify-between mb-3">
+        <div class={cx(styles.headlineRow, 'flex flex-row items-center justify-between mb-3')}>
           <h2 id={headingId} class="m-0 heading-look-4 whitespace-nowrap">
             <a
               class={styles.titleLink}
