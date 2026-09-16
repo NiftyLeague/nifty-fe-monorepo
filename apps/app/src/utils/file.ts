@@ -1,5 +1,3 @@
-'use client'
-
 import { DEGEN_ASSETS_DOWNLOAD_URL } from '@/constants/url'
 
 const base64ToBlob = (base64: string): Blob => {

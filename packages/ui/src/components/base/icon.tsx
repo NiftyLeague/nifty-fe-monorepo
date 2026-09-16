@@ -120,7 +120,13 @@ const Icon = (props: IconProps) => {
   return (
     <Show
       when={iconMap[local.name]}
-      fallback={<div style={{ width: `${iconSize()}px`, height: `${iconSize()}px` }} />}
+      fallback={
+        <div
+          class="size-(--icon-size)"
+          style={{ '--icon-size': `${iconSize()}px` }}
+          aria-hidden="true"
+        />
+      }
     >
       {(IconComponent) => (
         <Dynamic

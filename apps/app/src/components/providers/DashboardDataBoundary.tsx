@@ -1,5 +1,3 @@
-'use client'
-
 import type { ParentProps } from 'solid-js'
 
 import DeferredComponent from '@nl/ui/custom/deferred-component'

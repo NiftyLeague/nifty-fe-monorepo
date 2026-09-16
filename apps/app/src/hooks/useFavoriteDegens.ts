@@ -1,5 +1,3 @@
-'use client'
-
 import { useMutation, useQuery, useQueryClient } from '@tanstack/solid-query'
 
 import { PROFILE_FAV_DEGENS_API } from '@/constants/url'

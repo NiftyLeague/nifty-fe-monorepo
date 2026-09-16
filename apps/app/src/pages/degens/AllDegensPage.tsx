@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { ChevronLeft, ChevronRight } from 'lucide-solid'

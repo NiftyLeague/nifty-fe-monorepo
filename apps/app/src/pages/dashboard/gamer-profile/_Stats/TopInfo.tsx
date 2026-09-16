@@ -1,4 +1,3 @@
-'use client'
 import { Copy } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { Title } from '@nl/ui/custom/typography'

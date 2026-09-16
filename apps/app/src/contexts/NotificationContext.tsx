@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext, useContext, type Accessor, type JSX } from 'solid-js'
 
 import { useStore } from '@/state/use-store'

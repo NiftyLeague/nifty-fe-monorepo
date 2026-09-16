@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
@@ -30,11 +28,6 @@ const ArcadeBalance = (): JSX.Element => {
       <HoverDataCard
         title="Arcade Token Balance"
         primary={`${tokens.tokensBalances.AT} Tokens`}
-        customStyle={{
-          'background-color': 'var(--color-card)',
-          border: 'var(--border-default)',
-          position: 'relative',
-        }}
         secondary=" "
         isLoading={tokens.loadingArcadeBal}
         actions={

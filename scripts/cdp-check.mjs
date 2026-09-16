@@ -7,7 +7,6 @@ const mobile = process.argv[4] === 'mobile'
 const chrome = await chromeLauncher.launch({
   chromeFlags: ['--headless=new', '--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
 })
-const cdp = await (await import('node:http')).Agent // noop
 const targets = await fetch(`http://localhost:${chrome.port}/json/new?${encodeURIComponent(url)}`, {
   method: 'PUT',
 }).then((r) => r.json())
@@ -21,7 +20,7 @@ const send = (method, params = {}) =>
     ws.send(JSON.stringify({ id: msgId, method, params }))
   })
 const errors = []
-ws.onmessage = (e) => {
+ws.addEventListener('message', (e) => {
   const m = JSON.parse(e.data)
   if (m.id && pending.has(m.id)) {
     pending.get(m.id)(m)
@@ -36,8 +35,8 @@ ws.onmessage = (e) => {
           .toString()
           .slice(0, 200)
     )
-}
-await new Promise((r) => (ws.onopen = r))
+})
+await new Promise((resolve) => ws.addEventListener('open', resolve, { once: true }))
 await send('Runtime.enable')
 await send('Page.enable')
 if (mobile)

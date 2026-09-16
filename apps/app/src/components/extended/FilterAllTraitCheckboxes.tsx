@@ -12,17 +12,14 @@ interface FilterAllTraitCheckboxesProps {
 }
 
 const FilterAllTraitCheckboxes: Component<FilterAllTraitCheckboxesProps> = (props) => (
-  <div class="flex flex-row flex-wrap" style={{ 'row-gap': '4px' }}>
+  <div class="flex flex-row flex-wrap gap-y-1">
     <For each={props.traitGroup}>
       {(traitKey) => {
         const traitValue = TRAIT_VALUE_MAP[props.categoryKey as keyof typeof TRAIT_VALUE_MAP][
           traitKey as keyof (typeof TRAIT_VALUE_MAP)[keyof typeof TRAIT_VALUE_MAP]
         ] as string
         return (
-          <label
-            class={`${props.inputCheckFormControlStyle} flex items-center`}
-            style={{ flex: '0 0 100%' }}
-          >
+          <label class={`${props.inputCheckFormControlStyle} flex items-center`}>
             <Checkbox
               name={traitValue}
               value={traitKey}

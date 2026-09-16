@@ -1,22 +1,15 @@
-'use client'
-
-import { type Component } from 'solid-js'
+import { Dynamic } from 'solid-js/web'
 import DeferredSection from '@nl/ui/custom/deferred-section'
-
-const createWeb3GameGrid = (Web3GameList: Component) =>
-  function Web3GameGrid() {
-    return (
-      <div class="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
-        <Web3GameList />
-      </div>
-    )
-  }
 
 const loadWeb3GameGrid = async () => {
   const { default: Web3GameList } = await import('./_Web3GameList')
 
   return {
-    default: createWeb3GameGrid(Web3GameList),
+    default: () => (
+      <div class="grid grid-cols-12 gap-y-8 pb-8 sm:gap-y-0 sm:pb-4 md:pb-0">
+        <Dynamic component={Web3GameList} />
+      </div>
+    ),
   }
 }
 

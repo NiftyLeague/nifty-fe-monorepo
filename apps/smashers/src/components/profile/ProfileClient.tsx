@@ -48,26 +48,33 @@ function ProfileContent(_props: { sessionData: SessionData }) {
     <>
       <BackButton />
       <div class="w-full h-screen flex justify-center items-center">
-        <Card class="relative w-full max-w-[800px] h-screen md:h-auto overflow-auto md:overflow-hidden">
-          <CardHeader class="pt-8 md:pt-0">
-            <NativeImage
-              src="/img/logos/NL/white.webp"
-              alt="Company Logo"
-              width={50}
-              height={48}
-              class="absolute inset-6 h-10 w-10"
-            />
-            <CardDescription class="ml-auto text-success">You&apos;re signed in</CardDescription>
-          </CardHeader>
+        <Card class="relative h-screen w-full max-w-200 overflow-auto md:h-auto md:overflow-hidden">
+          {/* Mobile-only top spacing sits on a transparent wrapper: the header
+           * component owns its own padding, and a block wrapper renders the
+           * identical box. */}
+          <div class="pt-8 md:pt-0">
+            <CardHeader>
+              <NativeImage
+                src="/img/logos/NL/white.webp"
+                alt="Company Logo"
+                width={50}
+                height={48}
+                class="absolute inset-6 h-10 w-10"
+              />
+              <CardDescription class="ml-auto text-success">You&apos;re signed in</CardDescription>
+            </CardHeader>
+          </div>
           <CardContent>
-            <Tabs defaultValue="account" class="w-full gap-4">
-              <TabsList class={cn('w-full', !tabsEnabled && 'bg-card')}>
+            <Tabs defaultValue="account" class="w-full">
+              {/* `mb-2` + the tabs' own root gap (8px) reproduces the previous
+               * 16px gap between the list and its panels. */}
+              <TabsList class={cn('mb-2 w-full', !tabsEnabled && 'bg-card')}>
                 <TabsTrigger
                   value="account"
                   class={cn(
                     tabsEnabled
                       ? 'cursor-pointer data-[state=active]:cursor-not-allowed'
-                      : '!bg-card border-0 border-b-1 rounded-none outline-none justify-start'
+                      : '!bg-card justify-start'
                   )}
                 >
                   <UserIcon aria-hidden="true" absoluteStrokeWidth size={20} stroke-width={1.5} />{' '}

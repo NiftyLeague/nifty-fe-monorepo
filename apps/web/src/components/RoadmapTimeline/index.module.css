@@ -430,6 +430,21 @@
   }
 }
 
+/*
+ * Per-card image offsets, previously applied as inline styles on the
+ * .timeline_content_img wrapper (roadmapCard.tsx now emits the values as the
+ * --roadmap-img-* custom properties instead). Declared after the responsive
+ * block above so it wins the cascade tie at equal specificity; the -60px
+ * right fallback mirrors the responsive default above, and absolute
+ * positioning resolves left+width in LTR so the fallback never shifts cards
+ * that relied on the side=left rule.
+ */
+.cd_timeline_block[data-roadmap-card] .timeline_content_img {
+  top: var(--roadmap-img-top, auto);
+  right: var(--roadmap-img-right, -60px);
+  padding: var(--roadmap-img-pad, 0);
+}
+
 .fade_in {
   opacity: 1;
   animation-name: fadeInOpacity;

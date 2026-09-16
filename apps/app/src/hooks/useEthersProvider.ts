@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, type Accessor } from 'solid-js'
 import { FallbackProvider, JsonRpcProvider } from 'ethers'
 import type { Chain, Client, Transport } from 'viem'

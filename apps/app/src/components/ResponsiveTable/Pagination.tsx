@@ -1,5 +1,3 @@
-'use client'
-
 import type { JSX } from 'solid-js'
 import { cn } from '@nl/ui/utils'
 

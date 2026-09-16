@@ -1,5 +1,3 @@
-'use client'
-
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
 
@@ -17,11 +15,6 @@ const DegenBalance = (): JSX.Element => {
     <HoverDataCard
       title="DEGEN Balance"
       primary={`${balance ? formatNumberToDisplay(balance) : '0.00'} NFTL`}
-      customStyle={{
-        'background-color': 'var(--color-card)',
-        border: 'var(--border-default)',
-        position: 'relative',
-      }}
       secondary="Available to Claim"
       isLoading={loading}
       actions={

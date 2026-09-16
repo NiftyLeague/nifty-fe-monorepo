@@ -1,5 +1,3 @@
-'use client'
-
 import Carousel from '@/components/Carousel'
 import TeamCardItem from '@/components/Carousel/TeamCardItem'
 import { CORE_TEAM, DEGEN_DELEGATES } from '@/constants/team'

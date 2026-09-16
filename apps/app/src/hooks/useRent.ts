@@ -1,5 +1,3 @@
-'use client'
-
 import type { Accessor } from 'solid-js'
 import { RENT_URL } from '@/constants/url'
 import type { MyRental } from '@/types/rental'

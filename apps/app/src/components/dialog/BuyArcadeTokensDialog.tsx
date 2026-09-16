@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, Show, type Component } from 'solid-js'
 import { useQuery } from '@tanstack/solid-query'
 import { toast } from 'solid-sonner'
@@ -111,10 +109,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
 
   return (
     <Dialog open={props.open} onOpenChange={(openState) => !openState && props.onClose()}>
-      <DialogContent
-        showCloseButton={false}
-        class="max-w-[444px] md:max-w-[444px] lg:max-w-[444px]"
-      >
+      <DialogContent showCloseButton={false} class="max-w-111 md:max-w-111 lg:max-w-111">
         <div class="container">
           <div class="relative text-center">
             <DialogTitle class="text-center">Buy Arcade Token</DialogTitle>
@@ -131,7 +126,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
           </div>
           <Separator class="opacity-60" />
           <Show when={detailsQuery.isLoading || detailsQuery.error}>
-            <div class="flex h-[300px] w-[390px] flex-row items-center justify-center">
+            <div class="flex h-75 w-97.5 flex-row items-center justify-center">
               <Show when={detailsQuery.isLoading}>
                 <CircularProgress />
               </Show>
@@ -143,7 +138,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
           <Show when={!detailsQuery.error && !detailsQuery.isLoading && detailsQuery.data} keyed>
             {(details) => (
               <>
-                <span class="mx-auto mt-4 block max-w-[450px] text-center text-base">
+                <span class="mx-auto mt-4 block max-w-112.5 text-center text-base">
                   To play an arcade game, you need at least 1 arcade token. Arcade tokens are sold
                   in packs containing {details.items['arcade-token'] ?? 0} tokens (i.e 1 pack ={' '}
                   {details.items['arcade-token'] ?? 0} tokens)
@@ -157,7 +152,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                     variant="ghost"
                     size="icon"
                     aria-label="subtract"
-                    class="h-[50px] w-[50px] cursor-pointer p-0"
+                    class="h-12.5 w-12.5 cursor-pointer p-0"
                     onClick={() => updateTokenCount(tokenCount() - 1)}
                   >
                     <Minus
@@ -170,7 +165,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                   <div class="relative">
                     <Input
                       aria-label="Arcade token packs"
-                      class="w-[100px] pr-12 text-center"
+                      class="w-25 pr-12 text-center"
                       value={tokenCount()}
                       onInput={(e) => updateTokenCount(e.target.value)}
                       inputMode="numeric"
@@ -185,7 +180,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                     variant="ghost"
                     size="icon"
                     aria-label="add"
-                    class="h-[50px] w-[50px] cursor-pointer p-0"
+                    class="h-12.5 w-12.5 cursor-pointer p-0"
                     onClick={() => updateTokenCount(tokenCount() + 1)}
                   >
                     <Plus
@@ -196,27 +191,20 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                     />
                   </Button>
                 </div>
-                <div class="grid" style={{ 'grid-template-columns': '1fr auto' }}>
+                <div class="grid grid-cols-(--totals-grid)" style={{ '--totals-grid': '1fr auto' }}>
                   <span
-                    class="text-base"
-                    style={{
-                      'font-weight': '500',
-                      color:
-                        accountBalance() && accountBalance() > tokenCount() * details.price
-                          ? 'var(--color-success)'
-                          : 'var(--color-foreground)',
-                    }}
+                    class={`text-base font-medium ${accountBalance() && accountBalance() > tokenCount() * details.price ? 'text-success' : 'text-foreground'}`}
                   >
                     Bal: {accountBalance() ? formatNumberToDisplay(accountBalance()) : '0.00'} NFTL
                   </span>
-                  <span class="flex text-base" style={{ 'font-weight': '500' }}>
+                  <span class="flex text-base font-medium">
                     Total:{' '}
                     <NativeImage
                       src="/icons/currencies/arcade-token.svg"
                       alt="Arcade Token"
                       width={16}
                       height={16}
-                      style={{ margin: '0 4px' }}
+                      class="mx-1"
                     />{' '}
                     {tokenCount() * (details.items['arcade-token'] ?? 0)} Arcade Tokens
                   </span>

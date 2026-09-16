@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext } from 'solid-js'
 
 import type { Provider } from '@/hooks/useEthersProvider'

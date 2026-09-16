@@ -1,11 +1,8 @@
-'use client'
-
 import { type JSX } from 'solid-js'
 import { Pencil } from 'lucide-solid'
 import { Button } from '@nl/ui/base/button'
 import { Card, CardContent } from '@nl/ui/base/card'
 import { Title } from '@nl/ui/custom/typography'
-import type { SxProps } from '@/types'
 import DegenImage from './DegenImage'
 import type { PublicDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
@@ -29,7 +26,6 @@ export interface DegenCardProps<T extends PublicDegen = PublicDegen> {
   onClickEditName?: (degen: T) => void
   onClickFavorite?: (degen: T) => void
   onClickSelect?: (degen: T) => void
-  sx?: SxProps
   dashboardActions?: JSX.Element
 }
 
@@ -41,7 +37,6 @@ function DegenCardInner<T extends PublicDegen>({
   isSelectionDisabled = false,
   deferAnimatedMedia = false,
   size = 'normal',
-  sx,
   onClickClaim,
   onClickDetail,
   onClickEditName,
@@ -50,16 +45,12 @@ function DegenCardInner<T extends PublicDegen>({
 }: DegenCardProps<T> & { children?: JSX.Element }) {
   const { id, name } = degen
 
-  const buttonFontSize = size === 'small' ? '12px' : 'var(--text-sm)'
+  const buttonFontSizeClass = size === 'small' ? 'text-xs' : 'text-sm'
 
   return (
-    <Card class="h-full w-full gap-0 border py-0 pb-2" style={sx as JSX.CSSProperties | undefined}>
+    <Card class="h-full w-full gap-0 border py-0 pb-2">
       {id && (
-        <DegenImage
-          tokenId={id}
-          deferAnimation={deferAnimatedMedia}
-          sx={{ width: '100%', 'max-width': '100%' }}
-        />
+        <DegenImage tokenId={id} deferAnimation={deferAnimatedMedia} class="w-full max-w-full" />
       )}
       <CardContent class="px-2 py-2">
         <div class="group flex flex-row justify-between gap-2">
@@ -84,8 +75,7 @@ function DegenCardInner<T extends PublicDegen>({
             href={id ? DEGEN_PURCHASE_URL(id) : '#'}
             target="_blank"
             rel="nofollow"
-            class="text-muted-foreground"
-            style={{ 'font-size': buttonFontSize }}
+            class={`text-muted-foreground ${buttonFontSizeClass}`}
           >
             {`#${id}`}
           </a>
@@ -95,8 +85,7 @@ function DegenCardInner<T extends PublicDegen>({
         {isSelectableDegen ? (
           <Button
             variant={isSelected ? 'default' : 'outline'}
-            class="min-w-0 flex-1"
-            style={{ 'font-size': buttonFontSize }}
+            class={size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
             onClick={() => onClickSelect?.(degen)}
             disabled={isSelectionDisabled && !isSelected}
           >
@@ -105,8 +94,7 @@ function DegenCardInner<T extends PublicDegen>({
         ) : (
           <Button
             variant="outline"
-            class="min-w-0 flex-1"
-            style={{ 'font-size': buttonFontSize }}
+            class={size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
             onClick={() => onClickDetail?.(degen)}
           >
             Details
@@ -116,8 +104,7 @@ function DegenCardInner<T extends PublicDegen>({
           <Button
             onClick={() => onClickClaim?.(degen)}
             variant="default"
-            class="min-w-0 flex-1"
-            style={{ 'font-size': buttonFontSize }}
+            class={size === 'small' ? 'min-w-0 flex-1 text-xs' : 'min-w-0 flex-1 text-sm'}
           >
             Claim
           </Button>

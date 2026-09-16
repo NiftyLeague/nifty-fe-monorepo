@@ -48,10 +48,7 @@ export function ConsoleGame(props: ConsoleGameProps) {
 
   return (
     <div class="relative overflow-hidden h-full">
-      <div
-        style={{ position: 'relative', display: 'flex', 'flex-grow': '1' }}
-        class="md:animation-hidden h-full"
-      >
+      <div class="relative flex grow md:animation-hidden h-full">
         {props.children}
         <video
           ref={(el) => (videoEl = el)}
@@ -87,13 +84,12 @@ export function ConsoleGame(props: ConsoleGameProps) {
           */}
           <NativeImage
             alt=""
-            class="pixelated"
+            class="pixelated w-full h-auto object-contain"
             width={CONSOLE_ARTWORK_DIMENSIONS.width}
             height={CONSOLE_ARTWORK_DIMENSIONS.height}
             src="/img/console-game/bonk.webp"
             loading="lazy"
             decoding="async"
-            style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
           />
         </Button>
       </div>
@@ -102,13 +98,12 @@ export function ConsoleGame(props: ConsoleGameProps) {
           <div class="animate-hover transition-fade">
             <NativeImage
               alt=""
-              class="pixelated"
+              class="pixelated w-full h-auto object-contain"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
               src="/img/console-game/gaming_controller_left.webp"
               loading="lazy"
               decoding="async"
-              style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
             />
           </div>
         </ParallaxWrapper>
@@ -118,13 +113,12 @@ export function ConsoleGame(props: ConsoleGameProps) {
           <div class="animate-hover transition-fade">
             <NativeImage
               alt=""
-              class="pixelated"
+              class="pixelated w-full h-auto object-contain"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
               src="/img/console-game/gaming_controller_right.webp"
               loading="lazy"
               decoding="async"
-              style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}
             />
           </div>
         </ParallaxWrapper>

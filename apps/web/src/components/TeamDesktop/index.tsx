@@ -12,12 +12,11 @@ export default function TeamDesktop() {
                 <div class="rounded-lg overflow-hidden">
                   <OptimizedImage
                     alt={`${member.name} DEGEN`}
-                    class="pixelated"
+                    class="pixelated w-full h-auto"
                     height={293}
                     src={member.source}
                     width={268}
                     sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                    style={{ width: '100%', height: 'auto' }}
                   />
                 </div>
               </a>
@@ -25,12 +24,11 @@ export default function TeamDesktop() {
               <div class="rounded-lg overflow-hidden">
                 <OptimizedImage
                   alt={`${member.name} DEGEN`}
-                  class="pixelated"
+                  class="pixelated w-full h-auto"
                   height={293}
                   src={member.source}
                   width={268}
                   sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  style={{ width: '100%', height: 'auto' }}
                 />
               </div>
             )}

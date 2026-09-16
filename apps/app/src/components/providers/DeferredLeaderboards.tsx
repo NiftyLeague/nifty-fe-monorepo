@@ -1,5 +1,3 @@
-'use client'
-
 import DeferredComponent from '@nl/ui/custom/deferred-component'
 import RouteLoading from '@nl/ui/custom/route-loading'
 import type { JSX } from 'solid-js'

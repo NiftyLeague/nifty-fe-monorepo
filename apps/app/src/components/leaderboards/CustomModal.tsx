@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Dialog,
   DialogClose,
@@ -36,16 +34,8 @@ const CustomModal = (props: ModalProps): JSX.Element | null => {
         <DialogClose class="sr-only">Close leaderboard rank</DialogClose>
         <div class={styles.backdrop} />
         <div
-          class="relative mx-auto border-2 border-[var(--color-background)] bg-[#181425] bg-contain bg-center bg-no-repeat max-sm:!h-[120vw] max-sm:!w-[90vw] max-sm:!bg-cover"
-          style={{
-            width: '67.5vh',
-            height: '90vh',
-            'padding-top': '16px',
-            'padding-left': '32px',
-            'padding-right': '32px',
-            'padding-bottom': '24px',
-            'background-image': `url(${backgroundImage(flag)})`,
-          }}
+          class="relative mx-auto w-168.75 h-225 pt-4 px-8 pb-6 border-2 border-background bg-(--scrim) bg-(--modal-bg) bg-contain bg-center bg-no-repeat max-sm:!h-(--lb-modal-h) max-sm:!w-(--lb-modal-w) max-sm:!bg-cover"
+          style={{ '--modal-bg': `url(${backgroundImage(flag)})` }}
         >
           {child}
         </div>

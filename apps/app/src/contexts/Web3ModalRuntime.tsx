@@ -1,5 +1,3 @@
-'use client'
-
 import { onMount, type JSX } from 'solid-js'
 import { cookieToInitialState, hydrate, type Config } from '@wagmi/core'
 

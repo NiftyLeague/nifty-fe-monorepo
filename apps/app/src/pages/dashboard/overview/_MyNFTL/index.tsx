@@ -1,5 +1,3 @@
-'use client'
-
 import DeferredSection from '@nl/ui/custom/deferred-section'
 import DegenBalance from './DegenBalance'
 import GameBalance from './GameBalance'

@@ -20,7 +20,7 @@ const DegenCardItem = ({
   source: string
   createdDate: string
 }): JSX.Element => (
-  <div class="grid h-full bg-card border-1 rounded-default">
+  <div class="grid h-full bg-card border-1">
     <div class="p-3 md:p-4">
       <div class="flex justify-between items-center">
         <h6 class="truncate-text-1 text-xs">{name}</h6>
@@ -36,13 +36,16 @@ const DegenCardItem = ({
         </div>
       </div>
       <div class="hidden md:flex items-center pt-3">
-        <span class="text-muted-foreground text-[9px] border-2 rounded-sm uppercase py-0.5 px-1 mr-2">
+        <span
+          class="text-muted-foreground text-(length:--degen-created-font-size) border-2 rounded-sm uppercase py-0.5 px-1 mr-2"
+          style={{ '--degen-created-font-size': '9px' }}
+        >
           Created
         </span>
         <span class="text-muted-foreground text-xs">{createdDate}</span>
       </div>
     </div>
-    <div class="rounded-[20px]">
+    <div class="rounded-(--degen-card-radius)" style={{ '--degen-card-radius': '20px' }}>
       {/* These cards are below the fold and use fixed local assets, so intrinsic dimensions are
           enough to preserve layout without an image-loader wrapper in the deferred card. */}
       <NativeImage

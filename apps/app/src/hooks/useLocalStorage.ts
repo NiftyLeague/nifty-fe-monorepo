@@ -1,5 +1,3 @@
-'use client'
-
 import type { Accessor } from 'solid-js'
 
 import { getLocalStorageStore } from '@/state/local-storage-store'

@@ -1,5 +1,3 @@
-'use client'
-
 import useGamerProfile from './useGamerProfile'
 import useGamerProfileContext from './useGamerProfileContext'
 import useProfileAvatarFee from './useProfileAvatarFee'

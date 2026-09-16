@@ -1,5 +1,3 @@
-'use client'
-
 import { type JSX } from 'solid-js'
 
 import dynamic from '@/runtime/dynamic'

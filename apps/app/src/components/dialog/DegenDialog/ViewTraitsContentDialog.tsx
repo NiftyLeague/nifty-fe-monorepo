@@ -7,7 +7,6 @@ import { Title } from '@nl/ui/custom/typography'
 import type { DashboardDegen } from '@/types/degens'
 import { DEGEN_PURCHASE_URL } from '@/constants/public-urls'
 import DegenModalMedia from './DegenModalMedia'
-import type { SxProps } from '@/types'
 import { getDegenTraitEntries, type DegenTraitValue } from '@/utils/degen-traits'
 import { hasEntries } from '@/utils/collections'
 
@@ -16,7 +15,6 @@ interface ViewTraitsContentDialogProps {
   traits: string | readonly DegenTraitValue[] | { [traitType: string]: DegenTraitValue }
   displayName?: string
   onClose?: (event: MouseEvent & { currentTarget: HTMLButtonElement }) => void
-  degenImageSx?: SxProps
 }
 
 const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
@@ -28,7 +26,7 @@ const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
     <div class="grid min-w-0 grid-cols-1 gap-6 md:grid-cols-2">
       <div class="flex min-w-0 flex-col items-center py-2 px-4">
         <Show when={props.degen?.id}>
-          <DegenModalMedia tokenId={props.degen!.id} sx={props.degenImageSx} />
+          <DegenModalMedia tokenId={props.degen!.id} />
         </Show>
         <div class="my-4 flex flex-col items-center">
           <Title level={4}>{props.displayName}</Title>
@@ -44,7 +42,7 @@ const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
               alt="OpenSea Logo"
               width={18}
               height={18}
-              class="ml-1 w-[18px] h-[18px]"
+              class="ml-1 w-4.5 h-4.5"
             />
           </a>
         </div>
@@ -77,7 +75,7 @@ const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
                     {() => (
                       <div class="min-w-0">
                         <div class="flex min-w-0 flex-col items-center">
-                          <DeferredSkeleton class="h-4 w-[60px]" />
+                          <DeferredSkeleton class="h-4 w-15" />
                           <DeferredSkeleton class="h-4 w-10" />
                         </div>
                       </div>

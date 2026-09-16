@@ -1,5 +1,3 @@
-'use client'
-
 import { useQuery } from '@tanstack/solid-query'
 import { GAMER_ACCOUNT_API } from '@/constants/url'
 import type { Account } from '@/types/account'

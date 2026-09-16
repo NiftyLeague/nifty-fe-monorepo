@@ -1,4 +1,3 @@
-'use client'
 import { createEffect, createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 import { useAccount } from '@/runtime/wagmi'
@@ -239,10 +238,7 @@ const DashboardDegensPageContent = (): JSX.Element => {
         </Show>
       </div>
       <Show when={dataForCurrentPage().length > 0}>
-        <div
-          class="mx-auto flex flex-wrap items-center justify-center gap-1"
-          style={{ 'padding-bottom': '16px' }}
-        >
+        <div class="mx-auto flex flex-wrap items-center justify-center gap-1 pb-4">
           <Button
             variant="ghost"
             size={isMobile() ? 'sm' : 'icon'}

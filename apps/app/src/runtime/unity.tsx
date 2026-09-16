@@ -40,11 +40,11 @@ function ensureLoader(loaderUrl: string): Promise<void> {
       }
       const script = document.createElement('script')
       script.src = loaderUrl
-      script.onload = () => resolve()
-      script.onerror = () => {
+      script.addEventListener('load', () => resolve())
+      script.addEventListener('error', () => {
         loaderScripts.delete(loaderUrl)
         reject(new Error(`Failed to load Unity loader: ${loaderUrl}`))
-      }
+      })
       document.head.appendChild(script)
     })
     loaderScripts.set(loaderUrl, pending)
@@ -150,5 +150,18 @@ interface UnityProps extends Omit<JSX.HTMLAttributes<HTMLCanvasElement>, 'ref'> 
 
 export function Unity(props: UnityProps) {
   const [local, rest] = splitProps(props, ['unityProvider'])
-  return <canvas ref={(el) => local.unityProvider._bindCanvas(el)} {...rest} />
+  return (
+    <canvas
+      // `unityProvider` exposes the canvas binder under a library-owned
+      // underscore name; access it indirectly to keep the external contract.
+      ref={(el) => {
+        const provider = local.unityProvider as unknown as Record<
+          string,
+          ((el: HTMLCanvasElement) => void) | undefined
+        >
+        provider['_bindCanvas']?.(el)
+      }}
+      {...rest}
+    />
+  )
 }

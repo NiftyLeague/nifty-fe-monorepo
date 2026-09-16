@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises'
 const median = (summary) => summary?.median
 const max = (summary) => summary?.maximum
 const pct = (before, after) => (before ? ((after - before) / before) * 100 : null)
+const load = async (path) => JSON.parse(await readFile(path, 'utf8'))
 
 // Route priority drives the P0 vs P1/P2 columns of the budget table. Build
 // benchmarks inherit the priority of the app's primary route.
@@ -11,13 +12,13 @@ const priorityOf = (config, appId) =>
   config.routes.find((route) => route.app === appId)?.priority ?? 'P1'
 
 /** Metric verdicts per route. Each check returns null (pass) or a failure string. */
-function checkRoute(baselineRoute, currentRoute, priority, exceptions) {
+function checkRoute(baselineRoute, currentRoute, priority, routeExceptions) {
   const id = baselineRoute.route.id
   const base = baselineRoute.summary
   const cur = currentRoute.summary
   const p0 = priority === 'P0'
   const findings = []
-  const exceptionsForRoute = exceptions.filter((entry) => entry.route === id)
+  const exceptionsForRoute = routeExceptions.filter((entry) => entry.route === id)
 
   const budgetCheck = (name, budgetMedian, budgetMax, currentMedian, currentMax) => {
     if (currentMedian === null || currentMedian === undefined) return
@@ -26,18 +27,9 @@ function checkRoute(baselineRoute, currentRoute, priority, exceptions) {
     if (budgetMax && currentMax > budgetMax)
       findings.push(`${name}: worst sample ${Math.round(currentMax)} > ${budgetMax} ms ceiling`)
   }
-  const growthCheck = (label, before, after, limitPct) => {
-    const change = pct(before, after)
-    if (change === null) return
-    if (change > limitPct)
-      findings.push(
-        `${label}: ${Math.round(before)} → ${Math.round(after)} (+${change.toFixed(1)}% > +${limitPct}%)`
-      )
-  }
-
   budgetCheck('LCP', p0 ? 2500 : 3000, p0 ? 4000 : null, median(cur.lcpMs), max(cur.lcpMs))
   const lcpDelta = median(cur.lcpMs) - median(base.lcpMs)
-  if (lcpDelta > 0 && lcpDelta > 250 && pct(median(base.lcpMs), median(cur.lcpMs)) > 10)
+  if (lcpDelta > 250 && pct(median(base.lcpMs), median(cur.lcpMs)) > 10)
     findings.push(
       `LCP median regression ${Math.round(lcpDelta)} ms exceeds the >10% and >250 ms rule`
     )
@@ -96,7 +88,7 @@ function checkRoute(baselineRoute, currentRoute, priority, exceptions) {
   return { id, findings }
 }
 
-function checkBuilds(baselineBuilds, currentBuilds, config, buildExceptions) {
+function checkBuilds(baselineBuilds, currentBuilds, config, buildExceptionsList) {
   const findings = []
   for (const current of currentBuilds) {
     const before = baselineBuilds.find((entry) => entry.app === current.app)
@@ -108,7 +100,7 @@ function checkBuilds(baselineBuilds, currentBuilds, config, buildExceptions) {
       const afterMs = median(current[key])
       const change = pct(beforeMs, afterMs)
       if (change <= limit) continue
-      const exception = buildExceptions.find(
+      const exception = buildExceptionsList.find(
         (entry) => entry.app === current.app && entry.kind === kind
       )
       if (exception)
@@ -213,8 +205,8 @@ export function evaluateBudgets({
   current,
   buildBaseline,
   config,
-  exceptions,
-  buildExceptions,
+  exceptions: routeExceptions,
+  buildExceptions: buildExceptionsList,
 }) {
   const lines = []
   let regressions = 0
@@ -223,7 +215,7 @@ export function evaluateBudgets({
     const baselineRoute = baseline.routes.find((r) => r.route.id === currentRoute.route.id)
     if (!baselineRoute) continue
     const priority = priorityOf(config, currentRoute.route.app)
-    const { id, findings } = checkRoute(baselineRoute, currentRoute, priority, exceptions)
+    const { id, findings } = checkRoute(baselineRoute, currentRoute, priority, routeExceptions)
     if (findings.length === 0) {
       lines.push(`PASS  ${id}`)
       continue
@@ -240,7 +232,7 @@ export function evaluateBudgets({
     buildBaseline?.builds ?? [],
     current.builds ?? [],
     config,
-    buildExceptions
+    buildExceptionsList
   )
   if (buildFindings.length) {
     lines.push('\nbuild benchmarks')
@@ -270,7 +262,6 @@ if (import.meta.main) {
     process.exit(2)
   }
   const strict = args.includes('--strict')
-  const load = async (path) => JSON.parse(await readFile(path, 'utf8'))
   const config = JSON.parse(
     await readFile(new URL('../benchmarks/m0-routes.json', import.meta.url), 'utf8')
   )

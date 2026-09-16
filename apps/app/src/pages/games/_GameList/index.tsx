@@ -5,40 +5,33 @@ import GameCard from '@/components/cards/GameCard'
 
 import styles from '../grid-item.module.css'
 
-const AppleBadge = ({ disabled = false }) => (
+const AppleBadge = () => (
   <NativeImage
     src="/img/badges/apple-store-badge.svg"
     alt="Apple Store Badge"
     width={120}
     height={40}
-    style={{
-      width: '91%',
-      'max-width': '100%',
-      height: 'auto',
-      display: 'flex',
-      margin: 'auto',
-      opacity: disabled ? 0.25 : 1,
-    }}
+    class="flex mx-auto w-91/100 max-w-full h-auto"
   />
 )
 
-const GoogleBadge = ({ disabled = false }) => (
+const GoogleBadge = () => (
   <NativeImage
     src="/img/badges/google-play-badge.webp"
     alt="Get it on Google Play"
     width={564}
     height={169}
-    style={{ width: '100%', 'max-width': '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
+    class="w-full max-w-full h-auto"
   />
 )
 
-const SteamBadge = ({ disabled = false }) => (
+const SteamBadge = () => (
   <NativeImage
     src="/img/badges/steam-badge.webp"
     alt="Steam Store Badge"
     width={564}
     height={168}
-    style={{ width: '100%', 'max-width': '100%', height: 'auto', opacity: disabled ? 0.25 : 1 }}
+    class="w-full max-w-full h-auto"
   />
 )
 
@@ -68,14 +61,16 @@ const GameArtwork = ({
 type StoreButtonsProps = { android?: string; ios?: string; steam?: string }
 
 const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
-  <div class="grid grid-cols-12 gap-4" style={{ width: '100%' }}>
+  <div class="grid w-full grid-cols-12 gap-4">
     <div class="col-span-4">
       {android ? (
         <a href={android} target="_blank" rel="noreferrer">
           <GoogleBadge />
         </a>
       ) : (
-        <GoogleBadge disabled />
+        <div class="opacity-25">
+          <GoogleBadge />
+        </div>
       )}
     </div>
     <div class="col-span-4">
@@ -84,7 +79,9 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
           <AppleBadge />
         </a>
       ) : (
-        <AppleBadge disabled />
+        <div class="opacity-25">
+          <AppleBadge />
+        </div>
       )}
     </div>
     <div class="col-span-4">
@@ -93,7 +90,9 @@ const StoreButtons = ({ android, ios, steam }: StoreButtonsProps) => (
           <SteamBadge />
         </a>
       ) : (
-        <SteamBadge disabled />
+        <div class="opacity-25">
+          <SteamBadge />
+        </div>
       )}
     </div>
   </div>

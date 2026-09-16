@@ -1,5 +1,3 @@
-'use client'
-
 import { Show, type JSX } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'
@@ -75,7 +73,10 @@ const StaticCarousel = (
       <div class="overflow-hidden">
         <div class="flex items-stretch">
           {items().map((child, _index) => (
-            <div class="min-w-0 shrink-0 px-5" style={{ flex: `0 0 ${itemBasis}` }}>
+            <div
+              class="min-w-0 grow-0 shrink-0 basis-(--carousel-item-basis) px-5"
+              style={{ '--carousel-item-basis': itemBasis }}
+            >
               {child}
             </div>
           ))}

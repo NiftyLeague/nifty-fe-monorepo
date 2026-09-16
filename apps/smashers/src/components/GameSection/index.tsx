@@ -27,7 +27,10 @@ const GameSection = () => {
           </div>
         </div>
         <div class="md:col-span-12 lg:col-span-6">
-          <div class="transition-quick-pop overflow-hidden rounded-[40px]">
+          <div
+            class="rounded-(--radius-video) transition-quick-pop overflow-hidden"
+            style={{ '--radius-video': '40px' }}
+          >
             <ViewportVideo
               id="level-video"
               class="h-auto w-full"
@@ -50,20 +53,25 @@ const GameSection = () => {
        * `prefers-reduced-motion: reduce` is set.
        */}
       <div class="my-10 block text-center transition-fade-slow">
-        <ViewportVideo
-          id="party-modes-video"
-          class="w-full h-auto rounded-[40px]"
-          width={1350}
-          height={566}
-          aria-label="Smashers Party Modes"
-          deferLoad
-          muted
-          loop
-          playsinline
-          data-keepplaying
-          poster="/img/games/smashers/party_modes-poster.webp"
-          src="/video/party-modes.mp4"
-        />
+        {/* The 40px corner radius is owned here (not by the @nl/ui video), so it
+         * lives on a clipping wrapper: the video fills the wrapper, and the
+         * wrapper's rounded corners clip it to the same outline. */}
+        <div class="overflow-hidden rounded-(--radius-video)" style={{ '--radius-video': '40px' }}>
+          <ViewportVideo
+            id="party-modes-video"
+            class="h-auto w-full"
+            width={1350}
+            height={566}
+            aria-label="Smashers Party Modes"
+            deferLoad
+            muted
+            loop
+            playsinline
+            data-keepplaying
+            poster="/img/games/smashers/party_modes-poster.webp"
+            src="/video/party-modes.mp4"
+          />
+        </div>
       </div>
     </div>
   )

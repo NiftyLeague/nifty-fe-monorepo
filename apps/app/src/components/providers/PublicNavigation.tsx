@@ -17,14 +17,13 @@ const PublicSidebar = function PublicSidebar() {
     <nav
       id="public-desktop-navigation"
       aria-label="Primary navigation"
-      class="hidden w-[260px] shrink-0 lg:block"
+      class="hidden w-65 shrink-0 lg:block"
     >
       <aside
         class={cx(
           styles.publicDesktopSidebar,
-          'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 z-40 border-r-0 transition-transform duration-200'
+          'bg-sidebar text-sidebar-foreground fixed bottom-0 left-0 top-15 z-40 w-65 border-r-0 transition-transform duration-200'
         )}
-        style={{ width: '260px', top: '60px' }}
       >
         <div class="h-full overflow-y-auto px-4 py-5">
           <div class="mb-5">
@@ -52,7 +51,7 @@ export default function PublicNavigation(props: { children?: JSX.Element }) {
                 id="public-mobile-navigation"
                 label="Toggle navigation"
                 className="lg:hidden"
-                summaryClassName="h-[34px] w-[34px] overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
+                summaryClassName="h-8.5 w-8.5 overflow-hidden rounded-md bg-muted text-blue transition-all duration-200 hover:bg-purple hover:text-foreground"
                 panelClassName="fixed top-[56px] bottom-0 left-0 z-40 w-full max-w-xs overflow-y-auto bg-sidebar text-sidebar-foreground shadow-lg"
               >
                 <div class="border-b border-sidebar-border px-4 py-3">

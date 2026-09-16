@@ -69,19 +69,19 @@ export function Text(props: TextProps) {
         <code
           class={cn(
             className(),
-            'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
+            'bg-muted relative rounded px-1 py-0.5 font-mono text-sm font-semibold'
           )}
           style={local.style}
         >
           {local.children}
         </code>
       ) : local.mark ? (
-        <mark class={cn(className(), 'p-0 bg-yellow-200')} style={local.style}>
+        <mark class={cn(className(), 'p-0 bg-warning-light')} style={local.style}>
           {local.children}
         </mark>
       ) : local.keyboard ? (
         <kbd
-          class={cn(className(), 'px-1 py-0.5 bg-gray-100 border border-gray-300 rounded')}
+          class={cn(className(), 'px-1 py-0.5 bg-muted border border-border rounded')}
           style={local.style}
         >
           {local.children}

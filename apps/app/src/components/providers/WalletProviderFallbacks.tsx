@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@nl/ui/base/button'
 import DeferredSkeleton from '@nl/ui/custom/deferred-skeleton'
 
@@ -14,7 +12,7 @@ export function WalletProviderLoading() {
       <DeferredSkeleton class="h-14 w-full rounded-lg" />
       <div class="flex min-h-0 flex-1 gap-6">
         <DeferredSkeleton class="hidden w-64 rounded-lg lg:block" />
-        <DeferredSkeleton class="min-h-[24rem] flex-1 rounded-lg" />
+        <DeferredSkeleton class="min-h-96 flex-1 rounded-lg" />
       </div>
       <span class="sr-only">Loading wallet provider</span>
     </div>

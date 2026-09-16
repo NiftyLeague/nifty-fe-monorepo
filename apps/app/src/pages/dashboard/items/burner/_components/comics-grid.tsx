@@ -62,11 +62,11 @@ export default function ComicsGrid(props: {
     <Show
       when={!nfts.loadingComics}
       fallback={
-        <DeferredSkeleton class="absolute left-0 right-0 top-[130px] mx-auto h-[265px] w-[315px] rounded-none" />
+        <DeferredSkeleton class="absolute left-0 right-0 top-32.5 mx-auto h-66.25 w-78.75 rounded-none" />
       }
     >
       <div>
-        <div class="absolute left-0 right-0 top-[130px] mx-auto w-[315px]">
+        <div class="absolute left-0 right-0 top-32.5 mx-auto w-78.75">
           <div class="grid grid-cols-3 gap-x-2.5">
             <For each={nfts.comicsBalances}>
               {(comic) => (
@@ -78,15 +78,11 @@ export default function ComicsGrid(props: {
                     onClick={() => handleSelectComic(comic)}
                     width={98}
                     height={98}
-                    style={{
-                      cursor: 'pointer',
-                      width: '100%',
-                      height: 'auto',
-                      ...(props.selectedComics.includes(comic) && {
-                        'box-shadow': '0 0 8px rgba(81, 203, 238, 1)',
-                        border: '3px solid rgba(81, 203, 238, 1)',
-                      }),
-                    }}
+                    class={
+                      props.selectedComics.includes(comic)
+                        ? 'cursor-pointer w-full h-auto shadow-(--comic-glow) border-3 border-(--comic-select)'
+                        : 'cursor-pointer w-full h-auto'
+                    }
                   />
                   <div class={styles.titleWrap}>
                     <div class={styles.title}>
@@ -111,14 +107,7 @@ export default function ComicsGrid(props: {
                             pattern="[0-9]*"
                             min={0}
                             max={nfts.comicsBalances.find((c) => c.id === comic.id)?.balance || 0}
-                            style={{
-                              'text-align': 'center',
-                              'padding-bottom': '2.5px',
-                              'padding-left': '1.75rem',
-                              'padding-right': '2.5px',
-                              'padding-top': '2.5px',
-                            }}
-                            class="h-8 w-[98px]"
+                            class="h-8 w-24.5 text-center pt-0.5 pb-0.5 pl-7 pr-0.5"
                           />
                           <Flame
                             aria-hidden="true"

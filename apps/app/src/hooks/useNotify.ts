@@ -1,4 +1,3 @@
-'use client'
 import type { Accessor } from 'solid-js'
 import type { API, InitOptions } from 'bnc-notify'
 import type { JsonRpcSigner } from 'ethers'

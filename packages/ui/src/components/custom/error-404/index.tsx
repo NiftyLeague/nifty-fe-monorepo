@@ -15,7 +15,7 @@ export function Error404(props: ComponentProps<'div'> & { className?: string }) 
       {...others}
     >
       <div class="flex w-full flex-col items-center justify-center gap-4">
-        <div class="relative mx-auto w-full max-w-[720px] aspect-[720/360]">
+        <div class="relative mx-auto w-full max-w-180 aspect-[720/360]">
           <OptimizedImage src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill />
           <OptimizedImage src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill />
           <OptimizedImage
@@ -37,7 +37,7 @@ export function Error404(props: ComponentProps<'div'> & { className?: string }) 
             class="animate-[wings_12s_ease-in-out_infinite]"
           />
         </div>
-        <div class="mx-auto px-4 max-w-[550px] text-center">
+        <div class="mx-auto px-4 max-w-137.5 text-center">
           <div class="flex flex-col gap-4">
             <h4>Something is wrong...</h4>
             <p class="text-base">

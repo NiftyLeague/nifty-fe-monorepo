@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from '@/runtime/dynamic'
 import { createSignal } from 'solid-js'
 import { Button } from '@nl/ui/base/button'

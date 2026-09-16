@@ -5,8 +5,6 @@ import type { AppNavIconName } from '@/components/AppNavIcon'
 export type SetStateAction<T> = T | ((previous: T) => T)
 export type Dispatch<A> = (value: A) => void
 
-export type SxProps = JSX.CSSProperties | Record<string, unknown> | undefined
-
 export interface GenericCardProps {
   title?: string
   primary?: string | number | undefined

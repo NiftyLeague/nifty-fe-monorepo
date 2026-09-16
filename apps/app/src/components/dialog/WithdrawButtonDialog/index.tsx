@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal } from 'solid-js'
 import { Badge } from '@nl/ui/base/badge'
 import { Button } from '@nl/ui/base/button'

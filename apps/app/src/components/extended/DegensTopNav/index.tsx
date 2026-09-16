@@ -9,11 +9,11 @@ const DegensTopNavControls = dynamic(() => import('./DegensTopNavControls'), {
   loading: () => (
     <div
       aria-label="Loading degen view controls"
-      class="flex h-8 min-w-[238px] items-center justify-between gap-2"
+      class="flex h-8 min-w-59.5 items-center justify-between gap-2"
       role="status"
     >
-      <span aria-hidden="true" class="h-8 w-[150px] animate-pulse rounded-md bg-muted" />
-      <span aria-hidden="true" class="h-8 w-[78px] animate-pulse rounded-md bg-muted" />
+      <span aria-hidden="true" class="h-8 w-37.5 animate-pulse rounded-md bg-muted" />
+      <span aria-hidden="true" class="h-8 w-19.5 animate-pulse rounded-md bg-muted" />
     </div>
   ),
 })

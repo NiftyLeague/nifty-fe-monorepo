@@ -15,12 +15,10 @@ interface MainCardProps {
   content?: boolean
   contentClass?: string
   darkTitle?: boolean
-  sx?: JSX.CSSProperties
   title?: JSX.Element | string
   secondary?: JSX.Element
   shadow?: string
   className?: string
-  style?: JSX.CSSProperties
 }
 
 const MainCard = (props: MainCardProps) => {
@@ -34,10 +32,8 @@ const MainCard = (props: MainCardProps) => {
     'darkTitle',
     'secondary',
     'shadow',
-    'sx',
     'title',
     'className',
-    'style',
   ])
   const border = () => local.border ?? true
   const content = () => local.content ?? true
@@ -45,13 +41,11 @@ const MainCard = (props: MainCardProps) => {
   return (
     <Card
       ref={local.ref}
-      style={{ ...local.sx, ...local.style }}
       class={cn(
         'h-full gap-0 py-0',
         border() && 'border',
         local.boxShadow &&
-          (local.shadow ||
-            'shadow-[0_2px_14px_0_rgb(33_150_243/0.1)] dark:shadow-[0_2px_14px_0_rgb(32_40_45/0.08)]'),
+          (local.shadow || 'shadow-(--card-shadow-blue) dark:shadow-(--card-shadow-dark)'),
         local.className
       )}
       {...(others as ComponentProps<'div'>)}

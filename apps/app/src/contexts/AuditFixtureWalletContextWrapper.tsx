@@ -1,5 +1,3 @@
-'use client'
-
 import { usePathname } from '@/runtime/navigation'
 import type { ParentProps } from 'solid-js'
 import { immutableZkEvmTestnet } from 'viem/chains'

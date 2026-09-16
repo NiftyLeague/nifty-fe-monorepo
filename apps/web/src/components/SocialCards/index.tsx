@@ -10,18 +10,12 @@ interface SocialProps {
 
 const SocialCard = ({ link, title, subtitle, image }: SocialProps) => (
   <a href={link} target="_blank" rel="noreferrer">
-    <div
-      class="h-full p-4 sm:p-6 rounded-lg flex"
-      style={{
-        background:
-          'linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%), rgba(36, 37, 38, 0.6)',
-      }}
-    >
+    <div class="social-card-gradient h-full p-4 sm:p-6 rounded-lg flex">
       <div class="mr-4 flex-1 flex flex-col">
         <h4 class="text-highlight-purple text-lg font-medium mb-1">{title}</h4>
         <p class="text-foreground text-sm sm:text-base">{subtitle}</p>
       </div>
-      <div class="flex-shrink-0 flex items-center">
+      <div class="shrink-0 flex items-center">
         <OptimizedImage
           alt={`${title} icon`}
           src={image}

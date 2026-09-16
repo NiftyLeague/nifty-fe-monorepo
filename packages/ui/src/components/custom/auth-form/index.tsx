@@ -33,7 +33,7 @@ function AuthContainer(props: AuthContainerProps) {
       {...others}
     >
       <div class="flex flex-1 justify-center items-center">
-        <Card class="relative w-full max-w-[600px] overflow-hidden">
+        <Card class="relative w-full max-w-150 overflow-hidden">
           <CardHeader class="flex flex-col items-center text-center">
             <NativeImage
               src="/img/logos/NL/white.webp"

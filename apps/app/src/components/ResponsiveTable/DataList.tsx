@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, For, Show } from 'solid-js'
 import { Checkbox } from '@nl/ui/base/checkbox'
 
@@ -41,7 +39,10 @@ const createListItemTitle = (tableColumns: CustomColDef[], row: Row, rows: Row[]
   ) : (
     <For each={primaryColumns}>
       {(column, index) => (
-        <span class={index() === 0 ? 'flex-[0.5]' : 'flex-[1]'}>
+        <span
+          class={index() === 0 ? 'flex-(--col-flex)' : 'flex-1'}
+          style={{ '--col-flex': '0.5' }}
+        >
           <CellRenderer column={column} row={row} data={rows} />
         </span>
       )}
@@ -128,9 +129,9 @@ const DataList = (props: DataListProps) => {
     <Show when={hasContent()} fallback={<NoContent text={props.noContentText} />}>
       <div>
         <Show when={props.checkboxSelection}>
-          <div style={{ padding: '12px 16px' }}>
+          <div class="py-3 px-4">
             <Checkbox
-              style={{ padding: '0 10px 5px 0' }}
+              class="pt-0 pr-2.5 pb-1.25 pl-0"
               checked={selection().length === props.data.length}
               indeterminate={selection().length > 0 && selection().length < props.data.length}
               onCheckedChange={() => handleSelectAll()}

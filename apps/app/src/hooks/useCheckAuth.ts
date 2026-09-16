@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect } from 'solid-js'
 import { useAccount } from '@/runtime/wagmi'
 

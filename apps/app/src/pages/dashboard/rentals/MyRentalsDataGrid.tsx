@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import { useQueryStates } from '@/url/nuqs-solid'
 import { ChevronDown, ChevronUp, Pencil } from 'lucide-solid'
@@ -391,8 +389,8 @@ const MyRentalsDataGrid = (props: Props): JSX.Element => {
                             : 'descending'
                           : 'none'
                       }
-                      style={{ 'min-width': `${column.width ?? 100}px` }}
-                      class="px-4 py-3 text-left font-medium text-muted-foreground"
+                      class="min-w-(--col-min-w) px-4 py-3 text-left font-medium text-muted-foreground"
+                      style={{ '--col-min-w': `${column.width ?? 100}px` }}
                     >
                       <button
                         type="button"
@@ -433,8 +431,8 @@ const MyRentalsDataGrid = (props: Props): JSX.Element => {
                       <For each={visibleColumns()}>
                         {(column) => (
                           <TableCell
-                            style={{ 'min-width': `${column.width ?? 100}px` }}
-                            class="px-4 py-3 align-top"
+                            class="min-w-(--col-min-w) px-4 py-3 align-top"
+                            style={{ '--col-min-w': `${column.width ?? 100}px` }}
                           >
                             {column.renderCell
                               ? column.renderCell({
@@ -466,7 +464,7 @@ const MyRentalsDataGrid = (props: Props): JSX.Element => {
                 <SelectItem item={itemProps.item}>{itemProps.item.rawValue}</SelectItem>
               )}
             >
-              <SelectTrigger aria-label="Rows per page" class="w-[70px]">
+              <SelectTrigger aria-label="Rows per page" class="w-17.5">
                 <SelectValue<number> />
               </SelectTrigger>
               <SelectContent />
@@ -493,10 +491,7 @@ const MyRentalsDataGrid = (props: Props): JSX.Element => {
         open={isNicknameModalOpen()}
         onOpenChange={(open) => !open && setIsNicknameModalOpen(false)}
       >
-        <DialogContent
-          showCloseButton={false}
-          class="max-w-[380px] md:max-w-[380px] lg:max-w-[380px]"
-        >
+        <DialogContent showCloseButton={false} class="max-w-95 md:max-w-95 lg:max-w-95">
           <DeferredChangeNicknameDialog
             open={isNicknameModalOpen()}
             updateNickname={handleUpdateNickname}

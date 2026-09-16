@@ -6,18 +6,21 @@ const TopInfoSkeleton = () => {
     <div class="flex flex-col">
       <div class="flex flex-row items-center gap-10">
         <div class="w-1/2">
-          <DeferredSkeleton class="my-[5px] h-[26px] w-1/2 rounded" />
+          <DeferredSkeleton class="my-1.25 h-6.5 w-1/2 rounded" />
         </div>
         <div class="w-1/2">
-          <DeferredSkeleton class="h-[25px] w-full rounded" />
+          <DeferredSkeleton class="h-6.25 w-full rounded" />
         </div>
       </div>
       <div class="flex flex-row items-center gap-10">
         <Title level={4} class="w-1/2">
-          <DeferredSkeleton class="my-[5px] h-[26px] w-[30%] rounded" />
+          <DeferredSkeleton class="my-1.25 h-6.5 w-3/10 rounded" />
         </Title>
         <Title level={4} class="w-1/2">
-          <DeferredSkeleton class="inline-block h-[19.76px] w-[15%] rounded" />
+          <DeferredSkeleton
+            class="inline-block h-(--skel-h) w-3/20 rounded"
+            style={{ '--skel-h': '19.76px' }}
+          />
         </Title>
       </div>
     </div>

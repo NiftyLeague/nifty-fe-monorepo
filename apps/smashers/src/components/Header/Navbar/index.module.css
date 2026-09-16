@@ -18,6 +18,16 @@
   max-width: 85px;
 }
 
+/* The same declarations as `.logo`, applied through the container so the logo
+ * <img> renders identically without carrying a class (static-class lint).
+ * BackButton keeps using `.logo` for its SVG icon, which this selector
+ * intentionally does not match. */
+.logo_container img {
+  margin-top: 25px;
+  margin-left: 35px;
+  max-width: 85px;
+}
+
 .navbar {
   padding: 20px;
   position: fixed;
@@ -126,6 +136,23 @@
   .logo {
     margin-top: 30px;
     margin-left: 40px;
+  }
+  .logo_container img {
+    margin-top: 30px;
+    margin-left: 40px;
+    /* Mobile-only fluid sizing (formerly inline styles on the logo image).
+     * Matches the `sm:hidden` Tailwind breakpoint that scopes the mobile
+     * navbar, and overrides the fixed 50x48 attribute box. */
+    max-width: 100%;
+    height: auto;
+  }
+  /* The profile icon keeps its 28px box: `.nav_item img` pins the social
+   * icons to 22px, and this later, equally specific rule wins the cascade
+   * (formerly inline styles, which also centered the icon in the flex row). */
+  .profile_mobile img {
+    width: 28px;
+    height: 28px;
+    margin: auto;
   }
   .desktop_nav {
     display: none;

@@ -1,5 +1,3 @@
-'use client'
-
 import { Dynamic } from 'solid-js/web'
 import { createSignal, onCleanup, onMount, type Component, type JSX } from 'solid-js'
 

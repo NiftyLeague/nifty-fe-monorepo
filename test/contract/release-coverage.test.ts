@@ -31,7 +31,7 @@ const versionedWorkspaces = (): string[] => {
       if (pkg.version) found.push(`${dir}`)
     }
   }
-  return found.sort()
+  return found.toSorted()
 }
 
 describe('release coverage', () => {

@@ -2,10 +2,9 @@ import { Show } from 'solid-js'
 import { useAccount, useDisconnect } from '@/runtime/wagmi'
 import { buttonVariants } from '@nl/ui/base/button-variants'
 import useAuth from '@/hooks/useAuth'
-import type { JSX } from 'solid-js'
 
 interface LogoutButtonProps {
-  sx?: JSX.CSSProperties
+  class?: string
 }
 
 const LogoutButton = (props: LogoutButtonProps) => {
@@ -18,8 +17,7 @@ const LogoutButton = (props: LogoutButtonProps) => {
       <button
         type="button"
         data-slot="button"
-        style={props.sx}
-        class={buttonVariants({ variant: 'outline', className: 'cursor-pointer' })}
+        class={buttonVariants({ variant: 'outline', className: props.class ?? '' })}
         onClick={() => disconnect(undefined)}
       >
         {auth.isLoggedIn ? 'Log Out' : 'Disconnect Wallet'}

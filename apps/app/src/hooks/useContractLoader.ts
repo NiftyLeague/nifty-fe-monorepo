@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, type Accessor } from 'solid-js'
 import { Contract, JsonRpcSigner, type InterfaceAbi } from 'ethers'
 import type { Contracts, Provider } from '@/types/web3'

@@ -84,7 +84,7 @@ function DropdownMenuItem(props: GroupedMenuItemData) {
           </span>
         </summary>
         <div class="absolute top-full left-1/2 z-50 mt-1.5 -translate-x-1/2 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow">
-          <ul class="flex w-max min-w-[300px] flex-col p-2">
+          <ul class="flex w-max min-w-75 flex-col p-2">
             <For each={props.pages}>{(page) => <ListItem page={page} />}</For>
           </ul>
         </div>

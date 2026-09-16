@@ -1,5 +1,3 @@
-'use client'
-
 import { useAccount, useSignMessage } from '@/runtime/wagmi'
 
 import * as gtm from '@nl/ui/gtm/events'

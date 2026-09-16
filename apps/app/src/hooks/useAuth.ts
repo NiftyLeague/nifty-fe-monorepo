@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext } from 'solid-js'
 
 // auth provider

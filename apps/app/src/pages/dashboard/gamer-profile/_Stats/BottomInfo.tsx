@@ -32,7 +32,10 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                 <Title level={3}>2D Smashers</Title>
                 <Title level={4}>
                   {isLoadingProfile ? (
-                    <DeferredSkeleton class="inline-block h-[19.76px] w-[15%] rounded" />
+                    <DeferredSkeleton
+                      class="inline-block h-(--skel-h) w-3/20 rounded"
+                      style={{ '--skel-h': '19.76px' }}
+                    />
                   ) : (
                     `${Math.round(nifty_smashers?.xp || 0)}/${nifty_smashers?.rank_xp_next || 0}`
                   )}
@@ -59,7 +62,10 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                 <Title level={3}>WEN Game</Title>
                 <Title level={4}>
                   {isLoadingProfile ? (
-                    <DeferredSkeleton class="inline-block h-[19.76px] w-[15%] rounded" />
+                    <DeferredSkeleton
+                      class="inline-block h-(--skel-h) w-3/20 rounded"
+                      style={{ '--skel-h': '19.76px' }}
+                    />
                   ) : (
                     `${Math.round(wen_game?.xp || 0)}/${wen_game?.rank_xp_next || 0}`
                   )}
@@ -86,7 +92,10 @@ const BottomInfo = ({ nifty_smashers, wen_game, crypto_winter }: BottomInfoProps
                 <Title level={3}>CRYPTO WINTER</Title>
                 <Title level={4}>
                   {isLoadingProfile ? (
-                    <DeferredSkeleton class="inline-block h-[19.76px] w-[15%] rounded" />
+                    <DeferredSkeleton
+                      class="inline-block h-(--skel-h) w-3/20 rounded"
+                      style={{ '--skel-h': '19.76px' }}
+                    />
                   ) : (
                     `${Math.round(crypto_winter?.xp || 0)}/${crypto_winter?.rank_xp_next || 0}`
                   )}

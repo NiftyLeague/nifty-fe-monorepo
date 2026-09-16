@@ -1,5 +1,3 @@
-'use client'
-
 import * as config from '@imtbl/sdk/config'
 import * as passport from '@imtbl/sdk/passport'
 

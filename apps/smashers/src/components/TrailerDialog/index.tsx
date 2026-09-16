@@ -67,7 +67,7 @@ const TrailerDialog = (props: { open?: boolean; onOpenChange?: (open: boolean) =
           alt="YouTube Logo"
           width={22}
           height={22}
-          style={{ 'max-width': '100%', height: 'auto' }}
+          class="h-auto max-w-full"
         />
         Trailer
       </button>

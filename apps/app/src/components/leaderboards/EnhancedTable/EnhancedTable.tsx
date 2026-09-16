@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createMemo, Match, Switch, type JSX } from 'solid-js'
 
 import { Preloader } from '@nl/ui/custom/preloader'

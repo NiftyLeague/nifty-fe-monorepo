@@ -18,8 +18,8 @@ const BuyCard = (props: BuyCardProps) => {
   return (
     <div
       onClick={handleBuyComic}
-      class="flex cursor-pointer flex-col items-center justify-center rounded-[5px] border border-[#363636]"
-      style={{ width: `${cardWidth}px`, height: `${cardHeight}px` }}
+      class="flex w-(--card-w) h-(--card-h) cursor-pointer flex-col items-center justify-center rounded-sm border border-(--card-border)"
+      style={{ '--card-w': `${cardWidth}px`, '--card-h': `${cardHeight}px` }}
     >
       <ShoppingCart
         aria-hidden="true"

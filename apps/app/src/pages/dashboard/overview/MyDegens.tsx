@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import dynamic from '@/runtime/dynamic'
@@ -101,14 +99,14 @@ const MyDegens = (): JSX.Element => {
             View All DEGENs
           </Button>
         }
-        styles={{ mainRow: { 'min-height': '300px', 'max-height': '330px', overflow: 'hidden' } }}
+        mainRowClass="min-h-75 max-h-82.5 overflow-hidden"
       >
         <Show
           when={!nfts.loadingDegens}
           fallback={
             <For each={Array.from({ length: 8 })}>
               {() => (
-                <div class="w-full sm:w-[91.6667%]">
+                <div class="w-full sm:w-11/12">
                   <SkeletonDegenPlaceholder />
                 </div>
               )}

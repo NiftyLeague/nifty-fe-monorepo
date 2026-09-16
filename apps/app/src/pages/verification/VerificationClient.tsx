@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, Show, type JSX } from 'solid-js'
 import { useSearchParams } from '@/runtime/navigation'
 

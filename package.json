@@ -23,9 +23,8 @@
     "format:check": "oxfmt --check .",
     "find-unused-exports": "bun scripts/find-unused-exports.mjs",
     "install:ci": "bun install --frozen-lockfile",
-    "lint": "turbo lint",
+    "lint": "oxlint && turbo lint",
     "lint:fix": "turbo lint:fix",
-    "migrate-ui": "bun --filter ui migrate",
     "prepare": "bun symlinks",
     "start": "turbo run dev",
     "symlinks": "bun exec .sh/symlinks.sh",
@@ -45,6 +44,7 @@
     "@babel/preset-typescript": "^8.0.1",
     "@happy-dom/global-registrator": "^20.14.5",
     "@nl/typescript-config": "workspace:*",
+    "@shadcn/lint": "^0.1.0",
     "@solidjs/testing-library": "^0.8.10",
     "@testing-library/user-event": "^14.6.7",
     "@types/node": "^26.5.1",
@@ -58,8 +58,6 @@
     "typescript": "~6.0.3"
   },
   "overrides": {
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
     "adm-zip": "0.5.16",
     "brace-expansion": "5.0.9",
     "crypto-es": "2.1.0",

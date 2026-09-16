@@ -42,7 +42,6 @@ const score = (result, id) => {
   return value === null || value === undefined ? null : Math.round(value * 100)
 }
 const auditValue = (result, id) => result.audits[id]?.numericValue ?? null
-const auditDisplay = (result, id) => result.audits[id]?.displayValue ?? null
 const median = (values) => {
   const sorted = values.toSorted((a, b) => a - b)
   const middle = Math.floor(sorted.length / 2)

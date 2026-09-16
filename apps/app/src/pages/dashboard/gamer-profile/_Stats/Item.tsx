@@ -15,7 +15,7 @@ const Item = ({ label, value, isDisable = false, isLoading = true }: ItemProps):
       {label}:
     </span>
     {isLoading ? (
-      <DeferredSkeleton class="h-[18.67px] w-[15%] rounded" />
+      <DeferredSkeleton class="h-(--skel-h) w-3/20 rounded" style={{ '--skel-h': '18.67px' }} />
     ) : (
       <span class={cn('text-base font-bold', isDisable ? 'text-muted-foreground' : 'text-warning')}>
         {value}

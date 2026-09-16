@@ -1,15 +1,13 @@
-'use client'
+import { createSignal } from 'solid-js'
 
-import { createSignal, type JSX } from 'solid-js'
-
-interface ImageStyle {
-  thumbnail: JSX.CSSProperties
-  fullSize: JSX.CSSProperties
+interface ImageClasses {
+  thumbnail: string
+  fullSize: string
 }
 
 interface ImageOnLoadType {
   handleImageOnLoad: () => void
-  css: ImageStyle
+  classes: ImageClasses
 }
 
 function useImageOnLoad(): ImageOnLoadType {
@@ -20,22 +18,23 @@ function useImageOnLoad(): ImageOnLoadType {
     setIsLoaded(true)
   }
 
-  const css: ImageStyle = {
-    // Thumbnail style.
-    get thumbnail(): JSX.CSSProperties {
-      return {
-        visibility: isLoaded() ? 'hidden' : 'visible',
-        filter: 'blur(8px)',
-        transition: 'visibility 0ms ease-out 500ms',
-      }
+  const classes: ImageClasses = {
+    // Thumbnail: blurred until the full image has loaded, then hidden after a
+    // 500ms delay (transition: visibility 0ms ease-out 500ms).
+    get thumbnail(): string {
+      return `blur-sm transition-(--img-trans-visibility) duration-0 ease-out delay-500 ${
+        isLoaded() ? 'invisible' : 'visible'
+      }`
     },
-    // Full image style.
-    get fullSize(): JSX.CSSProperties {
-      return { opacity: isLoaded() ? 1 : 0, transition: 'opacity 500ms ease-in 0ms' }
+    // Full image: fades in over 500ms (transition: opacity 500ms ease-in 0ms).
+    get fullSize(): string {
+      return `transition-(--img-trans-opacity) duration-500 ease-in ${
+        isLoaded() ? 'opacity-100' : 'opacity-0'
+      }`
     },
   }
 
-  return { handleImageOnLoad, css }
+  return { handleImageOnLoad, classes }
 }
 
 export default useImageOnLoad

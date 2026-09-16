@@ -29,6 +29,20 @@
   display: none;
 }
 
+/* Social card backdrop moved here from an inline style (same value, modulo
+   insignificant whitespace) to satisfy shadcn/no-inline-styles. */
+.social-card-gradient {
+  background:
+    linear-gradient(26.04deg, rgba(110, 51, 237, 0.05) -0.03%, rgba(123, 97, 255, 0.025) 99.2%),
+    rgba(36, 37, 38, 0.6);
+}
+
+/* Roadmap card headings previously used the [word-spacing:-10px] arbitrary
+   property; same declaration, expressible without arbitrary syntax. */
+.roadmap-heading-word-spacing {
+  word-spacing: -10px;
+}
+
 /* ==============================|| HEADING LOOK HELPERS ||============================== */
 
 /*

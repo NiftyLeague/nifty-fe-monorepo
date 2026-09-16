@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, mock } from 'bun:test'
 mock.module('@/hooks/useImageOnLoad', () => ({
   default: () => ({
     handleImageOnLoad: () => undefined,
-    css: { thumbnail: {}, fullSize: {} },
+    classes: { thumbnail: '', fullSize: '' },
   }),
 }))
 

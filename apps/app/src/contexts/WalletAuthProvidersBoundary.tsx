@@ -1,5 +1,3 @@
-'use client'
-
 import { Show, type JSX, type ParentProps } from 'solid-js'
 
 import useDeferredComponent from '@nl/ui/hooks/useDeferredComponent'

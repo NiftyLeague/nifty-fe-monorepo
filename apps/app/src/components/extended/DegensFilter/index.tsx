@@ -1,4 +1,3 @@
-'use client'
 import { createMemo, createSignal, For, Show, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { useQueryStates } from '@/url/nuqs-solid'
@@ -89,8 +88,7 @@ const DegensFilter = (props: DegensFilterProps): JSX.Element => {
             variant="outline"
             disabled={isParamsEmpty()}
             onClick={handleReset}
-            class="h-7 text-error"
-            style={{ 'border-color': 'var(--color-error)' }}
+            class="h-7 border-error text-error"
           >
             Reset
           </Button>
@@ -106,8 +104,10 @@ const DegensFilter = (props: DegensFilterProps): JSX.Element => {
             <For each={tribes}>
               {(tribe) => (
                 <label
-                  class={cn('flex min-w-0 items-center', styles.filterOption)}
-                  style={{ flex: '0 0 50%' }}
+                  class={cn(
+                    'flex min-w-0 shrink-0 grow-0 basis-1/2 items-center',
+                    styles.filterOption
+                  )}
                 >
                   <Checkbox
                     name={tribe.name}
@@ -136,8 +136,7 @@ const DegensFilter = (props: DegensFilterProps): JSX.Element => {
             <For each={backgrounds}>
               {(background) => (
                 <label
-                  class={`${styles.inputCheckFormControl} ${styles.filterOption} flex items-center`}
-                  style={{ flex: '0 0 50%' }}
+                  class={`${styles.inputCheckFormControl} ${styles.filterOption} flex shrink-0 grow-0 basis-1/2 items-center`}
                 >
                   <Checkbox
                     name={background}

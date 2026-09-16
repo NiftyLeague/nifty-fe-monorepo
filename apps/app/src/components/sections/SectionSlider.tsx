@@ -1,16 +1,11 @@
-'use client'
-
 import { PaginationControls } from '@/components/pagination/PaginationControls'
 import { createMemo, Show, type JSX } from 'solid-js'
-import type { SxProps } from '@/types'
 import ResponsiveCarousel from '@nl/ui/custom/responsive-carousel'
 import type {
   ResponsiveCarouselRef,
   ResponsiveCarouselSettings,
 } from '@nl/ui/custom/responsive-carousel'
 import SectionTitle from './SectionTitle'
-
-const sectionSpacing = 2 // 16px
 
 interface Props {
   title: string | JSX.Element
@@ -20,7 +15,8 @@ interface Props {
   isSlider?: boolean
   children?: JSX.Element
   variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-  styles?: { root?: SxProps; headerRow?: SxProps; mainRow?: SxProps }
+  class?: string
+  mainRowClass?: string
 }
 
 const SectionSlider = (props: Props & { children?: JSX.Element }): JSX.Element => {
@@ -51,11 +47,8 @@ const SectionSlider = (props: Props & { children?: JSX.Element }): JSX.Element =
   }
 
   return (
-    <div
-      class="flex flex-col"
-      style={{ gap: `${sectionSpacing * 8}px`, ...(props.styles?.root as JSX.CSSProperties) }}
-    >
-      <div style={props.styles?.headerRow as JSX.CSSProperties}>
+    <div class={`flex flex-col gap-4 ${props.class ?? ''}`}>
+      <div>
         <SectionTitle
           firstSection={props.firstSection}
           variant={variant()}
@@ -78,7 +71,7 @@ const SectionSlider = (props: Props & { children?: JSX.Element }): JSX.Element =
           {props.title}
         </SectionTitle>
       </div>
-      <div style={props.styles?.mainRow as JSX.CSSProperties}>
+      <div class={props.mainRowClass ?? ''}>
         <Show when={isSlider()} fallback={props.children}>
           <ResponsiveCarousel
             {...settings()}

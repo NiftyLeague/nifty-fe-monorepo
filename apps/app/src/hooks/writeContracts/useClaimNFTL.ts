@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal } from 'solid-js'
 import type { TransactionResponse } from 'ethers'
 import type { MetamaskError } from '@/types/notify'

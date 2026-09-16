@@ -10,7 +10,7 @@ const AddNFTLToMetamask = (): JSX.Element | null => {
 
   return isConnected ? (
     <Button onClick={handleImportNFTLToWallet} variant="outline" class="cursor-pointer">
-      <span style={{ display: 'flex', 'align-items': 'center' }}>
+      <span class="flex items-center">
         <NativeImage src="/img/logos/NFTL/logo.webp" alt="NFTL logo" width={20} height={20} />
       </span>
       Add NFTL to MetaMask

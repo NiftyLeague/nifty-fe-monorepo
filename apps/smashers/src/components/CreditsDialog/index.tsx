@@ -1,7 +1,6 @@
 import { For, Show, type JSX } from 'solid-js'
 import { Dialog } from '@nl/ui/custom/dialog'
 import NativeImage from '@nl/ui/custom/native-image'
-import { Text, Title } from '@nl/ui/custom/typography'
 
 import type { Company, CreditsData, TeamMember } from '@/types/credits'
 import creditsData from '@/data/credits.json'
@@ -41,12 +40,8 @@ const CompanyImage = (props: { company: Company }) => {
       alt={`${props.company.name} Logo`}
       width={WIDTH}
       height={HEIGHT}
-      style={{
-        'object-fit': 'contain',
-        width: '100%',
-        height: 'auto',
-        'max-height': `${HEIGHT * 2}px`,
-      }}
+      class="h-auto max-h-(--credits-logo-max-h) w-full object-contain"
+      style={{ '--credits-logo-max-h': `${HEIGHT * 2}px` }}
       priority={isAboveTheFold}
       onError={handleImageError}
     />
@@ -54,12 +49,8 @@ const CompanyImage = (props: { company: Company }) => {
 
   return (
     <div
-      style={{
-        position: 'relative',
-        width: `${WIDTH}px`,
-        height: 'auto',
-        'align-content': 'center',
-      }}
+      class="relative h-auto w-(--credits-logo-w) content-center"
+      style={{ '--credits-logo-w': `${WIDTH}px` }}
     >
       <Show when={props.company.link} fallback={image}>
         <a href={props.company.link} target="_blank" rel="noopener noreferrer">
@@ -70,10 +61,10 @@ const CompanyImage = (props: { company: Company }) => {
   )
 }
 
+/* Section notes render the same h3/classes the level-3 Title resolved to
+ * (text-sm overriding the level size), without restyling the @nl/ui Title. */
 const SectionNote = (props: { children: JSX.Element }) => (
-  <Title level={3} className="text-sm text-center">
-    {props.children}
-  </Title>
+  <h3 class="text-sm text-center font-bold font-header tracking-header">{props.children}</h3>
 )
 
 const CreditsContent = () => {
@@ -97,34 +88,20 @@ const CreditsContent = () => {
                 {(member: TeamMember) =>
                   member.name ? (
                     <>
-                      <Text
-                        strong
-                        className="text-sm md:text-base justify-self-end max-w-full overflow-hidden text-ellipsis whitespace-nowrap"
-                      >
+                      {/* Plain strong/span carrying the exact classes the Text
+                       * component resolved to (base + variant + overrides). */}
+                      <strong class="text-sm font-semibold md:text-base justify-self-end max-w-full overflow-hidden font-default tracking-default text-ellipsis whitespace-nowrap text-foreground">
                         {member.name}
-                      </Text>
+                      </strong>
                       <span />
-                      <Text
-                        variant="muted"
-                        className="text-sm md:text-base justify-self-start max-w-full overflow-hidden text-ellipsis whitespace-nowrap"
-                      >
+                      <span class="text-sm md:text-base justify-self-start max-w-full overflow-hidden font-default font-normal tracking-default text-ellipsis whitespace-nowrap text-muted-foreground">
                         {member.role}
-                      </Text>
+                      </span>
                     </>
                   ) : (
-                    <Text
-                      strong
-                      style={{
-                        'grid-column': '1 / -1',
-                        overflow: 'hidden',
-                        'text-align': 'center',
-                        'text-overflow': 'ellipsis',
-                        'white-space': 'nowrap',
-                        width: '100%',
-                      }}
-                    >
+                    <strong class="col-span-full w-full overflow-hidden text-center font-default font-semibold tracking-default text-ellipsis whitespace-nowrap text-foreground">
                       {member.role}
-                    </Text>
+                    </strong>
                   )
                 }
               </For>
@@ -138,13 +115,13 @@ const CreditsContent = () => {
           Special thanks to former team members who contributed early support, development, and
           ideas!
         </SectionNote>
-        <div class="text-center flex flex-wrap justify-center gap-[10px]">
+        <div class="text-center flex flex-wrap justify-center gap-2.5">
           <For each={creditsData.formerMembers}>
             {(member, index) => (
-              <Text class="text-sm md:text-base">
+              <span class="text-sm md:text-base font-default font-normal tracking-default text-foreground">
                 {member}
                 {index() < creditsData.formerMembers.length - 1 ? ', ' : ''}
-              </Text>
+              </span>
             )}
           </For>
         </div>
@@ -177,7 +154,7 @@ const CreditsDialog = (props: { open?: boolean; onOpenChange?: (open: boolean) =
           alt="Credits Icon"
           width={22}
           height={22}
-          style={{ 'max-width': '100%', height: 'auto' }}
+          class="h-auto max-w-full"
         />
         Credits
       </button>

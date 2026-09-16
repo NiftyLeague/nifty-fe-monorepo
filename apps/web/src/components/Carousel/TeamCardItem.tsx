@@ -8,30 +8,30 @@ interface TeamCardProps {
 }
 
 const TeamCardItem = ({ name, source, link }: TeamCardProps): JSX.Element => (
-  <div class="grid h-full bg-card border-1 rounded-default">
+  <div class="grid h-full bg-card border-1">
     <div class="w-full flex flex-col justify-center text-center mx-auto p-2">
       {link ? (
         <a href={link} target="_blank" rel="noreferrer">
-          <div class="w-full rounded-[10px] overflow-hidden">
+          <div class="w-full rounded-lg overflow-hidden">
             <OptimizedImage
               src={source}
               width="258"
               height="278"
               alt="Team Degen image"
               sizes="(max-width: 614px) 50vw, 33vw"
-              style={{ width: '100%', height: 'auto' }}
+              class="w-full h-auto"
             />
           </div>
         </a>
       ) : (
-        <div class="w-full rounded-[10px] overflow-hidden">
+        <div class="w-full rounded-lg overflow-hidden">
           <OptimizedImage
             src={source}
             width="258"
             height="278"
             alt="Team Degen image"
             sizes="(max-width: 614px) 50vw, 33vw"
-            style={{ width: '100%', height: 'auto' }}
+            class="w-full h-auto"
           />
         </div>
       )}

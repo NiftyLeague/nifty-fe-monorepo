@@ -1,5 +1,3 @@
-'use client'
-
 import type { JSX } from 'solid-js'
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from '@nl/ui/base/sheet'
 
@@ -28,7 +26,7 @@ export default function MobileSidebarSheet({
         closeClassName="top-2 right-2 z-20 h-8 w-8 opacity-100 hover:opacity-100"
         overlayClassName="bg-black/50"
         overlayStyle={{ top: `${appHeaderHeight}px` }}
-        class="w-[260px] max-w-[260px] gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
+        class="w-65 max-w-65 gap-0 border-r-0 bg-sidebar p-0 text-sidebar-foreground"
         style={{ top: `${appHeaderHeight}px`, bottom: 0, height: 'auto' }}
       >
         <SheetTitle class="sr-only">Primary navigation</SheetTitle>

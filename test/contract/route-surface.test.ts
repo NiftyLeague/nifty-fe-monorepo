@@ -282,7 +282,6 @@ const sharedDeferredConsoleGame =
   'packages/ui/src/components/custom/deferred-console-game/index.tsx'
 const webCommunityPage = 'apps/web/src/pages/community.astro'
 const webTeamPage = 'apps/web/src/pages/team.astro'
-const webCarousel = 'apps/web/src/components/Carousel/index.tsx'
 const sharedThemeButton = 'packages/ui/src/components/custom/theme-button-group/index.tsx'
 const animationFreeMarketingPages = [
   'apps/web/src/pages/index.astro',
@@ -470,14 +469,11 @@ describe('public degen loading contract', () => {
     const clientPageSource = readFileSync(join(process.cwd(), degensClientPage), 'utf8')
     const topNavSource = readFileSync(join(process.cwd(), degensTopNav), 'utf8')
     const topNavControlsSource = readFileSync(join(process.cwd(), degensTopNavControls), 'utf8')
-    expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from '@/pages/degens/DegenRoute'")
     expect(pageSource).toContain('ensureQueryData')
-    expect(routeBoundarySource).toContain("'use client'")
     expect(routeBoundarySource).toContain("dynamic(() => import('./AllDegensPage')")
     expect(routeBoundarySource).toContain('ssr: false')
     expect(usesSharedLoadingSkeleton(routeBoundarySource)).toBe(true)
-    expect(clientPageSource).toContain("'use client'")
     expect(clientPageSource).toContain("from 'lucide-solid'")
     expect(clientPageSource).toContain('useQueryStates')
     expect(clientPageSource).not.toContain('useSearchParams')
@@ -511,7 +507,6 @@ describe('GLTF viewer loading contract', () => {
     const clientSource = readFileSync(join(process.cwd(), gltfClient), 'utf8')
     const modelViewSource = readFileSync(join(process.cwd(), gltfModelView), 'utf8')
 
-    expect(shellSource).not.toContain("'use client'")
     expect(shellSource).toContain('client:only="solid-js"')
     expect(shellSource).toContain('styles.viewer__shell')
     expect(shellSource).toContain('styles.initial__image')
@@ -527,7 +522,6 @@ describe('GLTF viewer loading contract', () => {
     expect(shellSource).toContain('styles.viewer__shell')
     expect(shellSource).toContain('styles.initial__image')
     expect(shellSource).not.toContain('@nl/ui/custom/route-loading')
-    expect(clientSource).toContain("'use client'")
     expect(clientSource).not.toContain("from 'next/image'")
     expect(clientSource).toContain('image__surface')
     expect(clientSource).toContain("const loadModelView = () => import('./ModelView')")
@@ -788,12 +782,10 @@ describe('Smashers public shell contract', () => {
     // injected through Header's slots (asserted by smashers-runtime.test.ts).
     expect(pageSource).toContain('client:visible')
     expect(pageSource).toContain('client:load')
-    expect(headerSource).not.toContain("'use client'")
     // Header must not import the interactive children itself: that ships them
     // without a client directive and they render inert.
     expect(headerSource).not.toContain("from './ActionButtonsGroup'")
     expect(headerSource).not.toContain("from './DeferredHeroBackground'")
-    expect(actionButtonsSource).toContain("'use client'")
     expect(actionButtonsSource).not.toContain("from 'next/dynamic'")
     expect(actionButtonsSource).toContain("from '@nl/ui/base/button-variants'")
     expect(actionButtonsSource).toContain("from '@nl/ui/hooks/useDeferredComponent'")
@@ -1161,7 +1153,6 @@ describe('public Unity game loading contract', () => {
     it(`keeps ${file} server-rendered and configuration-only`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).not.toContain("'use client'")
       expect(source).not.toContain("from 'next/dynamic'")
       expect(source).not.toContain('GameWithAuth')
       expect(source).toContain("from '@/components/wrapper/GameRoute'")
@@ -1212,7 +1203,6 @@ describe('public app shell contract', () => {
     const layoutSource = readFileSync(join(process.cwd(), publicMainLayout), 'utf8')
     const routeSource = readFileSync(join(process.cwd(), publicRoutesLayout), 'utf8')
 
-    expect(layoutSource).not.toContain("'use client'")
     expect(layoutSource).toContain("from '@/components/providers/PublicNavigation'")
     expect(routeSource).toContain("from '@/layouts/_layout/_PublicMainLayout'")
   })
@@ -1249,12 +1239,10 @@ describe('public app shell contract', () => {
     const contentContainerSource = readFileSync(join(process.cwd(), publicContentContainer), 'utf8')
     const linksSource = readFileSync(join(process.cwd(), publicNavLinks), 'utf8')
     const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
-    expect(navigationSource).not.toContain("'use client'")
     expect(navigationSource).toContain("from '@nl/ui/custom/mobile-navigation'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/scroll-area'")
     expect(navigationSource).not.toContain("from '@nl/ui/base/icon'")
-    expect(toggleSource).toContain("'use client'")
     expect(toggleSource).toContain('<details')
     expect(toggleSource).toContain('id="public-desktop-navigation-toggle"')
     expect(toggleSource).toContain('aria-controls="public-desktop-navigation"')
@@ -1273,7 +1261,6 @@ describe('public app shell contract', () => {
     expect(profileSource).toContain('isVisiblePlacement')
     expect(profileSource).toContain('Sign-in is temporarily unavailable.')
     expect(navigationSource).not.toContain("from '@/components/extended/Breadcrumbs'")
-    expect(deferredProfileSource).toContain("'use client'")
     expect(deferredProfileSource).toContain("import('./PublicUserProfile')")
     expect(deferredProfileSource).toContain('useDeferredComponent')
     expect(deferredProfileSource).toContain('isVisiblePlacement')
@@ -1291,9 +1278,7 @@ describe('public app shell contract', () => {
       ':not(:has(:global(#public-desktop-navigation-toggle[open])))'
     )
     expect(navigationStyles).not.toContain('data-sidebar-open')
-    expect(contentContainerSource).not.toContain("'use client'")
     expect(contentContainerSource).toContain('container py-5 md:py-10')
-    expect(linksSource).not.toContain("'use client'")
     expect(linksSource).not.toContain("from '@nl/ui/base/icon'")
     expect(linksSource).toContain("from '@nl/ui/custom/nav-icon'")
     expect(linksSource).not.toContain("from 'lucide-solid'")
@@ -1316,7 +1301,6 @@ describe('public app shell contract', () => {
         join(process.cwd(), 'apps/app/src/components/providers/PublicMobileNavigationTrigger.tsx')
       )
     ).toBe(false)
-    expect(sharedMobileSource).not.toContain("'use client'")
     expect(sharedMobileSource).toContain('<details')
     expect(sharedMobileSource).toContain('<summary')
     expect(sharedMobileSource).toContain('aria-controls={props.id}')
@@ -1354,7 +1338,6 @@ describe('verification route shell contract', () => {
       'utf8'
     )
 
-    expect(pageSource).not.toContain("'use client'")
     expect(pageSource).toContain("from '@/pages/verification/VerificationRouteBoundary'")
     expect(routeBoundarySource).toContain("import('./VerificationClient')")
     expect(routeBoundarySource).toContain('ssr: false')
@@ -1552,7 +1535,6 @@ describe('private provider loading contract', () => {
 
     expect(layoutSource).toContain('PrivateRoutesBoundary')
     expect(layoutSource).toContain('getRequestCookieHeader()')
-    expect(boundarySource).not.toContain("'use client'")
     expect(boundarySource).toContain("dynamic(() => import('./PrivateRoutesShell')")
     expect(boundarySource).not.toContain('ssr: false')
     expect(rendersSharedLoadingSkeleton(boundarySource)).toBe(true)
@@ -1597,7 +1579,6 @@ describe('dashboard overview loading contract', () => {
       'utf8'
     )
 
-    expect(routeSource).not.toContain("'use client'")
     expect(routeSource).toContain(
       "from '@/pages/dashboard/overview/DashboardOverviewRouteBoundary'"
     )
@@ -1651,7 +1632,6 @@ describe('dashboard DEGEN loading contract', () => {
     const clientSource = readFileSync(join(process.cwd(), dashboardDegensClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardDegensContent), 'utf8')
 
-    expect(routeSource).not.toContain("'use client'")
     expect(routeSource).toContain("from '@/pages/dashboard/degens/DashboardDegensRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./DashboardDegensClient')")
     expect(boundarySource).toContain('ssr: false')
@@ -1681,7 +1661,6 @@ describe('dashboard items loading contract', () => {
     const clientSource = readFileSync(join(process.cwd(), dashboardItemsClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardItemsContent), 'utf8')
 
-    expect(routeSource).not.toContain("'use client'")
     expect(routeSource).toContain("from '@/pages/dashboard/items/DashboardItemsRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./DashboardItemsClient')")
     expect(boundarySource).toContain('ssr: false')
@@ -1706,7 +1685,6 @@ describe('dashboard burner loading contract', () => {
     const clientSource = readFileSync(join(process.cwd(), dashboardBurnerClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardBurnerContent), 'utf8')
 
-    expect(routeSource).not.toContain("'use client'")
     expect(routeSource).toContain("from '@/pages/dashboard/items/burner/ComicsBurnerRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./ComicsBurnerClient')")
     expect(boundarySource).toContain('ssr: false')
@@ -1749,7 +1727,6 @@ describe('gamer profile loading contract', () => {
     const clientSource = readFileSync(join(process.cwd(), gamerProfileClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), gamerProfileContent), 'utf8')
 
-    expect(routeSource).not.toContain("'use client'")
     expect(routeSource).toContain(
       "from '@/pages/dashboard/gamer-profile/GamerProfileRouteBoundary'"
     )
@@ -1777,7 +1754,6 @@ describe('dashboard rentals loading contract', () => {
     const clientSource = readFileSync(join(process.cwd(), dashboardRentalsClient), 'utf8')
     const contentSource = readFileSync(join(process.cwd(), dashboardRentalsContent), 'utf8')
 
-    expect(routeSource).not.toContain("'use client'")
     expect(routeSource).toContain("from '@/pages/dashboard/rentals/DashboardRentalsRouteBoundary'")
     expect(boundarySource).toContain("dynamic(() => import('./DashboardRentalsClient')")
     expect(boundarySource).toContain('ssr: false')
@@ -2111,12 +2087,8 @@ describe('web public navigation contract', () => {
       'utf8'
     )
 
-    expect(navbarSource).not.toContain("'use client'")
     expect(navbarSource).toContain("from '@nl/ui/custom/navbar'")
-    expect(sharedNavbarSource).not.toContain("'use client'")
-    expect(sharedNavbarScrollFrameSource).not.toContain("'use client'")
     expect(sharedNavbarScrollFrameSource).toContain('NavbarScrollState')
-    expect(sharedNavbarScrollStateSource).not.toContain("'use client'")
     expect(sharedNavbarScrollStateSource).toContain('requestAnimationFrame')
     expect(sharedNavbarScrollStateSource).toContain('window.scrollY > 80')
     expect(sharedNavbarScrollStateSource).toContain('nextIsScrolled === isScrolled')
@@ -2136,7 +2108,6 @@ describe('web public navigation contract', () => {
     expect(sharedNavLinkContentSource).toContain('export function NavLinkContent')
     expect(sharedNavLinkContentSource).toContain('NAV_LINK_CONTENT_CLASS')
     expect(existsSync(join(process.cwd(), sharedWebMobileTrigger))).toBe(false)
-    expect(mobileNavbarSource).not.toContain("'use client'")
     expect(mobileNavbarSource).not.toContain("from '@nl/ui/base/sheet'")
     expect(mobileNavbarSource).not.toContain("from './ActiveNavLink'")
     expect(mobileNavbarSource).toContain("from '@nl/ui/custom/mobile-navigation'")
@@ -2150,7 +2121,6 @@ describe('web public navigation contract', () => {
     expect(mobileNavbarSource).toContain('bg-separator')
     expect(mobileNavbarSource).toContain('id="nifty-mobile-navigation"')
     const sharedMobileSource = readFileSync(join(process.cwd(), sharedMobileNavigation), 'utf8')
-    expect(sharedMobileSource).not.toContain("'use client'")
     expect(sharedMobileSource).toContain('<details')
     expect(sharedMobileSource).toContain('<summary')
     // The name comes from visually-hidden text rather than an aria-label, and the
@@ -2174,35 +2144,21 @@ describe('web marketing page boundary contract', () => {
   it('keeps static marketing pages server-rendered while deferring interaction', () => {
     const communitySource = readFileSync(join(process.cwd(), webCommunityPage), 'utf8')
     const teamSource = readFileSync(join(process.cwd(), webTeamPage), 'utf8')
-    const carouselSource = readFileSync(join(process.cwd(), webCarousel), 'utf8')
     const deferredTeamSource = readFileSync(join(process.cwd(), webDeferredTeamSections), 'utf8')
     const teamCarouselSource = readFileSync(join(process.cwd(), webTeamCarousel), 'utf8')
-    const communityConversationSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/components/CommunityConversation.tsx'),
-      'utf8'
-    )
-    const teamDesktopSource = readFileSync(
-      join(process.cwd(), 'apps/web/src/components/TeamDesktop/index.tsx'),
-      'utf8'
-    )
 
-    expect(communitySource).not.toContain("'use client'")
     expect(communitySource).not.toContain('useMediaQuery')
     expect(communitySource).toContain('sliding-background-wrapper')
     expect(communitySource).toContain("from '@/components/CommunityConversation'")
     expect(communitySource).not.toContain('DeferredCommunityConversation')
-    expect(communityConversationSource).not.toContain("'use client'")
-    expect(teamSource).not.toContain("'use client'")
     expect(teamSource).toContain('DeferredTeamCarousel')
     expect(teamSource).toContain("from '@/components/TeamDesktop'")
     expect(teamSource).not.toContain('DeferredTeamDesktop')
     expect(teamSource).not.toContain("from '@/components/Carousel'")
-    expect(carouselSource).toContain("'use client'")
     expect(deferredTeamSource).toContain("import('@/components/TeamCarousel')")
     expect(deferredTeamSource).toContain("from '@nl/ui/custom/deferred-section'")
     expect(teamCarouselSource).toContain("from '@/components/Carousel'")
     expect(teamCarouselSource).toContain("from '@/constants/team'")
-    expect(teamDesktopSource).not.toContain("'use client'")
   })
 })
 
@@ -2331,7 +2287,6 @@ describe('web marketing image sizing contract', () => {
     for (const file of staticSectionFiles) {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).not.toContain("'use client'")
       expect(source).toContain('@nl/ui/custom/optimized-image')
     }
   })
@@ -2446,7 +2401,6 @@ describe('static legal route performance contract', () => {
     it(`keeps ${file} server-only and immediately visible`, () => {
       const source = readFileSync(join(process.cwd(), file), 'utf8')
 
-      expect(source).not.toContain("'use client'")
       expect(source).not.toContain('AnimatedWrapper')
       expect(source).not.toContain('@nl/ui/custom/animated-wrapper')
       expect(source).not.toContain('transition-fade-start')
@@ -2608,7 +2562,6 @@ describe('public route dependency contract', () => {
   it('keeps game description disclosure server-rendered and keyboard accessible', () => {
     const source = readFileSync(join(process.cwd(), gameCard), 'utf8')
 
-    expect(source).not.toContain("'use client'")
     expect(source).not.toContain('useState')
     expect(source).toContain('<details')
     expect(source).toContain('<summary')
@@ -2621,7 +2574,6 @@ describe('public route dependency contract', () => {
   it('keeps static Web3 game cards server-rendered and shadcn-styled', () => {
     const source = readFileSync(join(process.cwd(), web3GameList), 'utf8')
 
-    expect(source).not.toContain("'use client'")
     expect(source).toContain("from '@/components/cards/NiftyWorldCard'")
     expect(source).toContain('hoverActionLabel="Play game"')
     expect(source).not.toContain("from '@nl/ui/base/button'")
@@ -2640,7 +2592,6 @@ describe('public route dependency contract', () => {
     // Prerendered so the crate tables ship as static HTML, matching the old
     // server-rendered Next page.
     expect(page).toContain('export const prerender = true')
-    expect(tables).not.toContain("'use client'")
     expect(tables).toContain('<table>')
     expect(existsSync(join(process.cwd(), staleSmashersLootBoundary))).toBe(false)
   })
@@ -2691,7 +2642,6 @@ describe('public route dependency contract', () => {
       'utf8'
     )
 
-    expect(shell).not.toContain("'use client'")
     expect(shell).toContain("from './ViewportVideoBoundary'")
     expect(shell).toContain("from './constants'")
     expect(constants).toContain("DEFAULT_VIEWPORT_VIDEO_ROOT_MARGIN = '0px 0px -25% 0px'")

@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from '@/runtime/dynamic'
 import { createSignal, Match, Show, Switch } from 'solid-js'
 
@@ -52,8 +50,7 @@ function SignedOutProfile(props: { onConnect: () => void }) {
   return (
     <div
       data-public-signed-out-profile
-      class="flex flex-col items-center rounded-lg bg-muted p-4"
-      style={{ border: 'var(--border-default)' }}
+      class="flex flex-col items-center rounded-lg border border-border bg-muted p-4"
     >
       <Avatar class="size-20">
         <AvatarFallback>

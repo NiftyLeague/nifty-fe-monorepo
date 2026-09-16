@@ -36,7 +36,7 @@ export default function ModelActions(props: ModelActionsProps) {
         )}
         onChange={(value: Color | null) => value && props.setColor(value)}
       >
-        <SelectTrigger class="w-[160px] border-1 border-primary">
+        <SelectTrigger class="w-40 border-primary">
           <SelectValue />
         </SelectTrigger>
         <SelectContent />

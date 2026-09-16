@@ -33,7 +33,7 @@ const TermsOfServiceDialog = (props: TermsOfServiceDialogProps) => {
       <DialogContent
         showCloseButton={false}
         class={cn(
-          'p-0 max-w-[600px] md:max-w-[600px] lg:max-w-[600px]',
+          'p-0 max-w-150 md:max-w-150 lg:max-w-150',
           fullScreen() &&
             'top-0 left-0 h-screen w-screen max-h-screen max-w-none translate-x-0 translate-y-0 rounded-none'
         )}
@@ -42,8 +42,8 @@ const TermsOfServiceDialog = (props: TermsOfServiceDialogProps) => {
         <div class="flex h-full w-full flex-col overflow-hidden">
           <h2 class="mb-5 text-center">Terms and Conditions</h2>
           <div
-            class="w-full overflow-x-hidden overflow-y-scroll"
-            style={{ height: fullScreen() ? 'calc(100vh - 184px)' : '65vh' }}
+            class={`w-full overflow-x-hidden overflow-y-scroll ${fullScreen() ? 'h-[calc(100vh-184px)]' : 'h-(--tos-h)'}`}
+            style={fullScreen() ? undefined : { '--tos-h': '65vh' }}
           >
             <DeferredComponent
               enabled={props.open}

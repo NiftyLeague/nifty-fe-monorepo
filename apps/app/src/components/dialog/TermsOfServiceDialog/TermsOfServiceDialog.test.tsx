@@ -3,7 +3,7 @@ import { describe, expect, it, mock } from 'bun:test'
 
 mock.module('@nl/ui/base/dialog', () => ({
   Dialog: ({ children }: { children: JSX.Element }) => <div>{children}</div>,
-  DialogContent: ({ children }: { children: JSX.Element }) => <div role="dialog">{children}</div>,
+  DialogContent: ({ children }: { children: JSX.Element }) => <div>{children}</div>,
   DialogTitle: ({ children }: { children: JSX.Element }) => <div>{children}</div>,
 }))
 

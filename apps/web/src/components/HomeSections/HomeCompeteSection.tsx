@@ -28,7 +28,7 @@ export default function HomeCompeteSection() {
         </div>
 
         <div class="relative flex flex-col items-center md:items-start">
-          <h2 class="mb-3 max-w-[400px] section-heading transition-vertical-fade">
+          <h2 class="mb-3 max-w-100 section-heading transition-vertical-fade">
             NFTL
             <br />
             <span class="font-default font-normal text-highlight-purple">GOVERN TOGETHER</span>

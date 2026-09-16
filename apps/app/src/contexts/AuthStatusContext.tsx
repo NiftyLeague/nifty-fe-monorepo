@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext, useContext, createEffect, createSignal, type JSX } from 'solid-js'
 
 import { safeJSONParse } from '@/utils/json'

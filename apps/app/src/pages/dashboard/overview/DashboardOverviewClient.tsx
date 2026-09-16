@@ -1,5 +1,3 @@
-'use client'
-
 import DashboardDataBoundary from '@/components/providers/DashboardDataBoundary'
 import DeferredSection from '@nl/ui/custom/deferred-section'
 import type { JSX } from 'solid-js'
@@ -12,8 +10,8 @@ const loadMyStats = () => import('./MyStats')
 
 const DashboardOverviewContent = (): JSX.Element => {
   return (
-    <div class="flex h-inherit flex-col gap-8 lg:flex-row">
-      <div class="flex w-full flex-col gap-8 lg:w-[45.8333%]">
+    <div class="flex flex-col gap-8 lg:flex-row">
+      <div class="flex w-full flex-col gap-8 lg:w-11/24">
         <div class="w-full">
           <DeferredSection label="My Tokens" load={loadMyNFTL} />
         </div>
@@ -21,7 +19,7 @@ const DashboardOverviewContent = (): JSX.Element => {
           <DeferredSection label="My Stats" load={loadMyStats} />
         </div>
       </div>
-      <div class="flex w-full flex-col gap-8 lg:w-[54.1667%]">
+      <div class="flex w-full flex-col gap-8 lg:w-13/24">
         <div class="w-full">
           <DeferredSection label="My DEGENs" load={loadMyDegens} />
         </div>

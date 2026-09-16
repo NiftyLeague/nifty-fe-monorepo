@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, onCleanup, onMount, Show } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 import { useUserAgent } from '@nl/ui/hooks/useUserAgent'
@@ -26,6 +24,30 @@ interface GameProps {
 
 interface CustomEventWithCallback<T> extends CustomEvent {
   detail: { callback: (data: T) => void }
+}
+
+const getConfiguration = (e: CustomEventWithCallback<string>) => {
+  const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
+  const version = SUBGRAPH_VERSION
+  if (DEBUG) console.log(`${networkName},${version ?? ''}`)
+  setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
+}
+
+const enableGameInteraction = () => {
+  if (setCanvasInteraction('game-canvas', true)) {
+    // The canvas remains interactive after activation. Remove the global
+    // listener so game pages do not keep doing a DOM lookup on every move.
+    document.removeEventListener('mousemove', enableGameInteraction)
+  }
+}
+
+const handleLoaded = () => {
+  if (DEBUG) console.log('Unity loaded')
+}
+
+const handleProgress = (progress: unknown) => {
+  // loadingProgression is already 0-1, progress param is also 0-1
+  if (DEBUG && typeof progress === 'number') console.log(`Unity progress: ${progress * 100}%`)
 }
 
 const Game = (props: GameProps) => {
@@ -65,33 +87,9 @@ const Game = (props: GameProps) => {
     authCallback = e.detail.callback
   }
 
-  const getConfiguration = (e: CustomEventWithCallback<string>) => {
-    const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
-    const version = SUBGRAPH_VERSION
-    if (DEBUG) console.log(`${networkName},${version ?? ''}`)
-    setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
-  }
-
-  const enableGameInteraction = () => {
-    if (setCanvasInteraction('game-canvas', true)) {
-      // The canvas remains interactive after activation. Remove the global
-      // listener so game pages do not keep doing a DOM lookup on every move.
-      document.removeEventListener('mousemove', enableGameInteraction)
-    }
-  }
-
-  const handleLoaded = () => {
-    if (DEBUG) console.log('Unity loaded')
-  }
-
   const handleError = (error: unknown) => {
     const message = typeof error === 'string' ? error : 'Unity loading error'
     setUnityError(new Error(message))
-  }
-
-  const handleProgress = (progress: unknown) => {
-    // loadingProgression is already 0-1, progress param is also 0-1
-    if (DEBUG && typeof progress === 'number') console.log(`Unity progress: ${progress * 100}%`)
   }
 
   onMount(() => {
@@ -139,15 +137,11 @@ const Game = (props: GameProps) => {
       <div class="flex flex-row items-start">
         <div class="flex flex-col items-start">
           <Unity
-            class="game-canvas"
             unityProvider={unity}
-            style={{
-              width: 'calc(77vh * 1.33)',
-              height: '77vh',
-              visibility: isLoaded() ? 'visible' : 'hidden',
-            }}
+            class={`game-canvas w-(--canvas-w) h-(--canvas-h) ${isLoaded() ? 'visible' : 'invisible'}`}
+            style={{ '--canvas-w': 'calc(77vh * 1.33)', '--canvas-h': '77vh' }}
           />
-          <Button variant="default" size="lg" onClick={handleOnClickFullscreen} class="mt-[6px]">
+          <Button variant="default" size="lg" onClick={handleOnClickFullscreen} class="mt-1.5">
             Fullscreen
           </Button>
         </div>

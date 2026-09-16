@@ -12,10 +12,8 @@ export default function Navbar() {
             <OptimizedImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
-              class={styles.logo}
               width={50}
               height={48}
-              style={{ 'max-width': '100%', height: 'auto' }}
             />
           </div>
         </a>
@@ -23,13 +21,7 @@ export default function Navbar() {
           {/* Keep the public home shell free of Next's navigation runtime. */}
           <a href="/profile">
             <div class={cx(styles.nav_item, styles.profile_mobile)}>
-              <OptimizedImage
-                src="/icons/user.svg"
-                alt="Profile Icon"
-                width={28}
-                height={28}
-                style={{ margin: 'auto', width: '28px', height: '28px' }}
-              />
+              <OptimizedImage src="/icons/user.svg" alt="Profile Icon" width={28} height={28} />
             </div>
           </a>
         </nav>
@@ -42,7 +34,6 @@ export default function Navbar() {
             <OptimizedImage
               src="/img/logos/NL/white.webp"
               alt="Company Logo"
-              class={styles.logo}
               width={50}
               height={48}
             />

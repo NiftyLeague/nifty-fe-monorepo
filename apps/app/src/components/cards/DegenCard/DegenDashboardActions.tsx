@@ -1,5 +1,3 @@
-'use client'
-
 import { createMemo, type JSX } from 'solid-js'
 import NativeImage from '@nl/ui/custom/native-image'
 import { toast } from 'solid-sonner'
@@ -18,12 +16,15 @@ interface DegenDashboardActionsProps {
   onClickFavorite?: JSX.EventHandlerUnion<HTMLButtonElement, Event>
 }
 
-const DegenClaimBal = (props: { tokenId: string; 'font-size': string }) => {
+const DegenClaimBal = (props: { tokenId: string; fontSizeClass: string }) => {
   const degenTokenIndices = createMemo(() => [parseInt(props.tokenId, 10)])
   const claimable = useClaimableNFTL(degenTokenIndices)
   const amountParsed = () => formatNumberToDisplay(claimable.balance, 0)
   return (
-    <span class="text-center" style={{ 'font-size': props['font-size'] }}>
+    <span
+      class={`text-center ${props.fontSizeClass}`}
+      style={props.fontSizeClass === 'text-(--tiny-fs)' ? { '--tiny-fs': '8px' } : undefined}
+    >
       {`${amountParsed()} NFTL`}
     </span>
   )
@@ -31,7 +32,6 @@ const DegenClaimBal = (props: { tokenId: string; 'font-size': string }) => {
 
 const DegenDashboardActions = (props: DegenDashboardActionsProps) => {
   const auth = useAuth()
-  const tinyFontSize = () => (props.size === 'small' ? '8px' : 'var(--text-xs)')
 
   const onClickDownload = async () => {
     if (!auth.authToken) return
@@ -43,10 +43,7 @@ const DegenDashboardActions = (props: DegenDashboardActionsProps) => {
   }
 
   return (
-    <div
-      class="flex flex-row items-center justify-between px-2 pt-2"
-      style={{ 'line-height': '1.5em' }}
-    >
+    <div class="flex flex-row items-center justify-between px-2 pt-2 leading-normal">
       <div class="flex flex-row items-center">
         <Button
           type="button"
@@ -72,7 +69,12 @@ const DegenDashboardActions = (props: DegenDashboardActionsProps) => {
           onClick={() => void onClickDownload()}
           aria-label="Download degen"
         >
-          <span style={{ 'font-size': tinyFontSize(), 'padding-right': '4px' }}>IP</span>
+          <span
+            class={`pr-1 ${props.size === 'small' ? 'text-(--tiny-fs)' : 'text-xs'}`}
+            style={props.size === 'small' ? { '--tiny-fs': '8px' } : undefined}
+          >
+            IP
+          </span>
           <NativeImage
             src="/icons/download-solid.svg"
             alt=""
@@ -81,7 +83,10 @@ const DegenDashboardActions = (props: DegenDashboardActionsProps) => {
           />
         </Button>
       </div>
-      <DegenClaimBal tokenId={props.tokenId} font-size={tinyFontSize()} />
+      <DegenClaimBal
+        tokenId={props.tokenId}
+        fontSizeClass={props.size === 'small' ? 'text-(--tiny-fs)' : 'text-xs'}
+      />
     </div>
   )
 }

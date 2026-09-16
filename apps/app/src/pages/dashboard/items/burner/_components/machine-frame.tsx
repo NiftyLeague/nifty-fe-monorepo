@@ -10,18 +10,8 @@ const MachineFrame = ({ frames, interval = 0 }: MachineFrameProps) => {
       alt={`Machine Frame: ${frame}`}
       width={550}
       height={1425}
-      class="pixelated"
+      class="pixelated absolute inset-x-0 mx-auto w-137.5 max-w-[90%] h-auto"
       unoptimized={frame.endsWith('.gif')}
-      style={{
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        'margin-left': 'auto',
-        'margin-right': 'auto',
-        width: '550px',
-        'max-width': '90%',
-        height: 'auto',
-      }}
     />
   ) : null
 }

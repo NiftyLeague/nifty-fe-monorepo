@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext } from 'solid-js'
 import { Edit } from 'lucide-solid'
 
@@ -44,7 +42,7 @@ const ProfileImageDialog = ({
           <Edit aria-hidden="true" absoluteStrokeWidth size={28} stroke-width={2.5} />
         </Button>
       </DialogTrigger>
-      <DialogContent sx={{ 'max-width': '1000px' }}>
+      <DialogContent class="max-w-250">
         <DeferredProfileImageContent
           degens={degens}
           onChangeAvatar={onChangeAvatar}

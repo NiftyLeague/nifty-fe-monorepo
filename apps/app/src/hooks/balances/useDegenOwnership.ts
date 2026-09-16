@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createMemo } from 'solid-js'
 
 import { useOwnerSearch } from '@/hooks/useGraphQL'

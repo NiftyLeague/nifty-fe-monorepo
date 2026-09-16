@@ -1,5 +1,3 @@
-'use client'
-
 import Link from '@/runtime/Link'
 import { Button } from '@nl/ui/base/button'
 import SectionTitle from '@/components/sections/SectionTitle'

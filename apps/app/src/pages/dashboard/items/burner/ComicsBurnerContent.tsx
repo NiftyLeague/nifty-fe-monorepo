@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, createMemo } from 'solid-js'
 import { type AddressLike } from 'ethers'
 import { useRouter } from '@/runtime/navigation'

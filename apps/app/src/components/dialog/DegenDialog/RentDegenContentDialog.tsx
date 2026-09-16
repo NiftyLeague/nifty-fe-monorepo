@@ -1,4 +1,3 @@
-'use client'
 import { createEffect, createSignal, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { toast } from 'solid-sonner'
@@ -170,12 +169,11 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
 
   return (
     <div>
-      <div class={cn(styles.root, 'flex flex-col max-w-[430px] mx-1 sm:mx-auto gap-12 sm:gap-10')}>
+      <div class={cn(styles.root, 'flex flex-col max-w-107.5 mx-1 sm:mx-auto gap-12 sm:gap-10')}>
         <Button
           variant="ghost"
           size="icon"
-          class="cursor-pointer absolute right-[12px] top-[6px] z-1 w-[20px] h-[20px] rounded-full border"
-          style={{ border: 'var(--border-purple)' }}
+          class="cursor-pointer absolute right-3 top-1.5 z-1 w-5 h-5 rounded-full border border-purple"
           onClick={props.onClose}
           aria-label="close"
         >
@@ -183,10 +181,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
         </Button>
 
         <RentStepper rentSuccess={rentSuccess()} checkBalance={checkBalance()} />
-        <div
-          class="flex flex-row items-center justify-center w-full p-2"
-          style={{ 'background-color': '#262930' }}
-        >
+        <div class="flex flex-row items-center justify-center w-full p-2 bg-(--panel)">
           <Title level={5}>Rental Overview</Title>
         </div>
         <div class="flex flex-row mt-1 gap-3 sm:gap-7">
@@ -195,33 +190,21 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
               <Show when={props.degen?.id}>
                 {(id) => (
                   <DegenImage
-                    sx={{
-                      'object-fit': 'contain',
-                      width: '132px',
-                      height: '146px',
-                      'border-radius': '10px',
-                      border: 'var(--border-default)',
-                    }}
+                    class="object-contain w-33 h-36.5 rounded-lg border border-border"
                     tokenId={id()}
                   />
                 )}
               </Show>
             </div>
             <div class="flex flex-col items-center mt-1">
-              <span
-                class="text-xs"
-                style={{ 'line-height': '2', color: '#535659' }}
-              >{`Owned by ${props.degen?.owner?.substring(0, 5)}`}</span>
+              <span class="text-xs leading-6 text-(--ink-dim)">{`Owned by ${props.degen?.owner?.substring(0, 5)}`}</span>
             </div>
           </div>
           <div class="flex flex-col w-full">
             <Show
               when={!rentSuccess()}
               fallback={
-                <div
-                  class="flex flex-col w-full items-center justify-between"
-                  style={{ height: '146px' }}
-                >
+                <div class="flex flex-col w-full h-36.5 items-center justify-between">
                   <Title level={6} class={cn(styles.successInfo, 'mt-4')}>
                     Congratulations!
                   </Title>
@@ -234,11 +217,9 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                 </div>
               }
             >
-              <div class="flex flex-col w-full justify-between" style={{ height: '146px' }}>
-                <div class="flex flex-col" style={{ display: checkBalance() ? 'none' : 'flex' }}>
-                  <span class="text-xs" style={{ 'line-height': '2' }}>
-                    Who are you renting for?
-                  </span>
+              <div class="flex flex-col w-full h-36.5 justify-between">
+                <div class={checkBalance() ? 'hidden' : 'flex flex-col'}>
+                  <span class="text-xs leading-6">Who are you renting for?</span>
                   <RadioGroup
                     class="flex flex-row gap-4 items-center"
                     value={rentFor()}
@@ -307,10 +288,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                   <div class="flex justify-between">
                     <span class="text-base">Rental Cost:</span>
                     <span
-                      class="text-base"
-                      style={{
-                        'text-decoration': isUseRentalPass() ? 'line-through' : 'none',
-                      }}
+                      class={`text-base ${isUseRentalPass() ? 'line-through' : 'no-underline'}`}
                     >{`${formatNumberToDisplay(props.degen?.price || 0)} NFTL`}</span>
                   </div>
                   <Show when={checkBalance()}>
@@ -318,10 +296,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                       <div class="flex justify-between">
                         <span class="text-base">Balance:</span>
                         <span
-                          class="text-base"
-                          style={{
-                            color: sufficientBalance() ? '#007B60' : '#B51424',
-                          }}
+                          class={`text-base ${sufficientBalance() ? 'text-(--balance-ok)' : 'text-(--balance-bad)'}`}
                         >{`${accountBalance() ? formatNumberToDisplay(accountBalance()) : '0.00'} NFTL`}</span>
                       </div>
                       <Show when={!sufficientBalance()}>
@@ -332,7 +307,6 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                             target="_blank"
                             rel="noreferrer"
                             class="font-bold text-purple underline cursor-pointer"
-                            style={{ color: 'var(--color-purple)' }}
                             onClick={handleBuyNFTL}
                           >
                             Buy NFTL now
@@ -356,11 +330,9 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                         </div>
                       </div>
                       <Show when={isUseRentalPass()}>
-                        <div class="flex justify-between items-center w-[100px]">
+                        <div class="flex justify-between items-center w-25">
                           <span class="text-base">Balance:</span>
-                          <span class="text-base" style={{ color: 'var(--color-purple)' }}>
-                            {rentalPassCount()}
-                          </span>
+                          <span class="text-base text-purple">{rentalPassCount()}</span>
                         </div>
                       </Show>
                     </div>
@@ -424,7 +396,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
           </div>
         </div>
         <div class="flex flex-col mb-6">
-          <Title level={5} class="mt-4 mb-[6px]">
+          <Title level={5} class="mt-4 mb-1.5">
             Stats
           </Title>
           <div class="grid grid-cols-12 gap-12">

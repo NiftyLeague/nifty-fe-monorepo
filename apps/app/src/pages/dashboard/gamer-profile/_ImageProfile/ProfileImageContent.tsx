@@ -1,5 +1,3 @@
-'use client'
-
 import { useContext, createMemo, createSignal, For, Show, type Accessor, type JSX } from 'solid-js'
 import { toast } from 'solid-sonner'
 
@@ -92,7 +90,7 @@ const ProfileImagePicker = (props: ProfileImagePickerProps) => {
         <For each={props.degensInternal()}>
           {(degen) => (
             <div
-              class="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-[1.3]"
+              class="block cursor-pointer overflow-hidden [&_img]:transition-transform [&_img]:duration-500 hover:[&_img]:scale-130"
               onClick={() => void handleSelectedDegen(degen)}
             >
               {renderDegenImage(degen)}

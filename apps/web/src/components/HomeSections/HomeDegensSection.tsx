@@ -13,7 +13,8 @@ export default function HomeDegensSection() {
       <div class="relative pt-16 pb-8 px-0 mx-0 mb-12">
         <div class="absolute inset-0 mt-20 flex items-center justify-center z-10 pointer-events-none">
           <OptimizedImage
-            class="pixelated w-full h-auto max-w-[90vw] md:max-w-[80%] lg:max-w-[700px] xl:max-w-[800px]"
+            class="pixelated w-full h-auto max-w-(--degens-overlay-max-w) md:max-w-(--degens-overlay-max-w-md) lg:max-w-175 xl:max-w-200"
+            style={{ '--degens-overlay-max-w': '90vw', '--degens-overlay-max-w-md': '80%' }}
             src="/img/degens/nifty-ape.webp"
             width={856}
             height={842}

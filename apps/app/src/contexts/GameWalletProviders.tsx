@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from '@/runtime/dynamic'
 import type { ParentProps } from 'solid-js'
 

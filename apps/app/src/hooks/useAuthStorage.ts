@@ -1,5 +1,3 @@
-'use client'
-
 import { useStore } from '@/state/use-store'
 
 import { agreementStore, authTokenStore, nonceStore, uuidTokenStore } from '@/state/auth-storage'

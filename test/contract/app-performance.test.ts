@@ -134,7 +134,6 @@ const appCollapsibleSidebarLayout =
 const bridgeDialog = 'apps/app/src/components/dialog/BridgeButtonDialog/index.tsx'
 const appSectionSlider = 'apps/app/src/components/sections/SectionSlider.tsx'
 const allDegensPage = 'apps/app/src/pages/degens/AllDegensPage.tsx'
-const gamesPage = 'apps/app/src/routes/_public/games.index.tsx'
 const leaderboards = 'apps/app/src/components/leaderboards/index.tsx'
 const leaderboardsStyles = 'apps/app/src/components/leaderboards/index.module.css'
 const collapsibleSidebarLayout = 'apps/app/src/layouts/_layout/_CollapsibleSidebarLayout/index.tsx'
@@ -479,7 +478,6 @@ describe('app performance contracts', () => {
   it('keeps the private provider shell out of the initial route bundle', () => {
     const source = readFileSync(privateRoutesBoundary, 'utf8')
 
-    expect(source).not.toContain("'use client'")
     expect(source).toContain("dynamic(() => import('./PrivateRoutesShell')")
     expect(source).not.toContain('ssr: false')
     expect(source).toContain('loading: PrivateRoutesLoading')

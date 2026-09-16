@@ -1,5 +1,3 @@
-'use client'
-
 import { createEffect, createSignal, For, Show } from 'solid-js'
 import { usePathname } from '@/runtime/navigation'
 import { AppNavIcon } from '@/components/AppNavIcon'
@@ -50,16 +48,20 @@ const NavCollapse = (props: NavCollapseProps) => {
           'mb-0.5 flex w-full items-center rounded-md px-2 text-left',
           props.level > 1 ? 'py-2' : 'py-2.5',
           selected() === props.menu.id ? 'bg-muted font-bold' : 'font-normal',
-          props.level > 1 ? 'bg-transparent' : 'bg-inherit'
+          props.level > 1 ? 'bg-transparent' : 'bg-inherit',
+          'pl-(--level-pad)'
         )}
-        style={{ 'padding-left': `${props.level * 24}px`, 'align-items': 'center' }}
+        style={{ '--level-pad': `${props.level * 24}px` }}
         onClick={handleClick}
       >
-        <span class="my-auto" style={{ 'min-width': `${!props.menu.icon ? 18 : 36}px` }}>
+        <span
+          class="my-auto min-w-(--nav-icon-w)"
+          style={{ '--nav-icon-w': `${!props.menu.icon ? 18 : 36}px` }}
+        >
           <AppNavIcon name={props.menu?.icon ?? 'dot'} size="lg" class="ml-1" />
         </span>
         <span class="flex flex-1 flex-col">
-          <span style={{ color: 'inherit' }}>{props.menu.title}</span>
+          <span class="text-inherit">{props.menu.title}</span>
           <Show when={props.menu.caption}>
             <span class="block text-xs font-medium uppercase text-muted-foreground">
               {props.menu.caption}
@@ -74,11 +76,7 @@ const NavCollapse = (props: NavCollapseProps) => {
       </button>
       <Show when={open()}>
         <div class="relative">
-          <span
-            aria-hidden
-            class="absolute top-0 left-[27px] h-full w-px opacity-100"
-            style={{ background: 'var(--color-separator)' }}
-          />
+          <span aria-hidden class="absolute top-0 left-6.75 h-full w-px bg-separator opacity-100" />
           <div>
             <For each={props.menu?.children || []}>
               {(item) => {

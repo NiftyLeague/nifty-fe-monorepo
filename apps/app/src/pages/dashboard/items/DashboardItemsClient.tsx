@@ -1,5 +1,3 @@
-'use client'
-
 import { For } from 'solid-js'
 import dynamic from '@/runtime/dynamic'
 
@@ -12,7 +10,7 @@ const DashboardItemsPageContent = dynamic(() => import('./DashboardItemsContent'
   ssr: false,
   loading: () => (
     <div
-      class="flex min-h-[32rem] flex-col gap-4 rounded-md border border-border bg-muted p-6"
+      class="flex min-h-128 flex-col gap-4 rounded-md border border-border bg-muted p-6"
       role="status"
       aria-live="polite"
       aria-busy="true"

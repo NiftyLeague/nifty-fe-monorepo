@@ -1,5 +1,3 @@
-'use client'
-
 import { createSignal, createContext, type Accessor } from 'solid-js'
 import type { DialogProps } from '@/types/dialog'
 import { DialogTrigger } from './DialogActions'

@@ -1,5 +1,3 @@
-'use client'
-
 import { createContext, type JSX } from 'solid-js'
 import { useGamerProfile } from '@/hooks/useGamerProfile'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'

@@ -1,5 +1,3 @@
-'use client'
-
 import { Grid3X3, LayoutGrid } from 'lucide-solid'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@nl/ui/base/select'
@@ -35,7 +33,7 @@ export default function DegensTopNavControls(props: DegensTopNavControlsProps) {
         <SelectTrigger
           aria-label="Sort degens"
           size="sm"
-          class="min-w-[150px] border-purple px-3 py-1 text-foreground"
+          class="min-w-37.5 border-purple px-3 py-1 text-foreground"
         >
           <SelectValue<MenuItemBaseProps> />
         </SelectTrigger>
@@ -54,14 +52,14 @@ export default function DegensTopNavControls(props: DegensTopNavControlsProps) {
         }
       >
         <ToggleGroupItem
-          class={`${styles.layoutModeButton} data-[pressed]:bg-[rgba(88,32,214,0.2)]`}
+          class={`${styles.layoutModeButton} data-[pressed]:bg-(--press-fill)`}
           value="gridView"
           aria-label="GridView"
         >
           <LayoutGrid aria-hidden="true" size={24} stroke-width={1.5} />
         </ToggleGroupItem>
         <ToggleGroupItem
-          class={`${styles.layoutModeButton} data-[pressed]:bg-[rgba(88,32,214,0.2)]`}
+          class={`${styles.layoutModeButton} data-[pressed]:bg-(--press-fill)`}
           value="gridOn"
           aria-label="GridOn"
         >

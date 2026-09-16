@@ -17,6 +17,9 @@ export function ThemeButton(props: ThemeButtonProps & { isPrimary?: boolean }) {
     props.isPrimary ? 'theme-btn-primary' : 'theme-btn-transparent',
     // The shared button recipe supplies a compact default size. Keep the
     // marketing button scale from theme-btn across responsive breakpoints.
+    // These stay in px: the root font is fluid (up to 1.125rem), so rem-based
+    // heights would render 78.75px instead of the contracted 70px on desktop
+    // (pinned by apps/web/e2e/regression.e2e.ts).
     '!h-[40px] md:!h-[50px] lg:!h-[60px] xl:!h-[70px] 2xl:!h-[80px]',
     props.className ?? ''
   )

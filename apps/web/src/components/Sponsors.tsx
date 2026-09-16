@@ -28,13 +28,13 @@ const Sponsors = () => (
   <>
     <div class="container mx-auto px-0 md:hidden">
       <div class="m-0 p-0 relative py-0 sm:py-5 flex items-center justify-center text-center">
-        <section class="flex flex-wrap items-center justify-center max-w-[1600px] mx-auto">
+        <section class="flex flex-wrap items-center justify-center max-w-400 mx-auto">
           {SPONSORS.map(RenderSponsor)}
         </section>
       </div>
     </div>
     <div class="hidden md:block">
-      <div class="w-full relative flex-grow">
+      <div class="w-full relative grow">
         <DesktopOnlyImage
           alt="Proudly Backed By"
           class="w-full h-auto"
