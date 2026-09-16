@@ -1,12 +1,6 @@
-import { GET_GAMER_PROFILE_API } from '@/constants/api'
 import { useQuery } from '@tanstack/solid-query'
 import useAuth from '@/hooks/useAuth'
-import {
-  AUTHENTICATED_STALE_TIME_MS,
-  fetchApiQuery,
-  getAuthQueryScope,
-  queryKeys,
-} from '@/query/app-query'
+import { gamerProfileQueryOptions } from '@/query/authed-options'
 import type { Profile } from '@/types/account'
 
 const useGamerProfile = (): {
@@ -18,14 +12,8 @@ const useGamerProfile = (): {
   const auth = useAuth()
 
   const query = useQuery(() => ({
-    queryKey: queryKeys.profile.current(getAuthQueryScope(auth.authToken)),
-    queryFn: ({ signal }) =>
-      fetchApiQuery<Profile>(GET_GAMER_PROFILE_API, {
-        signal,
-        init: { headers: { authorizationToken: auth.authToken || '' } },
-      }),
+    ...gamerProfileQueryOptions(auth.authToken),
     enabled: auth.isLoggedIn && !!auth.authToken,
-    staleTime: AUTHENTICATED_STALE_TIME_MS,
   }))
 
   const fetchUserProfile = async () => {
