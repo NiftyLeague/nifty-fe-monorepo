@@ -1,11 +1,13 @@
-import { createEffect, createSignal, createMemo, onCleanup } from 'solid-js'
-import { type AddressLike } from 'ethers'
+import { createSignal, createMemo, onCleanup } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { Button } from '@nl/ui/base/button'
 
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import { COMICS_BURNER_CONTRACT, MARKETPLACE_CONTRACT } from '@/constants/contracts'
+import { getContractABI, getContractAddress } from '@/constants/contracts'
+import { TARGET_NETWORK } from '@/constants/networks'
+import { useReadContract } from '@/runtime/wagmi'
 import { DEBUG } from '@/constants/index'
 import type { Comic } from '@/types/marketplace'
 
@@ -22,7 +24,6 @@ const ComicsBurnerContent = () => {
   const router = useRouter()
   const nfts = useNFTsBalances()
   const network = useNetworkContext()
-  const [isApprovedForAll, setIsApprovedForAll] = createSignal(false)
   const [helpDialogOpen, setHelpDialogOpen] = createSignal(false)
   const [selectedComics, setSelectedComics] = createSignal<Comic[]>([])
   const [burnCount, setBurnCount] = createSignal<number[]>([0, 0, 0, 0, 0, 0])
@@ -40,42 +41,33 @@ const ComicsBurnerContent = () => {
     return [0, 0, 0, 0, 0, 0, 0]
   })
 
-  createEffect(() => {
-    const writeContracts = network.writeContracts
-    const address = network.address
-    if (
-      !writeContracts ||
-      !writeContracts[COMICS_BURNER_CONTRACT] ||
-      !writeContracts[MARKETPLACE_CONTRACT] ||
-      !address
-    ) {
-      return
-    }
-
-    let cancelled = false
-    const getAllowance = async () => {
-      const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
-      const burnContractAddress = await burnContract.getAddress()
-      const comicsContract = writeContracts[MARKETPLACE_CONTRACT]
-      const approved = (await comicsContract.isApprovedForAll(
-        address as AddressLike,
-        burnContractAddress
-      )) as boolean
-      if (!cancelled) setIsApprovedForAll(approved)
-    }
-    void getAllowance()
-    onCleanup(() => {
-      cancelled = true
-    })
-  })
+  // Public view read through the shared query cache: no ethers contract
+  // instance or provider round-trip, deduped across remounts.
+  const burnerAddress = getContractAddress(
+    TARGET_NETWORK.chainId,
+    COMICS_BURNER_CONTRACT
+  ) as `0x${string}`
+  const marketplaceAddress = getContractAddress(
+    TARGET_NETWORK.chainId,
+    MARKETPLACE_CONTRACT
+  ) as `0x${string}`
+  const approvalQuery = useReadContract(() => ({
+    address: marketplaceAddress,
+    abi: getContractABI(TARGET_NETWORK.chainId, MARKETPLACE_CONTRACT),
+    functionName: 'isApprovedForAll',
+    args: network.address ? [network.address, burnerAddress] : [],
+    chainId: TARGET_NETWORK.chainId,
+    query: { enabled: Boolean(network.address), staleTime: 30_000 },
+  }))
+  const isApprovedForAll = () => approvalQuery.data === true
 
   const handleSetApproval = async () => {
-    const writeContracts = network.writeContracts
-    const burnContract = writeContracts[COMICS_BURNER_CONTRACT]
     if (!isApprovedForAll()) {
-      const burnContractAddress = await burnContract.getAddress()
-      const comicsContract = writeContracts[MARKETPLACE_CONTRACT]
-      await network.tx(comicsContract.setApprovalForAll(burnContractAddress, true))
+      const comicsContract = network.writeContracts[MARKETPLACE_CONTRACT]
+      await network.tx(comicsContract.setApprovalForAll(burnerAddress, true))
+      // The fresh approval flips this read; refetch instead of waiting for
+      // the staleTime to lapse.
+      void approvalQuery.refetch()
     }
   }
 

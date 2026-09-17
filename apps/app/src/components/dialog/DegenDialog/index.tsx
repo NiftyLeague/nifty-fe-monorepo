@@ -1,14 +1,18 @@
-import { createEffect, createSignal, onCleanup, Show, type JSX } from 'solid-js'
+import { createEffect, Show, type JSX } from 'solid-js'
+import { useQuery } from '@tanstack/solid-query'
+import { readContract } from '@wagmi/core'
+import type { Abi } from 'viem'
 import dynamic from '@/runtime/dynamic'
 import { Dialog, DialogContent } from '@nl/ui/base/dialog'
 import { useMediaQuery } from '@nl/ui/hooks/useMediaQuery'
 import { cn } from '@nl/ui/utils'
 import { toast } from 'solid-sonner'
 
-import { DEGEN_CONTRACT } from '@/constants/contracts'
+import { DEGEN_CONTRACT, getContractABI, getContractAddress } from '@/constants/contracts'
+import { TARGET_NETWORK } from '@/constants/networks'
 import { TRAIT_INDEXES } from '@/constants/traitIndexes'
-import useNetworkContext from '@/hooks/useNetworkContext'
-import type { CharacterType, DashboardDegen } from '@/types/degens'
+import { useWagmiConfig } from '@/runtime/wagmi'
+import type { DashboardDegen } from '@/types/degens'
 import { errorMsgHandler } from '@/utils/errorHandlers'
 import { normalizeCharacterTraits } from '@/utils/character-traits'
 
@@ -57,64 +61,52 @@ export interface DegenDialogProps {
 }
 
 const DegenDialog = (props: DegenDialogProps) => {
-  const tokenId = () => props.degen?.id || 0
+  const tokenId = () => Number(props.degen?.id ?? 0)
   const fullScreen = useMediaQuery('(max-width:768px)')
-  const network = useNetworkContext()
-  const [character, setCharacter] = createSignal<CharacterType>({
-    name: null,
-    owner: null,
-    traitList: [],
-  })
-  const name = () => character().name
-  const traitList = () => character().traitList
-  const resetDialog = () => {
-    setCharacter({ name: null, owner: null, traitList: [] })
-  }
+  const degenAddress = getContractAddress(
+    TARGET_NETWORK.chainId,
+    DEGEN_CONTRACT
+  ) as `0x${string}`
+  const degenAbi = getContractABI(TARGET_NETWORK.chainId, DEGEN_CONTRACT) as Abi
+
+  // One cached query per (chain, token id): reopening the same degen resolves
+  // from the shared cache instead of re-firing the three contract reads, and
+  // the query's lifecycle replaces the hand-rolled cancellation flag.
+  const characterQuery = useQuery(() => ({
+    queryKey: ['degen-character', TARGET_NETWORK.chainId, degenAddress, tokenId()],
+    queryFn: async () => {
+      // Resolved at fetch time: the wallet chunk registers the config by the
+      // time an open dialog can fetch.
+      const config = useWagmiConfig()
+      const id = BigInt(tokenId())
+      const [name, owner, rawTraits] = await Promise.all([
+        readContract(config, { address: degenAddress, abi: degenAbi, functionName: 'getName', args: [id] }),
+        readContract(config, { address: degenAddress, abi: degenAbi, functionName: 'ownerOf', args: [id] }),
+        readContract(config, {
+          address: degenAddress,
+          abi: degenAbi,
+          functionName: 'getCharacterTraits',
+          args: [id],
+        }),
+      ])
+      return {
+        name: (name ?? null) as string | null,
+        owner: owner as string,
+        traitList: normalizeCharacterTraits(rawTraits),
+      }
+    },
+    enabled: props.open === true && tokenId() > 0,
+    staleTime: 60_000,
+    retry: false,
+  }))
 
   createEffect(() => {
-    const open = props.open
-    const id = tokenId()
-    const readContracts = network.readContracts
-    if (!open || !id || !readContracts || !readContracts[DEGEN_CONTRACT]) {
-      return
-    }
-
-    let cancelled = false
-
-    const fetchData = async () => {
-      try {
-        // Fetch character data from contract
-        const contract = readContracts[DEGEN_CONTRACT]
-        const characterDataPromise =
-          contract &&
-          Promise.all([contract.getName(id), contract.ownerOf(id), contract.getCharacterTraits(id)])
-
-        const characterData = await characterDataPromise
-
-        // Process character data
-        if (characterData) {
-          const [characterName, owner, rawTraits] = characterData
-          if (!cancelled) {
-            setCharacter({
-              name: characterName,
-              owner,
-              traitList: normalizeCharacterTraits(rawTraits),
-            })
-          }
-        }
-      } catch (err) {
-        if (!cancelled) {
-          toast.error(errorMsgHandler(err))
-        }
-      }
-    }
-
-    void fetchData()
-
-    onCleanup(() => {
-      cancelled = true
-    })
+    const error = characterQuery.error
+    if (error) toast.error(errorMsgHandler(error))
   })
+
+  const name = () => characterQuery.data?.name ?? null
+  const traitList = () => characterQuery.data?.traitList ?? []
 
   const displayName = () => name() || props.degen?.name || 'No Name DEGEN'
   const traits = () =>
@@ -130,7 +122,6 @@ const DegenDialog = (props: DegenDialogProps) => {
     props.onClose?.('backdropClick')
     props.setIsClaim?.(false)
     props.setIsRent?.(false)
-    resetDialog()
   }
 
   return (

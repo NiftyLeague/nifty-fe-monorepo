@@ -1,8 +1,18 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/solid-query'
 import { render, screen } from '@nl/ui/test-utils'
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test'
+import { writeFileSync } from 'node:fs'
 
-import { DEGEN_CONTRACT } from '@/constants/contracts'
+import type { JSX } from 'solid-js'
+
 import type { DashboardDegen } from '@/types/degens'
+
+const renderWithClient = (fn: () => JSX.Element) => {
+  const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
+  return render(
+    () => <QueryClientProvider client={queryClient}>{fn()}</QueryClientProvider>
+  )
+}
 
 mock.module('@/runtime/dynamic', () => ({
   default:
@@ -34,14 +44,25 @@ mock.module('@nl/ui/hooks/useMediaQuery', () => ({
 const getName = mock(async () => 'Chain Name')
 const ownerOf = mock(async () => '0x1234567890abcdef')
 const getCharacterTraits = mock(async () => ({ tribe: 1n, skinColor: 17n, mouth: 263n }))
-const fetchMock = mock(() => Promise.resolve(new Response('{}')))
 
-mock.module('@/hooks/useNetworkContext', () => ({
-  default: () => ({
-    readContracts: {
-      [DEGEN_CONTRACT]: { getName, ownerOf, getCharacterTraits },
-    },
-  }),
+mock.module('@wagmi/core', () => ({
+  readContract: (_config: unknown, params: { functionName: string }) => {
+    switch (params.functionName) {
+      case 'getName':
+        return getName(params)
+      case 'ownerOf':
+        return ownerOf(params)
+      case 'getCharacterTraits':
+        return getCharacterTraits(params)
+      default:
+        throw new Error(`unexpected call: ${params.functionName}`)
+    }
+  },
+}))
+
+mock.module('@/runtime/wagmi', () => ({
+  useWagmiConfig: () => ({}) as never,
+  useAccount: () => ({ address: undefined, isConnected: false }),
 }))
 
 const originalFetch = globalThis.fetch
@@ -60,10 +81,12 @@ describe('DegenDialog', () => {
     mock.restore()
   })
 
+  const fetchMock = mock(() => Promise.resolve(new Response('{}')))
+
   it('loads contract traits without blocking on a redundant metadata request', async () => {
     const { default: DegenDialog } = await import('./index')
 
-    render(() => (
+    renderWithClient(() => (
       <DegenDialog
         open
         degen={{ id: '1', name: 'Fallback Name' } as DashboardDegen}
@@ -72,9 +95,16 @@ describe('DegenDialog', () => {
     ))
 
     expect(await screen.findByText('Chain Name 1')).not.toBeNull()
-    expect(getName).toHaveBeenCalledWith('1')
-    expect(ownerOf).toHaveBeenCalledWith('1')
-    expect(getCharacterTraits).toHaveBeenCalledWith('1')
+    writeFileSync('/tmp/getname-calls.txt', JSON.stringify(getName.mock.calls.map(c => c[1]?.functionName)) + ' rendered=' + !!screen.queryByText('Chain Name 1'))
+    expect(getName).toHaveBeenCalledWith(
+      expect.objectContaining({ functionName: 'getName', args: [1n] })
+    )
+    expect(ownerOf).toHaveBeenCalledWith(
+      expect.objectContaining({ functionName: 'ownerOf', args: [1n] })
+    )
+    expect(getCharacterTraits).toHaveBeenCalledWith(
+      expect.objectContaining({ functionName: 'getCharacterTraits', args: [1n] })
+    )
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
@@ -83,7 +113,7 @@ describe('DegenDialog', () => {
 
     const { default: DegenDialog } = await import('./index')
 
-    render(() => (
+    renderWithClient(() => (
       <DegenDialog
         open
         degen={
