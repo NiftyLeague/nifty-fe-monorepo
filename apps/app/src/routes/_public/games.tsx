@@ -10,7 +10,7 @@ export const Route = createFileRoute('/_public/games')({
 
 function GamesLayout() {
   return (
-    <PublicContentContainer>
+    <PublicContentContainer fill>
       <Outlet />
     </PublicContentContainer>
   )

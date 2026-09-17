@@ -140,7 +140,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
   }
 
   return (
-    <div class="flex min-h-full flex-col gap-4">
+    <div class="flex min-h-0 flex-1 flex-col gap-4">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p class="text-sm text-muted-foreground">{props.eyebrow}</p>
@@ -172,7 +172,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
         class={
           isFullscreen()
             ? 'relative h-screen w-screen min-h-0 flex-1 overflow-hidden rounded-none border-0 bg-black'
-            : 'relative min-h-130 flex-1 overflow-hidden rounded-md border bg-black lg:h-[calc(100dvh-190px)]'
+            : 'relative min-h-72 flex-1 overflow-hidden rounded-md border bg-black'
         }
       >
         <Button
@@ -215,7 +215,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
               ref={setFrame}
               src={props.getEmbedUrl(loadAttempt(), visitId)}
               title={props.frameTitle}
-              class="h-full min-h-130 w-full border-0"
+              class="h-full w-full border-0"
               tabIndex={0}
               allow="autoplay; fullscreen; gamepad"
               allowfullscreen

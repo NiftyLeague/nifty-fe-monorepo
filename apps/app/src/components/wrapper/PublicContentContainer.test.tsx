@@ -17,4 +17,19 @@ describe('PublicContentContainer', () => {
     expect(container?.className).toContain('md:py-10')
     expect(container?.className).not.toContain('p-0')
   })
+
+  it('fills the main area height for embed screens when fill is set', () => {
+    render(() => (
+      <PublicContentContainer fill>
+        <span>Embed content</span>
+      </PublicContentContainer>
+    ))
+
+    const container = screen.getByText('Embed content').parentElement
+    expect(container?.className).toContain('container')
+    expect(container?.className).toContain('flex')
+    expect(container?.className).toContain('h-full')
+    expect(container?.className).toContain('min-h-0')
+    expect(container?.className).toContain('flex-col')
+  })
 })
