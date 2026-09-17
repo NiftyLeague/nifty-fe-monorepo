@@ -18,7 +18,7 @@ export const NAV_LINKS = [
  * Starlight has a single sidebar, so the configured tree holds every section and
  * is filtered here to the section that owns the current page.
  */
-export const SECTIONS = ['overview', 'guides', 'faq', 'tutorial', 'archive'] as const
+export const SECTIONS = ['overview', 'guides', 'faq', 'archive'] as const
 export type Section = (typeof SECTIONS)[number]
 
 /** Derive the owning section from a doc id (`overview/intro` -> `overview`). */

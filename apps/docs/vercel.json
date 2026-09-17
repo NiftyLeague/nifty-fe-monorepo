@@ -12,6 +12,53 @@
   },
   "installCommand": "bunx bun@1.4.0 install --frozen-lockfile",
   "ignoreCommand": "node ../../scripts/vercel-ignore-build.mjs",
+  "redirects": [
+    {
+      "source": "/docs/archive/rentals/rentals",
+      "destination": "https://niftyleague.com/docs/archive/rentals",
+      "permanent": true
+    },
+    {
+      "source": "/archive/rentals/rentals",
+      "destination": "https://niftyleague.com/docs/archive/rentals",
+      "permanent": true
+    },
+    {
+      "source": "/docs/overview/games/niftyworld/niftyworld",
+      "destination": "https://niftyleague.com/docs/overview/games/niftyworld",
+      "permanent": true
+    },
+    {
+      "source": "/overview/games/niftyworld/niftyworld",
+      "destination": "https://niftyleague.com/docs/overview/games/niftyworld",
+      "permanent": true
+    },
+    {
+      "source": "/docs/greetings",
+      "destination": "https://niftyleague.com/docs",
+      "permanent": true
+    },
+    {
+      "source": "/greetings",
+      "destination": "https://niftyleague.com/docs",
+      "permanent": true
+    },
+    {
+      "source": "/docs/tutorial",
+      "destination": "https://niftyleague.com/docs",
+      "permanent": true
+    },
+    {
+      "source": "/docs/tutorial/:path*",
+      "destination": "https://niftyleague.com/docs",
+      "permanent": true
+    },
+    {
+      "source": "/tutorial/:path*",
+      "destination": "https://niftyleague.com/docs",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/docs",
