@@ -23,6 +23,6 @@
     "@imtbl/sdk": "^2.24.4"
   },
   "devDependencies": {
-    "@types/node": "^26.4.0"
+    "@types/node": "^26.5.1"
   }
 }
