@@ -1,4 +1,6 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
+
+import { DEGEN_SITE_ASSETS_URL } from '@/constants/degen-assets'
 import styles from './index.module.css'
 
 const COMIC_THUMBNAIL_SIZES = '(max-width: 767px) 50vw, 250px'
@@ -387,7 +389,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 17th, 2023',
-    image: { height: 384, src: '/img/degens/hydra.webp', style: { top: '-160px' }, width: 384 },
+    image: {
+      height: 384,
+      src: `${DEGEN_SITE_ASSETS_URL}/hydra.webp`,
+      style: { top: '-160px' },
+      width: 384,
+    },
     title: 'The Hatching',
     body: (
       <>

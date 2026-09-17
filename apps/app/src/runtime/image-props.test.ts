@@ -21,11 +21,11 @@ describe('app image props', () => {
 
   it('keeps API-driven and unknown sources on their original URL', () => {
     const props = imageProps(
-      { src: '/img/degens/nfts/150.webp', width: 100, height: 100 },
+      { src: 'https://cdn.niftyleague.com/degens/images/bg/md/150.webp', width: 100, height: 100 },
       MANIFEST
     )
 
-    expect(props.src).toBe('/img/degens/nfts/150.webp')
+    expect(props.src).toBe('https://cdn.niftyleague.com/degens/images/bg/md/150.webp')
     expect(props.srcSet).toBeUndefined()
   })
 

@@ -9,13 +9,15 @@ describe('DegenCardItem', () => {
       RenderDegen({
         name: 'Monopoly',
         createdDate: '9/24/2021 2:53 PM',
-        source: '/img/degens/nfts/443.webp',
+        source: 'https://cdn.niftyleague.com/degens/images/bg/md/443.webp',
       })
     )
 
     const image = screen.getByRole('img', { name: 'Monopoly' })
 
-    expect(image.getAttribute('src')).toBe('/img/degens/nfts/443.webp')
+    expect(image.getAttribute('src')).toBe(
+      'https://cdn.niftyleague.com/degens/images/bg/md/443.webp'
+    )
     expect(image.getAttribute('width')).toBe('258')
     expect(image.getAttribute('height')).toBe('278')
     expect(image.getAttribute('loading')).toBe('lazy')
