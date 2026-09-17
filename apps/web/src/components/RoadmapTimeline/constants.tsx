@@ -1,4 +1,6 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
+
+import { DEGEN_SITE_ASSETS_URL } from '@/constants/degen-assets'
 import styles from './index.module.css'
 
 const COMIC_THUMBNAIL_SIZES = '(max-width: 767px) 50vw, 250px'
@@ -389,7 +391,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 17th, 2023',
     image: {
       height: 384,
-      src: 'https://cdn.niftyleague.com/degens/site/hydra.webp',
+      src: `${DEGEN_SITE_ASSETS_URL}/hydra.webp`,
       style: { top: '-160px' },
       width: 384,
     },

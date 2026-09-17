@@ -590,7 +590,7 @@ describe('GLTF viewer loading contract', () => {
 
     expect(runtimeSource).toContain("from '@/constants/degen-assets'")
     expect(modelSource).toContain("from '@/constants/degen-assets'")
-    expect(assetSource).toContain('export const LEGGIES')
+    expect(assetSource).toContain('export const DEGEN_2D_IMAGE_URL')
     expect(catalogSource).not.toContain("from './degen-assets'")
     expect(catalogSource).not.toContain('export const METAS')
     expect(catalogSource).not.toContain('export const RARES')

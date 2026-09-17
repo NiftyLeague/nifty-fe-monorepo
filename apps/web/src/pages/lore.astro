@@ -4,6 +4,7 @@ import OptimizedImage, { getOptimizedImageProps } from '@nl/ui/custom/optimized-
 import { cx } from '@nl/ui/class-names'
 import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 
+import { DEGEN_SITE_ASSETS_URL } from '@/constants/degen-assets'
 import styles from '@/styles/lore.module.css'
 
 const metadata = {
@@ -152,7 +153,7 @@ const backgroundAttrs = background as astroHTML.JSX.ImgHTMLAttributes
         <div class={cx(styles.degens, 'relative flex-1')}>
           <OptimizedImage
             alt="DEGENs"
-            src="https://cdn.niftyleague.com/degens/site/community-characters.webp"
+            src={`${DEGEN_SITE_ASSETS_URL}/community-characters.webp`}
             width={1910}
             height={620}
             sizes="300px"
