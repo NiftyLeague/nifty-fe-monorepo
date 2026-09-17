@@ -1066,8 +1066,9 @@ describe('NFT-only route provider contract', () => {
 
       // The mint screen renders the shared NiftyWorldEmbed like the game and
       // world screens, so it must use the shared padded container - a flush
-      // variant here was what let its padding drift apart.
-      expect(source).toContain('<PublicContentContainer>')
+      // variant here was what let its padding drift apart. `fill` keeps the
+      // same padding while letting the embed fill the main area's height.
+      expect(source).toContain('<PublicContentContainer fill>')
       expect(source).not.toContain('flush')
       expect(source).not.toContain('DeferredMintProviders')
       expect(source).not.toContain("from '@/contexts/WalletContextWrapper'")
