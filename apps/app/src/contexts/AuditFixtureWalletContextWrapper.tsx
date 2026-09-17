@@ -51,7 +51,7 @@ export default function AuditFixtureWalletContextWrapper(props: ParentProps): JS
             publicProvider: undefined,
             readContracts: {} as Contracts,
             signer: undefined,
-            tx: async () => null,
+            write: async () => null,
             writeContracts: {} as Contracts,
           }}
         >

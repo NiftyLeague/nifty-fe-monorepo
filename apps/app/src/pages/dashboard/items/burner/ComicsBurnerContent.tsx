@@ -63,8 +63,12 @@ const ComicsBurnerContent = () => {
 
   const handleSetApproval = async () => {
     if (!isApprovedForAll()) {
-      const comicsContract = network.writeContracts[MARKETPLACE_CONTRACT]
-      await network.tx(comicsContract.setApprovalForAll(burnerAddress, true))
+      await network.write({
+        address: marketplaceAddress,
+        abi: getContractABI(TARGET_NETWORK.chainId, MARKETPLACE_CONTRACT),
+        functionName: 'setApprovalForAll',
+        args: [network.address, burnerAddress],
+      })
       // The fresh approval flips this read; refetch instead of waiting for
       // the staleTime to lapse.
       void approvalQuery.refetch()
@@ -75,10 +79,14 @@ const ComicsBurnerContent = () => {
     if (!isApprovedForAll()) await handleSetApproval()
     setBurning(true)
     if (DEBUG) console.log('burn comics', burnCount())
-    const burnContract = network.writeContracts[COMICS_BURNER_CONTRACT]
-    const res = await network.tx(burnContract.burnComics(burnCount()))
+    const txHash = await network.write({
+      address: burnerAddress,
+      abi: getContractABI(TARGET_NETWORK.chainId, COMICS_BURNER_CONTRACT),
+      functionName: 'burnComics',
+      args: [burnCount()],
+    })
     setBurning(false)
-    if (res) {
+    if (txHash) {
       setSelectedComics([])
       nfts.refreshItemsBalances()
       setBurnCount([0, 0, 0, 0, 0, 0])

@@ -1,24 +1,28 @@
 import { beforeEach, describe, expect, it, mock } from 'bun:test'
 
-const { calculateGasMarginMock, loadGasPriceMock, toastError, toastInfo, toastSuccess } = {
-  calculateGasMarginMock: mock(() => 123n),
-  loadGasPriceMock: mock().mockResolvedValue(25n),
+const { toastError, toastInfo, toastSuccess, writeContractMock, receiptWaitMock } = {
   toastError: mock(),
   toastInfo: mock(),
   toastSuccess: mock(),
+  writeContractMock: mock(),
+  receiptWaitMock: mock(),
 }
 
 let handleError: typeof import('./transactions').handleError
-let notifyTransactionOutcome: typeof import('./transactions').notifyTransactionOutcome
-let sendTransaction: typeof import('./transactions').sendTransaction
-let submitTxWithGasEstimate: typeof import('./transactions').submitTxWithGasEstimate
+let executeContractWrite: typeof import('./transactions').executeContractWrite
 
 beforeEach(() => {
   toastError.mockClear()
   toastInfo.mockClear()
   toastSuccess.mockClear()
+  writeContractMock.mockReset()
+  receiptWaitMock.mockReset()
   mock.module('solid-sonner', () => ({
     toast: { error: toastError, info: toastInfo, success: toastSuccess },
+  }))
+  mock.module('@wagmi/core', () => ({
+    writeContract: writeContractMock,
+    waitForTransactionReceipt: receiptWaitMock,
   }))
   mock.module('@/constants/index', () => ({ DEBUG: false }))
   mock.module('@/constants/networks', () => ({
@@ -28,21 +32,21 @@ beforeEach(() => {
       blockExplorer: 'https://example.com',
     },
   }))
-  mock.module('@/utils/gas', () => ({
-    calculateGasMargin: calculateGasMarginMock,
-    loadGasPrice: loadGasPriceMock,
-  }))
 })
 
 const loadModule = async () => {
   const module = await import('./transactions')
   handleError = module.handleError
-  notifyTransactionOutcome = module.notifyTransactionOutcome
-  sendTransaction = module.sendTransaction
-  submitTxWithGasEstimate = module.submitTxWithGasEstimate
+  executeContractWrite = module.executeContractWrite
 }
 
-const signer = () => ({ provider: { getTransactionReceipt: mock() } }) as never
+const CONFIG = {} as never
+const PARAMS = {
+  address: '0xabc' as const,
+  abi: [] as never,
+  functionName: 'burnComics',
+  args: [1n],
+}
 
 describe('handleError', () => {
   beforeEach(loadModule)
@@ -63,93 +67,41 @@ describe('handleError', () => {
   })
 })
 
-describe('sendTransaction', () => {
+describe('executeContractWrite', () => {
   beforeEach(loadModule)
 
-  it('awaits promise-shaped transactions untouched', async () => {
-    const response = { hash: '0x1' }
-    const result = await sendTransaction({} as never, Promise.resolve(response as never))
-    expect(result).toBe(response)
-  })
+  it('toasts sent and confirmed states, resolves the callback, returns the hash', async () => {
+    const receipt = { status: 'success', blockNumber: 5n }
+    writeContractMock.mockResolvedValue('0xhash')
+    receiptWaitMock.mockResolvedValue(receipt)
+    const callback = mock()
 
-  it('fills gas defaults for request-shaped transactions', async () => {
-    const sendMock = mock().mockResolvedValue({ hash: '0x2' })
-    const fakeSigner = { sendTransaction: sendMock } as never
+    const hash = await executeContractWrite(CONFIG, PARAMS, callback)
 
-    await sendTransaction(fakeSigner, { to: '0xabc' } as never)
-
-    expect(sendMock).toHaveBeenCalledWith({ to: '0xabc', gasPrice: 25n, gasLimit: '0x01d4c0' })
-  })
-})
-
-describe('notifyTransactionOutcome', () => {
-  beforeEach(loadModule)
-
-  it('toasts sent and successful states and resolves the receipt callback', async () => {
-    const receipt = { status: 1, hash: '0x3' }
-    const result = { hash: '0x3', wait: mock().mockResolvedValue(receipt) }
-
-    await notifyTransactionOutcome(signer(), result as never)
-
+    expect(hash).toBe('0xhash')
     expect(toastInfo).toHaveBeenCalledTimes(1)
     expect(toastSuccess).toHaveBeenCalledTimes(1)
     expect(toastError).not.toHaveBeenCalled()
+    expect(callback).toHaveBeenCalledWith(receipt)
   })
 
   it('toasts failure without a success toast when the receipt reverts', async () => {
-    const receipt = { status: 0, hash: '0x4' }
-    const result = { hash: '0x4', wait: mock().mockResolvedValue(receipt) }
+    writeContractMock.mockResolvedValue('0xhash')
+    receiptWaitMock.mockResolvedValue({ status: 'reverted', blockNumber: 6n })
 
-    await notifyTransactionOutcome(signer(), result as never)
+    const hash = await executeContractWrite(CONFIG, PARAMS)
 
+    expect(hash).toBeNull()
     expect(toastSuccess).not.toHaveBeenCalled()
     expect(toastError).toHaveBeenCalledTimes(1)
   })
 
-  it('hands the receipt to the provided callback', async () => {
-    const receipt = { status: 1, hash: '0x5' }
-    const result = { hash: '0x5', wait: mock().mockResolvedValue(receipt) }
-    const callback = mock()
+  it('returns null without throwing when the write rejects', async () => {
+    writeContractMock.mockRejectedValue(new Error('user rejected'))
 
-    await notifyTransactionOutcome(signer(), result as never, callback)
+    const hash = await executeContractWrite(CONFIG, PARAMS)
 
-    expect(callback).toHaveBeenCalledWith(receipt)
-  })
-})
-
-describe('submitTxWithGasEstimate', () => {
-  beforeEach(loadModule)
-
-  it('applies the marginated gas estimate to the contract call', async () => {
-    const estimateGas = mock().mockResolvedValue(100n)
-    const contractFn = mock().mockResolvedValue({ hash: '0x6' })
-    const contract = { changeName: Object.assign(contractFn, { estimateGas }) } as never
-
-    await submitTxWithGasEstimate(
-      () => Promise.resolve({ hash: '0x6' } as never),
-      contract,
-      'changeName',
-      ['arg'],
-      {},
-      undefined
-    )
-    expect(estimateGas).toHaveBeenCalledWith('arg', {})
-    expect(contractFn).toHaveBeenCalledWith('arg', { gasLimit: 123n })
-  })
-
-  it('returns null instead of throwing when estimation reverts', async () => {
-    const estimateGas = mock().mockRejectedValue(new Error('cannot estimate'))
-    const contract = { changeName: Object.assign(mock(), { estimateGas }) } as never
-
-    const returned = await submitTxWithGasEstimate(
-      () => Promise.resolve({} as never),
-      contract,
-      'changeName',
-      [],
-      {}
-    )
-
-    expect(returned).toBeNull()
-    expect(toastError).toHaveBeenCalled()
+    expect(hash).toBeNull()
+    expect(toastError).toHaveBeenCalledWith(expect.stringContaining('user rejected'))
   })
 })
