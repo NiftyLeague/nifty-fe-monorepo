@@ -2,8 +2,10 @@ import { createContext } from 'solid-js'
 
 import type { Provider } from '@/hooks/useEthersProvider'
 import type { Signer } from '@/hooks/useEthersSigner'
-import type { Tx } from '@/types/notify'
+import type { ContractWriteParams } from '@/utils/transactions'
 import type { Contracts } from '@/types/web3'
+import type { Hash } from 'viem'
+import type { WriteReceiptCallback } from '@/utils/transactions'
 
 export interface NetworkContextValue {
   address?: `0x${string}`
@@ -11,7 +13,7 @@ export interface NetworkContextValue {
   publicProvider?: Provider
   readContracts: Contracts
   signer?: Signer
-  tx: Tx
+  write: (params: ContractWriteParams, callback?: WriteReceiptCallback) => Promise<Hash | null>
   writeContracts: Contracts
 }
 
@@ -21,7 +23,7 @@ const CONTEXT_INITIAL_STATE: NetworkContextValue = {
   publicProvider: undefined,
   readContracts: {} as Contracts,
   signer: undefined,
-  tx: async () => new Promise(() => null),
+  write: async () => null,
   writeContracts: {} as Contracts,
 }
 

@@ -1130,10 +1130,16 @@ describe('mint route provider loading contract', () => {
     const providerSource = readFileSync(join(process.cwd(), networkProvider), 'utf8')
     const graphQLSource = readFileSync(join(process.cwd(), graphQL), 'utf8')
 
-    for (const heavyImport of ["from '@/hooks/useContractLoader'", "from '@/hooks/useNotify'"]) {
+    for (const heavyImport of ["from '@/hooks/useContractLoader'"]) {
       expect(contextSource).not.toContain(heavyImport)
       expect(providerSource).toContain(heavyImport)
     }
+    // Writes moved to the viem pipeline in utils/transactions; useNotify is
+    // gone, so the provider imports the executor instead.
+    expect(providerSource).toContain("executeContractWrite")
+    expect(providerSource).toContain("from '@/utils/transactions'")
+    expect(contextSource).not.toContain("from '@/hooks/useNotify'")
+    expect(existsSync(join(process.cwd(), 'apps/app/src/hooks/useNotify.ts'))).toBe(false)
     expect(graphQLSource).toContain('useAccount')
     expect(graphQLSource).not.toContain("from '@/hooks/useNetworkContext'")
   })

@@ -1,7 +1,11 @@
 import { createSignal, onCleanup } from 'solid-js'
-import type { TransactionResponse } from 'ethers'
+import type { Hash } from 'viem'
+import { readContract } from '@wagmi/core'
 import { handleError } from '@/utils/transactions'
 import type { NotifyError } from '@/types/notify'
+import { getContractABI, getContractAddress } from '@/constants/contracts'
+import { TARGET_NETWORK } from '@/constants/networks'
+import { useWagmiConfig } from '@/runtime/wagmi'
 
 import { NFTL_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants/index'
@@ -11,7 +15,7 @@ import useTokensBalances from '@/hooks/balances/useTokensBalances'
 
 export default function useClaimNFTL(): {
   readonly balance: number
-  claimCallback: () => Promise<TransactionResponse | null>
+  claimCallback: () => Promise<Hash | null>
   readonly loading: boolean
 } {
   const network = useNetworkContext()
@@ -26,10 +30,18 @@ export default function useClaimNFTL(): {
   const balance = () => mockAccrued() ?? tokens.totalAccruedNFTL
 
   const verifyDegensWithClaimableNFTL = async () => {
-    const nftl = network.writeContracts[NFTL_CONTRACT]
+    const config = useWagmiConfig()
+    const address = getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`
+    const abi = getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT)
     const degensWithClaimableNFTL = await Promise.all(
       nfts.degenTokenIndices.map(async (degen) => {
-        const claimable = await nftl.accumulated(degen)
+        const claimable = (await readContract(config, {
+          address,
+          abi,
+          functionName: 'accumulated',
+          args: [BigInt(degen)],
+          chainId: TARGET_NETWORK.chainId,
+        })) as bigint
         return claimable > 0n ? degen : null
       })
     )
@@ -39,13 +51,17 @@ export default function useClaimNFTL(): {
   const handleClaimNFTL = async () => {
     const degensWithClaimableNFTL = await verifyDegensWithClaimableNFTL()
     if (DEBUG) console.log('claim', degensWithClaimableNFTL, tokens.totalAccruedNFTL)
-    const nftl = network.writeContracts[NFTL_CONTRACT]
-    const txRes = await network.tx(nftl.claim(nfts.degenTokenIndices))
-    if (txRes) {
+    const txHash = await network.write({
+      address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`,
+      abi: getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT),
+      functionName: 'claim',
+      args: [nfts.degenTokenIndices],
+    })
+    if (txHash) {
       setMockAccrued(0)
       refetchTimer = setTimeout(tokens.refreshClaimableNFTL, 5000)
     }
-    return txRes
+    return txHash
   }
 
   const claimCallback = async () => {
