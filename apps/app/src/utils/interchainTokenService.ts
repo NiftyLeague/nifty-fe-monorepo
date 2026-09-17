@@ -1,24 +1,26 @@
 // https://docs.axelar.dev/dev/send-tokens/interchain-tokens/developer-guides/link-custom-tokens-deployed-across-multiple-chains-into-interchain-tokens/
 
-import { parseEther, parseUnits, formatEther } from 'ethers'
-import type {
-  AddressLike,
-  Contract,
-  ContractMethod,
-  ContractTransactionReceipt,
-  ContractTransactionResponse,
-} from 'ethers'
+import { readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
+import type { Config } from '@wagmi/core'
+import type { TransactionReceipt } from 'viem'
+import { formatEther, parseEther, parseUnits } from 'viem'
 
 import {
   INTERCHAIN_SERVICE_CONTRACT,
   INTERCHAIN_TOKEN_ID,
   INTERCHAIN_TOKEN_SERVICE_ADDRESS,
   NFTL_CONTRACT,
+  getContractABI,
+  getContractAddress,
 } from '@/constants/contracts'
-import { SEPOLIA_ID, MAINNET_ID, IMX_TESTNET_ID, NETWORK_NAME } from '@/constants/networks'
+import {
+  SEPOLIA_ID,
+  MAINNET_ID,
+  IMX_TESTNET_ID,
+  NETWORK_NAME,
+  TARGET_NETWORK,
+} from '@/constants/networks'
 import { DEBUG } from '@/constants'
-import type { NFTLToken } from '@/types/typechain/src/contracts/NFTLToken'
-import type { Contracts } from '@/types/web3'
 
 type GasFeeResponse = {
   result?: {
@@ -51,7 +53,7 @@ const gasEstimator = async (chainId: number): Promise<bigint> => {
 
   const { result } = (await response.json()) as GasFeeResponse
   if (result?.source_base_fee_string === undefined || !result.source_token)
-    throw new Error('Axelar gas estimate returned an incomplete response')
+    throw new Error(`Axelar gas estimate returned an incomplete response`)
 
   const sourceBaseFee = parseUnits(result.source_base_fee_string, result.source_token.decimals)
   const sourceGasPrice = parseUnits(
@@ -66,15 +68,19 @@ const gasEstimator = async (chainId: number): Promise<bigint> => {
 
 const INTERCHAIN_TRANSFER_GAS_VALUE = parseEther('0.0001')
 
+const nftlAddress = () => getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`
+const nftlAbi = () => getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT)
+const interchainServiceAddress = () =>
+  getContractAddress(TARGET_NETWORK.chainId, INTERCHAIN_SERVICE_CONTRACT) as `0x${string}`
+const interchainServiceAbi = () =>
+  getContractABI(TARGET_NETWORK.chainId, INTERCHAIN_SERVICE_CONTRACT)
+
 export const getInterchainTokenRecord = (chainId: number): string => {
   const interchainToken = INTERCHAIN_TOKEN_ID[chainId]
   if (!interchainToken)
     throw new Error(`Interchain token record not found for network: ${NETWORK_NAME[chainId]}`)
   return interchainToken
 }
-
-const getInterchainTokenServiceContract = (writeContracts: Contracts): Contract =>
-  writeContracts[INTERCHAIN_SERVICE_CONTRACT]
 
 const getDestinationChain = (destinationChainId: number): string =>
   destinationChainId === SEPOLIA_ID
@@ -85,20 +91,34 @@ const getDestinationChain = (destinationChainId: number): string =>
 
 // Increase the allowance of the InterchainTokenManager to spend NFTL tokens on behalf of the user:
 export const increaseBridgeAllowance = async (
-  writeContracts: Contracts,
-  address: AddressLike,
+  config: Config,
+  address: `0x${string}`,
   destinationChainId: number,
   amount: bigint
-): Promise<ContractTransactionReceipt | null> => {
+): Promise<TransactionReceipt | null> => {
   const destinationChain = getDestinationChain(destinationChainId)
 
   if (destinationChain === 'immutable') {
     try {
-      const NFTL = writeContracts[NFTL_CONTRACT] as NFTLToken
-      const allowance = await NFTL.allowance(address, INTERCHAIN_TOKEN_SERVICE_ADDRESS)
+      const allowance = (await readContract(config, {
+        address: nftlAddress(),
+        abi: nftlAbi(),
+        functionName: 'allowance',
+        args: [address, INTERCHAIN_TOKEN_SERVICE_ADDRESS],
+        chainId: TARGET_NETWORK.chainId,
+      })) as bigint
       if (allowance < amount) {
-        const txRes = await NFTL.approve(INTERCHAIN_TOKEN_SERVICE_ADDRESS, amount)
-        const txReceipt = await txRes.wait(1) // Wait for 1 block confirmation
+        const approveHash = await writeContract(config, {
+          address: nftlAddress(),
+          abi: nftlAbi(),
+          functionName: 'approve',
+          args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, amount],
+          chainId: TARGET_NETWORK.chainId,
+        })
+        const txReceipt = await waitForTransactionReceipt(config, {
+          hash: approveHash,
+          confirmations: 1,
+        })
         if (DEBUG) console.log('✅ InterchainTokenManager approved to spend NFTL')
         return txReceipt
       }
@@ -112,12 +132,11 @@ export const increaseBridgeAllowance = async (
 
 // Transfer NFTL tokens to the InterchainTokenManager to mint the corresponding InterchainToken on the remote chain:
 export const bridgeNFTL = async (
-  writeContracts: Contracts,
-  address: AddressLike,
+  config: Config,
+  address: `0x${string}`,
   destinationChainId: number,
   amount: bigint
-): Promise<ContractTransactionReceipt | null> => {
-  const interchainTokenService = getInterchainTokenServiceContract(writeContracts)
+): Promise<TransactionReceipt | null> => {
   const interchainTokenId = getInterchainTokenRecord(destinationChainId)
   const gasAmount = await gasEstimator(destinationChainId)
   const destinationChain = getDestinationChain(destinationChainId)
@@ -128,22 +147,27 @@ export const bridgeNFTL = async (
     )
 
   try {
-    const interchainTransfer = interchainTokenService.interchainTransfer as ContractMethod
-    if (typeof interchainTransfer !== 'function')
-      throw new Error(`Function is not available on contract`)
+    const txHash = await writeContract(config, {
+      address: interchainServiceAddress(),
+      abi: interchainServiceAbi(),
+      functionName: 'interchainTransfer',
+      args: [
+        interchainTokenId, // interchainTokenId
+        destinationChain, // destination chain
+        address, // receiver address
+        amount, // amount of token to transfer
+        '0x', // metadata
+        INTERCHAIN_TRANSFER_GAS_VALUE, // remote-execution gas limit param
+      ],
+      value: gasAmount,
+      chainId: TARGET_NETWORK.chainId,
+    })
 
-    const txRes: ContractTransactionResponse = await interchainTransfer(
-      interchainTokenId, // interchainTokenId
-      destinationChain, // destination chain
-      address, // receiver address
-      amount, // amount of token to transfer
-      '0x', // metadata
-      INTERCHAIN_TRANSFER_GAS_VALUE,
-      { value: gasAmount }
-    )
-
-    if (DEBUG) console.log('✅ Transfer Transaction Hash:', txRes?.hash)
-    const txReceipt = await txRes.wait(1) // Wait for 1 block confirmation
+    if (DEBUG) console.log('✅ Transfer Transaction Hash:', txHash)
+    const txReceipt = await waitForTransactionReceipt(config, {
+      hash: txHash,
+      confirmations: 1,
+    })
     if (DEBUG) console.log('✅ NFTL tokens transferred to InterchainTokenManager')
     return txReceipt
   } catch (error) {

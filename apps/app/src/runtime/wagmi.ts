@@ -11,7 +11,6 @@ import {
   signMessage as coreSignMessage,
   switchChain as coreSwitchChain,
   watchAccount,
-  watchClient,
   type Config,
   type GetAccountReturnType,
   type GetConnectorClientParameters,
@@ -21,7 +20,6 @@ import {
   type SignMessageParameters,
   type SwitchChainParameters,
 } from '@wagmi/core'
-import type { Client } from 'viem'
 
 /**
  * Solid bindings over @wagmi/core. The wagmi `Config` is owned by
@@ -372,19 +370,6 @@ export function useConnectorClient(params?: Source<GetConnectorClientParameters 
     },
     refetch,
   }
-}
-
-export function useClient(params?: { chainId?: number }) {
-  const config = requireConfig()
-  const [client, setClient] = createSignal<Client | undefined>(
-    getClient(config, params) as Client | undefined
-  )
-  onCleanup(
-    watchClient(config, {
-      onChange: () => setClient(() => getClient(config, params) as Client | undefined),
-    })
-  )
-  return client
 }
 
 type EnsQuery<T> = T & { query?: QueryOptions }

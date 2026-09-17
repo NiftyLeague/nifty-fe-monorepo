@@ -1,7 +1,7 @@
 import { watchAsset } from '@wagmi/core'
-import useNetworkContext from '@/hooks/useNetworkContext'
 import { useWagmiConfig } from '@/runtime/wagmi'
-import { NFTL_CONTRACT } from '@/constants/contracts'
+import { NFTL_CONTRACT, getContractAddress } from '@/constants/contracts'
+import { TARGET_NETWORK } from '@/constants/networks'
 
 /*
   ~ What it does? ~
@@ -19,16 +19,13 @@ interface ImportNFTLToWalletState {
 
 export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
   const config = useWagmiConfig()
-  const network = useNetworkContext()
 
   const handleImportNFTLToWallet = async () => {
-    const nftlContract = network.writeContracts[NFTL_CONTRACT]
-    if (!nftlContract) return
     try {
       const success = await watchAsset(config, {
         type: 'ERC20',
         options: {
-          address: await nftlContract.getAddress(),
+          address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT),
           symbol: 'NFTL',
           decimals: 18,
           image: 'https://raw.githubusercontent.com/NiftyLeague/Nifty-League-Images/main/NFTL.webp',
