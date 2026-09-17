@@ -442,7 +442,7 @@ test('GLTF initially presents its server-supplied token poster without fetching 
   await page.goto('/gltf/1')
   await expect(page.locator('[data-gltf-poster]')).toHaveAttribute(
     'src',
-    /\/img\/degens\/nfts\/1\.(webp|gif)$/
+    /cdn\.niftyleague\.com\/degens\/images\/bg\/md\/1\.webp$/
   )
   await page.waitForTimeout(500)
   expect(modelRequests).toEqual([])
