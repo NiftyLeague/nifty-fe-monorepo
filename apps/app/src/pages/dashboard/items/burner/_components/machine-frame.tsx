@@ -8,14 +8,16 @@ interface MachineFrameProps {
 
 /** A single static layer of the burner machine collage. */
 const MachineFrame = (props: MachineFrameProps) => (
-  <NativeImage
-    src={props.src}
-    alt={props.src}
-    width={352}
-    height={912}
-    class={`pixelated ${styles.frame} ${styles.static}`}
-    unoptimized={props.unoptimized ?? props.src.endsWith('.gif')}
-  />
+  <div class={`${styles.frame} ${styles.static}`}>
+    <NativeImage
+      src={props.src}
+      alt={props.src}
+      width={352}
+      height={912}
+      class="pixelated block h-auto w-full"
+      unoptimized={props.unoptimized ?? props.src.endsWith('.gif')}
+    />
+  </div>
 )
 
 export default MachineFrame
@@ -36,8 +38,8 @@ export function SpriteFrame(props: SpriteFrameProps) {
     <div
       role="img"
       aria-label={props.label}
-      class={`pixelated ${styles.frame} ${styles[`cycle${props.frames}`]}`}
-      style={{ 'background-image': `url(${props.sheet})` }}
+      class={`${styles.frame} ${styles[`cycle${props.frames}`]} ${styles.sheeted}`}
+      style={{ '--sheet': `url(${props.sheet})` }}
     />
   )
 }

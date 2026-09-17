@@ -11,8 +11,14 @@ import sharp from 'sharp'
 const dir = 'public/img/comics/burner/machine'
 
 const sequences = [
-  { frames: ['button_burn_1', 'button_burn_2', 'button_burn_3', 'button_burn_4', 'button_burn_5'], out: 'button_burn_sheet.webp' },
-  { frames: ['button_connectwallet_01', 'button_connectwallet_02'], out: 'button_connect_sheet.webp' },
+  {
+    frames: ['button_burn_1', 'button_burn_2', 'button_burn_3', 'button_burn_4', 'button_burn_5'],
+    out: 'button_burn_sheet.webp',
+  },
+  {
+    frames: ['button_connectwallet_01', 'button_connectwallet_02'],
+    out: 'button_connect_sheet.webp',
+  },
 ]
 
 for (const { frames, out } of sequences) {
@@ -21,7 +27,10 @@ for (const { frames, out } of sequences) {
   let height = 0
   for (const frame of frames) {
     const path = `${dir}/${frame}.webp`
-    const { data, info } = await sharp(path).ensureAlpha().raw().toBuffer({ resolveWithObject: true })
+    const { data, info } = await sharp(path)
+      .ensureAlpha()
+      .raw()
+      .toBuffer({ resolveWithObject: true })
     if (width && (info.width !== width || info.height !== height)) {
       throw new Error(`Frame size mismatch in ${out}: ${frame} is ${info.width}x${info.height}`)
     }

@@ -4,15 +4,19 @@
   margin-inline: auto;
   width: 34.375rem;
   max-width: 90%;
-  aspect-ratio: 352 / 912;
-  background-size: 100% calc(var(--frames) * 100%);
-  background-repeat: no-repeat;
-  image-rendering: pixelated;
   pointer-events: none;
 }
 
-.static {
-  height: auto;
+.static img {
+  image-rendering: pixelated;
+}
+
+.sheeted {
+  aspect-ratio: 352 / 912;
+  background-image: var(--sheet);
+  background-size: 100% calc(var(--frames) * 100%);
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
 }
 
 .cycle2 {
