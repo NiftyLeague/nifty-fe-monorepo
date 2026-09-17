@@ -22,7 +22,6 @@ export const SITEMAP_ENTRIES = [
   { priority: 1.0, path: '' },
   { priority: 0.8, path: '/degens' },
   { priority: 0.8, path: '/games' },
-  { priority: 0.8, path: '/games/mt-gawx' },
   { priority: 0.8, path: '/games/smashers' },
   { priority: 0.8, path: '/leaderboards' },
   { priority: 0.8, path: '/mint-o-matic' },
