@@ -21,7 +21,11 @@ export const NetworkProvider = (props: { children?: JSX.Element }): JSX.Element 
       return account.isConnected
     },
     write: (params: ContractWriteParams, callback?: WriteReceiptCallback) =>
-      executeContractWrite(useWagmiConfig(), { chainId: TARGET_NETWORK.chainId, ...params }, callback),
+      executeContractWrite(
+        useWagmiConfig(),
+        { chainId: TARGET_NETWORK.chainId, ...params },
+        callback
+      ),
   }
 
   return <NetworkContext.Provider value={value}>{props.children}</NetworkContext.Provider>
