@@ -8,10 +8,12 @@ export const fetchScores = async (
   timeFilter: string,
   count: number,
   offset: number,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  /** Server loaders must pass the request origin; the browser uses relative. */
+  origin = ''
 ): Promise<ReturnDataType> => {
   const response = await fetch(
-    `/api/leaderboards?${new URLSearchParams({
+    `${origin}/api/leaderboards?${new URLSearchParams({
       game: gameType,
       score: scoreType,
       time: timeFilter,

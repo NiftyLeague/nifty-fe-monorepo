@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/solid-router'
 import { isServer } from 'solid-js/web'
 
 import DeferredLeaderboards from '@/components/providers/DeferredLeaderboards'
+import { getRequestOrigin } from '@/runtime/request-origin'
 import { Title } from '@nl/ui/custom/typography'
 import { LEADERBOARD_GAME_LIST } from '@/constants/leaderboards'
 import { queryKeys } from '@/query/app-query'
@@ -13,13 +14,12 @@ const LEADERBOARD_PAGE_SIZE = 50
 export const Route = createFileRoute('/_public/leaderboards/')({
   validateSearch: acceptSearch,
   loaderDeps: ({ search }) => search,
-  loader: ({ context, deps }) => {
-    // The scores table is a client-only deferred component, so on the server
-    // there is nothing to prefetch into — the component fetches after mount.
+  loader: async ({ context, deps }) => {
+    // Warm the exact page query so the client-only table renders rows from
+    // the dehydrated cache instead of fetching after mount: the server fetch
+    // needs the request origin, the browser uses the relative URL.
     // On the client (including 'intent' preloads on hover/focus) we warm the
     // exact page query so the request is already in flight before navigation.
-    if (isServer) return
-
     const search = parseLeaderboardSearch(deps)
     const game =
       LEADERBOARD_GAME_LIST.find((entry) => entry.key === search.game) ?? LEADERBOARD_GAME_LIST[0]
@@ -30,17 +30,23 @@ export const Route = createFileRoute('/_public/leaderboards/')({
 
     if (!table) return
 
-    void context.queryClient.prefetchQuery({
-      queryKey: queryKeys.leaderboards.page(
-        search.game,
-        table.key,
-        time,
-        LEADERBOARD_PAGE_SIZE,
-        offset
-      ),
-      queryFn: ({ signal }) =>
-        fetchScores(search.game, table.key, time, LEADERBOARD_PAGE_SIZE, offset, signal),
-    })
+    const origin = isServer ? getRequestOrigin() : ''
+
+    try {
+      await context.queryClient.ensureQueryData({
+        queryKey: queryKeys.leaderboards.page(
+          search.game,
+          table.key,
+          time,
+          LEADERBOARD_PAGE_SIZE,
+          offset
+        ),
+        queryFn: ({ signal }) =>
+          fetchScores(search.game, table.key, time, LEADERBOARD_PAGE_SIZE, offset, signal, origin),
+      })
+    } catch {
+      // The client-side mount refetches through the same key.
+    }
   },
   component: LeaderboardPage,
 })
