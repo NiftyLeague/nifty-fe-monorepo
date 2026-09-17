@@ -23,10 +23,13 @@ describe('application metadata routes', () => {
   it('lists unique canonical routes with valid priorities', () => {
     const urls = SITEMAP_ENTRIES.map(({ path }) => `${APP_ORIGIN}${path}`)
 
-    // 14 static surfaces plus the /world index, 9 scenes, and 6 mini games.
-    expect(SITEMAP_ENTRIES).toHaveLength(30)
+    // 7 public static surfaces plus the /world index, 9 scenes, and 6 mini
+    // games. Auth-gated (/dashboard/*) and client-only (/verification) routes
+    // are deliberately absent.
+    expect(SITEMAP_ENTRIES).toHaveLength(23)
     expect(new Set(urls).size).toBe(SITEMAP_ENTRIES.length)
-    expect(urls).toContain(`${APP_ORIGIN}/dashboard`)
+    expect(urls).not.toContain(`${APP_ORIGIN}/dashboard`)
+    expect(urls).not.toContain(`${APP_ORIGIN}/verification`)
     expect(urls).toContain(`${APP_ORIGIN}/mint-o-matic`)
     expect(urls).toContain(`${APP_ORIGIN}/world`)
     expect(urls).toContain(`${APP_ORIGIN}/world/isla-azul`)
@@ -39,7 +42,8 @@ describe('application metadata routes', () => {
 
     expect(xml.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true)
     expect(xml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
-    expect(xml).toContain(`<loc>${APP_ORIGIN}/dashboard</loc>`)
+    expect(xml).toContain(`<loc>${APP_ORIGIN}/games</loc>`)
+    expect(xml).not.toContain(`${APP_ORIGIN}/dashboard`)
     expect(xml).toContain('<lastmod>2026-01-02</lastmod>')
     expect(xml.match(/<url>/g)).toHaveLength(SITEMAP_ENTRIES.length)
   })

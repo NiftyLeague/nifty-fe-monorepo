@@ -24,9 +24,11 @@ const docsMarkdownProcessor = satteri({
 
 // The docs project is served at the root of docs.niftyleague.com and through
 // niftyleague.com/docs (which strips the prefix when proxying). Keep the
-// historical /docs/ prefix so one build works on both hosts.
+// historical /docs/ prefix so one build works on both hosts. The canonical
+// host is the apex: niftyleague.com/docs is the primary linked surface, so
+// `site` points there and every canonical/og/sitemap URL follows it.
 export default defineConfig({
-  site: 'https://docs.niftyleague.com',
+  site: 'https://niftyleague.com',
   base: '/docs',
   // The previous site emitted directory-style output with extension-less links
   // that carry no trailing slash; keep both so existing URLs and inbound links

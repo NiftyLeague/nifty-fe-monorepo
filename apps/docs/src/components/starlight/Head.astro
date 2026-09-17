@@ -26,7 +26,8 @@ import {
 } from '../../lib/roadmap-poster';
 
 const { head, entry } = Astro.locals.starlightRoute;
-const site = Astro.site?.href ?? 'https://docs.niftyleague.com/';
+// Canonical host is the apex /docs surface; the docs subdomain proxies to it.
+const site = Astro.site?.href ?? 'https://niftyleague.com/';
 
 /*
  * Tags this component owns; Starlight's generated copies are dropped.

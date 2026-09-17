@@ -67,6 +67,7 @@ Disallow: /shells/
 Disallow: /invite/
 Disallow: /party/
 Sitemap: https://niftyleague.com/sitemap.xml
+Sitemap: https://niftyleague.com/docs/sitemap-index.xml
 `
 )
 console.log('Wrote robots.txt and generated image variants.')
