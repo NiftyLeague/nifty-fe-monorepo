@@ -10,7 +10,7 @@ export const Route = createFileRoute('/_public/world')({
 
 function WorldLayout() {
   return (
-    <PublicContentContainer>
+    <PublicContentContainer fill>
       <Outlet />
     </PublicContentContainer>
   )
