@@ -36,6 +36,6 @@
     "@nl/typescript-config": "workspace:*",
     "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.4.0"
+    "@types/node": "^26.5.1"
   }
 }
