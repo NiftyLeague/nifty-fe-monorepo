@@ -34,7 +34,6 @@ import { Route as PublicDegensIdRouteImport } from './routes/_public/degens.$id'
 import { Route as PublicGamesIndexRouteImport } from './routes/_public/games.index'
 import { Route as PublicGamesGameRouteImport } from './routes/_public/games.$game'
 import { Route as PublicGamesCryptoWinterRouteImport } from './routes/_public/games.crypto-winter'
-import { Route as PublicGamesMtGawxRouteImport } from './routes/_public/games.mt-gawx'
 import { Route as PublicGamesSmashersRouteImport } from './routes/_public/games.smashers'
 import { Route as PublicGamesWenGameRouteImport } from './routes/_public/games.wen-game'
 import { Route as PublicLeaderboardsIndexRouteImport } from './routes/_public/leaderboards.index'
@@ -169,11 +168,6 @@ const PublicGamesCryptoWinterRoute = PublicGamesCryptoWinterRouteImport.update({
   path: '/crypto-winter',
   getParentRoute: () => PublicGamesRoute,
 } as any)
-const PublicGamesMtGawxRoute = PublicGamesMtGawxRouteImport.update({
-  id: '/mt-gawx',
-  path: '/mt-gawx',
-  getParentRoute: () => PublicGamesRoute,
-} as any)
 const PublicGamesSmashersRoute = PublicGamesSmashersRouteImport.update({
   id: '/smashers',
   path: '/smashers',
@@ -245,7 +239,6 @@ export interface FileRoutesByFullPath {
   '/degens/$id': typeof PublicDegensIdRoute
   '/games/$game': typeof PublicGamesGameRoute
   '/games/crypto-winter': typeof PublicGamesCryptoWinterRoute
-  '/games/mt-gawx': typeof PublicGamesMtGawxRoute
   '/games/smashers': typeof PublicGamesSmashersRoute
   '/games/wen-game': typeof PublicGamesWenGameRoute
   '/world/$scene': typeof PublicWorldSceneRoute
@@ -274,7 +267,6 @@ export interface FileRoutesByTo {
   '/degens/$id': typeof PublicDegensIdRoute
   '/games/$game': typeof PublicGamesGameRoute
   '/games/crypto-winter': typeof PublicGamesCryptoWinterRoute
-  '/games/mt-gawx': typeof PublicGamesMtGawxRoute
   '/games/smashers': typeof PublicGamesSmashersRoute
   '/games/wen-game': typeof PublicGamesWenGameRoute
   '/world/$scene': typeof PublicWorldSceneRoute
@@ -312,7 +304,6 @@ export interface FileRoutesById {
   '/_public/degens/$id': typeof PublicDegensIdRoute
   '/_public/games/$game': typeof PublicGamesGameRoute
   '/_public/games/crypto-winter': typeof PublicGamesCryptoWinterRoute
-  '/_public/games/mt-gawx': typeof PublicGamesMtGawxRoute
   '/_public/games/smashers': typeof PublicGamesSmashersRoute
   '/_public/games/wen-game': typeof PublicGamesWenGameRoute
   '/_public/world/$scene': typeof PublicWorldSceneRoute
@@ -350,7 +341,6 @@ export interface FileRouteTypes {
     | '/degens/$id'
     | '/games/$game'
     | '/games/crypto-winter'
-    | '/games/mt-gawx'
     | '/games/smashers'
     | '/games/wen-game'
     | '/world/$scene'
@@ -379,7 +369,6 @@ export interface FileRouteTypes {
     | '/degens/$id'
     | '/games/$game'
     | '/games/crypto-winter'
-    | '/games/mt-gawx'
     | '/games/smashers'
     | '/games/wen-game'
     | '/world/$scene'
@@ -416,7 +405,6 @@ export interface FileRouteTypes {
     | '/_public/degens/$id'
     | '/_public/games/$game'
     | '/_public/games/crypto-winter'
-    | '/_public/games/mt-gawx'
     | '/_public/games/smashers'
     | '/_public/games/wen-game'
     | '/_public/world/$scene'
@@ -617,13 +605,6 @@ declare module '@tanstack/solid-router' {
       preLoaderRoute: typeof PublicGamesCryptoWinterRouteImport
       parentRoute: typeof PublicGamesRoute
     }
-    '/_public/games/mt-gawx': {
-      id: '/_public/games/mt-gawx'
-      path: '/mt-gawx'
-      fullPath: '/games/mt-gawx'
-      preLoaderRoute: typeof PublicGamesMtGawxRouteImport
-      parentRoute: typeof PublicGamesRoute
-    }
     '/_public/games/smashers': {
       id: '/_public/games/smashers'
       path: '/smashers'
@@ -707,7 +688,6 @@ const PublicDegensRouteWithChildren = PublicDegensRoute._addFileChildren(
 interface PublicGamesRouteChildren {
   PublicGamesGameRoute: typeof PublicGamesGameRoute
   PublicGamesCryptoWinterRoute: typeof PublicGamesCryptoWinterRoute
-  PublicGamesMtGawxRoute: typeof PublicGamesMtGawxRoute
   PublicGamesSmashersRoute: typeof PublicGamesSmashersRoute
   PublicGamesWenGameRoute: typeof PublicGamesWenGameRoute
   PublicGamesIndexRoute: typeof PublicGamesIndexRoute
@@ -717,7 +697,6 @@ interface PublicGamesRouteChildren {
 const PublicGamesRouteChildren: PublicGamesRouteChildren = {
   PublicGamesGameRoute: PublicGamesGameRoute,
   PublicGamesCryptoWinterRoute: PublicGamesCryptoWinterRoute,
-  PublicGamesMtGawxRoute: PublicGamesMtGawxRoute,
   PublicGamesSmashersRoute: PublicGamesSmashersRoute,
   PublicGamesWenGameRoute: PublicGamesWenGameRoute,
   PublicGamesIndexRoute: PublicGamesIndexRoute,

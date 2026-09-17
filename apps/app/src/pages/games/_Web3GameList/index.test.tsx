@@ -43,9 +43,10 @@ describe('mini game list navigation', () => {
       '/games/wen-3d',
       '/games/degen-dive',
       '/games/tennis',
+      '/games/mt-gawx',
     ])
     expect(screen.queryByText('Play in App')).toBeNull()
     expect(screen.queryByText(/required/i)).toBeNull()
-    expect(screen.getAllByText('Play game')).toHaveLength(6)
+    expect(screen.getAllByText('Play game')).toHaveLength(7)
   })
 })

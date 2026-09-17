@@ -1,8 +1,6 @@
 import type { UnityConfig } from '@/runtime/unity'
 
 import {
-  UNITY_BURNER_BASE_URL,
-  UNITY_BURNER_BASE_VERSION,
   UNITY_SMASHERS_BASE_URL,
   UNITY_SMASHERS_BASE_VERSION,
   UNITY_USE_COMPRESSED,
@@ -42,10 +40,4 @@ export const smashersBuild = buildConfig({
   baseUrl: UNITY_SMASHERS_BASE_URL,
   productName: 'NiftySmashers',
   version: UNITY_SMASHERS_BASE_VERSION,
-})
-
-export const mtGawxBuild = buildConfig({
-  baseUrl: UNITY_BURNER_BASE_URL,
-  productName: 'Mt.Gawx',
-  version: UNITY_BURNER_BASE_VERSION,
 })
