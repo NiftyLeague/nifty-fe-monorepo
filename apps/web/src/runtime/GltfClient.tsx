@@ -19,7 +19,7 @@ export default function GltfClient() {
             fill
             sizes="100vw"
             unoptimized
-            src={`${DEGEN_BASE_SPRITE_URL}/${tokenId}.gif`}
+            src={`${DEGEN_BASE_SPRITE_URL}/${tokenId}.webp`}
           />
         </div>
       }
