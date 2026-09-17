@@ -1136,7 +1136,7 @@ describe('mint route provider loading contract', () => {
     }
     // Writes moved to the viem pipeline in utils/transactions; useNotify is
     // gone, so the provider imports the executor instead.
-    expect(providerSource).toContain("executeContractWrite")
+    expect(providerSource).toContain('executeContractWrite')
     expect(providerSource).toContain("from '@/utils/transactions'")
     expect(contextSource).not.toContain("from '@/hooks/useNotify'")
     expect(existsSync(join(process.cwd(), 'apps/app/src/hooks/useNotify.ts'))).toBe(false)
