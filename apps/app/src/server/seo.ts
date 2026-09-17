@@ -15,21 +15,17 @@ const worldEntries = [
   })),
 ]
 
+// Only publicly indexable routes belong here: /dashboard/* sits behind
+// AuthGuard (anonymous crawlers get the login wall) and /verification renders
+// a client-only wallet check, so neither can be indexed.
 export const SITEMAP_ENTRIES = [
   { priority: 1.0, path: '' },
-  { priority: 0.8, path: '/dashboard' },
-  { priority: 0.8, path: '/dashboard/degens' },
-  { priority: 0.8, path: '/dashboard/gamer-profile' },
-  { priority: 0.8, path: '/dashboard/items' },
-  { priority: 0.8, path: '/dashboard/overview' },
-  { priority: 0.5, path: '/dashboard/rentals' },
   { priority: 0.8, path: '/degens' },
   { priority: 0.8, path: '/games' },
   { priority: 0.8, path: '/games/mt-gawx' },
   { priority: 0.8, path: '/games/smashers' },
   { priority: 0.8, path: '/leaderboards' },
   { priority: 0.8, path: '/mint-o-matic' },
-  { priority: 0.5, path: '/verification' },
   ...worldEntries,
 ] as const
 

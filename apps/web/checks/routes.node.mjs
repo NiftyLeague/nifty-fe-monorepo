@@ -14,6 +14,26 @@ test('original permanent and temporary redirects retain their status and query',
     assert.equal(routeRequest(`https://niftyleague.com${path}`).status, 307)
   assert.equal(new URL(routeRequest('https://niftyleague.com/d/123?ref=a').url).search, '?ref=a')
 })
+test('retired marketing and docs slugs permanently redirect to their replacements', () => {
+  const cases = [
+    ['/niftyverse', 'https://niftyleague.com/niftyworld'],
+    ['/niftyverse/extra', 'https://niftyleague.com/niftyworld'],
+    ['/docs/archive/rentals/rentals', 'https://niftyleague.com/docs/archive/rentals'],
+    [
+      '/docs/overview/games/niftyworld/niftyworld',
+      'https://niftyleague.com/docs/overview/games/niftyworld',
+    ],
+    ['/docs/greetings', 'https://niftyleague.com/docs'],
+    ['/docs/tutorial', 'https://niftyleague.com/docs'],
+    ['/docs/tutorial/create-a-page', 'https://niftyleague.com/docs'],
+  ]
+  for (const [path, url] of cases)
+    assert.deepEqual(routeRequest(`https://niftyleague.com${path}`), {
+      kind: 'redirect',
+      status: 308,
+      url,
+    })
+})
 test('app and docs distinguish production, preview and local development', () => {
   assert.equal(
     new URL(routeRequest('https://niftyleague.com/app', 'production').url).hostname,

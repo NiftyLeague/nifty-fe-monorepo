@@ -28,6 +28,8 @@
       "/docs",
       "/docs/*",
       "/app",
+      "/niftyverse",
+      "/niftyverse/*",
       "/blog",
       "/feedback",
       "/snapshot",

@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro'
 const SITE_URL = 'https://niftysmashers.com'
 
 const HIGH_PRIORITY_PATHS = ['/']
-const MID_PRIORITY_PATHS = ['/android', '/ios', '/epic', '/steam', '/loot']
+const MID_PRIORITY_PATHS = ['/loot']
 export const ALL_PATHS = [...HIGH_PRIORITY_PATHS, ...MID_PRIORITY_PATHS]
 
 const pathPriority = (path: string): string => {
@@ -12,10 +12,10 @@ const pathPriority = (path: string): string => {
 }
 
 /**
- * Static sitemap, replacing the next-sitemap postbuild step. The path list
- * includes the store redirects that are not Astro pages but are still worth
- * submitting. `/login` and `/profile` are deliberately absent: both render
- * `noindex` (Auth.astro), so they are deliberately absent.
+ * Static sitemap, replacing the next-sitemap postbuild step. Only indexable
+ * pages belong here: `/android`, `/ios`, `/epic` and `/steam` are outbound
+ * store redirects (Search Console reports them as "Page with redirect"), and
+ * `/login` and `/profile` render `noindex` (Auth.astro).
  */
 export const GET: APIRoute = () => {
   const lastmod = new Date().toISOString()

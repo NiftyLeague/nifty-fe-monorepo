@@ -68,8 +68,10 @@ describe('docs SEO surface', () => {
   })
 
   it('serves a domain-root robots.txt that points at the sitemap index', () => {
+    // The canonical docs surface is niftyleague.com/docs; the sitemap index
+    // resolves there through the /docs proxy.
     const robots = read('src/pages/robots.txt.ts')
-    expect(robots).toContain('Sitemap: https://docs.niftyleague.com/sitemap-index.xml')
+    expect(robots).toContain('Sitemap: https://niftyleague.com/docs/sitemap-index.xml')
     expect(robots).toContain('Allow: /')
   })
 
@@ -77,7 +79,7 @@ describe('docs SEO surface', () => {
     // The crawler config's sitemap_urls must reference the URL robots.txt
     // declares.
     const algolia = JSON.parse(read('algolia-config.json')) as { sitemap_urls: string[] }
-    expect(algolia.sitemap_urls).toEqual(['https://docs.niftyleague.com/sitemap-index.xml'])
+    expect(algolia.sitemap_urls).toEqual(['https://niftyleague.com/docs/sitemap-index.xml'])
   })
 
   it('keeps the utility search page out of the index', () => {

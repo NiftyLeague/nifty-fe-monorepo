@@ -4,6 +4,15 @@ const PERMANENT = new Map([
   ['/snapshot', 'https://snapshot.niftyleague.com'],
   ['/tally', 'https://www.tally.xyz/gov/niftyleague'],
   ['/NFTL/supply', 'https://api.niftyleague.com/NFTL/supply'],
+  // Renamed marketing page and docs slugs retired by the Starlight migration.
+  ['/niftyverse', 'https://niftyleague.com/niftyworld'],
+  ['/docs/archive/rentals/rentals', 'https://niftyleague.com/docs/archive/rentals'],
+  [
+    '/docs/overview/games/niftyworld/niftyworld',
+    'https://niftyleague.com/docs/overview/games/niftyworld',
+  ],
+  ['/docs/greetings', 'https://niftyleague.com/docs'],
+  ['/docs/tutorial', 'https://niftyleague.com/docs'],
 ])
 const TEMPORARY = new Map([
   ['/HUB', 'https://hub.xyz/niftyleague'],
@@ -35,6 +44,17 @@ export function routeRequest(input, environment = 'production') {
       kind: 'redirect',
       status: PERMANENT.has(path) ? 308 : 307,
       url: withQuery(target, url),
+    }
+
+  // Retired prefixes that collapse onto a canonical page.
+  if (under(path, '/niftyverse') || under(path, '/docs/tutorial'))
+    return {
+      kind: 'redirect',
+      status: 308,
+      url: withQuery(
+        `https://niftyleague.com${under(path, '/niftyverse') ? '/niftyworld' : '/docs'}`,
+        url
+      ),
     }
 
   if (path === '/app') {

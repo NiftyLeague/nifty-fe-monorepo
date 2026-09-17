@@ -113,17 +113,6 @@ const faq: Item[] = [
   { label: 'Comics', slug: 'faq/comics' },
 ]
 
-const tutorial: Item[] = [
-  { label: 'Create a Page', slug: 'tutorial/create-a-page' },
-  { label: 'Create a Document', slug: 'tutorial/create-a-document' },
-  { label: 'Create a Blog Post', slug: 'tutorial/create-a-blog-post' },
-  { label: 'Markdown Features', slug: 'tutorial/markdown-features' },
-  { label: 'Deploy your site', slug: 'tutorial/deploy-your-site' },
-  { label: 'Manage Docs Versions', slug: 'tutorial/manage-docs-versions' },
-  { label: 'Translate your site', slug: 'tutorial/translate-your-site' },
-  { label: 'Congratulations!', slug: 'tutorial/congratulations' },
-]
-
 const archive: Item[] = [
   {
     label: 'Rentals',
@@ -137,10 +126,4 @@ const archive: Item[] = [
   },
 ]
 
-export const sidebar: StarlightUserConfig['sidebar'] = [
-  ...overview,
-  ...guides,
-  ...faq,
-  ...tutorial,
-  ...archive,
-]
+export const sidebar: StarlightUserConfig['sidebar'] = [...overview, ...guides, ...faq, ...archive]
