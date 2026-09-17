@@ -37,6 +37,12 @@ export const NIFTY_WORLD_GAMES = [
     description: 'Serve, rally, and return in Nifty Tennis.',
     image: `${NIFTY_WORLD_ORIGIN}/assets/maps/tennis.webp`,
   },
+  {
+    id: 'mt-gawx',
+    title: 'Mt. Gawx',
+    description: 'Throw NFTL into the fires of Mt. Gawx.',
+    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/mt-gawx.webp`,
+  },
 ] as const
 
 export type NiftyWorldGame = (typeof NIFTY_WORLD_GAMES)[number]
