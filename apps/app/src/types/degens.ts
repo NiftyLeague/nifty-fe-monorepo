@@ -48,9 +48,3 @@ export type PublicDegen = Pick<
   Degen,
   'id' | 'name' | 'owner' | 'background' | 'tribe' | 'traits_string' | 'price'
 >
-
-export interface CharacterType {
-  name: string | null
-  owner: string | null
-  traitList: bigint[]
-}

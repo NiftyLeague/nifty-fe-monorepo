@@ -3,7 +3,9 @@ import { formatEther } from 'ethers'
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants/index'
 import useIMXContext from '@/hooks/useIMXContext'
-import useSingleCallResult from '@/hooks/useSingleCallResult'
+import { useReadContract } from '@/runtime/wagmi'
+import { getContractABI, getContractAddress } from '@/constants/contracts'
+import { IMX_ID } from '@/constants/networks'
 import useUserClaimData from './useUserClaimData'
 
 interface UserClaimData {
@@ -18,23 +20,34 @@ function useUserHasAvailableClaim(
 ): () => boolean {
   const imx = useIMXContext()
 
-  const isClaimedResult = useSingleCallResult(
-    () => imx.imxContracts,
-    BALANCE_MANAGER_CONTRACT,
-    'isClaimed',
-    () => [userClaimData()?.index],
-    null,
-    () => !userClaimData() || userClaimData()?.index === undefined
-  )
+  // `isClaimed` is a public view call: it reads through the shared query
+  // cache on the IMX chain RPC and does not need the user's Passport provider.
+  const isClaimedQuery = useReadContract(() => {
+    // Fall back to the production IMX chain for option construction only —
+    // the query stays disabled until the real chain id and claim index exist.
+    const chainId = imx.imxChainId ?? IMX_ID
+    const index = userClaimData()?.index
+    return {
+      address: getContractAddress(chainId, BALANCE_MANAGER_CONTRACT) as `0x${string}`,
+      abi: getContractABI(chainId, BALANCE_MANAGER_CONTRACT),
+      functionName: 'isClaimed',
+      args: [BigInt(index ?? 0)],
+      chainId,
+      query: {
+        enabled: imx.imxChainId !== undefined && index !== undefined,
+        staleTime: 30_000,
+      },
+    }
+  })
 
   // user is in blob and contract marks as unclaimed
-  return () => Boolean(userClaimData() && isClaimedResult() === false)
+  return () => Boolean(userClaimData() && isClaimedQuery.data === false)
 }
 
-export type ClaimResult = { nftlUnclaimed: number; loading: boolean }
-
-export default function useUserUnclaimedAmount(): ClaimResult {
+// Check if user is in the blob and has not yet claimed NFTL
+function useUserUnclaimedAmount() {
   const userClaimData = useUserClaimData()
+
   const canClaim = useUserHasAvailableClaim(() => userClaimData.claimData)
 
   createEffect(() => {
@@ -54,3 +67,5 @@ export default function useUserUnclaimedAmount(): ClaimResult {
     },
   }
 }
+
+export default useUserUnclaimedAmount
