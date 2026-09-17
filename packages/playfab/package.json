@@ -34,6 +34,6 @@
     "solid-sonner": "^0.3.2"
   },
   "devDependencies": {
-    "@types/node": "^26.4.0"
+    "@types/node": "^26.5.1"
   }
 }
