@@ -22,7 +22,6 @@ const REDUNDANT_EXPORTS = {
   'apps/app/src/contexts/NFTsBalanceContext.tsx': ['NFTsBalanceContextValue'],
   'apps/app/src/contexts/NotificationContext.tsx': ['useNotification'],
   'apps/app/src/contexts/TokensBalanceContext.tsx': ['TokensBalanceContextValue'],
-  'apps/app/src/hooks/merkleDistributor/useUserUnclaimedAmount.ts': ['ClaimResult'],
   // The app's OptimizedImage implementation is wired through the vite alias
   // (`@nl/ui/custom/optimized-image` -> src/runtime/Image.tsx), which the
   // type-aware detector does not resolve; its exports are the public surface

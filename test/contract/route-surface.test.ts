@@ -1700,7 +1700,9 @@ describe('dashboard burner loading contract', () => {
     expect(clientSource).not.toContain("from 'ethers'")
     expect(clientSource).not.toContain("from './_components/machine'")
     expect(clientSource).not.toContain("from '@/hooks/useNetworkContext'")
-    expect(contentSource).toContain("from 'ethers'")
+    // The approval read moved to the shared query cache (runtime/wagmi);
+    // ethers remains only on the write path via network.writeContracts.
+    expect(contentSource).not.toContain("from 'ethers'")
     expect(contentSource).toContain("from './_components/machine'")
     expect(contentSource).toContain("from '@/hooks/useNetworkContext'")
     expect(contentSource).toContain('setRefreshKey((key) => key + 1)')
