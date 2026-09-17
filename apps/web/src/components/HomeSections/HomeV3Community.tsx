@@ -1,6 +1,8 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
+import { DEGEN_SITE_ASSETS_URL } from '@/constants/degen-assets'
+
 export default function HomeV3Community() {
   return (
     <section
@@ -28,7 +30,7 @@ export default function HomeV3Community() {
         />
         <div class="home-v3-community-cast">
           <OptimizedImage
-            src="/img/degens/community-characters.webp"
+            src={`${DEGEN_SITE_ASSETS_URL}/community-characters.webp`}
             alt="Community DEGENs"
             width={596}
             height={194}

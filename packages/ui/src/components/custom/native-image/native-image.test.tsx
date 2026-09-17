@@ -27,7 +27,12 @@ describe('NativeImage', () => {
 
   it('preserves fill layout geometry on the native element', () => {
     const { container } = render(() => (
-      <NativeImage fill src="/img/degens/nfts/1.webp" alt="Degen" sizes="100vw" />
+      <NativeImage
+        fill
+        src="https://cdn.niftyleague.com/degens/images/bg/md/1.webp"
+        alt="Degen"
+        sizes="100vw"
+      />
     ))
     const image = container.querySelector('img')
 

@@ -98,8 +98,9 @@ test('fluid images retain a responsive ladder and eager hero hints', () => {
 })
 test('unoptimized and dynamic assets still work in responsive picture sources', () => {
   assert.equal(
-    imageProps({ src: '/img/degens/nfts/1.gif', width: 584 }).srcSet,
-    '/img/degens/nfts/1.gif 1x'
+    imageProps({ src: 'https://cdn.niftyleague.com/degens/images/bg/md/1.webp', width: 584 })
+      .srcSet,
+    'https://cdn.niftyleague.com/degens/images/bg/md/1.webp 1x'
   )
 })
 test('image ladders never upscale beyond the native asset', () => {

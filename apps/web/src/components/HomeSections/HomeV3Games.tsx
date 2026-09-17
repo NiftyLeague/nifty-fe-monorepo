@@ -1,6 +1,7 @@
 import OptimizedImage from '@nl/ui/custom/optimized-image'
 import { ThemeButtonGroup } from '@nl/ui/custom/theme-button-group'
 
+import { DEGEN_SITE_ASSETS_URL } from '@/constants/degen-assets'
 import { NIFTY_WORLD_APP_URL } from '@/constants/links'
 
 export default function HomeV3Games() {
@@ -40,7 +41,7 @@ export default function HomeV3Games() {
           </a>
           <div class="home-v3-floating-mascot" aria-hidden="true">
             <OptimizedImage
-              src="/img/degens/specials/cat.gif"
+              src={`${DEGEN_SITE_ASSETS_URL}/specials/cat.gif`}
               alt=""
               width={512}
               height={512}

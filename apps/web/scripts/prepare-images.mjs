@@ -27,13 +27,6 @@ async function files(directory) {
   return results
 }
 
-const nftDirectory = join(assets, 'img/degens/nfts')
-const leggies = (await readdir(nftDirectory))
-  .filter((name) => /^\d+\.gif$/i.test(name))
-  .map((name) => Number(name.slice(0, -4)))
-  .toSorted((a, b) => a - b)
-await writeFile(join(output, 'leggies.json'), JSON.stringify(leggies) + '\n')
-
 if (!metadataOnly) {
   const references = new Set()
   for (const root of [join(app, 'src'), resolve(app, '../../packages/ui/src')]) {
