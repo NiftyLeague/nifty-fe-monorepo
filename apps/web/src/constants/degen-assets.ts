@@ -1,5 +1,7 @@
 const DEGEN_CDN_BASE_URL = 'https://cdn.niftyleague.com'
-export const DEGEN_BASE_SPRITE_URL = `${DEGEN_CDN_BASE_URL}/degens/gifs/retro`
+// Per-degen run-cycle sprites: lossless animated WebP (converted from the
+// retired GIF set), served from R2 under animated/{variant}.
+export const DEGEN_BASE_SPRITE_URL = `${DEGEN_CDN_BASE_URL}/degens/animated/retro`
 // 2D stills on R2 in three sizes; md (584x640) is the OpenSea-tuned size.
 // Leggy degens ship as animated WebP at the same path.
 export const DEGEN_2D_IMAGE_URL = `${DEGEN_CDN_BASE_URL}/degens/images/bg/md`
