@@ -15,8 +15,13 @@ import useNFTLAllowance from '@/hooks/useNFTLAllowance'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
 import { CDN_BASE_URL } from '@/constants/api'
 import { getErrorForName } from '@/utils/name'
-import { submitTxWithGasEstimate } from '@/utils/transactions'
-import { getDeployedContract, NFTL_CONTRACT, DEGEN_CONTRACT } from '@/constants/contracts'
+import {
+  getDeployedContract,
+  NFTL_CONTRACT,
+  DEGEN_CONTRACT,
+  getContractABI,
+  getContractAddress,
+} from '@/constants/contracts'
 import { TARGET_NETWORK } from '@/constants/networks'
 import { DEBUG } from '@/constants/index'
 import type { DashboardDegen } from '@/types/degens'
@@ -60,23 +65,26 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
     const writeContracts = network.writeContracts
     if (insufficientBalance()) {
       setError('Failed to charge the rental rename fee')
-    } else if (
-      !error() &&
-      writeContracts &&
-      writeContracts[DEGEN_CONTRACT] &&
-      writeContracts[NFTL_CONTRACT]
-    ) {
+    } else if (!error() && writeContracts) {
       if (DEBUG) console.log('Rename NFT to:', input())
-      const degenContract = writeContracts[DEGEN_CONTRACT]
-      const nftl = writeContracts[NFTL_CONTRACT]
       if (insufficientAllowance()) {
         if (DEBUG) console.log('Current allowance too low')
-        const DEGENAddress = await degenContract.getAddress()
-        await network.tx(nftl.increaseAllowance(DEGENAddress, parseEther('100000')))
+        const DEGENAddress = getContractAddress(TARGET_NETWORK.chainId, DEGEN_CONTRACT)
+        await network.write({
+          address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`,
+          abi: getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT),
+          functionName: 'increaseAllowance',
+          args: [DEGENAddress, parseEther('100000')],
+        })
         nftlAllowance.refetch()
       }
       const args = [parseInt(props.degen?.id || '', 10), input()]
-      const result = await submitTxWithGasEstimate(network.tx, degenContract, 'changeName', args)
+      const result = await network.write({
+        address: getContractAddress(TARGET_NETWORK.chainId, DEGEN_CONTRACT) as `0x${string}`,
+        abi: getContractABI(TARGET_NETWORK.chainId, DEGEN_CONTRACT),
+        functionName: 'changeName',
+        args,
+      })
       if (result) {
         setRenameSuccess(true)
         gtm.sendEvent(GTM_EVENTS.SPEND_VIRTUAL_CURRENCY, {

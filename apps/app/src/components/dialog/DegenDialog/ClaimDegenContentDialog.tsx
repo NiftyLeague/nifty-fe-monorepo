@@ -4,7 +4,8 @@ import { createMemo, onCleanup } from 'solid-js'
 import type { DashboardDegen } from '@/types/degens'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
-import { NFTL_CONTRACT } from '@/constants/contracts'
+import { NFTL_CONTRACT, getContractABI, getContractAddress } from '@/constants/contracts'
+import { TARGET_NETWORK } from '@/constants/networks'
 import { DEBUG } from '@/constants/index'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 
@@ -23,7 +24,12 @@ const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
 
   const handleClaimNFTL = async (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
     if (DEBUG) console.log('Claim', degenTokenIndices(), claimable.balance)
-    await network.tx(network.writeContracts[NFTL_CONTRACT].claim(degenTokenIndices()))
+    await network.write({
+      address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`,
+      abi: getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT),
+      functionName: 'claim',
+      args: [degenTokenIndices()],
+    })
     refetchTimer = setTimeout(() => claimable.refetch(), 5000)
     props.onClose?.(event)
   }
