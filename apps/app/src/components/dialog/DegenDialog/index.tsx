@@ -63,10 +63,7 @@ export interface DegenDialogProps {
 const DegenDialog = (props: DegenDialogProps) => {
   const tokenId = () => Number(props.degen?.id ?? 0)
   const fullScreen = useMediaQuery('(max-width:768px)')
-  const degenAddress = getContractAddress(
-    TARGET_NETWORK.chainId,
-    DEGEN_CONTRACT
-  ) as `0x${string}`
+  const degenAddress = getContractAddress(TARGET_NETWORK.chainId, DEGEN_CONTRACT) as `0x${string}`
   const degenAbi = getContractABI(TARGET_NETWORK.chainId, DEGEN_CONTRACT) as Abi
 
   // One cached query per (chain, token id): reopening the same degen resolves
@@ -80,8 +77,18 @@ const DegenDialog = (props: DegenDialogProps) => {
       const config = useWagmiConfig()
       const id = BigInt(tokenId())
       const [name, owner, rawTraits] = await Promise.all([
-        readContract(config, { address: degenAddress, abi: degenAbi, functionName: 'getName', args: [id] }),
-        readContract(config, { address: degenAddress, abi: degenAbi, functionName: 'ownerOf', args: [id] }),
+        readContract(config, {
+          address: degenAddress,
+          abi: degenAbi,
+          functionName: 'getName',
+          args: [id],
+        }),
+        readContract(config, {
+          address: degenAddress,
+          abi: degenAbi,
+          functionName: 'ownerOf',
+          args: [id],
+        }),
         readContract(config, {
           address: degenAddress,
           abi: degenAbi,

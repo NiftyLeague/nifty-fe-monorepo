@@ -9,9 +9,7 @@ import type { DashboardDegen } from '@/types/degens'
 
 const renderWithClient = (fn: () => JSX.Element) => {
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
-  return render(
-    () => <QueryClientProvider client={queryClient}>{fn()}</QueryClientProvider>
-  )
+  return render(() => <QueryClientProvider client={queryClient}>{fn()}</QueryClientProvider>)
 }
 
 mock.module('@/runtime/dynamic', () => ({
@@ -95,7 +93,12 @@ describe('DegenDialog', () => {
     ))
 
     expect(await screen.findByText('Chain Name 1')).not.toBeNull()
-    writeFileSync('/tmp/getname-calls.txt', JSON.stringify(getName.mock.calls.map(c => c[1]?.functionName)) + ' rendered=' + !!screen.queryByText('Chain Name 1'))
+    writeFileSync(
+      '/tmp/getname-calls.txt',
+      JSON.stringify(getName.mock.calls.map((c) => c[1]?.functionName)) +
+        ' rendered=' +
+        !!screen.queryByText('Chain Name 1')
+    )
     expect(getName).toHaveBeenCalledWith(
       expect.objectContaining({ functionName: 'getName', args: [1n] })
     )
