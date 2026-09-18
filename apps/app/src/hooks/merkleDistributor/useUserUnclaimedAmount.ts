@@ -1,5 +1,5 @@
 import { createEffect } from 'solid-js'
-import { formatEther } from 'ethers'
+import { formatEther } from 'viem'
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts'
 import { DEBUG } from '@/constants/index'
 import useIMXContext from '@/hooks/useIMXContext'
@@ -60,7 +60,7 @@ function useUserUnclaimedAmount() {
       // Return 0 if the user already claimed or there is no claim data
       if (!canClaim() || !userClaimData.claimData) return 0
       // Convert the claim amount from wei to Ether and ensure accurate number precision
-      return Number(formatEther(userClaimData.claimData.amount))
+      return Number(formatEther(BigInt(userClaimData.claimData.amount)))
     },
     get loading() {
       return userClaimData.loading

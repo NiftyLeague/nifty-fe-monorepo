@@ -1,7 +1,5 @@
 import { useAccount, useReadContract } from '@/runtime/wagmi'
-import { formatEther } from 'ethers'
-import type { AddressLike } from 'ethers'
-import type { Abi } from 'viem'
+import { formatEther, type Abi, type Address } from 'viem'
 
 import useAuth from '@/hooks/useAuth'
 import { TARGET_NETWORK } from '@/constants/networks'
@@ -10,7 +8,7 @@ import type { UseReadContractParams } from '@/types/web3'
 
 const NFTL_CONTRACT = getDeployedContract(TARGET_NETWORK.chainId, NFTL_CONTRACT_NAME)
 
-type Allowance = { args: [AddressLike, AddressLike]; result: bigint }
+type Allowance = { args: [Address, Address]; result: bigint }
 
 type NFTLAllowanceState = {
   readonly allowance: number

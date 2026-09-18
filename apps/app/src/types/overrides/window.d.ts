@@ -1,5 +1,3 @@
-import { BrowserProvider, Provider } from 'ethers'
-
 import type { Ethereumish } from '@/types/web3'
 
 type UnityMessageParameter = string | number | boolean | undefined
@@ -46,6 +44,5 @@ declare global {
     ) => Promise<UnityInstance>
     ethereum?: Ethereumish
     unityInstance: UnityWindowBridge | null
-    Web3?: { providers?: { HttpProvider?: BrowserProvider; IpcProvider?: Provider } }
   }
 }

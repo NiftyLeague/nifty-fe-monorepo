@@ -1,4 +1,4 @@
-import { formatEther } from 'ethers'
+import { formatEther } from 'viem'
 import { useReadContract } from '@/runtime/wagmi'
 import type { Abi } from 'viem'
 import { TARGET_NETWORK } from '@/constants/networks'

@@ -1,17 +1,15 @@
-# ethers → viem consolidation plan
+# ethers → viem consolidation
 
-The app ships two web3 stacks. `@wagmi/core` + `viem` own wallet connection
-(AppKit, account state, cached contract reads through `src/runtime/wagmi.ts`),
-while `ethers` owns contract interactions through a viem→ethers adapter layer
-(`useEthersProvider`/`useEthersSigner` wrap viem clients into ethers
-providers/signers, and `useContractLoader` instantiates the full contract
-roster against them). Every adapter boundary is a place where the two stacks
-disagree about types, signing, and transaction lifecycles.
+The app's browser web3 stack is viem-only. `@wagmi/core` + `viem` own wallet
+connection (AppKit, account state, cached contract reads through
+`src/runtime/wagmi.ts`), contract reads, writes, receipts, units, address
+validation, and ABI definitions. The API workspace intentionally retains its
+separate ethers integration for server-side contract tooling.
 
-This document scopes the consolidation to viem-only so the adapter layer can
-be deleted. It is a program of several PRs, not a single change.
+This document records the migration decisions and the historical app surface
+that was removed across the phase PRs.
 
-## Current ethers surface (measured 2026-09-17)
+## Historical app ethers surface (measured 2026-09-17)
 
 30 non-generated files import ethers. Grouped by role:
 
@@ -33,14 +31,9 @@ the `runtime/wagmi.ts` read hooks.
 
 ## Migration plan (phased, each independently shippable)
 
-1. **Reads first.** Every read already flows through the query cache
-   (`useReadContract`, or `useSingleCallResult` for the ethers roster).
-   Replace roster reads with `readContract`/`multicall` calls that write into
-   the same cache keys, deleting `useContractLoader`'s read half and both
-   provider/signer adapters when the last consumer is gone. Typechain types
-   stay as types-only (`types/typechain` remains the source of ABIs and
-   typed call shapes via declaration merging; no runtime import of ethers).
-2. **Writes second.** Route sends through `walletActions.writeContract` on
+1. **Reads first.** Complete. Every app read now flows through the shared
+   `useReadContract` query cache and the retired ethers roster is gone.
+2. **Writes second.** Complete. Route sends through `walletActions.writeContract` on
    the wagmi connector client (the wallet's live signing path) while keeping
    the `utils/transactions.ts` toast/receipt UX from #1973 — viem
    `waitForTransactionReceipt` replaces `result.wait()`. `utils/gas.ts`
@@ -48,29 +41,26 @@ the `runtime/wagmi.ts` read hooks.
 3. **Units and misc.** `parseEther`/`formatUnits` → viem's same-named
    utilities; `isAddress`/`toBeHex` exist in viem; `AddressLike` → viem
    `Address`.
-4. **IMX last.** Passport's EVM provider is an EIP-1193 provider, which viem
-   consumes directly (`createWalletClient({ transport: custom(provider) })`);
-   the ethers `BrowserProvider` wrap and the raw-JSON-RPC ethers signer go
-   away with it.
-5. **Finish.** Drop the adapters, `useContractLoader`, `useEthersProvider`/
-   `useEthersSigner`, and the `ethers` dependency; move ABIs to JSON imports
-   consumed by viem.
+4. **IMX last.** Complete. IMX chain selection and wallet state now come from
+   the viem/AppKit path; no Passport EVM provider adapter remains in the app.
+5. **Finish.** Complete. The app adapters, contract loader, generated ethers
+   typechain graph, app-level `ethers` dependency, and ethers unit/address/ABI
+   imports are removed. The API keeps ethers where its server-side integrations
+   still require it.
 
 ## Risks and decision points
 
-- **Typed call sites.** Typechain emits ethers-targeted classes; viem call
-  sites lose `contract.getName(id)`-style typing unless the repo adopts a
-  viem-targeted codegen (e.g. `typechain --target=ethers-v6` replaced by
-  hand-written thin wrappers per contract, or `wagmi generate`). Decision
-  needed before phase 1: accept ABI+functionName strings, or add codegen.
+- **Typed call sites.** The app accepts ABI+`functionName` calls through viem's
+  contract APIs; the retired ethers-targeted typechain graph is not part of the
+  browser program. A viem-targeted codegen pass can be added independently if
+  future call-site typing needs justify it.
 - **Write transaction lifecycle.** ethers `TransactionResponse.wait()` and
   viem receipts have different revert semantics (viem throws on reverted
   receipts via `receipts.confirmations` handling in `waitForTransactionReceipt`);
   the sonner toast states in `utils/transactions.ts` must be re-tested against
   reverted and replaced transactions.
-- **IMX sandbox vs production**, per `VITE_VERCEL_ENV`, changes chain objects
-  — the Passport transport path must be exercised against sandbox in CI-less
-  local runs before removing the ethers path.
+- **IMX sandbox vs production**, per `VITE_VERCEL_ENV`, changes chain objects;
+  both viem chain paths remain selected by the shared app runtime.
 - **Gas margin behavior** (`calculateGasMargin` + configured gas price
   fallback in `loadGasPrice`) must be preserved bit-for-bit; some upstream
   contracts revert on under-estimated gas.
