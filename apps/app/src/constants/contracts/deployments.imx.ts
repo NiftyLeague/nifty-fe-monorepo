@@ -1,9 +1,9 @@
-import type { InterfaceAbi } from 'ethers'
+import type { Abi } from 'viem'
 import { immutableZkEvm, immutableZkEvmTestnet } from 'viem/chains'
 
-type ContractDefinition = { address: `0x${string}`; abi: InterfaceAbi }
+type ContractDefinition = { address: `0x${string}`; abi: Abi }
 
-const BALANCE_MANAGER_DISTRIBUTOR_ABI: InterfaceAbi = [
+const BALANCE_MANAGER_DISTRIBUTOR_ABI: Abi = [
   {
     inputs: [
       { internalType: 'uint256', name: 'index', type: 'uint256' },
@@ -25,7 +25,7 @@ const BALANCE_MANAGER_DISTRIBUTOR_ABI: InterfaceAbi = [
   },
 ]
 
-const NFTL_ABI: InterfaceAbi = [
+const NFTL_ABI: Abi = [
   {
     inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
     name: 'balanceOf',
@@ -35,7 +35,7 @@ const NFTL_ABI: InterfaceAbi = [
   },
 ]
 
-const MARKETPLACE_ABI: InterfaceAbi = [
+const MARKETPLACE_ABI: Abi = [
   {
     inputs: [
       { internalType: 'address[]', name: 'accounts', type: 'address[]' },
