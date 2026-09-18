@@ -19,7 +19,6 @@ This Turborepo includes the following apps/packages:
 
 ### Packages
 
-- `@nl/imx-passport`: an [Immutable Passport](https://www.immutable.com/products/passport) instance to connect apps to the Immutable zkEVM blockchain
 - `@nl/contracts`: shared deployed contract addresses and ABIs used by the app and API
 - `@nl/playfab`: a [PlayFab](https://playfab.com/) client API for our game services. Includes auth UI components for PlayFab login
 - `@nl/typescript-config`: global [TypeScript](https://www.typescriptlang.org/) configs `tsconfig.json`
@@ -183,7 +182,6 @@ bun --filter <app/package_selector> <command>
 
 **Package Selectors:**
 
-- `imx-passport`
 - `playfab`
 - `typescript-config`
 - `ui`

@@ -13,8 +13,6 @@
         "$TURBO_DEFAULT$",
         "../../packages/contracts/src/**",
         "../../packages/contracts/package.json",
-        "../../packages/imx-passport/src/**",
-        "../../packages/imx-passport/package.json",
         "../../packages/ui/src/**",
         "../../packages/ui/package.json",
         ".env*",

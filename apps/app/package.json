@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@nl/contracts": "workspace:*",
-    "@nl/imx-passport": "workspace:*",
     "@nl/ui": "workspace:*",
     "@reown/appkit": "^1.8.23",
     "@reown/appkit-adapter-wagmi": "^1.8.23",

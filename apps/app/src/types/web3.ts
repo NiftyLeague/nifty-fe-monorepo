@@ -1,40 +1,5 @@
-import type {
-  AlchemyProvider,
-  BrowserProvider,
-  Contract,
-  EtherscanProvider,
-  FallbackProvider,
-  InfuraProvider,
-  JsonRpcApiProvider,
-  JsonRpcProvider,
-} from 'ethers'
 import type { Abi } from 'viem'
 import type { Config } from '@wagmi/core'
-
-import type { BalanceManagerDistributor } from '@/types/typechain/src/contracts/imx/BalanceManagerDistributor'
-import type { NFTL } from '@/types/typechain/src/contracts/imx/NFTL'
-import type { NiftyMarketplace } from '@/types/typechain/src/contracts/imx/NiftyMarketplace'
-import type { NiftyBurningComicsL2 } from '@/types/typechain/src/contracts/deprecated/NiftyBurningComicsL2'
-import type { NFTLToken } from '@/types/typechain/src/contracts/NFTLToken'
-import type { NiftyDegen } from '@/types/typechain/src/contracts/NiftyDegen'
-
-import {
-  BALANCE_MANAGER_CONTRACT,
-  COMICS_BURNER_CONTRACT,
-  DEGEN_CONTRACT,
-  INTERCHAIN_SERVICE_CONTRACT,
-  MARKETPLACE_CONTRACT,
-  NFTL_CONTRACT,
-  NFTL_IMX_CONTRACT,
-} from '@/constants/contracts'
-
-type MainnetProvider = InfuraProvider | EtherscanProvider | AlchemyProvider
-
-type PublicProvider = FallbackProvider | JsonRpcProvider | JsonRpcApiProvider
-
-type UserProvider = BrowserProvider
-
-export type Provider = PublicProvider | UserProvider | MainnetProvider
 
 export interface Ethereumish {
   autoRefreshOnNetworkChange?: boolean
@@ -55,16 +20,6 @@ export interface Ethereumish {
     request: { method: string; params?: Array<unknown> },
     callback: (error: unknown, response: unknown) => void
   ) => void
-}
-
-export interface Contracts {
-  [BALANCE_MANAGER_CONTRACT]: BalanceManagerDistributor
-  [COMICS_BURNER_CONTRACT]: NiftyBurningComicsL2
-  [DEGEN_CONTRACT]: NiftyDegen
-  [MARKETPLACE_CONTRACT]: NiftyMarketplace
-  [NFTL_CONTRACT]: NFTLToken
-  [NFTL_IMX_CONTRACT]: NFTL
-  [INTERCHAIN_SERVICE_CONTRACT]: Contract
 }
 
 export type NetworkName =
