@@ -12,6 +12,7 @@ describe('Nifty World scene catalog', () => {
       'mansion',
       'exchange',
       'marina',
+      'downtown',
       'rugmans-peak',
       'arcade',
     ])
