@@ -1,6 +1,6 @@
 import NativeImage from '@nl/ui/custom/native-image'
 import { useContext, createSignal, onCleanup, For, Show, type JSX } from 'solid-js'
-import { parseEther } from 'ethers'
+import { parseEther } from 'viem'
 
 import { Alert } from '@nl/ui/base/alert'
 import { Button } from '@nl/ui/base/button'

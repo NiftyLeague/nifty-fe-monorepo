@@ -1,5 +1,5 @@
 import { createSignal, Show, type JSX } from 'solid-js'
-import { parseEther } from 'ethers'
+import { parseEther } from 'viem'
 import { AlertCircle } from 'lucide-solid'
 import NativeImage from '@nl/ui/custom/native-image'
 import { Button } from '@nl/ui/base/button'
