@@ -1,8 +1,8 @@
 {
   "name": "smashers",
   "version": "1.0.15",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "astro build",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .astro && rm -rf dist",
@@ -12,18 +12,18 @@
     "lint:fix": "oxlint --fix",
     "test": "bun test --conditions=browser --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --conditions=browser --isolate --preload ../../test/solid-jsx.ts --preload --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
-    "test:watch": "bun test --watch",
     "test:e2e": "bunx playwright test",
+    "test:watch": "bun test --watch",
     "type-check": "astro check"
   },
   "dependencies": {
-    "@astrojs/solid-js": "7.0.2",
-    "@astrojs/vercel": "11.0.10",
+    "@astrojs/solid-js": "^7.0.2",
+    "@astrojs/vercel": "^11.0.10",
     "@nl/playfab": "workspace:*",
     "@nl/ui": "workspace:*",
     "@sentry/browser": "^10.69.0",
     "@sentry/node": "^10.69.0",
-    "astro": "7.3.2",
+    "astro": "^7.3.2",
     "iron-session": "^9.0.1",
     "lucide-solid": "^1.46.0",
     "solid-js": "^1.9.15",

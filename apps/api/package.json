@@ -1,35 +1,32 @@
 {
   "name": "api",
-  "version": "1.0.0",
-  "private": true,
   "description": "Nifty League Contracts API and webhook service",
-  "bin": {
-    "minty": "commander.ts"
-  },
+  "version": "1.0.0",
   "type": "module",
+  "private": true,
   "main": "api/index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node scripts/copy-config.mjs && node scripts/copy-contract-deployments.mjs && node scripts/copy-api-app.mjs",
-    "vercel-build": "bun run build",
-    "clean": "rm -rf dist api/.app api/config .turbo coverage",
-    "dev": "NODE_CONFIG_TS_DIR=config tsx watch src/index.ts",
-    "start": "node api/index.js",
-    "test": "bun scripts/run-tests-isolated.ts",
-    "test:unit": "bun scripts/run-tests-isolated.ts src --exclude src/index.integration.test.ts",
-    "test:integration": "bun test src/index.integration.test.ts",
-    "test:watch": "bun test --watch",
-    "test:coverage": "bun test --coverage --isolate",
-    "test:live": "bun test ./test/smoke/api.contract.live.ts --testTimeout=30000",
+    "admin:update-metadata-schema": "tsx src/imx/admin/update-metadata-schema.ts",
     "audit:endpoints": "node scripts/audit-endpoints.mjs",
-    "lint": "oxlint",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node scripts/copy-config.mjs && node scripts/copy-contract-deployments.mjs && node scripts/copy-api-app.mjs",
+    "clean": "rm -rf dist api/.app api/config .turbo coverage",
+    "deploy": "node scripts/vercel-build.mjs --prod && npx vercel deploy --prebuilt --prod --scope niftyleague",
+    "dev": "NODE_CONFIG_TS_DIR=config tsx watch src/index.ts",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
-    "type-check": "tsc -p tsconfig.json --noEmit",
-    "deploy": "node scripts/vercel-build.mjs --prod && npx vercel deploy --prebuilt --prod --scope niftyleague",
-    "onboarding:user-registration": "tsx src/imx/onboarding/1-user-registration.ts",
-    "onboarding:create-collection": "tsx src/imx/onboarding/3-create-collection.ts",
+    "lint": "oxlint",
     "onboarding:add-metadata-schema": "tsx src/imx/onboarding/4-add-metadata-schema.ts",
-    "admin:update-metadata-schema": "tsx src/imx/admin/update-metadata-schema.ts"
+    "onboarding:create-collection": "tsx src/imx/onboarding/3-create-collection.ts",
+    "onboarding:user-registration": "tsx src/imx/onboarding/1-user-registration.ts",
+    "start": "node api/index.js",
+    "test": "bun scripts/run-tests-isolated.ts",
+    "test:coverage": "bun test --coverage --isolate",
+    "test:integration": "bun test src/index.integration.test.ts",
+    "test:live": "bun test ./test/smoke/api.contract.live.ts --testTimeout=30000",
+    "test:unit": "bun scripts/run-tests-isolated.ts src --exclude src/index.integration.test.ts",
+    "test:watch": "bun test --watch",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "vercel-build": "bun run build"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1105.0",
@@ -61,9 +58,12 @@
     "supertest": "^7.2.2",
     "tsc-alias": "^1.9.1",
     "tsx": "^4.23.10",
-    "typescript": "^6.0.3"
+    "typescript": "~6.0.3"
   },
   "engines": {
     "node": "24.18.0"
+  },
+  "bin": {
+    "minty": "commander.ts"
   }
 }
