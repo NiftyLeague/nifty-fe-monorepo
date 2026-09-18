@@ -1130,10 +1130,11 @@ describe('mint route provider loading contract', () => {
     const providerSource = readFileSync(join(process.cwd(), networkProvider), 'utf8')
     const graphQLSource = readFileSync(join(process.cwd(), graphQL), 'utf8')
 
-    for (const heavyImport of ["from '@/hooks/useContractLoader'"]) {
-      expect(contextSource).not.toContain(heavyImport)
-      expect(providerSource).toContain(heavyImport)
-    }
+    // The viem migration deleted useContractLoader from the provider: writes
+    // go through executeContractWrite, reads through the cached viem path.
+    expect(contextSource).not.toContain("from '@/hooks/useContractLoader'")
+    expect(providerSource).not.toContain("from '@/hooks/useContractLoader'")
+    expect(providerSource).toContain('executeContractWrite')
     // Writes moved to the viem pipeline in utils/transactions; useNotify is
     // gone, so the provider imports the executor instead.
     expect(providerSource).toContain('executeContractWrite')

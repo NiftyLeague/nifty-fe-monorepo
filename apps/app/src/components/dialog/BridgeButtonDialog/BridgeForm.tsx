@@ -11,6 +11,7 @@ import { CircularProgress } from '@nl/ui/custom/circular-progress'
 import { Title } from '@nl/ui/custom/typography'
 
 import { bridgeNFTL, increaseBridgeAllowance } from '@/utils/interchainTokenService'
+import { useWagmiConfig } from '@/runtime/wagmi'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 import { IMX_SQUID_BRIDGE_URL } from '@/constants/url'
 import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts'
@@ -38,6 +39,7 @@ const formatWithSeparators = (value: number) =>
   value.toLocaleString('en-US', { maximumFractionDigits: 18 })
 
 const BridgeForm = (props: BridgeFormProps): JSX.Element => {
+  const config = useWagmiConfig()
   const agreementAccepted = useAgreementAccepted()
   const network = useNetworkContext()
   const imx = useIMXContext()
@@ -71,7 +73,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
     if (!network.address) return
     const destinationChainId = imx.imxChainId
     const bn = parseEther(bridgeAmount().toString())
-    await increaseBridgeAllowance(network.writeContracts, network.address, destinationChainId, bn)
+    await increaseBridgeAllowance(config, network.address, destinationChainId, bn)
     nftlAllowance.refetch()
     return
   }
@@ -82,12 +84,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
     let safeBridgeAmount = bridgeAmount() // Ensure precision issues don't occur
     if (bridgeAmount() > props.balance) safeBridgeAmount = props.balance
     const bn = parseEther(safeBridgeAmount.toString())
-    const txReceipt = await bridgeNFTL(
-      network.writeContracts,
-      network.address,
-      destinationChainId,
-      bn
-    )
+    const txReceipt = await bridgeNFTL(config, network.address, destinationChainId, bn)
     return txReceipt
   }
 
@@ -107,7 +104,7 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
     // Handle bridge NFTL to Immutable
     setBridgePending(true)
     const txReceipt = await handleBridgeNFTL()
-    if (!txReceipt || txReceipt.status === 0) {
+    if (!txReceipt || txReceipt.status === 'reverted') {
       setAmountError('Failed to bridge NFTL. Please try again.')
       setBridgePending(false)
       return

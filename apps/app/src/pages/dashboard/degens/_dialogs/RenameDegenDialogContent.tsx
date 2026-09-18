@@ -62,10 +62,9 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
 
   const handleRename = async () => {
     setLoadingRename(true)
-    const writeContracts = network.writeContracts
     if (insufficientBalance()) {
       setError('Failed to charge the rental rename fee')
-    } else if (!error() && writeContracts) {
+    } else if (!error()) {
       if (DEBUG) console.log('Rename NFT to:', input())
       if (insufficientAllowance()) {
         if (DEBUG) console.log('Current allowance too low')

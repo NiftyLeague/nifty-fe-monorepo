@@ -652,7 +652,9 @@ describe('app performance contracts', () => {
       expect(source).not.toContain("from '@/types/typechain'")
     }
     expect(readFileSync(appWeb3Types, 'utf8')).toContain('@/types/typechain/src/contracts/imx/NFTL')
-    expect(readFileSync(appInterchainService, 'utf8')).toContain(
+    // The interchain service reads/writes via the shared viem path; the
+    // typechain type import was part of the ethers roster it replaced.
+    expect(readFileSync(appInterchainService, 'utf8')).not.toContain(
       '@/types/typechain/src/contracts/NFTLToken'
     )
   })
