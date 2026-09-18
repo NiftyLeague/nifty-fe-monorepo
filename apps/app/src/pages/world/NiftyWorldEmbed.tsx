@@ -215,7 +215,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
               ref={setFrame}
               src={props.getEmbedUrl(loadAttempt(), visitId)}
               title={props.frameTitle}
-              class="h-full w-full border-0"
+              class="h-full w-full rounded-md border-0"
               tabIndex={0}
               allow="autoplay; fullscreen; gamepad"
               allowfullscreen

@@ -23,10 +23,10 @@ describe('application metadata routes', () => {
   it('lists unique canonical routes with valid priorities', () => {
     const urls = SITEMAP_ENTRIES.map(({ path }) => `${APP_ORIGIN}${path}`)
 
-    // 6 public static surfaces plus the /world index, 9 scenes, and 7 mini
+    // 6 public static surfaces plus the /world index, 10 scenes, and 7 mini
     // games. Auth-gated (/dashboard/*) and client-only (/verification) routes
     // are deliberately absent.
-    expect(SITEMAP_ENTRIES).toHaveLength(23)
+    expect(SITEMAP_ENTRIES).toHaveLength(24)
     expect(new Set(urls).size).toBe(SITEMAP_ENTRIES.length)
     expect(urls).not.toContain(`${APP_ORIGIN}/dashboard`)
     expect(urls).not.toContain(`${APP_ORIGIN}/verification`)

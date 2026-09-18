@@ -42,6 +42,7 @@ describe('Nifty World scene list', () => {
       'Mansion',
       'Nifty Exchange',
       'Marina',
+      'Downtown',
       "Rugman's Peak",
       'Nifty Arcade',
     ])
@@ -56,10 +57,11 @@ describe('Nifty World scene list', () => {
       '/world/mansion',
       '/world/exchange',
       '/world/marina',
+      '/world/downtown',
       '/world/rugmans-peak',
       '/world/arcade',
     ])
     expect(screen.queryByText('Enter World')).toBeNull()
-    expect(screen.getAllByText('Explore map')).toHaveLength(9)
+    expect(screen.getAllByText('Explore map')).toHaveLength(10)
   })
 })
