@@ -48,11 +48,7 @@ export default function AuditFixtureWalletContextWrapper(props: ParentProps): JS
           value={{
             address: AUDIT_FIXTURE_ADDRESS,
             isConnected: false,
-            publicProvider: undefined,
-            readContracts: {} as Contracts,
-            signer: undefined,
             write: async () => null,
-            writeContracts: {} as Contracts,
           }}
         >
           <NFTsBalanceContext.Provider

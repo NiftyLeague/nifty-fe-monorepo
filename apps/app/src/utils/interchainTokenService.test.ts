@@ -1,21 +1,28 @@
-import { parseEther } from 'ethers'
-import { afterEach, beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
+import { parseEther } from 'viem'
 import { IMX_TESTNET_ID, MAINNET_ID, SEPOLIA_ID } from '@/constants/networks'
-import { INTERCHAIN_SERVICE_CONTRACT, NFTL_CONTRACT } from '@/constants/contracts'
+import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts'
 
-let bridgeNFTL: typeof import('./interchainTokenService').bridgeNFTL
-let getInterchainTokenRecord: typeof import('./interchainTokenService').getInterchainTokenRecord
-let increaseBridgeAllowance: typeof import('./interchainTokenService').increaseBridgeAllowance
+const readContractMock = mock()
+const writeContractMock = mock()
+const receiptWaitMock = mock()
 
-beforeEach(async () => {
-  const interchain = await import('./interchainTokenService')
-  bridgeNFTL = interchain.bridgeNFTL
-  getInterchainTokenRecord = interchain.getInterchainTokenRecord
-  increaseBridgeAllowance = interchain.increaseBridgeAllowance
-})
+mock.module('@wagmi/core', () => ({
+  readContract: readContractMock,
+  writeContract: writeContractMock,
+  waitForTransactionReceipt: receiptWaitMock,
+}))
 
-afterEach(() => {
-  mock.restore()
+import {
+  bridgeNFTL,
+  getInterchainTokenRecord,
+  increaseBridgeAllowance,
+} from './interchainTokenService'
+
+beforeEach(() => {
+  readContractMock.mockClear()
+  writeContractMock.mockClear()
+  receiptWaitMock.mockClear()
 })
 
 describe('interchain token service', () => {
@@ -25,27 +32,35 @@ describe('interchain token service', () => {
   })
 
   it('approves only when Immutable needs more allowance', async () => {
-    const wait = mock().mockResolvedValue('approval-receipt')
-    const approve = mock().mockResolvedValue({ wait })
-    const nftl = { allowance: mock().mockResolvedValue(0n), approve }
-    const contracts = { [NFTL_CONTRACT]: nftl }
+    const approveReceipt = { status: 'success' }
+    readContractMock.mockResolvedValue(0n)
+    writeContractMock.mockResolvedValue('0xapprove')
+    receiptWaitMock.mockResolvedValue(approveReceipt)
 
     await expect(
-      increaseBridgeAllowance(contracts as never, '0xwallet', IMX_TESTNET_ID, 5n)
-    ).resolves.toBe('approval-receipt')
-    expect(approve).toHaveBeenCalled()
+      increaseBridgeAllowance({} as never, '0xwallet', IMX_TESTNET_ID, 5n)
+    ).resolves.toMatchObject({ status: 'success' })
+    expect(writeContractMock).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        functionName: 'approve',
+        args: [INTERCHAIN_TOKEN_SERVICE_ADDRESS, 5n],
+      })
+    )
 
-    nftl.allowance.mockResolvedValueOnce(6n)
+    readContractMock.mockResolvedValue(6n)
     await expect(
-      increaseBridgeAllowance(contracts as never, '0xwallet', IMX_TESTNET_ID, 5n)
+      increaseBridgeAllowance({} as never, '0xwallet', IMX_TESTNET_ID, 5n)
     ).resolves.toBeNull()
+    expect(writeContractMock).toHaveBeenCalledTimes(1)
+
     await expect(
-      increaseBridgeAllowance(contracts as never, '0xwallet', SEPOLIA_ID, 5n)
+      increaseBridgeAllowance({} as never, '0xwallet', SEPOLIA_ID, 5n)
     ).resolves.toBeNull()
 
-    nftl.allowance.mockRejectedValueOnce(new Error('wallet rejected'))
+    readContractMock.mockRejectedValueOnce(new Error('wallet rejected'))
     await expect(
-      increaseBridgeAllowance(contracts as never, '0xwallet', IMX_TESTNET_ID, 5n)
+      increaseBridgeAllowance({} as never, '0xwallet', IMX_TESTNET_ID, 5n)
     ).resolves.toBeNull()
   })
 
@@ -62,14 +77,14 @@ describe('interchain token service', () => {
           { status: 200 }
         )
     )
-    const wait = mock().mockResolvedValue('transfer-receipt')
-    const interchainTransfer = mock().mockResolvedValue({ hash: '0xhash', wait })
-    const contracts = { [INTERCHAIN_SERVICE_CONTRACT]: { interchainTransfer } }
+    writeContractMock.mockResolvedValue('0xhash')
+    const transferReceipt = { status: 'success' }
+    receiptWaitMock.mockResolvedValue(transferReceipt)
     const amount = parseEther('2')
 
-    await expect(bridgeNFTL(contracts as never, '0xwallet', SEPOLIA_ID, amount)).resolves.toBe(
-      'transfer-receipt'
-    )
+    await expect(bridgeNFTL({} as never, '0xwallet', SEPOLIA_ID, amount)).resolves.toMatchObject({
+      status: 'success',
+    })
     expect(fetchMock).toHaveBeenCalledWith(
       'https://testnet.api.gmp.axelarscan.io',
       expect.objectContaining({
@@ -82,22 +97,23 @@ describe('interchain token service', () => {
         }),
       })
     )
-    expect(interchainTransfer).toHaveBeenCalledWith(
-      expect.stringMatching(/^0x/),
-      'ethereum-sepolia',
-      '0xwallet',
-      amount,
-      '0x',
-      parseEther('0.0001'),
-      { value: 770123n }
+    expect(writeContractMock).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        functionName: 'interchainTransfer',
+        args: [
+          expect.stringMatching(/^0x/),
+          'ethereum-sepolia',
+          '0xwallet',
+          amount,
+          '0x',
+          parseEther('0.0001'),
+        ],
+        value: 770123n,
+      })
     )
-    await expect(bridgeNFTL(contracts as never, '0xwallet', IMX_TESTNET_ID, amount)).resolves.toBe(
-      'transfer-receipt'
-    )
-
-    const unavailable = { [INTERCHAIN_SERVICE_CONTRACT]: { interchainTransfer: undefined } }
     await expect(
-      bridgeNFTL(unavailable as never, '0xwallet', MAINNET_ID, amount)
-    ).resolves.toBeNull()
+      bridgeNFTL({} as never, '0xwallet', IMX_TESTNET_ID, amount)
+    ).resolves.toMatchObject({ status: 'success' })
   })
 })

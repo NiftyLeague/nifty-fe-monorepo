@@ -48,7 +48,7 @@ const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
       <div class="flex flex-col gap-2">
         <Button
           class="w-full"
-          disabled={!(claimable.balance > 0.0 && network.writeContracts[NFTL_CONTRACT])}
+          disabled={!(claimable.balance > 0.0)}
           variant="default"
           onClick={(e: MouseEvent & { currentTarget: HTMLButtonElement }) =>
             void handleClaimNFTL(e)
