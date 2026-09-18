@@ -33,7 +33,6 @@ The contract test lists every external route. The benchmark manifest selects one
 | ---------------------------- | ------------------------ | ---------------------------------------------------------------------------------- |
 | `@nl/ui`                     | every frontend app       | Preserve public exports, themes, and Tailwind source scanning.                     |
 | `@nl/contracts`              | `api`, `app`             | Contract addresses and ABI compatibility are release-critical.                     |
-| `@nl/imx-passport`           | `app`                    | Wallet/session initialization remains client-only.                                 |
 | `@nl/playfab`                | `smashers`               | Preserve NextAuth and PlayFab HTTP contracts.                                      |
 | `@nl/sentry-client`          | Next apps                | Production-only Sentry wrapping must not enter development/preview graphs.         |
 | `assets/img`, `assets/video` | app, docs, smashers, web | Reuse through public-tree symlinks; no asset copy or rename in runtime migrations. |

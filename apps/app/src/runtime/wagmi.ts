@@ -1,9 +1,8 @@
-import { createMemo, createResource, createSignal, onCleanup } from 'solid-js'
+import { createSignal, onCleanup } from 'solid-js'
 import { createQuery } from '@tanstack/solid-query'
 import {
   disconnect as coreDisconnect,
   getAccount,
-  getConnectorClient,
   getEnsAvatar,
   getEnsName,
   readContract,
@@ -12,7 +11,6 @@ import {
   watchAccount,
   type Config,
   type GetAccountReturnType,
-  type GetConnectorClientParameters,
   type GetEnsAvatarParameters,
   type GetEnsNameParameters,
   type ReadContractParameters,
@@ -343,31 +341,6 @@ export function useSignMessage(options?: {
     },
     signMessage: mutation.mutate,
     signMessageAsync: mutation.mutateAsync,
-  }
-}
-
-export function useConnectorClient(params?: Source<GetConnectorClientParameters | undefined>) {
-  const config = requireConfig()
-  const walletAccount = useAccount()
-  const source = createMemo(() => {
-    if (walletAccount.status !== 'connected' || !walletAccount.connector) return null
-    return {
-      ...resolve(params),
-      connector: walletAccount.connector,
-    } as GetConnectorClientParameters
-  })
-  const [data, { refetch }] = createResource(source, (p) => getConnectorClient(config, p))
-  return {
-    get data() {
-      return data()
-    },
-    get error() {
-      return (data.error as Error | undefined) ?? null
-    },
-    get isLoading() {
-      return data.loading
-    },
-    refetch,
   }
 }
 

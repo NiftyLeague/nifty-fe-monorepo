@@ -1,9 +1,0 @@
-{
-  "extends": "@nl/typescript-config/solid-library.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "types": ["node"]
-  },
-  "include": ["config.ts", "vite-env.d.ts"],
-  "exclude": ["node_modules", "dist"]
-}

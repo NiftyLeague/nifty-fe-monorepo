@@ -71,10 +71,6 @@
       "release-type": "node",
       "package-name": "web"
     },
-    "packages/imx-passport": {
-      "release-type": "node",
-      "package-name": "@nl/imx-passport"
-    },
     "packages/contracts": {
       "release-type": "node",
       "package-name": "@nl/contracts"
