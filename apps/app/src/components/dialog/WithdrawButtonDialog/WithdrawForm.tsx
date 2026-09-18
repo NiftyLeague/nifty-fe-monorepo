@@ -1,5 +1,5 @@
 import { useContext, createSignal, Show, type JSX } from 'solid-js'
-import type { TransactionResponse } from 'ethers'
+import type { Hash } from 'viem'
 import { useSwitchChain } from '@/runtime/wagmi'
 
 import { Alert } from '@nl/ui/base/alert'
@@ -33,9 +33,7 @@ const WithdrawForm = (props: WithdrawFormProps): JSX.Element => {
     setIsOpen(false)
   }
 
-  const handleWithdrawNFTL = async (): Promise<{
-    txRes: TransactionResponse | null
-  }> => {
+  const handleWithdrawNFTL = async (): Promise<{ txRes: Hash | null }> => {
     const txRes = await claimCallback()
     return { txRes }
   }

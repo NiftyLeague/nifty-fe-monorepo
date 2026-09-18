@@ -25,7 +25,7 @@ const PROJECT_PATH_PREFIXES = {
 }
 
 const PROJECT_SHARED_PATH_PREFIXES = {
-  app: ['packages/contracts/', 'packages/imx-passport/', 'packages/sentry-client/', 'packages/ui/'],
+  app: ['packages/contracts/', 'packages/sentry-client/', 'packages/ui/'],
   smashers: ['packages/playfab/', 'packages/ui/'],
   docs: ['packages/ui/'],
   api: ['packages/contracts/'],

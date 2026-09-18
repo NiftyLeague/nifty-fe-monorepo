@@ -12,7 +12,6 @@ import AuthTokenContext from '@/contexts/AuthTokenContext'
 import IMXContext from '@/contexts/IMXContext'
 import NetworkContext from '@/contexts/NetworkContext'
 import NFTsBalanceContext from '@/contexts/NFTsBalanceContext'
-import type { Contracts } from '@/types/web3'
 import type { JSX } from 'solid-js'
 
 const auditComics = COMICS.map((comic, index) => ({ ...comic, balance: index === 0 ? 1 : 0 }))
@@ -39,9 +38,6 @@ export default function AuditFixtureWalletContextWrapper(props: ParentProps): JS
         value={{
           address: AUDIT_FIXTURE_ADDRESS,
           imxChainId: immutableZkEvmTestnet.id,
-          imxContracts: {} as Contracts,
-          imxSigner: undefined,
-          passportProvider: undefined,
         }}
       >
         <NetworkContext.Provider

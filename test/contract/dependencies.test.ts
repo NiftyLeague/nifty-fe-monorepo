@@ -3,16 +3,10 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 const APP_ROOT = process.cwd()
-const WORKSPACE_PACKAGES = [
-  '@nl/astro-config',
-  '@nl/imx-passport',
-  '@nl/playfab',
-  '@nl/typescript-config',
-  '@nl/ui',
-]
+const WORKSPACE_PACKAGES = ['@nl/astro-config', '@nl/playfab', '@nl/typescript-config', '@nl/ui']
 
 // Packages that keep source files at the package root instead of a src/ dir.
-const PACKAGE_ROOT_SOURCE_DIRS = new Set(['imx-passport'])
+const PACKAGE_ROOT_SOURCE_DIRS = new Set<string>()
 
 interface Pkg {
   dir: string
@@ -131,7 +125,7 @@ const NODE_BUILTINS = new Set([
 ])
 
 function rootPackageSpecifier(imp: string): string | null {
-  // "lucide-react/dynamic" -> "lucide-react"; "@imtbl/sdk/passport" -> "@imtbl/sdk"
+  // "lucide-react/dynamic" -> "lucide-react"
   if (imp.startsWith('@')) {
     const parts = imp.split('/')
     return parts.length >= 2 ? `${parts[0]}/${parts[1]}` : imp

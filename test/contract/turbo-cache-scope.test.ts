@@ -74,8 +74,6 @@ const sharedBuildInputs: Record<string, string[]> = {
   'app#build': [
     '../../packages/contracts/src/**',
     '../../packages/contracts/package.json',
-    '../../packages/imx-passport/src/**',
-    '../../packages/imx-passport/package.json',
     '../../packages/ui/src/**',
     '../../packages/ui/package.json',
   ],
@@ -271,11 +269,7 @@ describe('Turbo cache environment scope', () => {
       expect(dependenciesFor(task)).not.toContain('^build')
     }
 
-    for (const packagePath of [
-      'packages/imx-passport/package.json',
-      'packages/playfab/package.json',
-      'packages/ui/package.json',
-    ]) {
+    for (const packagePath of ['packages/playfab/package.json', 'packages/ui/package.json']) {
       expect(packageJson(packagePath).scripts?.build).toBeUndefined()
     }
   })
