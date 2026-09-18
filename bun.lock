@@ -76,7 +76,6 @@
         "@tanstack/solid-router-ssr-query": "^1.167.2",
         "@tanstack/solid-start": "1.168.52",
         "@wagmi/core": "3.6.5",
-        "ethers": "^6.17.0",
         "lucide-solid": "^1.46.0",
         "solid-js": "^1.9.15",
         "solid-sonner": "^0.3.2",

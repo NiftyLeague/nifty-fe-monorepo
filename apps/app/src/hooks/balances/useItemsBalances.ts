@@ -1,5 +1,5 @@
 import { useAccount, useReadContract } from '@/runtime/wagmi'
-import type { AddressLike, BigNumberish } from 'ethers'
+import type { Address } from 'viem'
 import type { Item } from '@/types/marketplace'
 
 import { getDeployedContract, MARKETPLACE_CONTRACT } from '@/constants/contracts'
@@ -27,7 +27,7 @@ type ItemsBalancesState = {
   refetch: () => void
 }
 
-type BalanceOfBatch = { args: [AddressLike[], BigNumberish[]]; result: bigint[] }
+type BalanceOfBatch = { args: [Address[], bigint[]]; result: bigint[] }
 
 export default function useItemssBalances(): ItemsBalancesState {
   const auth = useAuth()
@@ -41,7 +41,7 @@ export default function useItemssBalances(): ItemsBalancesState {
     abi: marketplaceContract()?.abi as never,
     chainId: imx.imxChainId,
     functionName: 'balanceOfBatch',
-    args: [Array(ITEM_IDS.length).fill(account.address) as AddressLike[], ITEM_IDS],
+    args: [Array(ITEM_IDS.length).fill(account.address) as Address[], ITEM_IDS],
     query: { staleTime: 10_000, enabled: account.isConnected && auth.isLoggedIn },
   }))
 

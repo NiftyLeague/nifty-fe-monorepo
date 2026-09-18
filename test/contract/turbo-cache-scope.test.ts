@@ -56,7 +56,6 @@ const buildInputExclusions: Record<string, string[]> = {
   'app#build': [
     '!**/README.md',
     '!**/CHANGELOG.md',
-    '!src/types/typechain/**',
     ...testOnlyBuildInputExclusions,
     ...uiBuildInputExclusions,
   ],
@@ -157,8 +156,7 @@ describe('Turbo cache environment scope', () => {
     }
   })
 
-  it('excludes generated type declarations and test-only dependencies from production builds', () => {
-    expect(inputsFor('app#build')).toContain('!src/types/typechain/**')
+  it('excludes test-only dependencies from production builds', () => {
     expect(inputsFor('smashers#build')).toContain('!../../packages/playfab/src/test-mock-sdk.ts')
   })
 

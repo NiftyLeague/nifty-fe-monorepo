@@ -1,8 +1,8 @@
-import { parseUnits } from 'ethers'
+import { parseUnits } from 'viem'
 import type { GasStationResponse, Network } from '@/types/web3'
 
 export const loadGasPrice = async (targetNetwork: Network, speed = 'fast'): Promise<bigint> => {
-  let gasPrice = parseUnits('20', 'gwei')
+  let gasPrice = parseUnits('20', 9)
   if (targetNetwork.gasPrice) {
     gasPrice = targetNetwork.gasPrice
   } else if (navigator.onLine) {

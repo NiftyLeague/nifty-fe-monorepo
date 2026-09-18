@@ -21,7 +21,6 @@ const SKIP_DIRS = [
   '.turbo',
   '.web-images',
   '.app',
-  'typechain',
 ]
 
 const collect = (dir: string, match: (name: string) => boolean, out: string[] = []): string[] => {

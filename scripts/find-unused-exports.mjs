@@ -43,8 +43,6 @@ const TEST_FILE = /\.(?:test|spec)\.tsx?$|(?:^|\/)(?:test|tests|e2e)\//
 /**
  * Modules something other than an import loads, so "no importer" proves nothing:
  * tool and platform configs read by name, and the worker entry the platform invokes.
- * `apps/app/src/types/typechain/**` needs no entry here — the owning tsconfig excludes it,
- * and candidates come from the parsed config so excluded files are never reported.
  */
 const ENTRY_FILE =
   /(?:^|\/)(?:vite|astro|playwright|postcss|tailwind|wrangler)\.config\.[cm]?[jt]s$|(?:^|\/)\.wrangler\/|(?:^|\/)worker\/index\.[cm]?[jt]s$/

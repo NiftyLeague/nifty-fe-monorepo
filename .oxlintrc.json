@@ -241,7 +241,6 @@
   "ignorePatterns": [
     "node_modules/**",
     "**/.turbo/**",
-    "**/src/types/typechain/**",
     "**/build/**",
     "**/coverage/**",
     "**/dist/**",

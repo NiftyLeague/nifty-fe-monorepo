@@ -19,7 +19,6 @@
         "!.env.example",
         "!**/README.md",
         "!**/CHANGELOG.md",
-        "!src/types/typechain/**",
         "!**/*.test.*",
         "!**/*.spec.*",
         "!**/*.stories.*",

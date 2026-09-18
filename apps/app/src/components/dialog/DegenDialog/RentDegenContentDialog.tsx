@@ -1,7 +1,7 @@
 import { createEffect, createSignal, Show, type JSX } from 'solid-js'
 import { useRouter } from '@/runtime/navigation'
 import { toast } from 'solid-sonner'
-import { isAddress } from 'ethers'
+import { isAddress } from 'viem'
 import { AlertCircle, Info, X } from 'lucide-solid'
 
 import { Button } from '@nl/ui/base/button'

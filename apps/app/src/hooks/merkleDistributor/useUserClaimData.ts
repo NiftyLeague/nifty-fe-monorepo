@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/solid-query'
 import { useAccount } from '@/runtime/wagmi'
 import { mainnet, sepolia } from 'viem/chains'
-import { getAddress, isAddress } from 'ethers'
+import { getAddress, isAddress } from 'viem'
 import { MERKLE_TREE } from '@/constants/contracts'
 import { fetchApiQuery, queryKeys } from '@/query/app-query'
 import useIMXContext from '../useIMXContext'

@@ -225,13 +225,7 @@ describe('app performance contracts', () => {
     const oxlint = JSON.parse(readFileSync(sharedOxlintConfig, 'utf8'))
     const ignores: string[] = oxlint.ignorePatterns ?? []
 
-    for (const generatedPath of [
-      '**/.turbo/**',
-      '**/src/types/typechain/**',
-      '**/build/**',
-      '**/coverage/**',
-      '**/dist/**',
-    ]) {
+    for (const generatedPath of ['**/.turbo/**', '**/build/**', '**/coverage/**', '**/dist/**']) {
       expect(ignores).toContain(generatedPath)
     }
     expect(readFileSync(sharedOxfmtConfig, 'utf8')).toContain('.github/actions/')
@@ -643,19 +637,14 @@ describe('app performance contracts', () => {
     expect(tsConfig.include).toEqual(['.astro/types.d.ts', 'src/**/*', 'astro.config.mjs'])
   })
 
-  it('keeps generated contract types out of the default app program and avoids the barrel graph', () => {
-    const tsConfig = readFileSync(appTsConfig, 'utf8')
-    expect(tsConfig).toContain('src/types/typechain/**')
+  it('keeps the app free of generated ethers contract artifacts', () => {
+    expect(existsSync('apps/app/src/types/typechain')).toBe(false)
+    expect(readFileSync(appTsConfig, 'utf8')).not.toContain('src/types/typechain/**')
 
     for (const file of [appWeb3Types, appInterchainService]) {
       const source = readFileSync(file, 'utf8')
       expect(source).not.toContain("from '@/types/typechain'")
     }
-    // The interchain service reads/writes via the shared viem path; the
-    // typechain type import was part of the ethers roster it replaced.
-    expect(readFileSync(appInterchainService, 'utf8')).not.toContain(
-      '@/types/typechain/src/contracts/NFTLToken'
-    )
   })
 
   it('keeps the app gas-price path on native fetch without a retired Axios wrapper', () => {
