@@ -1,8 +1,12 @@
 {
   "name": "nifty-fe-monorepo",
   "version": "1.2.70",
-  "license": "Apache-2.0",
   "private": true,
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
     "add-ui": "bun --filter ui add-component $@",
@@ -54,27 +58,6 @@
     "turbo": "^2.10.12",
     "typescript": "~6.0.3"
   },
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 3 chrome version",
-      "last 3 firefox version",
-      "last 5 safari version"
-    ]
-  },
-  "engines": {
-    "node": "24.18.0"
-  },
-  "devEngines": {
-    "packageManager": {
-      "name": "bun",
-      "version": "1.4.0"
-    }
-  },
   "overrides": {
     "adm-zip": "0.5.16",
     "brace-expansion": "5.0.9",
@@ -91,8 +74,25 @@
     "viem": "2.55.19",
     "ws": "8.21.3"
   },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.4.0"
+    }
+  },
+  "engines": {
+    "node": "24.18.0"
+  }
 }

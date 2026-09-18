@@ -1,8 +1,8 @@
 {
   "name": "web",
   "version": "1.0.32",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "bun scripts/prepare-images.mjs && astro build && bun scripts/finalize-static.mjs && bun scripts/check-static.mjs",
     "clean": "rm -rf node_modules .turbo .astro .web-images .worker-build dist",

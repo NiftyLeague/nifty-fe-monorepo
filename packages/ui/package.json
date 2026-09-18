@@ -1,9 +1,9 @@
 {
   "name": "@nl/ui",
   "version": "1.0.19",
+  "private": true,
   "license": "GPL-3.0-only",
   "type": "module",
-  "private": true,
   "exports": {
     "./base/*": "./src/components/base/*.tsx",
     "./custom/*": "./src/components/custom/*/index.tsx",

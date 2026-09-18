@@ -1,9 +1,9 @@
 {
   "name": "@nl/astro-config",
   "version": "1.0.0",
+  "private": true,
   "license": "MIT",
   "type": "module",
-  "private": true,
   "exports": {
     ".": "./index.mjs"
   },

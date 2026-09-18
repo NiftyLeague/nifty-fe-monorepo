@@ -1,8 +1,8 @@
 {
   "name": "smashers",
   "version": "1.0.15",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "astro build",
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf .astro && rm -rf dist",

@@ -1,9 +1,9 @@
 {
   "name": "@nl/contracts",
   "version": "1.0.0",
+  "private": true,
   "license": "GPL-3.0-only",
   "type": "module",
-  "private": true,
   "exports": {
     "./deployments/*": "./src/deployments/*.ts"
   },

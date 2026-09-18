@@ -1,8 +1,8 @@
 {
   "name": "docs",
   "version": "1.0.8",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "astro build",
     "clean": "rm -rf node_modules && rm -rf dist && rm -rf .turbo && rm -rf .astro",

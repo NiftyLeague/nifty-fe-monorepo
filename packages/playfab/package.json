@@ -1,9 +1,9 @@
 {
   "name": "@nl/playfab",
   "version": "1.0.8",
+  "private": true,
   "license": "GPL-3.0-only",
   "type": "module",
-  "private": true,
   "main": "./src/index.ts",
   "exports": {
     "./api": "./src/api.ts",

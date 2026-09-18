@@ -1,9 +1,12 @@
 {
   "name": "api",
-  "description": "Nifty League Contracts API and webhook service",
   "version": "1.0.0",
-  "type": "module",
   "private": true,
+  "description": "Nifty League Contracts API and webhook service",
+  "bin": {
+    "minty": "commander.ts"
+  },
+  "type": "module",
   "main": "api/index.js",
   "scripts": {
     "admin:update-metadata-schema": "tsx src/imx/admin/update-metadata-schema.ts",
@@ -62,8 +65,5 @@
   },
   "engines": {
     "node": "24.18.0"
-  },
-  "bin": {
-    "minty": "commander.ts"
   }
 }
