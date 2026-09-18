@@ -3,7 +3,6 @@ import { createQuery } from '@tanstack/solid-query'
 import {
   disconnect as coreDisconnect,
   getAccount,
-  getClient,
   getConnectorClient,
   getEnsAvatar,
   getEnsName,

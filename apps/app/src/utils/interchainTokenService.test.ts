@@ -1,11 +1,7 @@
-import { beforeEach, describe, expect, it, mock } from 'bun:test'
+import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
 import { parseEther } from 'viem'
 import { IMX_TESTNET_ID, MAINNET_ID, SEPOLIA_ID } from '@/constants/networks'
-import {
-  INTERCHAIN_SERVICE_CONTRACT,
-  INTERCHAIN_TOKEN_SERVICE_ADDRESS,
-  NFTL_CONTRACT,
-} from '@/constants/contracts'
+import { INTERCHAIN_TOKEN_SERVICE_ADDRESS } from '@/constants/contracts'
 
 const readContractMock = mock()
 const writeContractMock = mock()
@@ -66,5 +62,58 @@ describe('interchain token service', () => {
     await expect(
       increaseBridgeAllowance({} as never, '0xwallet', IMX_TESTNET_ID, 5n)
     ).resolves.toBeNull()
+  })
+
+  it('estimates gas and submits an interchain transfer', async () => {
+    const fetchMock = spyOn(globalThis, 'fetch').mockImplementation(
+      async () =>
+        new Response(
+          JSON.stringify({
+            result: {
+              source_base_fee_string: '0.000000000000000123',
+              source_token: { decimals: 18, gas_price: '0.000000000000000001' },
+            },
+          }),
+          { status: 200 }
+        )
+    )
+    writeContractMock.mockResolvedValue('0xhash')
+    const transferReceipt = { status: 'success' }
+    receiptWaitMock.mockResolvedValue(transferReceipt)
+    const amount = parseEther('2')
+
+    await expect(bridgeNFTL({} as never, '0xwallet', SEPOLIA_ID, amount)).resolves.toMatchObject({
+      status: 'success',
+    })
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://testnet.api.gmp.axelarscan.io',
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify({
+          method: 'getFees',
+          destinationChain: 'immutable',
+          sourceChain: 'ethereum-sepolia',
+          sourceTokenSymbol: 'ETH',
+        }),
+      })
+    )
+    expect(writeContractMock).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        functionName: 'interchainTransfer',
+        args: [
+          expect.stringMatching(/^0x/),
+          'ethereum-sepolia',
+          '0xwallet',
+          amount,
+          '0x',
+          parseEther('0.0001'),
+        ],
+        value: 770123n,
+      })
+    )
+    await expect(
+      bridgeNFTL({} as never, '0xwallet', IMX_TESTNET_ID, amount)
+    ).resolves.toMatchObject({ status: 'success' })
   })
 })
