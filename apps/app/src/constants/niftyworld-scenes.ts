@@ -51,6 +51,13 @@ export const NIFTY_WORLD_SCENES = [
     path: '/scenes/marina',
   },
   {
+    id: 'downtown',
+    title: 'Downtown',
+    description: "Explore Nifty World's lively streets.",
+    image: `${NIFTY_WORLD_ORIGIN}/assets/maps/downtown.webp`,
+    path: '/scenes/downtown',
+  },
+  {
     id: 'rugmans-peak',
     title: "Rugman's Peak",
     description: "Climb Rugman's Peak for the view.",

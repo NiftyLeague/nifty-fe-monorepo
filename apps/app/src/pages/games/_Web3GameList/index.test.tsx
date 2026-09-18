@@ -5,14 +5,17 @@ mock.module('@/components/cards/NiftyWorldCard', () => ({
   default: ({
     title,
     href,
+    image,
     hoverActionLabel,
   }: {
     title: string
     href: string
+    image: string
     hoverActionLabel?: string
   }) => (
     <article>
       <h2>{title}</h2>
+      <img src={image} alt={title} />
       <a href={href} aria-label={`Explore ${title}`}>
         {hoverActionLabel}
       </a>
@@ -45,6 +48,9 @@ describe('mini game list navigation', () => {
       '/games/tennis',
       '/games/mt-gawx',
     ])
+    expect(screen.getByRole('img', { name: 'Degen Dive' }).getAttribute('src')).toBe(
+      'https://niftyworld.gg/assets/maps/degen-dive.webp'
+    )
     expect(screen.queryByText('Play in App')).toBeNull()
     expect(screen.queryByText(/required/i)).toBeNull()
     expect(screen.getAllByText('Play game')).toHaveLength(7)
