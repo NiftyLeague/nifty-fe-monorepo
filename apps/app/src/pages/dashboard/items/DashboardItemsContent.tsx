@@ -156,9 +156,8 @@ const DashboardComicsPageContent = (): JSX.Element => {
                 {renderComics()}
                 <Show when={nfts.comicsBalances.length > 0}>
                   <div>
-                    <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+                    <a href={COMICS_PURCHASE_URL} target="_blank" rel="noopener noreferrer">
                       <BuyCard
-                        onBuy={() => {}}
                         isNew={
                           !nfts.comicsBalances.some((comic) => comic.balance && comic.balance > 0)
                         }
@@ -195,9 +194,8 @@ const DashboardComicsPageContent = (): JSX.Element => {
                   {renderItems()}
                   <Show when={nfts.itemsBalances.length > 0}>
                     <div>
-                      <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
+                      <a href={ITEM_PURCHASE_URL} target="_blank" rel="noopener noreferrer">
                         <BuyCard
-                          onBuy={() => {}}
                           isNew={!nfts.itemsBalances.some((it) => it.balance && it.balance > 0)}
                         />
                       </a>

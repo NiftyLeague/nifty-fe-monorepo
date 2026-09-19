@@ -65,7 +65,7 @@ function DegenCardInner<T extends PublicDegen>(
           <a
             href={props.degen.id ? DEGEN_PURCHASE_URL(props.degen.id) : '#'}
             target="_blank"
-            rel="nofollow"
+            rel="noopener noreferrer"
             class={`text-muted-foreground ${buttonFontSizeClass}`}
           >
             {`#${props.degen.id}`}

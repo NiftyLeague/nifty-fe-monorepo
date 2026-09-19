@@ -38,7 +38,7 @@ const WalletBalances = (): JSX.Element => {
                 <a
                   href={SNAPSHOT_PORTAL_URL}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   class="inline-block w-12/25"
                 >
                   <Button class="w-full text-foreground" variant="outline">
@@ -48,7 +48,7 @@ const WalletBalances = (): JSX.Element => {
                 <a
                   href={GOVERNANCE_PORTAL_URL}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   class="inline-block w-12/25"
                 >
                   <Button class="w-full" variant="default">

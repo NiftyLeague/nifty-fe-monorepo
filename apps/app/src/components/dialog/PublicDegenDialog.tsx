@@ -34,7 +34,7 @@ export default function PublicDegenDialog(props: PublicDegenDialogProps) {
                 <a
                   href={DEGEN_PURCHASE_URL(props.degen.id)}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   class="text-sm text-muted-foreground underline underline-offset-4"
                 >
                   View on OpenSea

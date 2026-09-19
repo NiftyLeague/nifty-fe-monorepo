@@ -23,7 +23,7 @@ export function SocialsFooter(props: SocialsFooterProps) {
             class={cx(linkClass, animateClass)}
             href="https://niftyleague.com/terms-of-service"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Terms
           </a>
@@ -31,7 +31,7 @@ export function SocialsFooter(props: SocialsFooterProps) {
             class={cx(linkClass, animateClass)}
             href="https://niftyleague.com/disclaimer"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Disclaimer
           </a>
@@ -39,7 +39,7 @@ export function SocialsFooter(props: SocialsFooterProps) {
             class={cx(linkClass, animateClass)}
             href="https://niftyleague.com/privacy-policy"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             Privacy Policy
           </a>
@@ -48,7 +48,7 @@ export function SocialsFooter(props: SocialsFooterProps) {
         <div class="flex items-center justify-center gap-5 sm:gap-6">
           <For each={SOCIAL_LINKS}>
             {(social) => (
-              <a href={social.link} target="_blank" rel="noreferrer" class={animateClass}>
+              <a href={social.link} target="_blank" rel="noopener noreferrer" class={animateClass}>
                 <OptimizedImage
                   src={social.image}
                   width={20}
