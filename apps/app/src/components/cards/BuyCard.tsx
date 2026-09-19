@@ -3,7 +3,7 @@ import useComicDimension from '@/hooks/useComicDimension'
 
 interface BuyCardProps {
   isNew: boolean
-  onBuy: () => void
+  onBuy?: () => void
 }
 
 const BuyCard = (props: BuyCardProps) => {
@@ -11,7 +11,7 @@ const BuyCard = (props: BuyCardProps) => {
 
   const handleBuyComic = (e: MouseEvent & { currentTarget: HTMLDivElement }) => {
     e.stopPropagation()
-    props.onBuy()
+    props.onBuy?.()
   }
 
   return (

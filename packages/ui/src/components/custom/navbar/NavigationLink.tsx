@@ -16,7 +16,7 @@ function NavigationLink(props: NavigationLinkProps) {
 
   if (props.external) {
     return (
-      <a href={props.href} target="_blank" rel="noreferrer" class={resolvedClassName()}>
+      <a href={props.href} target="_blank" rel="noopener noreferrer" class={resolvedClassName()}>
         <NavLinkContent
           description={props.description}
           descriptionClassName={props.descriptionClassName}

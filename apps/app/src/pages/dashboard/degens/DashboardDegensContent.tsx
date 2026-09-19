@@ -221,7 +221,7 @@ const DashboardDegensPageContent = (): JSX.Element => {
                 <a
                   href={DEGEN_COLLECTION_URL}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   class="col-span-12 flex justify-center"
                 >
                   <EmptyState

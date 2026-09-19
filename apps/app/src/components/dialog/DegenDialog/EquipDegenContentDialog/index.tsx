@@ -167,7 +167,7 @@ const EquipDegenContentDialog = (props: EquipDegenContentDialogProps) => {
           }
         >
           <div class="flex flex-wrap items-center justify-center h-50">
-            <a href={COMICS_PURCHASE_URL} target="_blank" rel="noreferrer">
+            <a href={COMICS_PURCHASE_URL} target="_blank" rel="noopener noreferrer">
               <EmptyState
                 message="You don't own any Comics yet."
                 buttonText="Buy a Comic"

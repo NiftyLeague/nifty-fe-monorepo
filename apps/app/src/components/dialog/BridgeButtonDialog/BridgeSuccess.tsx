@@ -56,7 +56,7 @@ const BridgeSuccess = (props: BridgeSuccessProps): JSX.Element => {
             <a
               href={AXELAR_TRANSACTIONS_URL(network.address as `0x${string}`)}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               class="font-extrabold text-blue"
             >
               Axelarscan

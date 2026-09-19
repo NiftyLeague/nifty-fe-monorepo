@@ -159,7 +159,7 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
           <a
             href={props.canonicalUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             class={buttonVariants({ variant: 'outline' }) + ' text-foreground'}
           >
             Open in new tab <ExternalIcon />

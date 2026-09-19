@@ -41,7 +41,7 @@ describe('DegenCard', () => {
     const marketplaceLink = screen.getByRole('link', { name: '#1' })
     expect(marketplaceLink.tagName).toBe('A')
     expect(marketplaceLink.getAttribute('target')).toBe('_blank')
-    expect(marketplaceLink.getAttribute('rel')).toBe('nofollow')
+    expect(marketplaceLink.getAttribute('rel')).toBe('noopener noreferrer')
   })
 
   it('forwards deferred animation only to public media when requested', () => {

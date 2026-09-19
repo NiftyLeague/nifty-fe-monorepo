@@ -301,7 +301,7 @@ describe('card presentation', () => {
     const guideLink = screen.getByRole('link', { name: /Guide/ })
     expect(guideLink.getAttribute('href')).toBe('/guide')
     expect(guideLink.getAttribute('target')).toBe('_blank')
-    expect(guideLink.getAttribute('rel')).toBe('noreferrer')
+    expect(guideLink.getAttribute('rel')).toBe('noopener noreferrer')
     expect(guideLink.querySelector('button')).toBeNull()
     expect(guideLink.className).not.toContain('w-full')
     expect(guideLink.className).toContain('h-8')

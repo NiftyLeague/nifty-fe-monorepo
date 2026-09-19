@@ -117,7 +117,7 @@ const MyDegens = (): JSX.Element => {
             when={filteredDegens().length && nfts.degensBalances.length}
             fallback={
               <div class="flex items-center justify-center">
-                <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noreferrer">
+                <a href={DEGEN_COLLECTION_URL} target="_blank" rel="noopener noreferrer">
                   <EmptyState
                     message="No DEGENs found. Please check your address or go purchase a DEGEN if you have not done so already!"
                     buttonText="Buy a DEGEN"

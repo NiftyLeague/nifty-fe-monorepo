@@ -33,7 +33,7 @@ const ViewTraitsContentDialog = (props: ViewTraitsContentDialogProps) => {
           <a
             href={DEGEN_PURCHASE_URL(props.degen?.id as string)}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             class="flex flex-row flex-nowrap items-center"
           >
             <span class="text-muted-foreground no-underline">DEGEN ID #{props.degen?.id} </span>

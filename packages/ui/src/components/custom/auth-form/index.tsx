@@ -55,11 +55,15 @@ function AuthContainer(props: AuthContainerProps) {
       </div>
       <div class="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4 my-8">
         By continuing, you agree to our{' '}
-        <a href="https://niftyleague.com/terms-of-service" target="_blank" rel="noreferrer">
+        <a
+          href="https://niftyleague.com/terms-of-service"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Terms of Service
         </a>
         {' and '}
-        <a href="https://niftyleague.com/privacy-policy" target="_blank" rel="noreferrer">
+        <a href="https://niftyleague.com/privacy-policy" target="_blank" rel="noopener noreferrer">
           Privacy Policy
         </a>
         .
