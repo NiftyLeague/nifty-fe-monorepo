@@ -53,7 +53,7 @@ const MyItems = (): JSX.Element => {
             when={filteredItems().length > 0}
             fallback={
               <div class="flex items-center justify-center">
-                <a href={ITEM_PURCHASE_URL} target="_blank" rel="noreferrer">
+                <a href={ITEM_PURCHASE_URL} target="_blank" rel="noopener noreferrer">
                   <EmptyState
                     message="No Items found. Please check your address or go purchase some if you have not done so already!"
                     buttonText="Buy Items"

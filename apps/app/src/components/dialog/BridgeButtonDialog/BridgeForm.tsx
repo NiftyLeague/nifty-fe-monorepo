@@ -173,7 +173,12 @@ const BridgeForm = (props: BridgeFormProps): JSX.Element => {
           <strong>Note:</strong> The Axelar bridge minimizes fees but takes 20 minutes to process.{' '}
           <br />
           If you need your funds immediately use the{' '}
-          <a href={IMX_SQUID_BRIDGE_URL} target="_blank" rel="noreferrer" class="font-extrabold">
+          <a
+            href={IMX_SQUID_BRIDGE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-extrabold"
+          >
             Squid Bridge
           </a>{' '}
           instead.

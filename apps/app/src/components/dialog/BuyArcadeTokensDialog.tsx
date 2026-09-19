@@ -213,7 +213,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                   >
                     <span class="my-1 text-xs text-warning">
                       Balance is too low.{' '}
-                      <a href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
+                      <a href={NFTL_PURCHASE_URL} target="_blank" rel="noopener noreferrer">
                         Buy NFTL
                       </a>
                     </span>
@@ -221,7 +221,7 @@ const BuyArcadeTokensDialog: Component<BuyArcadeTokensDialogProps> = (props) => 
                   <Show when={!accountBalance()}>
                     <span class="my-1 text-xs text-error">
                       You have zero balance.{' '}
-                      <a href={NFTL_PURCHASE_URL} target="_blank" rel="noreferrer">
+                      <a href={NFTL_PURCHASE_URL} target="_blank" rel="noopener noreferrer">
                         Buy NFTL
                       </a>
                     </span>

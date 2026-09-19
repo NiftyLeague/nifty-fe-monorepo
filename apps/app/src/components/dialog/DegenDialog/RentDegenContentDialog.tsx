@@ -305,7 +305,7 @@ const RentDegenContentDialog = (props: RentDegenContentDialogProps) => {
                           <a
                             href={COW_PROTOCOL_URL}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             class="font-bold text-purple underline cursor-pointer"
                             onClick={handleBuyNFTL}
                           >

@@ -59,7 +59,7 @@ const StoreButtons = (props: StoreButtonsProps) => (
   <div class="grid w-full grid-cols-12 gap-4">
     <div class="col-span-4">
       {props.android ? (
-        <a href={props.android} target="_blank" rel="noreferrer">
+        <a href={props.android} target="_blank" rel="noopener noreferrer">
           <GoogleBadge />
         </a>
       ) : (
@@ -70,7 +70,7 @@ const StoreButtons = (props: StoreButtonsProps) => (
     </div>
     <div class="col-span-4">
       {props.ios ? (
-        <a href={props.ios} target="_blank" rel="noreferrer">
+        <a href={props.ios} target="_blank" rel="noopener noreferrer">
           <AppleBadge />
         </a>
       ) : (
@@ -81,7 +81,7 @@ const StoreButtons = (props: StoreButtonsProps) => (
     </div>
     <div class="col-span-4">
       {props.steam ? (
-        <a href={props.steam} target="_blank" rel="noreferrer">
+        <a href={props.steam} target="_blank" rel="noopener noreferrer">
           <SteamBadge />
         </a>
       ) : (

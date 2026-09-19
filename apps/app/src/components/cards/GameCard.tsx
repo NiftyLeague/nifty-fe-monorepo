@@ -75,7 +75,7 @@ const CardGameContent = (props: CardGameContentProps) => {
               <a
                 href={link().src}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 class={buttonVariants({ size: 'sm', className: 'shrink-0 px-3' })}
               >
                 {link().title} <ExternalIcon />
@@ -195,7 +195,7 @@ const GameCard = (props: GameCardProps & { children?: JSX.Element }) => {
           <a
             href={href()}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             aria-label={props.cardLinkLabel ?? `Open ${props.title ?? 'game'}`}
             class="absolute inset-0 z-0 rounded-[inherit] outline-none focus-visible:ring-2 focus-visible:ring-purple/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
