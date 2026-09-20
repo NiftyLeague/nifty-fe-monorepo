@@ -127,7 +127,7 @@ describe('Turbo cache environment scope', () => {
   })
 
   it('does not invalidate every workspace for app-specific credentials', () => {
-    expect(turbo.globalEnv ?? []).toEqual(['CI', 'VERCEL_ENV'])
+    expect(turbo.globalEnv ?? []).toEqual(['CI', 'VITE_DEPLOY_ENV'])
   })
 
   it('keeps local environment files scoped to the builds that consume them', () => {
@@ -161,7 +161,7 @@ describe('Turbo cache environment scope', () => {
   })
 
   it('keeps environment inputs on the builds that read them', () => {
-    expect(envFor('app#build')).toEqual(new Set(['CI', 'VITE_*', 'VERCEL_ENV']))
+    expect(envFor('app#build')).toEqual(new Set(['CI', 'VITE_*', 'VITE_DEPLOY_ENV']))
     expect(envFor('web#build')).toEqual(
       new Set(['CI', 'PUBLIC_DEPLOY_ENV', 'PUBLIC_TELEMETRY', 'PUBLIC_INFURA_ID'])
     )
@@ -184,7 +184,7 @@ describe('Turbo cache environment scope', () => {
         'SENTRY_PROJECT',
         'TWITCH_CLIENT_ID',
         'TWITCH_CLIENT_SECRET',
-        'VERCEL_ENV',
+        'NODE_ENV',
       ])
     )
   })
@@ -219,7 +219,7 @@ describe('Turbo cache environment scope', () => {
       // Every declared env var must be one the package can actually read, and
       // every PlayFab variable it reads must be declared.
       for (const name of declared) {
-        if (name === 'CI' || name === 'VERCEL_ENV') continue
+        if (name === 'CI' || name === 'VERCEL_ENV' || name === 'NODE_ENV') continue
         expect(read.has(name), `${task} declares ${name} but the package never reads it`).toBe(true)
       }
       for (const name of read) {

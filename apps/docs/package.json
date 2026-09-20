@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "astro build",
+    "build": "astro build && bun scripts/static-files.mjs",
     "clean": "rm -rf node_modules && rm -rf dist && rm -rf .turbo && rm -rf .astro",
     "dev": "astro dev --port 3002",
     "format": "oxfmt .",
@@ -15,7 +15,8 @@
     "test": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "build:cloudflare": "bun run build"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.1",

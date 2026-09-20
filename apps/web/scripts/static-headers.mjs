@@ -1,12 +1,11 @@
 /**
  * Response headers for the Cloudflare Workers assets surface (`wrangler.jsonc`
- * assets.directory = ./dist, which consumes a `_headers` file) — written into the
- * build output by `finalize-static.mjs`.
+ * assets.directory = ./dist, which consumes a `_headers` file) — written into
+ * the build output by `finalize-static.mjs`. This module is the single source
+ * of truth for the web header policy.
  *
- * Production today is Vercel, whose source of truth is `apps/web/vercel.json`; this
- * file is the same contract expressed for the Worker surface the E2E suite runs
- * against. `test/contract/vercel-build-policy.test.ts` asserts the two stay in
- * sync, so a header added to one platform cannot silently miss the other.
+ * `test/contract/cache-surface.test.ts` asserts the policy classes stay
+ * declared here.
  */
 export const HEADERS_FILE = `/*
   X-Content-Type-Options: nosniff

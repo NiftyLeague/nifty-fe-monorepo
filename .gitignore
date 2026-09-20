@@ -88,3 +88,6 @@ mise.local.lock
 .mise.local.lock
 *.code-workspace
 test-results/
+
+# Cloudflare Workers local state
+.wrangler/

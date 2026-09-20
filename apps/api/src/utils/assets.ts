@@ -11,7 +11,16 @@ import { fileURLToPath } from 'node:url'
  */
 export type AssetKind = 'comics' | 'items' | 'degens'
 
-const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
+// import.meta.url is undefined under the Workers runtime (no filesystem
+// concept); only the local generators use these paths, so a placeholder root
+// keeps the module importable there.
+const repositoryRoot = (() => {
+  try {
+    return resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
+  } catch {
+    return resolve('.')
+  }
+})()
 
 /**
  * Resolve the on-disk path of a source image for a given NFT kind.

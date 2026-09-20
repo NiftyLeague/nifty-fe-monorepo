@@ -17,7 +17,7 @@ const SKIP_DIRS = [
   'dist',
   'build',
   '.astro',
-  '.vercel',
+  '.wrangler',
   '.turbo',
   '.web-images',
   '.app',

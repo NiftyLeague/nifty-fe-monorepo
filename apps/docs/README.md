@@ -62,8 +62,7 @@ Create a markdown file in its respective docs directory.
 Copy the `.env.example` file in this directory to `.env.local` (which will be ignored by Git):
 
 ```bash
-vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
-# fallback: cp .env.example .env.local
+cp .env.example .env.local   # then fill in the values from the shared secret store
 ```
 
 ### Installation
@@ -128,21 +127,8 @@ As translations occur in Crowdin, the GitHub integration automatically opens pul
 
 ## Environment Variables
 
-Environment variables are managed in **Vercel** (source of truth). Sync them locally:
+Build-time values (`ALGOLIA_*`) are GitHub environment secrets on the
+`Production – docs` / `Preview – docs` environments. There are no runtime
+Worker secrets: the docs Worker serves static assets only.
 
-```bash
-# Link this project to its Vercel project (one-time)
-vercel link --scope niftyleague
-
-# Pull all env vars into .env.local (gitignored)
-vercel env pull .env.local
-```
-
-To push local changes back to Vercel:
-
-```bash
-vercel env push .env.local
-# or set them per-environment (Production / Preview) in the Vercel dashboard
-```
-
-> Never commit `.env.local` — it is gitignored. For team projects use `vercel --scope niftyleague`.
+> Never commit `.env.local` — it is gitignored.

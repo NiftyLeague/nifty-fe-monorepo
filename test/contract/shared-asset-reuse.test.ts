@@ -94,11 +94,11 @@ describe('shared image behaviour', () => {
     }
   })
 
-  it('keeps each optimizer app-local', () => {
-    // The optimisers genuinely differ: web resolves build-time variants from a
-    // manifest, smashers calls the Vercel image service.
+  it('keeps each image pipeline app-local and optimizer-free', () => {
+    // web resolves build-time variants from a manifest; smashers serves the
+    // plain asset path (the deploy has no optimizer endpoint).
     expect(read('apps/web/src/runtime/image-props.mjs')).toContain('/__images/')
-    expect(read('apps/smashers/src/runtime/Image.tsx')).toContain('/_vercel/image?url=')
+    expect(read('apps/smashers/src/runtime/Image.tsx')).not.toContain('/_vercel/image')
   })
 })
 

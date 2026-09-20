@@ -8,7 +8,7 @@ const manifest = JSON.parse(readFileSync('package.json', 'utf8')) as {
 const lockfile = readFileSync('bun.lock', 'utf8')
 
 describe('build reproducibility', () => {
-  it('keeps Bun policy compatible with Vercel lockfile resolution', () => {
+  it('keeps the Bun toolchain policy pinned for reproducible installs', () => {
     expect(manifest.packageManager).toBeUndefined()
     expect(manifest.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.0' })
     expect(lockfile).toMatch(/"lockfileVersion": 2,/)

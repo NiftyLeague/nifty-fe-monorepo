@@ -258,9 +258,11 @@ Learn more about the power of Turborepo:
 
 ## Learn More
 
-## Deploy on Vercel
+## Deploy on Cloudflare
 
-Deploys run through the [Vercel Platform](https://vercel.com).
+Deploys run through [Cloudflare Workers](https://developers.cloudflare.com/workers/). The
+`Cloudflare Production` workflow deploys every app on `main`; `Cloudflare Preview`
+deploys ready pull requests.
 
 ## Support
 
@@ -274,20 +276,19 @@ Join the Nifty League [Discord Server](https://discord.gg/niftyleague) and messa
 
 Draft pull requests use local validation and do not start runner-heavy GitHub Actions. Mark a pull request ready for review to start the canonical audit ending in `Validation / Gate`; converting it back to draft cancels in-flight validation.
 
-Vercel projects (app, docs, smashers) disable Git-triggered feature-branch deployments through each app's `git.deploymentEnabled` and `ignoreCommand` policies. Builds on `main` remain enabled and scoped to affected applications, manual deployments remain available, and the connected projects keep the consolidated Git commit status disabled so ignored builds cannot leave an aggregate check pending. The `web` site builds as Astro static output on the same Vercel flow (`apps/web/vercel.json`).
+The `Cloudflare Preview` workflow is draft-protected and scoped by the Turbo affected check, so untouched apps neither build nor deploy. Production deploys run only from `main`.
 
 ## Environment Variables
 
-Environment variables for the Vercel apps (`app`, `docs`, `smashers`, `web`) are managed in **Vercel** (source of truth). Each of those apps is linked to its own Vercel project under the `niftyleague` team; `web` reads the `PUBLIC_*` names documented in `apps/web/README.md`. Sync locally:
+Runtime secrets (Worker secrets, via `wrangler secret put`) and the build-time
+`PUBLIC_*` / `VITE_*` values (GitHub environment secrets on the
+`Production – <app>` / `Preview – <app>` environments) live outside the repo.
+Sync them locally from the migrated values:
 
 ```bash
-# From any app directory:
-cd apps/app
-vercel link --scope niftyleague
-vercel env pull .env.local
-
-# Push local changes back:
-vercel env push .env.local
+# Worker secrets for one app, from a local .env line KEY=value:
+cd apps/smashers
+printf '%s' "$VALUE" | bunx wrangler secret put KEY
 ```
 
 > Never commit `.env.local` — it is gitignored.

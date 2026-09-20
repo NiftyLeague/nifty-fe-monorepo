@@ -47,10 +47,6 @@ describe('session configuration', () => {
     expect(getSessionOptions().cookieOptions?.secure).toBe(true)
 
     stubEnv('PUBLIC_DEPLOY_ENV', 'development')
-    stubEnv('VERCEL_ENV', 'preview')
-    expect(getSessionOptions().cookieOptions?.secure).toBe(true)
-
-    stubEnv('VERCEL_ENV', undefined)
     expect(getSessionOptions().cookieOptions?.secure).toBe(false)
   })
 })
