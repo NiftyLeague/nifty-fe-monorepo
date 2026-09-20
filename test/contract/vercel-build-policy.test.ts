@@ -11,7 +11,7 @@ import {
 const projectRoots = ['apps/app', 'apps/smashers', 'apps/api', 'apps/docs', 'apps/web']
 const deploymentEnabled = { 'codex/*': false, '**': false, main: true }
 const ignoreCommand = 'node ../../scripts/vercel-ignore-build.mjs'
-const installCommand = 'bunx bun@1.4.0 install --frozen-lockfile'
+const installCommand = 'bun install --frozen-lockfile'
 const consolidatedStatusPolicy = 'consolidated Git commit status disabled'
 
 /* module scope: the reader captures nothing from the enclosing test scope */
