@@ -49,5 +49,7 @@ mock.module('./utils/getRandomKey', () => ({
 }))
 mock.module('./utils/wallet', () => ({
   signMessage: mock(async () => '0xsigned'),
-  isEthereumSignatureValid: mock(() => true),
+  isEthereumSignatureValid: mock(async (address: string, signature: string, nonce: string) =>
+    Boolean(address && signature && nonce)
+  ),
 }))

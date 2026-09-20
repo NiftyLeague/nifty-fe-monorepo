@@ -219,6 +219,22 @@ describe('admin and cloud functions', () => {
 
   it('rejects unsupported chains and missing wallet links', async () => {
     clientSuccess('GetUserPublisherReadOnlyData', { Data: { LinkedWallets: { Value: '[]' } } })
+    sdk.cloudScript.ExecuteFunction.mockImplementation((_request, _token, callback) =>
+      callback(null, { data: { FunctionResult: 'should not run' } })
+    )
+
+    await expect(
+      api.LinkWallet({
+        address: '0xabc',
+        signature: '',
+        nonce: 'nonce',
+        EntityToken: 'entity-token',
+        SessionTicket: 'ticket',
+      })
+    ).rejects.toThrow('Failed to validate signature')
+    expect(clientMocks.GetUserPublisherReadOnlyData).not.toHaveBeenCalled()
+    expect(sdk.cloudScript.ExecuteFunction).not.toHaveBeenCalled()
+
     await expect(
       api.LinkWallet({
         chain: 'polygon',

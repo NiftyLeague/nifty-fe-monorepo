@@ -48,11 +48,11 @@ export async function LinkWallet({
   EntityToken,
   SessionTicket,
 }: LinkWalletParams): Promise<PlayFabCloudScriptModels.ExecuteFunctionResult> {
-  const linkedWallets = await getLinkedWallets(SessionTicket)
   if (chain != 'ethereum') throw new Error('Only Ethereum wallets are supported at this time')
-  if (!isEthereumSignatureValid(address, signature, nonce))
+  if (!(await isEthereumSignatureValid(address, signature, nonce)))
     throw new Error('Failed to validate signature')
 
+  const linkedWallets = await getLinkedWallets(SessionTicket)
   const walletEntry = `${chain}:${address}`.toLowerCase()
   if (linkedWallets.includes(walletEntry))
     throw new Error(`${address.substring(0, 6)}... address is already linked to this account`)
