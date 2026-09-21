@@ -9,6 +9,12 @@ permissions:
   contents: read
   deployments: write
 
+# Serialize production deploys: a queued release deploys after the in-flight
+# one finishes instead of racing it for the same Worker identities.
+concurrency:
+  group: cloudflare-production
+  cancel-in-progress: false
+
 jobs:
   production:
     name: Cloudflare Production / ${{ matrix.app }}

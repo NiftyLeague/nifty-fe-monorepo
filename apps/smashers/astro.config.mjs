@@ -22,9 +22,9 @@ const publicEnv = (name, ...fallbacks) => {
 export default defineConfig({
   site: 'https://niftysmashers.com',
   output: 'server',
-  // The Vercel image-optimizer gate (runtime/image-url.ts) collapses to plain
-  // asset paths on Cloudflare — the exact behaviour every non-Vercel build,
-  // test, and E2E run already exercised. imageService: 'custom' makes the
+  // The former image-optimizer gate (runtime/image-url.ts) resolves to plain
+  // asset paths on Cloudflare — the exact behaviour every pre-migration
+  // non-production build, test, and E2E run already exercised. imageService: 'custom' makes the
   // adapter keep the app service below instead of forcing its Cloudflare
   // Images binding, and session: false avoids the adapter's session KV
   // binding (the app manages sessions with iron-session).

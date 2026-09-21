@@ -16,7 +16,8 @@
     "test:coverage": "bun test --isolate --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "astro check",
-    "build:cloudflare": "bun run build"
+    "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=docs",
+    "cf:build": "bun run build"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.1",

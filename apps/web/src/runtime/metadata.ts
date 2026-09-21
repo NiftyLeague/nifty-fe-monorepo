@@ -1,4 +1,4 @@
-/** Static marketing route metadata; replaces the Next.js `Metadata` shape. */
+/** Static marketing route metadata; mirrors the old framework `Metadata` shape. */
 export const DEFAULT_METADATA = {
   title: 'Nifty League',
   description:
