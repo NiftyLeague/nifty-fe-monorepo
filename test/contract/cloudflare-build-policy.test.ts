@@ -148,14 +148,15 @@ describe('response header sources', () => {
   })
 })
 
+/** Reads a repo file relative to the project root. */
+const readRepoFile = (path: string) => readFileSync(join(process.cwd(), path), 'utf8')
+
 describe('worker runtime environment contract', () => {
   // The Workers runtime exposes deployed vars/secrets to server code through
   // process.env, which Astro/vite does NOT bake — a runtime read of a key that
   // has no binding silently returns undefined and the route degrades (the
   // store deep links 404'd exactly like this after the cutover). These checks
   // pin every runtime-read key to its committed binding.
-
-  const read = (path: string) => readFileSync(join(process.cwd(), path), 'utf8')
 
   it('binds every runtime-read smashers PUBLIC_* key in the wrangler config', () => {
     // store-links.ts resolves its keys through a defaulted process.env param,
@@ -165,12 +166,12 @@ describe('worker runtime environment contract', () => {
     for (const file of sourceFiles) {
       // store-links.ts reads through a defaulted env param, so match the key
       // wherever it is dereferenced, not only on process.env.
-      for (const match of read(file).matchAll(/\b(PUBLIC_[A-Z0-9_]+)\b/g)) {
+      for (const match of readRepoFile(file).matchAll(/\b(PUBLIC_[A-Z0-9_]+)\b/g)) {
         directReads.add(match[1] as string)
       }
     }
 
-    const config = read('apps/smashers/astro.wrangler.jsonc')
+    const config = readRepoFile('apps/smashers/astro.wrangler.jsonc')
     for (const key of directReads) {
       expect(config.includes(`"${key}"`), `${key} must be a wrangler var`).toBe(true)
     }
@@ -195,7 +196,7 @@ describe('worker runtime environment contract', () => {
     // SESSION_SECRET (32+ chars), PLAYFAB_API_KEY, PUBLIC_DEPLOY_ENV=production
     // (gates the session cookie Secure flag and the server Sentry gate), and
     // the four OAuth *_CLIENT_ID / *_CLIENT_SECRET pairs.
-    const session = read('apps/smashers/src/utils/session.ts')
+    const session = readRepoFile('apps/smashers/src/utils/session.ts')
     expect(session).toContain('process.env.SESSION_SECRET')
     expect(session).toContain("process.env.PUBLIC_DEPLOY_ENV === 'production'")
   })
@@ -205,11 +206,11 @@ describe('worker runtime environment contract', () => {
     // node-config-ts shim from Worker bindings; a placeholder without a
     // deployed secret silently resolves to '' (this is how production lost
     // its Etherscan key once).
-    const configJson = read('apps/api/config/default.json')
+    const configJson = readRepoFile('apps/api/config/default.json')
     const placeholders = new Set(
       [...configJson.matchAll(/"@@([A-Z0-9_]+)"/g)].map((m) => m[1] as string)
     )
-    const workerSecrets = read('test/contract/cloudflare-worker-secrets.json')
+    const workerSecrets = readRepoFile('test/contract/cloudflare-worker-secrets.json')
     const pinned = new Set(JSON.parse(workerSecrets) as string[])
 
     expect(pinned.size).toBeGreaterThan(20)
