@@ -45,4 +45,4 @@ for (const entry of readdirSync(assets)) {
   restored += 1
 }
 
-console.log(`[restore-cached-media] ${restored} asset entries restored into ${outDir}`)
+console.log(`[restore-cached-media] ${restored} asset entr(y|ies) restored into ${outDir}`)
