@@ -5,9 +5,7 @@ import { routeRequest } from '../../apps/web/worker/routes.mjs'
 
 const docsRoot = join(process.cwd(), 'apps/docs')
 const docsConfig = readFileSync(join(docsRoot, 'astro.config.mjs'), 'utf8')
-const docsVercelConfig = JSON.parse(readFileSync(join(docsRoot, 'vercel.json'), 'utf8')) as {
-  rewrites?: Array<{ source: string; destination: string }>
-}
+const docsWorker = readFileSync(join(docsRoot, 'worker', 'index.ts'), 'utf8')
 
 describe('documentation routing contract', () => {
   it('keeps the historical /docs build prefix for the shared routing surface', () => {
@@ -57,12 +55,10 @@ describe('documentation routing contract', () => {
     })
   })
 
-  it('keeps the standalone docs domain root and prefixed deep links loadable', () => {
-    expect(docsVercelConfig.rewrites).toEqual(
-      expect.arrayContaining([
-        { source: '/docs', destination: '/' },
-        { source: '/docs/:path*', destination: '/:path*' },
-      ])
-    )
+  it('strips the /docs base prefix on the standalone docs worker', () => {
+    // One build emits dist root files behind /docs URLs; the worker rewrites
+    // the prefix away so docs.niftyleague.com serves the same artifact.
+    expect(docsWorker).toContain("path.startsWith('/docs')")
+    expect(docsWorker).toContain("url.pathname.slice('/docs'.length)")
   })
 })

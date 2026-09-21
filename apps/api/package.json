@@ -13,7 +13,6 @@
     "audit:endpoints": "node scripts/audit-endpoints.mjs",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node scripts/copy-config.mjs && node scripts/copy-contract-deployments.mjs && node scripts/copy-api-app.mjs",
     "clean": "rm -rf dist api/.app api/config .turbo coverage",
-    "deploy": "node scripts/vercel-build.mjs --prod && npx vercel deploy --prebuilt --prod --scope niftyleague",
     "dev": "NODE_CONFIG_TS_DIR=config tsx watch src/index.ts",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
@@ -29,7 +28,7 @@
     "test:unit": "bun scripts/run-tests-isolated.ts src --exclude src/index.integration.test.ts",
     "test:watch": "bun test --watch",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "vercel-build": "bun run build"
+    "build:cloudflare": "echo \"api bundles from source at deploy time\""
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1105.0",

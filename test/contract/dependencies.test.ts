@@ -64,7 +64,7 @@ function collectImportNames(dir: string): Set<string> {
  * Build-config and script files that live outside `src/`. Imports here are real
  * runtime dependencies of a build, so they must be declared just like source
  * imports — a config-only import that only resolves through hoisting fails on a
- * clean install (this is how an undeclared `@astrojs/mdx` reached a Vercel build).
+ * clean install (this is how an undeclared `@astrojs/mdx` once reached a build).
  */
 function collectConfigImportNames(pkg: Pkg): Set<string> {
   const out = new Set<string>()
@@ -249,7 +249,6 @@ const ALLOWED_UNUSED: Record<string, Record<string, string>> = {
     cookie: 'Astro runtime dependency (cookie handling in the Astro toolchain)',
   },
   'apps/smashers': {
-    '@astrojs/vercel': 'Astro Vercel adapter referenced from astro.config.mjs',
     '@astrojs/solid-js': 'Astro Solid integration referenced from astro.config.mjs',
     '@astrojs/check': 'astro check CLI (type-check script)',
     astro: 'Astro framework (config + CLI)',

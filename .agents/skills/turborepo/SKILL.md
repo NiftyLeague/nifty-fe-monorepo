@@ -163,7 +163,6 @@ Environment issues?
 ```
 CI setup?
 ├─ GitHub Actions → references/ci/github-actions.md
-├─ Vercel deployment → references/ci/vercel.md
 ├─ Remote cache in CI → references/caching/remote-cache.md
 ├─ Only build changed packages → --affected flag
 ├─ Skip unnecessary builds → turbo-ignore (references/cli/commands.md)
@@ -912,7 +911,6 @@ With `futureFlags.globalConfiguration`, the same config moves global settings un
 | --------------------------------------------------------- | ------------------------------- |
 | [ci/RULE.md](./references/ci/RULE.md)                     | General CI principles           |
 | [ci/github-actions.md](./references/ci/github-actions.md) | Complete GitHub Actions setup   |
-| [ci/vercel.md](./references/ci/vercel.md)                 | Vercel deployment, turbo-ignore |
 | [ci/patterns.md](./references/ci/patterns.md)             | --affected, caching strategies  |
 
 ### CLI

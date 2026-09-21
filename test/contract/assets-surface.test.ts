@@ -5,7 +5,7 @@ import { join } from 'node:path'
 /**
  * Shared assets surface contract.
  *
- * The Next/Vercel apps' `public/` dirs are symlinks to the repo-root `assets/` dir. If the
+ * The Astro apps' `public/` dirs are symlinks to the repo-root `assets/` dir. If the
  * `assets` dir (or a symlink, or a critical subdir) disappears, every app silently
  * 404s its images, favicons, and videos — with no in-repo click-through to catch it.
  * This test pins that structure.

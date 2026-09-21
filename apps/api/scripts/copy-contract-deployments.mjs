@@ -1,7 +1,7 @@
 // Bundle the shared contract registries into the API function.
 //
 // The API imports small local wrappers so TypeScript keeps one canonical source
-// in @nl/contracts. Vercel cannot follow the workspace symlink to that source
+// in @nl/contracts. Some bundlers cannot follow the workspace symlink to that source
 // from the deployed function, so compile the two data-only modules into the
 // API's own dist tree before copy-api-app.mjs assembles the function bundle.
 import { execFileSync } from 'node:child_process'

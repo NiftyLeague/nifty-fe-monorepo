@@ -9,7 +9,7 @@ import { getRequestHeader } from '@tanstack/solid-start/server'
  */
 export const getRequestOrigin = createIsomorphicFn()
   .server(() => {
-    // Vercel sets x-forwarded-proto; local servers default to http.
+    // Edge proxies set x-forwarded-proto; local servers default to http.
     const proto = getRequestHeader('x-forwarded-proto') ?? 'http'
     const host = getRequestHeader('host') ?? 'localhost:3000'
     return `${proto}://${host}`

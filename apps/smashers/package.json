@@ -14,11 +14,12 @@
     "test:coverage": "bun test --conditions=browser --isolate --preload ../../test/solid-jsx.ts --preload --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:e2e": "bunx playwright test",
     "test:watch": "bun test --watch",
-    "type-check": "astro check"
+    "type-check": "astro check",
+    "build:cloudflare": "bun scripts/build-cloudflare.mjs"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "14.3.1",
     "@astrojs/solid-js": "^7.0.2",
-    "@astrojs/vercel": "^11.0.10",
     "@nl/playfab": "workspace:*",
     "@nl/ui": "workspace:*",
     "@sentry/browser": "^10.69.0",

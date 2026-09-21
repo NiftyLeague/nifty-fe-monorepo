@@ -16,7 +16,6 @@ afterEach(() => {
 describe('server error capture', () => {
   it('does not load the SDK outside production', async () => {
     process.env.PUBLIC_DEPLOY_ENV = 'development'
-    delete process.env.VERCEL_ENV
 
     // Nothing to assert beyond it resolving quietly: importing @sentry/node in
     // dev would add start-up cost for errors that never leave the machine.
@@ -24,7 +23,7 @@ describe('server error capture', () => {
   })
 
   it('never throws, even when reporting fails', async () => {
-    process.env.VERCEL_ENV = 'production'
+    process.env.PUBLIC_DEPLOY_ENV = 'production'
     // A non-Error value is still a legal capture argument; the guard is that
     // observability must not turn a handled error into a failed response.
     await expect(captureServerError(undefined, context())).resolves.toBeUndefined()
@@ -33,7 +32,6 @@ describe('server error capture', () => {
 
   it('treats a production deploy environment as production', async () => {
     process.env.PUBLIC_DEPLOY_ENV = 'production'
-    delete process.env.VERCEL_ENV
     await expect(captureServerError(new Error('prod'), context())).resolves.toBeUndefined()
   })
 })

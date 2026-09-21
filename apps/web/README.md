@@ -15,7 +15,7 @@ special routes: DEGEN 3D viewer deep links (`/gltf/:tokenId`), referral deep lin
 - `src/layouts/Base.astro` — document shell (metadata, canonical, fonts, analytics
   bootstrap). `src/layouts/Marketing.astro` adds the shared Navbar/Footer islands.
 - `src/pages/shells/gltf.astro` + `src/pages/shells/referral.astro` — minimal shells for the
-  special routes. The Worker keeps them private; Vercel serves the direct shell paths as
+  special routes. The Worker keeps them private; the Worker also serves the direct shell paths as
   noindex, robots-disallowed compatibility documents.
 - `src/runtime/` — app-local shims shared by the React components: the image component
   and manifest (`Image.tsx`, `image-props.mjs`, generated variants in `.web-images/`),
@@ -48,25 +48,23 @@ All build-time configuration uses Astro's `PUBLIC_*` convention (see `.env.examp
 - `PUBLIC_TELEMETRY` — set to `false` to disable analytics even in production.
 - `PUBLIC_INFURA_ID` — optional; RPC endpoint for the NFTL claimable read on GLTF pages.
 
-Worker runtime variables (e.g. `DEPLOY_ENV`) are set in `wrangler.jsonc` and the
-Cloudflare dashboard — no Vercel involvement.
+Worker runtime variables (e.g. `DEPLOY_ENV`) are set in `wrangler.jsonc`; the
+cache/CORS response policy lives in `scripts/static-headers.mjs`, written into
+`dist/_headers` by the finalize script.
 
 ## Deployment
 
-The site deploys through the **Vercel** project `web` as an Astro static build
-(`vercel.json`: framework `astro`, output `dist/`, same release-branch cost policy as the
-other apps). The special routes are implemented by `vercel.json` `redirects`/`rewrites`,
-mirroring `worker/routes.mjs`: short links (`/blog`, `/OS`, `/d/:id`, …), the shop and
-docs proxies, and `/gltf/:tokenId` + `/invite` + `/party` deep links served by the static
-shells in `src/pages/shells/`. Set `PUBLIC_DEPLOY_ENV=production` (and optionally
-`PUBLIC_TELEMETRY`, `PUBLIC_INFURA_ID`) in the Vercel project settings.
+The site deploys to the **Cloudflare Worker** `nifty-league-web-astro` as an
+Astro static build served by `worker/index.ts` (assets binding + deep-link
+shells). The special routes live in `worker/routes.mjs`: short links (`/blog`,
+`/OS`, `/d/:id`, …), the shop and docs proxies, and `/gltf/:tokenId` +
+`/invite` + `/party` deep links served by the static shells in
+`src/pages/shells/`. Set `PUBLIC_DEPLOY_ENV=production` (and optionally
+`PUBLIC_TELEMETRY`, `PUBLIC_INFURA_ID`) as build-time secrets on the
+`Production – web` GitHub environment.
 
-Two deliberate differences on Vercel, both handled client-side: numeric `/gltf/:tokenId`
-posters are corrected by an inline script in the shell (the Worker uses HTMLRewriter), and
-the direct `/shells/` compatibility documents respond 200 with `noindex,nofollow`
-metadata (robots.txt disallows the directory). The Vercel rewrite only accepts 1–12 digit
-token IDs; malformed `/gltf/*` paths fall through to the normal 404. The Worker keeps the
-stronger behavior of returning 404 for direct shell and malformed deep-link requests.
+The Worker returns 404 for direct `/shells/` requests and malformed deep-link
+token IDs, and rewrites `/gltf/:tokenId` posters through HTMLRewriter.
 
 A full-fidelity **Cloudflare Worker** variant ships alongside (`wrangler.jsonc`,
 `worker/`): it rewrites the poster per token, 404s the shells and malformed deep links,
