@@ -27,9 +27,7 @@ const boolean = (value: string | undefined, fallback = false) => {
   return resolved === undefined ? fallback : resolved === 'true'
 }
 
-/** Deployment environment. Vercel injects VERCEL_ENV; local dev falls back. */
-export const DEPLOY_ENV =
-  read(import.meta.env.VITE_VERCEL_ENV) ?? read(import.meta.env.VITE_DEPLOY_ENV) ?? 'development'
+export const DEPLOY_ENV = read(import.meta.env.VITE_DEPLOY_ENV) ?? 'development'
 
 export const IS_PRODUCTION = DEPLOY_ENV === 'production'
 

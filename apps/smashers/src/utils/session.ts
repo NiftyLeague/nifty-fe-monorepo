@@ -13,8 +13,6 @@ export const SESSION_TIMEOUT = {
  * The session secret is read lazily so the module can be imported by tests and
  * by the OAuth flow helpers without a build-time environment assertion.
  *
- * No NEXTAUTH_SECRET fallback: the Vercel project carries SESSION_SECRET in
- * every environment.
  */
 const getSessionSecret = (): string => {
   const secret = process.env.SESSION_SECRET
@@ -24,10 +22,7 @@ const getSessionSecret = (): string => {
   return secret
 }
 
-const isSecureDeployment = (): boolean =>
-  process.env.PUBLIC_DEPLOY_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'production' ||
-  process.env.VERCEL_ENV === 'preview'
+const isSecureDeployment = (): boolean => process.env.PUBLIC_DEPLOY_ENV === 'production'
 
 export const getSessionOptions = (): SessionOptions => ({
   password: getSessionSecret(),
@@ -73,9 +68,9 @@ export async function getSession(context: APIContext): Promise<Session> {
 
 /**
  * JSON response helper, replacing `NextResponse.json`. Every payload here is
- * session- or auth-bound, so responses are explicitly uncacheable: without an
- * explicit header Vercel injects `public, max-age=0, must-revalidate`, whose
- * `public` invites shared-cache storage of per-user data.
+ * session- or auth-bound, so responses are explicitly uncacheable: an
+ * implicit `public` default would invite shared-cache storage of per-user
+ * data.
  */
 export const json = (data: unknown, init?: ResponseInit): Response =>
   new Response(JSON.stringify(data), {

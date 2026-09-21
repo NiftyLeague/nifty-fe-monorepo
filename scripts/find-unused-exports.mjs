@@ -35,17 +35,19 @@ import { fileURLToPath } from 'node:url'
 import ts from 'typescript'
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-// `.vercel` and `.wrangler` hold copies of source files; counting those as references
-// would make every finding look used, and counting their exports as candidates is noise.
-const IGNORED =
-  /(?:^|\/)(?:node_modules|dist|\.astro|\.turbo|coverage|\.vercel|\.wrangler|\.agents)\//
+// Build-output directories (`.wrangler`, `dist`) hold copies of source files; counting
+// those as references would make every finding look used, and counting their exports as
+// candidates is noise.
+const IGNORED = /(?:^|\/)(?:node_modules|dist|\.astro|\.turbo|coverage|\.wrangler|\.agents)\//
 const TEST_FILE = /\.(?:test|spec)\.tsx?$|(?:^|\/)(?:test|tests|e2e)\//
 /**
  * Modules something other than an import loads, so "no importer" proves nothing:
- * tool and platform configs read by name, and the worker entry the platform invokes.
+ * tool and platform configs read by name, the web worker entry the platform invokes,
+ * the api Worker entry (`wrangler.jsonc` `main`), the build helper scripts the
+ * deploy workflow runs, and the `node-config-ts` shim a wrangler alias targets.
  */
 const ENTRY_FILE =
-  /(?:^|\/)(?:vite|astro|playwright|postcss|tailwind|wrangler)\.config\.[cm]?[jt]s$|(?:^|\/)\.wrangler\/|(?:^|\/)worker\/index\.[cm]?[jt]s$/
+  /(?:^|\/)(?:vite|astro|playwright|postcss|tailwind|wrangler)\.config\.[cm]?[jt]s$|(?:^|\/)\.wrangler\/|(?:^|\/)worker\/index\.[cm]?[jt]s$|(?:^|\/)src\/worker\.[cm]?[jt]s$|(?:^|\/)scripts\/(?:post-build-worker|static-files|append-headers|static-files)\.mjs$|(?:^|\/)src\/lib\/node-config-ts-shim\.ts$/
 /**
  * Framework routing. Astro discovers these by file path and calls the exported `GET`/`POST`
  * itself, and the app's `routeTree.gen.ts` is generated. Neither has an importer, and both

@@ -2,7 +2,7 @@
   "$schema": "https://v2-10-9.turborepo.dev/schema.json",
   "ui": "tui",
   "globalDependencies": [".env"],
-  "globalEnv": ["CI", "VERCEL_ENV"],
+  "globalEnv": ["CI", "VITE_DEPLOY_ENV"],
   "tasks": {
     "build": {
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
@@ -30,8 +30,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": ["CI", "VITE_*", "VERCEL_ENV"],
-      "outputs": [".vercel/output/**", "!**/.vercel/project.json"]
+      "env": ["CI", "VITE_*", "VITE_DEPLOY_ENV"],
+      "outputs": [".output/**"]
     },
     "api#build": {
       "inputs": [
@@ -51,7 +51,6 @@
       "env": [
         "NODE_CONFIG_TS_DIR",
         "PORT",
-        "VERCEL",
         "ETH_NETWORK",
         "ETH_ACCOUNT_PRIVATE_KEY",
         "TESTNET_ALCHEMY_API_KEY",
@@ -77,7 +76,7 @@
         "TESTNET_COLLECTION_CONTRACT_ADDRESS",
         "MAINNET_COLLECTION_CONTRACT_ADDRESS"
       ],
-      "outputs": ["dist/**", "api/.app/**", "api/config/**"]
+      "outputs": ["dist/**"]
     },
     "docs#build": {
       "inputs": [
@@ -154,9 +153,9 @@
         "SENTRY_PROJECT",
         "TWITCH_CLIENT_ID",
         "TWITCH_CLIENT_SECRET",
-        "VERCEL_ENV"
+        "NODE_ENV"
       ],
-      "outputs": ["dist/**", ".vercel/output/**"]
+      "outputs": ["dist/**"]
     },
     "web#build": {
       "inputs": [
@@ -196,9 +195,6 @@
         "NODE_CONFIG_TS_DIR",
         "PORT",
         "RUN_LIVE_TESTS",
-        "VERCEL",
-        "VERCEL_SCOPE",
-        "VERCEL_TOKEN",
         "WEBHOOK_SECRET"
       ]
     },
@@ -208,13 +204,13 @@
     "format": {},
     "type-check": {},
     "api#type-check": {
-      "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"]
+      "env": ["NODE_CONFIG_TS_DIR", "PORT", "ETH_NETWORK", "WEBHOOK_SECRET"]
     },
     "test": {
       "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
     },
     "api#test": {
-      "env": ["NODE_CONFIG_TS_DIR", "PORT", "VERCEL", "ETH_NETWORK", "WEBHOOK_SECRET"],
+      "env": ["NODE_CONFIG_TS_DIR", "PORT", "ETH_NETWORK", "WEBHOOK_SECRET"],
       "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
     },
     "dev": {

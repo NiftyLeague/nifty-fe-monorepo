@@ -1,5 +1,8 @@
 import type { APIContext } from 'astro'
 
+/** Workers requests carry the platform geo object on `cf`. */
+type WorkerRequest = Request & { cf?: { country?: string } }
+
 import { resolveRedirect } from './redirects.mjs'
 import { getStoreLinks } from './store-links'
 
@@ -20,7 +23,7 @@ export const deepLinkResponse = (
   const redirect = resolveRedirect(
     {
       pathname: context.url.pathname,
-      ...(country ? { country: context.request.headers.get('x-vercel-ip-country') ?? '' } : {}),
+      ...(country ? { country: (context.request as WorkerRequest).cf?.country ?? '' } : {}),
       ...(userAgent ? { userAgent: context.request.headers.get('user-agent') ?? '' } : {}),
     },
     {

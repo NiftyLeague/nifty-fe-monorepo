@@ -56,8 +56,8 @@ for (const name of await readdir(output)) {
 // Shell documents keep their poster handled by the Worker; skip shells/.
 console.log(`Injected hero image preloads into ${injected} documents.`)
 
-// The Workers assets surface consumes this file; production Vercel reads
-// vercel.json. static-headers.mjs documents why both exist.
+// The Workers assets surface consumes this file. static-headers.mjs documents
+// the header sources.
 await writeFile(join(output, '_headers'), HEADERS_FILE)
 await writeFile(
   join(output, 'robots.txt'),

@@ -31,20 +31,18 @@ bun --filter api test:live
 ```
 
 The API's local environment file is `apps/api/.env.local` and is ignored by
-Git. Copy the variables from `.env.example` or pull them from the linked Vercel
-project. Every value is server-side configuration; never expose these names
-through client-visible env prefixes (`VITE_*`/`PUBLIC_*`) or import
+Git. Copy the variables from `.env.example` or sync them from the team
+secret store. Every value is server-side configuration; never expose these
+names through client-visible env prefixes (`VITE_*`/`PUBLIC_*`) or import
 `node-config-ts` from a client bundle.
 
 ## Deployment
 
-The Vercel project should use `apps/api` as its project root. Configure the
-variables in `.env.example` in the appropriate Vercel environments and deploy
-the prebuilt output with:
-
-```bash
-bun --filter api deploy
-```
+Production runs the `nifty-league-api` Cloudflare Worker (`src/worker.ts`),
+deployed by the `Cloudflare Production` workflow from `main`. Runtime values
+are Worker secrets (`wrangler secret put KEY`); `wrangler.jsonc` aliases the
+`node-config-ts` import to a shim that bundles `config/default.json` and
+resolves its `@@ENV` placeholders from the Worker bindings.
 
 `config/default.json` contains only placeholders. The build copies it to both
 the compiled app and the serverless function bundle so `node-config-ts` can

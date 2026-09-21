@@ -52,9 +52,12 @@ export const readAuthCookieToken = (cookieHeader: string | null | undefined): AU
  * boundary and asserted by test/contract/m1-state-data-layer.test.ts.
  */
 export const authTokenStore = getLocalStorageStore<AUTH_Token>('authentication-token', undefined)
-// One generated fallback per page load, matching the legacy module-level defaults.
-export const uuidTokenStore = getLocalStorageStore<UUID_Token>('uuid-token', createUUID())
-export const nonceStore = getLocalStorageStore<Nonce>('nonce', createNonce())
+// One generated fallback per browser page load, matching the legacy
+// module-level defaults. Thunks keep generation off module scope: workerd
+// forbids random values during Worker evaluation, and the server start is
+// empty because no storage read can happen there.
+export const uuidTokenStore = getLocalStorageStore<UUID_Token>('uuid-token', createUUID)
+export const nonceStore = getLocalStorageStore<Nonce>('nonce', createNonce)
 const userIdStore = getLocalStorageStore<USER_ID>('user_id', undefined)
 export const agreementStore = getLocalStorageStore<AgreementAccepted>(
   'aggreement-accepted',

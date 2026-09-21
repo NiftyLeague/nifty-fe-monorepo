@@ -21,20 +21,30 @@ export type LocalStorageStore<T> = {
   sync: () => void
 }
 
-const readStoredValue = <T>(key: string, initialValue: T): T | undefined => {
-  if (typeof window === 'undefined') return initialValue
+/**
+ * The initial value may be a thunk so keys whose fallback is generated
+ * (UUID/nonce) resolve on the client only: workerd forbids random values at
+ * module scope, and a server-generated fallback is per-request garbage that
+ * nothing reads.
+ */
+const readStoredValue = <T>(key: string, initialValue: T | (() => T)): T | undefined => {
+  if (typeof window === 'undefined') return undefined
+  const resolved = typeof initialValue === 'function' ? (initialValue as () => T)() : initialValue
   try {
     const item = window.localStorage.getItem(key)
-    return item ? (safeJSONParse(item) as T) : initialValue
+    return item ? (safeJSONParse(item) as T) : resolved
   } catch (error) {
     console.error(error)
-    return initialValue
+    return resolved
   }
 }
 
 const registry = new Map<string, LocalStorageStore<never>>()
 
-export const createLocalStorageStore = <T>(key: string, initialValue: T): LocalStorageStore<T> => {
+export const createLocalStorageStore = <T>(
+  key: string,
+  initialValue: T | (() => T)
+): LocalStorageStore<T> => {
   const [value, setValue] = createSignal<T | undefined>(readStoredValue(key, initialValue))
 
   const persist = (nextValue: T | undefined) => {
@@ -84,7 +94,10 @@ export const createLocalStorageStore = <T>(key: string, initialValue: T): LocalS
   return store
 }
 
-export const getLocalStorageStore = <T>(key: string, initialValue: T): LocalStorageStore<T> =>
+export const getLocalStorageStore = <T>(
+  key: string,
+  initialValue: T | (() => T)
+): LocalStorageStore<T> =>
   (registry.get(key) as LocalStorageStore<T> | undefined) ??
   createLocalStorageStore(key, initialValue)
 

@@ -1,35 +1,16 @@
 /**
- * The optimizer policy shared by every smashers image surface: the React
- * adapter (`runtime/Image.tsx`), the astro:assets image service
- * (`runtime/vercel-image-service.ts`), and the preload hints in `Base.astro`.
- *
- * Keeping the gate and the URL construction in one module is what guarantees
- * a preload hint and its `<img>` resolve to the same candidate — when they
- * diverged, the hero wordmark was downloaded twice.
+ * The width-selection policy shared by every smashers image surface: the React
+ * adapter (`runtime/Image.tsx`) and the preload hints in `Base.astro`. Both
+ * resolve through this module so a preload hint and its `<img>` always agree
+ * on the candidate artwork — when they diverged, the hero wordmark was
+ * downloaded twice.
  *
  * The module is imported by client bundles, so it must stay free of
- * server-only imports (`astro:assets`, the Vercel adapter).
+ * server-only imports (`astro:assets`, the adapter).
  */
 
-/** Vercel's image optimizer accepts exactly these widths. */
-const VERCEL_IMAGE_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
-
-/**
- * Read at call time rather than once at import, so the behaviour is
- * controllable from tests and from a build that sets the flag late. Vite still
- * statically replaces `import.meta.env.VERCEL` in the bundle.
- */
-export const canOptimize = (): boolean => Boolean(import.meta.env.VERCEL)
-
-/**
- * Only local artwork under `/img/` is optimised; remote URLs, bundled assets,
- * and SVGs pass through untouched — the same rule the previous shim applied.
- */
-export const isOptimizableSource = (src: string): boolean => src.startsWith('/img/')
-
-/** Vercel image-optimizer URL; identical to the adapter service's own shape. */
-export const optimizedUrl = (src: string, width: number, quality: number): string =>
-  `/_vercel/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality}`
+/** The optimizer ladder the imagery was historically sized against. */
+const OPTIMIZER_WIDTHS = [640, 750, 828, 1080, 1200, 1920, 2048, 3840]
 
 /**
  * Pick the optimizer width ladder for an element.
@@ -63,8 +44,8 @@ export const selectWidths = (
   // Never serve wider than the file the author shipped.
   const cap = Math.max(
     Math.min(layoutBox ?? Number.POSITIVE_INFINITY, nativeWidth ?? Number.POSITIVE_INFINITY),
-    VERCEL_IMAGE_WIDTHS[0] as number
+    OPTIMIZER_WIDTHS[0] as number
   )
-  const ladder = VERCEL_IMAGE_WIDTHS.filter((width) => width <= cap)
-  return ladder.length ? ladder : [VERCEL_IMAGE_WIDTHS[0] as number]
+  const ladder = OPTIMIZER_WIDTHS.filter((width) => width <= cap)
+  return ladder.length ? ladder : [OPTIMIZER_WIDTHS[0] as number]
 }

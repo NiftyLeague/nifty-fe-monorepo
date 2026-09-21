@@ -1,25 +1,8 @@
-import { afterAll, beforeAll, describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 
 import { getOptimizedImageProps } from './Image'
 import { selectWidths } from './image-url'
-import imageService from './vercel-image-service'
-
-// The optimizer only runs on Vercel; the URL-shape assertions below describe
-// that deployment, so the flag is set for this file.
-const previousVercel = process.env.VERCEL
-beforeAll(() => {
-  process.env.VERCEL = '1'
-})
-afterAll(() => {
-  if (previousVercel === undefined) delete process.env.VERCEL
-  else process.env.VERCEL = previousVercel
-})
-
-// The astro:assets service config the adapter validates against; mirrors the
-// widths published to the deployment in astro.config.mjs.
-const serviceConfig = {
-  service: { config: { sizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840] } },
-}
+import imageService from './image-service'
 
 describe('optimizer width ladder', () => {
   it('never exceeds the intrinsic width of the asset', () => {
@@ -84,13 +67,15 @@ describe('image props', () => {
     expect(props.fetchpriority).toBe('low')
   })
 
-  it('keeps remote and unoptimized sources on their original URL', () => {
+  it('keeps every source on its original URL', () => {
+    // The deploy has no optimizer endpoint: plain asset paths everywhere.
     const remote = getOptimizedImageProps({ src: 'https://cdn.example/a.webp' })
     expect(remote.src).toBe('https://cdn.example/a.webp')
     expect(remote.srcSet).toBeUndefined()
 
-    const unoptimized = getOptimizedImageProps({ src: '/img/a.webp', unoptimized: true })
-    expect(unoptimized.src).toBe('/img/a.webp')
+    const local = getOptimizedImageProps({ src: '/img/a.webp' })
+    expect(local.src).toBe('/img/a.webp')
+    expect(local.srcSet).toBeUndefined()
   })
 
   it('gives a fill image the absolute-inset style instead of dimensions', () => {
@@ -105,8 +90,8 @@ describe('astro:assets image service', () => {
   it('resolves the same candidate as the OptimizedImage adapter', () => {
     // The Base.astro preload hint goes through the service while the header
     // <img> goes through the adapter; when the two disagreed, the hero
-    // wordmark was downloaded twice. Both sides must derive the rungs from
-    // selectWidths and build the URL through image-url.
+    // wordmark was downloaded twice. Both sides must resolve the plain asset
+    // path and emit no srcset.
     const shared = {
       src: '/img/logos/smashers/app_wordmark_logo.webp',
       width: 824,
@@ -116,34 +101,38 @@ describe('astro:assets image service', () => {
 
     const widths = selectWidths(shared.width, shared.sizes)
     const validated = imageService.validateOptions!(
-      { src: shared.src, width: widths.at(-1) as number, widths, quality: shared.quality },
-      serviceConfig
+      { src: shared.src, width: widths.at(-1) as number, quality: shared.quality },
+      { service: { config: { sizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840] } } } as never
     )
     const hint = {
-      href: imageService.getURL!(validated),
-      imageSrcSet: imageService.getSrcSet!(validated, serviceConfig)
-        .map((entry) => `${imageService.getURL!(entry.transform)} ${entry.descriptor}`)
+      href: imageService.getURL!(validated as never),
+      imageSrcSet: imageService.getSrcSet!(validated as never, undefined as never)
+        .map((entry) => `${imageService.getURL!(entry.transform as never)} ${entry.descriptor}`)
         .join(', '),
     }
     const element = getOptimizedImageProps({ ...shared, alt: '' })
 
     expect(hint.href).toBe(element.src)
-    expect(hint.imageSrcSet).toBe(element.srcset)
+    expect(hint.imageSrcSet).toBe(element.srcset ?? '')
   })
 
-  it('keeps sources the optimizer does not handle on their original URL', () => {
+  it('keeps every source the service cannot optimize on its original URL', () => {
     for (const src of ['/icons/user.svg', 'https://cdn.example/a.webp', '/_astro/bundled.webp']) {
-      const validated = imageService.validateOptions!({ src, width: 640 }, serviceConfig)
+      const validated = imageService.validateOptions!({ src, width: 640 }, undefined as never) as {
+        src: string
+      }
       expect(imageService.getURL!(validated)).toBe(src)
-      expect(imageService.getSrcSet!(validated, serviceConfig)).toEqual([])
+      expect(imageService.getSrcSet!(validated as never, undefined as never)).toEqual([])
     }
   })
 
-  it('defaults the optimizer quality to the app ladder, not the adapter default', () => {
+  it('defaults the optimizer quality to the app ladder, not the generic default', () => {
     const validated = imageService.validateOptions!(
       { src: '/img/a.webp', width: 1080 },
-      serviceConfig
-    )
+      undefined as never
+    ) as {
+      quality: number
+    }
     expect(validated.quality).toBe(75)
   })
 })

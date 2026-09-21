@@ -17,7 +17,6 @@
     "accessibility",
     "code-review",
     "core-web-vitals",
-    "deploy-to-vercel",
     "frontend-ui-engineering",
     "incremental-implementation",
     "performance-optimization",
@@ -27,8 +26,6 @@
     "test-driven-development",
     "turborepo",
     "typescript-advanced-types",
-    "vercel-optimize",
-    "vercel-react-best-practices",
     "verification-before-completion"
   ]
 }

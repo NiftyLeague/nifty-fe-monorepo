@@ -18,7 +18,8 @@ async function files(directory) {
   const entries = await readdir(directory, { withFileTypes: true })
   const results = []
   for (const entry of entries) {
-    if (['node_modules', '.git', '.output', '.vercel', '.app-images'].includes(entry.name)) continue
+    if (['node_modules', '.git', '.output', '.wrangler', '.app-images'].includes(entry.name))
+      continue
     const path = join(directory, entry.name)
     if (entry.isDirectory()) results.push(...(await files(path)))
     else if (entry.isFile()) results.push(path)

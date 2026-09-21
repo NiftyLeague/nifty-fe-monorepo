@@ -2526,7 +2526,7 @@ describe('deferred Sentry client contract', () => {
     expect(manifest.dependencies?.['@sentry/nextjs']).toBeUndefined()
     expect(source).not.toContain("from '@sentry/node'")
     expect(source).toContain("import('@sentry/node')")
-    expect(source).toContain("process.env.VERCEL_ENV === 'production'")
+    expect(source).toContain("process.env.PUBLIC_DEPLOY_ENV === 'production'")
     expect(middleware).toContain('captureServerError')
     expect(middleware).toContain('defineMiddleware')
   })

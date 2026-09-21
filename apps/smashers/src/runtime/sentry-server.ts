@@ -16,8 +16,7 @@ type ServerSentry = typeof import('@sentry/node')
 
 let serverSentryPromise: Promise<ServerSentry | undefined> | undefined
 
-const isProduction = (): boolean =>
-  process.env.PUBLIC_DEPLOY_ENV === 'production' || process.env.VERCEL_ENV === 'production'
+const isProduction = (): boolean => process.env.PUBLIC_DEPLOY_ENV === 'production'
 
 const loadServerSentry = (): Promise<ServerSentry | undefined> => {
   serverSentryPromise ??= isProduction()

@@ -1,0 +1,20 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "nifty-league-smashers",
+  "account_id": "90526f277153982742d51be614fb9b40",
+  "compatibility_date": "2026-09-09",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_compat_populate_process_env",
+    "global_fetch_strictly_public"
+  ],
+  "observability": {
+    "enabled": true
+  },
+  "workers_dev": true,
+  "main": "dist/server/entry.mjs",
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS"
+  }
+}

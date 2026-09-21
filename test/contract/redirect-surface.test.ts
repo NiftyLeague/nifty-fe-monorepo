@@ -25,7 +25,7 @@ const SMASHERS_STORE_ENV = {
  *  - redirect sources asserted through the app's redirect resolver — web through
  *    `routeRequest` in apps/web/worker/routes.mjs (Astro static + Cloudflare
  *    Worker), smashers through `resolveRedirect` in
- *    apps/smashers/src/runtime/redirects.mjs (Astro SSR + Vercel middleware).
+ *    apps/smashers/src/runtime/redirects.mjs (Astro SSR deep links).
  */
 
 interface WorkerRouteOutcome {

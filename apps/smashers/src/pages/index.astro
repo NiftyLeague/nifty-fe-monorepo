@@ -17,12 +17,9 @@ export const prerender = true
 
 const preloadImages = [...HERO_ARTWORK]
 
-// Same image candidates the React adapter produced: the optimizer srcSet
-// ladder for a 100vw box, eager on the poster that sits behind the idle-loaded
-// hero animation. The image service resolves these to Vercel's optimizer on
-// Vercel and to the plain asset path everywhere else. The element is rendered
-// explicitly because the poster is decorative: no width/height/sizes
-// attributes beyond the ones the contract pins.
+// The poster sits behind the idle-loaded hero animation and is decorative, so
+// the element is rendered explicitly with the plain asset path and no
+// width/height/sizes attributes beyond the ones the contract pins.
 const heroBackgroundImage = await getImage({
   src: '/img/games/smashers/background-poster.webp',
   width: 1920,

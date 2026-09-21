@@ -250,7 +250,6 @@
     "**/.wrangler/**",
     "**/.web-images/**",
     "**/routeTree.gen.ts",
-    "**/.vercel/**",
     ".devin/**",
     ".hermes/**",
     ".pi/**",

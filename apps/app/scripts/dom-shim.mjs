@@ -46,3 +46,31 @@ for (const [name, value] of Object.entries(INERT_GLOBALS)) {
 }
 
 globalThis.customElements ??= new INERT_GLOBALS.CustomElementRegistry()
+
+// Inert instance: `@reown/appkit` (Lit) also calls `document` methods at
+// module scope (`createTreeWalker`, head queries, …) while evaluating. The
+// "anything" proxy is callable, property-accessible, and returns itself, so
+// any document read or call is a no-op that stays chainable. Nothing renders
+// on the server, so no DOM result is ever real.
+const anything = new Proxy(function anything() {}, {
+  get(target, prop) {
+    if (prop === Symbol.toPrimitive) return () => ''
+    if (prop === 'then') return undefined
+    return anything
+  },
+  apply() {
+    return anything
+  },
+  construct() {
+    return anything
+  },
+})
+globalThis.document = new Proxy(
+  { documentElement: anything, head: anything, body: anything },
+  {
+    get(target, prop) {
+      if (prop in target) return target[prop]
+      return anything
+    },
+  }
+)

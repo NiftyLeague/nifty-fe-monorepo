@@ -58,12 +58,9 @@ const asyncRequestHandler =
     void handler(req, res, next).catch(next)
   }
 
-// Vercel terminates TLS at the edge and invokes this handler via @vercel/node's
-// raw (req, res) bridge, where req.socket is undefined. Without trust proxy,
-// Express 5's req.protocol getter reads req.socket.encrypted and throws on every
-// request. Enabling trust proxy makes Express derive the protocol from
-// X-Forwarded-Proto (which Vercel sets to https), and we build the base URL
-// defensively below as a belt-and-suspenders measure.
+// The Express app only serves local/bare-node deploys these days (production
+// runs src/worker.ts). Trust proxy keeps req.protocol correct behind any
+// proxy that terminates TLS, and buildBaseUrl below is defensive too.
 app.set('trust proxy', true)
 
 const buildBaseUrl = (req: Request): string => {
@@ -269,10 +266,8 @@ const errorHandler = (err: Error, req: Request, res: Response, _next: NextFuncti
 
 app.use(errorHandler)
 
-if (!process.env.VERCEL) {
-  app.listen(app.get('port'), function () {
-    console.log('Node app is running on port', app.get('port'))
-  })
-}
+app.listen(app.get('port'), function () {
+  console.log('Node app is running on port', app.get('port'))
+})
 
 export default app

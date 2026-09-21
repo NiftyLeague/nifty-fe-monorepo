@@ -1,0 +1,41 @@
+name: Cloudflare Production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  production:
+    name: Cloudflare Production / ${{ matrix.app }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - app: web
+            environment: Production – web
+          - app: app
+            environment: Production – app
+          - app: docs
+            environment: Production – docs
+          - app: api
+            environment: Production – api
+          - app: smashers
+            environment: Production – smashers-web
+    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.30.0
+    with:
+      mode: production
+      wrangler-version: local
+      working-directory: apps/${{ matrix.app }}
+      turbo-filter: ${{ matrix.app }}
+      install-working-directory: .
+      build-script: build:cloudflare
+      bun-version: 1.4.0
+      environment: ${{ matrix.environment }}
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

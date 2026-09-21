@@ -1,6 +1,6 @@
 # Nifty Smashers
 
-Marketing site and player account surface for [niftysmashers.com](https://niftysmashers.com), built with **Astro SSR** and deployed to Vercel through the `@astrojs/vercel` adapter.
+Marketing site and player account surface for [niftysmashers.com](https://niftysmashers.com), built with **Astro SSR** and deployed to Cloudflare Workers through the `@astrojs/cloudflare` adapter.
 
 ## Getting started
 
@@ -9,8 +9,7 @@ Marketing site and player account surface for [niftysmashers.com](https://niftys
 Copy `.env.example` to `.env.local` (ignored by Git):
 
 ```bash
-vercel env pull .env.local   # preferred: pulls from Vercel (source of truth)
-# fallback: cp .env.example .env.local
+cp .env.example .env.local   # then fill in the values from the shared secret store
 ```
 
 ### Run the development server
@@ -71,7 +70,7 @@ Register the callback URL with each provider: `https://niftysmashers.com/api/aut
 
 ## Environment variables
 
-The app reads only `PUBLIC_*` names (the legacy `NEXT_PUBLIC_*` entries have no reader anymore and can be deleted from the Vercel project and any local env file). Note that Bun's automatic `.env` loading does not reliably reach the build's config evaluation, so pass build-time values explicitly when building locally.
+The app reads only `PUBLIC_*` names at build time (GitHub environment secrets on `Production – smashers-web` / `Preview – smashers-web`). Server-side values (`SESSION_SECRET`, `PLAYFAB_API_KEY`, OAuth client id/secret pairs) are Worker secrets set with `wrangler secret put` and read from `process.env` at request time.
 
 Client-side values are inlined at build time; server-side values (session secret, OAuth secrets, store links) are read per request and need no rebuild to change. See `.env.example` for the full list.
 
@@ -82,9 +81,9 @@ bun run type-check   # astro check
 bun run lint         # oxlint
 bun run format       # oxfmt
 bun run test         # bun test
-bun run build        # astro build -> dist/ + .vercel/output
+bun run build        # astro build -> dist/client + dist/server + dist/client/_headers
 ```
 
 ## Deploy
 
-Vercel builds the app with `bun run build` and serves `.vercel/output`. The project deploys from `main`; feature branches deploy only when listed in `vercel.json` → `git.deploymentEnabled` **and** in `scripts/vercel-ignore-build.mjs` (both gates are required).
+The `Cloudflare Production` workflow builds the app with `build:cloudflare` and deploys `dist/server/entry.mjs` + `dist/client` as the `nifty-league-smashers` Worker. Previews deploy from ready pull requests only (draft-protected).
