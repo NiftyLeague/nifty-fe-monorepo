@@ -3,7 +3,7 @@ import { describe, expect, it } from 'bun:test'
 import { getStoreLinks } from './store-links'
 
 /**
- * The store links silently 404'd in the Vercel preview because the routes once
+ * The store links silently 404'd in preview environments because the routes once
  * inlined build-time values instead of reading the environment per request.
  * These tests pin the request-time resolution against PUBLIC_* names.
  */

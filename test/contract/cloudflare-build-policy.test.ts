@@ -101,7 +101,10 @@ describe('Cloudflare build policy', () => {
     const manifest = JSON.parse(
       readFileSync(join(process.cwd(), 'apps/app/package.json'), 'utf8')
     ) as { scripts?: Record<string, string> }
-    expect(manifest.scripts?.['build:cloudflare']).toContain('post-build-worker.mjs')
+    // build:cloudflare routes through turbo to the real build script, which
+    // must end with the wrapper that installs the inert-DOM entry.
+    expect(manifest.scripts?.['cf:build']).toContain('post-build-worker.mjs')
+    expect(manifest.scripts?.['build:cloudflare']).toContain('cf:build')
     // The nitro preset defaults to the Workers target; the E2E suite still
     // overrides it with node-server.
     const viteConfig = readFileSync(join(process.cwd(), 'apps/app/vite.config.ts'), 'utf8')
