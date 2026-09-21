@@ -21,7 +21,8 @@
     "test:routes": "node --test checks/routes.node.mjs",
     "test:watch": "bun test --watch",
     "type-check": "bun scripts/prepare-images.mjs --metadata-only && astro check",
-    "build:cloudflare": "bun run build"
+    "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=web",
+    "cf:build": "bun run build"
   },
   "dependencies": {
     "@astrojs/solid-js": "^7.0.2",
