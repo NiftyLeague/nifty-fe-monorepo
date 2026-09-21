@@ -6,6 +6,8 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 
+import { SECURITY_HEADERS } from './scripts/headers-content.mjs'
+
 const local = (path: string) => fileURLToPath(new URL(path, import.meta.url))
 
 // Inlined verbatim as a banner so it runs before the application module graph.
@@ -37,6 +39,10 @@ export default defineConfig({
       // Static `/assets/*` responses carry the immutable cache rule and the
       // `Access-Control-Allow-Origin: *` header from `.output/public/_headers`,
       // which Nitro generates for the Workers deploy.
+      // SSR responses must carry the same security headers the platform config
+      // used to apply to every response; static assets get theirs from
+      // `_headers` (see scripts/headers-content.mjs).
+      routeRules: { '/**': { headers: SECURITY_HEADERS } },
       rollupConfig: {
         // The Coinbase connector wagmi pulls in optionally declares `@x402/*`
         // peer dependencies that are not installed. Nitro bundles the whole

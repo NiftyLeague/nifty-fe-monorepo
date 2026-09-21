@@ -3,9 +3,15 @@
   "name": "nifty-league-app",
   "account_id": "90526f277153982742d51be614fb9b40",
   "compatibility_date": "2026-09-09",
-  "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env"],
+  "compatibility_flags": [
+    "nodejs_compat",
+    "nodejs_compat_populate_process_env"
+  ],
   "observability": {
     "enabled": true
   },
-  "workers_dev": true
+  "workers_dev": true,
+  "placement": {
+    "mode": "smart"
+  }
 }

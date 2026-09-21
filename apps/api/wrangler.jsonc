@@ -12,6 +12,11 @@
   "alias": {
     "node-config-ts": "./src/lib/node-config-ts-shim.ts"
   },
-  "observability": { "enabled": true },
-  "workers_dev": true
+  "observability": {
+    "enabled": true
+  },
+  "workers_dev": true,
+  "placement": {
+    "mode": "smart"
+  }
 }

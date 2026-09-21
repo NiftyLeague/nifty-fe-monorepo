@@ -186,8 +186,14 @@ export default {
       })
     }
 
-    if (request.method !== 'GET' && request.method !== 'POST') {
-      return new Response(null, { status: 405, headers: { allow: 'GET, POST' } })
+    if (request.method !== 'GET' && request.method !== 'POST' && request.method !== 'HEAD') {
+      return new Response(null, { status: 405, headers: { allow: 'GET, POST, HEAD' } })
+    }
+    if (request.method === 'HEAD') {
+      return new Response(null, {
+        status: 200,
+        headers: { ...SECURITY_HEADERS, allow: 'GET, POST, HEAD' },
+      })
     }
 
     // NFTL supply

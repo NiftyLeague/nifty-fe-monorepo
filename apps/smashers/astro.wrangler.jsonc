@@ -3,6 +3,7 @@
   "name": "nifty-league-smashers",
   "account_id": "90526f277153982742d51be614fb9b40",
   "compatibility_date": "2026-09-09",
+  "placement": { "mode": "smart" },
   "compatibility_flags": [
     "nodejs_compat",
     "nodejs_compat_populate_process_env",

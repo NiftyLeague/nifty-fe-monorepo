@@ -5,6 +5,18 @@
  * it into `.output/public/_headers`. `test/contract/cache-surface.test.ts`
  * asserts the policy classes stay declared here.
  */
+/**
+ * Security headers the old platform config applied to every response. Static
+ * assets get them through the `/*` block in ASSET_HEADERS; SSR responses get
+ * them through nitro routeRules in vite.config.ts, which imports this module
+ * so the values stay in exactly one place.
+ */
+export const SECURITY_HEADERS = {
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+}
+
 export const ASSET_HEADERS = `/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: origin-when-cross-origin
