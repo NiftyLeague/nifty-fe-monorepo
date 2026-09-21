@@ -55,10 +55,15 @@ describe('Cloudflare build policy', () => {
   })
 
   it('keeps the Workers compatibility surface current', () => {
+    // app pins the date its LOCAL dev sandbox supports (miniflare 4.x runtime);
+    // every other app tracks the current release date.
+    const expectedDate: Record<string, string> = {
+      'apps/app': '2026-08-06',
+    }
     for (const projectRoot of projectRoots) {
       const config = readWrangler(projectRoot)
       expect(config.compatibility_date ?? '', `${projectRoot} compatibility_date`).toBe(
-        '2026-09-09'
+        expectedDate[projectRoot] ?? '2026-09-09'
       )
     }
     for (const projectRoot of ['apps/app', 'apps/smashers', 'apps/api']) {

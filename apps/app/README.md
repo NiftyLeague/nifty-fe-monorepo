@@ -21,6 +21,23 @@ Copy the `.env.example` file in this directory to `.env.local` (which will be ig
 cp .env.example .env.local   # then fill in the values from the shared secret store
 ```
 
+Local development runs the **testnet mirror** end to end: with
+`VITE_NETWORK=sepolia`, sandbox Immutable URLs, and `VITE_DEPLOY_ENV`
+anything other than `production` (the local default is `development`), the
+app targets `immutableZkEvmTestnet` and the Immutable sandbox — burn,
+spend, and mint flows exercise testnet contracts with no real money and no
+contract deployment needed. The deployed preview builds use the same
+values via the `Preview – app` GitHub environment; production secrets stay
+mainnet on `Production – app`.
+
+Because the app is SSR, the reliable local loop is a testnet production
+build served locally (the nitro-beta `vite dev` worker sandbox is flaky
+under bun's isolated layout):
+
+```bash
+NITRO_PRESET=node-server bun run build && node .output/server/index.mjs
+```
+
 Client-visible settings use the `VITE_` prefix and are read through
 `src/runtime/env.ts`. Never put a secret behind `VITE_` — those values are
 embedded in the browser bundle.

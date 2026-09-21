@@ -32,7 +32,10 @@ bun --filter api test:live
 
 The API's local environment file is `apps/api/.env.local` and is ignored by
 Git. Copy the variables from `.env.example` or sync them from the team
-secret store. Every value is server-side configuration; never expose these
+secret store. `bun run dev` loads `.env.local` via node `--env-file` and
+runs on the values it contains — use the testnet/preview set
+(`ETH_NETWORK=sepolia` + `TESTNET_*` keys) so local development exercises
+the sepolia mirror without touching mainnet. Every value is server-side configuration; never expose these
 names through client-visible env prefixes (`VITE_*`/`PUBLIC_*`) or import
 `node-config-ts` from a client bundle.
 
