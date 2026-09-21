@@ -182,7 +182,9 @@ describe('authentication forms', () => {
         expect.objectContaining({ remember_me: true })
       )
     )
-    await user.click(screen.getByText('Forgot your password?'))
+    const recovery = screen.getByRole('button', { name: 'Forgot your password?' })
+    expect(recovery.getAttribute('href')).toBe('/login?view=forgot')
+    await user.click(recovery)
     expect(setAuthView).toHaveBeenCalledWith(VIEWS.FORGOT_PASSWORD)
     await user.click(screen.getByText('Sign up'))
     expect(setAuthView).toHaveBeenCalledWith(VIEWS.SIGN_UP)
@@ -193,6 +195,14 @@ describe('authentication forms', () => {
   it('submits natively as POST so a pre-hydration Enter cannot leak typed fields into the URL', () => {
     const { container } = render(() => <LoginForm {...handlers} view={VIEWS.LOGIN} />)
     expect(container.querySelector('form')?.getAttribute('method')).toBe('post')
+  })
+
+  it('associates every visible form label with its control', () => {
+    render(() => <LoginForm {...handlers} view={VIEWS.LOGIN} setAuthView={mock()} />)
+
+    expect(screen.getByLabelText('Email').tagName).toBe('INPUT')
+    expect(screen.getByLabelText('Password').tagName).toBe('INPUT')
+    expect(screen.getByLabelText('Remember Me').getAttribute('type')).toBe('checkbox')
   })
 
   it('switches AuthForm views and renders status feedback', () => {
