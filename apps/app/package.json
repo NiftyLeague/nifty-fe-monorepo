@@ -15,7 +15,7 @@
     "test:coverage": "bun test --isolate --conditions=browser --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit",
-    "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=app",
+    "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=app && bun scripts/restore-cached-media.mjs app",
     "cf:build": "bun scripts/prepare-images.mjs && vite build && bun scripts/post-build-worker.mjs"
   },
   "dependencies": {
