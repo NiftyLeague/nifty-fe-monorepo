@@ -150,22 +150,25 @@ export function LoginForm(props: LoginFormProps) {
               </FormControl>
               <FormLabel>Remember Me</FormLabel>
               {isLogin() && (
-                // A button, not an anchor: it switches the form view in
-                // place, so it needs `type="button"` to stay out of the
-                // submit path and keyboard focusability. The muted
-                // foreground matches the adjacent label, which holds AA on
-                // the auth backdrop where the accent blue did not.
-                <button
-                  type="button"
-                  onClick={() => !disabled() && props.setAuthView(VIEWS.FORGOT_PASSWORD)}
-                  disabled={disabled()}
+                // Keep a navigable fallback so recovery remains reachable if a
+                // user activates it before the Solid island hydrates.
+                <a
+                  href="/login?view=forgot"
+                  role="button"
+                  aria-disabled={disabled()}
+                  tabindex={disabled() ? -1 : undefined}
+                  onClick={(event) => {
+                    if (disabled()) return
+                    event.preventDefault()
+                    props.setAuthView(VIEWS.FORGOT_PASSWORD)
+                  }}
                   class={cn(
                     'ml-auto mt-0.5 text-sm text-muted-foreground underline underline-offset-4',
                     !disabled() && 'cursor-pointer hover:text-foreground'
                   )}
                 >
                   Forgot your password?
-                </button>
+                </a>
               )}
             </div>
           </FormItem>

@@ -152,8 +152,17 @@ function FormControl(props: { children?: JSX.Element }) {
   let host: HTMLSpanElement | undefined
 
   const apply = () => {
-    const target = host?.firstElementChild as HTMLElement | null
-    if (!target) return
+    const hostChild = host?.firstElementChild as HTMLElement | null
+    if (!hostChild) return
+
+    // Composite controls such as Checkbox render a role wrapper around the
+    // labelable input. Wire the field attributes to that input instead of the
+    // wrapper so `<label for>` remains valid after hydration.
+    const target = hostChild.matches('input, select, textarea, button')
+      ? hostChild
+      : ((hostChild.querySelector('input, select, textarea, button') as HTMLElement | null) ??
+        hostChild)
+
     target.id = field.formItemId
     target.setAttribute(
       'aria-describedby',
