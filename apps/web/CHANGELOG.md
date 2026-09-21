@@ -1,5 +1,60 @@
 # Changelog
 
+## [2.0.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.32...web-v2.0.0) (2026-09-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate all apps from Vercel to Cloudflare Workers ([#1996](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1996))
+* **lint:** adopt strict @shadcn/lint, Kobalte primitives, and React-era cleanup ([#1961](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1961))
+* migrate monorepo from React to SolidJS ([#1955](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1955))
+
+### Features
+
+* **a11y,e2e:** axe sweep, app browser E2E, visual baselines, and the M5.5–M5.8 audits ([#1923](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1923)) ([4dc7c1d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/4dc7c1d44991e8d5d0e0669f9b2def10c63fb8c6))
+* **analytics:** unify the web-vitals payload and gate telemetry to production ([#1919](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1919)) ([ec77480](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ec77480181f9e90bbbb2f2eeb19a42e881297763))
+* migrate all apps from Vercel to Cloudflare Workers ([#1996](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1996)) ([2f7fa04](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2f7fa0485e91a371d4d26dc93ad5e1a7bc1732f5))
+* migrate monorepo from React to SolidJS ([#1955](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1955)) ([1e54f2c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1e54f2c1c1b4460f9711fa09b485dbebac29afa1))
+* migrate public degen assets from AWS S3 to Cloudflare R2 ([#1953](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1953)) ([2d23882](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2d2388286e5edda283df8f031424c679eecaa43c))
+* **ui:** make the shared primitives accessible and pin the contracts ([#1900](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1900)) ([1c382c6](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1c382c684aa9ad06536eb081a913d696f15c9638))
+* **web:** M5.5 complete audit — measured LCP fixes, keyboard-only pass, SEO and cache verification ([#1939](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1939)) ([d869b04](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d869b047237328335079cdc82acc94ef6c375d6c))
+* **web:** migrate marketing site from Next.js to Astro static + Cloudflare Worker variant ([#1866](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1866)) ([eedea02](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/eedea02e0e49138988ff148f805546751805bd12))
+* **web:** refresh marketing surfaces and navigation ([#1927](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1927)) ([1ed147f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1ed147f8bdd7d42c98d7bb110499cbf6e4690c62))
+* **web:** regression matrix for M5.1 plus interaction E2E coverage ([#1916](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1916)) ([cddb6cb](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cddb6cbf72f15404dbfbcbb3eb7c87c4a3d41850))
+* **web:** serve degen 3D models as R2-hosted GLBs ([#1972](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1972)) ([f20b6f7](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/f20b6f73cb52e828b16e0fa71f7550108d288791))
+
+
+### Bug Fixes
+
+* app-route-cleanup-audit-comments ([#1940](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1940)) ([6cf99ad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6cf99ada8d2b413f525b0a8ffc62ef2ac8a16b7a))
+* **ci:** replace bunx-chained install command for Vercel builds ([#1995](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1995)) ([aa54a01](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aa54a01d0a1616a551ef011aea5e5394ed975934))
+* **fonts:** declare the shared faces once and repair web's special-face drift ([#1893](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1893)) ([3eda7c5](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3eda7c5d2ac90b153236ed315cc737a8ef45f0fc)), refs [#1887](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1887)
+* **global:** clean Nifty World routes and audit comments ([#1938](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1938)) ([0739b8e](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0739b8e5ea8813681aecb08df1898335af6c6a44))
+* **seo:** consolidate docs on the apex /docs surface and clean sitemaps ([#1976](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1976)) ([cbbc094](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cbbc094c1fc46f9056d95a212c7ef60e6429298a))
+* **web:** address marketing page layout and styling feedback ([#1936](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1936)) ([a70d2d2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a70d2d24aaa7cb5b5813e0418df84b380aa6010e))
+* **web:** console-game load timing, seamless avatar marquee, roadmap cropping ([#1868](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1868)) ([2202aa4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/2202aa4cd4e4f998c02d8533739e6b71a17596cd))
+* **web:** hide the game-card tag when the headline row cannot fit it ([#1964](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1964)) ([c148fd4](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/c148fd4ba58eeb9722c6fff66bd71741daf31520))
+* **web:** scope responsive hero preload ([#1941](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1941)) ([1a57c6d](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1a57c6db08c9ac31ecb5f9fd30d9c6034199a3cf))
+* **web:** serve degen run-cycle sprites as animated WebP ([#1978](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1978)) ([1b7a298](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1b7a29870cda4bef4062890fdf718998094181ed))
+* **web:** shell rewrite destinations must use clean urls ([#1867](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1867)) ([a7426ab](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/a7426ab5626d5e8371a0bb45d984816d9869e3b8))
+
+
+### Performance
+
+* complete M5 follow-up audit ([#1943](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1943)) ([7a79f14](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7a79f14bb2e27701317fc97c59da1caeddb31bc2))
+* post-migration modernization pass across web, smashers, and app ([#1946](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1946)) ([d462b8b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d462b8b2a0d09ab21b69edba1e8e8714f0387b3a))
+
+
+### Maintenance
+
+* **astro:** adopt the shared app config and Astro tsconfig base ([#1896](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1896)) ([dd2d546](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/dd2d546183e2dcc8d668ac4f61c11c04a5098716)), refs [#1888](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1888)
+* **images:** share the image attribute contract across surfaces ([#1905](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1905)) ([0ca7745](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0ca7745350736df945cd39f77cf8acfbc79da08f)), refs [#1836](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1836)
+* **lint:** adopt strict @shadcn/lint, Kobalte primitives, and React-era cleanup ([#1961](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1961)) ([d08c29f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d08c29f96cce9fa51f30ab082c68d3415a0d7500))
+* **telemetry:** share the activation primitive and container loader ([#1897](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1897)) ([66f28cf](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/66f28cf8239433c91e81819843b0acbb7edbd52e)), refs [#1889](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1889)
+* web-astro-shell-native ([#1951](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1951)) ([ff6f07b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/ff6f07b98ad88fa12e9977d97a19ae116e9a4106))
+* **web:** remove dead imports and preserve deferred chunks ([#1873](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1873)) ([6aa61ad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6aa61ad6292c919acb46ac2b02f4423bdd1dfd5f))
+* **web:** remove the dead Next-compat Link shim ([#1894](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1894)) ([64bb6d8](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/64bb6d8ca3049eae9b61e331b03d8f24a31c8d05)), refs [#1891](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1891)
+
 ## [1.0.32](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/web-v1.0.31...web-v1.0.32) (2026-09-09)
 
 

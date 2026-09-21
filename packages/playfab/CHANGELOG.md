@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.0.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.8...playfab-v2.0.0) (2026-09-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* **lint:** adopt strict @shadcn/lint, Kobalte primitives, and React-era cleanup ([#1961](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1961))
+* migrate monorepo from React to SolidJS ([#1955](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1955))
+
+### Features
+
+* migrate monorepo from React to SolidJS ([#1955](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1955)) ([1e54f2c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1e54f2c1c1b4460f9711fa09b485dbebac29afa1))
+* **smashers:** migrate from Next.js to Astro SSR without next-auth ([#1869](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1869)) ([fd81af2](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/fd81af23cb791bf8db3ebf6bf4e1016638dca2a8))
+
+
+### Bug Fixes
+
+* app-route-cleanup-audit-comments ([#1940](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1940)) ([6cf99ad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6cf99ada8d2b413f525b0a8ffc62ef2ac8a16b7a))
+* **playfab:** await wallet signature validation ([#1994](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1994)) ([cba1934](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/cba1934c568020b158102d195ed7af703eb88604))
+* **playfab:** gate the user-session fetch to the client ([#1960](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1960)) ([d5b3e36](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d5b3e36ee3086a545e8b3e450b08764b497fa9ee))
+* **playfab:** resolve crypto off globalThis so server-side signup can generate usernames ([#1947](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1947)) ([73b8c5b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/73b8c5bf1ae4f344372aad4f8ef9299f13bdf2c5))
+
+
+### Maintenance
+
+* **lint:** adopt strict @shadcn/lint, Kobalte primitives, and React-era cleanup ([#1961](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1961)) ([d08c29f](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/d08c29f96cce9fa51f30ab082c68d3415a0d7500))
+
 ## [1.0.8](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/playfab-v1.0.7...playfab-v1.0.8) (2026-09-09)
 
 

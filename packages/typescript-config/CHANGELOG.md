@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.0.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/typescript-config-v1.0.1...typescript-config-v2.0.0) (2026-09-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate monorepo from React to SolidJS ([#1955](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1955))
+
+### Features
+
+* **app:** migrate from Next.js to TanStack Start ([#1870](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1870)) ([5576b04](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5576b04272582a000fc996770ef79e5fa6f257d2))
+* migrate monorepo from React to SolidJS ([#1955](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1955)) ([1e54f2c](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1e54f2c1c1b4460f9711fa09b485dbebac29afa1))
+
+
+### Bug Fixes
+
+* app-route-cleanup-audit-comments ([#1940](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1940)) ([6cf99ad](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6cf99ada8d2b413f525b0a8ffc62ef2ac8a16b7a))
+
+
+### Maintenance
+
+* **astro:** adopt the shared app config and Astro tsconfig base ([#1896](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1896)) ([dd2d546](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/dd2d546183e2dcc8d668ac4f61c11c04a5098716)), refs [#1888](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/1888)
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/typescript-config-v1.0.0...typescript-config-v1.0.1) (2026-08-09)
 
 

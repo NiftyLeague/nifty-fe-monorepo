@@ -1,13 +1,13 @@
 {
-  ".": "1.2.70",
-  "apps/api": "1.0.0",
-  "apps/app": "1.2.0",
-  "apps/docs": "1.0.8",
-  "apps/smashers": "1.0.15",
-  "apps/web": "1.0.32",
-  "packages/astro-config": "1.0.0",
-  "packages/contracts": "1.0.0",
-  "packages/playfab": "1.0.8",
-  "packages/typescript-config": "1.0.1",
-  "packages/ui": "1.0.19"
+  ".": "2.0.0",
+  "apps/api": "2.0.0",
+  "apps/app": "2.0.0",
+  "apps/docs": "2.0.0",
+  "apps/smashers": "2.0.0",
+  "apps/web": "2.0.0",
+  "packages/astro-config": "1.0.1",
+  "packages/contracts": "1.0.1",
+  "packages/playfab": "2.0.0",
+  "packages/typescript-config": "2.0.0",
+  "packages/ui": "2.0.0"
 }
