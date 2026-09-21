@@ -11,7 +11,8 @@ if (session.user?.isLoggedIn) return Astro.redirect('/profile', 302)
 // Pass only the serializable fields; the iron-session handle itself cannot
 // cross into the island payload.
 const sessionData = { user: session.user ?? null }
+const view = Astro.url.searchParams.get('view') === 'forgot' ? 'forgot_password' : 'login'
 ---
 <Auth canonical="/login" metadata={{ title: 'Login', noindex: true }}>
-  <LoginClient client:load sessionData={sessionData} />
+  <LoginClient client:load sessionData={sessionData} view={view} />
 </Auth>

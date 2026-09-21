@@ -1,5 +1,6 @@
 import { onMount, type ParentComponent } from 'solid-js'
 import type { User } from '@nl/playfab/types'
+import type { ViewType } from '@nl/ui/custom/auth-form'
 import PlayFabAuthForm from '@nl/playfab/components/PlayFabAuthForm'
 import BackButton from '@/components/Header/BackButton'
 import AuthProviders from '@/contexts/AuthProviders'
@@ -7,6 +8,11 @@ import useFlags from '@/hooks/useFlags'
 
 interface SessionData {
   user: User | null
+}
+
+interface LoginProps {
+  sessionData: SessionData
+  view: ViewType
 }
 
 /**
@@ -19,9 +25,9 @@ interface SessionData {
  * regardless of configuration. Keeping providers and consumers in one root is
  * what makes them share state.
  */
-const LoginClient: ParentComponent<{ sessionData: SessionData }> = (props) => (
+const LoginClient: ParentComponent<LoginProps> = (props) => (
   <AuthProviders>
-    <LoginContent sessionData={props.sessionData} />
+    <LoginContent sessionData={props.sessionData} view={props.view} />
   </AuthProviders>
 )
 
@@ -29,7 +35,7 @@ const LoginClient: ParentComponent<{ sessionData: SessionData }> = (props) => (
  * Inner body, inside the provider root. Not exported: mounting it directly
  * would reintroduce the split-root bug this split exists to prevent.
  */
-function LoginContent(_props: { sessionData: SessionData }) {
+function LoginContent(props: LoginProps) {
   const { enableAccountCreation, enableProviderSignOn } = useFlags()
 
   // A stale `?game-token=` means a different launch already logged in; clearing
@@ -48,7 +54,7 @@ function LoginContent(_props: { sessionData: SessionData }) {
         enableAccountCreation={enableAccountCreation}
         enableProviderSignOn={enableProviderSignOn}
         redirectTo="/profile"
-        view="login"
+        view={props.view}
       />
     </>
   )
