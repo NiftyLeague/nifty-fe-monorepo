@@ -4,6 +4,18 @@
   "account_id": "90526f277153982742d51be614fb9b40",
   "compatibility_date": "2026-09-09",
   "placement": { "mode": "smart" },
+  // Store deep links (src/runtime/store-links.ts) read these from process.env
+  // at request time: /ios, /android, /epic and /steam resolve per-visitor
+  // storefronts from them. They are public storefront URLs, so they live as
+  // reviewable vars here rather than secrets. test/contract/
+  // cloudflare-build-policy.test.ts pins this contract.
+  "vars": {
+    "PUBLIC_APPLE_STORE_ID": "nifty-smashers/id6449440411",
+    "PUBLIC_APPLE_STORE_LINK": "https://testflight.apple.com/join/3A5LcqyO",
+    "PUBLIC_GOOGLE_PLAY_LINK": "https://play.google.com/store/apps/details?id=com.niftyleague.niftysmashers",
+    "PUBLIC_EPIC_LINK": "https://store.epicgames.com/en-US/p/nifty-smashers-654bc2",
+    "PUBLIC_STEAM_LINK": "https://store.steampowered.com/app/3367060/Nifty_Smashers",
+  },
   "compatibility_flags": [
     "nodejs_compat",
     "nodejs_compat_populate_process_env",
