@@ -2,7 +2,9 @@
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "name": "nifty-league-app",
   "account_id": "90526f277153982742d51be614fb9b40",
-  "compatibility_date": "2026-09-09",
+  // 2026-08-06 is the newest runtime the LOCAL dev sandbox (miniflare 4.x via
+  // nitro's env-runner) supports; production gains nothing from a newer date.
+  "compatibility_date": "2026-08-06",
   "compatibility_flags": [
     "nodejs_compat",
     "nodejs_compat_populate_process_env"
