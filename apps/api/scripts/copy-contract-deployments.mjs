@@ -3,7 +3,7 @@
 // The API imports small local wrappers so TypeScript keeps one canonical source
 // in @nl/contracts. Some bundlers cannot follow the workspace symlink to that source
 // from the deployed function, so compile the two data-only modules into the
-// API's own dist tree before copy-api-app.mjs assembles the function bundle.
+// API's own dist tree.
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'

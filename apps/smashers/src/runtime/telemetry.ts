@@ -21,7 +21,7 @@ import { sentryOptions } from '@/constants/sentry'
  *    across every surface.
  *
  * This replaces the Next instrumentation-client / layout DeferredSentry pair.
- * `@sentry/browser` replaces `@sentry/nextjs` because there is no Next runtime
+`@sentry/browser` runs without any framework server SDK dependency; there is no Next runtime
  * to hook into, and the router-transition capture that existed only for the
  * Next App Router is intentionally gone.
  */

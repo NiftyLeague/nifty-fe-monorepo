@@ -183,7 +183,9 @@
       "env": ["CI", "PUBLIC_DEPLOY_ENV", "PUBLIC_TELEMETRY", "PUBLIC_INFURA_ID"],
       "outputs": ["dist/**", ".worker-build/**", ".web-images/**"]
     },
-    "clean": { "cache": false },
+    "clean": {
+      "cache": false
+    },
     "lint": {},
     "lint:fix": {},
     "api#lint": {
@@ -218,6 +220,52 @@
       "persistent": true,
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
-    "format:check": { "dependsOn": ["^format:check"], "cache": true }
+    "format:check": {
+      "dependsOn": ["^format:check"],
+      "cache": true
+    },
+    "cf:build": {
+      "dependsOn": [],
+      "outputs": ["dist/**", ".output/**"]
+    },
+    "web#cf:build": {
+      "env": ["CI", "PUBLIC_DEPLOY_ENV", "PUBLIC_TELEMETRY", "PUBLIC_INFURA_ID"],
+      "outputs": ["dist/**"]
+    },
+    "app#cf:build": {
+      "env": ["CI", "VITE_*", "VITE_DEPLOY_ENV"],
+      "outputs": [".output/**"]
+    },
+    "smashers#cf:build": {
+      "env": [
+        "APPLE_CLIENT_ID",
+        "APPLE_CLIENT_SECRET",
+        "CI",
+        "FACEBOOK_CLIENT_ID",
+        "FACEBOOK_CLIENT_SECRET",
+        "GITHUB_ACTIONS",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "PLAYFAB_API_KEY",
+        "PUBLIC_*",
+        "SESSION_SECRET",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "TWITCH_CLIENT_ID",
+        "TWITCH_CLIENT_SECRET",
+        "NODE_ENV"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "docs#cf:build": {
+      "env": [
+        "ALGOLIA_API_KEY",
+        "ALGOLIA_APP_ID",
+        "PUBLIC_ALGOLIA_API_KEY",
+        "PUBLIC_ALGOLIA_APP_ID"
+      ],
+      "outputs": ["dist/**"]
+    }
   }
 }

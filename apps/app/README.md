@@ -96,7 +96,7 @@ Use `BENCH_THROTTLE=devtools` (the default) when comparing scores. Lighthouse's
 `simulate` mode models the network analytically and under-reports this app by
 roughly 15 points, which is enough to hide or invent a regression.
 
-Compare against the pre-migration Next.js build with a checkout of the parent
+Compare against the pre-migration build with a checkout of the parent
 commit: build `apps/app`, serve it on another port, and pass that URL as the
 base. Local builds are unminified for transfer-size purposes but the request
 counts and timings remain comparable.

@@ -1,4 +1,4 @@
-/** Static route metadata; replaces the Next.js `Metadata` object shape. */
+/** Static route metadata; mirrors the old framework `Metadata` object shape. */
 export type RouteMetadata = {
   title?: string
   description?: string

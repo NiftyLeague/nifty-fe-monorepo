@@ -2,7 +2,8 @@
 // importable asset.
 //
 // Why: `node-config-ts` reads config/default.json from disk at runtime (fs,
-// not import), so Vercel's bundler never includes it and the function crashes
+// not import), so bundlers that only trace filesystem reads never include it
+// and the build crashes
 // with `config.imx is undefined`. A traced `import` of the JSON (see
 // src/config.ts) makes the bundler include dist/config/default.json in
 // the deployed bundle.
