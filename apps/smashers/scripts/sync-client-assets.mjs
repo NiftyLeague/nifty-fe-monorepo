@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { copyFileSync, existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
@@ -37,7 +37,7 @@ const scan = (dir) => {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const full = join(dir, entry.name)
     if (entry.isDirectory()) scan(full)
-    else if (/\.html$/.test(entry.name)) {
+    else if (entry.name.endsWith('.html')) {
       const html = readFileSync(full, 'utf8')
       for (const ref of html.matchAll(/\/_astro\/[A-Za-z0-9._-]+/g)) {
         const asset = join(clientDir, ref[0])
