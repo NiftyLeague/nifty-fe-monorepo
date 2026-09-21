@@ -15,7 +15,7 @@
     "test:e2e": "bunx playwright test",
     "test:watch": "bun test --watch",
     "type-check": "astro check",
-    "build:cloudflare": "bun scripts/build-cloudflare.mjs"
+    "build:cloudflare": "bun scripts/build-cloudflare.mjs && bun scripts/sync-client-assets.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.1",
