@@ -13,7 +13,7 @@
     "audit:endpoints": "node scripts/audit-endpoints.mjs",
     "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json && node scripts/copy-config.mjs && node scripts/copy-contract-deployments.mjs && node scripts/copy-api-app.mjs",
     "clean": "rm -rf dist api/.app api/config .turbo coverage",
-    "dev": "NODE_CONFIG_TS_DIR=config tsx watch src/index.ts",
+    "dev": "NODE_CONFIG_TS_DIR=config node --env-file=.env.local ./node_modules/tsx/dist/cli.mjs watch src/index.ts",
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "lint": "oxlint",
