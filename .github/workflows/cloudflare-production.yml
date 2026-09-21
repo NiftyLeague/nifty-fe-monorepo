@@ -26,7 +26,7 @@ jobs:
             environment: Production – api
           - app: smashers
             environment: Production – smashers-web
-    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.30.0
+    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.31.0
     with:
       mode: production
       wrangler-version: local
