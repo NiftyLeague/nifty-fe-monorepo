@@ -13,7 +13,7 @@ const metadata = {
   openGraph: {
     title: 'Nifty League | Lore',
     description: 'Discover the origin story behind Nifty League',
-    images: 'https://niftyleague.com/img/backgrounds/dgen-network.webp',
+    images: 'https://niftyleague.comhttps://cdn.niftyleague.com/media/img/backgrounds/dgen-network.webp',
   },
 }
 
@@ -24,7 +24,7 @@ const background = getOptimizedImageProps({
   fetchpriority: 'high',
   quality: 60,
   sizes: '100vw',
-  src: '/img/backgrounds/lore/background.webp',
+  src: 'https://cdn.niftyleague.com/media/img/backgrounds/lore/background.webp',
   width: 1568,
 })
 const mobileBackground = getOptimizedImageProps({
@@ -34,7 +34,7 @@ const mobileBackground = getOptimizedImageProps({
   fetchpriority: 'high',
   quality: 60,
   sizes: '100vw',
-  src: '/img/backgrounds/lore/background-mobile.webp',
+  src: 'https://cdn.niftyleague.com/media/img/backgrounds/lore/background-mobile.webp',
   width: 396,
 })
 // React 19's img prop types disagree with astro's intrinsic elements about
@@ -141,7 +141,7 @@ const backgroundAttrs = background as astroHTML.JSX.ImgHTMLAttributes
         <div class={cx(styles.satoshi, 'relative flex-1')}>
           <OptimizedImage
             alt="Satoshi"
-            src="/img/hero/satoshi.webp"
+            src="https://cdn.niftyleague.com/media/img/hero/satoshi.webp"
             width={556}
             height={589}
             sizes="100px"

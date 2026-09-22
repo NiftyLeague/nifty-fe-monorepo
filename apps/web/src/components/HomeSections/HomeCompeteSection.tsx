@@ -13,7 +13,7 @@ export default function HomeCompeteSection() {
         <div class="block md:hidden relative w-full">
           <div class="transition-quick-pop">
             <MobileOnlyImage
-              src="/img/compete-and-earn/mobile.webp"
+              src="https://cdn.niftyleague.com/media/img/compete-and-earn/mobile.webp"
               alt="Compete and Earn"
               width={655}
               height={275}
@@ -67,7 +67,7 @@ export default function HomeCompeteSection() {
                 width={200}
                 height={195}
                 loading="lazy"
-                src="/img/compete-and-earn/animated/token-4.webp"
+                src="https://cdn.niftyleague.com/media/img/compete-and-earn/animated/token-4.webp"
                 sizes="246px"
               />
             </div>

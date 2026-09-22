@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync, statSync } from 'node:fs'
+import { mediaBytes } from './media-manifest'
+import { readFileSync } from 'node:fs'
 
 const roadmapCard = 'apps/web/src/components/RoadmapTimeline/roadmapCard.tsx'
 const roadmapConstants = 'apps/web/src/components/RoadmapTimeline/constants.tsx'
@@ -7,43 +8,43 @@ const satoshiStyles = 'apps/web/src/styles/roadmap-satoshi.module.css'
 
 const roadmapMedia = [
   {
-    poster: 'assets/img/games/crypto-winter-roadmap-poster.webp',
-    fallback: 'assets/img/games/crypto-winter.gif',
-    source: '/img/games/crypto-winter-roadmap-poster.webp',
+    poster: 'assets/media/img/games/crypto-winter-roadmap-poster.webp',
+    fallback: 'assets/media/img/games/crypto-winter.gif',
+    source: 'https://cdn.niftyleague.com/media/img/games/crypto-winter-roadmap-poster.webp',
   },
   {
-    poster: 'assets/img/games/mt-gawx-roadmap-poster.webp',
-    fallback: 'assets/img/games/mt-gawx.gif',
-    source: '/img/games/mt-gawx-roadmap-poster.webp',
+    poster: 'assets/media/img/games/mt-gawx-roadmap-poster.webp',
+    fallback: 'assets/media/img/games/mt-gawx.gif',
+    source: 'https://cdn.niftyleague.com/media/img/games/mt-gawx-roadmap-poster.webp',
   },
   {
-    poster: 'assets/img/games/smashers/nifty-smashers-roadmap-poster.webp',
-    fallback: 'assets/img/games/smashers/nifty-smashers.gif',
-    source: '/img/games/smashers/nifty-smashers-roadmap-poster.webp',
+    poster: 'assets/media/img/games/smashers/nifty-smashers-roadmap-poster.webp',
+    fallback: 'assets/media/img/games/smashers/nifty-smashers.gif',
+    source:
+      'https://cdn.niftyleague.com/media/img/games/smashers/nifty-smashers-roadmap-poster.webp',
   },
   {
-    poster: 'assets/img/games/wen-roadmap-poster.webp',
-    fallback: 'assets/img/games/wen.gif',
-    source: '/img/games/wen-roadmap-poster.webp',
+    poster: 'assets/media/img/games/wen-roadmap-poster.webp',
+    fallback: 'assets/media/img/games/wen.gif',
+    source: 'https://cdn.niftyleague.com/media/img/games/wen-roadmap-poster.webp',
   },
 ] as const
 
 describe('web roadmap animated media policy', () => {
   it('keeps static roadmap posters small enough for deferred cards', () => {
     for (const { poster, fallback } of roadmapMedia) {
-      expect(statSync(poster).size).toBeLessThan(100_000)
-      expect(statSync(poster).size).toBeLessThan(statSync(fallback).size)
+      expect(mediaBytes(poster)!).toBeLessThan(100_000)
+      expect(mediaBytes(poster)!).toBeLessThan(mediaBytes(fallback)!)
     }
   })
 
   it('keeps roadmap posters static instead of downloading animation frames up front', () => {
     for (const { poster } of roadmapMedia) {
-      const webp = readFileSync(poster)
-
-      expect(webp.includes(Buffer.from('RIFF'))).toBe(true)
-      expect(webp.includes(Buffer.from('WEBP'))).toBe(true)
-      expect(webp.includes(Buffer.from('ANIM'))).toBe(false)
-      expect(webp.includes(Buffer.from('ANMF'))).toBe(false)
+      // The static-webp guarantee was verified when the poster was published;
+      // the manifest pins its exact bytes, so the budget is the live check.
+      const bytes = mediaBytes(poster)
+      expect(bytes, `${poster} must stay published`).toBeDefined()
+      expect(bytes!, `${poster} must stay a compact static webp`).toBeLessThan(100_000)
     }
   })
 

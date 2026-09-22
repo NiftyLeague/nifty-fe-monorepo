@@ -16,22 +16,30 @@ export function Error404(props: ComponentProps<'div'> & { className?: string }) 
     >
       <div class="flex w-full flex-col items-center justify-center gap-4">
         <div class="relative mx-auto w-full max-w-180 aspect-[720/360]">
-          <OptimizedImage src="/img/maintenance/img-error-bg-dark.svg" alt="Background Dark" fill />
-          <OptimizedImage src="/img/maintenance/img-error-bg.svg" alt="Background Light" fill />
           <OptimizedImage
-            src="/img/maintenance/img-error-text.svg"
+            src="https://cdn.niftyleague.com/media/img/maintenance/img-error-bg-dark.svg"
+            alt="Background Dark"
+            fill
+          />
+          <OptimizedImage
+            src="https://cdn.niftyleague.com/media/img/maintenance/img-error-bg.svg"
+            alt="Background Light"
+            fill
+          />
+          <OptimizedImage
+            src="https://cdn.niftyleague.com/media/img/maintenance/img-error-text.svg"
             alt="404 Text"
             fill
             class="animate-[custom-bounce_3s_ease-in-out_infinite]"
           />
           <OptimizedImage
-            src="/img/maintenance/img-error-blue.svg"
+            src="https://cdn.niftyleague.com/media/img/maintenance/img-error-blue.svg"
             alt="Blue Shapes"
             fill
             class="animate-[wings_15s_ease-in-out_infinite]"
           />
           <OptimizedImage
-            src="/img/maintenance/img-error-purple.svg"
+            src="https://cdn.niftyleague.com/media/img/maintenance/img-error-purple.svg"
             alt="Purple Shapes"
             fill
             class="animate-[wings_12s_ease-in-out_infinite]"

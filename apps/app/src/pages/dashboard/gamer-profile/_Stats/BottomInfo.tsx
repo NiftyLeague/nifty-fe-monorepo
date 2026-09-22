@@ -24,7 +24,7 @@ const BottomInfo = (props: BottomInfoProps): JSX.Element => {
     <div class="grid grid-cols-12 gap-4">
       <div class="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
-          image="/img/games/smashers/nifty-smashers-poster.webp"
+          image="https://cdn.niftyleague.com/media/img/games/smashers/nifty-smashers-poster.webp"
           contents={
             <div class="flex flex-col gap-4 p-4">
               {props.nifty_smashers && <ProgressGamer size="sm" data={props.nifty_smashers} />}
@@ -52,7 +52,7 @@ const BottomInfo = (props: BottomInfoProps): JSX.Element => {
       </div>
       <div class="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
-          image="/img/games/wen-poster.webp"
+          image="https://cdn.niftyleague.com/media/img/games/wen-poster.webp"
           contents={
             <div class="flex flex-1 flex-col justify-between gap-4 p-4">
               {props.wen_game && <ProgressGamer size="sm" data={props.wen_game} />}
@@ -80,7 +80,7 @@ const BottomInfo = (props: BottomInfoProps): JSX.Element => {
       </div>
       <div class="col-span-12 lg:col-span-6 xl:col-span-4">
         <GameCard
-          image="/img/games/crypto-winter.webp"
+          image="https://cdn.niftyleague.com/media/img/games/crypto-winter.webp"
           contents={
             <div class="flex flex-1 flex-col justify-between gap-4 p-4">
               <ProgressGamer size="sm" data={props.crypto_winter} />

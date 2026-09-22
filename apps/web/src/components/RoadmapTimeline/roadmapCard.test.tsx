@@ -65,7 +65,12 @@ describe('RoadmapCard', () => {
     render(() => (
       <RoadmapCard
         body={<p>Details</p>}
-        image={{ src: '/img/roadmap/app.webp', width: 200, height: 120, style: { top: '-80px' } }}
+        image={{
+          src: 'https://cdn.niftyleague.com/media/img/roadmap/nifty_roadmap.webp',
+          width: 200,
+          height: 120,
+          style: { top: '-80px' },
+        }}
         title="Desktop App"
       />
     ))
@@ -83,8 +88,8 @@ describe('RoadmapCard', () => {
       <RoadmapCard
         body={<p>Details</p>}
         image={{
-          src: '/img/games/wen.gif',
-          posterSrc: '/img/games/wen-roadmap-poster.webp',
+          src: 'https://cdn.niftyleague.com/media/img/games/wen.gif',
+          posterSrc: 'https://cdn.niftyleague.com/media/img/games/wen-roadmap-poster.webp',
           width: 200,
           height: 120,
           style: { top: '-80px' },
@@ -95,8 +100,12 @@ describe('RoadmapCard', () => {
 
     const image = screen.getByRole('img', { name: 'WEN Game' })
 
-    expect(image.getAttribute('src')).toBe('/img/games/wen-roadmap-poster.webp')
-    expect(image.getAttribute('data-animated-src')).toBe('/img/games/wen.gif')
+    expect(image.getAttribute('src')).toBe(
+      'https://cdn.niftyleague.com/media/img/games/wen-roadmap-poster.webp'
+    )
+    expect(image.getAttribute('data-animated-src')).toBe(
+      'https://cdn.niftyleague.com/media/img/games/wen.gif'
+    )
   })
 
   it('uses the shared optimized image path for static roadmap artwork', async () => {
@@ -105,7 +114,12 @@ describe('RoadmapCard', () => {
     render(() => (
       <RoadmapCard
         body={<p>Details</p>}
-        image={{ src: '/img/roadmap/app.webp', width: 200, height: 120, style: { top: '-80px' } }}
+        image={{
+          src: 'https://cdn.niftyleague.com/media/img/roadmap/nifty_roadmap.webp',
+          width: 200,
+          height: 120,
+          style: { top: '-80px' },
+        }}
         title="Desktop App"
       />
     ))

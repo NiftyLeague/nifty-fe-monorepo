@@ -19,15 +19,11 @@ export const HEADERS = `/_astro/*
   Cache-Control: public, max-age=31536000, immutable
 /docs/_astro/*
   Cache-Control: public, max-age=31536000, immutable
-/docs/img/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/docs/video/*
+/docs/img/logos/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /docs/favicon/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/img/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/video/*
+/img/logos/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /favicon/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800

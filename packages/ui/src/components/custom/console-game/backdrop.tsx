@@ -19,7 +19,7 @@ export function ConsoleGameBackdrop(props: ConsoleGameBackdropProps) {
       class="pixelated"
       {...CONSOLE_ARTWORK_DIMENSIONS}
       fetchpriority={props.fetchpriority ?? 'low'}
-      src="/img/console-game/classic-gaming-reinvented-notv.webp"
+      src="https://cdn.niftyleague.com/media/img/console-game/classic-gaming-reinvented-notv.webp"
       loading={props.loading ?? 'lazy'}
       decoding="async"
       style={{ width: '100%', height: 'auto', 'object-fit': 'contain' }}

@@ -4,7 +4,7 @@ export default function CompeteArtwork() {
   return (
     <div class="transition-quick-pop">
       <DesktopOnlyImage
-        src="/img/compete-and-earn/animated/competitors.webp"
+        src="https://cdn.niftyleague.com/media/img/compete-and-earn/animated/competitors.webp"
         alt="Compete and Earn"
         width={668}
         height={535}

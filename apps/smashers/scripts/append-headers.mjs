@@ -7,14 +7,12 @@ import { join } from 'node:path'
  * surfaces below keep the refresh policy. `test/contract/cache-surface.test.ts`
  * asserts the policy classes stay declared here.
  */
-export const MEDIA_HEADERS = `/img/*
+export const MEDIA_HEADERS = `/img/logos/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /icons/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
-/video/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /favicon/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
@@ -28,5 +26,5 @@ try {
 } catch {
   // No adapter-generated file; start fresh.
 }
-if (!existing.includes('/img/*')) writeFileSync(target, existing + MEDIA_HEADERS)
+if (!existing.includes('/img/logos/*')) writeFileSync(target, existing + MEDIA_HEADERS)
 console.log('[append-headers] media rules merged into dist/client/_headers')

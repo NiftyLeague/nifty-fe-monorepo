@@ -13,7 +13,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'NIFTY SMASHERS',
     description:
       'A flagship brawler for fast, chaotic matches with friends and rivals across the Nifty League.',
-    image: '/img/home/smashers-spotlight.webp',
+    image: 'https://cdn.niftyleague.com/media/img/home/smashers-spotlight.webp',
     tag: 'MOBILE / PC',
     link: 'https://niftysmashers.com',
   },
@@ -21,7 +21,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'NIFTY WORLD',
     description:
       'An open world to explore, meet the community, and create player-made games together.',
-    image: '/img/home/niftyworld-marina.webp',
+    image: 'https://cdn.niftyleague.com/media/img/home/niftyworld-marina.webp',
     tag: 'OPEN WORLD',
     link: NIFTY_WORLD_APP_URL,
   },
@@ -29,7 +29,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'NIFTY ROYALE',
     description:
       'A competitive battle royale where DEGENs outplay rivals and chase victory in Nifty World.',
-    image: '/img/games/video-posters/nifty-royale.webp',
+    image: 'https://cdn.niftyleague.com/media/img/games/video-posters/nifty-royale.webp',
     tag: 'MOBILE / PC',
     link: NIFTY_APP_URL,
   },
@@ -37,7 +37,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: '2D SMASHERS',
     description:
       'The original browser brawler, preserved in the app for classic Nifty Smashers competition.',
-    image: '/img/games/smashers/nifty-smashers-poster.webp',
+    image: 'https://cdn.niftyleague.com/media/img/games/smashers/nifty-smashers-poster.webp',
     tag: 'BROWSER',
     link: `${NIFTY_APP_URL}/games/smashers`,
   },
@@ -53,7 +53,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'WEN 2D',
     description:
       'A timing-based baseball mini-game where every hit builds your score and tests your reflexes.',
-    image: '/img/games/video-posters/wen-game.webp',
+    image: 'https://cdn.niftyleague.com/media/img/games/video-posters/wen-game.webp',
     tag: 'MINI-GAME',
     link: `${NIFTY_APP_URL}/games/wen-2d`,
   },
@@ -69,7 +69,7 @@ export const NIFTY_GAMES: NiftyGame[] = [
     name: 'MT. GAWX',
     description:
       'Climb an active volcano, burn NFTL, and see how much you can sacrifice in this arcade challenge.',
-    image: '/img/games/video-posters/mt-gawx.webp',
+    image: 'https://cdn.niftyleague.com/media/img/games/video-posters/mt-gawx.webp',
     tag: 'MINI-GAME',
     link: `${NIFTY_APP_URL}/games/mt-gawx`,
   },

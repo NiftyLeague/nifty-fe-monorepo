@@ -11,10 +11,10 @@ import type { JSX } from 'solid-js'
 
 const backgroundImage = (flag: string | undefined) =>
   flag === 'score'
-    ? '/img/leaderboards/wen_game.webp'
+    ? 'https://cdn.niftyleague.com/media/img/leaderboards/wen_game.webp'
     : flag === 'burnings'
-      ? '/img/leaderboards/mt_gawx.webp'
-      : '/img/leaderboards/nifty_smashers.webp'
+      ? 'https://cdn.niftyleague.com/media/img/leaderboards/mt_gawx.webp'
+      : 'https://cdn.niftyleague.com/media/img/leaderboards/nifty_smashers.webp'
 
 interface ModalProps {
   child: JSX.Element

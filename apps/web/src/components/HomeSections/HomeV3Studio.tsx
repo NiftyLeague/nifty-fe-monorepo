@@ -29,7 +29,7 @@ export default function HomeV3Studio() {
     >
       <div class="home-v3-studio-backdrop" aria-hidden="true">
         <OptimizedImage
-          src="/img/backgrounds/banner-dark.webp"
+          src="https://cdn.niftyleague.com/media/img/backgrounds/banner-dark.webp"
           alt=""
           width={2000}
           height={1000}

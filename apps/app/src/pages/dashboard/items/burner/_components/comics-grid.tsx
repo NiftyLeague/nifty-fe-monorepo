@@ -11,12 +11,12 @@ import { toggleValue } from '@/utils/collections'
 import styles from './comics-grid.module.css'
 
 const COMPRESSED_COMIC_IMAGES = [
-  '/img/comics/thumbnail/1.webp',
-  '/img/comics/thumbnail/2.webp',
-  '/img/comics/thumbnail/3.webp',
-  '/img/comics/thumbnail/4.webp',
-  '/img/comics/thumbnail/5.webp',
-  '/img/comics/thumbnail/6.webp',
+  'https://cdn.niftyleague.com/media/img/comics/thumbnail/1.webp',
+  'https://cdn.niftyleague.com/media/img/comics/thumbnail/2.webp',
+  'https://cdn.niftyleague.com/media/img/comics/thumbnail/3.webp',
+  'https://cdn.niftyleague.com/media/img/comics/thumbnail/4.webp',
+  'https://cdn.niftyleague.com/media/img/comics/thumbnail/5.webp',
+  'https://cdn.niftyleague.com/media/img/comics/thumbnail/6.webp',
 ]
 
 export default function ComicsGrid(props: {

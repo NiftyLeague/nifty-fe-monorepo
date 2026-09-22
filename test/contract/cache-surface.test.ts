@@ -57,17 +57,12 @@ describe('cache surfaces', () => {
   })
 
   it('keeps docs media on the refresh policy instead of the platform default', () => {
-    // Both URL forms serve the shared assets directory: the prefixed build-base
-    // form is what every page references, the bare form is its worker-strip twin.
+    // Both URL forms serve the shared site assets: the prefixed build-base form
+    // is what every page references, the bare form is its worker-strip twin.
+    // Marketing media moved to cdn.niftyleague.com/media and is no longer a
+    // per-app header surface.
     const headers = docsHeaders()
-    for (const source of [
-      '/docs/img/*',
-      '/docs/video/*',
-      '/docs/favicon/*',
-      '/img/*',
-      '/video/*',
-      '/favicon/*',
-    ]) {
+    for (const source of ['/docs/img/logos/*', '/docs/favicon/*', '/img/logos/*', '/favicon/*']) {
       expect(headers.includes(source), `docs ${source}`).toBe(true)
     }
     expect(headers.includes(REFRESH)).toBe(true)
@@ -76,27 +71,27 @@ describe('cache surfaces', () => {
 
   it('keeps web media on the refresh policy instead of immutable', () => {
     const headers = webHeaders()
-    for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
+    for (const source of ['/img/logos/*', '/icons/*', '/favicon/*']) {
       expect(headers.includes(source), `web ${source}`).toBe(true)
     }
     expect(headers.includes(REFRESH)).toBe(true)
   })
 
   it('keeps smashers media on the refresh policy instead of the platform default', () => {
-    // The public/ media (hero posters, videos, favicons, icons) uses the same
-    // refresh policy as web.
+    // The public/ site assets (favicons, icons, logos) use the same refresh
+    // policy as web; marketing media moved to cdn.niftyleague.com/media.
     const headers = smashersHeaders()
-    for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
+    for (const source of ['/img/logos/*', '/icons/*', '/favicon/*']) {
       expect(headers.includes(source), `smashers ${source}`).toBe(true)
     }
     expect(headers.includes(REFRESH)).toBe(true)
   })
 
   it('keeps app media on the refresh policy instead of the platform default', () => {
-    // The app shares the repo-root assets dir as its public surface and uses an
-    // explicit refresh policy for its media.
+    // The app shares the repo-root site assets as its public surface and uses an
+    // explicit refresh policy for them; marketing media moved to the CDN.
     const headers = appHeaders()
-    for (const source of ['/img/*', '/icons/*', '/video/*', '/favicon/*']) {
+    for (const source of ['/img/logos/*', '/icons/*', '/favicon/*']) {
       expect(headers.includes(source), `app ${source}`).toBe(true)
     }
     expect(headers.includes(REFRESH)).toBe(true)

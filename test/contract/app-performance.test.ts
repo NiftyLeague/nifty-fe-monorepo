@@ -381,7 +381,9 @@ describe('app performance contracts', () => {
 
   it('keeps the desktop hero character mural eager and desktop-scoped', () => {
     const source = readFileSync(webHome, 'utf8')
-    const heroStart = source.indexOf("src: '/img/hero/characters.webp'")
+    const heroStart = source.indexOf(
+      "src: 'https://cdn.niftyleague.com/media/img/hero/characters.webp'"
+    )
     // The desktop scope lives on the mural's <source> in the template, after
     // the frontmatter candidate list.
     const muralSource = source.indexOf('<source media="(min-width: 769px)"', heroStart)

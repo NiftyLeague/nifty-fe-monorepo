@@ -45,12 +45,20 @@ describe('ItemsGrid', () => {
 
     expect(images).toHaveLength(7)
     expect(images[0]?.getAttribute('aria-label')).toBe('CAPE')
-    expect(images[0]?.getAttribute('data-poster-src')).toBe('/img/items/thumbnail/1.webp')
-    expect(images[0]?.getAttribute('data-animated-src')).toBe('/img/items/full/1.webp')
-    expect(images[0]?.getAttribute('data-fallback-animated-src')).toBe('/img/items/full/1.gif')
+    expect(images[0]?.getAttribute('data-poster-src')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/thumbnail/1.webp'
+    )
+    expect(images[0]?.getAttribute('data-animated-src')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.webp'
+    )
+    expect(images[0]?.getAttribute('data-fallback-animated-src')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.gif'
+    )
     expect(screen.getByText('NL PURPLE')).toBeTruthy()
     expect(screen.getByText('x5')).toBeTruthy()
     expect(images[6]?.getAttribute('aria-label')).toBe('CITADEL KEY')
-    expect(images[6]?.getAttribute('data-poster-src')).toBe('/img/items/thumbnail/7.webp')
+    expect(images[6]?.getAttribute('data-poster-src')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/thumbnail/7.webp'
+    )
   })
 })

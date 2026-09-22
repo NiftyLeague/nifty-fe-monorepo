@@ -4,7 +4,7 @@ export const DEFAULT_METADATA = {
   description:
     'A decentralized game studio & publisher creating an open & efficient path for indie studios to develop & publish groundbreaking games.',
   keywords: ['Nifty League', 'NFT', 'Gaming', 'Web3', 'Metaverse', 'Mobile Gaming'],
-  image: '/img/console-game/classic-gaming-reinvented.webp',
+  image: 'https://cdn.niftyleague.com/media/img/console-game/classic-gaming-reinvented.webp',
 }
 export function metadataValues(meta: Record<string, unknown>, canonical: string) {
   const titleValue = typeof meta.title === 'string' ? meta.title : ''

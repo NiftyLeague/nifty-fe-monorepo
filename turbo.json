@@ -81,7 +81,7 @@
     "docs#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../assets/**",
+        "../../assets/site/**",
         "../../packages/astro-config/**",
         "../../packages/astro-config/package.json",
         "../../packages/ui/src/**",
@@ -107,7 +107,7 @@
     "smashers#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../assets/**",
+        "../../assets/site/**",
         "../../packages/astro-config/**",
         "../../packages/astro-config/package.json",
         "../../packages/playfab/src/**",
@@ -160,7 +160,7 @@
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../assets/**",
+        "../../assets/site/**",
         "../../packages/astro-config/**",
         "../../packages/astro-config/package.json",
         "../../packages/ui/src/**",
@@ -226,7 +226,16 @@
     },
     "cf:build": {
       "dependsOn": [],
-      "outputs": ["dist/_astro/**", "dist/_headers", "dist/**/*.html"]
+      "outputs": [
+        "dist/_astro/**",
+        "dist/_headers",
+        "dist/**/*.html",
+        "dist/img/logos/**",
+        "dist/icons/**",
+        "dist/favicon/**",
+        "dist/scripts/**",
+        "dist/terms.txt"
+      ]
     },
     "app#cf:build": {
       "env": ["CI", "VITE_*", "VITE_DEPLOY_ENV"],
@@ -234,7 +243,12 @@
         ".output/server/**",
         ".output/public/assets/**",
         ".output/public/_headers",
-        ".output/nitro.json"
+        ".output/nitro.json",
+        ".output/public/img/logos/**",
+        ".output/public/icons/**",
+        ".output/public/favicon/**",
+        ".output/public/scripts/**",
+        ".output/public/terms.txt"
       ]
     },
     "smashers#cf:build": {
@@ -260,12 +274,26 @@
         "dist/client/_astro/**",
         "dist/client/_headers",
         "dist/client/**/*.html",
-        "dist/server/**"
+        "dist/server/**",
+        "dist/client/img/logos/**",
+        "dist/client/icons/**",
+        "dist/client/favicon/**",
+        "dist/client/scripts/**",
+        "dist/client/terms.txt"
       ]
     },
     "docs#cf:build": {
       "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
-      "outputs": ["dist/_astro/**", "dist/_headers", "dist/**/*.html"]
+      "outputs": [
+        "dist/_astro/**",
+        "dist/_headers",
+        "dist/**/*.html",
+        "dist/img/logos/**",
+        "dist/icons/**",
+        "dist/favicon/**",
+        "dist/scripts/**",
+        "dist/terms.txt"
+      ]
     }
   }
 }

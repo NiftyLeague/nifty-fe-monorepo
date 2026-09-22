@@ -18,7 +18,7 @@ const PlayContent = () => (
         class="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
         <NativeImage
-          src="/img/badges/google-play-badge.webp"
+          src="https://cdn.niftyleague.com/media/img/badges/google-play-badge.webp"
           alt="Get it on Google Play"
           width={234}
           height={70}
@@ -33,7 +33,7 @@ const PlayContent = () => (
         class="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
         <NativeImage
-          src="/img/badges/apple-store-badge.svg"
+          src="https://cdn.niftyleague.com/media/img/badges/apple-store-badge.svg"
           alt="Apple Store Badge"
           width={215}
           height={72}
@@ -49,7 +49,7 @@ const PlayContent = () => (
         class="w-full justify-items-center hover:scale-102 transition-transform duration-200"
       >
         <NativeImage
-          src="/img/badges/steam-badge.webp"
+          src="https://cdn.niftyleague.com/media/img/badges/steam-badge.webp"
           alt="Steam Store Badge"
           width={234}
           height={69}

@@ -141,7 +141,7 @@ const RoadmapCard = ({
     {current ? (
       <div class={styles.satoshiStationary}>
         <OptimizedImage
-          src="/img/space/satoshi_stationary.gif"
+          src="https://cdn.niftyleague.com/media/img/space/satoshi_stationary.gif"
           unoptimized
           alt="satoshi stationary"
           width={200}

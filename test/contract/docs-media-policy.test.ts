@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { existsSync, readFileSync, statSync } from 'node:fs'
+import { mediaBytes } from './media-manifest'
+import { existsSync, readFileSync } from 'node:fs'
 
 const docsPage = 'apps/docs/src/content/docs/overview/nfts/degens/about.mdx'
 const docsMediaPages = [
@@ -15,11 +16,11 @@ const docsMediaPages = [
   docsPage,
 ]
 
-const legacyAsset = 'assets/img/games/nifty-royale/nifty-royale.gif'
-const mintWebp = 'assets/img/mint-o-matic/degen-mint.webp'
-const mintPoster = 'assets/img/mint-o-matic/degen-mint-poster.webp'
+const legacyAsset = 'assets/media/img/games/nifty-royale/nifty-royale.gif'
+const mintWebp = 'assets/media/img/mint-o-matic/degen-mint.webp'
+const mintPoster = 'assets/media/img/mint-o-matic/degen-mint-poster.webp'
 const roadmapPage = 'apps/docs/src/content/docs/overview/roadmap.mdx'
-const roadmapPoster = 'assets/img/roadmap/nifty_roadmap.webp'
+const roadmapPoster = 'assets/media/img/roadmap/nifty_roadmap.webp'
 
 const youTubePages = [
   'apps/docs/src/content/docs/overview/games/mini-games/crypto-winter.mdx',
@@ -64,7 +65,7 @@ describe('shared docs media policy', () => {
     expect(source).toContain('prefers-reduced-motion: no-preference')
     expect(source).not.toContain('degen-mint.gif')
     expect(source).toContain('alt="Mint-O-Matic character creator"')
-    expect(statSync(mintPoster).size).toBeLessThan(statSync(mintWebp).size)
+    expect(mediaBytes(mintPoster)!).toBeLessThan(mediaBytes(mintWebp)!)
   })
 
   it('does not retain the unreferenced 48 MB Nifty Royale GIF', () => {
@@ -88,7 +89,7 @@ describe('shared docs media policy', () => {
 
     const pipeline = readFileSync('apps/docs/src/lib/roadmap-poster.ts', 'utf8')
     expect(pipeline).toContain('[400, 640, 761]')
-    expect(statSync(roadmapPoster).size).toBeLessThan(1_100_000)
+    expect(mediaBytes(roadmapPoster)!).toBeLessThan(1_100_000)
   })
 
   it('uses the full medium-width content area before sidebars appear', () => {

@@ -3,13 +3,21 @@ import { describe, expect, it } from 'bun:test'
 import { candidateWidths, imageProps, selectWidths } from './image-props.mjs'
 
 const MANIFEST = {
-  '/img/games/smashers/smashers-poster.jpg': { hash: 'abc123', width: 1920, height: 1080 },
+  'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg': {
+    hash: 'abc123',
+    width: 1920,
+    height: 1080,
+  },
 }
 
 describe('app image props', () => {
   it('resolves manifest sources to content-addressed variants with a srcSet', () => {
     const props = imageProps(
-      { src: '/img/games/smashers/smashers-poster.jpg', sizes: '100vw', quality: 60 },
+      {
+        src: 'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg',
+        sizes: '100vw',
+        quality: 60,
+      },
       MANIFEST
     )
 
@@ -31,11 +39,16 @@ describe('app image props', () => {
 
   it('serves originals when unoptimized is set', () => {
     const props = imageProps(
-      { src: '/img/games/smashers/smashers-poster.jpg', unoptimized: true },
+      {
+        src: 'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg',
+        unoptimized: true,
+      },
       MANIFEST
     )
 
-    expect(props.src).toBe('/img/games/smashers/smashers-poster.jpg')
+    expect(props.src).toBe(
+      'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg'
+    )
   })
 
   it('rejects unsafe sources', () => {

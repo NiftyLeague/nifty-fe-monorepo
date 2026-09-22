@@ -21,7 +21,7 @@ const preloadImages = [...HERO_ARTWORK]
 // the element is rendered explicitly with the plain asset path and no
 // width/height/sizes attributes beyond the ones the contract pins.
 const heroBackgroundImage = await getImage({
-  src: '/img/games/smashers/background-poster.webp',
+  src: 'https://cdn.niftyleague.com/media/img/games/smashers/background-poster.webp',
   width: 1920,
   widths: [640, 750, 828, 1080, 1200, 1920],
   quality: 75,
@@ -93,7 +93,7 @@ const heroBackgroundImage = await getImage({
         loadInteractiveOnViewport
         activationDelay={1500}
         deferVideo
-        src="/video/smashers.mp4"
+        src="https://cdn.niftyleague.com/media/video/smashers.mp4"
       >
         <ConsoleGameBackdrop loading="eager" fetchpriority="low" />
       </DeferredConsoleGame>

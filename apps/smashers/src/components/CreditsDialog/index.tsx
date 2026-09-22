@@ -8,7 +8,7 @@ import creditsData from '@/data/credits.json'
 // Helper function to convert company name from data to image filename
 const getCompanyImagePath = (companyName: string): string => {
   const formattedName = companyName.toLowerCase().replace(/\s+/g, '-')
-  return `/img/games/smashers/credits/${formattedName}.webp`
+  return `https://cdn.niftyleague.com/media/img/games/smashers/credits/${formattedName}.webp`
 }
 
 const CompanyImage = (props: { company: Company }) => {
