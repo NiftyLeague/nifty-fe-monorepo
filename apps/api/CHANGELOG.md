@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/api-v2.0.0...api-v2.1.0) (2026-09-22)
+
+
+### Features
+
+* **assets:** serve website media from the CDN ([#2011](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2011)) ([3f0e354](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3f0e3548739f00f14a311599f8b537f65de1b218))
+
 ## [2.0.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/api-v1.0.0...api-v2.0.0) (2026-09-21)
 
 
