@@ -1,0 +1,17 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // Serves the Unity smashers build (unity/smashers/* in the nifty-league
+  // bucket) with the Content-Encoding the Unity loader requires. The route
+  // only intercepts /unity/*; every other prefix on cdn.niftyleague.com keeps
+  // hitting the bucket's custom-domain origin.
+  "name": "nifty-unity-cdn",
+  "account_id": "90526f277153982742d51be614fb9b40",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-06",
+  "observability": { "enabled": true },
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "cdn.niftyleague.com/unity/*", "zone_name": "niftyleague.com" }
+  ],
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "nifty-league" }]
+}
