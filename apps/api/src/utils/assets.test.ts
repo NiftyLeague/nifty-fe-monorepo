@@ -6,23 +6,11 @@ import { describe, expect, it } from 'bun:test'
 import { getAssetPath } from './assets'
 
 describe('getAssetPath', () => {
-  const repositoryRoot = path.resolve(import.meta.dir, '../../../..')
+  const apiRoot = path.resolve(import.meta.dir, '../..')
   const cases: Array<[Parameters<typeof getAssetPath>[0], string, string]> = [
-    [
-      'comics',
-      '1.png',
-      path.join(repositoryRoot, 'assets', 'media', 'img', 'comics', 'page', '1.webp'),
-    ],
-    [
-      'items',
-      '101.gif',
-      path.join(repositoryRoot, 'assets', 'media', 'img', 'items', 'full', '1.gif'),
-    ],
-    [
-      'degens',
-      '1.png',
-      path.join(repositoryRoot, 'apps', 'api', '.data', 'images', 'degens', '1.png'),
-    ],
+    ['comics', '1.png', path.join(apiRoot, 'assets', 'comics', 'page', '1.webp')],
+    ['items', '101.gif', path.join(apiRoot, 'assets', 'items', 'full', '1.gif')],
+    ['degens', '1.png', path.join(apiRoot, '.data', 'images', 'degens', '1.png')],
   ]
 
   it.each(cases)('resolves %s -> the canonical shared path for %s', (kind, fileName, expected) => {
