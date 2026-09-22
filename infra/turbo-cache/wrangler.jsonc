@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  // Turborepo remote cache for the Nifty League account. Secrets: TURBO_TOKEN
+  // (bearer token turbo sends) and TURBO_TEAM (the team slug turbo sends);
+  // see README.md for the deploy sequence and the Pink Binder variant.
+  "name": "nifty-turbo-cache",
+  "account_id": "90526f277153982742d51be614fb9b40",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-06",
+  "observability": { "enabled": true },
+  "workers_dev": true,
+  "r2_buckets": [{ "binding": "BUCKET", "bucket_name": "nifty-turbo-cache" }],
+}

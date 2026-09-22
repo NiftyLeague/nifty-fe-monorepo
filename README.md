@@ -239,6 +239,11 @@ export TURBO_TOKEN=<cache token>
 export TURBO_TEAM=niftyleague
 ```
 
+The Worker itself lives in [`infra/turbo-cache`](./infra/turbo-cache/README.md):
+artifacts are served as immutable and held at the Cloudflare edge, `nifty-world`
+shares the same cache, and that README documents the deploy and verification
+commands.
+
 ## Useful Links
 
 Learn more about the power of Turborepo:
