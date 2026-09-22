@@ -5,18 +5,19 @@ import { fileURLToPath } from 'node:url'
 /**
  * Asset categories used by the NFT generators.
  *
- * Comics and marketplace items reuse the canonical files already checked into
- * the monorepo's shared `assets/media/img/` tree. Generated degen images remain
- * local operational data and are kept out of Git under `apps/api/.data/`.
+ * Comics and marketplace items read the canonical source art checked into this
+ * app at `assets/` — the comics pages are duplicated in the docs build, which
+ * processes the same art at build time. Generated degen images remain local
+ * operational data and are kept out of Git under `apps/api/.data/`.
  */
 export type AssetKind = 'comics' | 'items' | 'degens'
 
 // import.meta.url is undefined under the Workers runtime (no filesystem
 // concept); only the local generators use these paths, so a placeholder root
 // keeps the module importable there.
-const repositoryRoot = (() => {
+const apiRoot = (() => {
   try {
-    return resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
+    return resolve(dirname(fileURLToPath(import.meta.url)), '../..')
   } catch {
     return resolve('.')
   }
@@ -40,13 +41,13 @@ export function getAssetPath(kind: AssetKind, fileName: string): string {
 
   switch (kind) {
     case 'comics':
-      return resolve(repositoryRoot, 'assets', 'media', 'img', 'comics', 'page', `${stem}.webp`)
+      return resolve(apiRoot, 'assets', 'comics', 'page', `${stem}.webp`)
     case 'items': {
       const tokenId = Number(stem)
       const sharedId = Number.isInteger(tokenId) && tokenId >= 101 ? tokenId - 100 : tokenId
-      return resolve(repositoryRoot, 'assets', 'media', 'img', 'items', 'full', `${sharedId}.gif`)
+      return resolve(apiRoot, 'assets', 'items', 'full', `${sharedId}.gif`)
     }
     case 'degens':
-      return resolve(repositoryRoot, 'apps', 'api', '.data', 'images', 'degens', safeFileName)
+      return resolve(apiRoot, '.data', 'images', 'degens', safeFileName)
   }
 }

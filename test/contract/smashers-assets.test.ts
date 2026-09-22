@@ -3,7 +3,7 @@ import { mediaBytes } from './media-manifest'
 import { readFileSync } from 'node:fs'
 
 const headerSource = 'apps/smashers/src/components/Header/index.tsx'
-const deferredAnimationSource = 'assets/site/scripts/smashers-hero-animation.js'
+const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
 const rocketVideo = 'assets/media/video/rocket.mp4'
 const heroVideo = 'assets/media/video/smashers-hero.mp4'
