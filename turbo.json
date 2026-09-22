@@ -81,7 +81,7 @@
     "docs#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../assets/site/**",
+        "../../assets/**",
         "../../packages/astro-config/**",
         "../../packages/astro-config/package.json",
         "../../packages/ui/src/**",
@@ -107,7 +107,7 @@
     "smashers#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../assets/site/**",
+        "../../assets/**",
         "../../packages/astro-config/**",
         "../../packages/astro-config/package.json",
         "../../packages/playfab/src/**",
@@ -160,7 +160,7 @@
     "web#build": {
       "inputs": [
         "$TURBO_DEFAULT$",
-        "../../assets/site/**",
+        "../../assets/**",
         "../../packages/astro-config/**",
         "../../packages/astro-config/package.json",
         "../../packages/ui/src/**",

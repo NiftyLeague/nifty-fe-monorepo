@@ -5,17 +5,20 @@ import { join } from 'node:path'
 /**
  * Shared assets surface contract.
  *
- * The Astro apps' `public/` dirs are symlinks to the repo-root `assets/site` dir —
- * the small same-origin set every app ships. If it (or a symlink, or a critical
- * subdir) disappears, every app silently 404s its favicons, icons and logos — with
- * no in-repo click-through to catch it. This test pins that structure.
+ * The repo-root `assets/` dir is the Astro apps' publicDir — the small
+ * same-origin set every app ships (favicons, icons, logos, scripts, terms). If
+ * it (or a symlink, or a critical subdir) disappears, every app silently 404s
+ * those assets — with no in-repo click-through to catch it. This test pins that
+ * structure.
  *
- * `assets/media/` is the rest of the shared folder: it is published to
- * cdn.niftyleague.com/media by scripts/publish-media.mjs and is deliberately in
- * no build (assets/media-manifest.json records what the CDN must hold).
+ * Marketing media is NOT here: it is published to cdn.niftyleague.com/media and
+ * assets/media-manifest.json records what the CDN must hold. The only media
+ * kept in the repo is the artwork builds read from disk, and that lives with
+ * its consumers — `apps/docs/src/assets/` (Astro image imports) and
+ * `apps/api/assets/` (API image-generator sources).
  *
  * web ships as Astro static and has no public symlink: its publicDir is the
- * shared site dir directly (see apps/web/astro.config.mjs).
+ * shared assets dir directly (see apps/web/astro.config.mjs).
  */
 
 const APPS = ['app', 'smashers', 'docs']
@@ -31,10 +34,10 @@ const SOURCE_ROOTS = [
 
 /**
  * Files each app generates into its own output. They must never live in the
- * shared assets directory: every Astro app uses `../../assets/site` as its
- * publicDir, so anything left there is copied into *every* app's build. Stale staging files
- * from the pre-migration build sat here and replaced apps/web's own sitemap in
- * local builds, which is how this guard came about.
+ * shared assets directory: every Astro app uses `../../assets` as its
+ * publicDir, so anything left there is copied into *every* app's build. Stale
+ * staging files from the pre-migration build sat here and replaced apps/web's
+ * own sitemap in local builds, which is how this guard came about.
  */
 const GENERATED_SEO_FILES = ['robots.txt', 'sitemap.xml', 'sitemap-index.xml', 'sitemap-0.xml']
 
@@ -54,33 +57,30 @@ describe('shared assets surface contract', () => {
 
   it('critical site-asset subdirs exist', () => {
     for (const sub of ASSET_SUBDIRS) {
-      expect(
-        existsSync(join(process.cwd(), 'assets/site', sub)),
-        `Missing assets/site/${sub}/`
-      ).toBe(true)
+      expect(existsSync(join(process.cwd(), 'assets', sub)), `Missing assets/${sub}/`).toBe(true)
     }
   })
 
-  it('the manifest describes the published set and build-critical media stays in the repo', () => {
-    // The repo only keeps the media that builds read from disk (Astro image
-    // imports and the API image generators); everything else lives only on
-    // cdn.niftyleague.com, described by the manifest.
+  it('the manifest describes the published set and build-time images live with their consumers', () => {
+    // Everything else was published to cdn.niftyleague.com and removed from
+    // the repo; only the artwork builds read from disk stays, next to the
+    // code that reads it.
     const manifest = JSON.parse(
       readFileSync(join(process.cwd(), 'assets/media-manifest.json'), 'utf8')
     )
     expect(Object.keys(manifest).length, 'manifest lost entries').toBeGreaterThan(300)
-    const buildCritical = [
-      'assets/media/img/comics/page/1.webp',
-      'assets/media/img/comics/page/6.webp',
-      'assets/media/img/backgrounds/banner-light.webp',
-      'assets/media/img/games/smashers/2D-levels/mars.webp',
-      'assets/media/img/games/smashers/3D-levels/sushi_cropped.webp',
-      'assets/media/img/roadmap/nifty_roadmap.webp',
-      'assets/media/img/items/full/1.gif',
-      'assets/media/img/items/full/7.gif',
+    const buildTimeImages = [
+      'apps/docs/src/assets/comics/page/1.webp',
+      'apps/docs/src/assets/comics/page/6.webp',
+      'apps/docs/src/assets/backgrounds/banner-light.webp',
+      'apps/docs/src/assets/games/smashers/2D-levels/mars.webp',
+      'apps/docs/src/assets/games/smashers/3D-levels/sushi_cropped.webp',
+      'apps/docs/src/assets/roadmap/nifty_roadmap.webp',
+      'apps/api/assets/items/full/1.gif',
+      'apps/api/assets/items/full/7.gif',
     ]
-    for (const file of buildCritical) {
-      expect(existsSync(join(process.cwd(), file)), `Missing build-critical ${file}`).toBe(true)
+    for (const file of buildTimeImages) {
+      expect(existsSync(join(process.cwd(), file)), `Missing build-time image ${file}`).toBe(true)
     }
   })
 
@@ -125,7 +125,7 @@ describe('shared assets surface contract', () => {
     // The value now comes from @nl/astro-config, shared with smashers and docs.
     expect(astroConfig).toContain('publicDir: ASSETS_PUBLIC_DIR')
     const shared = readFileSync(join(process.cwd(), 'packages/astro-config/index.mjs'), 'utf8')
-    expect(shared).toContain("export const ASSETS_PUBLIC_DIR = '../../assets/site'")
+    expect(shared).toContain("export const ASSETS_PUBLIC_DIR = '../../assets'")
   })
 
   it('keeps generated SEO files out of the shared assets dir', () => {

@@ -242,20 +242,22 @@ export TURBO_TEAM=niftyleague
 ## Website Media
 
 Marketing and game media (images, videos) is served from
-`cdn.niftyleague.com/media` and is **not** part of any app build. The repo keeps:
+`cdn.niftyleague.com/media` and is **not** part of any app build or this repo.
+The repo keeps:
 
-- `assets/site/` — the small same-origin set every app ships (favicons, icons,
-  logos); it is the Astro apps' publicDir.
+- `assets/` — the small same-origin set every app ships (favicons, icons,
+  logos, scripts, terms); it is the Astro apps' publicDir.
+- `apps/docs/src/assets/` and `apps/api/assets/` — the only media kept in the
+  repo, because builds or generators read those files from disk.
 - `assets/media-manifest.json` — the committed record of everything the CDN
   holds; contract tests verify every media URL an app references is published.
-- `assets/media/img/…` — only the files builds read from disk (Astro image
-  imports in docs, API image generators).
 
-To add or change media: place the file under `assets/media/`, run
+To add or change media: stage the file under `assets/media/`, run
 `CLOUDFLARE_API_TOKEN=… CLOUDFLARE_ACCOUNT_ID=… bun scripts/publish-media.mjs`,
-and commit the manifest diff. Media is append-only — the bucket is served with
-an immutable one-year Cache-Control and has no purge path, so give a changed
-image a new filename instead of overwriting the old one.
+and commit the manifest diff (the staging folder stays empty otherwise). Media
+is append-only — the bucket is served with an immutable one-year Cache-Control
+and has no purge path, so give a changed image a new filename instead of
+overwriting the old one.
 
 The Worker itself lives in [`infra/turbo-cache`](./infra/turbo-cache/README.md):
 artifacts are served as immutable and held at the Cloudflare edge, `nifty-world`

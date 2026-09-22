@@ -5,8 +5,8 @@
 
 root_dir="$(pwd)"  # Set the project's root directory to the current working directory
 apps_dir="$root_dir/apps"
-static_dir="$root_dir/assets/site"
-static_link="../../assets/site"
+static_dir="$root_dir/assets"
+static_link="../../assets"
 
 # create static 
 ##################################################################

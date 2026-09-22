@@ -2,11 +2,12 @@
 /**
  * Publishes the website media set to the CDN bucket.
  *
- * Uploads every file under `assets/media/` to the `media/` prefix of the
- * `nifty-league` R2 bucket (served at cdn.niftyleague.com), then regenerates
- * `assets/media-manifest.json` — the committed record of what the CDN should
- * hold. Site assets (`assets/site/`) are NOT published here: they ship inside
- * each app's build like any other publicDir file.
+ * Uploads every file staged under `assets/media/` to the `media/` prefix of
+ * the `nifty-league` R2 bucket (served at cdn.niftyleague.com), then
+ * regenerates `assets/media-manifest.json` — the committed record of what the
+ * CDN should hold. `assets/media/` is an empty staging folder by default: the
+ * CDN is the store, the manifest is the record, and the repo holds no media
+ * copies (build-time images live in the apps that consume them).
  *
  * Media is append-only (a changed image is a new file), so every object is
  * uploaded with an immutable one-year Cache-Control. There is no purge path on
@@ -107,6 +108,10 @@ const upload = async (key, body, contentType) => {
   }
 }
 
+if (!existsSync(SOURCE_DIR)) {
+  console.log(`Nothing staged under ${SOURCE_DIR}; nothing to publish.`)
+  process.exit(0)
+}
 const files = (await walk(SOURCE_DIR)).filter(
   (file) => !only || relative(SOURCE_DIR, file).startsWith(only)
 )
