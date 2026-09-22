@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v2.0.0...docs-v2.1.0) (2026-09-22)
+
+
+### Features
+
+* **build:** self-hosted turbo remote cache on Cloudflare + cached deploy builds ([#2007](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2007)) ([6bd036b](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/6bd036bd5112d45ee851019ded39cf9d4ab3b3d3))
+
 ## [2.0.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v1.0.8...docs-v2.0.0) (2026-09-21)
 
 
