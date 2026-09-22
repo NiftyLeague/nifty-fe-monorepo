@@ -226,15 +226,16 @@
     },
     "cf:build": {
       "dependsOn": [],
-      "outputs": ["dist/**", ".output/**"]
-    },
-    "web#cf:build": {
-      "env": ["CI", "PUBLIC_DEPLOY_ENV", "PUBLIC_TELEMETRY", "PUBLIC_INFURA_ID"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/_astro/**", "dist/_headers", "dist/**/*.html"]
     },
     "app#cf:build": {
       "env": ["CI", "VITE_*", "VITE_DEPLOY_ENV"],
-      "outputs": [".output/**"]
+      "outputs": [
+        ".output/server/**",
+        ".output/public/assets/**",
+        ".output/public/_headers",
+        ".output/nitro.json"
+      ]
     },
     "smashers#cf:build": {
       "env": [
@@ -243,7 +244,6 @@
         "CI",
         "FACEBOOK_CLIENT_ID",
         "FACEBOOK_CLIENT_SECRET",
-        "GITHUB_ACTIONS",
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
         "PLAYFAB_API_KEY",
@@ -256,16 +256,16 @@
         "TWITCH_CLIENT_SECRET",
         "NODE_ENV"
       ],
-      "outputs": ["dist/**"]
+      "outputs": [
+        "dist/client/_astro/**",
+        "dist/client/_headers",
+        "dist/client/**/*.html",
+        "dist/server/**"
+      ]
     },
     "docs#cf:build": {
-      "env": [
-        "ALGOLIA_API_KEY",
-        "ALGOLIA_APP_ID",
-        "PUBLIC_ALGOLIA_API_KEY",
-        "PUBLIC_ALGOLIA_APP_ID"
-      ],
-      "outputs": ["dist/**"]
+      "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
+      "outputs": ["dist/_astro/**", "dist/_headers", "dist/**/*.html"]
     }
   }
 }

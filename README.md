@@ -229,20 +229,14 @@ If you need to customize, extend, or build custom global components they should 
 
 ## Remote Caching
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Turborepo can use [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
-By default, Turborepo caches locally. Remote caching is already configured for CI (`TURBO_TOKEN` / `TURBO_TEAM`); for local runs, authenticate with the same team:
+The remote cache is **self-hosted on our Cloudflare account** (`nifty-turbo-cache` Worker + `nifty-turbo-cache` R2 bucket). CI is configured via the `TURBO_API` variable and the `TURBO_TOKEN` / `TURBO_TEAM` secret and variable. For local runs, export the same three values:
 
-```
-npx turbo login
-```
-
-This links the local Turborepo to the shared remote cache.
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+```bash
+export TURBO_API=https://nifty-turbo-cache.nifty-league.workers.dev
+export TURBO_TOKEN=<cache token>
+export TURBO_TEAM=niftyleague
 ```
 
 ## Useful Links
