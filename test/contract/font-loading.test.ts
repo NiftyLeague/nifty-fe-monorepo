@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 /**
@@ -45,6 +45,51 @@ const THEME_VARIABLES = [
   '--font-lilita-one',
   '--font-press-start',
 ]
+
+describe('docs self-hosted fonts', () => {
+  const docsTheme = 'apps/docs/src/styles/theme.css'
+
+  it('declares Roboto Mono from the shared vendored assets, not Google Fonts', () => {
+    const theme = read(docsTheme)
+    expect(theme).toContain("font-family: 'Roboto Mono'")
+    expect(theme).toContain('roboto-mono-400.woff2')
+    expect(theme).toContain('roboto-mono-700.woff2')
+    for (const file of ['roboto-mono-400.woff2', 'roboto-mono-700.woff2']) {
+      expect(
+        existsSync(join(process.cwd(), 'packages/ui/src/lib/fonts/assets', file)),
+        `Missing vendored ${file}`
+      ).toBe(true)
+    }
+  })
+
+  it('no app loads fonts from Google at runtime', () => {
+    for (const root of [
+      'apps/web/src',
+      'apps/app/src',
+      'apps/docs/src',
+      'apps/smashers/src',
+      'packages/ui/src',
+    ]) {
+      const file = join(process.cwd(), root)
+      // walk each source tree and fail on any google fonts URL
+      const stack = [file]
+      while (stack.length) {
+        const dir = stack.pop()!
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+          const full = join(dir, entry.name)
+          if (entry.isDirectory()) stack.push(full)
+          else if (/\.(ts|tsx|astro|css|mdx|md)$/.test(entry.name)) {
+            const text = readFileSync(full, 'utf8')
+            expect(
+              /fonts\.(googleapis|gstatic)\.com/.test(text),
+              `Google Fonts reference found in ${full}`
+            ).toBe(false)
+          }
+        }
+      }
+    }
+  })
+})
 
 describe('shared font loading contract', () => {
   it('declares every family once, with the variables the theme consumes', () => {
