@@ -11,7 +11,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 24th, 2021',
     image: {
       height: 272,
-      src: '/img/misc/smash_200.webp',
+      src: 'https://cdn.niftyleague.com/media/img/misc/smash_200.webp',
       style: { top: '-80px', right: '-50px' },
       width: 518,
     },
@@ -40,7 +40,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Dec 2nd, 2021',
     image: {
       height: 350,
-      src: '/img/roadmap/desktop-app_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/desktop-app_v02.webp',
       style: { top: '-115px' },
       width: 514,
     },
@@ -59,7 +59,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Jan 22nd, 2022',
-    image: { height: 364, src: '/img/roadmap/p2e_v02.webp', style: { top: '-95px' }, width: 586 },
+    image: {
+      height: 364,
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/p2e_v02.webp',
+      style: { top: '-95px' },
+      width: 586,
+    },
     title: 'Play-&-Earn (DEPRECATED)',
     body: (
       <>
@@ -85,7 +90,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Feb 16th, 2022',
-    image: { height: 412, src: '/img/roadmap/merch_02.webp', style: { top: '-100px' }, width: 634 },
+    image: {
+      height: 412,
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/merch_02.webp',
+      style: { top: '-100px' },
+      width: 634,
+    },
     title: 'Merch',
     body: (
       <>
@@ -101,7 +111,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'May 3rd, 2022',
     image: {
       height: 375,
-      src: '/img/roadmap/rentals_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/rentals_v02.webp',
       style: { top: '-100px' },
       width: 609,
     },
@@ -129,7 +139,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jun 8th, 2022',
     image: {
       height: 450,
-      src: '/img/roadmap/leaderboards_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/leaderboards_v02.webp',
       style: { top: '-120px' },
       width: 649,
     },
@@ -161,8 +171,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Jun 15th, 2022',
     image: {
       height: 1080,
-      src: '/img/games/wen.gif',
-      posterSrc: '/img/games/wen-roadmap-poster.webp',
+      src: 'https://cdn.niftyleague.com/media/img/games/wen.gif',
+      posterSrc: 'https://cdn.niftyleague.com/media/img/games/wen-roadmap-poster.webp',
       style: { top: '-130px' },
       width: 1440,
     },
@@ -191,8 +201,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Aug 4th, 2022',
     image: {
       height: 1080,
-      src: '/img/games/mt-gawx.gif',
-      posterSrc: '/img/games/mt-gawx-roadmap-poster.webp',
+      src: 'https://cdn.niftyleague.com/media/img/games/mt-gawx.gif',
+      posterSrc: 'https://cdn.niftyleague.com/media/img/games/mt-gawx-roadmap-poster.webp',
       style: { top: '-135px' },
       width: 1440,
     },
@@ -219,8 +229,8 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 20th, 2022',
     image: {
       height: 1080,
-      src: '/img/games/crypto-winter.gif',
-      posterSrc: '/img/games/crypto-winter-roadmap-poster.webp',
+      src: 'https://cdn.niftyleague.com/media/img/games/crypto-winter.gif',
+      posterSrc: 'https://cdn.niftyleague.com/media/img/games/crypto-winter-roadmap-poster.webp',
       style: { top: '-120px' },
       width: 1440,
     },
@@ -277,7 +287,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Nov 16th, 2022',
     image: {
       height: 325,
-      src: '/img/roadmap/comics_v01.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/comics_v01.webp',
       style: { top: '-160px', right: '-120px', padding: '20px' },
       width: 323,
     },
@@ -307,7 +317,7 @@ export const ROADMAP_CARDS = [
             <OptimizedImage
               alt="comic 1"
               height={500}
-              src="/img/comics/thumbnail/1.webp"
+              src="https://cdn.niftyleague.com/media/img/comics/thumbnail/1.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               class="w-full h-auto"
@@ -317,7 +327,7 @@ export const ROADMAP_CARDS = [
             <OptimizedImage
               alt="comic 2"
               height={500}
-              src="/img/comics/thumbnail/2.webp"
+              src="https://cdn.niftyleague.com/media/img/comics/thumbnail/2.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               class="w-full h-auto"
@@ -327,7 +337,7 @@ export const ROADMAP_CARDS = [
             <OptimizedImage
               alt="comic 3"
               height={500}
-              src="/img/comics/thumbnail/3.webp"
+              src="https://cdn.niftyleague.com/media/img/comics/thumbnail/3.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               class="w-full h-auto"
@@ -337,7 +347,7 @@ export const ROADMAP_CARDS = [
             <OptimizedImage
               alt="comic 4"
               height={500}
-              src="/img/comics/thumbnail/4.webp"
+              src="https://cdn.niftyleague.com/media/img/comics/thumbnail/4.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               class="w-full h-auto"
@@ -347,7 +357,7 @@ export const ROADMAP_CARDS = [
             <OptimizedImage
               alt="comic 5"
               height={500}
-              src="/img/comics/thumbnail/5.webp"
+              src="https://cdn.niftyleague.com/media/img/comics/thumbnail/5.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               class="w-full h-auto"
@@ -357,7 +367,7 @@ export const ROADMAP_CARDS = [
             <OptimizedImage
               alt="comic 6"
               height={500}
-              src="/img/comics/thumbnail/6.webp"
+              src="https://cdn.niftyleague.com/media/img/comics/thumbnail/6.webp"
               width={500}
               sizes={COMIC_THUMBNAIL_SIZES}
               class="w-full h-auto"
@@ -372,8 +382,9 @@ export const ROADMAP_CARDS = [
     completionDate: 'Feb 13th, 2023',
     image: {
       height: 400,
-      src: '/img/games/smashers/nifty-smashers.gif',
-      posterSrc: '/img/games/smashers/nifty-smashers-roadmap-poster.webp',
+      src: 'https://cdn.niftyleague.com/media/img/games/smashers/nifty-smashers.gif',
+      posterSrc:
+        'https://cdn.niftyleague.com/media/img/games/smashers/nifty-smashers-roadmap-poster.webp',
       style: { top: '-135px' },
       width: 544,
     },
@@ -417,7 +428,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'May 10th, 2023',
     image: {
       height: 400,
-      src: '/img/roadmap/free2play_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/free2play_v02.webp',
       style: { top: '-140px' },
       width: 507,
     },
@@ -440,7 +451,7 @@ export const ROADMAP_CARDS = [
     completionDate: 'Sept 2nd, 2023',
     image: {
       height: 1070,
-      src: '/img/games/smashers/apartment.webp',
+      src: 'https://cdn.niftyleague.com/media/img/games/smashers/apartment.webp',
       style: { top: '-90px' },
       width: 1618,
     },
@@ -492,7 +503,7 @@ export const ROADMAP_CARDS = [
     completed: true,
     completionDate: 'Dec 10th, 2023',
     image: {
-      src: '/img/roadmap/mobile_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/mobile_v02.webp',
       style: { top: '-155px' },
       width: 387,
       height: 300,
@@ -517,7 +528,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'July 15th, 2024',
-    image: { src: '/img/roadmap/beta_v02.webp', style: { top: '-125px' }, width: 387, height: 300 },
+    image: {
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/beta_v02.webp',
+      style: { top: '-125px' },
+      width: 387,
+      height: 300,
+    },
     title: 'Nifty Smashers - Mobile Beta',
     body: (
       <>
@@ -541,7 +557,7 @@ export const ROADMAP_CARDS = [
     completed: true,
     completionDate: 'Sept 13th, 2024',
     image: {
-      src: '/img/roadmap/niftyroyale_v01.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/niftyroyale_v01.webp',
       style: { top: '-110px' },
       width: 541,
       height: 381,
@@ -605,7 +621,12 @@ export const ROADMAP_CARDS = [
   {
     completed: true,
     completionDate: 'Oct 1st, 2024 - Present',
-    image: { src: '/img/roadmap/dao_v02.webp', style: { top: '-80px' }, width: 532, height: 302 },
+    image: {
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/dao_v02.webp',
+      style: { top: '-80px' },
+      width: 532,
+      height: 302,
+    },
     title: 'Nifty DAO',
     body: (
       <>
@@ -668,7 +689,7 @@ export const ROADMAP_CARDS = [
     completed: true,
     completionDate: 'April 20th, 2025',
     image: {
-      src: '/img/roadmap/niftyroyale_v01.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/niftyroyale_v01.webp',
       style: { top: '-110px' },
       width: 541,
       height: 381,
@@ -722,7 +743,7 @@ export const ROADMAP_CARDS = [
     completed: true,
     completionDate: 'Sept 12th, 2026',
     image: {
-      src: '/img/roadmap/niftyworld_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/niftyworld_v02.webp',
       style: { top: '-165px' },
       width: 757,
       height: 675,
@@ -743,7 +764,7 @@ export const ROADMAP_CARDS = [
   {
     current: true,
     image: {
-      src: '/img/roadmap/niftyworld_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/niftyworld_v02.webp',
       style: { top: '-165px' },
       width: 757,
       height: 675,
@@ -770,7 +791,7 @@ export const ROADMAP_CARDS = [
   {
     image: {
       height: 375,
-      src: '/img/roadmap/marketplace_v02.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/marketplace_v02.webp',
       style: { top: '-90px' },
       width: 609,
     },
@@ -819,7 +840,12 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: { src: '/img/roadmap/pets_v02.webp', style: { top: '-140px' }, width: 379, height: 325 },
+    image: {
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/pets_v02.webp',
+      style: { top: '-140px' },
+      width: 379,
+      height: 325,
+    },
     title: 'DEGEN Pets',
     body: (
       <>
@@ -843,7 +869,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/games/nifty-tennis.webp',
+      src: 'https://cdn.niftyleague.com/media/img/games/nifty-tennis.webp',
       style: { top: '-135px' },
       width: 500,
       height: 281,
@@ -859,7 +885,7 @@ export const ROADMAP_CARDS = [
   },
   {
     image: {
-      src: '/img/roadmap/niftykart_v01.webp',
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/niftykart_v01.webp',
       style: { top: '-160px' },
       width: 494,
       height: 462,
@@ -874,7 +900,12 @@ export const ROADMAP_CARDS = [
     ),
   },
   {
-    image: { src: '/img/roadmap/gen2_v01.webp', style: { top: '-120px' }, width: 550, height: 451 },
+    image: {
+      src: 'https://cdn.niftyleague.com/media/img/roadmap/gen2_v01.webp',
+      style: { top: '-120px' },
+      width: 550,
+      height: 451,
+    },
     title: 'Gen2 DEGENs',
     body: (
       <p class="mb-0">

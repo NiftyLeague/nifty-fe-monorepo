@@ -8,8 +8,16 @@ import { getAssetPath } from './assets'
 describe('getAssetPath', () => {
   const repositoryRoot = path.resolve(import.meta.dir, '../../../..')
   const cases: Array<[Parameters<typeof getAssetPath>[0], string, string]> = [
-    ['comics', '1.png', path.join(repositoryRoot, 'assets', 'img', 'comics', 'page', '1.webp')],
-    ['items', '101.gif', path.join(repositoryRoot, 'assets', 'img', 'items', 'full', '1.gif')],
+    [
+      'comics',
+      '1.png',
+      path.join(repositoryRoot, 'assets', 'media', 'img', 'comics', 'page', '1.webp'),
+    ],
+    [
+      'items',
+      '101.gif',
+      path.join(repositoryRoot, 'assets', 'media', 'img', 'items', 'full', '1.gif'),
+    ],
     [
       'degens',
       '1.png',

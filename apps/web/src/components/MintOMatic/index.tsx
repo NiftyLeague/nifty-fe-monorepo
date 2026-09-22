@@ -7,7 +7,7 @@ const MintOMatic = () => {
       <ParallaxWrapper parallaxDirection="down" parallaxIntensity="normal">
         <div class="relative">
           <NativeImage
-            src="/img/mint-o-matic/animated/top.webp"
+            src="https://cdn.niftyleague.com/media/img/mint-o-matic/animated/top.webp"
             alt="NFTL Token Top"
             width={1470}
             height={1778}
@@ -19,7 +19,7 @@ const MintOMatic = () => {
       </ParallaxWrapper>
       <div class="absolute home-nftl-token-image grow">
         <NativeImage
-          src="/img/mint-o-matic/animated/nftl-token-coin.webp"
+          src="https://cdn.niftyleague.com/media/img/mint-o-matic/animated/nftl-token-coin.webp"
           alt="NFTL Token Coin"
           width={1470}
           height={1778}
@@ -30,7 +30,7 @@ const MintOMatic = () => {
       </div>
       <div class="absolute animate-blink home-nftl-token-image grow">
         <NativeImage
-          src="/img/mint-o-matic/animated/nftl-token-tears.webp"
+          src="https://cdn.niftyleague.com/media/img/mint-o-matic/animated/nftl-token-tears.webp"
           alt="NFTL Token Tears"
           width={1470}
           height={1778}
@@ -43,7 +43,7 @@ const MintOMatic = () => {
       <ParallaxWrapper parallaxDirection="left" parallaxIntensity="normal">
         <div class="parallax-child absolute home-nftl-token-image home-nftl-token-bottom-image grow">
           <NativeImage
-            src="/img/mint-o-matic/animated/bottom.webp"
+            src="https://cdn.niftyleague.com/media/img/mint-o-matic/animated/bottom.webp"
             alt="NFTL Token Bottom"
             width={1470}
             height={1778}

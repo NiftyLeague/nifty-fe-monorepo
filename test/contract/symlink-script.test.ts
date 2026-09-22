@@ -11,16 +11,16 @@ describe('workspace asset links', () => {
     expect(script).toContain('resolve_dir() (')
     expect(script).toContain('test -d "$public_dir"')
     expect(script).toContain('rm "$public_dir"')
-    expect(script).toContain('static_link="../../assets"')
+    expect(script).toContain('static_link="../../assets/site"')
     expect(script).toContain('ln -s "$static_link" "$public_dir"')
   })
 
   it('keeps tracked app asset links portable across worktrees', () => {
     // web is no longer managed here: it ships as Astro static with publicDir
-    // pointing at ../../assets (see apps/web/astro.config.mjs), so it has no
-    // public symlink to repair.
+    // pointing at ../../assets/site (see apps/web/astro.config.mjs), so it has
+    // no public symlink to repair.
     for (const app of ['app', 'docs', 'smashers']) {
-      expect(readlinkSync(`apps/${app}/public`)).toBe('../../assets')
+      expect(readlinkSync(`apps/${app}/public`)).toBe('../../assets/site')
     }
   })
 

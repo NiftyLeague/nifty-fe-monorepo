@@ -18,7 +18,9 @@ describe('DEGEN specials metadata', () => {
       DEGEN_SPECIALS.every(
         ({ image, gif, description, specialName }) =>
           image.link.startsWith('/icons/tribes/') &&
-          gif.link.startsWith('https://cdn.niftyleague.com/degens/site/specials/') &&
+          gif.link.startsWith(
+            'https://cdn.niftyleague.com/mediahttps://cdn.niftyleague.com/media/img/degens/specials/'
+          ) &&
           description.length > 0 &&
           specialName.length > 0
       )

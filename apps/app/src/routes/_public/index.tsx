@@ -21,7 +21,9 @@ export const Route = createFileRoute('/_public/')({
         ...(head.links ?? []),
         // The first flagship card's poster wins LCP; preloading keeps it ahead
         // of the module chunk queue.
-        buildImagePreloadLink('/img/games/smashers/smashers-poster.jpg'),
+        buildImagePreloadLink(
+          'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg'
+        ),
       ],
     }
   },

@@ -7,7 +7,11 @@ const SatoshiAnimations = (props: { burning: boolean; children?: JSX.Element }) 
   return (
     <Show
       when={props.burning}
-      fallback={<SatoshiFrame frames={['/img/comics/burner/idleanim.gif']} />}
+      fallback={
+        <SatoshiFrame
+          frames={['https://cdn.niftyleague.com/media/img/comics/burner/idleanim.gif']}
+        />
+      }
     >
       <SatoshiBurnAnim />
     </Show>

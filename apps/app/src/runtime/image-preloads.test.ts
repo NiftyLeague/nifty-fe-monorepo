@@ -4,12 +4,14 @@ import { buildImagePreloadLink } from './image-preloads'
 
 describe('buildImagePreloadLink', () => {
   it('emits a high-priority image preload for the original source', () => {
-    const link = buildImagePreloadLink('/img/games/smashers/smashers-poster.jpg')
+    const link = buildImagePreloadLink(
+      'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg'
+    )
 
     expect(link).toEqual({
       rel: 'preload',
       as: 'image',
-      href: '/img/games/smashers/smashers-poster.jpg',
+      href: 'https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg',
       fetchpriority: 'high',
     })
   })

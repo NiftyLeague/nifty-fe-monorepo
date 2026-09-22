@@ -39,8 +39,8 @@ const GameSection = () => {
               loop
               playsinline
               data-keepplaying
-              poster="/img/games/smashers/rocket-poster.webp"
-              src="/video/rocket.mp4"
+              poster="https://cdn.niftyleague.com/media/img/games/smashers/rocket-poster.webp"
+              src="https://cdn.niftyleague.com/media/video/rocket.mp4"
             />
           </div>
         </div>
@@ -68,8 +68,8 @@ const GameSection = () => {
             loop
             playsinline
             data-keepplaying
-            poster="/img/games/smashers/party_modes-poster.webp"
-            src="/video/party-modes.mp4"
+            poster="https://cdn.niftyleague.com/media/img/games/smashers/party_modes-poster.webp"
+            src="https://cdn.niftyleague.com/media/video/party-modes.mp4"
           />
         </div>
       </div>

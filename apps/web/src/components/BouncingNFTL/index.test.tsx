@@ -19,8 +19,8 @@ describe('BouncingNFTL', () => {
     expect(
       [...container.querySelectorAll('img')].map((image) => image.getAttribute('src'))
     ).toEqual([
-      '/img/compete-and-earn/animated/token-1.webp',
-      '/img/compete-and-earn/animated/token-3.webp',
+      'https://cdn.niftyleague.com/media/img/compete-and-earn/animated/token-1.webp',
+      'https://cdn.niftyleague.com/media/img/compete-and-earn/animated/token-3.webp',
     ])
   })
 })

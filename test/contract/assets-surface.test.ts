@@ -5,36 +5,118 @@ import { join } from 'node:path'
 /**
  * Shared assets surface contract.
  *
- * The Astro apps' `public/` dirs are symlinks to the repo-root `assets/` dir. If the
- * `assets` dir (or a symlink, or a critical subdir) disappears, every app silently
- * 404s its images, favicons, and videos — with no in-repo click-through to catch it.
- * This test pins that structure.
+ * The Astro apps' `public/` dirs are symlinks to the repo-root `assets/site` dir —
+ * the small same-origin set every app ships. If it (or a symlink, or a critical
+ * subdir) disappears, every app silently 404s its favicons, icons and logos — with
+ * no in-repo click-through to catch it. This test pins that structure.
  *
- * web ships as Astro static and has no public symlink: its publicDir is the shared
- * assets dir directly (see apps/web/astro.config.mjs).
+ * `assets/media/` is the rest of the shared folder: it is published to
+ * cdn.niftyleague.com/media by scripts/publish-media.mjs and is deliberately in
+ * no build (assets/media-manifest.json records what the CDN must hold).
+ *
+ * web ships as Astro static and has no public symlink: its publicDir is the
+ * shared site dir directly (see apps/web/astro.config.mjs).
  */
 
 const APPS = ['app', 'smashers', 'docs']
 
-const ASSET_SUBDIRS = ['img', 'icons', 'favicon', 'video']
+const ASSET_SUBDIRS = ['img/logos', 'icons', 'favicon', 'scripts']
+const SOURCE_ROOTS = [
+  'apps/web/src',
+  'apps/app/src',
+  'apps/docs/src',
+  'apps/smashers/src',
+  'packages/ui/src',
+]
 
 /**
  * Files each app generates into its own output. They must never live in the
- * shared assets directory: every Astro app uses `../../assets` as its publicDir,
- * so anything left here is copied into *every* app's build. Stale staging files
+ * shared assets directory: every Astro app uses `../../assets/site` as its
+ * publicDir, so anything left there is copied into *every* app's build. Stale staging files
  * from the pre-migration build sat here and replaced apps/web's own sitemap in
  * local builds, which is how this guard came about.
  */
 const GENERATED_SEO_FILES = ['robots.txt', 'sitemap.xml', 'sitemap-index.xml', 'sitemap-0.xml']
+
+const walk = (dir, out = []) => {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name)
+    if (entry.isDirectory()) walk(full, out)
+    else out.push(full)
+  }
+  return out
+}
 
 describe('shared assets surface contract', () => {
   it('assets dir exists at repo root', () => {
     expect(existsSync(join(process.cwd(), 'assets')), 'Missing repo-root assets/ dir').toBe(true)
   })
 
-  it('critical asset subdirs exist', () => {
+  it('critical site-asset subdirs exist', () => {
     for (const sub of ASSET_SUBDIRS) {
-      expect(existsSync(join(process.cwd(), 'assets', sub)), `Missing assets/${sub}/`).toBe(true)
+      expect(
+        existsSync(join(process.cwd(), 'assets/site', sub)),
+        `Missing assets/site/${sub}/`
+      ).toBe(true)
+    }
+  })
+
+  it('the manifest describes the published set and build-critical media stays in the repo', () => {
+    // The repo only keeps the media that builds read from disk (Astro image
+    // imports and the API image generators); everything else lives only on
+    // cdn.niftyleague.com, described by the manifest.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'assets/media-manifest.json'), 'utf8')
+    )
+    expect(Object.keys(manifest).length, 'manifest lost entries').toBeGreaterThan(300)
+    const buildCritical = [
+      'assets/media/img/comics/page/1.webp',
+      'assets/media/img/comics/page/6.webp',
+      'assets/media/img/backgrounds/banner-light.webp',
+      'assets/media/img/games/smashers/2D-levels/mars.webp',
+      'assets/media/img/games/smashers/3D-levels/sushi_cropped.webp',
+      'assets/media/img/roadmap/nifty_roadmap.webp',
+      'assets/media/img/items/full/1.gif',
+      'assets/media/img/items/full/7.gif',
+    ]
+    for (const file of buildCritical) {
+      expect(existsSync(join(process.cwd(), file)), `Missing build-critical ${file}`).toBe(true)
+    }
+  })
+
+  it('every media URL an app references is published in the manifest', () => {
+    // Media lives on cdn.niftyleague.com, not in any build output, so a
+    // reference to an unpublished path is a runtime 404 with no build-time
+    // click-through. This is that click-through: every media URL in app or
+    // package source must have an entry in assets/media-manifest.json.
+    const manifest = JSON.parse(
+      readFileSync(join(process.cwd(), 'assets/media-manifest.json'), 'utf8')
+    )
+    const published = new Set(Object.keys(manifest))
+    const refs = new Set<string>()
+    for (const root of SOURCE_ROOTS) {
+      for (const file of walk(join(process.cwd(), root))) {
+        if (!/\.(ts|tsx|astro|mdx|md|mjs|js)$/.test(file)) continue
+        const text = readFileSync(file, 'utf8')
+        for (const match of text.matchAll(/cdn\.niftyleague\.com\/media\/([A-Za-z0-9._/%-]+)/g)) {
+          refs.add(decodeURIComponent(match[1] as string))
+        }
+      }
+    }
+    expect(refs.size, 'expected apps to reference published media').toBeGreaterThan(0)
+    // A trailing slash means the source builds the filename at runtime (e.g.
+    // `/credits/${name}.webp`); for those, a published entry under the prefix
+    // is the strongest claim we can check statically.
+    const prefixes = [...published]
+    for (const ref of refs) {
+      if (ref.endsWith('/')) {
+        expect(
+          prefixes.some((key) => key.startsWith(ref)),
+          `Referenced media prefix has no published entries: media/${ref}`
+        ).toBe(true)
+      } else {
+        expect(published.has(ref), `Referenced media is not published: media/${ref}`).toBe(true)
+      }
     }
   })
 
@@ -43,7 +125,7 @@ describe('shared assets surface contract', () => {
     // The value now comes from @nl/astro-config, shared with smashers and docs.
     expect(astroConfig).toContain('publicDir: ASSETS_PUBLIC_DIR')
     const shared = readFileSync(join(process.cwd(), 'packages/astro-config/index.mjs'), 'utf8')
-    expect(shared).toContain("export const ASSETS_PUBLIC_DIR = '../../assets'")
+    expect(shared).toContain("export const ASSETS_PUBLIC_DIR = '../../assets/site'")
   })
 
   it('keeps generated SEO files out of the shared assets dir', () => {

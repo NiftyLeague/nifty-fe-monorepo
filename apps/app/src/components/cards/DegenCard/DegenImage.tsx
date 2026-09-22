@@ -6,7 +6,8 @@ import { LEGGIES } from '@/constants/degens'
 
 const handleImageError = (e: Event) => {
   const target = e.target as HTMLImageElement | HTMLVideoElement
-  const fallbackSrc = 'https://cdn.niftyleague.com/degens/site/unavailable-image.webp'
+  const fallbackSrc =
+    'https://cdn.niftyleague.com/mediahttps://cdn.niftyleague.com/media/img/degens/unavailable-image.webp'
   if (target.getAttribute('src') !== fallbackSrc) target.src = fallbackSrc
 }
 

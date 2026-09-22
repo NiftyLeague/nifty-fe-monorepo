@@ -189,10 +189,10 @@ describe('DeferredAnimatedImage', () => {
 
   it('attaches preferred and compatibility sources together only near the viewport', () => {
     const props = {
-      src: '/img/items/thumbnail/1.webp',
-      animatedSrc: '/img/items/full/1.webp',
+      src: 'https://cdn.niftyleague.com/media/img/items/thumbnail/1.webp',
+      animatedSrc: 'https://cdn.niftyleague.com/media/img/items/full/1.webp',
       animatedType: 'image/webp',
-      fallbackAnimatedSrc: '/img/items/full/1.gif',
+      fallbackAnimatedSrc: 'https://cdn.niftyleague.com/media/img/items/full/1.gif',
       fallbackAnimatedType: 'image/gif',
       alt: 'Cape',
       width: 98,
@@ -203,7 +203,7 @@ describe('DeferredAnimatedImage', () => {
 
     expect(initial.container.querySelectorAll('source')).toHaveLength(0)
     expect(initial.container.querySelector('img')?.getAttribute('src')).toBe(
-      '/img/items/thumbnail/1.webp'
+      'https://cdn.niftyleague.com/media/img/items/thumbnail/1.webp'
     )
 
     state.nearViewport = true
@@ -211,7 +211,11 @@ describe('DeferredAnimatedImage', () => {
 
     const sources = [...nearViewport.container.querySelectorAll('source')]
     expect(sources).toHaveLength(2)
-    expect(sources[0]?.getAttribute('srcset')).toBe('/img/items/full/1.webp')
-    expect(sources[1]?.getAttribute('srcset')).toBe('/img/items/full/1.gif')
+    expect(sources[0]?.getAttribute('srcset')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.webp'
+    )
+    expect(sources[1]?.getAttribute('srcset')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.gif'
+    )
   })
 })

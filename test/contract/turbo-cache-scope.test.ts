@@ -79,10 +79,10 @@ const sharedBuildInputs: Record<string, string[]> = {
   // docs ships as Astro Starlight: the shared astro-config defaults and ui
   // sources (GTM constants + loader, MDX components) both feed its build.
   'docs#build': [
-    // assets/ is every Astro app's publicDir and is copied into dist, so an
-    // asset edit must invalidate the build even though it lives outside the
-    // workspace.
-    '../../assets/**',
+    // assets/site is every Astro app's publicDir and is copied into dist, so a
+    // site-asset edit must invalidate the build even though it lives outside
+    // the workspace. Published media lives on the CDN and must not invalidate.
+    '../../assets/site/**',
     '../../packages/astro-config/**',
     '../../packages/astro-config/package.json',
     '../../packages/ui/src/**',
@@ -91,7 +91,7 @@ const sharedBuildInputs: Record<string, string[]> = {
   // The Astro apps share their build defaults through @nl/astro-config, so a
   // change there has to invalidate every build that imports it.
   'smashers#build': [
-    '../../assets/**',
+    '../../assets/site/**',
     '../../packages/astro-config/**',
     '../../packages/astro-config/package.json',
     '../../packages/playfab/src/**',
@@ -102,7 +102,7 @@ const sharedBuildInputs: Record<string, string[]> = {
   // web ships as Astro static: no sentry-client sources feed its build; the
   // shared astro-config defaults and ui sources do.
   'web#build': [
-    '../../assets/**',
+    '../../assets/site/**',
     '../../packages/astro-config/**',
     '../../packages/astro-config/package.json',
     '../../packages/ui/src/**',

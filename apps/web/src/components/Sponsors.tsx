@@ -40,7 +40,7 @@ const Sponsors = () => (
           class="w-full h-auto"
           width={1920}
           height={925}
-          src="/img/sponsors/sponsors.webp"
+          src="https://cdn.niftyleague.com/media/img/sponsors/sponsors.webp"
           sizes="100vw"
         />
         <div class="dark-gradient-overlay" />

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync, statSync } from 'node:fs'
+import { mediaBytes } from './media-manifest'
+import { readFileSync } from 'node:fs'
 
 const itemIds = [1, 2, 3, 4, 5, 6, 7]
 const imageCard = 'apps/app/src/components/cards/ImageCard.tsx'
@@ -8,8 +9,8 @@ const burnerGrid = 'apps/app/src/pages/dashboard/items/burner/_components/items-
 describe('app animated item media policy', () => {
   it('keeps every animated item paired with a smaller WebP source', () => {
     for (const id of itemIds) {
-      expect(statSync(`assets/img/items/full/${id}.webp`).size).toBeLessThan(
-        statSync(`assets/img/items/full/${id}.gif`).size
+      expect(mediaBytes(`assets/media/img/items/full/${id}.webp`)!).toBeLessThan(
+        mediaBytes(`assets/media/img/items/full/${id}.gif`)!
       )
     }
   })

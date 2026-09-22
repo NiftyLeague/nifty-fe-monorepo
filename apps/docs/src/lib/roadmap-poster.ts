@@ -3,7 +3,7 @@
  *
  * The page and head preload use the same generated image options.
  */
-import roadmapPoster from '../../../../assets/img/roadmap/nifty_roadmap.webp'
+import roadmapPoster from '../../../../assets/media/img/roadmap/nifty_roadmap.webp'
 
 export const ROADMAP_POSTER_WIDTHS = [400, 640, 761] as const
 export const ROADMAP_POSTER_SIZES = '(min-width: 60rem) 761px, 90vw'

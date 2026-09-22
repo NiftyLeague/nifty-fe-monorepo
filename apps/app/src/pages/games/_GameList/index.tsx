@@ -7,7 +7,7 @@ import styles from '../grid-item.module.css'
 
 const AppleBadge = () => (
   <NativeImage
-    src="/img/badges/apple-store-badge.svg"
+    src="https://cdn.niftyleague.com/media/img/badges/apple-store-badge.svg"
     alt="Apple Store Badge"
     width={120}
     height={40}
@@ -17,7 +17,7 @@ const AppleBadge = () => (
 
 const GoogleBadge = () => (
   <NativeImage
-    src="/img/badges/google-play-badge.webp"
+    src="https://cdn.niftyleague.com/media/img/badges/google-play-badge.webp"
     alt="Get it on Google Play"
     width={564}
     height={169}
@@ -27,7 +27,7 @@ const GoogleBadge = () => (
 
 const SteamBadge = () => (
   <NativeImage
-    src="/img/badges/steam-badge.webp"
+    src="https://cdn.niftyleague.com/media/img/badges/steam-badge.webp"
     alt="Steam Store Badge"
     width={564}
     height={168}
@@ -104,7 +104,7 @@ const FlagshipGameList = () => (
         description="Free-to-play 3D party platform fighter with full cross-play."
         imageContent={
           <GameArtwork
-            src="/img/games/smashers/smashers-poster.jpg"
+            src="https://cdn.niftyleague.com/media/img/games/smashers/smashers-poster.jpg"
             title="Nifty Smashers (Beta)"
             loading="eager"
             fetchPriority="high"
@@ -129,7 +129,7 @@ const FlagshipGameList = () => (
         description="Playtest NiftyWorld's early-alpha party battle royale."
         imageContent={
           <GameArtwork
-            src="/img/games/nifty-royale/nifty-royale-poster.jpg"
+            src="https://cdn.niftyleague.com/media/img/games/nifty-royale/nifty-royale-poster.jpg"
             title="Party Royale (Early-Alpha)"
           />
         }
@@ -144,7 +144,7 @@ const FlagshipGameList = () => (
         cardLinkLabel="Open Smashers Origins"
         required="OG 2D Platform Fighter"
         description="The original 2D Nifty Smashers browser game."
-        image="/img/games/smashers/nifty-smashers-poster.webp"
+        image="https://cdn.niftyleague.com/media/img/games/smashers/nifty-smashers-poster.webp"
         autoHeight={false}
         actions={
           <StoreButtons steam="https://store.steampowered.com/app/4297830/Nifty_Smashers_Origins/" />

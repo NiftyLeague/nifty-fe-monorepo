@@ -30,7 +30,7 @@ export default function HomeV3Games() {
             aria-label="Explore Nifty Smashers (opens in a new tab)"
           >
             <OptimizedImage
-              src="/img/home/smashers-spotlight.webp"
+              src="https://cdn.niftyleague.com/media/img/home/smashers-spotlight.webp"
               alt="Nifty Smashers game artwork featuring the DEGEN cast"
               width={1280}
               height={720}
@@ -87,7 +87,7 @@ export default function HomeV3Games() {
       >
         <div class="home-v3-laptop-stage">
           <OptimizedImage
-            src="/img/home/niftyworld-laptop.webp"
+            src="https://cdn.niftyleague.com/media/img/home/niftyworld-laptop.webp"
             alt="Nifty League’s illustrated laptop, desk, and DEGEN coffee mug"
             width={1920}
             height={1172}
@@ -102,7 +102,7 @@ export default function HomeV3Games() {
             aria-label="Explore Nifty World (opens in a new tab)"
           >
             <OptimizedImage
-              src="/img/home/niftyworld-marina.webp"
+              src="https://cdn.niftyleague.com/media/img/home/niftyworld-marina.webp"
               alt="Nifty World marina environment artwork displayed on the laptop"
               width={1280}
               height={720}

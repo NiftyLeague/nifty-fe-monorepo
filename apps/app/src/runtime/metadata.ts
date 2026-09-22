@@ -45,7 +45,8 @@ export interface RouteMetadata {
 }
 
 const APP_ORIGIN = 'https://app.niftyleague.com'
-const DEFAULT_IMAGE = 'https://niftyleague.com/img/backgrounds/banner-dark.webp'
+const DEFAULT_IMAGE =
+  'https://niftyleague.comhttps://cdn.niftyleague.com/media/img/backgrounds/banner-dark.webp'
 const SITE_NAME = 'NiftyLeagueApp'
 const TWITTER_CREATOR = '@NiftyLeague'
 

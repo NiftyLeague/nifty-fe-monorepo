@@ -1,23 +1,24 @@
 import { describe, expect, it } from 'bun:test'
-import { readFileSync, statSync } from 'node:fs'
+import { mediaBytes } from './media-manifest'
+import { readFileSync } from 'node:fs'
 
 const headerSource = 'apps/smashers/src/components/Header/index.tsx'
-const deferredAnimationSource = 'assets/scripts/smashers-hero-animation.js'
+const deferredAnimationSource = 'assets/site/scripts/smashers-hero-animation.js'
 const gameSectionSource = 'apps/smashers/src/components/GameSection/index.tsx'
-const rocketVideo = 'assets/video/rocket.mp4'
-const heroVideo = 'assets/video/smashers-hero.mp4'
-const partyModesVideo = 'assets/video/party-modes.mp4'
-const rocketPoster = 'assets/img/games/smashers/rocket-poster.webp'
-const heroPoster = 'assets/img/games/smashers/background-poster.webp'
+const rocketVideo = 'assets/media/video/rocket.mp4'
+const heroVideo = 'assets/media/video/smashers-hero.mp4'
+const partyModesVideo = 'assets/media/video/party-modes.mp4'
+const rocketPoster = 'assets/media/img/games/smashers/rocket-poster.webp'
+const heroPoster = 'assets/media/img/games/smashers/background-poster.webp'
 
 describe('Smashers asset delivery contracts', () => {
   it('keeps both home-page animations on the video pipeline within budget', () => {
-    expect(statSync(heroVideo).size).toBeLessThan(700_000)
-    expect(statSync(partyModesVideo).size).toBeLessThan(1_500_000)
+    expect(mediaBytes(heroVideo)!).toBeLessThan(700_000)
+    expect(mediaBytes(partyModesVideo)!).toBeLessThan(1_500_000)
   })
 
   it('keeps the above-the-fold hero screenshot small and static', () => {
-    expect(statSync(heroPoster).size).toBeLessThan(400_000)
+    expect(mediaBytes(heroPoster)!).toBeLessThan(400_000)
   })
 
   it('keeps animated sources paired with static fallbacks in the consuming components', () => {
@@ -37,7 +38,7 @@ describe('Smashers asset delivery contracts', () => {
     expect(homePage).toContain('/scripts/smashers-hero-animation.js')
     expect(homePage).toContain('requestIdleCallback')
     expect(homePage).not.toMatch(/<picture[^>]*client:/)
-    expect(deferredAnimation).toContain('/video/smashers-hero.mp4')
+    expect(deferredAnimation).toContain('https://cdn.niftyleague.com/media/video/smashers-hero.mp4')
     expect(deferredAnimation).toContain('data-smashers-hero-background')
     expect(deferredAnimation).toContain('prefers-reduced-motion: reduce')
     expect(deferredAnimation).toContain('navigator.connection?.saveData')
@@ -63,7 +64,7 @@ describe('Smashers asset delivery contracts', () => {
     // visibility or interaction instead of stalling before the first frame.
     expect(deferredAnimation).toContain('attemptPlayback')
     expect(deferredAnimation).toContain("'visibilitychange'")
-    expect(gameSection).toContain('/video/party-modes.mp4')
+    expect(gameSection).toContain('https://cdn.niftyleague.com/media/video/party-modes.mp4')
     expect(gameSection).toContain('party_modes-poster.webp')
     expect(gameSection).toContain('deferLoad')
     expect(gameSection).toContain('height={566}')
@@ -77,10 +78,10 @@ describe('Smashers asset delivery contracts', () => {
   it('keeps the muted Smashers viewport video on the compact delivery asset', () => {
     const gameSection = readFileSync(gameSectionSource, 'utf8')
 
-    expect(gameSection).toContain('src="/video/rocket.mp4"')
+    expect(gameSection).toContain('src="https://cdn.niftyleague.com/media/video/rocket.mp4"')
     expect(gameSection).toContain('deferLoad')
     expect(gameSection).toContain('rocket-poster.webp')
-    expect(statSync(rocketVideo).size).toBeLessThan(2_000_000)
-    expect(statSync(rocketPoster).size).toBeLessThan(statSync(rocketVideo).size / 10)
+    expect(mediaBytes(rocketVideo)!).toBeLessThan(2_000_000)
+    expect(mediaBytes(rocketPoster)!).toBeLessThan(mediaBytes(rocketVideo)! / 10)
   })
 })

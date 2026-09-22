@@ -20,7 +20,11 @@ mock.module('@nl/ui/hooks/useDeferredComponent', () => ({
         ? (props: ComponentProps<'div'> & { isNearViewport?: boolean }) => (
             <div data-testid="console-game" data-video-active={String(props.isNearViewport)}>
               {props.children}
-              <video>{props.isNearViewport ? <source src="/video/example.mp4" /> : null}</video>
+              <video>
+                {props.isNearViewport ? (
+                  <source src="https://cdn.niftyleague.com/media/video/game-console.mp4" />
+                ) : null}
+              </video>
             </div>
           )
         : null,
@@ -52,7 +56,7 @@ describe('DeferredConsoleGame', () => {
 
   it('renders the backdrop while keeping video media out of the initial viewport', () => {
     const { container } = render(() => (
-      <DeferredConsoleGame src="/video/example.mp4">
+      <DeferredConsoleGame src="https://cdn.niftyleague.com/media/video/game-console.mp4">
         <img alt="Game Console Backdrop" loading="eager" src="/img/backdrop.webp" />
       </DeferredConsoleGame>
     ))
@@ -73,7 +77,10 @@ describe('DeferredConsoleGame', () => {
   it('keeps the backdrop visible while an opt-in video waits for activation', async () => {
     isNearViewport = true
     const { container } = render(() => (
-      <DeferredConsoleGame deferVideo src="/video/example.mp4">
+      <DeferredConsoleGame
+        deferVideo
+        src="https://cdn.niftyleague.com/media/video/game-console.mp4"
+      >
         <img alt="Game Console Backdrop" loading="eager" src="/img/backdrop.webp" />
       </DeferredConsoleGame>
     ))
@@ -88,7 +95,9 @@ describe('DeferredConsoleGame', () => {
 
     await waitFor(() => {
       expect(container.querySelector('video')).not.toBeNull()
-      expect(container.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
+      expect(container.querySelector('source')?.getAttribute('src')).toBe(
+        'https://cdn.niftyleague.com/media/video/game-console.mp4'
+      )
     })
     // The SSR backdrop stays mounted outside the deferred boundary so hydration
     // never moves the island's astro-slot element across a swapped branch.

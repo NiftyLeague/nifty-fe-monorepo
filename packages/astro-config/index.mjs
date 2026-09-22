@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url'
  * Public assets are served from the repository-level `assets` directory, which
  * each app points at rather than copying.
  */
-export const ASSETS_PUBLIC_DIR = '../../assets'
+export const ASSETS_PUBLIC_DIR = '../../assets/site'
 
 /** Inline the stylesheet into the document. */
 export const INLINE_STYLESHEETS = 'always'

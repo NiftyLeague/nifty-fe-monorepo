@@ -29,8 +29,8 @@ You can learn more about these movesets in our [Smashers Guide](/docs/guides/nif
 
 :::
 
-| ![](/docs/img/sketches/alien-sketch.gif) | ![](/docs/img/sketches/cat-sketch.gif) | ![](/docs/img/sketches/doge-sketch.gif) |
-| ---------------------------------------- | -------------------------------------- | --------------------------------------- |
+| ![](/docshttps://cdn.niftyleague.com/media/img/sketches/alien-sketch.gif) | ![](/docshttps://cdn.niftyleague.com/media/img/sketches/cat-sketch.gif) | ![](/docshttps://cdn.niftyleague.com/media/img/sketches/doge-sketch.gif) |
+| ------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 
 ## Hydra - DEGEN Burn
 
@@ -40,12 +40,12 @@ DEGEN holders lined up to send 8 DEGENs through a portal forever burning their e
 
 Hydras are amphibious water dragons that roam freely underwater or on land. Their cuteness belies their wise and fighting prowess. They pack a punch with their tridents, spears, and ranged attacks and bring a wealth of lore knowledge to Nifty League, being the oldest tribe.
 
-| ![](/docs/img/degens/grails/9946.webp) | ![](/docs/img/degens/grails/9930.webp) |
-| -------------------------------------- | -------------------------------------- |
+| ![](/docshttps://cdn.niftyleague.com/media/img/degens/grails/9946.webp) | ![](/docshttps://cdn.niftyleague.com/media/img/degens/grails/9930.webp) |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 
 ## 1 of 1s
 
 Following the Hydra claim we held a NFTL raffle for the final 2 DEGENS - both unique and very special tribes, RugMan & Satoshi. Holders of these special tokens are granted the highest perks available in NiftyWorld.
 
-| ![](/docs/img/degens/grails/9999.webp) | ![](/docs/img/degens/grails/10000.webp) |
-| -------------------------------------- | --------------------------------------- |
+| ![](/docshttps://cdn.niftyleague.com/media/img/degens/grails/9999.webp) | ![](/docshttps://cdn.niftyleague.com/media/img/degens/grails/10000.webp) |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |

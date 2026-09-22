@@ -22,13 +22,13 @@ const commonProps = {
 }
 const desktopBackground = getOptimizedImageProps({
   ...commonProps,
-  src: '/img/hero/bg.webp',
+  src: 'https://cdn.niftyleague.com/media/img/hero/bg.webp',
   width: 1920,
   height: 1042,
 })
 const mobileBackground = getOptimizedImageProps({
   ...commonProps,
-  src: '/img/backgrounds/banner-dark.webp',
+  src: 'https://cdn.niftyleague.com/media/img/backgrounds/banner-dark.webp',
   width: 2000,
   height: 1000,
 })
@@ -38,7 +38,7 @@ const mobileBackground = getOptimizedImageProps({
 // the responsive candidates live on the <source> and the non-matching
 // breakpoint renders a 1px fallback instead of downloading the mural.
 const heroCharacters = getOptimizedImageProps({
-  src: '/img/hero/characters.webp',
+  src: 'https://cdn.niftyleague.com/media/img/hero/characters.webp',
   width: 1920,
   height: 1042,
   sizes: '100vw',
@@ -129,7 +129,7 @@ const metadata = {}
           <div class="relative flex-grow">
             <div class="animate-hover transition-fade">
               <DesktopOnlyImage
-                src="/img/hero/companion-base.webp"
+                src="https://cdn.niftyleague.com/media/img/hero/companion-base.webp"
                 alt="Home Hero Companion Base"
                 width={175}
                 height={175}
@@ -144,7 +144,7 @@ const metadata = {}
           <div class="flex-grow">
             <div class="animate-hover transition-fade">
               <DesktopOnlyImage
-                src="/img/hero/halo.webp"
+                src="https://cdn.niftyleague.com/media/img/hero/halo.webp"
                 alt="Home Hero Halo"
                 width={133}
                 height={50}
@@ -161,7 +161,7 @@ const metadata = {}
         <div class="relative flex-grow home-satoshi transition-quick-pop-left">
           <DesktopOnlyImage
             alt="Satoshi"
-            src="/img/hero/satoshi.webp"
+            src="https://cdn.niftyleague.com/media/img/hero/satoshi.webp"
             width={180}
             height={190}
             sizes="226px"
@@ -188,7 +188,7 @@ const metadata = {}
           class="inline-block relative flex-grow satoshi-learn-more transition-fade-slow"
         >
           <DesktopOnlyImage
-            src="/img/hero/speech-bubble.webp"
+            src="https://cdn.niftyleague.com/media/img/hero/speech-bubble.webp"
             alt="Learn More"
             width={348}
             height={108}
@@ -212,7 +212,7 @@ const metadata = {}
       loadInteractiveOnViewport
       activationDelay={1500}
       deferVideo
-      src="/video/smashers.mp4"
+      src="https://cdn.niftyleague.com/media/video/smashers.mp4"
     >
       <ConsoleGameBackdrop loading="eager" fetchpriority="low" />
     </DeferredConsoleGame>

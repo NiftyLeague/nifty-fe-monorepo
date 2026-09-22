@@ -12,7 +12,7 @@ export const DEFAULT_METADATA = {
   title: 'Nifty Smashers',
   description:
     'Free-to-play online multiplayer 3D party platform fighter. Play on iOS, Android, and Steam with full cross-play support! Jump in and brawl anytime, anywhere!',
-  image: '/img/console-game/classic-gaming-reinvented.webp',
+  image: 'https://cdn.niftyleague.com/media/img/console-game/classic-gaming-reinvented.webp',
   keywords: [
     'Nifty League',
     'Nifty Smashers',

@@ -20,7 +20,7 @@ describe('ConsoleGame', () => {
 
   it('defers the backdrop image while the video remains viewport-aware', () => {
     const { container } = render(() => (
-      <ConsoleGame src="/video/example.mp4">
+      <ConsoleGame src="https://cdn.niftyleague.com/media/video/game-console.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
     ))
@@ -40,9 +40,9 @@ describe('ConsoleGame', () => {
       (artwork) => !artwork.hasAttribute('srcset')
     )
     expect(deferredArtwork.map((artwork) => artwork.getAttribute('src'))).toEqual([
-      '/img/console-game/bonk.webp',
-      '/img/console-game/gaming_controller_left.webp',
-      '/img/console-game/gaming_controller_right.webp',
+      'https://cdn.niftyleague.com/media/img/console-game/bonk.webp',
+      'https://cdn.niftyleague.com/media/img/console-game/gaming_controller_left.webp',
+      'https://cdn.niftyleague.com/media/img/console-game/gaming_controller_right.webp',
     ])
     expect(deferredArtwork.every((artwork) => artwork.getAttribute('loading') === 'lazy')).toBe(
       true
@@ -56,7 +56,10 @@ describe('ConsoleGame', () => {
 
   it('allows the deferred wrapper to own the shared gradient overlay', () => {
     const { container } = render(() => (
-      <ConsoleGame renderGradientOverlay={false} src="/video/example.mp4">
+      <ConsoleGame
+        renderGradientOverlay={false}
+        src="https://cdn.niftyleague.com/media/video/game-console.mp4"
+      >
         <ConsoleGameBackdrop />
       </ConsoleGame>
     ))
@@ -66,7 +69,10 @@ describe('ConsoleGame', () => {
 
   it('uses the parent visibility state to pause outside the viewport', () => {
     const { container, rerender } = render(() => (
-      <ConsoleGame isNearViewport={false} src="/video/example.mp4">
+      <ConsoleGame
+        isNearViewport={false}
+        src="https://cdn.niftyleague.com/media/video/game-console.mp4"
+      >
         <ConsoleGameBackdrop />
       </ConsoleGame>
     ))
@@ -76,19 +82,24 @@ describe('ConsoleGame', () => {
 
     // Solid replaces the subtree on rerender; re-query the video element.
     rerender(
-      <ConsoleGame isNearViewport src="/video/example.mp4">
+      <ConsoleGame isNearViewport src="https://cdn.niftyleague.com/media/video/game-console.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
     )
     const video = container.querySelector('video')
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
-    expect(video?.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
+    expect(video?.querySelector('source')?.getAttribute('src')).toBe(
+      'https://cdn.niftyleague.com/media/video/game-console.mp4'
+    )
   })
 
   it('uses the parent visibility state to pause outside the viewport', () => {
     const { container, rerender } = render(() => (
-      <ConsoleGame isNearViewport={false} src="/video/example.mp4">
+      <ConsoleGame
+        isNearViewport={false}
+        src="https://cdn.niftyleague.com/media/video/game-console.mp4"
+      >
         <ConsoleGameBackdrop />
       </ConsoleGame>
     ))
@@ -98,24 +109,31 @@ describe('ConsoleGame', () => {
 
     // Solid replaces the subtree on rerender; re-query the video element.
     rerender(
-      <ConsoleGame isNearViewport src="/video/example.mp4">
+      <ConsoleGame isNearViewport src="https://cdn.niftyleague.com/media/video/game-console.mp4">
         <ConsoleGameBackdrop />
       </ConsoleGame>
     )
     const video = container.querySelector('video')
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)
-    expect(video?.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4')
+    expect(video?.querySelector('source')?.getAttribute('src')).toBe(
+      'https://cdn.niftyleague.com/media/video/game-console.mp4'
+    )
   })
 
   it('uses the parent visibility state to pause outside the viewport', () => {
     const { container, rerender } = render(() => (
-      <ConsoleGame isNearViewport={false} src="/video/example.mp4" />
+      <ConsoleGame
+        isNearViewport={false}
+        src="https://cdn.niftyleague.com/media/video/game-console.mp4"
+      />
     ))
     expect(container.querySelector('video')?.getAttribute('preload')).toBe('none')
     expect(container.querySelector('video')?.hasAttribute('autoplay')).toBe(false)
 
-    rerender(<ConsoleGame isNearViewport src="/video/example.mp4" />)
+    rerender(
+      <ConsoleGame isNearViewport src="https://cdn.niftyleague.com/media/video/game-console.mp4" />
+    )
     const video = container.querySelector('video')
     expect(video?.getAttribute('preload')).toBe('metadata')
     expect(video?.hasAttribute('autoplay')).toBe(true)

@@ -4,14 +4,14 @@ import ThemeBtnGroup from '@nl/ui/custom/theme-button-group'
 export default function OverviewCommunity() {
   const desktopBackground = getOptimizedImageProps({
     alt: 'DGEN Network background',
-    src: '/img/backgrounds/dgen-network.webp',
+    src: 'https://cdn.niftyleague.com/media/img/backgrounds/dgen-network.webp',
     width: 1440,
     height: 813,
     sizes: '100vw',
   })
   const mobileBackground = getOptimizedImageProps({
     alt: 'DGEN Network background',
-    src: '/img/backgrounds/dgen-network-mobile.webp',
+    src: 'https://cdn.niftyleague.com/media/img/backgrounds/dgen-network-mobile.webp',
     width: 375,
     height: 500,
     sizes: '100vw',

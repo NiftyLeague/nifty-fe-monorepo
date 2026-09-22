@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
  * Asset categories used by the NFT generators.
  *
  * Comics and marketplace items reuse the canonical files already checked into
- * the monorepo's shared `assets/img/` tree. Generated degen images remain
+ * the monorepo's shared `assets/media/img/` tree. Generated degen images remain
  * local operational data and are kept out of Git under `apps/api/.data/`.
  */
 export type AssetKind = 'comics' | 'items' | 'degens'
@@ -40,11 +40,11 @@ export function getAssetPath(kind: AssetKind, fileName: string): string {
 
   switch (kind) {
     case 'comics':
-      return resolve(repositoryRoot, 'assets', 'img', 'comics', 'page', `${stem}.webp`)
+      return resolve(repositoryRoot, 'assets', 'media', 'img', 'comics', 'page', `${stem}.webp`)
     case 'items': {
       const tokenId = Number(stem)
       const sharedId = Number.isInteger(tokenId) && tokenId >= 101 ? tokenId - 100 : tokenId
-      return resolve(repositoryRoot, 'assets', 'img', 'items', 'full', `${sharedId}.gif`)
+      return resolve(repositoryRoot, 'assets', 'media', 'img', 'items', 'full', `${sharedId}.gif`)
     }
     case 'degens':
       return resolve(repositoryRoot, 'apps', 'api', '.data', 'images', 'degens', safeFileName)
