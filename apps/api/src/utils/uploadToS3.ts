@@ -13,6 +13,16 @@ const mimeTypes = {
   '.json': 'application/json',
 }
 
+/**
+ * CDN objects are immutable by policy, except metadata JSON, which webhooks
+ * rewrite in place and which the cdn.niftyleague.com cache rules serve with a
+ * short TTL ("immutable statics, 5min mutable metadata"). Without this header
+ * an uploaded object inherits zone defaults instead of the policy its
+ * consumers expect.
+ */
+const cacheControlFor = (key: string): string =>
+  key.includes('/metadata/') ? 'public, max-age=300' : 'public, max-age=31536000, immutable'
+
 export const uploadToS3 = async (
   fileName: string,
   content: PutObjectCommandInput['Body'],
@@ -24,6 +34,7 @@ export const uploadToS3 = async (
     Key: `${baseDirectory}/${fileName}`,
     Body: content,
     ContentType: mimeTypes[path.extname(fileName) as ExtType] || 'application/json',
+    CacheControl: cacheControlFor(`${baseDirectory}/${fileName}`),
   } as PutObjectCommandInput
 
   try {
