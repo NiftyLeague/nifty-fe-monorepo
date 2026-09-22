@@ -15,7 +15,7 @@
     "test:e2e": "bunx playwright test",
     "test:watch": "bun test --watch",
     "type-check": "astro check",
-    "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=smashers",
+    "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=smashers && bun scripts/restore-cached-media.mjs smashers",
     "cf:build": "bun scripts/build-cloudflare.mjs && bun scripts/sync-client-assets.mjs"
   },
   "dependencies": {
