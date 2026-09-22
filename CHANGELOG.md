@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.2.1...nifty-fe-monorepo-v2.2.2) (2026-09-22)
+
+
+### Bug Fixes
+
+* **test:** pin runner concurrency and cover MainCard ([#2015](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2015)) ([e11e058](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e11e0582d96fb2fcfdab9855d084852010504383))
+
 ## [2.2.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.2.0...nifty-fe-monorepo-v2.2.1) (2026-09-22)
 
 
