@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/astro-config-v1.0.1...astro-config-v1.1.0) (2026-09-22)
+
+
+### Features
+
+* **assets:** serve website media from the CDN ([#2011](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2011)) ([3f0e354](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3f0e3548739f00f14a311599f8b537f65de1b218))
+
 ## [1.0.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/astro-config-v1.0.0...astro-config-v1.0.1) (2026-09-21)
 
 

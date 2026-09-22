@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v2.1.0...smashers-v2.2.0) (2026-09-22)
+
+
+### Features
+
+* **assets:** serve website media from the CDN ([#2011](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2011)) ([3f0e354](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3f0e3548739f00f14a311599f8b537f65de1b218))
+
 ## [2.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v2.0.0...smashers-v2.1.0) (2026-09-22)
 
 
