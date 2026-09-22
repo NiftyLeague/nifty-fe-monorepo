@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.1.0...nifty-fe-monorepo-v2.1.1) (2026-09-22)
+
+
+### Bug Fixes
+
+* **build:** serve turbo cache artifacts from the edge ([#2009](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2009)) ([7274a60](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/7274a6009dd0f7d60759dc6d49b4b8d0d3990fa2))
+
 ## [2.1.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.0.0...nifty-fe-monorepo-v2.1.0) (2026-09-22)
 
 
