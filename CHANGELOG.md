@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.2.0...nifty-fe-monorepo-v2.2.1) (2026-09-22)
+
+
+### Bug Fixes
+
+* **api:** set Cache-Control on CDN uploads ([#2013](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2013)) ([1e09ba0](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1e09ba0d8a44699bfd9955e5c52569f86217d619))
+
 ## [2.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.1.1...nifty-fe-monorepo-v2.2.0) (2026-09-22)
 
 
