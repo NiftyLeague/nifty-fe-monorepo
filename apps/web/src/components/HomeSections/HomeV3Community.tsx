@@ -43,7 +43,7 @@ export default function HomeV3Community() {
       <div class="home-v3-community-art" aria-hidden="true">
         <div class="purple-bg-orb orb-top-right" />
         <OptimizedImage
-          src="/img/leaderboards/podium.webp"
+          src="https://cdn.niftyleague.com/media/img/leaderboards/podium.webp"
           alt=""
           width={382}
           height={411}

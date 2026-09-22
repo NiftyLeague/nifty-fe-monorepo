@@ -11,8 +11,8 @@ describe('AnimatedImage', () => {
   it('keeps a native fallback alongside the optimized animated source', () => {
     const { container } = render(() => (
       <AnimatedImage
-        src="/img/items/full/1.gif"
-        animatedSrc="/img/items/full/1.webp"
+        src="https://cdn.niftyleague.com/media/img/items/full/1.gif"
+        animatedSrc="https://cdn.niftyleague.com/media/img/items/full/1.webp"
         animatedType="image/webp"
         alt="Cape"
         width={98}
@@ -24,8 +24,12 @@ describe('AnimatedImage', () => {
     const picture = container.querySelector('picture')
 
     expect(picture?.querySelector('source')?.getAttribute('type')).toBe('image/webp')
-    expect(picture?.querySelector('source')?.getAttribute('srcset')).toBe('/img/items/full/1.webp')
-    expect(picture?.querySelector('img')?.getAttribute('src')).toBe('/img/items/full/1.gif')
+    expect(picture?.querySelector('source')?.getAttribute('srcset')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.webp'
+    )
+    expect(picture?.querySelector('img')?.getAttribute('src')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.gif'
+    )
     expect(picture?.querySelector('img')?.getAttribute('alt')).toBe('Cape')
     expect(picture?.querySelector('img')?.getAttribute('loading')).toBe('lazy')
     expect(picture?.querySelector('img')?.getAttribute('fetchpriority')).toBe('low')
@@ -35,8 +39,8 @@ describe('AnimatedImage', () => {
   it('preserves an explicit fetch priority for important animated media', () => {
     const { container } = render(() => (
       <AnimatedImage
-        src="/img/items/full/1.gif"
-        animatedSrc="/img/items/full/1.webp"
+        src="https://cdn.niftyleague.com/media/img/items/full/1.gif"
+        animatedSrc="https://cdn.niftyleague.com/media/img/items/full/1.webp"
         animatedType="image/webp"
         alt="Cape"
         width={98}
@@ -53,8 +57,8 @@ describe('AnimatedImage', () => {
   it('supports deferred media sources that are not WebP', () => {
     const { container } = render(() => (
       <AnimatedImage
-        src="/img/roadmap/wen-roadmap.webp"
-        animatedSrc="/img/games/wen.gif"
+        src="https://cdn.niftyleague.com/media/img/games/wen-roadmap.webp"
+        animatedSrc="https://cdn.niftyleague.com/media/img/games/wen.gif"
         animatedType="image/gif"
         alt="WEN Game"
         width={200}
@@ -66,19 +70,21 @@ describe('AnimatedImage', () => {
     const source = container.querySelector('source')
 
     expect(source?.getAttribute('type')).toBe('image/gif')
-    expect(source?.getAttribute('srcset')).toBe('/img/games/wen.gif')
+    expect(source?.getAttribute('srcset')).toBe(
+      'https://cdn.niftyleague.com/media/img/games/wen.gif'
+    )
     expect(container.querySelector('img')?.getAttribute('src')).toBe(
-      '/img/roadmap/wen-roadmap.webp'
+      'https://cdn.niftyleague.com/media/img/games/wen-roadmap.webp'
     )
   })
 
   it('renders a compatibility source after the preferred animated format', () => {
     const { container } = render(() => (
       <AnimatedImage
-        src="/img/items/thumbnail/1.webp"
-        animatedSrc="/img/items/full/1.webp"
+        src="https://cdn.niftyleague.com/media/img/items/thumbnail/1.webp"
+        animatedSrc="https://cdn.niftyleague.com/media/img/items/full/1.webp"
         animatedType="image/webp"
-        fallbackAnimatedSrc="/img/items/full/1.gif"
+        fallbackAnimatedSrc="https://cdn.niftyleague.com/media/img/items/full/1.gif"
         fallbackAnimatedType="image/gif"
         alt="Cape"
         width={98}
@@ -91,15 +97,27 @@ describe('AnimatedImage', () => {
 
     expect(sources).toHaveLength(2)
     expect(sources[0]?.getAttribute('type')).toBe('image/webp')
-    expect(sources[0]?.getAttribute('srcset')).toBe('/img/items/full/1.webp')
+    expect(sources[0]?.getAttribute('srcset')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.webp'
+    )
     expect(sources[1]?.getAttribute('type')).toBe('image/gif')
-    expect(sources[1]?.getAttribute('srcset')).toBe('/img/items/full/1.gif')
-    expect(container.querySelector('img')?.getAttribute('src')).toBe('/img/items/thumbnail/1.webp')
+    expect(sources[1]?.getAttribute('srcset')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/full/1.gif'
+    )
+    expect(container.querySelector('img')?.getAttribute('src')).toBe(
+      'https://cdn.niftyleague.com/media/img/items/thumbnail/1.webp'
+    )
   })
 
   it('positions the picture wrapper when using fill sizing', () => {
     const { container } = render(() => (
-      <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
+      <AnimatedImage
+        src="https://cdn.niftyleague.com/media/img/items/full/1.gif"
+        alt="Cape"
+        fill
+        sizes="100vw"
+        unoptimized
+      />
     ))
     const picture = container.querySelector('picture')
 
@@ -111,7 +129,13 @@ describe('AnimatedImage', () => {
 
   it('positions the picture wrapper when using fill sizing', () => {
     const { container } = render(() => (
-      <AnimatedImage src="/img/items/full/1.gif" alt="Cape" fill sizes="100vw" unoptimized />
+      <AnimatedImage
+        src="https://cdn.niftyleague.com/media/img/items/full/1.gif"
+        alt="Cape"
+        fill
+        sizes="100vw"
+        unoptimized
+      />
     ))
     const picture = container.querySelector('picture')
 

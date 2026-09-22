@@ -34,7 +34,13 @@ describe('ViewportVideo', () => {
   it('keeps the video shell server-rendered and adds media only near the viewport', async () => {
     state.nearViewport = false
     const deferred = render(() => (
-      <ViewportVideo data-testid="video" src="/video/example.mp4" muted loop playsinline />
+      <ViewportVideo
+        data-testid="video"
+        src="https://cdn.niftyleague.com/media/video/arcade-token.mp4"
+        muted
+        loop
+        playsinline
+      />
     ))
     const video = deferred.container.querySelector('[data-testid="video"]') as HTMLVideoElement
 
@@ -47,24 +53,41 @@ describe('ViewportVideo', () => {
     deferred.unmount()
     state.nearViewport = true
     const nearViewport = render(() => (
-      <ViewportVideo data-testid="video" src="/video/example.mp4" muted loop playsinline />
+      <ViewportVideo
+        data-testid="video"
+        src="https://cdn.niftyleague.com/media/video/arcade-token.mp4"
+        muted
+        loop
+        playsinline
+      />
     ))
 
     await waitFor(() =>
       expect(
         nearViewport.container.querySelector('[data-testid="video"] source')?.getAttribute('src')
-      ).toBe('/video/example.mp4')
+      ).toBe('https://cdn.niftyleague.com/media/video/arcade-token.mp4')
     )
     nearViewport.unmount()
   })
 
   it('waits for the viewport by default while preserving explicit prefetch windows', async () => {
-    const first = render(() => <ViewportVideo data-testid="video" src="/video/example.mp4" />)
+    const first = render(() => (
+      <ViewportVideo
+        data-testid="video"
+        src="https://cdn.niftyleague.com/media/video/arcade-token.mp4"
+      />
+    ))
 
     await waitFor(() => expect(state.observedRootMargin).toBe('0px 0px -25% 0px'))
     first.unmount()
 
-    render(() => <ViewportVideo data-testid="video" rootMargin="300px" src="/video/example.mp4" />)
+    render(() => (
+      <ViewportVideo
+        data-testid="video"
+        rootMargin="300px"
+        src="https://cdn.niftyleague.com/media/video/arcade-token.mp4"
+      />
+    ))
 
     await waitFor(() => expect(state.observedRootMargin).toBe('300px'))
   })
@@ -75,7 +98,7 @@ describe('ViewportVideo', () => {
         data-testid="video"
         deferLoad
         poster="/img/video-poster.webp"
-        src="/video/example.mp4"
+        src="https://cdn.niftyleague.com/media/video/arcade-token.mp4"
       />
     ))
     const video = deferred.container.querySelector('[data-testid="video"]') as HTMLVideoElement
@@ -85,7 +108,10 @@ describe('ViewportVideo', () => {
     expect(video.querySelector('source')).toBeNull()
 
     await waitFor(
-      () => expect(video.querySelector('source')?.getAttribute('src')).toBe('/video/example.mp4'),
+      () =>
+        expect(video.querySelector('source')?.getAttribute('src')).toBe(
+          'https://cdn.niftyleague.com/media/video/arcade-token.mp4'
+        ),
       { timeout: 2000 }
     )
     deferred.unmount()

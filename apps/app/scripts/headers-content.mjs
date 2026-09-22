@@ -30,14 +30,12 @@ export const ASSET_HEADERS = `/*
   Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
-/img/*
+/img/logos/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /icons/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
-/video/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /favicon/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800

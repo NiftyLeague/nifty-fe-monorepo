@@ -8,16 +8,16 @@ const CHARACTER_STAGES = [
   {
     name: 'DOGE',
     tagline: 'SAME GRIN. NEW WOW.',
-    pixelArt: '/img/home/degen-doge-2d.webp',
-    model: '/img/home/degen-doge-3d.webp',
+    pixelArt: 'https://cdn.niftyleague.com/media/img/home/degen-doge-2d.webp',
+    model: 'https://cdn.niftyleague.com/media/img/home/degen-doge-3d.webp',
     pixelAlt: 'Original pixel-art Doge DEGEN',
     modelAlt: 'Matching 3D Doge character model',
   },
   {
     name: 'ALIEN',
     tagline: 'OUT OF THIS WORLD.',
-    pixelArt: '/img/home/degen-alien-2d.webp',
-    model: '/img/home/degen-alien-3d.webp',
+    pixelArt: 'https://cdn.niftyleague.com/media/img/home/degen-alien-2d.webp',
+    model: 'https://cdn.niftyleague.com/media/img/home/degen-alien-3d.webp',
     pixelAlt: 'Original pixel-art Alien DEGEN',
     modelAlt: 'Matching 3D Alien character model',
   },
@@ -150,7 +150,7 @@ export default function HomeV3Characters() {
             </summary>
             <div>
               <OptimizedImage
-                src="/img/home/degen-character-sheet.webp"
+                src="https://cdn.niftyleague.com/media/img/home/degen-character-sheet.webp"
                 alt="Character development sheet showing original pixel characters and their corresponding 3D models"
                 width={1280}
                 height={720}

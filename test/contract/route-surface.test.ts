@@ -650,7 +650,9 @@ describe('website build performance contract', () => {
 
   it('defers the below-fold NiftyWorld showcase video', () => {
     const source = readFileSync(join(process.cwd(), 'apps/web/src/pages/niftyworld.astro'), 'utf8')
-    const videoStart = source.indexOf('src="/video/arcade-token.mp4"')
+    const videoStart = source.indexOf(
+      'src="https://cdn.niftyleague.com/media/video/arcade-token.mp4"'
+    )
     const videoBlockStart = source.lastIndexOf('<GatedViewportVideo', videoStart)
 
     expect(videoStart).toBeGreaterThan(-1)
@@ -659,8 +661,11 @@ describe('website build performance contract', () => {
 
   it('defers the large marketing hero videos while keeping their backdrops eager', () => {
     const heroVideoRoutes = [
-      ['apps/web/src/pages/degens.astro', '/video/unboxing.mp4'],
-      ['apps/web/src/pages/niftyworld.astro', '/video/mansion_showcase.mp4'],
+      ['apps/web/src/pages/degens.astro', 'https://cdn.niftyleague.com/media/video/unboxing.mp4'],
+      [
+        'apps/web/src/pages/niftyworld.astro',
+        'https://cdn.niftyleague.com/media/video/mansion_showcase.mp4',
+      ],
     ] as const
 
     for (const [file, videoSource] of heroVideoRoutes) {
@@ -1909,8 +1914,8 @@ describe('shared console game loading contract', () => {
     const smashersSource = readFileSync(join(process.cwd(), smashersHomePage), 'utf8')
     const webSource = readFileSync(join(process.cwd(), webHomePage), 'utf8')
 
-    expect(smashersSource).toContain('src="/video/smashers.mp4"')
-    expect(webSource).toContain('src="/video/smashers.mp4"')
+    expect(smashersSource).toContain('src="https://cdn.niftyleague.com/media/video/smashers.mp4"')
+    expect(webSource).toContain('src="https://cdn.niftyleague.com/media/video/smashers.mp4"')
     expect(smashersSource).not.toContain('smashers-960p.mp4')
   })
 
@@ -2181,8 +2186,10 @@ describe('web marketing image sizing contract', () => {
     // react-dom's preload() does not hoist out of Astro SSR: the art-directed
     // candidates live on the emitted <source>/<img> pair and finalize-static
     // injects the <link rel="preload"> hints into the built document.
-    expect(homeSource).toContain("src: '/img/hero/bg.webp'")
-    expect(homeSource).toContain("src: '/img/backgrounds/banner-dark.webp'")
+    expect(homeSource).toContain("src: 'https://cdn.niftyleague.com/media/img/hero/bg.webp'")
+    expect(homeSource).toContain(
+      "src: 'https://cdn.niftyleague.com/media/img/backgrounds/banner-dark.webp'"
+    )
     expect(homeSource).toContain("fetchPriority: 'high'")
     expect(homeSource).toContain('data-preload-media="(min-width: 769px)"')
     expect(homeSource).toContain('media="(max-width: 768px)"')
@@ -2232,9 +2239,11 @@ describe('web marketing image sizing contract', () => {
         )
       )
       .join('\n')
-    expect(homeSource).toContain('src="/img/hero/companion-base.webp"')
+    expect(homeSource).toContain(
+      'src="https://cdn.niftyleague.com/media/img/hero/companion-base.webp"'
+    )
     expect(homeSource).toContain('sizes="12vw"')
-    expect(homeSource).toContain('src="/img/hero/halo.webp"')
+    expect(homeSource).toContain('src="https://cdn.niftyleague.com/media/img/hero/halo.webp"')
     expect(homeSource).toContain('sizes="9vw"')
     expect(homeSectionsSource).toContain('sizes="(min-width: 768px) 50vw, 100vw"')
   })
@@ -2341,10 +2350,12 @@ describe('web marketing image sizing contract', () => {
     )
     expect(overviewCommunitySource).toContain('<picture>')
     expect(overviewCommunitySource).toContain('media="(max-width: 767px)"')
-    expect(roadmapSource).toContain('src="/img/space/satoshi_move.gif"')
-    expect(roadmapSource).toContain('src="/img/space/moon.webp"')
+    expect(roadmapSource).toContain(
+      'src="https://cdn.niftyleague.com/media/img/space/satoshi_move.gif"'
+    )
+    expect(roadmapSource).toContain('src="https://cdn.niftyleague.com/media/img/space/moon.webp"')
     expect(roadmapSource).not.toContain(
-      'src="/img/space/moon.webp"\n              alt="moon"\n              width={800}\n              height={800}\n              priority'
+      'src="https://cdn.niftyleague.com/media/img/space/moon.webp"\n              alt="moon"\n              width={800}\n              height={800}\n              priority'
     )
   })
 
@@ -2378,15 +2389,17 @@ describe('web marketing image sizing contract', () => {
   it('keeps the Community hero preload focused on its primary artwork', () => {
     const communitySource = readFileSync(join(process.cwd(), webCommunityPage), 'utf8')
 
-    expect(communitySource).toContain('src="/img/space/moon-satoshi.webp"')
     expect(communitySource).toContain(
-      'src="/img/space/moon-satoshi.webp"\n            alt="Satoshi moon"\n            width={445}\n            height={437}\n            priority'
+      'src="https://cdn.niftyleague.com/media/img/space/moon-satoshi.webp"'
+    )
+    expect(communitySource).toContain(
+      'src="https://cdn.niftyleague.com/media/img/space/moon-satoshi.webp"\n            alt="Satoshi moon"\n            width={445}\n            height={437}\n            priority'
     )
     expect(communitySource).not.toContain(
-      'src="/img/space/earth-darkened.webp"\n          width={1684}\n          height={525}\n          alt="Earth"\n          priority'
+      'src="https://cdn.niftyleague.com/media/img/space/earth-darkened.webp"\n          width={1684}\n          height={525}\n          alt="Earth"\n          priority'
     )
     expect(communitySource).not.toContain(
-      'src="/img/gradient/purple-light-grad.svg"\n            priority'
+      'src="https://cdn.niftyleague.com/media/img/gradient/purple-light-grad.svg"\n            priority'
     )
   })
 })

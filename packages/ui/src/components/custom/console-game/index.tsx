@@ -87,7 +87,7 @@ export function ConsoleGame(props: ConsoleGameProps) {
             class="pixelated w-full h-auto object-contain"
             width={CONSOLE_ARTWORK_DIMENSIONS.width}
             height={CONSOLE_ARTWORK_DIMENSIONS.height}
-            src="/img/console-game/bonk.webp"
+            src="https://cdn.niftyleague.com/media/img/console-game/bonk.webp"
             loading="lazy"
             decoding="async"
           />
@@ -101,7 +101,7 @@ export function ConsoleGame(props: ConsoleGameProps) {
               class="pixelated w-full h-auto object-contain"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
-              src="/img/console-game/gaming_controller_left.webp"
+              src="https://cdn.niftyleague.com/media/img/console-game/gaming_controller_left.webp"
               loading="lazy"
               decoding="async"
             />
@@ -116,7 +116,7 @@ export function ConsoleGame(props: ConsoleGameProps) {
               class="pixelated w-full h-auto object-contain"
               width={CONSOLE_ARTWORK_DIMENSIONS.width}
               height={CONSOLE_ARTWORK_DIMENSIONS.height}
-              src="/img/console-game/gaming_controller_right.webp"
+              src="https://cdn.niftyleague.com/media/img/console-game/gaming_controller_right.webp"
               loading="lazy"
               decoding="async"
             />

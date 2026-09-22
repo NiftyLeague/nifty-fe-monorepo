@@ -59,9 +59,9 @@ Keep the configured webhook URL private.
 
 The NFT generators reuse the canonical monorepo assets:
 
-- Comics read `assets/img/comics/page/*.webp` while retaining their historical
+- Comics read `assets/media/img/comics/page/*.webp` while retaining their historical
   public `.png` upload names.
-- Marketplace items read `assets/img/items/full/*.gif`; item IDs `101–107`
+- Marketplace items read `assets/media/img/items/full/*.gif`; item IDs `101–107`
   map to shared files `1–7` without copying them.
 - Generated degen images are written to the ignored `apps/api/.data/` folder.
 

@@ -3,8 +3,8 @@
  *
  * The page and head preload use the same generated image options.
  */
-import heroLight from '../../../../assets/img/games/smashers/2D-levels/mars.webp'
-import heroDark from '../../../../assets/img/games/smashers/3D-levels/sushi_cropped.webp'
+import heroLight from '../../../../assets/media/img/games/smashers/2D-levels/mars.webp'
+import heroDark from '../../../../assets/media/img/games/smashers/3D-levels/sushi_cropped.webp'
 
 export const HERO_WIDTHS = [640, 960, 1350, 1920] as const
 export const HERO_SIZES = '100vw'

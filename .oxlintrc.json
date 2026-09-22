@@ -256,7 +256,7 @@
     "**/.output/**",
     "**/.app-images/**",
     "**/public/scripts/stats.js",
-    "assets/scripts/stats.js"
+    "assets/site/scripts/stats.js"
   ],
   "overrides": [
     {

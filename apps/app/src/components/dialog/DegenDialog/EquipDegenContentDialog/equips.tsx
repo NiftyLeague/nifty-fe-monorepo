@@ -8,48 +8,89 @@ export const SLOTS: EquipItemSlot[] = [
   {
     name: 'Back',
     empty: (
-      <NativeImage src="/img/items/equips/cape-slot.svg" alt="Cape Slot" width={40} height={40} />
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/cape-slot.svg"
+        alt="Cape Slot"
+        width={40}
+        height={40}
+      />
     ),
-    filled: <NativeImage src="/img/items/equips/cape.webp" width={40} height={40} alt="Back" />,
+    filled: (
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/cape.webp"
+        width={40}
+        height={40}
+        alt="Back"
+      />
+    ),
   },
   {
     name: 'Head',
     empty: (
-      <NativeImage src="/img/items/equips/halo-slot.svg" alt="Halo Slot" width={40} height={40} />
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/halo-slot.svg"
+        alt="Halo Slot"
+        width={40}
+        height={40}
+      />
     ),
-    filled: <NativeImage src="/img/items/equips/halo.webp" width={40} height={40} alt="Head" />,
+    filled: (
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/halo.webp"
+        width={40}
+        height={40}
+        alt="Head"
+      />
+    ),
   },
   {
     name: 'Pet',
     empty: (
       <NativeImage
-        src="/img/items/equips/companion-slot.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/companion-slot.svg"
         alt="Companion Slot"
         width={40}
         height={40}
       />
     ),
-    filled: <NativeImage src="/img/items/equips/companion.webp" width={40} height={40} alt="Pet" />,
+    filled: (
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/companion.webp"
+        width={40}
+        height={40}
+        alt="Pet"
+      />
+    ),
   },
   {
     name: 'Weapon',
     empty: (
-      <NativeImage src="/img/items/equips/bat-slot.svg" alt="Bat Slot" width={40} height={40} />
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/bat-slot.svg"
+        alt="Bat Slot"
+        width={40}
+        height={40}
+      />
     ),
     filledArr: [
       <NativeImage
-        src="/img/items/equips/diamond-bat.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/diamond-bat.webp"
         width={40}
         height={40}
         alt="Diamond Bat"
       />,
       <NativeImage
-        src="/img/items/equips/purple-bat.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/purple-bat.webp"
         width={40}
         height={40}
         alt="Purple Bat"
       />,
-      <NativeImage src="/img/items/equips/bread-bat.webp" width={40} height={40} alt="Bread Bat" />,
+      <NativeImage
+        src="https://cdn.niftyleague.com/media/img/items/equips/bread-bat.webp"
+        width={40}
+        height={40}
+        alt="Bread Bat"
+      />,
     ],
   },
 ]
@@ -59,7 +100,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     name: 'Cape',
     empty: (
       <NativeImage
-        src="/img/items/equips/cape-inventory-empty.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/cape-inventory-empty.svg"
         alt="Cape Inventory Empty"
         width={30}
         height={30}
@@ -67,7 +108,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     ),
     filled: (
       <NativeImage
-        src="/img/items/equips/cape.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/cape.webp"
         alt="Cape"
         class={styles.inventory}
         width={30}
@@ -79,7 +120,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     name: 'Halo',
     empty: (
       <NativeImage
-        src="/img/items/equips/halo-inventory-empty.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/halo-inventory-empty.svg"
         alt="Halo Inventory Empty"
         width={30}
         height={30}
@@ -87,7 +128,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     ),
     filled: (
       <NativeImage
-        src="/img/items/equips/halo.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/halo.webp"
         alt="Halo"
         class={styles.inventory}
         width={30}
@@ -99,7 +140,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     name: 'Companion',
     empty: (
       <NativeImage
-        src="/img/items/equips/companion-inventory-empty.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/companion-inventory-empty.svg"
         alt="Companion Inventory Empty"
         width={30}
         height={30}
@@ -107,7 +148,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     ),
     filled: (
       <NativeImage
-        src="/img/items/equips/companion.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/companion.webp"
         alt="Companion"
         class={styles.inventory}
         width={30}
@@ -119,7 +160,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     name: 'Diamond Bat',
     empty: (
       <NativeImage
-        src="/img/items/equips/bat-inventory-empty.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/bat-inventory-empty.svg"
         alt="Bat Inventory Empty"
         width={30}
         height={30}
@@ -127,7 +168,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     ),
     filled: (
       <NativeImage
-        src="/img/items/equips/diamond-bat.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/diamond-bat.webp"
         alt="Diamond Bat"
         class={styles.inventory}
         width={30}
@@ -139,7 +180,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     name: 'Purple Bat',
     empty: (
       <NativeImage
-        src="/img/items/equips/bat-inventory-empty.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/bat-inventory-empty.svg"
         alt="Bat Inventory Empty"
         width={30}
         height={30}
@@ -147,7 +188,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     ),
     filled: (
       <NativeImage
-        src="/img/items/equips/purple-bat.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/purple-bat.webp"
         alt="Purple Bat"
         class={styles.inventory}
         width={30}
@@ -159,7 +200,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     name: 'Bread Bat',
     empty: (
       <NativeImage
-        src="/img/items/equips/bat-inventory-empty.svg"
+        src="https://cdn.niftyleague.com/media/img/items/equips/bat-inventory-empty.svg"
         alt="Bat Inventory Empty"
         width={30}
         height={30}
@@ -167,7 +208,7 @@ export const INVENTORIES: EquipItemSlot[] = [
     ),
     filled: (
       <NativeImage
-        src="/img/items/equips/bread-bat.webp"
+        src="https://cdn.niftyleague.com/media/img/items/equips/bread-bat.webp"
         alt="Bread Bat"
         class={styles.inventory}
         width={30}

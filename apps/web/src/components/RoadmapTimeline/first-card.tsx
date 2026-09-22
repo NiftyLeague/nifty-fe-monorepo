@@ -5,7 +5,7 @@ export const FIRST_ROADMAP_CARD = {
   completionDate: 'Sept 24th - 30th, 2021',
   image: {
     height: 350,
-    src: '/img/mint-o-matic/creation.webp',
+    src: 'https://cdn.niftyleague.com/media/img/mint-o-matic/creation.webp',
     style: { top: '-90px' },
     width: 661,
   },

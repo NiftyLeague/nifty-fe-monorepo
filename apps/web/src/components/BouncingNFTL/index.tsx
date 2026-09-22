@@ -11,7 +11,7 @@ const TOKEN_CONFIG = {
     wrapperClassName:
       'absolute left-[-100px] top-[calc(50%-160px)] w-[165px] h-[160px] 2xl:left-[-226px] 2xl:w-[226px] 2xl:h-[223px]',
     animationClassName: 'animate-bounce-coin1',
-    src: '/img/compete-and-earn/animated/token-1.webp',
+    src: 'https://cdn.niftyleague.com/media/img/compete-and-earn/animated/token-1.webp',
     alt: 'Bouncing NFTL Left',
     width: 226,
     height: 223,
@@ -21,7 +21,7 @@ const TOKEN_CONFIG = {
     wrapperClassName:
       'absolute right-[-80px] top-0 w-[180px] h-[185px] 2xl:w-[226px] 2xl:h-[221px]',
     animationClassName: 'animate-bounce-coin2',
-    src: '/img/compete-and-earn/animated/token-2.webp',
+    src: 'https://cdn.niftyleague.com/media/img/compete-and-earn/animated/token-2.webp',
     alt: 'Bouncing NFTL Right',
     width: 226,
     height: 221,
@@ -30,7 +30,7 @@ const TOKEN_CONFIG = {
   token3: {
     wrapperClassName: 'absolute bottom-[-500px] left-[calc(50%-100px)] w-[246px]',
     animationClassName: 'animate-bounce-coin3',
-    src: '/img/compete-and-earn/animated/token-3.webp',
+    src: 'https://cdn.niftyleague.com/media/img/compete-and-earn/animated/token-3.webp',
     alt: 'Bouncing NFTL Bottom',
     width: 246,
     height: 96,
