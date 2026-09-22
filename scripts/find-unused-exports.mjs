@@ -102,6 +102,27 @@ const isDeclaration = (name) => name.endsWith('.d.ts')
 const isAstro = (name) => name.endsWith('.astro')
 const isMdx = (name) => name.endsWith('.mdx')
 
+const sharedSourceCache = new Map()
+const sourceOf = (file) => {
+  if (!sharedSourceCache.has(file)) sharedSourceCache.set(file, readFileSync(file, 'utf8'))
+  return sharedSourceCache.get(file)
+}
+
+/**
+ * Root contract tests and tooling are added to each workspace program so their imports count
+ * as references. Most of those files only inspect source text, though, and adding all of them
+ * to every TypeScript program makes this check needlessly expensive. Keep only files whose
+ * source mentions the workspace's package/path alias; workspace-local tests are still added
+ * below because they already live under the workspace directory.
+ */
+function referencesWorkspace(file, workspace) {
+  const source = sourceOf(file)
+  const group = workspace.dir.includes('/packages/') ? 'packages' : 'apps'
+  const markers = [`${group}/${workspace.name}`, `@nl/${workspace.name}`]
+  if (group === 'apps') markers.push("from '@/", "import('@/")
+  return markers.some((marker) => source.includes(marker))
+}
+
 function hasExportModifier(node) {
   const modifiers = ts.canHaveModifiers(node) ? ts.getModifiers(node) : undefined
   return Boolean(modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword))
@@ -214,7 +235,8 @@ function buildProgram(workspace) {
   const rootNames = new Set(parsed.fileNames.filter((file) => !IGNORED.test(file)))
   for (const file of walk(workspace.dir, isTs)) rootNames.add(file)
   for (const dir of ['test', 'scripts'])
-    for (const file of walk(join(ROOT, dir), isTs)) rootNames.add(file)
+    for (const file of walk(join(ROOT, dir), isTs))
+      if (referencesWorkspace(file, workspace)) rootNames.add(file)
   const options = {
     ...parsed.options,
     noEmit: true,

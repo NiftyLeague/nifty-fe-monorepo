@@ -10,8 +10,10 @@ const apiManifest = JSON.parse(readFileSync('apps/api/package.json', 'utf8')) as
 
 describe('test runner policy', () => {
   it('keeps the root test entrypoint isolated per test file', () => {
-    expect(manifest.scripts?.test).toBe('bun test --isolate')
-    expect(manifest.scripts?.['test:coverage']).toContain('bun test --isolate')
+    expect(manifest.scripts?.test).toBe('bun test --isolate --max-concurrency=1 --timeout=15000')
+    expect(manifest.scripts?.['test:coverage']).toBe(
+      'bun test --isolate --coverage --max-concurrency=1 --timeout=15000'
+    )
   })
 
   it('keeps deployment smoke checks out of default test discovery', () => {
