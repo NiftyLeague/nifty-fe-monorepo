@@ -1,23 +1,12 @@
 {
   "$schema": "https://v2-10-9.turborepo.dev/schema.json",
   "ui": "tui",
-  "globalDependencies": [
-    ".env"
-  ],
-  "globalEnv": [
-    "CI",
-    "VITE_DEPLOY_ENV"
-  ],
+  "globalDependencies": [".env"],
+  "globalEnv": ["CI", "VITE_DEPLOY_ENV"],
   "tasks": {
     "build": {
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env*",
-        "!.env.example"
-      ],
-      "outputs": [
-        "dist/**"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
+      "outputs": ["dist/**"]
     },
     "app#build": {
       "inputs": [
@@ -41,14 +30,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": [
-        "CI",
-        "VITE_*",
-        "VITE_DEPLOY_ENV"
-      ],
-      "outputs": [
-        ".output/**"
-      ]
+      "env": ["CI", "VITE_*", "VITE_DEPLOY_ENV"],
+      "outputs": [".output/**"]
     },
     "api#build": {
       "inputs": [
@@ -93,9 +76,7 @@
         "TESTNET_COLLECTION_CONTRACT_ADDRESS",
         "MAINNET_COLLECTION_CONTRACT_ADDRESS"
       ],
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     },
     "docs#build": {
       "inputs": [
@@ -120,14 +101,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": [
-        "PUBLIC_ALGOLIA_API_KEY",
-        "PUBLIC_ALGOLIA_APP_ID"
-      ],
-      "outputs": [
-        "dist/**",
-        ".astro/**"
-      ]
+      "env": ["PUBLIC_ALGOLIA_API_KEY", "PUBLIC_ALGOLIA_APP_ID"],
+      "outputs": ["dist/**", ".astro/**"]
     },
     "smashers#build": {
       "inputs": [
@@ -180,9 +155,7 @@
         "TWITCH_CLIENT_SECRET",
         "NODE_ENV"
       ],
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     },
     "web#build": {
       "inputs": [
@@ -207,17 +180,8 @@
         "!../../packages/ui/src/**/*.story.*",
         "!../../packages/ui/src/**/__tests__/**"
       ],
-      "env": [
-        "CI",
-        "PUBLIC_DEPLOY_ENV",
-        "PUBLIC_TELEMETRY",
-        "PUBLIC_INFURA_ID"
-      ],
-      "outputs": [
-        "dist/**",
-        ".worker-build/**",
-        ".web-images/**"
-      ]
+      "env": ["CI", "PUBLIC_DEPLOY_ENV", "PUBLIC_TELEMETRY", "PUBLIC_INFURA_ID"],
+      "outputs": ["dist/**", ".worker-build/**", ".web-images/**"]
     },
     "clean": {
       "cache": false
@@ -237,72 +201,35 @@
       ]
     },
     "@nl/playfab#lint": {
-      "env": [
-        "PUBLIC_PLAYFAB_TITLE_ID",
-        "PLAYFAB_API_KEY"
-      ]
+      "env": ["PUBLIC_PLAYFAB_TITLE_ID", "PLAYFAB_API_KEY"]
     },
     "format": {},
     "type-check": {},
     "api#type-check": {
-      "env": [
-        "NODE_CONFIG_TS_DIR",
-        "PORT",
-        "ETH_NETWORK",
-        "WEBHOOK_SECRET"
-      ]
+      "env": ["NODE_CONFIG_TS_DIR", "PORT", "ETH_NETWORK", "WEBHOOK_SECRET"]
     },
     "test": {
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "../../test/**",
-        ".env*",
-        "!.env.example"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
     },
     "api#test": {
-      "env": [
-        "NODE_CONFIG_TS_DIR",
-        "PORT",
-        "ETH_NETWORK",
-        "WEBHOOK_SECRET"
-      ],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "../../test/**",
-        ".env*",
-        "!.env.example"
-      ]
+      "env": ["NODE_CONFIG_TS_DIR", "PORT", "ETH_NETWORK", "WEBHOOK_SECRET"],
+      "inputs": ["$TURBO_DEFAULT$", "../../test/**", ".env*", "!.env.example"]
     },
     "dev": {
       "cache": false,
       "persistent": true,
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        ".env*",
-        "!.env.example"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "format:check": {
-      "dependsOn": [
-        "^format:check"
-      ],
+      "dependsOn": ["^format:check"],
       "cache": true
     },
     "cf:build": {
       "dependsOn": [],
-      "outputs": [
-        "dist/_astro/**",
-        "dist/_headers",
-        "dist/**/*.html"
-      ]
+      "outputs": ["dist/_astro/**", "dist/_headers", "dist/**/*.html"]
     },
     "app#cf:build": {
-      "env": [
-        "CI",
-        "VITE_*",
-        "VITE_DEPLOY_ENV"
-      ],
+      "env": ["CI", "VITE_*", "VITE_DEPLOY_ENV"],
       "outputs": [
         ".output/server/**",
         ".output/public/assets/**",
@@ -337,15 +264,8 @@
       ]
     },
     "docs#cf:build": {
-      "env": [
-        "ALGOLIA_API_KEY",
-        "ALGOLIA_APP_ID"
-      ],
-      "outputs": [
-        "dist/_astro/**",
-        "dist/_headers",
-        "dist/**/*.html"
-      ]
+      "env": ["ALGOLIA_API_KEY", "ALGOLIA_APP_ID"],
+      "outputs": ["dist/_astro/**", "dist/_headers", "dist/**/*.html"]
     }
   }
 }
