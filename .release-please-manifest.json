@@ -1,13 +1,13 @@
 {
-  ".": "2.2.2",
+  ".": "2.3.0",
   "apps/api": "2.1.1",
-  "apps/app": "2.2.1",
-  "apps/docs": "2.2.0",
+  "apps/app": "2.3.0",
+  "apps/docs": "2.3.0",
   "apps/smashers": "2.2.0",
   "apps/web": "2.2.0",
   "packages/astro-config": "1.1.0",
   "packages/contracts": "1.0.1",
   "packages/playfab": "2.0.0",
   "packages/typescript-config": "2.0.0",
-  "packages/ui": "2.1.0"
+  "packages/ui": "2.2.0"
 }
