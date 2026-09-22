@@ -48,6 +48,19 @@ describe('uploadToS3', () => {
     )
   })
 
+  it('gives rewritten metadata the short mutable TTL', async () => {
+    sendMock.mockResolvedValue({ $metadata: { httpStatusCode: 200 } })
+
+    await uploadToS3('metadata/1.json', '{}', true, 'degens')
+
+    expect(commandMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        Key: 'degens/metadata/1.json',
+        CacheControl: 'public, max-age=300',
+      })
+    )
+  })
+
   it('defaults unknown extensions to JSON', async () => {
     sendMock.mockResolvedValue({ $metadata: { httpStatusCode: 200 } })
 
