@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v2.2.0...docs-v2.3.0) (2026-09-22)
+
+
+### Features
+
+* **app:** serve the Unity smashers build from the CDN ([#2018](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2018)) ([1e89b65](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/1e89b65ceaead9c9db54d571a821cf695913c7e0))
+
 ## [2.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v2.1.0...docs-v2.2.0) (2026-09-22)
 
 
