@@ -61,7 +61,7 @@ export const AUDIT_FIXTURE = boolean(import.meta.env.VITE_AUDIT_FIXTURE)
 export const UNITY_USE_COMPRESSED = boolean(import.meta.env.VITE_UNITY_USE_COMPRESSED, true)
 export const UNITY_SMASHERS_BASE_URL = optional(
   import.meta.env.VITE_UNITY_SMASHERS_BASE_URL,
-  'https://d7ct17ettlkln.cloudfront.net/ns/prod/0.53.1-eb048de3b4a0'
+  'https://cdn.niftyleague.com/unity/smashers/0.53.1'
 )
 export const UNITY_SMASHERS_BASE_VERSION = optional(
   import.meta.env.VITE_UNITY_SMASHERS_BASE_VERSION,
