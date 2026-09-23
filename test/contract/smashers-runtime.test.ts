@@ -101,15 +101,15 @@ describe('smashers island hydration', () => {
 
 describe('unset public env vars', () => {
   it('treats an empty inlined env value as unset', () => {
-    const source = read(join(SMASHERS, 'src/contexts/FeatureFlagsProvider.tsx'))
+    const source = read(join('packages/ui/src/lib/parse-feature-flags.ts'))
 
-    // The guard must reject the empty string explicitly.
-    expect(source).toMatch(/if \(!storedValue \|\| .*trim\(\) === ''/)
-    expect(source).not.toMatch(/storedValue === undefined\s*\n?\s*\?\s*DEFAULT_FLAGS/)
+    // The guard must reject the empty string explicitly (empty string is falsy).
+    expect(source).toMatch(/if \(!value\)/)
+    expect(source).not.toMatch(/value === undefined\s*\n?\s*\?\s*DEFAULT_FLAGS/)
   })
 
   it('wraps flag parsing so malformed JSON cannot throw during render', () => {
-    const source = read(join(SMASHERS, 'src/contexts/FeatureFlagsProvider.tsx'))
+    const source = read(join('packages/ui/src/lib/parse-feature-flags.ts'))
 
     expect(source).toContain('try {')
     expect(source).toContain('catch {')

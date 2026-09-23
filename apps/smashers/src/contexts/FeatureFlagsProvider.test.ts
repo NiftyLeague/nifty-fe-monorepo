@@ -45,7 +45,10 @@ describe('feature flag parsing', () => {
   })
 
   it('ignores non-boolean flag values', () => {
-    const flags = parseFeatureFlags('{"enableInventory":"yes","enableStats":1,"enableAvatars":null}', DEFAULTS)
+    const flags = parseFeatureFlags(
+      '{"enableInventory":"yes","enableStats":1,"enableAvatars":null}',
+      DEFAULTS
+    )
 
     expect(flags.enableInventory).toBe(false)
     expect(flags.enableStats).toBe(false)

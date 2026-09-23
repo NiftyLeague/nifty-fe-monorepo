@@ -9,10 +9,7 @@ export type FlagSet = { [camelCasedKey: string]: boolean }
  *
  * Tolerant by necessity: an unparseable value must not take the app down.
  */
-export function parseFeatureFlags(
-  value: string | undefined,
-  defaults: FlagSet
-): FlagSet {
+export function parseFeatureFlags(value: string | undefined, defaults: FlagSet): FlagSet {
   if (!value) return { ...defaults }
 
   try {

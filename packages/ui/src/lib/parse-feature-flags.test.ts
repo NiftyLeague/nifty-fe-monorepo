@@ -15,10 +15,7 @@ describe('parseFeatureFlags', () => {
 
   it('parses boolean flags and merges with defaults', () => {
     expect(
-      parseFeatureFlags(
-        JSON.stringify({ displayMyItems: true, enableEquip: false }),
-        defaults
-      )
+      parseFeatureFlags(JSON.stringify({ displayMyItems: true, enableEquip: false }), defaults)
     ).toStrictEqual({ displayMyItems: true, enableEquip: false })
   })
 

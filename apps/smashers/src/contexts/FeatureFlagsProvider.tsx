@@ -26,10 +26,7 @@ const initialState: ProviderConfig = { flags: {} }
 export const FeatureFlagContext = createContext<ProviderConfig>(initialState)
 
 export function FeatureFlagProvider(props: { children: JSX.Element }) {
-  const flags = parseFeatureFlags(
-    process.env.PUBLIC_FEATURE_FLAGS,
-    DEFAULT_FLAGS
-  )
+  const flags = parseFeatureFlags(process.env.PUBLIC_FEATURE_FLAGS, DEFAULT_FLAGS)
 
   return (
     <FeatureFlagContext.Provider value={{ flags }}>{props.children}</FeatureFlagContext.Provider>
