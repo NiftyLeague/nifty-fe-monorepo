@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 
-import { parseFeatureFlags } from './FeatureFlagsContext'
+import { parseFeatureFlags } from '@nl/ui/lib/parse-feature-flags'
 
 describe('parseFeatureFlags', () => {
   it('merges boolean flags and ignores unsupported values', () => {
