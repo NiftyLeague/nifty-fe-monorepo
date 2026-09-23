@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v2.3.0...app-v2.4.0) (2026-09-23)
+
+
+### Features
+
+* **app:** serve archived leaderboards from the CDN ([#2020](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2020)) ([0661f73](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/0661f739adb2341d9b65be02145a9ea978949714))
+
 ## [2.3.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/app-v2.2.1...app-v2.3.0) (2026-09-22)
 
 
