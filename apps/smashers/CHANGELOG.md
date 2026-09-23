@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v2.2.0...smashers-v2.2.1) (2026-09-23)
+
+
+### Maintenance
+
+* share feature flag parsing between apps via @nl/ui ([#2022](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2022)) ([bddae88](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/bddae882ce20e47a76bbf06e62da2d20478aabf2))
+
 ## [2.2.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v2.1.0...smashers-v2.2.0) (2026-09-22)
 
 
