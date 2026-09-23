@@ -1,5 +1,8 @@
-// Keep the archived datasets server-side. JSON keeps the large snapshots out of
-// the TypeScript parser while the browser still receives only the selected page.
+import { CDN_BASE_URL } from '@/constants/api'
+
+// Archived competition datasets are frozen snapshots: they live on the CDN
+// (cache/leaderboards/<gameType>.json) and load from the edge instead of
+// weighing down the app bundle. Unknown games resolve to undefined.
 export type LeaderboardRow = {
   rank: number
   user_id: string
@@ -9,17 +12,14 @@ export type LeaderboardRow = {
 
 type LeaderboardData = Record<string, LeaderboardRow[]>
 
+const ARCHIVED_GAMES = new Set(['crypto_winter', 'nftl_burner', 'nifty_smashers', 'wen_game'])
+
 export const loadLeaderboard = async (gameType: string): Promise<LeaderboardData | undefined> => {
-  switch (gameType) {
-    case 'crypto_winter':
-      return (await import('./leaderboard-crypto-winter.json')).default
-    case 'nftl_burner':
-      return (await import('./leaderboard-mt-gawx.json')).default
-    case 'nifty_smashers':
-      return (await import('./leaderboard-smashers.json')).default
-    case 'wen_game':
-      return (await import('./leaderboard-wen-game.json')).default
-    default:
-      return undefined
+  if (!ARCHIVED_GAMES.has(gameType)) return undefined
+
+  const response = await fetch(`${CDN_BASE_URL}/cache/leaderboards/${gameType}.json`)
+  if (!response.ok) {
+    throw new Error(`Failed to load leaderboard: ${response.status}`)
   }
+  return (await response.json()) as LeaderboardData
 }
