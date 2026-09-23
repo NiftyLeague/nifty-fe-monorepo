@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'bun:test'
 
-import { parseFlags } from './FeatureFlagsProvider'
+import { parseFeatureFlags } from '@nl/ui/lib/parse-feature-flags'
 
 const DEFAULTS = {
   enableAccountCreation: false,
@@ -15,24 +15,25 @@ const DEFAULTS = {
 
 describe('feature flag parsing', () => {
   it('falls back to defaults for an empty inlined value', () => {
-    expect(parseFlags('')).toEqual(DEFAULTS)
-    expect(parseFlags('   ')).toEqual(DEFAULTS)
+    expect(parseFeatureFlags('', DEFAULTS)).toEqual(DEFAULTS)
+    expect(parseFeatureFlags('   ', DEFAULTS)).toEqual(DEFAULTS)
   })
 
   it('falls back to defaults when the variable is absent', () => {
-    expect(parseFlags(undefined)).toEqual(DEFAULTS)
+    expect(parseFeatureFlags(undefined, DEFAULTS)).toEqual(DEFAULTS)
   })
 
   it('never throws on malformed input', () => {
     for (const value of ['not json', '{', 'undefined', 'NaN', '"a string"', '[]', 'null']) {
-      expect(() => parseFlags(value)).not.toThrow()
-      expect(parseFlags(value)).toEqual(DEFAULTS)
+      expect(() => parseFeatureFlags(value, DEFAULTS)).not.toThrow()
+      expect(parseFeatureFlags(value, DEFAULTS)).toEqual(DEFAULTS)
     }
   })
 
   it('applies configured flags over the defaults', () => {
-    const flags = parseFlags(
-      '{"enableInventory":true,"enableStats":true,"enableAccountCreation":true}'
+    const flags = parseFeatureFlags(
+      '{"enableInventory":true,"enableStats":true,"enableAccountCreation":true}',
+      DEFAULTS
     )
 
     expect(flags.enableInventory).toBe(true)
@@ -44,7 +45,10 @@ describe('feature flag parsing', () => {
   })
 
   it('ignores non-boolean flag values', () => {
-    const flags = parseFlags('{"enableInventory":"yes","enableStats":1,"enableAvatars":null}')
+    const flags = parseFeatureFlags(
+      '{"enableInventory":"yes","enableStats":1,"enableAvatars":null}',
+      DEFAULTS
+    )
 
     expect(flags.enableInventory).toBe(false)
     expect(flags.enableStats).toBe(false)
@@ -52,12 +56,12 @@ describe('feature flag parsing', () => {
   })
 
   it('allows an override to turn a default-on flag off', () => {
-    expect(parseFlags('{"enableLinkWallet":false}').enableLinkWallet).toBe(false)
+    expect(parseFeatureFlags('{"enableLinkWallet":false}', DEFAULTS).enableLinkWallet).toBe(false)
   })
 
   it('does not mutate the defaults object', () => {
     const defaults = { enableInventory: false }
-    parseFlags('{"enableInventory":true}', defaults)
+    parseFeatureFlags('{"enableInventory":true}', defaults)
 
     expect(defaults).toEqual({ enableInventory: false })
   })
