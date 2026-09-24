@@ -34,7 +34,11 @@ export function useDeferredComponent<T extends object>(
   const isEnabled = () => (typeof enabled === 'function' ? enabled() : enabled)
 
   createEffect(() => {
-    if (!isEnabled() || Component() || retryCount() < 0) return
+    // `retryCount()` is read here as a trigger signal: incrementing it via
+    // `retry()` re-runs this effect. It is not a counter with semantic
+    // meaning — the previous `retryCount() < 0` guard was dead code.
+    void retryCount()
+    if (!isEnabled() || Component()) return
 
     let active = true
     setHasError(false)
