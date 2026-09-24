@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v2.2.1...ui-v2.2.2) (2026-09-24)
+
+
+### Maintenance
+
+* make retry trigger signal explicit in useDeferredComponent ([#2024](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2024)) ([aeb1776](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/aeb17766f5438fd1f0d7dcc22a48c76f635f6d72))
+
 ## [2.2.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/ui-v2.2.0...ui-v2.2.1) (2026-09-23)
 
 
