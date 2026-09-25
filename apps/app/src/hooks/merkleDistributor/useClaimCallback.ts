@@ -5,7 +5,6 @@ import type { NotifyError } from '@/types/notify'
 import useIMXContext from '@/hooks/useIMXContext'
 import { useConnectedToIMXCheck } from '@/hooks/useImxProvider'
 import { BALANCE_MANAGER_CONTRACT, getContractABI, getContractAddress } from '@/constants/contracts'
-import { DEBUG } from '@/constants'
 import { useWagmiConfig } from '@/runtime/wagmi'
 import useUserClaimData from './useUserClaimData'
 
@@ -29,9 +28,6 @@ export default function useClaimCallback(): {
         BALANCE_MANAGER_CONTRACT
       ) as `0x${string}`
       const nftlAmount = parseEther(formatEther(BigInt(claimData.amount))) // Convert hex string to bigint
-      if (DEBUG)
-        console.log('Withdrawing NFTL', [claimData.index, address, nftlAmount, claimData.proof])
-
       const txHash = await writeContract(config, {
         address: distributorAddress,
         abi: getContractABI(imx.imxChainId, BALANCE_MANAGER_CONTRACT),
