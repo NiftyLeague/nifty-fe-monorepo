@@ -28,7 +28,7 @@ export default function useImportNFTLToWallet(): ImportNFTLToWalletState {
           address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT),
           symbol: 'NFTL',
           decimals: 18,
-          image: 'https://raw.githubusercontent.com/NiftyLeague/Nifty-League-Images/main/NFTL.webp',
+          image: '/img/logos/NFTL/logo.webp',
         },
       })
       if (!success) throw new Error('Something went wrong.')
