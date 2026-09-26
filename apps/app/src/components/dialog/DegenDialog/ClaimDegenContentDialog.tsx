@@ -6,7 +6,6 @@ import useNetworkContext from '@/hooks/useNetworkContext'
 import useClaimableNFTL from '@/hooks/balances/useClaimableNFTL'
 import { NFTL_CONTRACT, getContractABI, getContractAddress } from '@/constants/contracts'
 import { TARGET_NETWORK } from '@/constants/networks'
-import { DEBUG } from '@/constants/index'
 import { formatNumberToDisplay } from '@nl/ui/number-format'
 
 interface ClaimDegenContentDialogProps {
@@ -23,7 +22,6 @@ const ClaimDegenContentDialog = (props: ClaimDegenContentDialogProps) => {
   onCleanup(() => clearTimeout(refetchTimer))
 
   const handleClaimNFTL = async (event: MouseEvent & { currentTarget: HTMLButtonElement }) => {
-    if (DEBUG) console.log('Claim', degenTokenIndices(), claimable.balance)
     await network.write({
       address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`,
       abi: getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT),

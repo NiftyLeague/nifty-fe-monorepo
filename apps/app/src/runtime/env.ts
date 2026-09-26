@@ -31,8 +31,6 @@ export const DEPLOY_ENV = read(import.meta.env.VITE_DEPLOY_ENV) ?? 'development'
 
 export const IS_PRODUCTION = DEPLOY_ENV === 'production'
 
-export const DEBUG = boolean(import.meta.env.VITE_DEBUG, !IS_PRODUCTION)
-
 /** `mainnet` | `sepolia` | `hardhat` */
 export const NETWORK = optional(import.meta.env.VITE_NETWORK, 'mainnet')
 

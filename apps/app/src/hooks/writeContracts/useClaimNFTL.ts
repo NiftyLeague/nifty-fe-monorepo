@@ -8,7 +8,6 @@ import { TARGET_NETWORK } from '@/constants/networks'
 import { useWagmiConfig } from '@/runtime/wagmi'
 
 import { NFTL_CONTRACT } from '@/constants/contracts'
-import { DEBUG } from '@/constants/index'
 import useNetworkContext from '@/hooks/useNetworkContext'
 import useNFTsBalances from '@/hooks/balances/useNFTsBalances'
 import useTokensBalances from '@/hooks/balances/useTokensBalances'
@@ -49,8 +48,7 @@ export default function useClaimNFTL(): {
   }
 
   const handleClaimNFTL = async () => {
-    const degensWithClaimableNFTL = await verifyDegensWithClaimableNFTL()
-    if (DEBUG) console.log('claim', degensWithClaimableNFTL, tokens.totalAccruedNFTL)
+    await verifyDegensWithClaimableNFTL()
     const txHash = await network.write({
       address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`,
       abi: getContractABI(TARGET_NETWORK.chainId, NFTL_CONTRACT),

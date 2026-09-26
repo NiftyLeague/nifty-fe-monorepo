@@ -8,7 +8,6 @@ import { COMICS_BURNER_CONTRACT, MARKETPLACE_CONTRACT } from '@/constants/contra
 import { getContractABI, getContractAddress } from '@/constants/contracts'
 import { TARGET_NETWORK } from '@/constants/networks'
 import { useReadContract } from '@/runtime/wagmi'
-import { DEBUG } from '@/constants/index'
 import type { Comic } from '@/types/marketplace'
 
 import Machine from './_components/machine'
@@ -78,7 +77,6 @@ const ComicsBurnerContent = () => {
   const handleBurn = async () => {
     if (!isApprovedForAll()) await handleSetApproval()
     setBurning(true)
-    if (DEBUG) console.log('burn comics', burnCount())
     const txHash = await network.write({
       address: burnerAddress,
       abi: getContractABI(TARGET_NETWORK.chainId, COMICS_BURNER_CONTRACT),
