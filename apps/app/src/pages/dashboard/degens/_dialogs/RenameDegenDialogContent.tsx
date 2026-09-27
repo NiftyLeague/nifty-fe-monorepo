@@ -23,7 +23,6 @@ import {
   getContractAddress,
 } from '@/constants/contracts'
 import { TARGET_NETWORK } from '@/constants/networks'
-import { DEBUG } from '@/constants/index'
 import type { DashboardDegen } from '@/types/degens'
 import RenameStepper from './RenameStepper'
 
@@ -65,9 +64,7 @@ const RenameDegenDialogContent = (props: Props): JSX.Element => {
     if (insufficientBalance()) {
       setError('Failed to charge the rental rename fee')
     } else if (!error()) {
-      if (DEBUG) console.log('Rename NFT to:', input())
       if (insufficientAllowance()) {
-        if (DEBUG) console.log('Current allowance too low')
         const DEGENAddress = getContractAddress(TARGET_NETWORK.chainId, DEGEN_CONTRACT)
         await network.write({
           address: getContractAddress(TARGET_NETWORK.chainId, NFTL_CONTRACT) as `0x${string}`,

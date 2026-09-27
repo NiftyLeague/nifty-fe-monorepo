@@ -3,7 +3,7 @@
 import { readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
 import type { Config } from '@wagmi/core'
 import type { TransactionReceipt } from 'viem'
-import { formatEther, parseEther, parseUnits } from 'viem'
+import { parseEther, parseUnits } from 'viem'
 
 import {
   INTERCHAIN_SERVICE_CONTRACT,
@@ -20,7 +20,6 @@ import {
   NETWORK_NAME,
   TARGET_NETWORK,
 } from '@/constants/networks'
-import { DEBUG } from '@/constants'
 
 type GasFeeResponse = {
   result?: {
@@ -119,7 +118,6 @@ export const increaseBridgeAllowance = async (
           hash: approveHash,
           confirmations: 1,
         })
-        if (DEBUG) console.log('✅ InterchainTokenManager approved to spend NFTL')
         return txReceipt
       }
     } catch (error) {
@@ -141,11 +139,6 @@ export const bridgeNFTL = async (
   const gasAmount = await gasEstimator(destinationChainId)
   const destinationChain = getDestinationChain(destinationChainId)
 
-  if (DEBUG)
-    console.log(
-      `Sending ${formatEther(amount)} NFTL to ${destinationChain}... interchainTokenId: ${interchainTokenId}`
-    )
-
   try {
     const txHash = await writeContract(config, {
       address: interchainServiceAddress(),
@@ -163,12 +156,10 @@ export const bridgeNFTL = async (
       chainId: TARGET_NETWORK.chainId,
     })
 
-    if (DEBUG) console.log('✅ Transfer Transaction Hash:', txHash)
     const txReceipt = await waitForTransactionReceipt(config, {
       hash: txHash,
       confirmations: 1,
     })
-    if (DEBUG) console.log('✅ NFTL tokens transferred to InterchainTokenManager')
     return txReceipt
   } catch (error) {
     console.error('Error during transaction:', error)

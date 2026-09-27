@@ -7,7 +7,6 @@ import { useAuthStatus } from '@/contexts/AuthStatusContext'
 import useCheckAuth from '@/hooks/useCheckAuth'
 import { useAuthToken } from '@/hooks/useAuthStorage'
 import useSignAuthMsg from '@/hooks/useSignAuthMsg'
-import { DEBUG } from '@/constants/index'
 
 export default function AuthTokenProviderRuntime(props: { children?: JSX.Element }) {
   const account = useAccount()
@@ -36,7 +35,6 @@ export default function AuthTokenProviderRuntime(props: { children?: JSX.Element
   // snapshot, so no manual latch bookkeeping runs on unrelated re-renders.
   useAccountTransition((next, prev) => {
     if (!prev.isConnected && next.isConnected && !auth.isLoggedIn && !msgSent) {
-      if (DEBUG) console.log('CONNECT_SUCCESS')
       msgSent = true
       void signMsg()
     }
