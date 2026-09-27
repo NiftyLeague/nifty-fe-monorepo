@@ -1,7 +1,5 @@
-import { createEffect } from 'solid-js'
 import { formatEther } from 'viem'
 import { BALANCE_MANAGER_CONTRACT } from '@/constants/contracts'
-import { DEBUG } from '@/constants/index'
 import useIMXContext from '@/hooks/useIMXContext'
 import { useReadContract } from '@/runtime/wagmi'
 import { getContractABI, getContractAddress } from '@/constants/contracts'
@@ -49,11 +47,6 @@ function useUserUnclaimedAmount() {
   const userClaimData = useUserClaimData()
 
   const canClaim = useUserHasAvailableClaim(() => userClaimData.claimData)
-
-  createEffect(() => {
-    if (DEBUG && !userClaimData.loading)
-      console.log('claimStats:', { claimData: userClaimData.claimData, canClaim: canClaim() })
-  })
 
   return {
     get nftlUnclaimed() {

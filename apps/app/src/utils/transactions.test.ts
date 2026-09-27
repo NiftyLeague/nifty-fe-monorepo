@@ -24,7 +24,6 @@ beforeEach(() => {
     writeContract: writeContractMock,
     waitForTransactionReceipt: receiptWaitMock,
   }))
-  mock.module('@/constants/index', () => ({ DEBUG: false }))
   mock.module('@/constants/networks', () => ({
     TARGET_NETWORK: {
       label: 'Local',

@@ -12,7 +12,6 @@ import { ErrorBoundary } from '@nl/ui/custom/error-boundry'
 import { Preloader } from '@nl/ui/custom/preloader'
 import { NETWORK_NAME, TARGET_NETWORK } from '@/constants/networks'
 import { getGameViewedAnalyticsContentId } from '@/constants/games'
-import { DEBUG } from '@/constants/index'
 import { SUBGRAPH_VERSION } from '@/runtime/env'
 import withVerification from '@/components/wrapper/Authentication'
 import useAuth from '@/hooks/useAuth'
@@ -34,13 +33,10 @@ const enableGameInteraction = () => {
   }
 }
 
-const handleLoaded = () => {
-  if (DEBUG) console.log('Unity loaded')
-}
+const handleLoaded = () => {}
 
-const handleProgress = (progress: unknown) => {
+const handleProgress = (_progress: unknown) => {
   // loadingProgression is already 0-1, progress param is also 0-1
-  if (DEBUG && typeof progress === 'number') console.log(`Unity progress: ${progress * 100}%`)
 }
 
 const Game = (props: GameProps) => {
@@ -77,7 +73,6 @@ const Game = (props: GameProps) => {
   })
 
   const startAuthentication = (e: CustomEventWithCallback<string>) => {
-    if (DEBUG) console.log('Authenticating:', authMsg())
     e.detail.callback(authMsg())
     authCallback = e.detail.callback
   }
@@ -85,7 +80,6 @@ const Game = (props: GameProps) => {
   const getConfiguration = (e: CustomEventWithCallback<string>) => {
     const networkName = NETWORK_NAME[TARGET_NETWORK.chainId]
     const version = SUBGRAPH_VERSION
-    if (DEBUG) console.log(`${networkName},${version ?? ''}`)
     configTimer = setTimeout(() => e.detail.callback(`${networkName},${version ?? ''}`), 1000)
   }
 
