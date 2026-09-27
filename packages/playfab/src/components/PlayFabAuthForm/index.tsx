@@ -97,21 +97,6 @@ function PlayFabAuthForm({ redirectTo, ...props }: PlayFabAuthFormProps) {
     clearState()
     // TODO: there is no public API for password updates; see the commented
     // PlayFabClient.AddUsernamePassword flow in the git history.
-    // oxlint-disable-next-line no-constant-condition -- placeholder until the API exists
-    if (false) {
-      // TODO: there is no public API for password updates
-      // const request = { Email, Username, Password: password };
-      // PlayFabClient.AddUsernamePassword(
-      //   request,
-      //   function (error, result) {
-      //     if (error) {
-      //       setError(error.errorMessage);
-      //     } else {
-      //       setMessage('Your password has been updated');
-      //     }
-      //   }
-      // );
-    }
   }
 
   return (

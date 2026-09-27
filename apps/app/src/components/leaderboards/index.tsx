@@ -35,12 +35,14 @@ export default function LeaderBoards(): JSX.Element {
       currentGame().tables.find((table) => table.key === searchState.table) ??
       (currentGame().tables[0] as TableType)
   )
-  const selectedType = () => selectedTable().key
   const selectedTimeFilter = () =>
     selectedGame() === 'nftl_burner' && searchState.time === 'weekly'
       ? 'all_time'
       : searchState.time
 
+  // One-shot analytics event on mount; createMemo would re-fire on every
+  // selectedGame() read because the effect body reads it, while a plain
+  // createEffect with no reactive deps runs once when the component mounts.
   createEffect(() => {
     gtm.sendEvent(GTM_EVENTS.SELECT_CONTENT, {
       content_type: 'leaderboard',
@@ -100,7 +102,7 @@ export default function LeaderBoards(): JSX.Element {
               options={NiftySmashersTables}
               optionValue="key"
               optionTextValue="display"
-              value={NiftySmashersTables.find((table) => table.key === selectedType())}
+              value={NiftySmashersTables.find((table) => table.key === selectedTable().key)}
               onValueChange={(option) => option && handleChangeType((option as TableType).key)}
               itemComponent={(itemProps) => (
                 <SelectItem item={itemProps.item}>{itemProps.item.rawValue.display}</SelectItem>
