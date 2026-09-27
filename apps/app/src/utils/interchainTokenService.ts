@@ -155,7 +155,6 @@ export const bridgeNFTL = async (
       value: gasAmount,
       chainId: TARGET_NETWORK.chainId,
     })
-
     const txReceipt = await waitForTransactionReceipt(config, {
       hash: txHash,
       confirmations: 1,
