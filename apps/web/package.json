@@ -6,8 +6,8 @@
   "scripts": {
     "build": "bun scripts/prepare-images.mjs && astro build && bun scripts/finalize-static.mjs && bun scripts/check-static.mjs",
     "clean": "rm -rf node_modules .turbo .astro .web-images .worker-build dist",
-    "cloudflare:build": "bun run build && wrangler deploy --dry-run --outdir .worker-build",
-    "cloudflare:upload": "wrangler versions upload",
+    "cloudflare:build": "bun run build && cf-wrangler build && cf deploy --prebuilt --dry-run",
+    "cloudflare:upload": "cf previews deploy",
     "dev": "bun scripts/prepare-images.mjs && astro dev --port 3000",
     "format": "oxfmt .",
     "lint": "oxlint",
@@ -21,7 +21,8 @@
     "test:routes": "node --test checks/routes.node.mjs",
     "test:watch": "bun test --watch",
     "type-check": "bun scripts/prepare-images.mjs --metadata-only && astro check",
-    "build:cloudflare": "bun run build"
+    "build:cloudflare": "bun run build",
+    "deploy": "bun run build:cloudflare && cf-wrangler build && cf deploy --prebuilt"
   },
   "dependencies": {
     "@astrojs/solid-js": "^7.0.2",
@@ -42,6 +43,7 @@
     "@playwright/test": "^1.63.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.5.1",
-    "wrangler": "^4.130.0"
+    "wrangler": "^4.143.0",
+    "cf": "^1.0.0-beta.5"
   }
 }
