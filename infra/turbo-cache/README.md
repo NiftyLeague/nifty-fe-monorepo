@@ -65,17 +65,17 @@ simply a cache miss on the next build.
 
 ## Deploying
 
-Wrangler is a root devDependency, so no install step is needed:
+Deploy through the cf CLI from this directory (`bun run deploy`):
 
 ```sh
-bunx wrangler deploy --config infra/turbo-cache/wrangler.jsonc
+bun run deploy    # cf-wrangler build && cf deploy --prebuilt
 ```
 
 Secrets (values are per-deployment; never commit them):
 
 ```sh
-bunx wrangler secret put TURBO_TOKEN --config infra/turbo-cache/wrangler.jsonc
-bunx wrangler secret put TURBO_TEAM  --config infra/turbo-cache/wrangler.jsonc
+cf workers secrets update nifty-turbo-cache TURBO_TOKEN
+cf workers secrets update nifty-turbo-cache TURBO_TEAM
 ```
 
 Then confirm the caching contract against the live Worker:

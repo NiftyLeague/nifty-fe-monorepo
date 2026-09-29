@@ -6,8 +6,8 @@
   "scripts": {
     "build": "bun scripts/prepare-images.mjs && astro build && bun scripts/finalize-static.mjs && bun scripts/check-static.mjs",
     "clean": "rm -rf node_modules .turbo .astro .web-images .worker-build dist",
-    "cloudflare:build": "bun run build && wrangler deploy --dry-run --outdir .worker-build",
-    "cloudflare:upload": "wrangler versions upload",
+    "cloudflare:build": "bun run build && cf-wrangler build && cf deploy --prebuilt --dry-run",
+    "cloudflare:upload": "cf previews deploy",
     "dev": "bun scripts/prepare-images.mjs && astro dev --port 3000",
     "format": "oxfmt .",
     "lint": "oxlint",
