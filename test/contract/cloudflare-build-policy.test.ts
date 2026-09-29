@@ -20,37 +20,17 @@ const SERVICE_NAMES: Record<string, string> = {
   'apps/web': 'nifty-league-web-astro',
 }
 
-const readWrangler = (projectRoot: string) => {
-  const raw = readFileSync(join(process.cwd(), projectRoot, 'wrangler.jsonc'), 'utf8')
-  // wrangler.jsonc allows comments and trailing commas; normalize both before
-  // parsing (mirrors how wrangler's own parser reads the file).
-  const stripped = raw
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .split('\n')
-    .filter((line) => !line.trim().startsWith('//'))
-    .join('\n')
-    .replace(/,([\s\n]*[}\]])/g, '$1')
-  return JSON.parse(stripped) as {
-    name?: string
-    account_id?: string
-    main?: string
-    compatibility_date?: string
-    compatibility_flags?: string[]
-    workers_dev?: boolean
-    observability?: { enabled?: boolean }
-    alias?: Record<string, string>
-    assets?: { directory?: string; binding?: string }
-  }
-}
+const readCfConfig = (projectRoot: string) =>
+  readFileSync(join(process.cwd(), projectRoot, 'cloudflare.config.ts'), 'utf8')
 
 describe('Cloudflare build policy', () => {
   it('keeps every app on the shared Worker identity policy', () => {
     for (const projectRoot of projectRoots) {
-      const config = readWrangler(projectRoot)
-      expect(config.name, projectRoot).toBe(SERVICE_NAMES[projectRoot])
-      expect(config.account_id, projectRoot).toBe(ACCOUNT_ID)
-      expect(config.workers_dev ?? false, projectRoot).toBe(true)
-      expect(config.observability?.enabled ?? false, projectRoot).toBe(true)
+      const config = readCfConfig(projectRoot)
+      expect(config, projectRoot).toContain(`name: '${SERVICE_NAMES[projectRoot]}'`)
+      expect(config, projectRoot).toContain(`accountId: '${ACCOUNT_ID}'`)
+      expect(config, projectRoot).toContain('workersDev: true')
+      expect(config, projectRoot).toContain('enabled: true')
     }
   })
 
@@ -61,24 +41,23 @@ describe('Cloudflare build policy', () => {
       'apps/app': '2026-08-06',
     }
     for (const projectRoot of projectRoots) {
-      const config = readWrangler(projectRoot)
-      expect(config.compatibility_date ?? '', `${projectRoot} compatibility_date`).toBe(
-        expectedDate[projectRoot] ?? '2026-09-09'
+      const config = readCfConfig(projectRoot)
+      expect(config, projectRoot).toContain(
+        `compatibilityDate: '${expectedDate[projectRoot] ?? '2026-09-09'}'`
       )
     }
     for (const projectRoot of ['apps/app', 'apps/smashers', 'apps/api']) {
-      const config = readWrangler(projectRoot)
-      expect(config.compatibility_flags, projectRoot).toContain('nodejs_compat')
-      expect(config.compatibility_flags, projectRoot).toContain(
-        'nodejs_compat_populate_process_env'
-      )
+      const config = readCfConfig(projectRoot)
+      expect(config, projectRoot).toContain('nodejs_compat')
+      expect(config, projectRoot).toContain('nodejs_compat_populate_process_env')
     }
   })
 
   it('points the api Worker at source with the config shim aliased', () => {
-    const config = readWrangler('apps/api')
-    expect(config.main).toBe('src/worker.ts')
-    expect(config.alias?.['node-config-ts']).toBe('./src/lib/node-config-ts-shim.ts')
+    const config = readCfConfig('apps/api')
+    expect(config).toContain("entrypoint: 'src/worker.ts'")
+    const tooling = readFileSync(join(process.cwd(), 'apps/api/wrangler.config.ts'), 'utf8')
+    expect(tooling).toContain("'node-config-ts': './src/lib/node-config-ts-shim.ts'")
   })
 
   it('keeps the retired platform config retired', () => {
