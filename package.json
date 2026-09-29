@@ -5,7 +5,8 @@
   "license": "Apache-2.0",
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "infra/*"
   ],
   "scripts": {
     "act-ci": "act --container-architecture linux/amd64 -P ubuntu-latest=-self-hosted -s GITHUB_TOKEN --var-file .env.act --secret-file .env.act -W '.github/workflows/ci.yml'",
@@ -41,23 +42,24 @@
     "type:check": "turbo type-check"
   },
   "devDependencies": {
-    "@babel/core": "^8.0.5",
+    "@babel/core": "^8.0.6",
     "@babel/preset-typescript": "^8.0.1",
     "@happy-dom/global-registrator": "^20.14.5",
     "@nl/typescript-config": "workspace:*",
-    "@shadcn/lint": "^0.1.1",
+    "@shadcn/lint": "^0.1.5",
     "@solidjs/testing-library": "^0.8.10",
     "@testing-library/user-event": "^14.6.7",
-    "@types/node": "^26.5.1",
+    "@types/node": "^26.6.3",
     "babel-preset-solid": "^1.9.15",
+    "cf": "^1.0.0-beta.5",
     "chrome-launcher": "^1.2.1",
-    "lighthouse": "^13.4.1",
+    "lighthouse": "^13.5.0",
     "oxfmt": "^0.68.0",
-    "oxlint": "^1.83.0",
+    "oxlint": "^1.85.0",
     "syncpack": "^15.3.3",
-    "turbo": "^2.10.12",
+    "turbo": "^2.11.5",
     "typescript": "~6.0.3",
-    "wrangler": "4.131.1"
+    "wrangler": "^4.143.0"
   },
   "overrides": {
     "adm-zip": "0.5.16",

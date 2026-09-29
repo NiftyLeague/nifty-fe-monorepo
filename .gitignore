@@ -90,3 +90,6 @@ test-results/
 
 # Cloudflare Workers local state
 .wrangler/
+
+# Cloudflare cf CLI build output (Build Output Specification)
+.cloudflare/

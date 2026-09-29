@@ -61,6 +61,22 @@ jobs:
 
   # The stable aggregate check name is the caller job name plus the
   # orchestrator gate job name: "Validation / Gate". Keep both names fixed.
+  # When CI billing is paused the orchestrator above is skipped, so the
+  # ruleset's required "Validation / Gate" context would never report and
+  # every PR would block forever. Report it directly while paused; when
+  # billing resumes this job skips and the real gate inside the reusable
+  # workflow reports instead. Local validation replaces the skipped lanes.
+  gate-paused:
+    name: Validation / Gate
+    if: vars.CI_BILLING_PAUSED == 'true' && github.event_name == 'pull_request' && github.event.pull_request.draft == false
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Report gate while CI billing is paused
+        run: echo 'CI billing is paused; validation runs locally per repo policy.'
+
   validation:
     name: Validation
     needs: mode

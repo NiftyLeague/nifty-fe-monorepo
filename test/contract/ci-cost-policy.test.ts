@@ -13,7 +13,7 @@ describe('hosted validation cost policy', () => {
     const source = readGitHubConfig('dependabot.yml')
 
     expect(source).toContain('package-ecosystem: github-actions')
-    expect(source).toContain('package-ecosystem: npm')
+    expect(source).toContain('package-ecosystem: bun')
     expect(source).not.toContain('package-ecosystem: cargo')
   })
 
