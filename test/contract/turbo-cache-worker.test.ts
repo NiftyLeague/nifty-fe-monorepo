@@ -25,32 +25,16 @@ const flat = (source: string) => source.replace(/\s+/g, ' ')
 const source = flat(read('infra/turbo-cache/src/index.ts'))
 const readme = read('infra/turbo-cache/README.md')
 
-const config = (() => {
-  const raw = read('infra/turbo-cache/wrangler.jsonc')
-  const stripped = raw
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .split('\n')
-    .filter((line) => !line.trim().startsWith('//'))
-    .join('\n')
-    .replace(/,([\s\n]*[}\]])/g, '$1')
-  return JSON.parse(stripped) as {
-    name?: string
-    account_id?: string
-    main?: string
-    workers_dev?: boolean
-    observability?: { enabled?: boolean }
-    r2_buckets?: { binding?: string; bucket_name?: string }[]
-  }
-})()
+const config = flat(read('infra/turbo-cache/cloudflare.config.ts'))
 
 describe('Turbo remote-cache Worker', () => {
   it('deploys from this repo against the cache bucket', () => {
-    expect(config.name).toBe(WORKER)
-    expect(config.account_id).toBe(ACCOUNT_ID)
-    expect(config.main).toBe('src/index.ts')
-    expect(config.workers_dev).toBe(true)
-    expect(config.observability?.enabled).toBe(true)
-    expect(config.r2_buckets).toEqual([{ binding: 'BUCKET', bucket_name: WORKER }])
+    expect(config).toContain("name: 'nifty-turbo-cache'")
+    expect(config).toContain(`accountId: '${ACCOUNT_ID}'`)
+    expect(config).toContain("entrypoint: 'src/index.ts'")
+    expect(config).toContain('workersDev: true')
+    expect(config).toContain('enabled: true')
+    expect(config).toContain("BUCKET: bindings.r2({ name: 'nifty-turbo-cache' })")
   })
 
   it('serves artifacts as immutable and keeps misses out of every cache', () => {
@@ -105,7 +89,7 @@ describe('Turbo remote-cache Worker', () => {
   })
 
   it('documents the deploy and probe path it is shipped with', () => {
-    expect(readme).toContain('bunx wrangler deploy --config infra/turbo-cache/wrangler.jsonc')
+    expect(readme).toContain('bun run deploy    # cf-wrangler build && cf deploy --prebuilt')
     expect(readme).toContain('bun scripts/turbo-cache-probe.mjs')
     // The Pink Binder account runs the same source from its own repo.
     expect(readme).toContain('pinkbinder-turbo-cache')
