@@ -74,9 +74,11 @@ bun run deploy    # cf-wrangler build && cf deploy --prebuilt
 Secrets (values are per-deployment; never commit them):
 
 ```sh
-cf workers secrets update nifty-turbo-cache TURBO_TOKEN
-cf workers secrets update nifty-turbo-cache TURBO_TEAM
+cf workers secrets update TURBO_TOKEN
+cf workers secrets update TURBO_TEAM
 ```
+
+(The Worker is resolved from this directory's `cloudflare.config.ts`.)
 
 Then confirm the caching contract against the live Worker:
 
