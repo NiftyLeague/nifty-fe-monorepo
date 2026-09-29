@@ -16,7 +16,8 @@
     "test:watch": "bun test --watch",
     "type-check": "tsc --noEmit",
     "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=app",
-    "cf:build": "bun scripts/prepare-images.mjs && vite build && bun scripts/post-build-worker.mjs"
+    "cf:build": "bun scripts/prepare-images.mjs && vite build && bun scripts/post-build-worker.mjs",
+    "deploy": "bun run build:cloudflare && cf-wrangler build && cf deploy --prebuilt"
   },
   "dependencies": {
     "@nl/contracts": "workspace:*",
@@ -41,11 +42,14 @@
     "@solidjs/testing-library": "^0.8.10",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
+    "cf": "^1.0.0-beta.5",
     "chrome-launcher": "^1.2.1",
     "lighthouse": "^13.4.1",
     "nitro": "^3.0.260903-beta",
     "sharp": "^0.35.4",
     "vite": "^8.3.0",
-    "vite-plugin-solid": "^2.11.12"
-  }
+    "vite-plugin-solid": "^2.11.12",
+    "wrangler": "^4.143.0"
+  },
+  "packageManager": "bun@1.4.0"
 }
