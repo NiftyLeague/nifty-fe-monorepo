@@ -535,8 +535,8 @@ describe('GLTF viewer loading contract', () => {
     // The Next.js /_next/static CORS rewrite is replaced by the `_headers` file
     // emitted into the build output: the Workers assets surface consumes it, and
     // the E2E suite asserts the emitted header against a wrangler dev server.
-    // vercel.json carries the same entries for the Vercel surface, pinned by the
-    // header-sources sync test in vercel-build-policy.test.ts.
+    // The Workers `_headers` file is now the only security-header source, and
+    // cloudflare-build-policy.test.ts keeps the retired platform retired.
     expect(HEADERS_FILE).toContain('/_astro/*')
     expect(HEADERS_FILE).toContain('Access-Control-Allow-Origin: *')
   })

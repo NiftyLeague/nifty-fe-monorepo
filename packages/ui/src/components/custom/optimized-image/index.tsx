@@ -71,7 +71,7 @@ export function trimFixedWidthSrcSet(srcSet: string | undefined, sizes: string |
  *
  * Every app that renders this component either uses it directly (the app) or
  * aliases the specifier to its own optimiser (web generates build-time variants,
- * smashers calls the Vercel image service). The attribute contract lives in
+ * smashers has no optimizer endpoint). The attribute contract lives in
  * `@nl/ui/lib/image-attributes`; this file keeps the loader-hint contract the
  * tests pin down and renders a native `<img>` at the supplied source.
  */

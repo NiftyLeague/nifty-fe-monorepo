@@ -121,7 +121,7 @@ describe('Turbo cache environment scope', () => {
     )
   })
 
-  it('pins the package manager used by Vercel and local builds', () => {
+  it('pins the package manager used by CI and local builds', () => {
     expect(rootPackage.packageManager).toBeUndefined()
     expect(rootPackage.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.0' })
   })
@@ -219,7 +219,7 @@ describe('Turbo cache environment scope', () => {
       // Every declared env var must be one the package can actually read, and
       // every PlayFab variable it reads must be declared.
       for (const name of declared) {
-        if (name === 'CI' || name === 'VERCEL_ENV' || name === 'NODE_ENV') continue
+        if (name === 'CI' || name === 'NODE_ENV') continue
         expect(read.has(name), `${task} declares ${name} but the package never reads it`).toBe(true)
       }
       for (const name of read) {

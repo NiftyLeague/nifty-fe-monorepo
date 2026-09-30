@@ -8,7 +8,7 @@ type ComponentProps<Tag extends keyof JSX.HTMLElementTags> = JSX.HTMLElementTags
  * optimised image.
  *
  * Three implementations grew these rules independently: `apps/web` (build-time
- * manifest variants), `apps/smashers` (the Vercel optimiser) and the shared
+ * manifest variants), `apps/smashers` (no optimizer endpoint) and the shared
  * `optimized-image` component the app renders. The optimiser is genuinely
  * per-app; the attribute derivation around it was the same code three times, and
  * this module is that common part:
