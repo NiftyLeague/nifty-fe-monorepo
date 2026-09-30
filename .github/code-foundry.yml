@@ -46,3 +46,7 @@ required_capabilities:
 coverage_enforcement: auto
 coverage_metrics: lines
 coverage_report:
+
+# Dependabot version updates stay disabled while CI billing is paused;
+# the CI_BILLING_PAUSED repository variable cannot gate Dependabot update runs.
+billing_paused: true
