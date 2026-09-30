@@ -63,7 +63,7 @@
     "tsc-alias": "^1.9.1",
     "tsx": "^4.23.10",
     "typescript": "~6.0.3",
-    "wrangler": "^4.143.0"
+    "wrangler": "^4.145.0"
   },
   "engines": {
     "node": "24.18.0"
