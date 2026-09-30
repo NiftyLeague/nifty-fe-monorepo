@@ -55,7 +55,7 @@
     "chrome-launcher": "^1.2.1",
     "lighthouse": "^13.5.0",
     "oxfmt": "^0.68.0",
-    "oxlint": "^1.85.0",
+    "oxlint": "^1.86.0",
     "syncpack": "^15.3.3",
     "turbo": "^2.11.5",
     "typescript": "~6.0.3",
@@ -73,7 +73,7 @@
     "serialize-javascript": "6.0.2",
     "sharp": "^0.35.4",
     "tmp": "0.2.7",
-    "undici": "6.28.0",
+    "undici": "7.29.1",
     "viem": "2.55.19",
     "ws": "8.21.3"
   },

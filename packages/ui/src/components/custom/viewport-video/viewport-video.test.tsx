@@ -16,6 +16,24 @@ mock.module('@nl/ui/hooks/useOnScreen', () => ({
 mock.module('@nl/ui/hooks/useMediaQuery', () => ({
   default: () => () => state.reducedMotion,
 }))
+
+function PlaybackHarness(props: {
+  playOnViewport?: boolean
+  enhancer: typeof import('./ViewportVideoEnhancer').default
+}) {
+  let videoEl: HTMLVideoElement | undefined
+
+  return (
+    <>
+      <video data-testid="video" ref={(el) => (videoEl = el)} />
+      <props.enhancer
+        isNearViewport={state.nearViewport}
+        playOnViewport={props.playOnViewport}
+        videoRef={() => videoEl}
+      />
+    </>
+  )
+}
 describe('ViewportVideo', () => {
   let ViewportVideo: typeof import('./index').ViewportVideo
   let ViewportVideoEnhancer: typeof import('./ViewportVideoEnhancer').default
@@ -30,6 +48,11 @@ describe('ViewportVideo', () => {
     ViewportVideo = (await import('./index')).ViewportVideo
     ViewportVideoEnhancer = (await import('./ViewportVideoEnhancer')).default
   })
+
+  const renderPlaybackHarness = (props: { playOnViewport?: boolean }) =>
+    render(() => (
+      <PlaybackHarness playOnViewport={props.playOnViewport} enhancer={ViewportVideoEnhancer} />
+    ))
 
   it('keeps the video shell server-rendered and adds media only near the viewport', async () => {
     state.nearViewport = false
@@ -118,22 +141,7 @@ describe('ViewportVideo', () => {
   })
 
   it('only enables playback and metadata loading near the viewport', async () => {
-    function PlaybackHarness() {
-      let videoEl: HTMLVideoElement | undefined
-
-      return (
-        <>
-          <video data-testid="video" ref={(el) => (videoEl = el)} />
-          <ViewportVideoEnhancer
-            isNearViewport={state.nearViewport}
-            playOnViewport
-            videoRef={() => videoEl}
-          />
-        </>
-      )
-    }
-
-    const { container, unmount } = render(() => <PlaybackHarness />)
+    const { container, unmount } = renderPlaybackHarness({ playOnViewport: true })
     const video = container.querySelector('[data-testid="video"]') as HTMLVideoElement
 
     await waitFor(() => {
@@ -143,7 +151,7 @@ describe('ViewportVideo', () => {
 
     state.nearViewport = false
     unmount()
-    const deferred = render(() => <PlaybackHarness />)
+    const deferred = renderPlaybackHarness({})
     const deferredVideo = deferred.container.querySelector(
       '[data-testid="video"]'
     ) as HTMLVideoElement
@@ -155,22 +163,7 @@ describe('ViewportVideo', () => {
   })
 
   it('keeps controls-only videos paused while still allowing explicit playback', async () => {
-    function PlaybackHarness() {
-      let videoEl: HTMLVideoElement | undefined
-
-      return (
-        <>
-          <video data-testid="video" ref={(el) => (videoEl = el)} />
-          <ViewportVideoEnhancer
-            isNearViewport={state.nearViewport}
-            playOnViewport={false}
-            videoRef={() => videoEl}
-          />
-        </>
-      )
-    }
-
-    const { container } = render(() => <PlaybackHarness />)
+    const { container } = renderPlaybackHarness({})
     const video = container.querySelector('[data-testid="video"]') as HTMLVideoElement
 
     await waitFor(() => {
@@ -181,22 +174,7 @@ describe('ViewportVideo', () => {
 
   it('honors reduced-motion preferences even when visible', async () => {
     state.reducedMotion = true
-    function PlaybackHarness() {
-      let videoEl: HTMLVideoElement | undefined
-
-      return (
-        <>
-          <video ref={(el) => (videoEl = el)} />
-          <ViewportVideoEnhancer
-            isNearViewport={state.nearViewport}
-            playOnViewport
-            videoRef={() => videoEl}
-          />
-        </>
-      )
-    }
-
-    const { container } = render(() => <PlaybackHarness />)
+    const { container } = renderPlaybackHarness({ playOnViewport: true })
     const video = container.querySelector('video') as HTMLVideoElement
 
     await waitFor(() => {
