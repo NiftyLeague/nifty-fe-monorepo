@@ -4,6 +4,10 @@
   "trailingComma": "es5",
   "printWidth": 100,
   "ignorePatterns": [
+    "CHANGELOG.md",
+    ".github/.code-foundry",
+    ".github/actions/",
+    "plugin.json",
     "**/*.hbs",
     "**/.app",
     "**/.astro",
@@ -20,17 +24,13 @@
     "**/wrangler.jsonc",
     ".agents/**",
     ".code-foundry",
-    ".github/.code-foundry",
-    ".github/actions/",
     ".turbo",
     ".venv",
     ".vscode/",
-    "CHANGELOG.md",
     "apps/api/api/config",
     "apps/app/src/constants/leaderboards/*.json",
     "benchmarks/results/**",
     "packages/playfab/src/sdk/typings/**",
-    "plugin.json",
     "pnpm-lock.yaml"
   ]
 }

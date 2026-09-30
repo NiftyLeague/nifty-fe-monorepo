@@ -16,6 +16,7 @@ node_modules/
 .pnp.js
 .turbo/
 *.tsbuildinfo
+next-env.d.ts
 
 # Python
 .venv/
@@ -36,6 +37,7 @@ out/
 coverage/
 htmlcov/
 .coverage*
+.next/
 artifacts/
 performance-results.json
 performance-results/
@@ -47,16 +49,6 @@ coverage.json
 .code-foundry/
 tests/.bin/
 **/.app/
-
-# Generated SEO files belong to the app that serves them, never to the shared
-# assets directory. Every Astro app uses ../../assets as its publicDir, so a file
-# left here is copied into each app's output: stale staging files from the
-# pre-migration build sat here and silently replaced apps/web's own sitemap in
-# local builds.
-assets/robots.txt
-assets/sitemap.xml
-assets/sitemap-*.xml
-assets/sitemap-index.xml
 
 # Logs and temporary files
 *.log
@@ -77,19 +69,29 @@ pnpm-debug.log*
 .zed/
 .fleet/
 .opencode/
-.zcode/
 .kluster/
 .direnv/
 .envrc
+.vercel/
 mise.local.toml
 .mise.local.toml
 mise.local.lock
 .mise.local.lock
 *.code-workspace
-test-results/
 
+# Repository-specific rules
+# Generated SEO files belong to the app that serves them, never to the shared
+# assets directory. Every Astro app uses ../../assets as its publicDir, so a file
+# left here is copied into each app's output: stale staging files from the
+# pre-migration build sat here and silently replaced apps/web's own sitemap in
+# local builds.
+assets/robots.txt
+assets/sitemap.xml
+assets/sitemap-*.xml
+assets/sitemap-index.xml
+.zcode/
+test-results/
 # Cloudflare Workers local state
 .wrangler/
-
 # Cloudflare cf CLI build output (Build Output Specification)
 .cloudflare/
