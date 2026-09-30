@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.4.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v2.3.0...docs-v2.4.0) (2026-09-30)
+
+
+### Features
+
+* **ci:** deploy through the cf CLI; drop the deploy-only wrangler.jsonc files ([#2032](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2032)) ([5338860](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/5338860067b28debaaf26f37390f464b79546786))
+* **deploy:** deploy all workers via the cf CLI ([#2031](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2031)) ([e33b2aa](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/e33b2aa3477157f77fe83d5825f1424f1cd0a784))
+
+
+### Bug Fixes
+
+* **ci:** pick up the cf production-build and diagnostics fixes (code-foundry v1.37.2) ([#2036](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2036)) ([3647297](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/3647297acd8171ec8f361e151823a2dae5105d82))
+
 ## [2.3.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/docs-v2.2.0...docs-v2.3.0) (2026-09-22)
 
 
