@@ -157,7 +157,7 @@ export const exceptions = [
     route: 'smashers-home',
     metric: 'requests',
     reason:
-      'Video delivery: posters and logos now load through the Vercel image optimizer and settle-window tag beacons join the count — transfer fell 79% and LCP 600 → 444 ms in the same run, so nothing added is critical-path',
+      'Video delivery: posters and logos loaded through the platform image optimizer at measurement time and settle-window tag beacons join the count — transfer fell 79% and LCP 600 → 444 ms in the same run, so nothing added is critical-path',
   },
   {
     route: 'smashers-home',
