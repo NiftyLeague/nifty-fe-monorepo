@@ -3,6 +3,10 @@ import { beforeEach, describe, expect, it, mock, spyOn } from 'bun:test'
 const commandMock = mock()
 const sendMock = mock()
 
+function PutObjectCommand(params: unknown) {
+  commandMock(params)
+}
+
 mock.module('node-config-ts', () => ({
   config: {
     aws: {
@@ -16,9 +20,7 @@ mock.module('@aws-sdk/client-s3', () => ({
       return sendMock
     }
   },
-  PutObjectCommand: function PutObjectCommand(params: unknown) {
-    commandMock(params)
-  },
+  PutObjectCommand,
 }))
 
 // uploadToS3 creates `client = new S3Client(...)` at module top-level, so it must

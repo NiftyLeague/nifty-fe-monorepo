@@ -16,8 +16,6 @@ import { join } from 'node:path'
  */
 
 const ACCOUNT_ID = '90526f277153982742d51be614fb9b40'
-const WORKER = 'nifty-turbo-cache'
-
 const read = (path: string) => readFileSync(join(process.cwd(), path), 'utf8')
 /** Collapse whitespace so a pin survives reformatting of the source. */
 const flat = (source: string) => source.replace(/\s+/g, ' ')

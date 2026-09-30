@@ -16,6 +16,13 @@ import { authTokenStore } from '@/state/auth-storage'
 
 const fetchMock = mock()
 
+const mockRestoreFetch = () => {
+  globalThis.fetch = fetchMock as typeof fetch
+  fetchMock.mockImplementation(
+    async () => new Response(JSON.stringify({ name: 'Probe' }), { status: 200 })
+  )
+}
+
 describe('authed query options', () => {
   beforeEach(() => {
     fetchMock.mockReset()
@@ -23,13 +30,6 @@ describe('authed query options', () => {
     setIsLoggedIn(false)
     authTokenStore.clear()
   })
-
-  const mockRestoreFetch = () => {
-    globalThis.fetch = fetchMock as typeof fetch
-    fetchMock.mockImplementation(
-      async () => new Response(JSON.stringify({ name: 'Probe' }), { status: 200 })
-    )
-  }
 
   it('authedToken requires a logged-in session with a token', () => {
     expect(authedToken()).toBeUndefined()

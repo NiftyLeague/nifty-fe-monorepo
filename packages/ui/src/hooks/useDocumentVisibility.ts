@@ -30,8 +30,9 @@ const subscribe = (listener: () => void) => {
 export function useDocumentVisibility(): Accessor<boolean> {
   const [visible, setVisible] = createSignal(typeof document === 'undefined' || !document.hidden)
 
+  const update = () => setVisible(!document.hidden)
+
   onMount(() => {
-    const update = () => setVisible(!document.hidden)
     update()
     onCleanup(subscribe(update))
   })
