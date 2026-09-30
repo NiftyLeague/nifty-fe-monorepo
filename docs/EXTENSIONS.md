@@ -13,7 +13,7 @@ repository-specific behavior outside those managed paths.
 
 Any workflow not named by the baseline is preserved automatically. This is the
 supported place for project-specific workflows such as Slither, search indexing,
-deployment, or Docker publishing.
+deployment, Docker publishing, or Vercel tasks.
 
 `custom_workflows: preserve` is the default and the only supported value. Code
 Foundry intentionally has no prune mode for custom workflows; remove those files

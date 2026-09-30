@@ -7,19 +7,19 @@ const TrailerContent = () => {
   let modalIframe: HTMLIFrameElement | undefined
 
   // Handle YouTube API messages
-  onMount(() => {
-    const handleMessage = (event: MessageEvent) => {
-      if (event.origin !== 'https://www.youtube.com') return
-      try {
-        const data = JSON.parse(event.data)
-        if (data.event === 'onReady') {
-          setIsLoaded(true)
-        }
-      } catch {
-        // Ignore parsing errors from other messages
+  const handleMessage = (event: MessageEvent) => {
+    if (event.origin !== 'https://www.youtube.com') return
+    try {
+      const data = JSON.parse(event.data)
+      if (data.event === 'onReady') {
+        setIsLoaded(true)
       }
+    } catch {
+      // Ignore parsing errors from other messages
     }
+  }
 
+  onMount(() => {
     window.addEventListener('message', handleMessage)
     onCleanup(() => window.removeEventListener('message', handleMessage))
   })

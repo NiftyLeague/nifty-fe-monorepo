@@ -61,47 +61,47 @@ export default function NiftyWorldEmbed(props: NiftyWorldEmbedProps) {
     onCleanup(() => window.clearTimeout(timeoutId))
   })
 
-  createEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(document.fullscreenElement === experienceShell())
-    }
+  const handleFullscreenChange = () => {
+    setIsFullscreen(document.fullscreenElement === experienceShell())
+  }
 
+  createEffect(() => {
     document.addEventListener('fullscreenchange', handleFullscreenChange)
     onCleanup(() => document.removeEventListener('fullscreenchange', handleFullscreenChange))
   })
 
+  const handleThemeReady = (event: MessageEvent) => {
+    if (event.origin !== NIFTY_WORLD_ORIGIN) return
+    if (event.source !== frame()?.contentWindow) return
+    if (!event.data || typeof event.data !== 'object') return
+    if (event.data.type !== NIFTY_WORLD_THEME_READY_MESSAGE) return
+
+    frame()?.contentWindow?.postMessage(
+      {
+        type: NIFTY_WORLD_THEME_MESSAGE,
+        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      },
+      NIFTY_WORLD_ORIGIN
+    )
+  }
+
   onMount(() => {
-    const handleThemeReady = (event: MessageEvent) => {
-      if (event.origin !== NIFTY_WORLD_ORIGIN) return
-      if (event.source !== frame()?.contentWindow) return
-      if (!event.data || typeof event.data !== 'object') return
-      if (event.data.type !== NIFTY_WORLD_THEME_READY_MESSAGE) return
-
-      frame()?.contentWindow?.postMessage(
-        {
-          type: NIFTY_WORLD_THEME_MESSAGE,
-          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
-        },
-        NIFTY_WORLD_ORIGIN
-      )
-    }
-
     window.addEventListener('message', handleThemeReady)
     onCleanup(() => window.removeEventListener('message', handleThemeReady))
   })
 
+  const sendThemeNotice = () => {
+    frame()?.contentWindow?.postMessage(
+      {
+        type: NIFTY_WORLD_THEME_MESSAGE,
+        theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
+      },
+      NIFTY_WORLD_ORIGIN
+    )
+  }
+
   createEffect(() => {
     if (frameState() !== 'ready') return
-
-    const sendThemeNotice = () => {
-      frame()?.contentWindow?.postMessage(
-        {
-          type: NIFTY_WORLD_THEME_MESSAGE,
-          theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light',
-        },
-        NIFTY_WORLD_ORIGIN
-      )
-    }
 
     sendThemeNotice()
 

@@ -41,7 +41,11 @@ describe('hosted validation cost policy', () => {
     expect(source).toContain("needs.detect.outputs.enabled == 'true'")
     expect(source).toContain("needs.detect.outputs.token == 'true'")
     expect(source).toContain('vars.OPENCODE_SECURITY')
-    expect(source).toContain("if: vars.CI_BILLING_PAUSED != 'true'")
+    // The detect job gates on the billing pause and on the security variable
+    // itself: a disabled repository must not allocate a runner just to report
+    // that the scanner is off.
+    expect(source).toContain("vars.CI_BILLING_PAUSED != 'true'")
+    expect(source).toContain("vars.OPENCODE_SECURITY == 'true'")
     expect(source).not.toContain('release-please--branches--main')
     expect(readGitHubConfig('code-foundry.yml')).not.toContain('opencode_security:')
   })
