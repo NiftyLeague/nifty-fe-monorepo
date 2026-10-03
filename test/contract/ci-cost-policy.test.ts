@@ -21,7 +21,9 @@ describe('hosted validation cost policy', () => {
     const source = readWorkflow('validation.yml')
 
     expect(source).toContain('      - ready_for_review')
-    expect(source).toContain('cancel-in-progress: true')
+    // v1.44.x cancels only superseded pull-request runs; push runs queue
+    // so cancelling a main push cannot drop default-branch analysis.
+    expect(source).toContain("cancel-in-progress: ${{ github.event_name == 'pull_request' }}")
     expect(source).toContain('code-foundry-validation-')
     expect(source).toContain("vars.CI_BILLING_PAUSED != 'true'")
   })
