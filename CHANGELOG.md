@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.5.0...nifty-fe-monorepo-v2.5.1) (2026-10-06)
+
+
+### Bug Fixes
+
+* **deps:** patch seroval, source-map-js, fast-uri, postcss-selector-parser advisories ([#2041](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2041)) ([271d801](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/271d801b3ca5e4e041671bc11d78344c30180d81))
+
 ## [2.5.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.4.2...nifty-fe-monorepo-v2.5.0) (2026-09-30)
 
 
