@@ -79,6 +79,11 @@ mise.local.lock
 .mise.local.lock
 *.code-workspace
 
+# Machine-local git hook delegates written by Code Foundry sync; only the
+# committed pre-commit gate is tracked.
+.githooks/*
+!.githooks/pre-commit
+
 # Repository-specific rules
 # Generated SEO files belong to the app that serves them, never to the shared
 # assets directory. Every Astro app uses ../../assets as its publicDir, so a file
