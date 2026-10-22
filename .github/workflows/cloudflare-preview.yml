@@ -31,7 +31,7 @@ jobs:
             environment: Preview – api
           - app: smashers
             environment: Preview – smashers-web
-    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.47.1
+    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@801cb23c8000de9adf2db8744f9fab5a94af155f
     with:
       mode: preview
       deploy-tool: cf
