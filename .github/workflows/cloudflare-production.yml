@@ -32,7 +32,7 @@ jobs:
             environment: Production – api
           - app: smashers
             environment: Production – smashers-web
-    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.47.1
+    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.48.4
     with:
       mode: production
       deploy-tool: cf
@@ -41,7 +41,7 @@ jobs:
       turbo-filter: ${{ matrix.app }}
       install-working-directory: .
       build-script: build:cloudflare
-      bun-version: 1.4.0
+      bun-version: 1.4.4
       environment: ${{ matrix.environment }}
     secrets:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

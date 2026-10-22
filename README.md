@@ -66,7 +66,7 @@ cd nifty-fe-monorepo
 
 ### Install dependencies
 
-We use [Bun](https://bun.sh/) to manage dependencies.
+We use [Bun](https://bun.sh/) 1.4.4 to manage dependencies and `bun check` for TypeScript checking. Astro checks remain enabled for framework files, and `tsc` still emits the API build. Formatting stays on Oxfmt.
 
 ```
 bun install --frozen-lockfile
