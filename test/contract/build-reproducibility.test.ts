@@ -10,7 +10,7 @@ const lockfile = readFileSync('bun.lock', 'utf8')
 describe('build reproducibility', () => {
   it('keeps the Bun toolchain policy pinned for reproducible installs', () => {
     expect(manifest.packageManager).toBeUndefined()
-    expect(manifest.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.0' })
+    expect(manifest.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.4' })
     expect(lockfile).toMatch(/"lockfileVersion": 2,/)
   })
 })

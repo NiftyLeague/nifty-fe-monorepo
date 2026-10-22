@@ -28,7 +28,10 @@ const toUi =
   () =>
     typeof ui === 'function' ? (ui as () => JSX.Element)() : ui
 
-export function render(ui: Ui, options?: RenderOptions) {
+export function render(
+  ui: Ui,
+  options?: RenderOptions
+): Omit<ReturnType<typeof renderSolid>, 'rerender'> & { rerender(next: Ui): void } {
   const result = renderSolid(toUi(ui), options)
   let unmountCurrent = result.unmount
 

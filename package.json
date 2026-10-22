@@ -57,6 +57,7 @@
     "oxfmt": "^0.68.0",
     "oxlint": "^1.86.0",
     "syncpack": "^15.3.3",
+    "tailwindcss": "4.3.3",
     "turbo": "^2.11.5",
     "typescript": "~6.0.3",
     "wrangler": "^4.145.0"
@@ -94,7 +95,7 @@
   "devEngines": {
     "packageManager": {
       "name": "bun",
-      "version": "1.4.0"
+      "version": "1.4.4"
     }
   },
   "engines": {

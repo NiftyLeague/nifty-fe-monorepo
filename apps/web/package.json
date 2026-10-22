@@ -20,7 +20,7 @@
     "test:e2e": "bun run build && playwright test",
     "test:routes": "node --test checks/routes.node.mjs",
     "test:watch": "bun test --watch",
-    "type-check": "bun scripts/prepare-images.mjs --metadata-only && astro check",
+    "type-check": "bun scripts/prepare-images.mjs --metadata-only && astro sync && bun check && astro check",
     "build:cloudflare": "bun run build",
     "deploy": "bun run build:cloudflare && cf-wrangler build && cf deploy --prebuilt"
   },
@@ -46,5 +46,5 @@
     "cf": "^1.0.0-beta.5",
     "wrangler": "^4.145.0"
   },
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.4"
 }

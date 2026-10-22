@@ -27,7 +27,7 @@
     "test:live": "bun test ./test/smoke/api.contract.live.ts --testTimeout=30000",
     "test:unit": "bun scripts/run-tests-isolated.ts src --exclude src/index.integration.test.ts",
     "test:watch": "bun test --watch",
-    "type-check": "tsc -p tsconfig.json --noEmit",
+    "type-check": "bun check -p tsconfig.json",
     "build:cloudflare": "echo \"api bundles from source at deploy time\"",
     "deploy": "cf-wrangler build && cf deploy --prebuilt"
   },
@@ -68,5 +68,5 @@
   "engines": {
     "node": "24.18.0"
   },
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.4"
 }

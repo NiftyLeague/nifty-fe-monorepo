@@ -3,8 +3,9 @@ profile: monorepo
 languages: typescript,solidity
 features: all
 package_manager: bun
+formatter: oxfmt
 runtime_repository: 0xPlayerOne/code-foundry
-runtime_ref: v1.47.1
+runtime_ref: v1.48.4
 runner: ubuntu-latest
 unit_runner: ubuntu-latest
 ci_runner: ubuntu-latest
@@ -50,3 +51,4 @@ coverage_report:
 # Dependabot version updates stay disabled while CI billing is paused;
 # the CI_BILLING_PAUSED repository variable cannot gate Dependabot update runs.
 billing_paused: true
+monorepo_tool: auto
