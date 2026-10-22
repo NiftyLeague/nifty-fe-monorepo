@@ -14,7 +14,7 @@
     "test:coverage": "bun test --conditions=browser --isolate --preload ../../test/solid-jsx.ts --preload --preload ../../test/happy-dom-setup.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:e2e": "bunx playwright test",
     "test:watch": "bun test --watch",
-    "type-check": "astro check",
+    "type-check": "astro sync && bun check && astro check",
     "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=smashers",
     "cf:build": "bun scripts/build-cloudflare.mjs && bun scripts/sync-client-assets.mjs",
     "deploy": "bun run build:cloudflare && cf-wrangler build && cf deploy --prebuilt"
@@ -43,5 +43,5 @@
     "cf": "^1.0.0-beta.5",
     "wrangler": "^4.145.0"
   },
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.4"
 }

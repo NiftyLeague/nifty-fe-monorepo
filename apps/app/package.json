@@ -14,7 +14,7 @@
     "test": "bun test --isolate --conditions=browser --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --pass-with-no-tests",
     "test:coverage": "bun test --isolate --conditions=browser --preload ../../test/happy-dom-setup.ts --preload ../../test/solid-jsx.ts --preload ../../test/preload.ts --preload ../../test/setup.ts --coverage --pass-with-no-tests",
     "test:watch": "bun test --watch",
-    "type-check": "tsc --noEmit",
+    "type-check": "bun check",
     "build:cloudflare": "cd ../.. && bunx turbo run cf:build --filter=app",
     "cf:build": "bun scripts/prepare-images.mjs && vite build && bun scripts/post-build-worker.mjs",
     "deploy": "bun run build:cloudflare && cf-wrangler build && cf deploy --prebuilt"
@@ -51,5 +51,5 @@
     "vite-plugin-solid": "^2.11.12",
     "wrangler": "^4.145.0"
   },
-  "packageManager": "bun@1.4.0"
+  "packageManager": "bun@1.4.4"
 }
