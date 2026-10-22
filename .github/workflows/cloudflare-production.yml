@@ -32,7 +32,7 @@ jobs:
             environment: Production – api
           - app: smashers
             environment: Production – smashers-web
-    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@801cb23c8000de9adf2db8744f9fab5a94af155f
+    uses: 0xPlayerOne/code-foundry/.github/workflows/cloudflare-deploy.yml@v1.48.4
     with:
       mode: production
       deploy-tool: cf
