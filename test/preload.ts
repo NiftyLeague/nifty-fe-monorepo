@@ -16,10 +16,7 @@ async function importFirstAvailable(...relativePaths: string[]): Promise<ModuleE
   for (const relativePath of relativePaths) {
     try {
       return (await import(resolve(import.meta.dir, relativePath))) as ModuleExports
-    } catch {
-      // Bun 1.4.0 and the current Bun canary expose different isolated-linker
-      // peer paths. Keep trying the supported layouts before failing clearly.
-    }
+    } catch {}
   }
 
   throw new Error(`Unable to load a shared test runtime from: ${relativePaths.join(', ')}`)
