@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/core": "^8.0.6",
     "@babel/preset-typescript": "^8.0.1",
-    "@happy-dom/global-registrator": "^20.14.5",
+    "@happy-dom/global-registrator": "^21.0.4",
     "@nl/typescript-config": "workspace:*",
     "@shadcn/lint": "^0.1.5",
     "@solidjs/testing-library": "^0.8.10",
@@ -64,21 +64,24 @@
   },
   "overrides": {
     "adm-zip": "0.5.16",
+    "body-parser": "2.4.0",
     "brace-expansion": "5.0.9",
     "crypto-es": "2.1.0",
     "fast-uri": "^4.1.5",
+    "follow-redirects": "1.16.2",
     "ip-address": "10.3.1",
     "js-yaml": "4.3.2",
     "lodash-es": "^4.18.1",
     "postcss-selector-parser": "^7.1.6",
     "protobufjs": "7.5.0",
     "serialize-javascript": "6.0.2",
-    "seroval": "^1.6.3",
+    "seroval": "1.6.11",
     "sharp": "^0.35.4",
     "tmp": "0.2.7",
-    "undici": "7.29.1",
+    "undici": "7.30.1",
     "viem": "2.55.19",
-    "ws": "8.21.3"
+    "ws": "8.21.3",
+    "zod": "4.6.6"
   },
   "browserslist": {
     "production": [

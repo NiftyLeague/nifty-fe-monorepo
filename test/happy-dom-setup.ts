@@ -2,7 +2,10 @@ import { GlobalRegistrator } from '@happy-dom/global-registrator'
 import { mock } from 'bun:test'
 
 try {
-  GlobalRegistrator.register()
+  // happy-dom 21 disables iframe page loading by default and reports the
+  // failure synchronously on insertion. Enable it to match the async load
+  // behaviour the suite was written against (happy-dom 20).
+  GlobalRegistrator.register({ settings: { enableIframePageLoading: true } })
 } catch {
   /* already registered */
 }
