@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v2.3.0...smashers-v2.3.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* **smashers:** run the Cloudflare build on Node, not Bun ([#2047](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2047)) ([b97ec04](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b97ec044bd80979c76eb8068d76c28323148d274))
+
 ## [2.3.0](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/smashers-v2.2.1...smashers-v2.3.0) (2026-09-30)
 
 
