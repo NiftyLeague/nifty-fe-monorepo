@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.5.1...nifty-fe-monorepo-v2.5.2) (2026-11-24)
+
+
+### Bug Fixes
+
+* **smashers:** run the Cloudflare build on Node, not Bun ([#2047](https://github.com/NiftyLeague/nifty-fe-monorepo/issues/2047)) ([b97ec04](https://github.com/NiftyLeague/nifty-fe-monorepo/commit/b97ec044bd80979c76eb8068d76c28323148d274))
+
 ## [2.5.1](https://github.com/NiftyLeague/nifty-fe-monorepo/compare/nifty-fe-monorepo-v2.5.0...nifty-fe-monorepo-v2.5.1) (2026-10-06)
 
 
