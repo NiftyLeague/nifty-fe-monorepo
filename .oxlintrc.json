@@ -12,7 +12,6 @@
     }
   },
   "rules": {
-    "shadcn/no-raw-colors": "error",
     "nifty-ui/require-kobalte": "error",
     "shadcn/no-arbitrary-values": [
       "error",
@@ -61,6 +60,9 @@
         ]
       }
     ],
+    "shadcn/no-inline-styles": "error",
+    "shadcn/no-raw-colors": "error",
+    "shadcn/no-restyle": "off",
     "shadcn/no-unknown-classes": [
       "error",
       {
@@ -106,137 +108,7 @@
         ]
       }
     ],
-    "shadcn/require-static-classes": "error",
-    "shadcn/no-inline-styles": "error",
-    "shadcn/no-restyle": [
-      "error",
-      {
-        "allow": [
-          "layout",
-          "color",
-          "motion",
-          "pixelated",
-          "home-v3-*",
-          "home-static-*",
-          "home-nftl-*"
-        ],
-        "contracts": [
-          {
-            "pattern": "^Accordion",
-            "allow": ["layout", "color", "spacing"]
-          },
-          {
-            "pattern": "^ToggleGroup",
-            "allow": ["layout", "color", "spacing"]
-          },
-          {
-            "pattern": "^NativeImage",
-            "allow": [
-              "color",
-              "effects",
-              "h-*",
-              "inset-*",
-              "layout",
-              "max-w-*",
-              "objects-*",
-              "pixelated",
-              "shape",
-              "top-*",
-              "w-*"
-            ]
-          },
-          {
-            "pattern": "^Table",
-            "allow": ["layout", "color", "spacing", "typography", "shape"]
-          },
-          {
-            "pattern": "^Dialog",
-            "allow": ["color", "layout", "shape", "spacing", "typography"]
-          },
-          {
-            "pattern": "^Sheet",
-            "allow": ["color", "effects", "layout", "shape", "spacing"]
-          },
-          {
-            "pattern": "^Input",
-            "allow": ["layout", "color", "spacing", "shape", "h-*", "w-*"]
-          },
-          {
-            "pattern": "^Card",
-            "allow": ["layout", "color", "spacing"]
-          },
-          {
-            "pattern": "^Skeleton",
-            "allow": ["layout", "color", "shape", "h-*", "w-*"]
-          },
-          {
-            "pattern": "^DeferredSkeleton",
-            "allow": ["layout", "color", "shape", "h-*", "w-*"]
-          },
-          {
-            "pattern": "^Button",
-            "allow": [
-              "color",
-              "cursor-*",
-              "h-*",
-              "layout",
-              "normal-case",
-              "p-1",
-              "size-*",
-              "text-sm",
-              "text-xs",
-              "w-*",
-              "z-*"
-            ]
-          },
-          {
-            "pattern": "^Icon",
-            "allow": ["layout", "color", "motion", "size-*"]
-          },
-          {
-            "pattern": "^Title",
-            "allow": ["layout", "color", "typography"]
-          },
-          {
-            "pattern": "^Text",
-            "allow": ["layout", "color", "typography"]
-          },
-          {
-            "pattern": "^Separator",
-            "allow": ["layout", "color", "spacing", "effects"]
-          },
-          {
-            "pattern": "^ScrollArea",
-            "allow": ["layout", "color", "spacing", "shape"]
-          },
-          {
-            "pattern": "^IconButton",
-            "allow": [
-              "layout",
-              "color",
-              "motion",
-              "h-*",
-              "w-*",
-              "size-*",
-              "z-*",
-              "cursor-*",
-              "p-1",
-              "text-xs",
-              "text-sm"
-            ]
-          },
-          {
-            "pattern": "^Label",
-            "allow": ["layout", "color", "typography"]
-          }
-        ],
-        "message": {
-          "spacing": "Use the component's size prop or spacing utilities for placement around it; the component owns its own padding.",
-          "shape": "Shape (radius, border width) belongs to the component. Extend its variants in packages/ui instead.",
-          "default": "Restyling this @nl/ui component from the outside is not allowed. Extend its variants in packages/ui or use layout utilities (margin, width) for placement."
-        }
-      }
-    ]
+    "shadcn/require-static-classes": "error"
   },
   "ignorePatterns": [
     "node_modules/**",

@@ -123,7 +123,7 @@ describe('Turbo cache environment scope', () => {
 
   it('pins the package manager used by CI and local builds', () => {
     expect(rootPackage.packageManager).toBeUndefined()
-    expect(rootPackage.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.4' })
+    expect(rootPackage.devEngines?.packageManager).toEqual({ name: 'bun', version: '1.4.5' })
   })
 
   it('does not invalidate every workspace for app-specific credentials', () => {

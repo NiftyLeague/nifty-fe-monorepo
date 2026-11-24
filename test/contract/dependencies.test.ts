@@ -232,7 +232,7 @@ describe('dependency contract', () => {
       expect(
         pkg?.devDeps['@tailwindcss/postcss'],
         `${appName} must resolve shared PostCSS config`
-      ).toBe('^4.3.3')
+      ).toBe('^4.3.5')
     }
   })
 })

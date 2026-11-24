@@ -23,7 +23,7 @@ relies on with the evidence that each holds, so none of it stays implicit. Verif
    defaulting (observed in the release workflow's guard).
 5. Every push to `main` runs `release.yml` (Release Please, `v1.28.14` runtime). Cumulative
    Conventional Commit changes open one grouped version PR — `chore(main): release
-${version}` — which is merged by the same squash rules; merging tags and publishes the
+   ${version}` — which is merged by the same squash rules; merging tags and publishes the
    GitHub release. `release-integrity.yml` re-verifies published immutable releases.
 6. Deployments: Vercel builds the affected projects on `main` only, and the tag runs the
    Release workflow. Production is never touched by branch or preview activity.
