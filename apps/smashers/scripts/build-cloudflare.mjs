@@ -10,7 +10,10 @@ import { spawnSync } from 'node:child_process'
  * at that point, so this wrapper treats that exact signature as success iff
  * both deploy artifacts exist; any other failure propagates.
  */
-const result = spawnSync('bunx', ['--bun', 'astro', 'build'], {
+// Astro runs on Node, not Bun: `bunx --bun astro build` makes the Cloudflare
+// adapter's prerender worker time out on every route ("TimeoutError: The
+// operation timed out.") while the same build under Node completes cleanly.
+const result = spawnSync('bunx', ['astro', 'build'], {
   stdio: ['ignore', 'pipe', 'pipe'],
   encoding: 'utf8',
 })
