@@ -143,7 +143,7 @@ fixes that came out of the audit are in the PR closing #1883; numbers marked
   through SWR), so they now ship `client:load` and their markup is in the document.
   Local SSR smoke of the built function confirms the form renders server-side; the
   post-deploy re-measure is `bun run lighthouse:smashers --base-url
-https://niftysmashers.com --label m5.6-postfix --runs 5`.
+  https://niftysmashers.com --label m5.6-postfix --runs 5`.
 - **`/loot` last point.** Desktop is 98 with FCP = LCP = SI ≈ 0.9 s (the page is
   prerendered with zero islands). Mobile loses its points to TBT (203–264 ms) on a
   page with no hydration: the main-thread cost is the third-party telemetry — the
@@ -161,7 +161,7 @@ https://niftysmashers.com --label m5.6-postfix --runs 5`.
   backdrops, ~200 KB combined at 1920w) and the width-ladder granularity — both
   bounded, neither worth the UX trade inside this audit.
 - **Hero `sizes` (fixed).** The wordmark renders at `width: 400px; max-width:
-70vw` but declared `sizes="… 824px"`, so desktop downloaded the 750w rung for a
+  70vw` but declared `sizes="… 824px"`, so desktop downloaded the 750w rung for a
   400px box (~40 KB flagged oversized). `sizes` now describes the CSS box
   (`(max-width: 571px) 70vw, 400px`); because the ladder caps at 640w for that box
   and the 640w/750w encodes are nearly identical at q85, the byte win is ~1.5 KB —
@@ -389,7 +389,7 @@ file counts: the total client build fell 424 → 244 files (tail under 3 KB:
   through SWR), so they now ship `client:load` and their markup is in the document.
   Local SSR smoke of the built function confirms the form renders server-side; the
   post-deploy re-measure is `bun run lighthouse:smashers --base-url
-https://niftysmashers.com --label m5.6-postfix --runs 5`.
+  https://niftysmashers.com --label m5.6-postfix --runs 5`.
 - **`/loot` last point.** Desktop is 98 with FCP = LCP = SI ≈ 0.9 s (the page is
   prerendered with zero islands). Mobile loses its points to TBT (203–264 ms) on a
   page with no hydration: the main-thread cost is the third-party telemetry — the
@@ -407,7 +407,7 @@ https://niftysmashers.com --label m5.6-postfix --runs 5`.
   backdrops, ~200 KB combined at 1920w) and the width-ladder granularity — both
   bounded, neither worth the UX trade inside this audit.
 - **Hero `sizes` (fixed).** The wordmark renders at `width: 400px; max-width:
-70vw` but declared `sizes="… 824px"`, so desktop downloaded the 750w rung for a
+  70vw` but declared `sizes="… 824px"`, so desktop downloaded the 750w rung for a
   400px box (~40 KB flagged oversized). `sizes` now describes the CSS box
   (`(max-width: 571px) 70vw, 400px`); because the ladder caps at 640w for that box
   and the 640w/750w encodes are nearly identical at q85, the byte win is ~1.5 KB —

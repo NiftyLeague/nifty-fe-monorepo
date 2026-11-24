@@ -29,11 +29,11 @@
   },
   "dependencies": {
     "@nl/ui": "workspace:*",
-    "iron-session": "^9.0.1",
-    "solid-js": "^1.9.15",
+    "iron-session": "^9.1.1",
+    "solid-js": "^1.9.20",
     "solid-sonner": "^0.3.2"
   },
   "devDependencies": {
-    "@types/node": "^26.5.1"
+    "@types/node": "^26.6.6"
   }
 }
