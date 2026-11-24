@@ -130,7 +130,7 @@
     },
     "apps/smashers": {
       "name": "smashers",
-      "version": "2.3.0",
+      "version": "2.3.1",
       "dependencies": {
         "@astrojs/cloudflare": "14.4.9",
         "@astrojs/solid-js": "^7.1.6",
